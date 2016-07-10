@@ -40,7 +40,7 @@ It's possible to set several paths in the variable. eg:
 $env:TIDDLYWIKI_EDITIONS_PATH="d:\wikilabs\editions;d:\pmario\editions"
 ```
 
-HoTo set environment variables permanently (click this link)[https://www.google.at/search?q=set+environment+variables+windows10]
+HoTo set environment variables permanently [click this link](https://www.google.at/search?q=set+environment+variables+windows10)
 
 ## Usage
 
