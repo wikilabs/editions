@@ -1,0 +1,4 @@
+{
+	"description": "Plugin Boilerplate - read the text!",
+    "text": "The plugin template doesn't need the tiddlywiki.info file! So you can delete this file after you did rename the 'yourName' directory with eg: your name. ... and ... rename the 'pluginName' subdirectory with your plugin name. !!!"
+}

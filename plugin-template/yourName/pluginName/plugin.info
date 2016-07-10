@@ -1,0 +1,7 @@
+{
+	"title": "$:/plugins/yourName/pluginName",
+	"description": "Add some useful information here!",
+	"author": "your name",
+	"core-version": ">=5.0.0",
+	"list": "readme license"
+}

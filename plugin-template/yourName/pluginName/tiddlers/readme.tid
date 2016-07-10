@@ -1,0 +1,11 @@
+title: $:/plugins/yourName/pluginName/readme
+
+This readme will be imported with your plugin. So it should contain the absolute minimum information, that users need to be able to work with your plugin. 
+
+For detailed information you should create an edition, that has A LOT of examples how to use your plugin!
+
+To create an edition you can use the "editon-template" 
+
+```
+tiddlywiki editions/myNewEdition --init edition-template
+```

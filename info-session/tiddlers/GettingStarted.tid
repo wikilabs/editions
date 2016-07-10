@@ -1,0 +1,5 @@
+title: GettingStarted
+
+The tiddler "Info-Session" plugin provides the ability to store the open/closed state for one browser session. So if you reload the page all "pop-ups" are closed again. 
+
+{{$:/core/ui/ControlPanel/Plugins}}
