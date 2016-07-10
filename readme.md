@@ -50,7 +50,7 @@ PS D:\wikilabs> tiddlywiki --editions | findstr template
 
     edition-template: Edition Boilerplate - CHANGE THIS!
     plugin-template: Plugin Boilerplate - read the text!```
-
+```
 
 ## Usage
 
