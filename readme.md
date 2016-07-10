@@ -64,5 +64,5 @@ tiddlywiki editions/my-edition --init template-editions
 
 Start your favorite editor and happy hacking!
 
-have fun!
+have fun!<br>
 mario
