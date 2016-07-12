@@ -1,7 +1,10 @@
 {
     "description": "Info-button persistent for one session",
     "plugins": [
-        "wikilabs/info-session"
+        "wikilabs/info-session",
+		"wikilabs/info-tagmap",
+		"wikilabs/multicol-dropdown",
+		"wikilabs/remove-states"
     ],
     "themes": [
         "tiddlywiki/vanilla",
