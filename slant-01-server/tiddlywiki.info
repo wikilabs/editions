@@ -1,0 +1,15 @@
+{
+	"description": "Server configuration of the wikilabs edition",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem"
+	],
+	"themes": [
+	],
+	"includeWikis": [
+		"../slant-01"
+	],
+	"config": {
+		"default-tiddler-location": "../slant-01/tiddlers"
+	}
+}

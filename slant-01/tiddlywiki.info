@@ -1,0 +1,18 @@
+{
+	"description": "Server configuration of the wikilabs edition",
+	"plugins": [
+		"wikilabs/info-tagmap",
+		"wikilabs/multicol-dropdown",
+		"wikilabs/persistent-states",
+		"wikilabs/info-session"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite",
+		"wikilabs/slant-01"
+	],
+	"includeWikis": [
+	],
+	"config": {
+	}
+}
