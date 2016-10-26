@@ -1,0 +1,50 @@
+{
+  "name": "wikilabs github homepage",
+  "version": "0.0.1",
+  "description": "Auto deploy wikilabs homepage",
+  "main": "index.js",
+  "scripts": {
+    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html \"\" \"\" 0.0.0.0  # TODO there may be a problem in windows?!?!?",
+    "test": "echo ---- no tests atm ----",
+
+    "prepull-pages": "rimraf tmp && mkdir tmp",
+    "pull-pages": "git clone --depth 1 --branch master https://github.com/Jermolene/jermolene.github.io.git tmp/jermolene.github.io",
+
+    "serve": "npm start",
+
+    "prebuild": "rimraf wiki/output/*",
+    "build": "tiddlywiki wiki --verbose --build",
+
+    "prestage": "npm run build",
+    "stage": "npm run stage:mkdir && npm run stage:rm && npm run stage:cp",
+    "stage:mkdir": "mkdir -p tmp/jermolene.github.io/tiddlywiki-eu-meetup-2016",
+    "stage:rm": "rimraf tmp/jermolene.github.io/tiddlywiki-eu-meetup-2016/*",
+    "stage:cp": "cp -R wiki/output/* tmp/jermolene.github.io/tiddlywiki-eu-meetup-2016",
+
+    "predeploy": "npm run pull-pages",
+    "deploy": "bash ./deploy-gh-pages.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jermolene/tiddlywiki-eu-meetup-2016.git"
+  },
+  "keywords": [
+    "tiddlywiki",
+    "eu",
+    "meetup",
+    "2016"
+  ],
+  "author": "Jeremy Ruston",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/Jermolene/tiddlywiki-eu-meetup-2016/issues"
+  },
+  "homepage": "http://tiddlywiki.com/tiddlywiki-eu-meetup-2016/index.html",
+  "dependencies": {
+    "tiddlywiki": "^5.1.12"
+  },
+  "devDependencies": {
+    "rimraf": "latest"
+  }
+
+}
