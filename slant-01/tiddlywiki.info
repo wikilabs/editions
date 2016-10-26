@@ -4,12 +4,8 @@
 		"wikilabs/info-tagmap",
 		"wikilabs/multicol-dropdown",
 		"wikilabs/persistent-states",
-<<<<<<< ae9a5c034cd385192863a143780e68a0c5eb7a01
-		"wikilabs/info-session"
-=======
 		"wikilabs/info-session",
 		"wikilabs/new-tiddler-from-search"
->>>>>>> slant-01 theme edition
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
@@ -19,13 +15,10 @@
 	"includeWikis": [
 	],
 	"config": {
-<<<<<<< ae9a5c034cd385192863a143780e68a0c5eb7a01
-=======
 	},
 	"build": {
 		"index": [
 			"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		]
->>>>>>> slant-01 theme edition
 	}
 }
