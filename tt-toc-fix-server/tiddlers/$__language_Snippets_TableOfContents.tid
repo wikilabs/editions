@@ -1,0 +1,12 @@
+caption: Table of Contents
+created: 20161204165614909
+modified: 20161204165614909
+tags: $:/tags/TextEditor/Snippet
+title: $:/language/Snippets/TableOfContents
+type: text/vnd.tiddlywiki
+
+<div class="tc-table-of-contents">
+
+<<toc-selective-expandable 'TableOfContents'>>
+
+</div>
