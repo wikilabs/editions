@@ -1,11 +1,15 @@
 created: 20161204165731163
-modified: 20161204165758300
+modified: 20161205221145455
 tags: $:/tags/SideBar
 title: toc
 type: text/vnd.tiddlywiki
 
 <div class="tc-table-of-contents">
 
-<<toc-selective-expandable 'root'>>
+<<toc-selective-expandable 'root' itemClassFilter:" ">>
 
 </div>
+
+-----
+
+{{$:/HistoryList!!current-tiddler}}

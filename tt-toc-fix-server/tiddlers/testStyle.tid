@@ -1,0 +1,9 @@
+created: 20161205214835755
+modified: 20161205214925035
+tags: $:/tags/Stylesheet
+title: testStyle
+type: text/vnd.tiddlywiki
+
+.toc-item-selected {
+ background: yellow;
+}
