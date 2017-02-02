@@ -1,0 +1,16 @@
+created: 20170201220306845
+modified: 20170201220350731
+modifier: pmario
+tags: 
+title: test-tocP-selective-expandable
+type: text/vnd.tiddlywiki
+
+```
+<div class="tc-table-of-contents">
+<<tocP-selective-expandable root>>
+</div>
+```
+
+<div class="tc-table-of-contents">
+<<tocP-selective-expandable root>>
+</div>

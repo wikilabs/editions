@@ -1,0 +1,17 @@
+created: 20170201220720791
+modified: 20170201220745055
+modifier: pmario
+tags: 
+title: test-tabbed-external-nav
+type: text/vnd.tiddlywiki
+
+```
+<div class="tc-table-of-contents">
+<<tocP-tabbed-external-nav root>>
+</div>
+```
+
+
+<div class="tc-table-of-contents">
+<<tocP-tabbed-external-nav root>>
+</div>
