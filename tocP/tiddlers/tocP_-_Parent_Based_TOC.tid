@@ -1,5 +1,5 @@
 created: 20170201225717966
-modified: 20170201233249547
+modified: 20170202141301980
 tags: 
 title: tocP - Parent Based TOC
 type: text/vnd.tiddlywiki
@@ -53,9 +53,12 @@ The `tabbed-` versions have a different link handling, in the right-hand panel:
 : The root tag that identifies the top level of the tree
 ;sort
 : An optional extra [[filter step|http://tiddlywiki.com/#Filter Step]], e.g. `sort[title]`
-These two parameters are combined into a single [[filter expression|http://tiddlywiki.com/Filter Expression]] like this:
+: These two parameters are combined into a single [[filter expression|http://tiddlywiki.com/Filter Expression]] like this:
+:> `[tag[$tag$]$sort$]`
 
-> `[tag[$tag$]$sort$]`
+;field
+: default: `parent`
+: If you change the field name, be aware, what you are doing! see:  [[test-tocP-asdf]]
 
 <<<
 
