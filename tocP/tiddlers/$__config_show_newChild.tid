@@ -1,0 +1,6 @@
+created: 20170201234104645
+modified: 20170201234105692
+title: $:/config/show/newChild
+type: text/vnd.tiddlywiki
+
+<span class='wltc-btn-new-child'>{{||$:/wikilabs/ui/buttons/new-child-alone}}</span>

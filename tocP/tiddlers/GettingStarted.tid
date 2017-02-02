@@ -1,0 +1,19 @@
+created: 20170201222808372
+modified: 20170201232252027
+modifier: pmario
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+! Plugin
+
+* Documentation: [[tocP - Parent Based TOC]] 
+* Plugin: $:/plugins/wikilabs/tocP
+** readme: $:/plugins/wikilabs/tocP/readme
+
+!! Toggle New Child Buttons
+
+{{$:/plugins/wikilabs/tocP/toggle-new-child-button}}
+
+!! Examples
+
+<<tabs "[all[]prefix[test-]]" "test-tocP" "$:/state/tab1">>

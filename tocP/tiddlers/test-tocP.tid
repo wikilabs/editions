@@ -1,0 +1,16 @@
+created: 20170201215541604
+modified: 20170201220428379
+modifier: pmario
+tags: 
+title: test-tocP
+type: text/vnd.tiddlywiki
+
+```
+<div class="tc-table-of-contents">
+<<tocP root>>
+</div>
+```
+
+<div class="tc-table-of-contents">
+<<tocP root>>
+</div>
