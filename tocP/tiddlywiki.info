@@ -16,7 +16,7 @@
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"github": [
-				"--output", "/git/tiddly/wikilabs/wikilabs.github.io/tocP", 
+				"--output", "../wikilabs.github.io/tocP", 
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"externalimages": [
