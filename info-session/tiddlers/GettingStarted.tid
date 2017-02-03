@@ -1,0 +1,14 @@
+title: GettingStarted
+
+This edition shows, how the "info-session" plugin works.
+
+! Readme
+{{$:/plugins/wikilabs/info-session/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+have fun!
+mario
+

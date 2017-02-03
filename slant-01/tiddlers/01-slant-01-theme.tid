@@ -1,11 +1,13 @@
 created: 20160710161636202
-modified: 20160903203024537
-tags: a b c d wikilabs
+modified: 20170203215307890
+tags: wikilabs
 title: 01-slant-01-theme
 type: text/vnd.tiddlywiki
 
-! The slant-01 theme consists of
+! The slant-01 Theme
 
-''BETA warning !!!''
+''Important: This theme is - BETA!''
+
+''Important: This theme heavily modifies core templates''
 
 <$list filter="[all[shadows]tag[$:/wikilabs/ui]]"/>

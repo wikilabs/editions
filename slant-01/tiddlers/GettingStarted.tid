@@ -1,5 +1,5 @@
 created: 20160715050349234
-modified: 20160715050431641
+modified: 20170203212229942
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -7,3 +7,7 @@ type: text/vnd.tiddlywiki
 ! Overview
 
 <<list-links "[tag[wikilabs]]">>
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}

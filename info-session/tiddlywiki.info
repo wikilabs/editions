@@ -1,28 +1,18 @@
 {
-	"version": "0.1.0",
-	"description": "Server configuration of the wikilabs edition",
-	"plugins": [
-		"wikilabs/info-tagmap",
-		"wikilabs/multicol-dropdown",
-		"wikilabs/persistent-states",
-		"wikilabs/info-session",
-		"wikilabs/new-tiddler-from-search"
-	],
-	"themes": [
-		"tiddlywiki/vanilla",
-		"tiddlywiki/snowwhite",
-		"wikilabs/slant-01"
-	],
-	"includeWikis": [
-	],
-	"config": {
-	},
-	"build": {
+    "description": "Info Session Edition",
+    "plugins": [
+        "wikilabs/info-session"
+    ],
+    "themes": [
+        "tiddlywiki/vanilla",
+        "tiddlywiki/snowwhite"
+    ],
+    "build": {
         "index": [
             "--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
         ],
 		"github": [
-				"--output", "../wikilabs.github.io/slant-01", 
+				"--output", "../wikilabs.github.io/info-session", 
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
         "externalimages": [
@@ -37,5 +27,5 @@
             "--rendertiddler", "$:/core/templates/static.template.css", "static/static.css", "text/plain",
             "--rendertiddlers", "[!is[system]]", "$:/core/templates/static.tiddler.html", "static", "text/plain"
         ]
-	}
+    }
 }
