@@ -1,9 +1,11 @@
 created: 20160710164906277
-modified: 20160715050515818
+modified: 20170203212443489
 tags: wikilabs
 title: 02-persistent-info-area
 type: text/vnd.tiddlywiki
 
 ! Persistent Info Area
 
-The tiddler info button is persistent.
+The tiddler info button is persistent for "this" browser session. 
+
+The "slant-01" theme makes contains code, that makes the state persistent, when saved. 
