@@ -2,7 +2,10 @@
 	"description": "Server configuration of the wikilabs edition",
 	"plugins": [
 		"tiddlywiki/tiddlyweb",
-		"tiddlywiki/filesystem"
+		"tiddlywiki/filesystem",
+		"wikilabs/link-to-tabs",
+		"wikilabs/info-session",
+		"wikilabs/advanced-search-plus"
 	],
 	"themes": [
 	],
@@ -10,6 +13,7 @@
 		"../slant-01"
 	],
 	"config": {
+		"default-tiddler-location": "../../themes/wikilabs/slant-01/tiddlers",
 		"default-tiddler-location": "../slant-01/tiddlers"
 	}
 }
