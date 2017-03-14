@@ -1,0 +1,39 @@
+{
+  "name": "slant-01-server",
+  "version": "0.0.1",
+  "description": "tiddlywiki edition development helper",
+  "main": "index.js",
+  "scripts": {
+    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+    "test": "echo ---- no tests atm ----",
+
+    "server": "npm start",
+
+    "build:github": "tiddlywiki ../slant-01 --build github",
+    "build": "tiddlywiki ../slant-01 --build index",
+
+    "prestage": "npm run build",
+    "stage": "npm run build:github",
+
+    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikilabs/themes"
+  },
+  "keywords": [
+    "tiddlywiki",
+    "theme"
+  ],
+  "author": "Mario Pietsch",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/wikilabs/themes/issues"
+  },
+  "homepage": "https://wikilabs.github.io/editions/slant-01",
+  "dependencies": {
+    "tiddlywiki": "^5.1.12"
+  },
+  "devDependencies": {
+  }
+}

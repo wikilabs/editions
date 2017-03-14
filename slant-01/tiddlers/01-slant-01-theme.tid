@@ -8,6 +8,9 @@ type: text/vnd.tiddlywiki
 
 ''Important: This theme is - BETA!''
 
-''Important: This theme heavily modifies core templates''
+''Important:'' 
+
+* This theme modifies core templates! 
+* Switching back and forth between core themes and this one should be possible, without breaking stuff. 
 
 <$list filter="[all[shadows]tag[$:/wikilabs/ui]]"/>

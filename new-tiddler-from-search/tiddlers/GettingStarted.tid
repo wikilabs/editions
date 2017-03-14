@@ -1,0 +1,24 @@
+created: 20170207203843163
+modified: 20170207210722644
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+! Overview
+
+This plugin adds a "New Tiddler" template, into the default search input element, that takes the "search" term as title
+
+! Test
+
+* Just enter a new tiddler name (that doesn't exist) in the search input box and have fun!
+
+! Important
+
+''This plugin doesn't check for `$:/system tiddlers`. So it will overwrite them, if they already exist!''
+
+This Plugin overwrites, the core tiddler: 
+
+* $:/core/ui/DefaultSearchResultList
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}

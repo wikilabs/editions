@@ -1,9 +1,14 @@
 title: GettingStarted
 
+! Overview
+
 This is one of the tiddlers, that your edition may contain. GettingStarted is automatically opened by TiddlyWiki. So if you rename this tiddler, the "core GettingStarted" will take over again. 
+
+! Plugins
 
 {{$:/core/ui/ControlPanel/Plugins}}
 
+"""
 have fun!
 mario
-
+"""

@@ -12,7 +12,7 @@
             "--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
         ],
 		"github": [
-				"--output", "../wikilabs.github.io/info-session", 
+				"--output", "../../wikilabs.github.io/editions/info-session", 
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
         "externalimages": [

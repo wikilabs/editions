@@ -1,0 +1,24 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Link-to-Tabs" adds internal tiddler links to every tab if selected. This comes in handy, if you are creating a lot of new stuff.
+
+! Important
+
+* This plugin is compatible to "slant-01" theme
+* This plugin modifies the core: [[$:/core/macros/tabs]] macro
+
+! Settings
+
+The following setting can be also found in the [[Control Panel: Settings|$:/ControlPanel]].
+
+{{$:/core/ui/ControlPanel/Settings/link-to-tabs}}
+
+! Alternatives
+
+* http://tablinks.tiddlyspot.com/ ... which uses a slightly different approach
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}

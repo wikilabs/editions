@@ -1,50 +1,41 @@
 {
-  "name": "wikilabs github homepage",
-  "version": "0.0.1",
-  "description": "Auto deploy wikilabs homepage",
+  "name": "advanced-search-plus-server",
+  "version": "0.0.2",
+  "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html \"\" \"\" 0.0.0.0  # TODO there may be a problem in windows?!?!?",
+    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
     "test": "echo ---- no tests atm ----",
 
-    "prepull-pages": "rimraf tmp && mkdir tmp",
-    "pull-pages": "git clone --depth 1 --branch master https://github.com/Jermolene/jermolene.github.io.git tmp/jermolene.github.io",
+    "server": "npm start",
 
-    "serve": "npm start",
-
-    "prebuild": "rimraf wiki/output/*",
-    "build": "tiddlywiki wiki --verbose --build",
+    "build:github": "tiddlywiki ../advanced-search-plus --build github",
+    "build": "tiddlywiki ../advanced-search-plus --build index",
 
     "prestage": "npm run build",
-    "stage": "npm run stage:mkdir && npm run stage:rm && npm run stage:cp",
-    "stage:mkdir": "mkdir -p tmp/jermolene.github.io/tiddlywiki-eu-meetup-2016",
-    "stage:rm": "rimraf tmp/jermolene.github.io/tiddlywiki-eu-meetup-2016/*",
-    "stage:cp": "cp -R wiki/output/* tmp/jermolene.github.io/tiddlywiki-eu-meetup-2016",
+    "stage": "npm run build:github",
 
-    "predeploy": "npm run pull-pages",
-    "deploy": "bash ./deploy-gh-pages.sh"
+    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jermolene/tiddlywiki-eu-meetup-2016.git"
+    "url": "git+https://github.com/wikilabs/plugins"
   },
   "keywords": [
     "tiddlywiki",
-    "eu",
-    "meetup",
-    "2016"
+    "search",
+    "advanced",
+    "plugin"
   ],
-  "author": "Jeremy Ruston",
-  "license": "BSD-3-Clause",
+  "author": "Mario Pietsch",
+  "license": "",
   "bugs": {
-    "url": "https://github.com/Jermolene/tiddlywiki-eu-meetup-2016/issues"
+    "url": "https://github.com/wikilabs/plugins/issues"
   },
-  "homepage": "http://tiddlywiki.com/tiddlywiki-eu-meetup-2016/index.html",
+  "homepage": "https://wikilabs.github.io/editions/advanced-search-plus",
   "dependencies": {
     "tiddlywiki": "^5.1.12"
   },
   "devDependencies": {
-    "rimraf": "latest"
   }
-
 }

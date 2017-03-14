@@ -1,30 +1,20 @@
 {
-	"description": "Server configuration of the wikilabs edition",
-	"plugins": [
-		"tiddlywiki/tiddlyweb",
-		"tiddlywiki/filesystem"
-	],
-	"themes": [
-		"tiddlywiki/vanilla",
-		"tiddlywiki/snowwhite"
-	],
-	"includeWikis": [
-<<<<<<< 4364dfee203702e1ef4c20523937a342e1ca0f02
-		"../../wikilabs.github.io"
-	],
-	"config": {
-		"default-tiddler-location": "../../wikilabs.github.io/tiddlers"
-	}
-=======
-		"../slant-01"
-	],
-	"config": {
-		"default-tiddler-location": "../../wikilabs.github.io/tiddlers"
-	},
+    "description": "MultiColumn Dropdown with flex-box CSS only",
+    "plugins": [
+        "wikilabs/multicol-dropdown"
+    ],
+    "themes": [
+        "tiddlywiki/vanilla",
+        "tiddlywiki/snowwhite"
+    ],
     "build": {
         "index": [
             "--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
         ],
+ 		"github": [
+				"--output", "../../wikilabs.github.io/editions/multicol-dropdown", 
+				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
+		],
         "externalimages": [
             "--savetiddlers", "[is[image]]", "images",
             "--setfield", "[is[image]]", "_canonical_uri", "$:/core/templates/canonical-uri-external-image", "text/plain",
@@ -38,5 +28,4 @@
             "--rendertiddlers", "[!is[system]]", "$:/core/templates/static.tiddler.html", "static", "text/plain"
         ]
     }
->>>>>>> initial commit
 }

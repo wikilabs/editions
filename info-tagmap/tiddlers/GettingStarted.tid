@@ -1,0 +1,25 @@
+created: 20170206152700040
+modified: 20170206152701325
+tags: a b c d
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+This edition shows, how the "info-tagmap" plugin works. 
+
+* Open the tiddler info-area
+* Select the "Tag Map" tab
+
+! Readme
+{{$:/plugins/wikilabs/info-tagmap/readme}}
+
+! Extended use
+
+The slant-01 theme uses this plugin in a different way. ... It activates the info-tab, [[when you click a "tag pill"|https://wikilabs.github.io/editions/slant-01/#04-clicking-tag-opens-tagmap]]
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+have fun!
+mario
+

@@ -1,0 +1,22 @@
+created: 20170209183451113
+modified: 20170209183716099
+tags: a b c d e [[tag 1]] [[tag 2]] [[this tag is longer]]
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+{{$:/plugins/wikilabs/multicol-dropdown/readme}}
+
+! Example
+
+Tiddler tag dropdown:
+
+{{||$:/core/ui/EditTemplate/tags}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+"""
+have fun!
+mario
+"""

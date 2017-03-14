@@ -4,4 +4,4 @@ modifier: pmario
 title: $:/SiteTitle
 type: text/vnd.tiddlywiki
 
-tocP
+plugin: tocP

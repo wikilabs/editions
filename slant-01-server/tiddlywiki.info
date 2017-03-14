@@ -13,7 +13,6 @@
 		"../slant-01"
 	],
 	"config": {
-		"default-tiddler-location": "../../themes/wikilabs/slant-01/tiddlers",
 		"default-tiddler-location": "../slant-01/tiddlers"
 	}
 }
