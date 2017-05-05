@@ -1,24 +1,12 @@
 created: 20170202123442389
-modified: 20170202135124966
+modified: 20170505131443471
 tags: 
 title: test-tocP-asdf
 type: text/vnd.tiddlywiki
 
-''Warning!''
-
-Be aware, what you are doing. If you need to change the field name, there will be a lot of manual work needed atm. 
-
 ''Custom field name''
 
-```
-<div class="tc-table-of-contents">
-<<tocP root field:"asdf">>
-</div>
-```
-
-<div class="tc-table-of-contents">
-<<tocP root field:"asdf">>
-</div>
+If you provide your own field name,  it will be used instead of parent. The following example uses: `asdf` as the field name but it still uses `root` as the first variariable
 
 ```
 <div class="tc-table-of-contents">
@@ -29,3 +17,16 @@ Be aware, what you are doing. If you need to change the field name, there will b
 <div class="tc-table-of-contents">
 <<tocP-selective-expandable root field:"asdf">>
 </div>
+
+''Custom field name and custom link color''
+
+```
+<div class="tocp tc-table-of-contents">
+<<tocP root field:"asdf">>
+</div>
+```
+
+<div class="tocp tc-table-of-contents">
+<<tocP root field:"asdf">>
+</div>
+
