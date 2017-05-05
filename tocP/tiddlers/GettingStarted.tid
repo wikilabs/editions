@@ -1,5 +1,5 @@
 created: 20170201222808372
-modified: 20170201232252027
+modified: 20170505133937894
 modifier: pmario
 tags: default
 title: GettingStarted
@@ -7,9 +7,14 @@ type: text/vnd.tiddlywiki
 
 ! Plugin
 
+* What's new: see [[Revision-History]]
 * Documentation: [[tocP - Parent Based TOC]] 
 * Plugin: You can install the plugin by dragging the link to your wiki: $:/plugins/wikilabs/tocP
 ** readme: $:/plugins/wikilabs/tocP/readme
+
+!! Video HowTo's
+
+TBD
 
 !! Toggle New Child Buttons
 
