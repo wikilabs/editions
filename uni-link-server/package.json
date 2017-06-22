@@ -33,7 +33,7 @@
   },
   "homepage": "https://wikilabs.github.io/editions/uni-link",
   "dependencies": {
-    "tiddlywiki": "^5.1.12"
+    "tiddlywiki": "^5.1.0"
   },
   "devDependencies": {
   }
