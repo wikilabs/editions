@@ -1,16 +1,20 @@
 created: 20170201215541604
-modified: 20170201220428379
+modified: 20170505131539295
 modifier: pmario
 tags: 
 title: test-tocP
 type: text/vnd.tiddlywiki
 
+''Custom Link Color''
+
+If you use eg: `tocp` in the outer class, it will use green instead of blue for TW links. Setting can be changed using the [[plugin Stylesheet tiddler|$:/plugins/wikilabs/tocP/Stylesheet]] or you can create your own one. 
+
 ```
-<div class="tc-table-of-contents">
+<div class="tocp tc-table-of-contents">
 <<tocP root>>
 </div>
 ```
 
-<div class="tc-table-of-contents">
+<div class="tocp tc-table-of-contents">
 <<tocP root>>
 </div>
