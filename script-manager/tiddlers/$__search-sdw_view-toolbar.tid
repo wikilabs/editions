@@ -1,0 +1,40 @@
+caption: view-toolbar
+created: 20171024090852697
+icon: $:/plugins/wikilabs/advanced-search-plus/shadow-search.svg
+modified: 20171024090853803
+tags: $:/tags/AdvancedSearch
+title: $:/search-sdw/view-toolbar
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/language/Search/
+<$linkcatcher to="$:/search-sdw/inp/view-toolbar">
+
+<$button tooltip={{$:/language/Buttons/Delete/Caption}} >
+  <$action-deletetiddler $tiddler="$:/search-sdw/inp/view-toolbar"/>
+  <$action-deletetiddler $tiddler="$:/search-sdw/view-toolbar"/>
+  <$transclude tiddler="$:/core/images/delete-button" />
+</$button>
+<<lingo Shadows/Hint>>
+
+<div class="tc-search">
+<$edit-text tiddler="$:/search-sdw/inp/view-toolbar" type="search" tag="input"/>
+<$reveal state="$:/search-sdw/inp/view-toolbar" type="nomatch" text="">
+<$button class="tc-btn-invisible">
+<$action-setfield $tiddler="$:/search-sdw/inp/view-toolbar" $field="text" $value=""/>
+{{$:/core/images/close-button}}
+</$button>
+</$reveal>
+</div>
+
+</$linkcatcher>
+
+<$reveal state="$:/search-sdw/inp/view-toolbar" type="nomatch" text="">
+<$set name="resultCount" value="<$count filter='[all[shadows]search{$:/search-sdw/inp/view-toolbar}]'/>">
+<div class="tc-search-results">
+<<lingo Shadows/Matches>>
+<$list filter="[all[shadows]search{$:/search-sdw/inp/view-toolbar}sort[title]limit[250]]" template="$:/core/ui/ListItemTemplate"/>
+</div>
+</$set>
+</$reveal>
+<$reveal state="$:/search-sdw/inp/view-toolbar" type="match" text="">
+</$reveal>

@@ -1,0 +1,15 @@
+created: 20160330113527612
+list: $:/_bundle/wikilabs/script-manager/scriptFooter/links $:/_bundle/wikilabs/script-manager/scriptFooter/todo $:/_bundle/wikilabs/script-manager/scriptFooter/done $:/_bundle/wikilabs/script-manager/scriptFooter/description
+modified: 20171024094450745
+tags: $:/tags/ViewTemplate
+title: $:/_bundle/wikilabs/script-manager/tags/scriptFooter
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tag[script]]">
+<hr>
+
+{{!!description}}
+
+<$macrocall $name="tabs" tabsList="[all[shadows+tiddlers]tag[$:/_bundle/wikilabs/script-manager/tags/scriptFooter]!has[draft.of]]" default="$:/_bundle/wikilabs/script-manager/scriptFooter/links"/>
+
+</$list>

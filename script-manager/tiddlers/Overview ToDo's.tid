@@ -1,0 +1,21 @@
+created: 20170918134833365
+modified: 20171024083405477
+tags: 
+title: Overview ToDo's
+type: text/vnd.tiddlywiki
+
+!!! New ~ToDo
+
+{{$:/_bundle/wikilabs/script-manager/grid-todo-template}}
+
+!!! All ~ToDo's
+
+<<checklist>>
+
+!!! Done
+
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/showDone/">> /> 
+
+<$reveal state=<<qualifyTitle "$:/state/showDone/">> type="match" text="open">
+<<checklist-done>>
+</$reveal>

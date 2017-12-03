@@ -1,0 +1,23 @@
+caption: Script Manager
+created: 20171024084650209
+modified: 20171024092310364
+tags: $:/tags/ControlPanel
+title: $:/_bundle/wikilabs/script-manager/ui/ControlPanel/styles-config
+type: text/vnd.tiddlywiki
+
+!! Script / Code Element
+
+|Element | Setting | Example |h
+|<$link to="$:/_bundle/wikilabs/script-manager/style/pre/max-height"> pre max-height</$link> |<$edit-text tiddler="$:/_bundle/wikilabs/script-manager/style/pre/max-height" default="" tag="input"/> |eg: 10em|
+
+!! Tiddler Toolbar
+<$checkbox tiddler="$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/fold" field="text" checked="show" unchecked="hide" default="show"/> - Optional tiddler toolbar button to fold and unfold tiddlers. 
+
+!! Tiddler Body
+
+<$checkbox tiddler="$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/fold-bar" field="text" checked="show" unchecked="hide" default="show"/> - Optional bars to fold and unfold tiddlers
+
+|Element | Setting | Example |h
+|<$link to="$:/_bundle/wikilabs/script-manager/style/unfold/svg/fill"> unfold svg fill color</$link> |<$edit-text tiddler="$:/_bundle/wikilabs/script-manager/style/unfold/svg/fill" default="" tag="input" type="color"/> |eg: green|
+|<$link to="$:/_bundle/wikilabs/script-manager/style/fold/svg/fill"> fold svg fill color</$link> |<$edit-text tiddler="$:/_bundle/wikilabs/script-manager/style/fold/svg/fill" default="" tag="input" type="color"/> |eg: gray|
+

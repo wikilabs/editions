@@ -1,0 +1,11 @@
+created: 20171024095946958
+modified: 20171024100448127
+tags: 
+title: $:/_bundle/wikilabs/script-manager/info
+type: application/json
+
+{
+  "version": "0.0.1"
+  "0.0.1": "initial release"
+  "filter": "[is[system]prefix[$:/_bundle/wikilabs/script-manager/]] [[Overview Scripts]] [[Overview ToDo's]] $:/DefaultTiddlers [[---]]"
+}

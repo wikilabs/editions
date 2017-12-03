@@ -1,0 +1,35 @@
+created: 20171023112913634
+modified: 20171024075606026
+tags: 
+title: $:/_bundle/wikilabs/script-manager/script-list-template
+type: text/vnd.tiddlywiki
+
+\define getDescription()
+<$view field="description" format=text/>
+\end
+
+\define getScript()
+<$view field="script" format=text/>
+\end
+
+\define getLink()
+<$link to={{!!title}}><$view field="title"/></$link>
+\end
+
+\define createScriptFilter(tag:"script" prefix:"")
+[!has[draft.of]tag[$tag$]sort[created]]
+\end
+
+\define list-body(tag:"script" prefix:"")
+<div class="table view-script-grid">
+<span class="header">Script</span>
+<span class="header">Description</span>
+
+<$list filter=<<createScriptFilter tag:"""$tag$""" prefix:"">> >
+<span class="box"><<getLink>></span>
+<span class="box"><<getDescription>></span>
+</$list>
+</div>
+\end
+
+<<list-body tag:"script">>

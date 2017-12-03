@@ -1,0 +1,103 @@
+created: 20170116110117643
+modified: 20171024075935368
+title: $:/_bundle/wikilabs/script-manager/list-all-links
+type: text/vnd.tiddlywiki
+
+\define record-link()
+<$action-setfield $tiddler=<<currentTiddler>> $index=<<now "YYYY/0MM/0DD, 0hh-0mm-0ss">> $value={{!!link}}/>
+\end
+
+\define set-link()
+<$action-setfield $tiddler=<<currentTiddler>> $index=<<listItem>> $value={{!!link}}/>
+\end
+
+\define delete-link()
+<$action-setfield $tiddler=<<currentTiddler>> $index=<<listItem>>/>
+\end
+
+\define init-link-editor()
+<$action-setfield $tiddler=<<currentTiddler>> $field="link" $value={{$(currentTiddler)$##$(listItem)$}}/>
+\end
+
+\define getLinkXXXXX()
+<$view tiddler=<<currentTiddler>> index=<<listItem>> format=text />
+\end
+
+\define getLink()
+{{$(currentTiddler)$##$(listItem)$}}
+\end
+
+\define new-link-button()
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/newLink/">> openText="New" closeText="Close" class="wltc-btn-big-green tc-btn-big-green"/>
+\end
+
+\define new-link-ok()
+<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/state/newLink/">> openText=" " okText=" " closeText=" " okActions=<<record-link>> okIcon={{$:/core/images/save-button}} />
+\end
+
+\define edit-link-button()
+<$macrocall $name="toggleOkCancelDelete" state=<<qualifyTitleList "$:/state/editLink/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon={{$:/core/images/edit-button}} okIcon={{$:/core/images/save-button}} okActions=<<set-link>> openActions=<<init-link-editor>> deleteActions=<<delete-link>> />
+\end
+
+\define new-link-input()
+<$edit-text class="wltc-edit-input" tiddler=<<currentTiddler>> field="link" tag=input placeholder="link"/>
+\end
+
+\define edit-link-input()
+<$edit-text class="wltc-edit-input" tiddler=<<currentTiddler>> field="link" tag=input placeholder="link"/>
+\end
+
+\define table-header()
+<span class="header">Index</span>
+<span class="header">Link</span>
+<span class="header center">Action</span>
+\end
+
+\define index-text-template()
+<span class="box script-index"><<listItem>></span>
+<$reveal state=<<qualifyTitleList "$:/state/editLink/">> tag=span class="box" type="match" text="closed" default=closed >
+<<getLink>>
+</$reveal>
+<$reveal state=<<qualifyTitleList "$:/state/editLink/">> tag=span class="box" type="match" text="open" >
+<<edit-link-input>>
+</$reveal>
+<span class="box center"><<edit-link-button>></span>
+\end
+
+\define new-link-row()
+<$reveal state=<<qualifyTitle "$:/state/newLink/">> tag=div class="table script-link-grid" type="match" text="open" >
+<<table-header>>
+<span class="box">auto</span>
+<span class="box"><<new-link-input>></span>
+<span class="box center"><<new-link-ok>></span>
+</$reveal>
+\end
+
+\define link-list()
+<p>
+<$link><<currentTiddler>></$link>
+</p>
+<div class="table script-link-grid">
+<<table-header>>
+
+<$list filter="[<currentTiddler>indexes[]]" variable=listItem>
+<<index-text-template>>
+</$list>
+</div>
+<<new-link-button>>
+<<new-link-row>>
+\end
+
+\define createName()$(currentTiddler)$.links
+\define createTags()[[$(currentTiddler)$]] links
+\define createContainerAction()
+<$action-setfield $tiddler=<<createName>> tags=<<createTags>> type="application/json"/>
+\end
+\define createLinksTiddler()
+<$button actions=<<createContainerAction>> tooltip="Create List" class="wltc-btn-big-green tc-btn-big-green">Create Links Container!
+</$button>
+\end
+
+<$list filter="[tag<currentTiddler>tag[links]]"  emptyMessage=<<createLinksTiddler>>>
+<<link-list>>
+</$list>

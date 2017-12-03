@@ -1,0 +1,67 @@
+created: 20170918210521497
+modified: 20171024080241978
+tags: $:/tags/Macro
+title: $:/_bundle/wikilabs/script-manager/toggleMe-macro
+type: text/vnd.tiddlywiki
+
+\define qualifyTitle(title)
+$title$$(currentTiddler)$
+\end
+
+\define qualifyList(title)
+$title$$(listItem)$
+\end
+
+\define qualifyTitleList(title)
+$title$/$(currentTiddler)$/$(listItem)$
+\end
+
+\define toggleMe(state openText:"Open" closeText:"Close" openActions closeActions openIcon:{{$:/core/images/chevron-down}} closeIcon:{{$:/core/images/chevron-up}} class)
+<$reveal state="$state$" type="match" text="closed" default="closed">
+<$button set="$state$" setTo="open" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$openActions$""" >
+$openIcon$  $openText$
+</$button>
+</$reveal>
+<$reveal state="$state$" type="match" text="open" default="closed">
+<$button set="$state$" setTo="closed" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$closeActions$""">
+$closeIcon$ $closeText$
+</$button>
+</$reveal>
+\end
+
+\define toggleOkCancel(state openText:"Edit" okText:"OK" closeText:"Cancel" openActions okActions cancelActions openIcon:{{$:/core/images/chevron-down}} okIcon:{{$:/core/images/chevron-up}} cancelIcon:{{$:/core/images/cancel-button}} class)
+<$reveal state="$state$" type="match" text="closed" default="closed">
+<$button set="$state$" setTo="open" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$openActions$""" >
+$openIcon$  $openText$
+</$button>
+</$reveal>
+<$reveal state="$state$" type="match" text="open" default="closed">
+<$button set="$state$" setTo="closed" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$cancelActions$""">
+$cancelIcon$ $closeText$
+</$button>&nbsp;
+<$button set="$state$" setTo="closed" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$okActions$""">
+$okIcon$ $okText$
+</$button>
+</$reveal>
+\end
+
+\define toggleOkCancelDelete(state openText:"Edit" okText:"OK" closeText:"Cancel" deleteText:"Delete" openActions okActions cancelActions deleteActions openIcon:{{$:/core/images/chevron-down}} okIcon:{{$:/core/images/chevron-up}} cancelIcon:{{$:/core/images/cancel-button}} deleteIcon:{{$:/core/images/delete-button}} class)
+<$reveal state="$state$" type="match" text="closed" default="closed">
+<$button set="$state$" setTo="open" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$openActions$""" >
+$openIcon$  $openText$
+</$button>
+</$reveal>
+<$reveal state="$state$" type="match" text="open" default="closed">
+<$button set="$state$" setTo="closed" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$deleteActions$""">
+$deleteIcon$ $deleteText$
+</$button>&nbsp;&nbsp;
+<$button set="$state$" setTo="closed" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$cancelActions$""">
+$cancelIcon$ $closeText$
+</$button>&nbsp;&nbsp;
+<$button set="$state$" setTo="closed" class="$class$ tc-btn-invisible" selectedClass="tc-selected" actions="""$okActions$""">
+$okIcon$ $okText$
+</$button>
+</$reveal>
+\end
+
+<pre><$view field="text"/></pre>
