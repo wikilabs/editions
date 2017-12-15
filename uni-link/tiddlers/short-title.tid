@@ -1,0 +1,8 @@
+created: 20171215124230579
+modified: 20171215144344005
+subtitle: a more descriptive title
+tags: 
+title: short-title
+type: text/vnd.tiddlywiki
+
+This tidler contains a ''subtitle'' field: "{{!!subtitle}}"
