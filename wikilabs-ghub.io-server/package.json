@@ -6,17 +6,12 @@
   "scripts": {
     "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
     "test": "echo ---- no tests atm ----",
-
     "server": "npm start",
-
     "build:all": "node bin/build",
     "stage:all": "node bin/stage",
-
     "build:github": "tiddlywiki ../../wikilabs.github.io --build github",
     "build": "tiddlywiki ../../wikilabs.github.io --build index",
-
     "stage": "npm run build:github",
-
     "predeploy": "npm run stage:all",
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
@@ -37,6 +32,5 @@
   "dependencies": {
     "tiddlywiki": "^5.1.12"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
