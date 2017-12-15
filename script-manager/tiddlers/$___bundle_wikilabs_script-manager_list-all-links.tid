@@ -1,26 +1,26 @@
 created: 20170116110117643
-modified: 20171024075935368
+modified: 20171215213449069
 title: $:/_bundle/wikilabs/script-manager/list-all-links
 type: text/vnd.tiddlywiki
 
 \define record-link()
-<$action-setfield $tiddler=<<currentTiddler>> $index=<<now "YYYY/0MM/0DD, 0hh-0mm-0ss">> $value={{!!link}}/>
+<$action-setfield $tiddler=<<currentTiddler>> $index=<<now "YYYY/0MM/0DD, 0hh-0mm-0ss">> $value={{$(tempTiddler)$##link}}/>
 \end
 
 \define set-link()
-<$action-setfield $tiddler=<<currentTiddler>> $index=<<listItem>> $value={{!!link}}/>
+<$action-setfield $tiddler=<<currentTiddler>> $index=<<listItem>> $value={{$(tempTiddler)$##$(listItem)$}}/>
 \end
 
 \define delete-link()
 <$action-setfield $tiddler=<<currentTiddler>> $index=<<listItem>>/>
 \end
 
-\define init-link-editor()
-<$action-setfield $tiddler=<<currentTiddler>> $field="link" $value={{$(currentTiddler)$##$(listItem)$}}/>
+\define tempTiddler()
+$:/temp/$(currentTiddler)$.list
 \end
 
-\define getLinkXXXXX()
-<$view tiddler=<<currentTiddler>> index=<<listItem>> format=text />
+\define init-link-editor()
+<$action-setfield $tiddler=<<tempTiddler>> $index="$(listItem)$" $value={{$(currentTiddler)$##$(listItem)$}}/>
 \end
 
 \define getLink()
@@ -40,11 +40,11 @@ type: text/vnd.tiddlywiki
 \end
 
 \define new-link-input()
-<$edit-text class="wltc-edit-input" tiddler=<<currentTiddler>> field="link" tag=input placeholder="link"/>
+<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="link" tag=input placeholder="link"/>
 \end
 
 \define edit-link-input()
-<$edit-text class="wltc-edit-input" tiddler=<<currentTiddler>> field="link" tag=input placeholder="link"/>
+<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="$(listItem)$" tag=input placeholder="link"/>
 \end
 
 \define table-header()

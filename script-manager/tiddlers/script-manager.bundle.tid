@@ -1,7 +1,7 @@
 created: 20171024092845498
 description: Script Manager - bundle
 filter: [is[system]prefix[$:/_bundle/wikilabs/script-manager/]] [[Overview Scripts]] [[Overview ToDo's]] $:/DefaultTiddlers [[---]]
-modified: 20171024095849783
+modified: 20171215213750090
 tags: $:/tags/Filter
 title: script-manager.bundle
 type: text/vnd.tiddlywiki
@@ -12,4 +12,5 @@ type: text/vnd.tiddlywiki
 
 !! Info
 
+* 0.0.3 .. used to create the Videos
 * 0.0.1 .. initial release
