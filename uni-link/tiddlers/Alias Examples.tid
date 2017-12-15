@@ -1,0 +1,12 @@
+created: 20171215131522502
+modified: 20171215145418885
+tags: 
+title: Alias Examples
+type: text/vnd.tiddlywiki
+
+* `[[darwinism|?]]` ... [[darwinism|?]] 
+* `[[Neo Darwinism|?]]` ... [[Neo Darwinism|?]]
+* `[[theory of evolution|?]]` ... [[theory of evolution|?]]
+* `[[Natural Selection|?]]` ... [[Natural Selection|?]]
+* `[[natural selection|?]]` ... [[natural selection|?]]
+* `[[NaturaL sElEcTiOn|?]]` ... not valid atm ... [[NaturaL sElEcTiOn|?]]

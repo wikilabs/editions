@@ -1,0 +1,13 @@
+created: 20171024095946958
+modified: 20171215213449084
+tags: 
+title: $:/_bundle/wikilabs/script-manager/info
+type: application/json
+
+{
+  "version": "0.0.3",
+  "0.0.1": "initial release",
+  "0.0.2": "not published",
+  "0.0.3": "enable editing of link array, all at the same time",
+  "filter": "[is[system]prefix[$:/_bundle/wikilabs/script-manager/]] [[Overview Scripts]] [[Overview ToDo's]] $:/DefaultTiddlers [[---]]"
+}

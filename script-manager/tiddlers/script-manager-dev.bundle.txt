@@ -1,0 +1,6 @@
+$:/plugins/wikilabs/remove-states
+$:/plugins/wikilabs/link-to-tabs
+$:/plugins/wikilabs/bundler
+$:/plugins/wikilabs/advanced-search-plus 
+script-manager-dev.bundle
+script-manager.bundle

@@ -1,0 +1,12 @@
+aliases: test-double
+created: 20171018064444387
+modified: 20171215145545956
+tags: 
+title: test-double-definition
+type: text/vnd.tiddlywiki
+
+This tiddler contains the ''aliases'' field: ''{{!!aliases}}'', which is wrong. So the `[[test-double|?]]` call produces "strange" output. This behavior is intended atm. 
+
+It needs to be fixed by the user!
+
+[[test-double|?]]

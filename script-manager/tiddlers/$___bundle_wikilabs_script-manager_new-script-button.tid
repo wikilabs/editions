@@ -1,0 +1,27 @@
+caption: New Script
+created: 20171023101611736
+description: This action creates a new script tiddler
+modified: 20171215213449069
+tags: $:/tags/PageControls
+title: $:/_bundle/wikilabs/script-manager/new-script-button
+type: text/vnd.tiddlywiki
+
+\define x()
+<$action-sendmessage $message="tm-new-tiddler" 
+tags="script" 
+description="CHANGE-ME! - Description will be shown in the overview"
+text="```
+your script comes here
+```"/>
+\end
+\define scriptNewButton()
+<$button actions=<<x>> tooltip="New Script" tags="script" aria-label="New Script" class=<<tv-config-toolbar-class>>>
+<$list filter="[<tv-config-toolbar-icons>prefix[yes]]">
+{{$:/core/images/file}}
+</$list>
+<$list filter="[<tv-config-toolbar-text>prefix[yes]]">
+<span class="tc-btn-text"><$text text="New Script"/></span>
+</$list>
+</$button>
+\end
+<<scriptNewButton>>

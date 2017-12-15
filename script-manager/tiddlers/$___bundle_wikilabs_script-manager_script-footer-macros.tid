@@ -1,0 +1,77 @@
+created: 20170918195846568
+modified: 20171215213449053
+tags: $:/tags/Macro
+title: $:/_bundle/wikilabs/script-manager/script-footer-macros
+type: text/vnd.tiddlywiki
+
+\define getComment()
+<$view field="comment" format=text/>
+\end
+
+\define getScript()
+<$view field="script" format=text/>
+\end
+
+\define getDone()
+<$checkbox tag="done"></$checkbox>
+\end
+
+\define getLink()
+<$list filter="""[{!!title}] +[tag[done]]""" emptyMessage="""<$link to={{!!title}}><$view field="title"/></$link>""">
+~~<$link to={{!!title}}><$view field="title"/></$link>~~
+</$list>
+\end
+
+\define createFilter(tag:"todo" prefix:"")
+[!has[draft.of]tag[$tag$]$prefix$tag[done]sort[created]]
+\end
+
+\define todo-body(tag:"todo" prefix:"")
+<div class="table view-todo-grid">
+<span class="header center" >Done</span>
+<span class="header">Title</span>
+<span class="header">Comment</span>
+
+<$list filter=<<createFilter """$tag$""" "$prefix$">> >
+<span class="box center"><<getDone>></span>
+<span class="box"><<getLink>></span>
+<span class="box"><<getComment>></span>
+</$list>
+</div>
+\end
+
+\define checklist(tag:"todo")
+<<todo-body tag:"""$tag$""" prefix:"!">>
+\end
+
+\define checklist-done(tag:"todo")
+<<todo-body tag:"""$tag$""">>
+\end
+
+\define createScriptFilter(tag:"todo" script:"" prefix:"")
+[!has[draft.of]tag[$tag$]field:script[$script$]$prefix$tag[done]sort[created]]
+\end
+
+\define script-body(tag:"todo" script:"" prefix:"")
+<div class="table view-todo-grid">
+<span class="header center" >Done</span>
+<span class="header">Title</span>
+<span class="header">Comment</span>
+
+<$list filter=<<createScriptFilter tag:"""$tag$""" script:"""$script$""" prefix:"$prefix$">> >
+<span class="box center"><<getDone>></span>
+<span class="box"><<getLink>></span>
+<span class="box"><<getComment>></span>
+</$list>
+</div>
+\end
+
+\define todo-overview(tag:"todo" script:"")
+<<script-body tag:"""$tag$""" script:"""$script$""" prefix:"!">>
+\end
+
+\define todo-overview-done(tag:"todo" script:"")
+<<script-body tag:"""$tag$""" script:"""$script$""">>
+\end
+
+<pre><$view field="text"/></pre>

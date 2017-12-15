@@ -1,0 +1,13 @@
+created: 20170922115642092
+list: $:/_bundle/wikilabs/script-manager/todoFooter/info
+modified: 20171215213449131
+tags: $:/tags/ViewTemplate
+title: $:/_bundle/wikilabs/script-manager/tags/todoFooter
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tag[todo]]">
+
+<hr>
+<$macrocall $name="tabs" tabsList="[all[shadows+tiddlers]tag[$:/_bundle/wikilabs/script-manager/tags/todoFooter]!has[draft.of]]" default="$:/_bundle/wikilabs/script-manager/todoFooter/info"/>
+
+</$list>

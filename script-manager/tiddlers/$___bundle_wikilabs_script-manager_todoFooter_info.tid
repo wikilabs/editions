@@ -1,0 +1,10 @@
+caption: Info
+created: 20170922115756725
+list: 
+modified: 20171215213449131
+tags: $:/_bundle/wikilabs/script-manager/tags/todoFooter
+title: $:/_bundle/wikilabs/script-manager/todoFooter/info
+type: text/vnd.tiddlywiki
+
+| Done |Assigned to |Comment |h
+| <$checkbox tag="done"></$checkbox> |<$link to={{!!script}}>{{!!script}}</$link> |{{!!comment}} |

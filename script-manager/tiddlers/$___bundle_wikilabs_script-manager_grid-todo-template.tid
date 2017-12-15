@@ -1,0 +1,86 @@
+created: 20170918161250372
+modified: 20171215213449084
+title: $:/_bundle/wikilabs/script-manager/grid-todo-template
+type: text/vnd.tiddlywiki
+
+\define empty-button()
+<$button class="tc-btn-invisible tc-btn-dropdown" tooltip="Enter a new ToDo title!" >{{$:/core/images/save-button}}</$button>
+\end
+
+\define show-create-button()
+  <$list filter="[[$:/_new-todo]] +[has[new-title]]" emptyMessage=<<empty-button>> variable=newTitle>
+     <$button class="tc-btn-invisible" actions=<<record-todo>> >{{$:/core/images/save-button}}</$button>
+  </$list>
+\end
+
+\define create-todo()
+  <$list filter="[{$:/_new-todo!!new-title}is[tiddler]]" emptyMessage=<<show-create-button>> variable=newTitle>
+        <$link to=<<newTitle>> >open: <<newTitle>></$link>
+  </$list>
+\end
+
+\define clear-todo()
+<$button class="tc-btn-invisible" actions=<<clear-todo-form>> >{{$:/core/images/cancel-button}}</$button>
+\end
+
+\define record-todo()
+<$action-setfield $tiddler={{!!new-title}} $field=comment $value={{!!comment}}/>
+<$action-setfield $tiddler={{!!new-title}} $field=tags $value="todo"/>
+<$action-setfield $tiddler={{!!new-title}} $field=script $value={{!!script}}/>
+<$action-deletefieldXXX $tiddler={{!!new-title}} $field="new-title"/>
+<$action-deletetiddler $tiddler="$:/_new-todo"/>
+<$action-deletetiddler $tiddler="$:/state/newTodo"/>
+<$action-setfield $tiddler="$:/_new-todo" $field="text" $value=""/>
+<$action-setfield $tiddler="$:/_new-todo" $field="script" $value=<<defaultScript>>/>
+\end
+
+\define clear-todo-form()
+<$action-deletetiddler $tiddler="$:/_new-todo"/>
+<$action-setfield $tiddler="$:/_new-todo" $field="text" $value=""/>
+<$action-setfield $tiddler="$:/_new-todo" $field="script" $value=<<defaultScript>>/>
+\end
+
+\define getInfo()
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/todo/">> /> 
+\end
+
+\define getScript(default:"---")
+<$select tiddler=<<currentTiddler>> field="script" default="""$default$""">
+  <$list filter='[tag[script]sort[title]]' listItem=selectedList>
+    <option value=<<selectedList>>><$view field='title'/></option>
+  </$list>
+</$select>
+\end
+
+\define getTitle()
+<$edit-text class="wltc-todo-input" tiddler=<<currentTiddler>> field="new-title" tag=input placeholder="Title"/>
+\end
+
+\define getComment()
+<$edit-text class="wltc-todo-input" tiddler=<<currentTiddler>> field="comment" tag=input placeholder="Comment"/>
+\end
+
+\define new-todo()
+<div class="table todo-grid">
+<span class="header titleH">Title</span>
+<span class="header scriptH">Script</span>
+<span class="header infoH center">Info</span>
+<span class="header clearH center">Init</span>
+<span class="header actionH center">Action</span>
+
+<span class="box title"><<getTitle>></span>
+<span class="box script"><<getScript>></span>
+<span class="box info center"><<getInfo>></span>
+<span class="box clear center"><<clear-todo>></span>
+<span class="box action center"><<create-todo>></span>
+
+<$reveal state=<<qualifyTitle "$:/state/todo/">> tag=div class="comment-grid" type="match" text="open" >
+<span class="box header">Comment</span>
+<span class="box "><<getComment>></span>
+</$reveal>
+</div>
+\end
+
+<$tiddler tiddler="$:/_new-todo">
+<$macrocall $name="new-todo" /> 
+</$tiddler>

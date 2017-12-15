@@ -1,0 +1,17 @@
+created: 20171024082944705
+modified: 20171215213449146
+tags: $:/tags/Stylesheet
+title: $:/_bundle/wikilabs/script-manager/styles-config
+type: text/vnd.tiddlywiki
+
+.tc-unfold-banner svg {
+    fill: {{$:/_bundle/wikilabs/script-manager/style/unfold/svg/fill}};
+}
+
+.tc-fold-banner svg {
+    fill: {{$:/_bundle/wikilabs/script-manager/style/fold/svg/fill}};
+}
+
+.tc-tiddler-body pre {
+max-height: {{$:/_bundle/wikilabs/script-manager/style/pre/max-height}};
+}

@@ -1,0 +1,11 @@
+created: 20170116124408358
+modified: 20171215213449084
+tags: link-journal
+title: $:/_bundle/wikilabs/script-manager/link-edit-template
+type: text/vnd.tiddlywiki
+
+<span class="box"><<getIndex>></span>
+<span class="box"><$edit-text class="wltc-edit-input" tiddler=<<currentTiddler>> field=link tag=input placeholder="link"/></span>
+<span class="box center"><$button actions=<<record-comment>> >{{$:/core/images/link}}</$button>
+</span>
+

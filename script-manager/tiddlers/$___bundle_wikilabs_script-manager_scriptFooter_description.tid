@@ -1,0 +1,9 @@
+caption: Description
+created: 20170927191058421
+list: 
+modified: 20171215213449177
+tags: $:/_bundle/wikilabs/script-manager/tags/scriptFooter
+title: $:/_bundle/wikilabs/script-manager/scriptFooter/description
+type: text/vnd.tiddlywiki
+
+{{||$:/_bundle/wikilabs/script-manager/list-description-template}}

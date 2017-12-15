@@ -1,0 +1,29 @@
+caption: ToDo's
+created: 20170921122619065
+list: 
+modified: 20171215213449165
+tags: $:/_bundle/wikilabs/script-manager/tags/scriptFooter
+title: $:/_bundle/wikilabs/script-manager/scriptFooter/todo
+type: text/vnd.tiddlywiki
+
+\define toggleMeOpenActions()
+<$action-setfield $tiddler="$:/_new-todo" $field="script" $value=<<currentTiddler>>/>
+\end
+
+\define toggleMeCloseActions()
+<$action-setfield $tiddler="$:/_new-todo" $field="script" $value="---"/>
+\end
+
+!!! All ~ToDo's for this script
+
+<$macrocall $name="todo-overview"  script=<<currentTiddler>> /> 
+
+<span class="wltc-btn-big-green tc-btn-big-green">
+<$macrocall $name="toggleMe" openActions=<<toggleMeOpenActions>> closeActions=<<toggleMeCloseActions>> state="$:/state/newTodo" openText="New Todo"/>
+</span>
+
+<$reveal state="$:/state/newTodo" type="match" text="open" default="closed" >
+<$vars defaultScript=<<currentTiddler>> >
+{{$:/_bundle/wikilabs/script-manager/grid-todo-template}}
+</$vars>
+</$reveal>
