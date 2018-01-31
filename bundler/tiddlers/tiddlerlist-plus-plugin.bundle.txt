@@ -1,0 +1,3 @@
+a
+b
+$:/plugins/wikilabs/bundler

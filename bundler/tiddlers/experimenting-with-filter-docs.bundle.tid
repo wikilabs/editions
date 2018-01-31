@@ -1,0 +1,17 @@
+created: 20170602152428406
+description: just an experiment
+filter: [list[$:/StoryList]]
+modified: 20180131112418714
+tags: $:/tags/Filter
+title: experimenting-with-filter-docs.bundle
+type: text/vnd.tiddlywiki
+
+!! Filter
+
+<pre>{{!!filter}}</pre>
+
+!! Result
+`<$list filter={{!!filter}}> - <$view field=title/><br></$list>`
+
+<$list filter={{!!filter}}> - <$view field=title/><br></$list>
+
