@@ -30,7 +30,7 @@ Sometimes the shown title should be more descriptive. like: ''a more descriptive
 
 We could use the caption-field. But by design, it should be short to fit into lists and the table-of-content macro. So we created a new field: ''subtitle'', that is used and shown by the uni-link plugin. 
 
-With Uni-link plugin active
+''With Uni-link plugin active''
 
 * `[[short-title]]` shows: [[short-title]] and
 
@@ -46,8 +46,8 @@ Alberto Molina [[wrote at TW group|https://groups.google.com/d/msg/tiddlywiki/Yl
 
 The unilink ''alias'' functionality does that. It allows users to assign an `aliases` field to tiddlers, that can be referenced with a slightly modified link syntax. 
 
-* CamelCase links are not supported atm. 
-* Aliases are NOT case sensitive!
+* ''CamelCase link behaviour has not been changed!''
+* ''Aliases are NOT case sensitive!''
 
 ''Examples:''
 
