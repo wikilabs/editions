@@ -1,0 +1,37 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Edit-Tabs" adds internal tiddler links to every tab if selected.
+It adds a setting to the ControlPanel: Settings tab, that allows you to activate "non system" tiddlers directly in edit mode.
+This comes in handy, if you are creating a lot of new stuff.
+
+! Important
+
+* This plugin is compatible to "slant-01" theme
+* This plugin modifies the core: [[$:/core/macros/tabs]] macro
+
+! Example
+
+<$button>
+<$action-sendmessage $message="tm-new-tiddler" title="Tab Tests"  text="""<<tabs "tab1 tab2 tab3" "tab1" "$:/state/tabTest" >>"""/>
+Create a test tiddler
+</$button>
+
+```
+<<tabs "tab1 tab2 tab3" "tab1" $:/state/tabTest" >>
+```
+
+! Settings
+
+The following setting can be also found in the [[Control Panel: Settings|$:/ControlPanel]].
+
+{{$:/core/ui/ControlPanel/Settings/edit-tabs}}
+
+! Alternatives
+
+* http://tablinks.tiddlyspot.com/ ... which uses a slightly different approach
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}

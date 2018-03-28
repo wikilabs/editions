@@ -1,0 +1,18 @@
+created: 20180222153809097
+link-action: tm-edit-tiddler
+modified: 20180328072723163
+show-all-links: none
+show-single-link: inline
+title: $:/plugins/wikilabs/edit-tabs/config
+type: text/vnd.tiddlywiki
+
+This tiddler is used to configure the "Edit-tabs" plugin behaviour. 
+
+There are 2 fields, which are used by [[$:/plugins/wikilabs/edit-tabs/styles]] enable and disable the internal links. 
+
+* show-all-links: {{!!show-all-links}}
+* show-single-link: {{!!show-single-link}}
+
+The next field is used to define the behaviour of the link, if it's clicked.
+
+* link-action: {{!!link-action}}
