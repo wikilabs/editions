@@ -19,7 +19,7 @@ version: 0.1.1
         },
         "$:/plugins/wikilabs/remove-states/license": {
             "title": "$:/plugins/wikilabs/remove-states/license",
-            "text": "Remove-States-Plugin (c) Mario Pietsch - 2016\n\nhttps://opensource.org/licenses/BSD-3-Clause"
+            "text": "Remove-States-Plugin (c) Mario Pietsch - 2016-2018\n\nhttps://opensource.org/licenses/BSD-3-Clause"
         },
         "$:/plugins/wikilabs/remove-states/readme": {
             "title": "$:/plugins/wikilabs/remove-states/readme",
