@@ -1,0 +1,20 @@
+created: 20190210232659048
+modified: 20190210234858698
+tags: 
+title: uni-link-alias
+type: text/vnd.tiddlywiki
+
+! Uni-link Alias
+
+Alberto Molina [[wrote at TW group|https://groups.google.com/d/msg/tiddlywiki/YlKBBl1Jdww/gLhrt85i_sIJ]]:
+
+>For instance, I would like the links: `[[Darwinism]], [[darwinism]], NeoDarwinism, NaturalSelection, [[natural selection]], [[theory of evolution]]` all refer to the same tiddler (or different twin tiddlers with the same content in view mode) without needing to specify: `[[darwinism|Darwinism]], [[NaturalSelection|Darwinism]], [[theory of evolution|Darwinism]]`, etc.
+
+The unilink ''alias'' functionality does that. It allows users to assign an `aliases` field to tiddlers, that can be referenced with a slightly modified link syntax. 
+
+* ''CamelCase link behaviour has not been changed!''
+* ''Aliases are NOT case sensitive!''
+
+''Examples:''
+
+{{Alias Examples}}

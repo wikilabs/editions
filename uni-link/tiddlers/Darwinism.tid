@@ -1,6 +1,9 @@
 aliases: darwinism [[Neo Darwinism]] [[natural selection]] [[theory of evolution]]
+caption: darwin caption
 created: 20171215131345399
-modified: 20171215143505488
+modified: 20190210233836727
+my-field: text stored in "my-field"
+subtitle: darwin subtitle field text - not wikified!!
 tags: 
 title: Darwinism
 type: text/vnd.tiddlywiki

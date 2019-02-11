@@ -1,5 +1,5 @@
 created: 20171215131522502
-modified: 20180131195118250
+modified: 20190210234829513
 tags: 
 title: Alias Examples
 type: text/vnd.tiddlywiki
@@ -10,3 +10,13 @@ type: text/vnd.tiddlywiki
 |`[[Natural Selection|?]]` |[[Natural Selection|?]] |
 |`[[natural selection|?]]` |[[natural selection|?]] |
 |`[[NaturaL sElEcTiOn|?]]` |[[NaturaL sElEcTiOn|?]] ... fixed since: v0.3.1 |
+
+Since Version 1.0.0 the alias links have the possibility to select the field, that should be shown.
+
+|`[[darwinism|?]]` |[[darwinism|?]] |
+|`[[darwinism|?t]]` |[[darwinism|?t]] |
+|`[[darwinism|?c]]` |[[darwinism|?c]] |
+|`[[darwinism|?s]]` |[[darwinism|?s]] |
+|`[[darwinism|?my-field]]` |[[darwinism|?my-field]] |
+
+All those links open the same tiddler! Open it in ''edit-mode'', to see the fields!

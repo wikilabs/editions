@@ -1,54 +1,15 @@
+aliases: intro
+caption: why-unilink
 created: 20171215120429829
-modified: 20171215150856805
+modified: 20190210234535724
+subtitle: Why is uni-link needed?
 tags: 
 title: Why is uni-link needed?
 type: text/vnd.tiddlywiki
 
-!! Uni-link Caption
+{{uni-link-alias}}
 
-~TiddlyWiki core supports the `caption` field to be used in lists. Eg: Sidebar or TOC lists. 
+{{uni-link-caption}}
 
-If the tiddler title is too long, or it is a system tiddler, the `caption` field will be used as a link title. eg: 
+{{uni-link-subtitle}}
 
-* The right Sidebar ''Recent'' tab is a system tiddler: $:/core/ui/SideBar/Recent
-
-* In the sidebar you see the caption field: [[$:/core/ui/SideBar/Recent]]
-
-* A link like this: `[[$:/core/ui/SideBar/Recent]]` without uni-link plugin,
-** will create $:/core/ui/SideBar/Recent
-
-* The same link here with the uni-link plugin activated, creates: [[$:/core/ui/SideBar/Recent]]
-
-
-!! Uni-link Subtitle
-
-Some users have tiddler titles like this: ''short-title'' to manage their internal wiki structure. 
-
-If you want to link to those titles you'll need: `[[short-title]]` which creates: [[short-title|]].
-
-Sometimes the shown title should be more descriptive. like: ''a more descriptive title''. 
-
-We could use the caption-field. But by design, it should be short to fit into lists and the table-of-content macro. So we created a new field: ''subtitle'', that is used and shown by the uni-link plugin. 
-
-''With Uni-link plugin active''
-
-* `[[short-title]]` shows: [[short-title]] and
-
-If both fields: ''subtitle'' and ''caption'' are present, ''subtitle'' will take precednece!
-
-* `[[short-title|]]`.. see the pipe `|`will show: [[short-title|]] and ignore any fields. 
-
-!! Uni-link Alias
-
-Alberto Molina [[wrote at TW group|https://groups.google.com/d/msg/tiddlywiki/YlKBBl1Jdww/gLhrt85i_sIJ]]:
-
->For instance, I would like the links: `[[Darwinism]], [[darwinism]], NeoDarwinism, NaturalSelection, [[natural selection]], [[theory of evolution]]` all refer to the same tiddler (or different twin tiddlers with the same content in view mode) without needing to specify: `[[darwinism|Darwinism]], [[NaturalSelection|Darwinism]], [[theory of evolution|Darwinism]]`, etc.
-
-The unilink ''alias'' functionality does that. It allows users to assign an `aliases` field to tiddlers, that can be referenced with a slightly modified link syntax. 
-
-* ''CamelCase link behaviour has not been changed!''
-* ''Aliases are NOT case sensitive!''
-
-''Examples:''
-
-{{Alias Examples}}

@@ -1,0 +1,37 @@
+created: 20190210232529495
+modified: 20190210232900931
+tags: 
+title: uni-link-caption
+type: text/vnd.tiddlywiki
+
+\define selectActions()
+<$action-setfield $tiddler="$:/state/tab-1749438307" text="$:/plugins/wikilabs/uni-link/ui/ControlPanel/settings"/>
+<$action-navigate $to="$:/ControlPanel"/>
+\end
+\define selectUnilinkSetting()
+<$button actions=<<selectActions>>>
+Control Panel Setting
+</$button>
+\end
+
+! Uni-link Caption
+
+The latest version of uni-link plugin contains a <<selectUnilinkSetting>>, that allows us to ''globally define'' the "wiki-link"  behaviour. The default setting is the same, that an unmodified ~TiddlyWiki uses. It shows the tiddler ''title''. 
+
+~TiddlyWiki core supports the `caption` field to be used in lists. Eg: Sidebar or TOC lists. 
+
+With the new setting, it is possible to use the caption filed for links like this: 
+
+<<<
+* `[[Why is uni-link needed?]]` 
+* which renders as: [[Why is uni-link needed?]]
+<<<
+
+If you change the setting in the control panel you can change the behaviour. 
+
+<<<
+<$tiddler tiddler="$:/config/wikilabs/uni-link/field">
+<$radio value="caption"> caption</$radio><br>
+<$radio value=""> title</$radio><br>
+</$tiddler>
+<<<
