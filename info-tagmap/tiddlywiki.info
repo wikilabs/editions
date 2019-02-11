@@ -11,11 +11,11 @@
         "index": [
             "--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
         ],
- 		"github": [
-				"--output", "../../wikilabs.github.io/editions/info-tagmap", 
-				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
-		],
-       "externalimages": [
+        "github": [
+            "--output", "../../wikilabs.github.io/editions/info-tagmap", 
+            "--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
+        ],
+        "externalimages": [
             "--savetiddlers", "[is[image]]", "images",
             "--setfield", "[is[image]]", "_canonical_uri", "$:/core/templates/canonical-uri-external-image", "text/plain",
             "--setfield", "[is[image]]", "text", "", "text/plain",
