@@ -4,6 +4,9 @@ title: GettingStarted
 
 This plugin "Field Search" adds several new tabs to the search dropdown. The elements, that should be used can be configured in the $:/ControlPanel
 
+* If you use a new pluin-version you need to: `[Return to: Default Settings]`
+* Give feedback at: https://github.com/wikilabs/plugins/issues
+
 ! Configuration
 
 {{$:/plugins/wikilabs/field-search/readme}}
