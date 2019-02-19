@@ -1,0 +1,6 @@
+created: 20190218162912200
+list: $:/core/ui/DefaultSearchResultList $:/plugins/wikilabs/field-search/ui/TitleSearchResultList $:/plugins/wikilabs/field-search/ui/TextSearchResultList $:/plugins/wikilabs/field-search/ui/FieldSearchResultList $:/plugins/wikilabs/field-search/ui/CaptionSearchResultList $:/plugins/wikilabs/field-search/ui/AliasSearchResultList
+modified: 20190218163235167
+title: $:/tags/SearchResults
+type: text/vnd.tiddlywiki
+
