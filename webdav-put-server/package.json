@@ -1,0 +1,41 @@
+{
+  "name": "webdav-put-server",
+  "version": "0.1.0",
+  "description": "tiddlywiki edition development helper",
+  "main": "index.js",
+  "scripts": {
+    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+    "test": "echo ---- no tests atm ----",
+
+    "server": "npm start",
+
+    "build:github": "tiddlywiki ../webdav-put --build github",
+    "build": "tiddlywiki ../webdav-put --build index",
+
+    "prestage": "npm run build",
+    "stage": "npm run build:github",
+
+    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikilabs/plugins"
+  },
+  "keywords": [
+    "tiddlywiki",
+    "webdav",
+    "put",
+    "saver"
+  ],
+  "author": "Mario Pietsch",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/wikilabs/plugins/issues"
+  },
+  "homepage": "https://wikilabs.github.io/editions/webdav-put",
+  "dependencies": {
+    "tiddlywiki": "^5.1.14"
+  },
+  "devDependencies": {
+  }
+}
