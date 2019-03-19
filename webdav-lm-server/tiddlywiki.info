@@ -6,14 +6,14 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/info-session",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/webdav-put"
+		"wikilabs/webdav-lm"
 	],
 	"themes": [
 	],
 	"includeWikis": [
-		"../webdav-put"
+		"../webdav-lm"
 	],
 	"config": {
-		"default-tiddler-location": "../webdav-put/tiddlers"
+		"default-tiddler-location": "../webdav-lm/tiddlers"
 	}
 }
