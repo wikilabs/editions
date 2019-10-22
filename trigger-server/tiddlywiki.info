@@ -1,0 +1,24 @@
+{
+	"description": "Server configuration of the wikilabs edition",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"wikilabs/link-to-tabs",
+		"wikilabs/info-session",
+		"wikilabs/advanced-search-plus",
+		"wikilabs/uni-link",
+		"wikilabs/trigger"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+	],
+	"includeWikis": [
+		"../trigger"
+	],
+	"config": {
+		"default-tiddler-location": "../trigger/tiddlers"
+	},
+	"build": {
+	 }
+}

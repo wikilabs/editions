@@ -1,0 +1,37 @@
+created: 20190906114708315
+modified: 20190906154519718
+tags: test
+title: test-history-list
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to={{!!title}}/>
+<$action-navigate $to="$:/HistoryList"/>
+\end
+
+\import log-actions
+
+! Info
+
+* This test should clear the $:/HistoryList
+* Open itself and the ~$:/HistoryList tiddler
+* The diff-text shows the differences between [[expected text|HistoryList-expected]] and the real text
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/HistoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{HistoryList-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+

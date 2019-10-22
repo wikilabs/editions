@@ -1,0 +1,31 @@
+created: 20190906120754824
+modified: 20190906154603838
+tags: test
+title: test-story-list
+type: text/vnd.tiddlywiki
+
+\define test(msg)
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-navigate $to={{!!title}}/>
+<$action-navigate $to="$:/StoryList"/>
+\end
+
+\import log-actions
+
+!! Info
+
+* This test should clear the story-river
+* Open itself and the $:/StoryList "list" field. 
+* Diff-text shows the differences between [[StoryList-expected]] and the real field value.
+
+<$trigger actions=<<test>>/>
+
+!! Differences indicate a problem!
+
+<$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{StoryList-expected}}>
+{{$:/language/Diffs/CountMessage}}
+<$trigger actions=<<log>>/>
+</$diff-text>
+</$wikify>
+

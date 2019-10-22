@@ -1,0 +1,18 @@
+created: 20190906123623641
+modified: 20190906133131654
+tags: expected
+title: HistoryList-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: $:/HistoryList
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "test-history-list"
+    },
+    {
+        "title": "$:/HistoryList"
+    }
+]

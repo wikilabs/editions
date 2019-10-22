@@ -1,0 +1,7 @@
+created: 20190906124942173
+modified: 20190906131101594
+tags: 
+title: test-tid-rendering
+type: text/vnd.tiddlywiki
+
+<pre>{{$:/StoryList||/templates/tid-tiddler}} 
