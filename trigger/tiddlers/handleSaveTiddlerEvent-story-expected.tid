@@ -1,0 +1,8 @@
+created: 20191025113437433
+modified: 20191025113613022
+title: handleSaveTiddlerEvent-story-expected
+type: text/vnd.tiddlywiki
+
+list: new-test-tiddler test-handleSaveTiddlerEvnet
+title: $:/StoryList
+

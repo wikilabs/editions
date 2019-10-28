@@ -1,0 +1,40 @@
+created: 20191024140505851
+modified: 20191024144258765
+tags: test
+title: test-navigateFromClientRect
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-open-window" $param="test-interactive-click" windowTitle="test" height=500, width=900/>
+\end
+
+\import log-actions
+
+!! test navigateFromClientRect
+
+```
+/*
+Handle a tm-navigate event
+*/
+NavigatorWidget.prototype.handleNavigateEvent = function(event) {
+	event = $tw.hooks.invokeHook("th-navigating",event);
+	if(event.navigateTo) {
+		this.addToStory(event.navigateTo,event.navigateFromTitle);
+		if(!event.navigateSuppressNavigation) {
+			this.addToHistory(event.navigateTo,event.navigateFromClientRect);
+		}
+	}
+	return false;
+};
+```
+
+! Info
+
+* This test should clear the $:/HistoryList
+* Open itself and a new tiddler window with [[test-interactive-click]]
+
+<$trigger actions=<<test>>/>
+

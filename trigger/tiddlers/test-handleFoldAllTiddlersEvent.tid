@@ -1,0 +1,70 @@
+created: 20191025145110099
+modified: 20191028150947049
+tags: test
+title: test-handleFoldAllTiddlersEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+
+<$action-setfield $tiddler="$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/fold-bar" $field=text $value="show"/>
+
+<$action-sendmessage $message="tm-unfold-all-tiddlers" foldedStatePrefix="$:/state/folded/"/>
+
+<$action-navigate $to={{!!title}}/>
+
+<$action-navigate $to="a"/>
+<$action-navigate $to="b"/>
+
+<$action-sendmessage $message="tm-fold-all-tiddlers" foldedStatePrefix="$:/state/folded/"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Opens tiddler a and b
+* Open itself 
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences of $:/state/folded/test-handleFoldAllTiddlersEvent and [[handleFoldAllTiddlerEvent-expected]]
+* The diff-text shows the differences of $:/state/folded/a and [[handleFoldAllTiddlerEvent-expected a]]
+* The diff-text shows the differences of $:/state/folded/b and [[handleFoldAllTiddlerEvent-expected b]]
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/state/folded/a||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleFoldAllTiddlerEvent-expected a}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+<$wikify name=xxx text="{{$:/state/folded/b||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleFoldAllTiddlerEvent-expected b}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+<$wikify name=xxx text="{{$:/state/folded/test-handleFoldAllTiddlersEvent||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleFoldAllTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

@@ -1,0 +1,45 @@
+created: 20191025120529152
+modified: 20191025125410273
+tags: test
+title: test-handleCloseAllTiddlersEvent
+type: text/vnd.tiddlywiki
+
+\import log-actions
+\define test()
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-sendmessage $message="tm-close-all-tiddlers" />
+<$action-sendmessage $message="tm-new-tiddler" $param="$:/StoryList" title=asdf/>
+<$action-sendmessage $message="tm-save-tiddler" $param="Draft of 'asdf'"/>
+<$action-navigate $to={{!!title}}/>
+\end
+
+\define clean()
+<$action-sendmessage $message="tm-delete-tiddler" $param="asdf"/>
+\end
+
+!! test edit tiddler event
+
+! Info
+
+* Runs some tests and then
+* Open itself 
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text has nothing to show. It compares $:/StoryList list field with an empty string. 
+
+!! Text differences
+
+<$wikify name=xxx text="{{asdf!!list}}">
+<$diff-text source=<<xxx>> dest="">
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+<$trigger actions=<<clean>>/>

@@ -1,0 +1,9 @@
+created: 20191025144155093
+modified: 20191025144524326
+tags: 
+title: fold others except b
+type: text/vnd.tiddlywiki
+
+<$button>fold others except b
+<$action-sendmessage $message="tm-fold-other-tiddlers" $param="b" foldedStatePrefix="$:/state/folded/"/>
+</$button>

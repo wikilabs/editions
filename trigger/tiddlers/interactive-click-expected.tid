@@ -1,0 +1,25 @@
+created: 20191024141833244
+modified: 20191024144336436
+title: interactive-click-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: test-navigateFromClientRect-result
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "test-navigateFromClientRect"
+    },
+    {
+        "title": "test-navigateFromClientRect-result",
+        "fromPageRect": {
+            "top": 14,
+            "left": 180.0833282470703,
+            "width": 320.683349609375,
+            "right": 500.7666778564453,
+            "bottom": 45.19999694824219,
+            "height": 31.199996948242188
+        }
+    }
+]

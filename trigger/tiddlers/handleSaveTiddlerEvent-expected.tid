@@ -1,0 +1,17 @@
+created: 20191025113348306
+modified: 20191025113415172
+title: handleSaveTiddlerEvent-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: new-test-tiddler
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "test-handleSaveTiddlerEvnet"
+    },
+    {
+        "title": "new-test-tiddler"
+    }
+]

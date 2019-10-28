@@ -1,0 +1,15 @@
+created: 20191024150912015
+modified: 20191024151315057
+tags: 
+title: handleDeleteTiddlerEvent-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: test-handleDeleteTiddlerEvent
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "test-handleDeleteTiddlerEvent"
+    }
+]

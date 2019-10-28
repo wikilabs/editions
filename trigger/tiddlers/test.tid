@@ -1,6 +1,6 @@
 created: 20190906125006347
-list: GettingStarted test-story-list test-history-list
-modified: 20191022121456335
+list: GettingStarted test-story-list test-history-list test-navigateFromClientRect test-navigateFromClientRect-result test-handleEditTiddlerEvent test-handleSaveTiddlerEvnet test-handleCloseTiddlerEvent test-handleCloseAllTiddlersEvent test-handleCloseOtherTiddlersEvent test-handleImportTiddlersEvent test-handlePerformImportEvent test-handleFoldTiddlerEvent test-handleFoldOthersTiddlerEvent test-handleFoldAllTiddlersEvent test-handleUnfoldAllTiddlersEvent test-handleRenameTiddlerEvent test-handleDeleteTiddlerEvent
+modified: 20191025151806538
 tags: 
 title: test
 type: text/vnd.tiddlywiki

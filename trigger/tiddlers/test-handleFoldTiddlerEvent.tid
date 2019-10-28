@@ -1,0 +1,45 @@
+created: 20191025132646523
+modified: 20191025143150600
+tags: test
+title: test-handleFoldTiddlerEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to="a"/>
+<$action-navigate $to="b"/>
+
+<$action-setfield $tiddler="$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/fold-bar" $field=text $value="show"/>
+
+<$action-navigate $to={{!!title}}/>
+
+<$action-sendmessage $message="tm-fold-tiddler" foldedState="$:/state/folded/a"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Opens tiddler a and b
+* Open itself and shows the differences of $:/state/folded/a and [[handleFoldTiddlerEvent-expected]]
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[handleFoldTiddlerEvent-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/state/folded/a||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleFoldTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

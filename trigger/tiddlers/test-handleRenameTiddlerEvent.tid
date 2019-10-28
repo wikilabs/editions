@@ -1,0 +1,39 @@
+created: 20191025151528792
+modified: 20191025151736931
+tags: test
+title: test-handleRenameTiddlerEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to="new-test-tiddler"/>
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-rename-tiddler" from="new-test-tiddler" to="new-test"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Open itself and a new tiddler window with [[new-test-tiddler]]
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[handleRenameTiddlerEvent-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{new-test||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleRenameTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

@@ -1,0 +1,52 @@
+created: 20191025125504819
+modified: 20191025130328827
+tags: test
+title: test-handleCloseOtherTiddlersEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to="new-test-tiddler"/>
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-close-other-tiddlers" $param={{!!title}}/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Open itself and a new tiddler window with [[new-test-tiddler]]
+* Then closes other tiddlers except itself.
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[handleCloseOtherTiddlersEvent-expected]] and the real text
+* The diff-text shows the differences between [[handleCloseOtherTiddlersEvent-story-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/HistoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleCloseOtherTiddlersEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+
+<$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleCloseOtherTiddlersEvent-story-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

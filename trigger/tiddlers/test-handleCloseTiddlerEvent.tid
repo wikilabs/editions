@@ -1,0 +1,51 @@
+created: 20191025114947669
+modified: 20191025120300528
+tags: test
+title: test-handleCloseTiddlerEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to="new-test-tiddler"/>
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-close-tiddler" $param="new-test-tiddler"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Open itself and a new tiddler window with [[new-test-tiddler]]
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[handleCloseTiddlerEvent-expected]] and the real text
+* The diff-text shows the differences between [[handleCloseTiddlerEvent-story-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/HistoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleCloseTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+
+<$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleCloseTiddlerEvent-story-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

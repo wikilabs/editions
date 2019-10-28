@@ -1,0 +1,9 @@
+created: 20191025143907058
+modified: 20191025143949735
+tags: 
+title: tm-unfold-test
+type: text/vnd.tiddlywiki
+
+<$button>unfold all
+<$action-sendmessage $message="tm-unfold-all-tiddlers" foldedStatePrefix="$:/state/folded/"/>
+</$button>

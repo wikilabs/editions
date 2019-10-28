@@ -1,0 +1,17 @@
+created: 20191025120318588
+modified: 20191025120340716
+title: handleCloseTiddlerEvent-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: test-handleCloseTiddlerEvent
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "new-test-tiddler"
+    },
+    {
+        "title": "test-handleCloseTiddlerEvent"
+    }
+]

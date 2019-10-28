@@ -1,0 +1,50 @@
+created: 20191024144902464
+modified: 20191025114911725
+tags: test
+title: test-handleEditTiddlerEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-edit-tiddler" $param="new-test-tiddler"/>
+<$action-setfield $tiddler="Draft of 'new-test-tiddler'" text="lorem ipsum dolor sit amet"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Open itself and a new tiddler window with [[new-test-tiddler]]
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[expected text|interactive-click-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/HistoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleEditTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+
+<$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleEditTiddlerEvent-story-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

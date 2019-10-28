@@ -1,0 +1,49 @@
+created: 20191025130949014
+modified: 20191025131559419
+tags: test
+title: test-handlePerformImportEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-perform-import" $param="$:/Import"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Open itself and a new tiddler window with [[new-test-tiddler]]
+* Then closes other tiddlers except itself.
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[a-expected]] and the real text
+* The diff-text shows the differences between [[b-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{a||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{a-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+
+<$wikify name=xxx text="{{b||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{b-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

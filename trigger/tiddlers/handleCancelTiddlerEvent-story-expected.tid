@@ -1,0 +1,8 @@
+created: 20191025115658852
+modified: 20191025115705317
+title: handleCancelTiddlerEvent-story-expected
+type: text/vnd.tiddlywiki
+
+list: new-test-tiddler test-handleCancelTiddlerEvent
+title: $:/StoryList
+

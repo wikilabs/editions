@@ -1,0 +1,17 @@
+created: 20191025130731079
+modified: 20191025130743021
+title: handleImportTiddlersEvent-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: $:/Import
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "test-handleImportTiddlersEvent"
+    },
+    {
+        "title": "$:/Import"
+    }
+]

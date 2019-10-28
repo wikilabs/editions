@@ -1,0 +1,21 @@
+created: 20191024142204055
+modified: 20191024144543779
+tags: test
+title: test-navigateFromClientRect-result
+type: text/vnd.tiddlywiki
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences between [[expected text|interactive-click-expected]] and the real text
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/HistoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{interactive-click-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

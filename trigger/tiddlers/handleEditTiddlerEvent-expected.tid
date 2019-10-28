@@ -1,0 +1,18 @@
+created: 20191024145934249
+modified: 20191024150333184
+tags: 
+title: handleEditTiddlerEvent-expected
+type: text/vnd.tiddlywiki
+
+current-tiddler: Draft of 'new-test-tiddler'
+title: $:/HistoryList
+type: application/json
+
+[
+    {
+        "title": "test-handleEditTiddlerEvent"
+    },
+    {
+        "title": "Draft of 'new-test-tiddler'"
+    }
+]

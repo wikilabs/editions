@@ -1,0 +1,69 @@
+created: 20191025145901250
+modified: 20191028150707302
+tags: test
+title: test-handleUnfoldAllTiddlersEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+
+<$action-setfield $tiddler="$:/config/ViewToolbarButtons/Visibility/$:/core/ui/Buttons/fold-bar" $field=text $value="show"/>
+
+<$action-navigate $to="a"/>
+<$action-navigate $to="b"/>
+<$action-navigate $to={{!!title}}/>
+
+<$action-sendmessage $message="tm-fold-tiddler" foldedState="$:/state/folded/test-handleUnfoldAllTiddlersEvent"/>
+
+<$action-sendmessage $message="tm-unfold-all-tiddlers" foldedStatePrefix="$:/state/folded/"/>
+\end
+
+\import log-actions
+
+!! test edit tiddler event
+
+! Info
+
+* Opens tiddler a and b
+* Open itself 
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+* The diff-text shows the differences of $:/state/folded/test-handleUnfoldAllTiddlersEvent and [[handleUnfoldAllTiddlerEvent-expected]]
+* The diff-text shows the differences of $:/state/folded/a and [[handleUnfoldAllTiddlerEvent-expected a]]
+* The diff-text shows the differences of $:/state/folded/b and [[handleUnfoldAllTiddlerEvent-expected b]]
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/state/folded/a||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleUnfoldAllTiddlerEvent-expected a}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+<$wikify name=xxx text="{{$:/state/folded/b||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleUnfoldAllTiddlerEvent-expected b}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+<$wikify name=xxx text="{{$:/state/folded/test-handleUnfoldAllTiddlersEvent||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleUnfoldAllTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

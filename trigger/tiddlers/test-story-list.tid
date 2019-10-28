@@ -1,11 +1,13 @@
 created: 20190906120754824
-modified: 20190906154603838
+modified: 20191025153140921
 tags: test
 title: test-story-list
 type: text/vnd.tiddlywiki
 
 \define test(msg)
 <$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-setfield $tiddler="$:/state/popup/tiddler-info--587347721" $field=text $value="visible"/>
+<$action-setfield $tiddler="$:/state/tab--2026292633" $field=text $value="$:/core/ui/TiddlerInfo/List"/>
 <$action-navigate $to={{!!title}}/>
 <$action-navigate $to="$:/StoryList"/>
 \end

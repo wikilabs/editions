@@ -1,0 +1,47 @@
+created: 20191024150531621
+modified: 20191025152326100
+tags: test
+title: test-handleDeleteTiddlerEvent
+type: text/vnd.tiddlywiki
+
+\define test()
+<$action-setfield $tiddler="$:/StoryList" $field=list $value=""/>
+<$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to={{!!title}}/>
+<$action-sendmessage $message="tm-delete-tiddler" $param="new-test"/>
+<$action-sendmessage $message="tm-delete-tiddler" $param="a"/>
+<$action-sendmessage $message="tm-delete-tiddler" $param="b"/>
+\end
+
+\import log-actions
+
+!! test delete tiddler event
+
+! Info
+
+<$trigger actions=<<test>>/>
+
+! Differences Indicate a Problem
+
+!! Text differences
+
+<$wikify name=xxx text="{{$:/HistoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleDeleteTiddlerEvent-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>
+
+
+<$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{handleDeleteTiddlerEvent-story-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log>>/>
+
+</$diff-text>
+</$wikify>

@@ -1,5 +1,5 @@
 created: 20190906114708315
-modified: 20190906154519718
+modified: 20191025153255710
 tags: test
 title: test-history-list
 type: text/vnd.tiddlywiki
@@ -9,6 +9,9 @@ type: text/vnd.tiddlywiki
 <$action-deletetiddler $tiddler="$:/HistoryList"/>
 <$action-navigate $to={{!!title}}/>
 <$action-navigate $to="$:/HistoryList"/>
+
+<$action-setfield $tiddler="$:/state/popup/tiddler-info-759095318" $field=text $value="visible"/>
+<$action-setfield $tiddler="$:/state/tab-172555336" $field=text $value="$:/core/ui/TiddlerInfo/Fields"/>
 \end
 
 \import log-actions
