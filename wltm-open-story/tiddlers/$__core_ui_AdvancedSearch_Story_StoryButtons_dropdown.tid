@@ -1,0 +1,23 @@
+created: 20191023104603480
+modified: 20191023120449165
+tags: $:/tags/AdvancedSearch/StoryButton
+title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
+type: text/vnd.tiddlywiki
+
+<span class="tc-popup-keep">
+<$button popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
+{{$:/core/images/down-arrow}}
+</$button>
+</span>
+
+<$reveal state=<<qualify "$:/state/storyDropdown">> type="popup" position="belowleft" animate="yes" class="tc-popup-keep">
+<$set name="tv-show-missing-links" value="yes">
+<$linkcatcher to="$:/temp/story">
+<div class="tc-block-dropdown-wrapper">
+<div class="tc-block-dropdown tc-edit-type-dropdown">
+{{test-tree}}
+</div>
+</div>
+</$linkcatcher>
+</$set>
+</$reveal>

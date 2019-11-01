@@ -1,0 +1,15 @@
+created: 20191023103943279
+modified: 20191023113914531
+tags: 
+title: test-tree
+type: text/vnd.tiddlywiki
+
+\define link-icon()
+<$link to="""$(full-title)$""" overrideClass=""><span>{{$:/core/images/file}}</span></$link>
+\end
+
+\define leaf-link(full-title,chunk,separator: "/")
+<$link to={{$full-title$!!text}}><$text text=<<__chunk__>>/></$link>
+\end
+
+<<tree prefix:"Story/" separator:"/">>

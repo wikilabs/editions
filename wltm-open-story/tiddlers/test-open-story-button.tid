@@ -1,0 +1,10 @@
+created: 20191022124400144
+modified: 20191022125743979
+tags: 
+title: test-open-story-button
+type: text/vnd.tiddlywiki
+
+<$button>
+<$action-sendmessage $message="tm-open-story" $param="test"/>
+Click me!
+</$button>

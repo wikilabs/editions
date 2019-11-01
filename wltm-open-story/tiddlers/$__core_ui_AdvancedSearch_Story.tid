@@ -1,0 +1,23 @@
+caption: {{$:/language/Search/Story/Caption}} Story
+created: 20191022131630956
+modified: 20191023120344182
+tags: $:/tags/AdvancedSearch
+title: $:/core/ui/AdvancedSearch/Story
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/language/Search/
+<<lingo Story/Hint>> TODO: Story/Hint, Story/Caption .... 
+
+<div class="tc-search tc-advanced-search">
+<$edit-text tiddler="$:/temp/story" type="search" rows="5" focus={{$:/config/Search/AutoFocus}}/>
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/AdvancedSearch/StoryButton]!has[draft.of]]"><$transclude/></$list>
+</div>
+
+<$reveal state="$:/temp/story" type="nomatch" text="">
+<$set name="resultCount" value="""<$count filter={{$:/temp/story}}/>""">
+<div class="tc-search-results">
+<<lingo Story/Matches>>
+<$list filter={{$:/temp/story}} template="$:/core/ui/ListItemTemplate"/>
+</div>
+</$set>
+</$reveal>
