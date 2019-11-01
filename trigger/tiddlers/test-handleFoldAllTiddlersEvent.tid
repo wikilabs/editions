@@ -1,5 +1,5 @@
 created: 20191025145110099
-modified: 20191028150947049
+modified: 20191029102055540
 tags: test
 title: test-handleFoldAllTiddlersEvent
 type: text/vnd.tiddlywiki
@@ -28,6 +28,7 @@ type: text/vnd.tiddlywiki
 
 * Opens tiddler a and b
 * Open itself 
+* Activate tm-fold-all-tiddlers
 
 <$trigger actions=<<test>>/>
 
@@ -44,7 +45,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show state of tiddler a - should be folded">>/>
 
 </$diff-text>
 </$wikify>
@@ -54,7 +55,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show state of tiddler b - should be folded">>/>
 
 </$diff-text>
 </$wikify>
@@ -64,7 +65,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show state of tiddler test-handleFoldAllTiddlersEvent - should be folded">>/>
 
 </$diff-text>
 </$wikify>

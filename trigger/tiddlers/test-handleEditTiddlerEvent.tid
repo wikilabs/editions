@@ -1,5 +1,5 @@
 created: 20191024144902464
-modified: 20191025114911725
+modified: 20191029093306249
 tags: test
 title: test-handleEditTiddlerEvent
 type: text/vnd.tiddlywiki
@@ -12,19 +12,26 @@ type: text/vnd.tiddlywiki
 <$action-setfield $tiddler="Draft of 'new-test-tiddler'" text="lorem ipsum dolor sit amet"/>
 \end
 
+\define text() Should show the history list
+
 \import log-actions
 
 !! test edit tiddler event
 
 ! Info
 
-* Open itself and a new tiddler window with [[new-test-tiddler]]
+* This test clears the $:/HistoryList and the $:/StoryList
+* Opens itself
+* Open a new tiddler named "new-test-tiddler" in edit mode
+* Don't mess with the content!
 
 <$trigger actions=<<test>>/>
 
 ! Differences Indicate a Problem
 
-* The diff-text shows the differences between [[expected text|interactive-click-expected]] and the real text
+* The diff-text shows the differences between [[handleEditTiddlerEvent-expected]] and the real text
+* The diff-text shows the differences between [[handleEditTiddlerEvent-story-expected]] and the real text
+* The diff-text shows the differences between [[Draft of 'new-test-tiddler'-expected]] and the real text
 
 !! Text differences
 
@@ -38,13 +45,22 @@ type: text/vnd.tiddlywiki
 </$diff-text>
 </$wikify>
 
-
 <$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
 <$diff-text source=<<xxx>> dest={{handleEditTiddlerEvent-story-expected}}>
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Should show the story list">>/>
+
+</$diff-text>
+</$wikify>
+
+<$wikify name=xxx text="{{Draft of 'new-test-tiddler'||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{Draft of 'new-test-tiddler'-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log "Should show the draft tiddler">>/>
 
 </$diff-text>
 </$wikify>

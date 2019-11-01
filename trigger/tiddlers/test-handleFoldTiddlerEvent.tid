@@ -1,5 +1,5 @@
 created: 20191025132646523
-modified: 20191025143150600
+modified: 20191029101231003
 tags: test
 title: test-handleFoldTiddlerEvent
 type: text/vnd.tiddlywiki
@@ -24,7 +24,9 @@ type: text/vnd.tiddlywiki
 ! Info
 
 * Opens tiddler a and b
-* Open itself and shows the differences of $:/state/folded/a and [[handleFoldTiddlerEvent-expected]]
+* Open itself
+* Fold tiddler: a with tm-fold-tiddler with foldedState: `$:/state/folded/a` 
+* Show differences between of $:/state/folded/a and [[handleFoldTiddlerEvent-expected]]
 
 <$trigger actions=<<test>>/>
 
@@ -39,7 +41,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Tiddler a should be folded">>/>
 
 </$diff-text>
 </$wikify>

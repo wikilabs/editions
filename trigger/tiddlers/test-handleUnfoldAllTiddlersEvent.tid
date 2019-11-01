@@ -1,5 +1,5 @@
 created: 20191025145901250
-modified: 20191028150707302
+modified: 20191029102221827
 tags: test
 title: test-handleUnfoldAllTiddlersEvent
 type: text/vnd.tiddlywiki
@@ -27,6 +27,7 @@ type: text/vnd.tiddlywiki
 
 * Opens tiddler a and b
 * Open itself 
+* Activate tm-unfold-all-tiddlers
 
 <$trigger actions=<<test>>/>
 
@@ -43,7 +44,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show state of tiddler: a - should be UNfolded">>/>
 
 </$diff-text>
 </$wikify>
@@ -53,7 +54,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show state of tiddler: b - should be UNfolded">>/>
 
 </$diff-text>
 </$wikify>
@@ -63,7 +64,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show state of tiddler: test-handleUnfoldAllTiddlersEvent - should be UNfolded">>/>
 
 </$diff-text>
 </$wikify>

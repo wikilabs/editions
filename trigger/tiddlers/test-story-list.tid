@@ -1,5 +1,5 @@
 created: 20190906120754824
-modified: 20191025153140921
+modified: 20191029090725401
 tags: test
 title: test-story-list
 type: text/vnd.tiddlywiki
@@ -12,17 +12,20 @@ type: text/vnd.tiddlywiki
 <$action-navigate $to="$:/StoryList"/>
 \end
 
+\define text() Should show $:/StoryList and the Info-Panel
+
 \import log-actions
 
 !! Info
 
 * This test should clear the story-river
-* Open itself and the $:/StoryList "list" field. 
+* Open ''itself'', the $:/StoryList tiddler
+** Open the info panel and select the "list" field. 
 * Diff-text shows the differences between [[StoryList-expected]] and the real field value.
 
 <$trigger actions=<<test>>/>
 
-!! Differences indicate a problem!
+''Differences indicate a problem!''
 
 <$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
 <$diff-text source=<<xxx>> dest={{StoryList-expected}}>

@@ -1,8 +1,12 @@
 created: 20190906125006347
 list: GettingStarted test-story-list test-history-list test-navigateFromClientRect test-navigateFromClientRect-result test-handleEditTiddlerEvent test-handleSaveTiddlerEvnet test-handleCloseTiddlerEvent test-handleCloseAllTiddlersEvent test-handleCloseOtherTiddlersEvent test-handleImportTiddlersEvent test-handlePerformImportEvent test-handleFoldTiddlerEvent test-handleFoldOthersTiddlerEvent test-handleFoldAllTiddlersEvent test-handleUnfoldAllTiddlersEvent test-handleRenameTiddlerEvent test-handleDeleteTiddlerEvent
-modified: 20191025151806538
+modified: 20191101115411019
 tags: 
 title: test
 type: text/vnd.tiddlywiki
+
+! Show all tiddlers tagged "test"
+
+''Drag&Drop sort is possible''
 
 <<list-links-draggable tiddler:"test">>

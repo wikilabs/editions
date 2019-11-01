@@ -1,17 +1,28 @@
 created: 20191025130731079
-modified: 20191025130743021
+modified: 20191029100753339
 title: handleImportTiddlersEvent-expected
 type: text/vnd.tiddlywiki
 
-current-tiddler: $:/Import
-title: $:/HistoryList
+plugin-type: import
+status: pending
+title: $:/Import
 type: application/json
 
-[
-    {
-        "title": "test-handleImportTiddlersEvent"
-    },
-    {
-        "title": "$:/Import"
+{
+    "tiddlers": {
+        "a": {
+            "created": "20191025130119263",
+            "text": "a",
+            "title": "a",
+            "tags": "",
+            "modified": "20191025130122790"
+        },
+        "b": {
+            "created": "20191025130123625",
+            "text": "b",
+            "title": "b",
+            "tags": "",
+            "modified": "20191025130127395"
+        }
     }
-]
+}

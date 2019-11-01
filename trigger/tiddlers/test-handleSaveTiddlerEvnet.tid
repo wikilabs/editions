@@ -1,5 +1,5 @@
 created: 20191025113053720
-modified: 20191025113323908
+modified: 20191029095131405
 tags: test
 title: test-handleSaveTiddlerEvnet
 type: text/vnd.tiddlywiki
@@ -17,7 +17,8 @@ type: text/vnd.tiddlywiki
 
 ! Info
 
-* Open itself and a new tiddler window with [[new-test-tiddler]]
+* Open itself 
+* Save the tiddler from the last test [[new-test-tiddler]]
 
 <$trigger actions=<<test>>/>
 
@@ -25,6 +26,7 @@ type: text/vnd.tiddlywiki
 
 * The diff-text shows the differences between [[handleSaveTiddlerEvent-expected]] and the real text
 * The diff-text shows the differences between [[handleSaveTiddlerEvent-story-expected]] and the real text
+* The diff-text shows the differences between [[new-test-tiddler-expected]] and the real text
 
 !! Text differences
 
@@ -33,18 +35,27 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Should show the history list">>/>
 
 </$diff-text>
 </$wikify>
-
 
 <$wikify name=xxx text="{{$:/StoryList||/templates/tid-tiddler}}">
 <$diff-text source=<<xxx>> dest={{handleSaveTiddlerEvent-story-expected}}>
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Should show the story list">>/>
+
+</$diff-text>
+</$wikify>
+
+<$wikify name=xxx text="{{new-test-tiddler||/templates/tid-tiddler}}">
+<$diff-text source=<<xxx>> dest={{new-test-tiddler-expected}}>
+
+{{$:/language/Diffs/CountMessage}}
+
+<$trigger actions=<<log "Should new-test-tiddler as a saved tiddler">>/>
 
 </$diff-text>
 </$wikify>

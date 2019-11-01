@@ -1,5 +1,5 @@
 created: 20191025130949014
-modified: 20191025131559419
+modified: 20191029101024633
 tags: test
 title: test-handlePerformImportEvent
 type: text/vnd.tiddlywiki
@@ -15,8 +15,8 @@ type: text/vnd.tiddlywiki
 
 ! Info
 
-* Open itself and a new tiddler window with [[new-test-tiddler]]
-* Then closes other tiddlers except itself.
+* Open itself
+* Activates tm-perform-import message
 
 <$trigger actions=<<test>>/>
 
@@ -32,7 +32,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show content of tiddler: a">>/>
 
 </$diff-text>
 </$wikify>
@@ -43,7 +43,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show content of tiddler: b">>/>
 
 </$diff-text>
 </$wikify>

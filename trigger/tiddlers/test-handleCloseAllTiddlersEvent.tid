@@ -1,12 +1,14 @@
 created: 20191025120529152
-modified: 20191025125410273
+modified: 20191029100058688
 tags: test
 title: test-handleCloseAllTiddlersEvent
 type: text/vnd.tiddlywiki
 
 \import log-actions
+
 \define test()
 <$action-deletetiddler $tiddler="$:/HistoryList"/>
+<$action-navigate $to=log/>
 <$action-sendmessage $message="tm-close-all-tiddlers" />
 <$action-sendmessage $message="tm-new-tiddler" $param="$:/StoryList" title=asdf/>
 <$action-sendmessage $message="tm-save-tiddler" $param="Draft of 'asdf'"/>
@@ -17,12 +19,18 @@ type: text/vnd.tiddlywiki
 <$action-sendmessage $message="tm-delete-tiddler" $param="asdf"/>
 \end
 
+\define text() Should test tm-close-all-tiddlers message
+
 !! test edit tiddler event
 
 ! Info
 
-* Runs some tests and then
-* Open itself 
+* Open the "log" tiddler
+* Close all tiddlers using tm-close-all-tiddlers
+* Send $:/StoryList to a temporary "Draft of 'asdf'" tiddler using tm-new-tiddler
+* Save the "asdf" tiddler
+* Open itself -> Creates the log -> Compare $:/StoryList with asdf
+* Run a "clean" action, which deletes tiddler "asdf", using tm-delete-tiddler
 
 <$trigger actions=<<test>>/>
 

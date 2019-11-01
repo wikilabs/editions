@@ -1,5 +1,5 @@
 created: 20190906114708315
-modified: 20191025153255710
+modified: 20191029090813704
 tags: test
 title: test-history-list
 type: text/vnd.tiddlywiki
@@ -14,13 +14,16 @@ type: text/vnd.tiddlywiki
 <$action-setfield $tiddler="$:/state/tab-172555336" $field=text $value="$:/core/ui/TiddlerInfo/Fields"/>
 \end
 
+\define text() Should show $:/HistoryList and the Info-Panel
+
 \import log-actions
 
 ! Info
 
 * This test should clear the $:/HistoryList
-* Open itself and the ~$:/HistoryList tiddler
-* The diff-text shows the differences between [[expected text|HistoryList-expected]] and the real text
+* Open ''itself'' and the ~$:/HistoryList tiddler
+** Open the info-panel and select the "Fields" tab
+* The diff-text shows the differences between [[HistoryList-expected]] and the real text
 
 <$trigger actions=<<test>>/>
 

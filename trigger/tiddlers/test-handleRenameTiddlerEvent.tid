@@ -1,5 +1,5 @@
 created: 20191025151528792
-modified: 20191025151736931
+modified: 20191029102341184
 tags: test
 title: test-handleRenameTiddlerEvent
 type: text/vnd.tiddlywiki
@@ -18,7 +18,8 @@ type: text/vnd.tiddlywiki
 
 ! Info
 
-* Open itself and a new tiddler window with [[new-test-tiddler]]
+* Open itself
+* Rename tiddler "new-test-tiddler" to "new-test" using tm-rename-tiddler
 
 <$trigger actions=<<test>>/>
 
@@ -33,7 +34,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "should rename tiddler new-test-tiddler -> new-test">>/>
 
 </$diff-text>
 </$wikify>

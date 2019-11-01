@@ -1,5 +1,5 @@
 created: 20190906120331109
-modified: 20190906152851135
+modified: 20191101115647524
 tags: test
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -8,16 +8,23 @@ type: text/vnd.tiddlywiki
 <$action-setfield $tiddler="$:/StoryList" $field=list $value={{!!title}}/>
 \end
 
+\define text() Get Started
+
 \import log-actions
 
 !! Info
 
 * An interactive test framework
+* This page, should give the user, the possibility to clear the log ;)
 
 <$trigger actions=<<test>>/>
 <$set name="diff-count" value=0>
 <$trigger actions=<<log>>/>
 
 <$button actions=<<clear-log>> >Clear Log</$button>
-
 </$set>
+
+* Only use the "Next" button. 
+** "Previous" may cause errors, because the whole state may be out of sync
+
+

@@ -1,5 +1,5 @@
 created: 20191025114947669
-modified: 20191025120300528
+modified: 20191029095415293
 tags: test
 title: test-handleCloseTiddlerEvent
 type: text/vnd.tiddlywiki
@@ -18,7 +18,9 @@ type: text/vnd.tiddlywiki
 
 ! Info
 
-* Open itself and a new tiddler window with [[new-test-tiddler]]
+* Open itself 
+* Open a tiddler: new-test-tiddler
+* Close the new-test-tiddler with the tm-closer-tiddler message
 
 <$trigger actions=<<test>>/>
 
@@ -34,7 +36,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "HistoryList should also show the new-text-tiddler in the JSON structure">>/>
 
 </$diff-text>
 </$wikify>
@@ -45,7 +47,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show the story list">>/>
 
 </$diff-text>
 </$wikify>

@@ -1,5 +1,5 @@
 created: 20191024140505851
-modified: 20191024144258765
+modified: 20191029085035774
 tags: test
 title: test-navigateFromClientRect
 type: text/vnd.tiddlywiki
@@ -34,7 +34,11 @@ NavigatorWidget.prototype.handleNavigateEvent = function(event) {
 ! Info
 
 * This test should clear the $:/HistoryList
-* Open itself and a new tiddler window with [[test-interactive-click]]
+* Open ''itself'' 
+* Create a new tiddler window with [[test-interactive-click]]
+* You should move the window into a position, where you can see it
+* Click the button there
+* Close the window
 
 <$trigger actions=<<test>>/>
 

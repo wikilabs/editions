@@ -1,5 +1,5 @@
 created: 20191025125504819
-modified: 20191025130328827
+modified: 20191029100351584
 tags: test
 title: test-handleCloseOtherTiddlersEvent
 type: text/vnd.tiddlywiki
@@ -18,7 +18,8 @@ type: text/vnd.tiddlywiki
 
 ! Info
 
-* Open itself and a new tiddler window with [[new-test-tiddler]]
+* Open tiddler [[new-test-tiddler]]
+* Open itself
 * Then closes other tiddlers except itself.
 
 <$trigger actions=<<test>>/>
@@ -35,7 +36,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Should show history list, including the new-test-tiddler">>/>
 
 </$diff-text>
 </$wikify>
@@ -46,7 +47,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Should show story-list WITHOUT new-test-tiddler">>/>
 
 </$diff-text>
 </$wikify>

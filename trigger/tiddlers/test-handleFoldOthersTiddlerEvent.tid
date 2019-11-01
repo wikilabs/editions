@@ -1,5 +1,5 @@
 created: 20191025143233912
-modified: 20191025144948789
+modified: 20191029101743203
 tags: test
 title: test-handleFoldOthersTiddlerEvent
 type: text/vnd.tiddlywiki
@@ -26,7 +26,10 @@ type: text/vnd.tiddlywiki
 ! Info
 
 * Opens tiddler a and b
+* Activate `tm-unfold-all-tiddlers` with prefix: `$:/state/folded/`
 * Open itself 
+* Activate `tm-fold-other-tiddlers` with param: b
+
 
 <$trigger actions=<<test>>/>
 
@@ -41,7 +44,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log "Show $:/state/folded/b. b should be UNFOLDED">>/>
 
 </$diff-text>
 </$wikify>
@@ -51,7 +54,7 @@ type: text/vnd.tiddlywiki
 
 {{$:/language/Diffs/CountMessage}}
 
-<$trigger actions=<<log>>/>
+<$trigger actions=<<log  "Show $:/state/folded/a">>/>
 
 </$diff-text>
 </$wikify>

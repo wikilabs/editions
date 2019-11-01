@@ -1,12 +1,16 @@
 created: 20191024142204055
-modified: 20191024144543779
+modified: 20191029091123004
 tags: test
 title: test-navigateFromClientRect-result
 type: text/vnd.tiddlywiki
 
+\import log-actions
+
+\define text() Should show the exact parameters from a button click event
+
 ! Differences Indicate a Problem
 
-* The diff-text shows the differences between [[expected text|interactive-click-expected]] and the real text
+* The diff-text shows the differences between [[interactive-click-expected]] and the real text
 
 !! Text differences
 
