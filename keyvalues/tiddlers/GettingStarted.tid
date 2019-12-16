@@ -1,0 +1,21 @@
+title: GettingStarted
+
+! Overview
+
+TODO
+
+! Important
+
+
+! Example
+
+
+! Settings
+
+The following setting can be also found in the [[Control Panel: Settings|$:/ControlPanel]].
+
+{{$:/core/ui/ControlPanel/Settings/keyvalues}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
