@@ -1,0 +1,10 @@
+created: 20191215141248237
+modified: 20191215141608832
+tags: 
+title: test regexp
+type: text/vnd.tiddlywiki
+
+<$list filter="[[a a]]" variable=item>
+<$list filter="[<item>regexp[ ]]  ~[<item>]" variable=itemX>
+<<itemX>>
+</$list></$list>

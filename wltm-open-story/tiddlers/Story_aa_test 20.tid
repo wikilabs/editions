@@ -1,9 +1,0 @@
-created: 20191023103927709
-description: test filter - test story
-filter: a b c [tag[x]]
-modified: 20191023114214565
-tags: $:/tags/Story $:/tags/Filter
-title: Story/aa/test 20
-type: text/vnd.tiddlywiki
-
-a b c [tag[x]]

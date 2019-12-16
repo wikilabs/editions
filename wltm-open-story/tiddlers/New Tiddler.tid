@@ -1,0 +1,9 @@
+created: 20191215143812289
+modified: 20191215150743339
+tags: 
+title: New Tiddler
+type: text/vnd.tiddlywiki
+
+<$button message="tm-open-story" param="Story/NewX" >open story</$button>
+
+<$button message="tm-open-story" >Home</$button>

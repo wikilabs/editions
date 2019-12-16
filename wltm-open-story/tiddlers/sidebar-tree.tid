@@ -1,0 +1,21 @@
+created: 20191215151119426
+modified: 20191215154148536
+tags: 
+title: sidebar-tree
+type: text/vnd.tiddlywiki
+
+\define link-icon()
+<$link to="""$(full-title)$""" overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link>
+\end
+
+\define get-tooltip()
+ACTIVATE: {{$(full-title)$!!description}}
+\end
+
+\define leaf-link(full-title,chunk,separator: "/")
+<$linkcatcher message="tm-open-story">
+<$link to=<<__full-title__>> tooltip=<<get-tooltip>> ><$text text=<<__chunk__>>/></$link>
+</$linkcatcher>
+\end
+
+<<tree prefix:"Story/" separator:"/">>

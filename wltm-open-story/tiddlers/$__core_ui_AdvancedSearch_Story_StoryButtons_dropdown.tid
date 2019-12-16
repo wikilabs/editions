@@ -1,23 +1,27 @@
 created: 20191023104603480
-modified: 20191023120449165
+modified: 20191216142607601
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
 type: text/vnd.tiddlywiki
 
-<span class="tc-popup-keep">
-<$button popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
-{{$:/core/images/down-arrow}}
+\define test()
+<$action-setfield $tiddler=<<qualify "$:/state/storyDropdown">> text="open" />
+\end
+\define showStory()
+<$action-setfield $tiddler="$:/temp/story/title" text=<<navigateTo>> />
+<$action-setfield $tiddler="$:/temp/story" text={{{ [<navigateTo>get[text]] }}} />
+\end
+<$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="OK" default="OK">
+<$button actions=<<test>> popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
+{{$:/core/images/down-arrow}} ''{{$:/temp/story/title}}''
 </$button>
-</span>
+</$reveal>
 
-<$reveal state=<<qualify "$:/state/storyDropdown">> type="popup" position="belowleft" animate="yes" class="tc-popup-keep">
+<$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="open" animate="yes" class="tc-popup tc-popup-keep">
 <$set name="tv-show-missing-links" value="yes">
-<$linkcatcher to="$:/temp/story">
-<div class="tc-block-dropdown-wrapper">
-<div class="tc-block-dropdown tc-edit-type-dropdown">
+<$linkcatcher actions=<<showStory>>>
 {{test-tree}}
-</div>
-</div>
+''{{$:/temp/story/title}}''
 </$linkcatcher>
 </$set>
 </$reveal>

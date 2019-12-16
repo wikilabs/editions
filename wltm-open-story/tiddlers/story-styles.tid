@@ -1,0 +1,9 @@
+created: 20191216130250348
+modified: 20191216131006058
+tags: $:/tags/Stylesheet
+title: story-styles
+type: text/vnd.tiddlywiki
+
+.tc-story-text pre {
+  max-height: 10em;
+}
