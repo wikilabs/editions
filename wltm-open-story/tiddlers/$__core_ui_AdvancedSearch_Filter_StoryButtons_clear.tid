@@ -1,0 +1,13 @@
+created: 20191216161207908
+modified: 20191216161536826
+tags: $:/tags/AdvancedSearch/StoryButton
+title: $:/core/ui/AdvancedSearch/Filter/StoryButtons/clear
+type: text/vnd.tiddlywiki
+
+<$reveal state="$:/temp/story" type="nomatch" text="">
+<$button class="tc-btn-invisible">
+<$action-setfield $tiddler="$:/temp/story" $field="text" $value=""/>
+<$action-setfield $tiddler="$:/temp/story/title" $field="text" $value=""/>
+{{$:/core/images/close-button}}
+</$button>
+</$reveal>

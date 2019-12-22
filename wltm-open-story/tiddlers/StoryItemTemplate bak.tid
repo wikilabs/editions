@@ -1,0 +1,13 @@
+created: 20191219114539994
+modified: 20191219114549888
+tags: 
+title: StoryItemTemplate bak
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\rules only html
+
+<div class="tc-menu-list-item">
+<$list filter="[<currentTiddler>regexp[ ]]" emptyMessage="""<$view field=title format=text/>""">
+  [[<$view field=title format=text/>]]
+</$list></div>

@@ -1,8 +1,10 @@
 caption: {{$:/language/SideBar/Open/Caption}}
 created: 20191214133637963
-modified: 20191218092157939
+draft.of: $:/core/ui/SideBar/Open
+draft.title: $:/core/ui/SideBar/Open
+modified: 20191220154551885
 tags: $:/tags/SideBar
-title: $:/core/ui/SideBar/Open
+title: Draft of '$:/core/ui/SideBar/Open'
 type: text/vnd.tiddlywiki
 
 \whitespace trim

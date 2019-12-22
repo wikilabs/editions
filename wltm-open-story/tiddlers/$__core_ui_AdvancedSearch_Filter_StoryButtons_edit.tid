@@ -1,0 +1,9 @@
+created: 20191220153714549
+modified: 20191220153901569
+tags: $:/tags/AdvancedSearch/StoryButton
+title: $:/core/ui/AdvancedSearch/Filter/StoryButtons/edit
+type: text/vnd.tiddlywiki
+
+<$reveal state="$:/temp/story" type="nomatch" text="">
+{{$:/core/images/edit-button}}
+</$reveal>

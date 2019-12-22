@@ -1,0 +1,16 @@
+created: 20191220153714549
+draft.of: $:/core/ui/AdvancedSearch/Filter/StoryButtons/edit
+draft.title: $:/core/ui/AdvancedSearch/Filter/StoryButtons/edit
+modified: 20191220154913119
+tags: $:/tags/AdvancedSearch/StoryButton
+title: Draft of '$:/core/ui/AdvancedSearch/Filter/StoryButtons/edit'
+type: text/vnd.tiddlywiki
+
+\define save-story()
+<$wikify name=content text=<<get-text>> >
+<$action-sendmessage $message="tm-new-tiddler" title=<<story-title>> tags="$:/tags/Story" list={{$:/temp/story/title!!filter}}" />
+</$wikify>
+\end
+<$reveal state="$:/temp/story" type="nomatch" text="">
+<$button actions=<<save-story>> class="tc-btn-invisible tc-btn-mini">{{$:/core/images/edit-button}}</$button>
+</$reveal>

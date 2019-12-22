@@ -1,8 +1,10 @@
 caption: {{$:/language/Search/Story/Caption}} Story
 created: 20191022131630956
-modified: 20191220100804998
+draft.of: $:/core/ui/AdvancedSearch/Story
+draft.title: $:/core/ui/AdvancedSearch/Story
+modified: 20191220154229106
 tags: $:/tags/AdvancedSearch
-title: $:/core/ui/AdvancedSearch/Story
+title: Draft of '$:/core/ui/AdvancedSearch/Story'
 type: text/vnd.tiddlywiki
 
 \whitespace trim

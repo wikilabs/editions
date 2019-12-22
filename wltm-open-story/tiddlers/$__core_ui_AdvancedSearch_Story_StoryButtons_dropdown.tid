@@ -1,19 +1,26 @@
 created: 20191023104603480
-modified: 20191216142607601
+modified: 20191220151957530
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
 type: text/vnd.tiddlywiki
 
-\define test()
+\define activateDropdown()
 <$action-setfield $tiddler=<<qualify "$:/state/storyDropdown">> text="open" />
+<$action-setfield $tiddler="$:/temp/story" type="text/plain" />
 \end
+
 \define showStory()
 <$action-setfield $tiddler="$:/temp/story/title" text=<<navigateTo>> />
 <$action-setfield $tiddler="$:/temp/story" text={{{ [<navigateTo>get[text]] }}} />
 \end
+
+\define highlightTitle()
+''<$view tiddler="$:/temp/story/title" field=text format=text/>'' <$link to=<<story-title>> >{{$:/core/images/file}}</$link>
+\end
+
 <$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="OK" default="OK">
-<$button actions=<<test>> popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
-{{$:/core/images/down-arrow}} ''{{$:/temp/story/title}}''
+<$button actions=<<activateDropdown>> popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
+<<highlightTitle>> {{$:/core/images/down-arrow}}
 </$button>
 </$reveal>
 
@@ -21,7 +28,7 @@ type: text/vnd.tiddlywiki
 <$set name="tv-show-missing-links" value="yes">
 <$linkcatcher actions=<<showStory>>>
 {{test-tree}}
-''{{$:/temp/story/title}}''
+<<highlightTitle>>
 </$linkcatcher>
 </$set>
 </$reveal>

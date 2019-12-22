@@ -1,0 +1,9 @@
+created: 20191216161838739
+modified: 20191216163609431
+tags: $:/tags/AdvancedSearch/StoryButton
+title: $:/core/ui/AdvancedSearch/Filter/StoryButtons/export
+type: text/vnd.tiddlywiki
+
+<$reveal state="$:/temp/story" type="nomatch" text="">
+<$macrocall $name="exportButton" exportFilter="[{$:/temp/story/title}] [subfilter{$:/temp/story}]" baseFilename={{$:/temp/story/title}} lingoBase="$:/language/Buttons/ExportTiddlers/"/>
+</$reveal>

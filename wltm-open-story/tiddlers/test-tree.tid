@@ -1,11 +1,11 @@
 created: 20191023103943279
-modified: 20191216152558727
+modified: 20191218092418262
 title: test-tree
 type: text/vnd.tiddlywiki
 
 \define test()
-<$set name=hugo value="$:/AdvancedSearch">
-<$action-listops $tiddler=<<tv-story-list>> $filter="[list<tv-story-list>insertbefore:hugo<navigateTo>]"/>
+<$set name=target value="$:/AdvancedSearch">
+<$action-listops $tiddler=<<tv-story-list>> $filter="[list<tv-story-list>insertbefore:target<navigateTo>]"/>
 </$set>
 \end
 

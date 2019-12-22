@@ -1,0 +1,11 @@
+created: 20191220134613473
+modified: 20191220141447445
+tags: 
+title: New Tiddler 2
+type: text/vnd.tiddlywiki
+
+\define test(suffix:"", param:"" type:"")
+<$action-listops $tiddler=Story/NewX $field=list $subfilter="+[insertbefore:$suffix$[$param$]]" $type=$type$/>
+\end
+
+<$button actions=<<test suffix:"b" param:"a a">>>click</$button>

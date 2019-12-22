@@ -1,0 +1,15 @@
+created: 20191215143812289
+modified: 20191218131200580
+tags: 
+title: test-2-story-buttons
+type: text/vnd.tiddlywiki
+
+```
+<$button message="tm-open-story" param="Story/NewX!!filter" >open story</$button>
+
+<$button message="tm-open-story" >Home</$button>
+```
+
+<$button message="tm-open-story" param="Story/NewX!!filter" >open story</$button>
+
+<$button message="tm-open-story" >Home</$button>
