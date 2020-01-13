@@ -1,8 +1,0 @@
-created: 20191220094342300
-list: 
-modified: 20191220100246881
-tags: 
-title: New Tiddler 3
-type: text/vnd.tiddlywiki
-
-<$fields tiddler="Story/NewX" template="story/tab/$name$ " include="text list filter"  sort="no"/>
