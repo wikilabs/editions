@@ -1,4 +1,3 @@
-4321-0-0-pg
-4-321-0-pg
-321-0-0-p4
-[subfilter{Story/Tower of Hanoi/A-C Sequence}]
+Some useful description
+
+{{{ [enlist:text{!!filter}] }}}

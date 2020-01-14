@@ -1,8 +1,0 @@
-created: 20191216170646681
-description: asdf
-modified: 20191216170821345
-tags: $:/tags/Story
-title: Story/Tower of Hanoi/order/C-A
-type: text/vnd.tiddlywiki
-
-[subfilter{Story/Tower of Hanoi/A-C Sequence}order[reverse]]

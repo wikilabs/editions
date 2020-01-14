@@ -1,0 +1,39 @@
+created: 20200103155923873
+modified: 20200113121457870
+tags: $:/tags/Stylesheet
+title: test-styles
+type: text/vnd.tiddlywiki
+
+a.tc-tiddlylink-missingXXX {
+  color: red;
+}
+
+.tc-story-results {
+  width: 49%;
+  border: 1px solid #cccccc;
+  padding: 3px 3px 3px 3px;
+}
+
+.tc-story-editor {
+  width: 100%;
+}
+
+.tc-fr {
+  float: right;
+}
+
+.tc-fl {
+  float: left;
+}
+
+
+.clearfix { display:block;} 
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+}

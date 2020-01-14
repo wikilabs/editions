@@ -1,5 +1,5 @@
 created: 20191215151119426
-modified: 20191215154148536
+modified: 20191230120853127
 tags: 
 title: sidebar-tree
 type: text/vnd.tiddlywiki
@@ -13,7 +13,7 @@ ACTIVATE: {{$(full-title)$!!description}}
 \end
 
 \define leaf-link(full-title,chunk,separator: "/")
-<$linkcatcher message="tm-open-story">
+<$linkcatcher message="tm-open-story" asdf=test>
 <$link to=<<__full-title__>> tooltip=<<get-tooltip>> ><$text text=<<__chunk__>>/></$link>
 </$linkcatcher>
 \end

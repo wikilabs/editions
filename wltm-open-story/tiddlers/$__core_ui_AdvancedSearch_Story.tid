@@ -1,14 +1,16 @@
 caption: {{$:/language/Search/Story/Caption}} Story
 created: 20191022131630956
-modified: 20191220100804998
+modified: 20200114081332932
 tags: $:/tags/AdvancedSearch
 title: $:/core/ui/AdvancedSearch/Story
 type: text/vnd.tiddlywiki
 
 \whitespace trim
 
-\define applyStory()
-<$action-sendmessage $message="tm-open-story" $param="$:/temp/story"/>
+\define bak()
+<pre><code>
+<$list filter=<<get-filter>> template="StoryItemTemplate"/>
+</code></pre>
 \end
 
 \define get-filter()
@@ -20,23 +22,26 @@ type: text/vnd.tiddlywiki
 \end
 
 \define get-tabs-list()
-<$fields tiddler=<<story-title>> template="story/tab/$name$ " include="list filter"  sort="no"/>
+<$fields tiddler=<<story-title>> template="$name$ " include={{$:/core/ui/AdvancedSearch/Story/FieldList}}  sort="no"/>
 \end
+
+\define get-tab-state()
+$:/state/tab/$(story-title)$
+\end
+
+\define tv-test() 1
 
 \define lingo-base() $:/language/Search/
 <<lingo Story/Hint>> TODO: Lingo Story/Hint -> Select a Story
 
-<$set name="story-title" value={{$:/temp/story/title}}>
+<$set name="story-title" value={{$:/temp/story!!s-title}}>
 <div class="tc-search tc-story-text">
 <$list filter="[all[shadows+tiddlers]tag[$:/tags/AdvancedSearch/StoryButton]!has[draft.of]]"><$transclude/></$list>
-<pre><code>
-<$list filter=<<get-filter>> template="StoryItemTemplate"/>
-</code></pre>
 </div>
 
-<$reveal state="$:/temp/story/title" type="nomatch" text="">
+<$reveal stateTitle="$:/temp/story" stateField="s-title" type="nomatch" text="">
   <$wikify name="tabs-list" text=<<get-tabs-list>> >
-    <$macrocall $name=tabs tabsList=<<tabs-list>> default="story/tab/list" state="$:/state/story/tab">
+    <$macrocall $name=tabs tabsList=<<tabs-list>> template="story/tabs/template" default="list" state=<<get-tab-state>> uniqueState="yes">
   </$wikify>
 </$reveal>
 </$set>

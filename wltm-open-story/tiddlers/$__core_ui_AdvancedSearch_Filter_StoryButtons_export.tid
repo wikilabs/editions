@@ -1,9 +1,12 @@
 created: 20191216161838739
-modified: 20191216163609431
+modified: 20200114120454205
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Filter/StoryButtons/export
 type: text/vnd.tiddlywiki
 
+\define makeExportFilter()
+[subfilter{$(story-title)$!!filter}] [subfilter{$(story-title)$!!list}] [[$(story-title)$]]
+\end
 <$reveal state="$:/temp/story" type="nomatch" text="">
-<$macrocall $name="exportButton" exportFilter="[{$:/temp/story/title}] [subfilter{$:/temp/story}]" baseFilename={{$:/temp/story/title}} lingoBase="$:/language/Buttons/ExportTiddlers/"/>
+<$macrocall $name="exportButton" exportFilter=<<makeExportFilter>> baseFilename=<<story-title>> lingoBase="$:/language/Buttons/ExportTiddlers/"/>
 </$reveal>

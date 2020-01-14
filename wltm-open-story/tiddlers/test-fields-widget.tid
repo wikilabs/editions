@@ -1,0 +1,8 @@
+created: 20191220094342300
+list: 
+modified: 20200113145737128
+tags: 
+title: test-fields-widget
+type: text/vnd.tiddlywiki
+
+<$fields tiddler="Story/NewX" template="story/tab/$name$ " include="text list filter"  sort="no"/>

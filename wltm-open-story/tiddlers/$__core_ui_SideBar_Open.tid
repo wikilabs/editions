@@ -1,6 +1,6 @@
 caption: {{$:/language/SideBar/Open/Caption}}
 created: 20191214133637963
-modified: 20191218092157939
+modified: 20200114120813287
 tags: $:/tags/SideBar
 title: $:/core/ui/SideBar/Open
 type: text/vnd.tiddlywiki
@@ -20,12 +20,12 @@ type: text/vnd.tiddlywiki
 \end
 
 \define create-tiddler()
-<$action-createtiddler $basetitle="Story/New " tags="$:/tags/Story" text=<<content>> description="test story" type="text/plain"/>
+<$action-createtiddler $basetitle="Story/New " tags="$:/tags/Story" text=<<content>> description="test story"/>
 \end
 
 \define save-story()
 <$wikify name=content text=<<get-text>> >
-<$action-sendmessage $message="tm-new-tiddler" title=<<now "Story/YYYY.0MM.0DD 0hh:0mm:0ss">> tags="$:/tags/Story" list={{$:/StoryList!!list}} description="Das ist ein Test Story" type="text/plain"/>
+<$action-sendmessage $message="tm-new-tiddler" title=<<now "Story/YYYY.0MM.0DD 0hh:0mm:0ss">> tags="$:/tags/Story" list={{$:/StoryList!!list}} description="Das ist ein Test Story" />
 </$wikify>
 \end
 

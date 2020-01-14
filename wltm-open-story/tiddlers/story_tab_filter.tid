@@ -1,6 +1,6 @@
 caption: Filter
-created: 20191219115535436
-modified: 20191220145915436
+created: 20200103150626297
+modified: 20200103150633291
 tags: 
 title: story/tab/filter
 type: text/vnd.tiddlywiki
@@ -8,7 +8,7 @@ type: text/vnd.tiddlywiki
 <$set name="resultCount" value="""<$count filter="[subfilter{$:/temp/story}]"/>""">
 <div class="tc-search-results">
 <<lingo Filter/Matches>> TODO lingo Story/Matches
-<$macrocall $name="list-links-draggable" field="filter" tiddler={{$:/temp/story/title}} type="span" subtype="span" itemTemplate="StoryItemTemplateWithHandle" suffix=""/>
+<$macrocall $name="list-links-draggable" field="filter" tiddler={{$:/temp/story/title}} type="span" subtype="span" itemTemplate="StoryItemTemplateWithHandle" suffix="text"/>
 </div>
 </$set>
 <br>

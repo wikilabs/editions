@@ -1,0 +1,34 @@
+button-classes: tc-text-editor-toolbar-item-start-group
+caption: {{$:/language/Buttons/Edit/Caption}}
+condition: [<targetTiddler>]
+created: 20200113115547087
+custom-icon: yes
+description: {{$:/language/Buttons/Edit/Hint}}
+icon: $:/core/images/edit-button
+modified: 20200114083055252
+shortcuts: ((preview))
+tags: 
+title: story/tabs/button/edit
+type: text/vnd.tiddlywiki
+
+\define closeActions()
+<$action-setfield $tiddler=<<getStateEdit>> $value="no"/>
+\end
+\define editActions()
+<$action-setfield $tiddler=<<getStatePreview>> $value="no"/>
+<$action-setfield $tiddler=<<getStateEdit>> $value="yes"/>
+<$set name=x value={{{[<story-title>get<currentTab>]}}}>
+<$set name=lineFeed value="
+">
+<$action-setfield $tiddler="$:/temp/story" text={{{[enlist:text<x>]+[join<lineFeed>]}}}/>
+</$set></$set>
+\end
+\define get-x()
+$(fieldName)$ - $(currentTab)$ - $(story-title)$
+\end
+<$reveal state=<<getStateEdit>> type="nomatch" text="no" tag="span" default="no">
+<$button actions=<<closeActions>> >{{$:/core/images/close-button}}</$button>
+</$reveal>
+<$reveal state=<<getStateEdit>> type="nomatch" text="yes" tag="span" default="no">
+<$button actions=<<editActions>> tooltip=<<x>> >{{$:/core/images/edit-button}}</$button>
+</$reveal>

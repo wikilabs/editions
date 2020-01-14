@@ -1,5 +1,5 @@
 created: 20191220145841901
-modified: 20191220145854827
+modified: 20200103194948587
 tags: 
 title: StoryItemTemplateWithHandle
 type: text/vnd.tiddlywiki
@@ -7,8 +7,8 @@ type: text/vnd.tiddlywiki
 \whitespace trim
 \rules only html entity
 
-<div class="tc-menu-list-item">
-<$link to={{!!title}}>
-===
-</$link>&nbsp;<$view field=title format=text/>
+<div>
+<$link to={{!!title}} overrideClass="tc-edit-texteditor tc-tiddlylink">
+<$view field=title format=text/>
+</$link>
 </div>
