@@ -1,5 +1,5 @@
 created: 20191215151119426
-modified: 20191230120853127
+modified: 20200115130840302
 tags: 
 title: sidebar-tree
 type: text/vnd.tiddlywiki
@@ -8,12 +8,10 @@ type: text/vnd.tiddlywiki
 <$link to="""$(full-title)$""" overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link>
 \end
 
-\define get-tooltip()
-ACTIVATE: {{$(full-title)$!!description}}
-\end
+\define get-tooltip() ACTIVATE: {{$(full-title)$!!description}}
 
 \define leaf-link(full-title,chunk,separator: "/")
-<$linkcatcher message="tm-open-story" asdf=test>
+<$linkcatcher message="tm-open-story" field={{{[<full-title>get[default]]}}}>
 <$link to=<<__full-title__>> tooltip=<<get-tooltip>> ><$text text=<<__chunk__>>/></$link>
 </$linkcatcher>
 \end

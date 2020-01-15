@@ -1,3 +1,0 @@
-Some useful description
-
-{{{ [enlist:text{!!filter}] }}}

@@ -1,5 +1,5 @@
 created: 20200103155923873
-modified: 20200113121457870
+modified: 20200115145018817
 tags: $:/tags/Stylesheet
 title: test-styles
 type: text/vnd.tiddlywiki
@@ -12,6 +12,16 @@ a.tc-tiddlylink-missingXXX {
   width: 49%;
   border: 1px solid #cccccc;
   padding: 3px 3px 3px 3px;
+}
+
+.tc-btn-mini{
+  vertical-align: middle;
+}
+
+.tc-btn-mini .tc-image-button{
+  width: 1em;
+  height: 1em;
+  margin-right: 3px;
 }
 
 .tc-story-editor {

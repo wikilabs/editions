@@ -1,15 +1,19 @@
 created: 20191023104603480
-modified: 20200113185523361
+modified: 20200115150608828
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
 type: text/vnd.tiddlywiki
+
+\define link-icon()
+<span class="tc-btn-mini"><$link to=<<currentTiddler>> overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link></span>
+\end
 
 \define activateDropdown()
 <$action-setfield $tiddler=<<qualify "$:/state/storyDropdown">> text="open" />
 \end
 
 \define showStory()
-<$action-createtiddler $basetitle="$:/temp/story" $overwrite="yes" $template=<<navigateTo>> s-title=<<navigateTo>> text={{{ [<navigateTo>get[text]] }}} type="text/plain"/>
+<$action-createtiddler $basetitle="$:/temp/story" $overwrite="yes" $template=<<navigateTo>> s-title=<<navigateTo>> text={{{ [<navigateTo>get[text]] }}} type="text/plain" tags=""/>
 \end
 
 \define highlightTitle()
@@ -23,6 +27,18 @@ type: text/vnd.tiddlywiki
 </$reveal>
 
 <$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="open" class="tc-popup tc-popup-keep">
+
+<div class="tc-sidebar-tab-stories">
+<$list filter="[tag[$:/tags/Story]!prefix[Story/]]">
+<div class="xx">
+<<link-icon>>
+<$linkcatcher actions=<<showStory>>>
+<$link to=<<currentTiddler>> tooltip=<<get-tooltip>> ><$text text=<<currentTiddler>>/></$link>
+</$linkcatcher>
+</div>
+</$list>
+</div>
+
 <$set name="tv-show-missing-links" value="yes">
 <$linkcatcher actions=<<showStory>>>
 {{test-tree}}

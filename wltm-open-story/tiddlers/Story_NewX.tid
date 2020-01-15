@@ -1,16 +1,10 @@
 created: 20191218131212078
-default: filter
+default: test
 description: test - filter
 filter: [[New Tiddler 2]] [subfilter{test aa!!asdf}] [[a a]] a c b x +[putafter:2[f]]
 list: asdf [[a a]] [[b b]] aaa x
-modified: 20200114125334737
+modified: 20200115141637442
 tags: $:/tags/Story
 test: bbb aaa [subfilter{test aa!!asdf}] [[tiddler with spaces]] ccc
 title: Story/NewX
 type: text/vnd.tiddlywiki
-
-{{!!list}}
-
--------------
-
-{{!!filter}}

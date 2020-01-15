@@ -5,18 +5,18 @@ created: 20200113115547087
 custom-icon: yes
 description: {{$:/language/Buttons/Edit/Hint}}
 icon: $:/core/images/edit-button
-modified: 20200114083055252
+modified: 20200115134048518
 shortcuts: ((preview))
 tags: 
 title: story/tabs/button/edit
 type: text/vnd.tiddlywiki
 
 \define closeActions()
-<$action-setfield $tiddler=<<getStateEdit>> $value="no"/>
+<$action-setfield $tiddler="$:/temp/story" $field="edit" $value="no"/>
 \end
 \define editActions()
 <$action-setfield $tiddler=<<getStatePreview>> $value="no"/>
-<$action-setfield $tiddler=<<getStateEdit>> $value="yes"/>
+<$action-setfield $tiddler="$:/temp/story" $field="edit" $value=<<currentTab>>/>
 <$set name=x value={{{[<story-title>get<currentTab>]}}}>
 <$set name=lineFeed value="
 ">
@@ -26,9 +26,9 @@ type: text/vnd.tiddlywiki
 \define get-x()
 $(fieldName)$ - $(currentTab)$ - $(story-title)$
 \end
-<$reveal state=<<getStateEdit>> type="nomatch" text="no" tag="span" default="no">
+<$reveal stateTitle="$:/temp/story" stateField="edit" type="match" text=<<currentTab>> tag="span" default="no">
 <$button actions=<<closeActions>> >{{$:/core/images/close-button}}</$button>
 </$reveal>
-<$reveal state=<<getStateEdit>> type="nomatch" text="yes" tag="span" default="no">
+<$reveal stateTitle="$:/temp/story" stateField="edit" type="nomatch" text=<<currentTab>> tag="span" default="no">
 <$button actions=<<editActions>> tooltip=<<x>> >{{$:/core/images/edit-button}}</$button>
 </$reveal>

@@ -1,10 +1,27 @@
 caption: Stories
 created: 20191215150315673
-modified: 20191215152702522
+modified: 20200115145633780
 tags: $:/tags/SideBar
 title: Sidebar/Stories
 type: text/vnd.tiddlywiki
 
+\whitespace trim
+
+\define link-icon()
+<span class="tc-btn-mini"><$link to=<<currentTiddler>> overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link></span>
+\end
+
+<div class="tc-sidebar-tab-stories">
+<$list filter="[tag[$:/tags/Story]!prefix[Story/]]">
+<div class="xx">
+<<link-icon>>
+<$linkcatcher message="tm-open-story" field={{{[<currentTiddler>get[default]]}}}>
+<$link to=<<currentTiddler>> tooltip=<<get-tooltip>> ><$text text=<<currentTiddler>>/></$link>
+</$linkcatcher>
+</div>
+</$list>
+<hr>
 <$set name="tv-show-missing-links" value="yes">
 {{sidebar-tree}}
 </$set>
+</div>

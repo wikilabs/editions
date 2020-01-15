@@ -1,0 +1,8 @@
+created: 20200115140142731
+description: New Story
+filter: [enlist{Story/2020.01.15 15:01:42!!filter}]
+list: $:/core/ui/SideBar/Open
+modified: 20200115141623706
+tags: $:/tags/Story
+title: Story/2020.01.15 15:01:42
+type: text/vnd.tiddlywiki

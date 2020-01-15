@@ -1,5 +1,5 @@
 created: 20191219115535436
-modified: 20200114125617826
+modified: 20200115134230280
 tags: 
 title: story/tabs/template
 type: text/vnd.tiddlywiki
@@ -14,7 +14,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define save-to-field()
-<$action-setfield $tiddler=<<getStateEdit>> $field=text $value="no"/>
+<$action-setfield $tiddler="$:/temp/story" $field="edit" $value="no"/>
 <$action-setfield $tiddler={{$:/temp/story!!s-title}} $field=<<currentTab>> $value={{$:/temp/story}}/>
 \end
 
@@ -28,32 +28,32 @@ type: text/vnd.tiddlywiki
 $:/temp/$(story-title)$/$(currentTab)$/preview
 \end
 
-\define getStateEdit()
+\define getStateEdit() 
+<!-- use: $:/temp/story field=edit atm -->
 $:/temp/$(story-title)$/$(currentTab)$/edit
 \end
 
 \define showPreview()
-<$tiddler tiddler=<<story-title>>>
 <$reveal state=<<getStatePreview>> type="match" text="yes" tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
-<$set name="myList" filter={{{[{!!title}get<currentTab>]}}}>
 <$set name="resultCount" value={{{[enlist:text<myList>count[]]}}}>
 <span class="tc-float-right"><<lingo Filter/Matches>></span>
 <$macrocall $name="list-links" filter={{{[{!!title}get<currentTab>]}}} type="div" subtype="div"/>
-</$set></$set>
+</$set>
 <$reveal state=<<get-tab-state>> type="nomatch" text="list" default="list">
 <$button actions=<<copy-to-list>> >Copy this list to the list-field</$button>
 </$reveal></$reveal>
-</$tiddler>
 \end
 
 \define showEditor()
-<$reveal state=<<getStateEdit>> type="match" text="yes" tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
+<$reveal stateTitle="$:/temp/story" stateField="edit" type="match" text=<<currentTab>> tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
 <$edit-text tiddler="$:/temp/story" field="text" class="tc-story-editor "/>
 <$button actions=<<save-to-field>> >Done!</$button>
 </$reveal>
 \end
 
+<$tiddler tiddler=<<story-title>>>
 <$set name=fieldName value=<<get-fieldName>> >
+<$set name="myList" filter={{{[{!!title}get<currentTab>]}}}>
 {{story/tabs/button/preview}}{{story/tabs/button/edit}}
 <div class="clearfix">
 <div class="tc-fl">
@@ -65,4 +65,5 @@ $:/temp/$(story-title)$/$(currentTab)$/edit
 <$button actions=<<applyStory>> >
 Apply Field: <<currentTab>>
 </$button>
-</$set>
+</$set></$set>
+</$tiddler>
