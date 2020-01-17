@@ -1,7 +1,7 @@
 created: 20191219115535436
-modified: 20200115134230280
+modified: 20200117140350762
 tags: 
-title: story/tabs/template
+title: $:/core/ui/AdvancedSearch/Story/Tabs/template
 type: text/vnd.tiddlywiki
 
 \define applyStory()
@@ -54,10 +54,10 @@ $:/temp/$(story-title)$/$(currentTab)$/edit
 <$tiddler tiddler=<<story-title>>>
 <$set name=fieldName value=<<get-fieldName>> >
 <$set name="myList" filter={{{[{!!title}get<currentTab>]}}}>
-{{story/tabs/button/preview}}{{story/tabs/button/edit}}
+{{$:/core/ui/AdvancedSearch/Story/Tabs/Button/preview}}{{$:/core/ui/AdvancedSearch/Story/Tabs/Button/edit}}
 <div class="clearfix">
 <div class="tc-fl">
-<$macrocall $name="list-links-draggable" field=<<currentTab>> tiddler={{$:/temp/story!!s-title}} type="span" subtype="span" itemTemplate="StoryItemTemplateWithHandle" suffix="text"/>
+<$macrocall $name="list-links-draggable" field=<<currentTab>> tiddler={{$:/temp/story!!s-title}} type="span" subtype="span" itemTemplate="$:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle" suffix="text"/>
 </div>
 <<showPreview>><<showEditor>>
 </div>

@@ -1,11 +1,20 @@
 created: 20200103155923873
-modified: 20200115145018817
+modified: 20200117133728250
 tags: $:/tags/Stylesheet
-title: test-styles
+title: $:/core/ui/AdvancedSearch/Story/Stylesheet
 type: text/vnd.tiddlywiki
 
-a.tc-tiddlylink-missingXXX {
-  color: red;
+.tc-block-dropdown .tc-tree a {
+  display: inline-block;
+  padding: 0 0 0 2px;
+}
+
+.tc-search .tc-tree {
+  border: 1px solid lightgray;
+}
+
+.tc-story-text pre {
+  max-height: 10em;
 }
 
 .tc-story-results {

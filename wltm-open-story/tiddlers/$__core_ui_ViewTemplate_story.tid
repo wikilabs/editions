@@ -1,0 +1,19 @@
+created: 20200115140642592
+modified: 20200117132803815
+tags: $:/tags/ViewTemplate
+title: $:/core/ui/ViewTemplate/story
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]tag[$:/tags/Story]]">
+
+----
+!!! Description
+
+{{!!description}}
+
+<table class="tc-view-field-table">
+<tbody>
+<$list filter="[enlist{$:/core/ui/AdvancedSearch/Story/FieldList}]" template="$:/core/ui/TiddlerFieldTemplate" variable="listItem"/>
+</tbody>
+</table>
+</$list>

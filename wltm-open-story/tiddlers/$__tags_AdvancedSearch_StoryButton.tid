@@ -1,5 +1,5 @@
 created: 20191216164644944
-list: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown $:/core/ui/AdvancedSearch/Filter/StoryButtons/clear $:/core/ui/AdvancedSearch/Filter/StoryButtons/export
+list: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown $:/core/ui/AdvancedSearch/Story/StoryButtons/clear $:/core/ui/AdvancedSearch/Story/StoryButtons/export
 modified: 20191216164646048
 title: $:/tags/AdvancedSearch/StoryButton
 type: text/vnd.tiddlywiki

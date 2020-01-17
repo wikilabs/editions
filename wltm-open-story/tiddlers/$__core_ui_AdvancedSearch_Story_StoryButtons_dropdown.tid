@@ -1,8 +1,10 @@
 created: 20191023104603480
-modified: 20200115150608828
+modified: 20200117140021930
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
 type: text/vnd.tiddlywiki
+
+\whitespace trim
 
 \define link-icon()
 <span class="tc-btn-mini"><$link to=<<currentTiddler>> overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link></span>
@@ -31,8 +33,7 @@ type: text/vnd.tiddlywiki
 <div class="tc-sidebar-tab-stories">
 <$list filter="[tag[$:/tags/Story]!prefix[Story/]]">
 <div class="xx">
-<<link-icon>>
-<$linkcatcher actions=<<showStory>>>
+<<link-icon>><$linkcatcher actions=<<showStory>>>
 <$link to=<<currentTiddler>> tooltip=<<get-tooltip>> ><$text text=<<currentTiddler>>/></$link>
 </$linkcatcher>
 </div>
@@ -41,7 +42,7 @@ type: text/vnd.tiddlywiki
 
 <$set name="tv-show-missing-links" value="yes">
 <$linkcatcher actions=<<showStory>>>
-{{test-tree}}
+{{$:/core/ui/AdvancedSearch/Story/StoryButtons/tree}}
 <<highlightTitle>>
 </$linkcatcher>
 </$set>

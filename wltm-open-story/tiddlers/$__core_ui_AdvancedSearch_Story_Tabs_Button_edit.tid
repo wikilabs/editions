@@ -5,10 +5,10 @@ created: 20200113115547087
 custom-icon: yes
 description: {{$:/language/Buttons/Edit/Hint}}
 icon: $:/core/images/edit-button
-modified: 20200115134048518
+modified: 20200117135017474
 shortcuts: ((preview))
 tags: 
-title: story/tabs/button/edit
+title: $:/core/ui/AdvancedSearch/Story/Tabs/Button/edit
 type: text/vnd.tiddlywiki
 
 \define closeActions()

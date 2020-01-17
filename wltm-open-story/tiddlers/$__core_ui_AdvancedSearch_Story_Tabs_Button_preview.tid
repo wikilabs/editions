@@ -5,9 +5,9 @@ created: 20200103162002393
 custom-icon: yes
 description: {{$:/language/Buttons/Preview/Hint}}
 icon: $:/core/images/preview-open
-modified: 20200114081754786
+modified: 20200117135038926
 shortcuts: ((preview))
-title: story/tabs/button/preview
+title: $:/core/ui/AdvancedSearch/Story/Tabs/Button/preview
 type: text/vnd.tiddlywiki
 
 <$reveal state=<<getStateEdit>> type="match" text="no" tag="span" default="no">
