@@ -1,9 +1,0 @@
-created: 20191218092121188
-default: filter
-description: Das ist ein Test Story
-filter: asdf test xxxx [[a a]]
-list: [[a a]] xxx $:/core/ui/SideBar/Open Story/gurke $:/AdvancedSearch $:/core/ui/AdvancedSearch/Story
-modified: 20200117140443705
-tags: $:/tags/Story
-title: 2019.12.18 10:21:21
-type: text/vnd.tiddlywiki
