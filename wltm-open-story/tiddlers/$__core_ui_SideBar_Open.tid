@@ -1,6 +1,6 @@
 caption: {{$:/language/SideBar/Open/Caption}}
 created: 20191214133637963
-modified: 20200115141509758
+modified: 20200117142719210
 tags: $:/tags/SideBar
 title: $:/core/ui/SideBar/Open
 type: text/vnd.tiddlywiki
@@ -27,7 +27,7 @@ Put some useful info here and DON'T forget the "description-field"!!
 <$action-createtiddler $basetitle="Story/New " tags="$:/tags/Story" text=<<get-text>>  description="test story"/>
 \end
 
-\define createFilter() [enlist{$(newTitle)$!!filter}]
+\define createFilter() [enlist{$(newTitle)$!!list}]
 
 \define save-story()
 <$wikify name=content text=<<get-text>> >
