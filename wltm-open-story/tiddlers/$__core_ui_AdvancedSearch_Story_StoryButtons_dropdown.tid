@@ -1,5 +1,5 @@
 created: 20191023104603480
-modified: 20200117140021930
+modified: 20200117153308190
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
 type: text/vnd.tiddlywiki
@@ -21,6 +21,8 @@ type: text/vnd.tiddlywiki
 \define highlightTitle()
 ''<$view tiddler="$:/temp/story" field="s-title" format=text/>'' <$link to=<<story-title>> >{{$:/core/images/file}}</$link>
 \end
+
+\define get-tooltip() ACTIVATE: {{$(full-title)$!!description}}
 
 <$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="OK" default="OK">
 <$button actions=<<activateDropdown>> popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">

@@ -1,5 +1,5 @@
 created: 20191023103943279
-modified: 20200117140021934
+modified: 20200117153908167
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/tree
 type: text/vnd.tiddlywiki
 
@@ -15,8 +15,8 @@ type: text/vnd.tiddlywiki
 </$linkcatcher>
 \end
 
-\define leaf-linkXXXXX(full-title,chunk,separator: "/")
-<$link to={{$full-title$!!text}}><$text text=<<__chunk__>>/></$link>
+\define leaf-link(full-title,chunk,separator: "/")
+<$link to=<<__full-title__>> tooltip=<<get-tooltip>> ><$text text=<<__chunk__>>/></$link>
 \end
 
 <<tree prefix:"Story/" separator:"/">>

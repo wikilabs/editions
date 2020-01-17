@@ -1,0 +1,15 @@
+created: 20200117142725655
+description: This story contains "The Story UI"
+filter: [enlist{StoryUI!!list}]
+list: StoryUI $:/core/ui/AdvancedSearch/Story $:/core/ui/AdvancedSearch/Story/FieldList $:/core/ui/AdvancedSearch/Story/Item/template $:/core/ui/AdvancedSearch/Story/StoryButtons/clear $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown $:/core/ui/AdvancedSearch/Story/StoryButtons/export $:/core/ui/AdvancedSearch/Story/StoryButtons/tree $:/core/ui/AdvancedSearch/Story/Stylesheet $:/core/ui/AdvancedSearch/Story/Tabs/Button/edit $:/core/ui/AdvancedSearch/Story/Tabs/Button/preview $:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle $:/core/ui/AdvancedSearch/Story/Tabs/template $:/core/ui/SideBar/Stories $:/core/ui/SideBar/Stories/tree $:/core/ui/ViewTemplate/story
+modified: 20200117143303099
+tags: $:/tags/Story
+title: StoryUI
+type: text/vnd.tiddlywiki
+
+!! BETA
+
+This content is beta!
+
+* This Story contains the whole story UI without the core functions.
+* It won't work without the upcoming changes to the core !!!!!!!!!!!!

@@ -1,6 +1,6 @@
 caption: Stories
 created: 20191215150315673
-modified: 20200117140128087
+modified: 20200117152303584
 tags: $:/tags/SideBar
 title: $:/core/ui/SideBar/Stories
 type: text/vnd.tiddlywiki
@@ -10,6 +10,8 @@ type: text/vnd.tiddlywiki
 \define link-icon()
 <span class="tc-btn-mini"><$link to=<<currentTiddler>> overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link></span>
 \end
+
+\define get-tooltip() ACTIVATE: {{$(full-title)$!!description}}
 
 <div class="tc-sidebar-tab-stories">
 <$list filter="[tag[$:/tags/Story]!prefix[Story/]]">
