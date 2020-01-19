@@ -1,6 +1,6 @@
 caption: {{$:/language/SideBar/Open/Caption}}
 created: 20191214133637963
-modified: 20191215154924890
+modified: 20200117142719210
 tags: $:/tags/SideBar
 title: $:/core/ui/SideBar/Open
 type: text/vnd.tiddlywiki
@@ -19,13 +19,21 @@ type: text/vnd.tiddlywiki
 </$list></$list>
 \end
 
-\define create-tiddler()
-<$action-createtiddler $basetitle="Story/New " tags="$:/tags/Story" text=<<content>> description="test story" type="text/plain"/>
+\define get-text()
+Put some useful info here and DON'T forget the "description-field"!!
 \end
+
+\define create-tiddler()
+<$action-createtiddler $basetitle="Story/New " tags="$:/tags/Story" text=<<get-text>>  description="test story"/>
+\end
+
+\define createFilter() [enlist{$(newTitle)$!!list}]
 
 \define save-story()
 <$wikify name=content text=<<get-text>> >
-<$action-sendmessage $message="tm-new-tiddler" title=<<now "Story/YYYY.0MM.0DD 0hh:0mm:0ss">> tags="$:/tags/Story" text=<<content>> description="Das ist ein Test Story" type="text/plain"/>
+<$set name="newTitle" value=<<now "Story/YYYY.0MM.0DD 0hh:0mm:0ss">> >
+<$action-sendmessage $message="tm-new-tiddler" title=<<newTitle>> tags="$:/tags/Story" list={{$:/StoryList!!list}} filter=<<createFilter>> description="New Story" text=<<get-text>>/>
+</$set>
 </$wikify>
 \end
 

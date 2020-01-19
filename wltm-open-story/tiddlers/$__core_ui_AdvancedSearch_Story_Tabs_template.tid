@@ -1,0 +1,69 @@
+created: 20191219115535436
+modified: 20200117140350762
+tags: 
+title: $:/core/ui/AdvancedSearch/Story/Tabs/template
+type: text/vnd.tiddlywiki
+
+\define applyStory()
+<$action-sendmessage $message="tm-open-story" $param=<<story-title>> field=<<currentTab>> />
+\end
+\define copy-to-list()
+<$set name=hugo filter={{{[{$:/temp/story!!s-title}get<currentTab>]}}}>
+<$action-setfield $tiddler="test" list=<<hugo>>/>
+</$set>
+\end
+
+\define save-to-field()
+<$action-setfield $tiddler="$:/temp/story" $field="edit" $value="no"/>
+<$action-setfield $tiddler={{$:/temp/story!!s-title}} $field=<<currentTab>> $value={{$:/temp/story}}/>
+\end
+
+\define get-fieldName() $(story-title)$!!$(currentTab)$
+
+\define get-filter() 
+[{$:/temp/story!!s-title}get[$(currentTab)$]]
+\end
+
+\define getStatePreview()
+$:/temp/$(story-title)$/$(currentTab)$/preview
+\end
+
+\define getStateEdit() 
+<!-- use: $:/temp/story field=edit atm -->
+$:/temp/$(story-title)$/$(currentTab)$/edit
+\end
+
+\define showPreview()
+<$reveal state=<<getStatePreview>> type="match" text="yes" tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
+<$set name="resultCount" value={{{[enlist:text<myList>count[]]}}}>
+<span class="tc-float-right"><<lingo Filter/Matches>></span>
+<$macrocall $name="list-links" filter={{{[{!!title}get<currentTab>]}}} type="div" subtype="div"/>
+</$set>
+<$reveal state=<<get-tab-state>> type="nomatch" text="list" default="list">
+<$button actions=<<copy-to-list>> >Copy this list to the list-field</$button>
+</$reveal></$reveal>
+\end
+
+\define showEditor()
+<$reveal stateTitle="$:/temp/story" stateField="edit" type="match" text=<<currentTab>> tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
+<$edit-text tiddler="$:/temp/story" field="text" class="tc-story-editor "/>
+<$button actions=<<save-to-field>> >Done!</$button>
+</$reveal>
+\end
+
+<$tiddler tiddler=<<story-title>>>
+<$set name=fieldName value=<<get-fieldName>> >
+<$set name="myList" filter={{{[{!!title}get<currentTab>]}}}>
+{{$:/core/ui/AdvancedSearch/Story/Tabs/Button/preview}}{{$:/core/ui/AdvancedSearch/Story/Tabs/Button/edit}}
+<div class="clearfix">
+<div class="tc-fl">
+<$macrocall $name="list-links-draggable" field=<<currentTab>> tiddler={{$:/temp/story!!s-title}} type="span" subtype="span" itemTemplate="$:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle" suffix="text"/>
+</div>
+<<showPreview>><<showEditor>>
+</div>
+<hr>
+<$button actions=<<applyStory>> >
+Apply Field: <<currentTab>>
+</$button>
+</$set></$set>
+</$tiddler>

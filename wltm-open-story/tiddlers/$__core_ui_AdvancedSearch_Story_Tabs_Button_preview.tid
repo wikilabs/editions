@@ -1,0 +1,22 @@
+button-classes: tc-text-editor-toolbar-item-start-group
+caption: {{$:/language/Buttons/Preview/Caption}}
+condition: [<targetTiddler>]
+created: 20200103162002393
+custom-icon: yes
+description: {{$:/language/Buttons/Preview/Hint}}
+icon: $:/core/images/preview-open
+modified: 20200117135038926
+shortcuts: ((preview))
+title: $:/core/ui/AdvancedSearch/Story/Tabs/Button/preview
+type: text/vnd.tiddlywiki
+
+<$reveal state=<<getStateEdit>> type="match" text="no" tag="span" default="no">
+<$reveal state=<<getStatePreview>> type="nomatch" text="no" tag="span" default="no">
+<$button>{{$:/core/images/preview-open}}
+<$action-setfield $tiddler=<<getStatePreview>> $value="no"/></$button>
+</$reveal>
+<$reveal state=<<getStatePreview>> type="nomatch" text="yes" tag="span" default="no">
+<$button>{{$:/core/images/preview-closed}}
+<$action-setfield $tiddler=<<getStatePreview>> $value="yes"/></$button>
+</$reveal>
+</$reveal>

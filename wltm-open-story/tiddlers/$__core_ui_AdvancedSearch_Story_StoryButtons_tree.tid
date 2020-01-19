@@ -1,0 +1,22 @@
+created: 20191023103943279
+modified: 20200117153908167
+title: $:/core/ui/AdvancedSearch/Story/StoryButtons/tree
+type: text/vnd.tiddlywiki
+
+\define test()
+<$set name=target value="$:/AdvancedSearch">
+<$action-listops $tiddler=<<tv-story-list>> $filter="[list<tv-story-list>insertbefore:target<navigateTo>]"/>
+</$set>
+\end
+
+\define link-icon()
+<$linkcatcher actions=<<test>> >
+<$link to="""$(full-title)$""" overrideClass=""><span>{{$:/core/images/file}}</span></$link>
+</$linkcatcher>
+\end
+
+\define leaf-link(full-title,chunk,separator: "/")
+<$link to=<<__full-title__>> tooltip=<<get-tooltip>> ><$text text=<<__chunk__>>/></$link>
+\end
+
+<<tree prefix:"Story/" separator:"/">>

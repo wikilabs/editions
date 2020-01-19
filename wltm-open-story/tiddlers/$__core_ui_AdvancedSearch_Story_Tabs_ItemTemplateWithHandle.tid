@@ -1,0 +1,14 @@
+created: 20191220145841901
+modified: 20200117140350766
+tags: 
+title: $:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\rules only html entity
+
+<div>
+<$link to={{!!title}} overrideClass="tc-edit-texteditor tc-tiddlylink">
+<$view field=title format=text/>
+</$link>
+</div>

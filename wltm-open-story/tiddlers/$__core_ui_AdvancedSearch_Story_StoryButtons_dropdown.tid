@@ -1,27 +1,51 @@
 created: 20191023104603480
-modified: 20191216142607601
+modified: 20200117153308190
 tags: $:/tags/AdvancedSearch/StoryButton
 title: $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown
 type: text/vnd.tiddlywiki
 
-\define test()
+\whitespace trim
+
+\define link-icon()
+<span class="tc-btn-mini"><$link to=<<currentTiddler>> overrideClass=""><span title="Open Story Tiddler">{{$:/core/images/file}}</span></$link></span>
+\end
+
+\define activateDropdown()
 <$action-setfield $tiddler=<<qualify "$:/state/storyDropdown">> text="open" />
 \end
+
 \define showStory()
-<$action-setfield $tiddler="$:/temp/story/title" text=<<navigateTo>> />
-<$action-setfield $tiddler="$:/temp/story" text={{{ [<navigateTo>get[text]] }}} />
+<$action-createtiddler $basetitle="$:/temp/story" $overwrite="yes" $template=<<navigateTo>> s-title=<<navigateTo>> text={{{ [<navigateTo>get[text]] }}} type="text/plain" tags=""/>
 \end
+
+\define highlightTitle()
+''<$view tiddler="$:/temp/story" field="s-title" format=text/>'' <$link to=<<story-title>> >{{$:/core/images/file}}</$link>
+\end
+
+\define get-tooltip() ACTIVATE: {{$(full-title)$!!description}}
+
 <$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="OK" default="OK">
-<$button actions=<<test>> popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
-{{$:/core/images/down-arrow}} ''{{$:/temp/story/title}}''
+<$button actions=<<activateDropdown>> popup=<<qualify "$:/state/storyDropdown">> class="tc-btn-invisible">
+<<highlightTitle>> {{$:/core/images/down-arrow}}
 </$button>
 </$reveal>
 
-<$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="open" animate="yes" class="tc-popup tc-popup-keep">
+<$reveal state=<<qualify "$:/state/storyDropdown">> type="match" text="open" class="tc-popup tc-popup-keep">
+
+<div class="tc-sidebar-tab-stories">
+<$list filter="[tag[$:/tags/Story]!prefix[Story/]]">
+<div class="xx">
+<<link-icon>><$linkcatcher actions=<<showStory>>>
+<$link to=<<currentTiddler>> tooltip=<<get-tooltip>> ><$text text=<<currentTiddler>>/></$link>
+</$linkcatcher>
+</div>
+</$list>
+</div>
+
 <$set name="tv-show-missing-links" value="yes">
 <$linkcatcher actions=<<showStory>>>
-{{test-tree}}
-''{{$:/temp/story/title}}''
+{{$:/core/ui/AdvancedSearch/Story/StoryButtons/tree}}
+<<highlightTitle>>
 </$linkcatcher>
 </$set>
 </$reveal>

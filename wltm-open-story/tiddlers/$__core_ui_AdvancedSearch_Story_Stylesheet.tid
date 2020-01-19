@@ -1,0 +1,58 @@
+created: 20200103155923873
+modified: 20200117133728250
+tags: $:/tags/Stylesheet
+title: $:/core/ui/AdvancedSearch/Story/Stylesheet
+type: text/vnd.tiddlywiki
+
+.tc-block-dropdown .tc-tree a {
+  display: inline-block;
+  padding: 0 0 0 2px;
+}
+
+.tc-search .tc-tree {
+  border: 1px solid lightgray;
+}
+
+.tc-story-text pre {
+  max-height: 10em;
+}
+
+.tc-story-results {
+  width: 49%;
+  border: 1px solid #cccccc;
+  padding: 3px 3px 3px 3px;
+}
+
+.tc-btn-mini{
+  vertical-align: middle;
+}
+
+.tc-btn-mini .tc-image-button{
+  width: 1em;
+  height: 1em;
+  margin-right: 3px;
+}
+
+.tc-story-editor {
+  width: 100%;
+}
+
+.tc-fr {
+  float: right;
+}
+
+.tc-fl {
+  float: left;
+}
+
+
+.clearfix { display:block;} 
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+}

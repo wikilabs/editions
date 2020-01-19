@@ -1,6 +1,8 @@
 created: 20191216093712946
 description: Tower of Hanoi - reverse sequence
-modified: 20191216094013832
+filter: [enlist{Story/Tower of Hanoi/A-C Sequence!!list}reverse[]]
+list: 0-0-321 1-0-32 1-2-3 0-21-3 3-21-0 3-2-1 32-0-1 321-0-0
+modified: 20200115141550100
 tags: $:/tags/Story
 title: Story/Tower of Hanoi/C-A Sequence
-type: text/plain
+type: text/vnd.tiddlywiki

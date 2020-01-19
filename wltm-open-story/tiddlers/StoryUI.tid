@@ -1,0 +1,33 @@
+created: 20200117142725655
+description: This story contains "The Story UI"
+filter: [enlist{StoryUI!!list}]
+list: StoryUI $:/core/ui/AdvancedSearch/Story $:/core/ui/AdvancedSearch/Story/FieldList $:/core/ui/AdvancedSearch/Story/Item/template $:/core/ui/AdvancedSearch/Story/StoryButtons/clear $:/core/ui/AdvancedSearch/Story/StoryButtons/dropdown $:/core/ui/AdvancedSearch/Story/StoryButtons/export $:/core/ui/AdvancedSearch/Story/StoryButtons/tree $:/core/ui/AdvancedSearch/Story/Stylesheet $:/core/ui/AdvancedSearch/Story/Tabs/Button/edit $:/core/ui/AdvancedSearch/Story/Tabs/Button/preview $:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle $:/core/ui/AdvancedSearch/Story/Tabs/template $:/core/ui/SideBar/Stories $:/core/ui/SideBar/Stories/tree $:/core/ui/ViewTemplate/story
+modified: 20200119122522571
+tags: $:/tags/Story
+title: StoryUI
+type: text/vnd.tiddlywiki
+
+! BETA - BETA - BETA - BETA - BETA - BETA
+
+* ''Do not use'' this wiki ''in production''. It contains several modified core javascript modules and UI code. 
+* ''The UI of this wiki will _not_ work with any other TW version!''
+
+! Video
+
+
+!! Info
+
+* This Story contains the whole story UI without the core javascript functions.
+* It won't work without the upcoming changes to the core !
+
+! Modified core macros and UI stuff
+
+* $:/core/macros/list ... $suffix$ new parameter
+* $:/core/macros/tabs ... use `<$qualify>` $unique$ new parameter
+* $:/core/macros/tree ... `\define link-icon()` .. make it configurable
+* $:/core/ui/SideBar/Open ... new "save story" "button"
+
+!! Moar
+
+<<list-links "[enlist{!!list}]">>
+

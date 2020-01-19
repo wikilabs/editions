@@ -1,6 +1,6 @@
 created: 20191022125458236
-modified: 20191023114850639
+modified: 20191217121700280
 title: $:/DefaultTiddlers
 type: text/vnd.tiddlywiki
 
-[subfilter{Story/aa/test 20}]
+[list[$:/StoryList]]

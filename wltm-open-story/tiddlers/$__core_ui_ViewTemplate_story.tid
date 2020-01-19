@@ -1,0 +1,27 @@
+created: 20200115140642592
+modified: 20200119114755985
+tags: $:/tags/ViewTemplate
+title: $:/core/ui/ViewTemplate/story
+type: text/vnd.tiddlywiki
+
+\define showStory()
+<$action-setfield $tiddler="$:/state/tab--1498284803" text="$:/core/ui/AdvancedSearch/Story"/>
+<$action-navigate $to="$:/AdvancedSearch"/>
+<$action-createtiddler $basetitle="$:/temp/story" $overwrite="yes" $template=<<navigateTo>> s-title=<<navigateTo>> text={{{ [<navigateTo>get[text]] }}} type="text/plain" tags=""/>
+\end
+
+<$list filter="[all[current]tag[$:/tags/Story]]">
+
+----
+!!! Description
+
+{{!!description}}
+
+<table class="tc-view-field-table">
+<tbody>
+<$list filter="[enlist{$:/core/ui/AdvancedSearch/Story/FieldList}]" template="$:/core/ui/TiddlerFieldTemplate" variable="listItem"/>
+</tbody>
+</table>
+
+<$linkcatcher actions=<<showStory>>><$link $to={{!!title}}>Modify</$link></$linkcatcher> | [[Configure Fields|$:/core/ui/AdvancedSearch/Story/FieldList]]
+</$list>
