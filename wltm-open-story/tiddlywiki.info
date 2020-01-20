@@ -1,6 +1,7 @@
 {
 	"description": "wltm-open-story - message to open a story filter",
 	"plugins": [
+		"tiddlywiki/browser-storage",
 		"wikilabs/wltm-open-story",
 		"wikilabs/link-to-tabs"
 	],
