@@ -1,7 +1,8 @@
 {
 	"description": "wltm-open-story - message to open a story filter",
 	"plugins": [
-		"wikilabs/wltm-open-story"
+		"wikilabs/wltm-open-story",
+		"wikilabs/link-to-tabs"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
