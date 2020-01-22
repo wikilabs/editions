@@ -1,5 +1,5 @@
 created: 20191219115535436
-modified: 20200117140350762
+modified: 20200122100705135
 tags: 
 title: $:/core/ui/AdvancedSearch/Story/Tabs/template
 type: text/vnd.tiddlywiki
@@ -9,13 +9,13 @@ type: text/vnd.tiddlywiki
 \end
 \define copy-to-list()
 <$set name=hugo filter={{{[{$:/temp/story!!s-title}get<currentTab>]}}}>
-<$action-setfield $tiddler="test" list=<<hugo>>/>
+<$action-setfield $tiddler={{$:/temp/story!!s-title}} list=<<hugo>>/>
 </$set>
 \end
 
 \define save-to-field()
 <$action-setfield $tiddler="$:/temp/story" $field="edit" $value="no"/>
-<$action-setfield $tiddler={{$:/temp/story!!s-title}} $field=<<currentTab>> $value={{$:/temp/story}}/>
+<$action-setfield $tiddler={{$:/temp/story!!s-title}} $field=<<currentTab>> $value={{{[[$:/temp/story]get[text]]+[stringify[]split[\n]join[ ]]}}}/>
 \end
 
 \define get-fieldName() $(story-title)$!!$(currentTab)$
@@ -35,7 +35,7 @@ $:/temp/$(story-title)$/$(currentTab)$/edit
 
 \define showPreview()
 <$reveal state=<<getStatePreview>> type="match" text="yes" tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
-<$set name="resultCount" value={{{[enlist:text<myList>count[]]}}}>
+<$set name="resultCount" value={{{[enlist:array<myList>count[]]}}}>
 <span class="tc-float-right"><<lingo Filter/Matches>></span>
 <$macrocall $name="list-links" filter={{{[{!!title}get<currentTab>]}}} type="div" subtype="div"/>
 </$set>
@@ -57,7 +57,7 @@ $:/temp/$(story-title)$/$(currentTab)$/edit
 {{$:/core/ui/AdvancedSearch/Story/Tabs/Button/preview}}{{$:/core/ui/AdvancedSearch/Story/Tabs/Button/edit}}
 <div class="clearfix">
 <div class="tc-fl">
-<$macrocall $name="list-links-draggable" field=<<currentTab>> tiddler={{$:/temp/story!!s-title}} type="span" subtype="span" itemTemplate="$:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle" suffix="text"/>
+<$macrocall $name="list-links-draggable" field=<<currentTab>> tiddler={{$:/temp/story!!s-title}} type="span" subtype="span" itemTemplate="$:/core/ui/AdvancedSearch/Story/Tabs/ItemTemplateWithHandle" suffix="array"/>
 </div>
 <<showPreview>><<showEditor>>
 </div>
