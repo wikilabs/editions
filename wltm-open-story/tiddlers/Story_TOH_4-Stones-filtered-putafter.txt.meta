@@ -1,8 +1,0 @@
-created: 20191216122158993
-default: filter
-description: Das ist ein Test Story
-filter: 4321-0-0-pg 4-321-0-pg 321-0-0-p4 [subfilter{Story/Tower of Hanoi/A-C Sequence!!list}] 0-0-321 +[putafter[4-321-0-pg]]
-modified: 20200115141538312
-tags: $:/tags/Story
-title: Story/TOH/4-Stones-filtered-putafter
-type: text/vnd.tiddlywiki

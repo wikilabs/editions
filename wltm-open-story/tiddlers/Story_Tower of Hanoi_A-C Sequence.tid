@@ -1,3 +1,12 @@
+created: 20191216092353700
+description: Tower of Hanoi - start sequence
+filter: [enlist{!!list}]
+list: 321-0-0 32-0-1 3-2-1 3-21-0 0-21-3 1-2-3 1-0-32 0-0-321
+modified: 20200121145034050
+tags: $:/tags/Story
+title: Story/Tower of Hanoi/A-C Sequence
+type: text/vnd.tiddlywiki
+
 !! Rules
 
 The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:
