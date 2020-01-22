@@ -5,7 +5,7 @@ created: 20200113115547087
 custom-icon: yes
 description: {{$:/language/Buttons/Edit/Hint}}
 icon: $:/core/images/edit-button
-modified: 20200117135017474
+modified: 20200121175205330
 shortcuts: ((preview))
 tags: 
 title: $:/core/ui/AdvancedSearch/Story/Tabs/Button/edit
@@ -20,7 +20,7 @@ type: text/vnd.tiddlywiki
 <$set name=x value={{{[<story-title>get<currentTab>]}}}>
 <$set name=lineFeed value="
 ">
-<$action-setfield $tiddler="$:/temp/story" text={{{[enlist:text<x>]+[join<lineFeed>]}}}/>
+<$action-setfield $tiddler="$:/temp/story" text={{{[enlist:stringify<x>]+[join<lineFeed>]}}}/>
 </$set></$set>
 \end
 \define get-x()
