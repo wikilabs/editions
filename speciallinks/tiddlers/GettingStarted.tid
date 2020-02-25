@@ -1,0 +1,13 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Speciallinks" adds the possibility to have Camel_Case links
+
+! Important
+
+* This plugin adds a new inline wikiparser, that can be deactivated at the $:/ControlPanel : Advanced : Parsing tab
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
