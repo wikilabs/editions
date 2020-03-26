@@ -1,0 +1,14 @@
+caption: Fields
+created: 20200316153649514
+modified: 20200316153654711
+opt-checked: [all[]]
+opt-unchecked: [!is[system]]
+search-set: [!is[system]]
+search-sort: [sort[title]limit[250]]
+tags: $:/tags/SearchResults
+title: $:/plugins/wikilabs/field-search/ui/fieldWrapper
+type: text/vnd.tiddlywiki
+
+\define searchTerm() [search:-title,text{$(searchTiddler)$}]
+
+{{||$:/plugins/wikilabs/field-search/ui/SearchResultTemplate}}
