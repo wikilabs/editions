@@ -30,7 +30,8 @@
   },
   "homepage": "https://wikilabs.github.io",
   "dependencies": {
-    "tiddlywiki": "^5.1.12"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "tiddlywiki": "^5.1.12"
+  }
 }

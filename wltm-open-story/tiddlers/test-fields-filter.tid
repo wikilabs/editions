@@ -1,0 +1,36 @@
+created: 20200129154048891
+modified: 20200129160445006
+tags: 
+title: test-fields-filter
+type: text/vnd.tiddlywiki
+
+<$list filter="[[StoryUI]fields:include[list hugo filter]]" variable=x><$text text=<<x>>/><br></$list>
+
+---
+
+<$list filter="[[StoryUI]fields:include{xxx}]" variable=x><$text text=<<x>>/><br></$list>
+
+---
+
+<$set name=test filter="[enlist{xxx}]">
+<$list filter="[tag[a]fields:include<test>]" variable=x><$text text=<<x>>/><br></$list>
+</$set>
+
+---
+
+<$set name=test filter="[enlist{xxx}]">
+<$list filter="[[StoryUI]fields:include,<test>]" variable=x><$text text=<<x>>/><br></$list>
+</$set>
+
+---
+
+<$set name=test filter="[enlist{xxx}]">
+<$list filter="[[StoryUI]fields:include<test>sortby{xxx}]" variable=x><$text text=<<x>>/><br></$list>
+</$set>
+
+---
+
+<$set name=test filter="[enlist{xxx}]">
+<$list filter="[[StoryUI]fields:exclude,asdfs:aaa,ddd<test>]" variable=x><$text text=<<x>>/><br></$list>
+</$set>
+
