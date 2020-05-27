@@ -32,8 +32,8 @@
   },
   "homepage": "https://wikilabs.github.io/editions/tocP",
   "dependencies": {
-    "tiddlywiki": "^5.1.12"
   },
   "devDependencies": {
+    "tiddlywiki": "^5.1.12"
   }
 }

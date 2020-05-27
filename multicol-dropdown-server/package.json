@@ -34,8 +34,8 @@
   },
   "homepage": "https://wikilabs.github.io/editions/multicol-dropdown",
   "dependencies": {
-    "tiddlywiki": "^5.1.13"
   },
   "devDependencies": {
+    "tiddlywiki": "^5.1.13"
   }
 }

@@ -35,7 +35,8 @@
   },
   "homepage": "https://wikilabs.github.io/editions/markdown-it",
   "dependencies": {
-    "tiddlywiki": "^5.1.13"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "tiddlywiki": "^5.1.13"
+  }
 }

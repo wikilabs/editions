@@ -34,8 +34,8 @@
   },
   "homepage": "https://wikilabs.github.io/editions/advanced-search-plus",
   "dependencies": {
-    "tiddlywiki": "^5.1.12"
   },
   "devDependencies": {
+    "tiddlywiki": "^5.1.12"
   }
 }
