@@ -1,0 +1,17 @@
+{
+	"description": "Content for the wikilabs plugin-library",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"tiddlywiki/internals"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+	],
+	"languages": [
+	],
+	"includeWikis": [
+		"../pluginlibraryWL"
+	]
+}

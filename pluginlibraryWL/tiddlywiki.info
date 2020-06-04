@@ -1,0 +1,18 @@
+{
+	"description": "WikiLabs Plugin Library",
+	"plugins": [
+		"tiddlywiki/pluginlibrary",
+		"wikilabs/pluginlibrary"
+	],
+	"themes": [
+	],
+	"includeWikis": [
+	],
+	"build": {
+		"library": [
+			"--makelibrary","$:/UpgradeLibrary",
+   			"--savelibrarytiddlers","$:/UpgradeLibrary","[prefix[$:/]] +[prefix[$:/plugins/wikilabs/]] -[[$:/plugins/wikilabs/pluginlibrary]] ", "recipes/library/tiddlers/","$:/UpgradeLibrary/List",
+   			"--savetiddler","$:/UpgradeLibrary/List","recipes/library/tiddlers.json",
+			"--rendertiddler","$:/plugins/tiddlywiki/pluginlibrary/library.template.html","index.html","text/plain"]
+	}
+}
