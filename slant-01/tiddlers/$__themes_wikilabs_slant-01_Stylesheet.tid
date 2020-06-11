@@ -1,0 +1,45 @@
+created: 20200611141645993
+modified: 20200611141648671
+tags: $:/tags/Stylesheet $:/wikilabs/ui
+title: $:/themes/wikilabs/slant-01/Stylesheet
+type: text/vnd.tiddlywiki
+
+.wltc-tiddler-title .tc-titlebar{
+  position: absolute;
+  font-size: 1.1em;
+}
+
+.wltc-tiddler-title {
+    overflow: hidden;
+}
+
+.wltc-tiddler-title .tc-subtitle {
+    font-size: 0.7em;
+}
+
+.tc-tiddler-controls {
+  font-size: 2.5em
+}
+
+.tc-tiddler-controls button svg {
+ vertical-alignX: top;
+}
+
+.tc-tags-wrapper {
+    padding-top: 2px;
+    margin-top: -1em;
+}
+
+.tc-tiddler-body {
+    border-top: thin solid lightgray;
+}
+
+.tc-tiddler-info {
+    padding-right: 12px;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
