@@ -5,7 +5,9 @@
 		"wikilabs/pluginlibrary"
 	],
 	"themes": [
-	],
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+],
 	"includeWikis": [
 	],
 	"build": {
@@ -13,7 +15,7 @@
 			"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"github": [
-				"--output", "../../wikilabs.github.io/editions/pluginlibraryWL", 
+				"--output", "../../wikilabs.github.io/editions/pluginlibraryWL",
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"library": [
