@@ -9,10 +9,19 @@
 	"includeWikis": [
 	],
 	"build": {
+		"index": [
+			"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
+		],
+		"github": [
+				"--output", "../../wikilabs.github.io/editions/pluginlibraryWL", 
+				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
+		],
 		"library": [
 			"--makelibrary","$:/UpgradeLibrary",
-   			"--savelibrarytiddlers","$:/UpgradeLibrary","[prefix[$:/]] +[prefix[$:/plugins/wikilabs/]] -[[$:/plugins/wikilabs/pluginlibrary]] ", "recipes/library/tiddlers/","$:/UpgradeLibrary/List",
-   			"--savetiddler","$:/UpgradeLibrary/List","recipes/library/tiddlers.json",
-			"--rendertiddler","$:/plugins/tiddlywiki/pluginlibrary/library.template.html","index.html","text/plain"]
+			"--savelibrarytiddlers","$:/UpgradeLibrary","[prefix[$:/plugins/wikilabs/]] [prefix[$:/themes/wikilabs/]] -[[$:/plugins/wikilabs/pluginlibrary]]", "recipes/library/tiddlers/","$:/UpgradeLibrary/List",
+			"--savetiddler","$:/UpgradeLibrary/List","recipes/library/tiddlers.json",
+			"--rendertiddler","$:/plugins/tiddlywiki/pluginlibrary/library.template.html","index.html","text/plain"
+			]
+
 	}
 }
