@@ -1,0 +1,64 @@
+/* WikiLabs tiddler classes defined by js code */
+.wltc {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Indent by level adjusted to bullet lists */
+
+.i, .wltc-l2 {
+  margin-left: 2.9em;
+}
+
+.ii, .wltc-l3 {
+  margin-left: 5.8em;
+}
+
+.iii, .wltc-l4 {
+  margin-left: 8.6em;
+}
+
+/* Text alignment */
+.j {
+  text-align: justify;
+}
+
+/* Centering functions */
+.r {
+  margin-right: 3em;
+}
+
+/* Simple custom list bullet */
+ul .star{
+  list-style-type: "★ "
+}
+
+/* Margin double, margin half */
+
+.md {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.mtd {
+  margin-top: 2em;
+}
+
+.-mh {
+  margin-top: -.5em;
+  margin-bottom: -.5em;
+}
+
+/* Undo some default definitions to get more variations */
+
+.-m {
+  margin: initial;
+}
+
+.-mt {
+  margin-top: initial;
+}
+
+.-mb {
+  margin-bottom: initial;
+}

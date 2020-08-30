@@ -1,0 +1,13 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Tick Paragraph" adds the possibility manipulate line based content to style with wikitext syntax.
+
+! Important
+
+* This plugin adds a new inline wikiparser, that can be deactivated at the $:/ControlPanel : Info : Advanced : Parsing tab using the ''tickparagraph'' rule
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
