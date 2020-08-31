@@ -1,5 +1,5 @@
 {
-  "name": "angel-paragraph-server",
+  "name": "tick-text-server",
   "version": "0.0.1",
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
@@ -9,8 +9,8 @@
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../angel-paragraph --build github",
-    "build": "tiddlywiki ../angel-paragraph --build index",
+    "build:github": "tiddlywiki ../tick-text --build github",
+    "build": "tiddlywiki ../tick-text --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/wikilabs/plugins/issues"
   },
-  "homepage": "https://wikilabs.github.io/editions/angel-paragraph",
+  "homepage": "https://wikilabs.github.io/editions/tick-text",
   "dependencies": {
   },
   "devDependencies": {
