@@ -1,0 +1,20 @@
+created: 20200828121127726
+modified: 20200828121139571
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+! Overview
+
+This plugin "Space Space Newline" adds the possibility to add hard linebreaks into prose text.
+
+! Important
+
+* This plugin adds a new inline wikiparser, that can be deactivated at the $:/ControlPanel : Info : Advanced : Parsing tab as the ''ssnl'' rule
+
+! Examples
+
+{{$:/plugins/wikilabs/space-space-newline/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
