@@ -6,7 +6,8 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/info-session",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/tick-text"
+		"wikilabs/tick-text",
+		"wikilabs/space-space-newline"
 	],
 	"themes": [
 	],
