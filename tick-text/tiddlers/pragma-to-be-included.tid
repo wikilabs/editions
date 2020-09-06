@@ -1,0 +1,8 @@
+created: 20200902144507426
+modified: 20200904213642511
+tags: pragmas
+title: pragma-to-be-included
+type: text/plain
+
+\ticktext tick="success" tag="div" params=".c.cs.hl" mode=block 
+\ticktext tick="span" tag="span" params=".asdf" 

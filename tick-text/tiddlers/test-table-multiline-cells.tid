@@ -1,0 +1,42 @@
+created: 20200906133708774
+modified: 20200906175937569
+tags: 
+title: test-table-multiline-cells
+type: text/vnd.tiddlywiki
+
+\ticktext tick=table tag=table endString="---" mode=block
+\ticktext tick=caption tag=caption
+
+\ticktext tick=header tag=th 
+\ticktext tick="header-2-columns" tag=th  colspan=2
+
+\ticktext tick=header2 use="header-2-columns"
+
+\ticktext tick=cell tag=td params=".hl"
+\ticktext tick use=cell
+
+\ticktext angel=row tag=tr mode=block endString="--"
+\ticktext angel=cmulti tag=td params=".hl"
+\ticktext angel use=cmulti
+
+´.table ´.caption Some caption text
+».row
+´.header  header 1
+´.header2 header 2 columns wide
+--
+».row
+» 1 text
+
+» 12 text
+
+» cell 13 text
+line 2 alksjdfösdajf
+as döfjsadöfkjösadjf
+
+--
+».row
+´ 2 text
+´ 22 text
+´ 23 text
+---
+

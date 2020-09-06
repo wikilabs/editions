@@ -1,17 +1,16 @@
 created: 20200830185128634
-modified: 20200830190633832
+modified: 20200906180919051
 tags: 
 title: test-hard-linebreak-and-transclusion
 type: text/vnd.tiddlywiki
 
-
-».h.c.cl line 1
+».hl.c.cl line 1
 line 2 transclusion: {{test}}
 line 3
 
 ---
 
-».h.c.cl line 1
+».hl.c.cl line 1
 line 2 transclusion: <$transclude tiddler=test mode=block/>
 line 3
 

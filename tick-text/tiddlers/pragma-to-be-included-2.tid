@@ -1,0 +1,9 @@
+created: 20200904141831193
+modified: 20200904213014968
+tags: pragmas
+title: pragma-to-be-included-2
+type: text/plain
+
+\ticktext tick="x" tag="div" params=".c.cs.hl" mode=block
+\ticktext tick="y" tag="span" params=".asdf" 
+

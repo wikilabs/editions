@@ -1,0 +1,9 @@
+created: 20200902112515326
+modified: 20200906180716595
+tags: $:/tags/Stylesheet
+title: details-css
+type: text/css
+
+.notop p {
+  margin-top: .2em;
+}

@@ -1,6 +1,8 @@
 {
 	"description": "Adds a possibilty to style content with wikitext syntax",
 	"plugins": [
+		"tiddlywiki/internals",
+		"wikilabs/space-space-newline",
 		"wikilabs/tick-text"
 	],
 	"themes": [

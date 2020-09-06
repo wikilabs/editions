@@ -1,0 +1,20 @@
+created: 20200904213906708
+modified: 20200906113817668
+tags: 
+title: test-extra-attributes
+type: text/vnd.tiddlywiki
+
+\ticktext tick="d" tag="details" params=".notop.c.cl.hl" endString="---" mode=block open
+\ticktext tick="s" tag="summary" params=".-m"
+
+´.d ´.s Details - Summay
+-------
+* line 1
+* line 2
+* adsf
+
+Some more text
+---
+
+
+

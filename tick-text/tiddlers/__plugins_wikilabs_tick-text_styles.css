@@ -49,6 +49,10 @@ ul .star{
   margin-bottom: -.5em;
 }
 
+.-mth {
+  margin-bottom: -.5em;
+}
+
 /* Undo some default definitions to get more variations */
 
 .-m {
@@ -61,4 +65,9 @@ ul .star{
 
 .-mb {
   margin-bottom: initial;
+}
+
+
+.c h1, .c h2, .c h3, .c h4, .c h5, .c h6  {
+  margin-top: initial;
 }

@@ -1,4 +1,4 @@
-.h {
+.h, .hl {
   word-break: normal;
   word-wrap: break-word;
   white-space: pre-wrap;

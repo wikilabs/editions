@@ -1,0 +1,26 @@
+created: 20200906114326359
+modified: 20200906140732953
+tags: 
+title: test-angel-quote
+type: text/vnd.tiddlywiki
+
+\ticktext tick="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
+
+\ticktext tick="s" tag="summary" params=".-m"
+
+\ticktext angel="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
+
+´.d ´.s Details - Summay
+------
+line 1
+line 2
+adsf
+---
+
+''Important!''
+
+»» "angel" and "tick" do the same thing if `mode=block` 
+
+»» If mode=block there must be a `endString` parameter
+
+  
