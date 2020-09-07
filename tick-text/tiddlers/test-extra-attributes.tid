@@ -1,5 +1,5 @@
 created: 20200904213906708
-modified: 20200906113817668
+modified: 20200906185109909
 tags: 
 title: test-extra-attributes
 type: text/vnd.tiddlywiki
@@ -7,13 +7,13 @@ type: text/vnd.tiddlywiki
 \ticktext tick="d" tag="details" params=".notop.c.cl.hl" endString="---" mode=block open
 \ticktext tick="s" tag="summary" params=".-m"
 
-´.d ´.s Details - Summay
+´.d ´.s Summay Text
 -------
-* line 1
-* line 2
-* adsf
+Open this example in edit mode, to see the definitions. Especially the `open` parameter in the `\ticktext` pragma.
 
-Some more text
+It allows us to initialize the DETAILS html tag to start in expaned mode. 
+
+This state is _not_ persistent. If you need a persistent state, you'll need to use a macro. 
 ---
 
 

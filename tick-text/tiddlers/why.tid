@@ -1,0 +1,19 @@
+created: 20200906185250705
+modified: 20200906190109650
+tags: 
+title: why
+type: text/vnd.tiddlywiki
+
+! Why does this project exist
+
+* We (Tony, TT and me) wanted a way to modify paragraph behaviour using ~TiddlyWiki syntax
+
+* Tony wanted a "per line" definition
+* I wanted a "per paragraph" definition
+* TT was neutral ;)
+
+!! The Goal
+
+* Easy to use
+* Fast
+* Unobtrusive
