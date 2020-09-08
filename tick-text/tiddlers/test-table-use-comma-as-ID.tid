@@ -1,0 +1,33 @@
+created: 20200908145256155
+modified: 20200908145710795
+tags: 
+title: test-table-use-comma-as-ID
+type: text/vnd.tiddlywiki
+
+\customize comma=table tag=table endString="---" mode=block
+\customize comma=caption tag=caption
+\customize comma=row tag=tr  mode=block endString="-"
+
+\customize comma=th tag=th 
+\customize comma=th2 tag=th  colspan=2
+
+\customize comma=xxx tag=td 
+\customize comma use=xxx
+
+,table ,caption Some ´caption´ text
+,row
+,th header 1
+,th2 header 2
+-
+,row
+, 1 text
+, cell 12 text
+, cell 13 text
+-
+,row
+, 2 text
+, cell 22 text
+, cell 23 text
+-
+---
+

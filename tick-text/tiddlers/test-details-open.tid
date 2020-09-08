@@ -1,29 +1,29 @@
 created: 20200902111614401
-modified: 20200906180304280
+modified: 20200907133158184
 title: test-details-open
 type: text/vnd.tiddlywiki
 
-\ticktext tick="d" tag="details" params=".notop.c.cl.hl" endString="---" open  mode=block
-\ticktext tick="s" tag="summary" params=".-m"
+\customize tick="d" tag="details" params=".notop.c.cl.hl" endString="---" open  mode=block
+\customize tick="s" tag="summary" params=".-m"
 
-\ticktext tick="x" tag="details" params=".notop.c.cl.hl" endString="---"  mode=block
+\customize tick="x" tag="details" params=".notop.c.cl.hl" endString="---"  mode=block
 
-\ticktext tick="y" tag="div" params=".c.cs.hl" mode=block
+\customize tick="y" tag="div" params=".c.cs.hl" mode=block
 
 \define tv-adjust-heading-level() 2
 
-´.d ´.s Details - Summay
+´d ´s Details - Summay
 line 1  
 line 2  
 adsf 
 ---
 
-´.x ´.s Details - Summay
+´x ´s Details - Summay
 -----
 {{test}}
 ---
 
-´.y  {{test}}
+´y  {{test}}
 
 
 

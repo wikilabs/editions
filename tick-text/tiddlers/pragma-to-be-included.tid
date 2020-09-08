@@ -4,5 +4,5 @@ tags: pragmas
 title: pragma-to-be-included
 type: text/plain
 
-\ticktext tick="success" tag="div" params=".c.cs.hl" mode=block 
-\ticktext tick="span" tag="span" params=".asdf" 
+\customize tick="success" tag="div" params=".c.cs.hl" mode=block 
+\customize tick="span" tag="span" params=".asdf" 

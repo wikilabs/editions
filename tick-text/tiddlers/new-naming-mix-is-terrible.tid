@@ -1,0 +1,50 @@
+created: 20200908124549669
+modified: 20200908150829054
+tags: 
+title: new-naming-mix-is-terrible
+type: text/vnd.tiddlywiki
+
+\customize degree=table htmlTag=table endString="---" mode=block
+
+\customize degree=caption htmlTag=caption
+
+\customize degree=row htmlTag=tr  mode=block endString="-"
+
+\customize degree=th htmlTag=th 
+\customize degree=th2 htmlTag=th  colspan=2
+
+\customize tick=row htmlTag=tr  mode=block endString="-"
+\customize tick=xxx htmlTag=td 
+\customize tick use=xxx
+
+\customize underline=x htmlTag=td
+\customize underline use=x
+
+\customize comma=y htmlTag=td
+\customize comma use=y
+
+\debugcustomizex all
+
+°table °caption Some ´caption´ text
+°row
+°th header 1
+°th2 header 2
+-
+´row
+´ 1 text
+´ cell 12 text
+´ cell 13 text
+-
+´row
+, 2 text
+, cell 22 text
+, cell 23 text
+-
+´row
+_ 2 text
+_ cell 22 text
+_ cell 23 text
+-
+---
+
+Mixing IDs for the same thing is terrible. A lot of config duplication is created!

@@ -1,30 +1,30 @@
 created: 20200906133708774
-modified: 20200906182250703
+modified: 20200908150003674
 tags: 
 title: test-table-multiline-cells
 type: text/vnd.tiddlywiki
 
-\ticktext tick=table tag=table endString="---" mode=block
-\ticktext tick=caption tag=caption
+\customize tick=table tag=table endString="---" mode=block
+\customize tick=caption tag=caption
 
-\ticktext tick=header tag=th 
-\ticktext tick="header-2-columns" tag=th  colspan=2
+\customize tick=header tag=th 
+\customize tick="header-2-columns" tag=th  colspan=2
 
-\ticktext tick=header2 use="header-2-columns"
+\customize tick=header2 use="header-2-columns"
 
-\ticktext tick=cell tag=td params=".hl"
-\ticktext tick use=cell
+\customize tick=cell tag=td params=".hl"
+\customize tick use=cell
 
-\ticktext angel=row tag=tr mode=block endString="--"
-\ticktext angel=cmulti tag=td params=".hl"
-\ticktext angel use=cmulti
+\customize angel=row tag=tr mode=block endString="--"
+\customize angel=cmulti tag=td params=".hl"
+\customize angel use=cmulti
 
-´.table ´.caption Some caption text
-».row
-´.header  header 1
-´.header2 header 2 columns wide
+´table ´caption Some caption text
+»row
+´header  header 1
+´header2 header 2 columns wide
 --
-».row
+»row
 » 1 text
 
 » 12 text
@@ -34,9 +34,11 @@ line 2 alksjdfösdajf
 as döfjsadöfkjösadjf
 
 --
-».row
+»row
 ´ 2 text
 ´ 22 text
 ´ 23 text
+--
 ---
 
+Some more text

@@ -1,22 +1,22 @@
 created: 20200906114326359
-modified: 20200906140732953
+modified: 20200907135607970
 tags: 
 title: test-angel-quote
 type: text/vnd.tiddlywiki
 
-\ticktext tick="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
+\customize tick="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
 
-\ticktext tick="s" tag="summary" params=".-m"
+\customize tick="s" tag="summary" params=".-m"
 
-\ticktext angel="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
+\customize angel="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
 
-´.d ´.s Details - Summay
+´d ´s Details - Summay
 ------
 line 1
 line 2
 adsf
 ---
-
+ 
 ''Important!''
 
 »» "angel" and "tick" do the same thing if `mode=block` 

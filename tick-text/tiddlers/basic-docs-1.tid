@@ -1,0 +1,47 @@
+created: 20200908152739520
+modified: 20200908153709972
+tags: 
+title: basic-docs-1
+type: text/vnd.tiddlywiki
+
+\customize angel="§" htmlTag="div" params=".hl"
+
+! New Pragmas
+
+* `\customize degree=table htmlTag=table endString="---" mode=block`
+* `\debugcustomize all`
+* `\custominline ...` ... not implemented in V0.1.0!
+
+!! Pragma Schema
+
+```
+\customize <ID>=<userSymbol>
+           htmlTag=<tag>
+           params=<class definitions eg: .i.hl.x.y>
+           endString=<string>
+           use=<userSymbol reference>
+```
+
+; Possible IDs 
+: `tick, angel, comma, degree, underline`
+
+!! Pragma usage:
+
+```
+\customize angel="§" htmlTag="div" params=".hl"
+```
+
+!! "In text" usage:
+
+```
+»§ My text comes here.
+`angel` default end is `\n\n`. 
+The `params=".hl"` allows us 
+to see hard-linebreaks
+```
+
+»§ My text comes here.
+`angel` default end is `\n\n`. 
+The `params=".hl"` allows us 
+to see hard-linebreaks
+

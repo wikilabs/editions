@@ -1,12 +1,12 @@
 created: 20200901083625967
-modified: 20200906180822908
+modified: 20200907133220489
 tags: 
 title: test-endString-aside
 type: text/vnd.tiddlywiki
 
-\ticktext tick="§" tag="aside" params="c.cw.h" endString="---" 
+\customize tick="§" tag="aside" params="c.cw.h" endString="---" 
 
-´.§ asdfsk   
+´§ asdfsk   
 sdf test 
 asdjfö las 
 ---

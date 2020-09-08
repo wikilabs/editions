@@ -1,15 +1,15 @@
 created: 20200904213906708
-modified: 20200906185109909
+modified: 20200907133317678
 tags: 
 title: test-extra-attributes
 type: text/vnd.tiddlywiki
 
-\ticktext tick="d" tag="details" params=".notop.c.cl.hl" endString="---" mode=block open
-\ticktext tick="s" tag="summary" params=".-m"
+\customize tick="d" tag="details" params=".notop.c.cl.hl" endString="---" mode=block open
+\customize tick="s" tag="summary" params=".-m"
 
-´.d ´.s Summay Text
+´d ´s Summay Text
 -------
-Open this example in edit mode, to see the definitions. Especially the `open` parameter in the `\ticktext` pragma.
+Open this example in edit mode, to see the definitions. Especially the `open` parameter in the `\customize` pragma.
 
 It allows us to initialize the DETAILS html tag to start in expaned mode. 
 

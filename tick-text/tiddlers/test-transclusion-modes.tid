@@ -1,16 +1,16 @@
 created: 20200902142529740
-modified: 20200902145414186
+modified: 20200907132839668
 tags: use
 title: test-transclusion-modes
 type: text/vnd.tiddlywiki
 
-\ticktext tick="inline" tag="div" params=".c.cs.hl" 
-\ticktext tick="block" tag="div" params=".c.cs.hl" mode=block
+\customize tick="inline" tag="div" params=".c.cs.hl" 
+\customize tick="block" tag="div" params=".c.cs.hl" mode=block
 
 ```
-\ticktext tick="a" use=block     TODO
+\customize tick="a" use=block     TODO
 ```
 
-´.inline  {{test}}
+´inline  {{test}}
 
-´.block  {{test}}
+´block  {{test}}

@@ -1,31 +1,34 @@
 created: 20200906091431254
-modified: 20200906180037046
+modified: 20200908145910591
 tags: 
 title: test-table-1
 type: text/vnd.tiddlywiki
 
-\ticktext tick=table tag=table endString="---" mode=block
-\ticktext tick=caption tag=caption
-\ticktext tick=row tag=tr  mode=block endString="-"
+\customize tick=table tag=table endString="---" mode=block
+\customize tick=caption tag=caption
+\customize tick=row tag=tr  mode=block endString="-"
 
-\ticktext tick=th tag=th 
-\ticktext tick=th2 tag=th  colspan=2
+\customize tick=th tag=th 
+\customize tick=th2 tag=th  colspan=2
 
-\ticktext tick=td tag=td 
+\customize tick=td tag=td 
 
-´.table ´.caption Some caption text
-´.row
-´.th header 1
-´.th2 header 2
+´table ´caption Some ´caption´ text
+´row
+´th header 1
+´th2 header 2
 -
-´.row
-´.td 1 text
-´.td cell 12 text
-´.td cell 13 text
+´row
+´td 1 text
+´td cell 12 text
+´td cell 13 text
 -
-´.row
-´.td 2 text
-´.td cell 22 text
-´.td cell 23 text
-----
+´row
+´td 2 text
+´td cell 22 text
+´td cell 23 text
+-
+---
+
+Some more text
 

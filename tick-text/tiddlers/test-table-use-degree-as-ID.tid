@@ -1,0 +1,33 @@
+created: 20200908103842958
+modified: 20200908145723272
+tags: 
+title: test-table-use-degree-as-ID
+type: text/vnd.tiddlywiki
+
+\customize degree=table tag=table endString="---" mode=block
+\customize degree=caption tag=caption
+\customize degree=row tag=tr  mode=block endString="-"
+
+\customize degree=th tag=th 
+\customize degree=th2 tag=th  colspan=2
+
+\customize degree=xxx tag=td 
+\customize degree use=xxx
+
+°table °caption Some ´caption´ text
+°row
+°th header 1
+°th2 header 2
+-
+°row
+° 1 text
+° cell 12 text
+° cell 13 text
+-
+°row
+° 2 text
+° cell 22 text
+° cell 23 text
+-
+---
+

@@ -1,0 +1,13 @@
+created: 20200907142957601
+modified: 20200907143023485
+tags: 
+title: test-importpragmas-debug
+type: text/vnd.tiddlywiki
+
+\importpragmas [tag[pragmas]]
+
+\customize tick use="success"  
+
+\tickdebug all
+
+   

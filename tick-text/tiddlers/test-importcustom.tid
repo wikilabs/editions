@@ -1,0 +1,14 @@
+created: 20200902144451840
+modified: 20200908145218195
+title: test-importcustom
+type: text/vnd.tiddlywiki
+
+\importcustom [tag[pragmas]]
+
+\customize tick use="success"  
+
+```
+\customize tick use="success"   
+```
+
+´ {{test}}

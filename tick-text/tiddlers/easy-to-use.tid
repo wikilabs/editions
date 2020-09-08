@@ -1,0 +1,37 @@
+created: 20200908151010638
+modified: 20200908152728408
+tags: 
+title: easy-to-use
+type: text/vnd.tiddlywiki
+
+\customize angel="hard-linebreak" params=".hl"
+\customize angel use="hard-linebreak"
+
+! Basic Usage pattern
+
+~TiddlyWiki paragraphs are automatically detected, if plain text is followed by 2 linebreaks: `\n\n`.
+This paragraph is such an example. ...
+It also contains a single linebreak right after the 3 dots in the prior sentence. This single linebreak is ignored by the TW default rendering mechanism. 
+
+There is a possibility to define "hard linebreaks" with a wikitext rule like: 
+
+```
+"""
+line 1 
+{{test}}
+line 2 
+"""
+```
+
+The tripple double-quotes are OK, but it should be easier. Especially if a lot of text is "copy / pasted" into a tiddler from a different souce. 
+
+There is a possibilty to define a `\customize` pragma now. 
+
+```
+\customize angel="hard-linebreak" params=".hl"
+\customize angel use="hard-linebreak"
+```
+
+
+
+
