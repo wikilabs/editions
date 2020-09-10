@@ -1,0 +1,23 @@
+created: 20200910092000359
+modified: 20200910133919449
+tags: 
+title: test-presentation
+type: text/vnd.tiddlywiki
+
+\customize tick="pres" htmlTag="$presentation" mode=block endString="---"
+\customize tick htmlTag="$slide" 
+
+\customize angel htmlTag="$slide" mode=block endString="--"
+
+´pres
+´ Welcome to ''Reveal.js''
+´ Embedded inside TiddlyWiki
+»
+  ´ Vertical Slides
+  ´ Can also me manged with one level of nesting
+--
+´ End!
+´ Have fun!
+---
+
+Some more text

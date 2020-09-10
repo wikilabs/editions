@@ -1,12 +1,12 @@
 created: 20200902111614401
-modified: 20200907133158184
+modified: 20200910133828159
 title: test-details-open
 type: text/vnd.tiddlywiki
 
-\customize tick="d" tag="details" params=".notop.c.cl.hl" endString="---" open  mode=block
+\customize tick="d" tag="details" params=".notop.c.cl.hl" endString="------" open  mode=block
 \customize tick="s" tag="summary" params=".-m"
 
-\customize tick="x" tag="details" params=".notop.c.cl.hl" endString="---"  mode=block
+\customize tick="x" tag="details" params=".notop.c.cl.hl" endString="------"  mode=block
 
 \customize tick="y" tag="div" params=".c.cs.hl" mode=block
 
@@ -16,12 +16,12 @@ type: text/vnd.tiddlywiki
 line 1  
 line 2  
 adsf 
----
+------
 
 ´x ´s Details - Summay
------
-{{test}}
 ---
+{{test}}
+------
 
 ´y  {{test}}
 

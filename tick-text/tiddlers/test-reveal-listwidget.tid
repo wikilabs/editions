@@ -1,0 +1,16 @@
+created: 20200910104714545
+modified: 20200910134330531
+tags: 
+title: test-reveal-listwidget
+type: text/vnd.tiddlywiki
+
+\customize angel="present" htmlTag="$presentation" mode=block endString="---"
+\customize angelhtmlTag="$slide" 
+
+\customize angel="list" htmlTag="$list" mode=block endString="--" filter="[tag[slide]sort[title]]"
+
+\customize angel htmlTag="$slide" mode=block endString="-"
+
+»present »list » <$transclude mode=block /> - -- ---
+
+Some more text, that should _not_ be part of the presentation.

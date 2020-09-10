@@ -1,0 +1,33 @@
+created: 20150117184156000
+modified: 20200909235648116
+tags: $:/tags/Macro
+title: :/editions/wikilabs/tick-text/docs-macros
+type: text/vnd.tiddlywiki
+
+\define showExample(srcInner, srcOuter)
+
+$srcInner$
+
+<div class="doc-example">
+Example Code: <$macrocall $name="copy-to-clipboard-above-right" src=<<__srcInner__>>/>
+
+```
+$srcInner$
+```
+</div>
+\end
+
+\define showCodeOuter(srcInner, srcOuter)
+
+<div class="doc-example">
+
+<$macrocall $name="copy-to-clipboard-above-right" src=<<__srcOuter__>>/>
+
+```
+$srcOuter$
+```
+</div>
+\end
+
+
+<pre><$view field="text"/></pre>

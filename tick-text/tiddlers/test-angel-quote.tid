@@ -1,5 +1,5 @@
 created: 20200906114326359
-modified: 20200907135607970
+modified: 20200910133532029
 tags: 
 title: test-angel-quote
 type: text/vnd.tiddlywiki
@@ -11,12 +11,11 @@ type: text/vnd.tiddlywiki
 \customize angel="d" tag="details" params=".notop.c.cl.hl" open  mode=block endString="---"
 
 ´d ´s Details - Summay
-------
 line 1
 line 2
 adsf
 ---
- 
+
 ''Important!''
 
 »» "angel" and "tick" do the same thing if `mode=block` 
