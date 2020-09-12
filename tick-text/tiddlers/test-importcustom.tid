@@ -5,10 +5,10 @@ type: text/vnd.tiddlywiki
 
 \importcustom [tag[pragmas]]
 
-\customize tick use="success"  
+\customize tick _use="success"  
 
 ```
-\customize tick use="success"   
+\customize tick _use="success"   
 ```
 
 ´ {{test}}

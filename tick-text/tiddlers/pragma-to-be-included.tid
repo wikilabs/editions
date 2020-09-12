@@ -1,8 +1,8 @@
 created: 20200902144507426
-modified: 20200904213642511
+modified: 20200910205800974
 tags: pragmas
 title: pragma-to-be-included
 type: text/plain
 
-\customize tick="success" tag="div" params=".c.cs.hl" mode=block 
-\customize tick="span" tag="span" params=".asdf" 
+\customize tick="success" _element="div" _params=".c.cs.hl" _mode=block 
+\customize tick="span" _element="span" _params=".asdf" 

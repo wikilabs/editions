@@ -1,0 +1,14 @@
+created: 20200910200019270
+modified: 20200910205701327
+tags: 
+title: test-high-abstraction
+type: text/vnd.tiddlywiki
+
+\customize degree _element="$presentation" _mode=block _endString="----"
+\customize angel _element="$list" _mode=block _endString="---" filter="[tag[slide]sort[title]]"
+\customize tick _element="$slide" _mode=block _endString="--"
+\customize comma _element="$transclude" _mode=block _endString="-" mode=block
+
+° » ´ , - -- --- ----
+
+ 

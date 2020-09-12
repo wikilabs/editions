@@ -1,9 +1,9 @@
 created: 20200904141831193
-modified: 20200904213014968
+modified: 20200910205743162
 tags: pragmas
 title: pragma-to-be-included-2
 type: text/plain
 
-\customize tick="x" tag="div" params=".c.cs.hl" mode=block
-\customize tick="y" tag="span" params=".asdf" 
+\customize tick="x" _element="div" _params=".c.cs.hl" _mode=block
+\customize tick="y" _element="span" _params=".asdf" 
 

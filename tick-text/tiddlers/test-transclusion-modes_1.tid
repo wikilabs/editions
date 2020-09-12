@@ -1,0 +1,15 @@
+created: 20200902142529740
+modified: 20200910210614286
+title: test-transclusion-modes
+type: text/vnd.tiddlywiki
+
+\customize tick="inline" _element="div" _params=".c.cs.hl" 
+\customize tick="block" _element="div" _params=".c.cs.hl" _mode=block
+
+```
+\customize tick="a" _use=block     TODO
+```
+
+´inline  {{test}}
+
+´block  {{test}}

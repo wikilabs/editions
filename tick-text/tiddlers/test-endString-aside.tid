@@ -1,10 +1,10 @@
 created: 20200901083625967
-modified: 20200907133220489
+modified: 20200910211328327
 tags: 
-title: test-endString-aside
+title: test-_endString-aside
 type: text/vnd.tiddlywiki
 
-\customize tick="§" tag="aside" params="c.cw.h" endString="---" 
+\customize tick="§" _element="aside" _params="c.cw.h" _endString="---" 
 
 ´§ asdfsk   
 sdf test 

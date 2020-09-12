@@ -1,0 +1,11 @@
+created: 20200910192820932
+modified: 20200910195707603
+tags: 
+title: test-reveal-listwidget 1
+type: text/vnd.tiddlywiki
+
+\importcustom [[presentation-list-widget-config]]
+
+° » ´ <$transclude _mode=block /> - -- ---
+
+Some more text, that should _not_ be part of the presentation.

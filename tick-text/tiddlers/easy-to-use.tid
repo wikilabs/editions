@@ -4,8 +4,8 @@ tags:
 title: easy-to-use
 type: text/vnd.tiddlywiki
 
-\customize angel="hard-linebreak" params=".hl"
-\customize angel use="hard-linebreak"
+\customize angel="hard-linebreak" _params=".hl"
+\customize angel _use="hard-linebreak"
 
 ! Basic Usage pattern
 
@@ -28,8 +28,8 @@ The tripple double-quotes are OK, but it should be easier. Especially if a lot o
 There is a possibilty to define a `\customize` pragma now. 
 
 ```
-\customize angel="hard-linebreak" params=".hl"
-\customize angel use="hard-linebreak"
+\customize angel="hard-linebreak" _params=".hl"
+\customize angel _use="hard-linebreak"
 ```
 
 

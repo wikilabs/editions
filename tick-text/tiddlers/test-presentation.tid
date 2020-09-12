@@ -1,15 +1,15 @@
 created: 20200910092000359
-modified: 20200910133919449
+modified: 20200910192712308
 tags: 
 title: test-presentation
 type: text/vnd.tiddlywiki
 
-\customize tick="pres" htmlTag="$presentation" mode=block endString="---"
-\customize tick htmlTag="$slide" 
+\customize tick="present" _element="$presentation" _mode=block _endString="---"
+\customize tick _element="$slide" 
 
-\customize angel htmlTag="$slide" mode=block endString="--"
-
-´pres
+\customize angel _element="$slide" _mode=block _endString="--"
+ 
+´present
 ´ Welcome to ''Reveal.js''
 ´ Embedded inside TiddlyWiki
 »

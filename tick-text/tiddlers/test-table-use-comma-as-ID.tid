@@ -4,15 +4,15 @@ tags:
 title: test-table-use-comma-as-ID
 type: text/vnd.tiddlywiki
 
-\customize comma=table tag=table endString="---" mode=block
-\customize comma=caption tag=caption
-\customize comma=row tag=tr  mode=block endString="-"
+\customize comma=table _element=table _endString="---" _mode=block
+\customize comma=caption _element=caption
+\customize comma=row _element=tr  _mode=block _endString="-"
 
-\customize comma=th tag=th 
-\customize comma=th2 tag=th  colspan=2
+\customize comma=th _element=th 
+\customize comma=th2 _element=th  colspan=2
 
-\customize comma=xxx tag=td 
-\customize comma use=xxx
+\customize comma=xxx _element=td 
+\customize comma _use=xxx
 
 ,table ,caption Some ´caption´ text
 ,row

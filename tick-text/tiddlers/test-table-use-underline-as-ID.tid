@@ -1,18 +1,18 @@
 created: 20200908145424667
 modified: 20200908145657256
 tags: 
-title: test-table-use-underline-as-ID
+title: test-table-use-underscore-as-ID
 type: text/vnd.tiddlywiki
 
-\customize underline=table tag=table endString="---" mode=block
-\customize underline=caption tag=caption
-\customize underline=row tag=tr  mode=block endString="-"
+\customize underscore=table _element=table _endString="---" _mode=block
+\customize underscore=caption _element=caption
+\customize underscore=row _element=tr  _mode=block _endString="-"
 
-\customize underline=th tag=th 
-\customize underline=th2 tag=th  colspan=2
+\customize underscore=th _element=th 
+\customize underscore=th2 _element=th  colspan=2
 
-\customize underline=xxx tag=td 
-\customize underline use=xxx
+\customize underscore=xxx _element=td 
+\customize underscore _use=xxx
 
 _table _caption Some ´caption´ text
 _row
@@ -31,4 +31,4 @@ _ cell 23 text
 -
 ---
 
-I (mario) think, that underline interferes with "-" as endString
+I (mario) think, that underscore interferes with "-" as _endString

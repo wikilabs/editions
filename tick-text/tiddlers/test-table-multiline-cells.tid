@@ -4,20 +4,20 @@ tags:
 title: test-table-multiline-cells
 type: text/vnd.tiddlywiki
 
-\customize tick=table tag=table endString="---" mode=block
-\customize tick=caption tag=caption
+\customize tick=table _element=table _endString="---" _mode=block
+\customize tick=caption _element=caption
 
-\customize tick=header tag=th 
-\customize tick="header-2-columns" tag=th  colspan=2
+\customize tick=header _element=th 
+\customize tick="header-2-columns" _element=th  colspan=2
 
-\customize tick=header2 use="header-2-columns"
+\customize tick=header2 _use="header-2-columns"
 
-\customize tick=cell tag=td params=".hl"
-\customize tick use=cell
+\customize tick=cell _element=td _params=".hl"
+\customize tick _use=cell
 
-\customize angel=row tag=tr mode=block endString="--"
-\customize angel=cmulti tag=td params=".hl"
-\customize angel use=cmulti
+\customize angel=row _element=tr _mode=block _endString="--"
+\customize angel=cmulti _element=td _params=".hl"
+\customize angel _use=cmulti
 
 ´table ´caption Some caption text
 »row

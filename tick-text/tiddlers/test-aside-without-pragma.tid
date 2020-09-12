@@ -1,0 +1,13 @@
+created: 20200910213411607
+modified: 20200911154635344
+tags: 
+title: test-aside-without-pragma
+type: text/vnd.tiddlywiki
+
+».j.i {{lorem-ipsum-1-para}}
+
+´aside.-mt.-mb.j.fl This is a test using the hmtl element ASIDE
+
+».j.i {{lorem-ipsum-1-para}}
+
+CSS can be found at: [[aside-css]]

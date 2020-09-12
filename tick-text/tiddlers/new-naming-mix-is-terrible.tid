@@ -1,27 +1,28 @@
 created: 20200908124549669
+created: 20200908124549669
 modified: 20200908150829054
 tags: 
 title: new-naming-mix-is-terrible
 type: text/vnd.tiddlywiki
 
-\customize degree=table htmlTag=table endString="---" mode=block
+\customize degree=table _element=table _endString="---" _mode=block
 
-\customize degree=caption htmlTag=caption
+\customize degree=caption _element=caption
 
-\customize degree=row htmlTag=tr  mode=block endString="-"
+\customize degree=row _element=tr  _mode=block _endString="-"
 
-\customize degree=th htmlTag=th 
-\customize degree=th2 htmlTag=th  colspan=2
+\customize degree=th _element=th 
+\customize degree=th2 _element=th  colspan=2
 
-\customize tick=row htmlTag=tr  mode=block endString="-"
-\customize tick=xxx htmlTag=td 
-\customize tick use=xxx
+\customize tick=row _element=tr  _mode=block _endString="-"
+\customize tick=xxx _element=td 
+\customize tick _use=xxx
 
-\customize underline=x htmlTag=td
-\customize underline use=x
+\customize underscore=x _element=td
+\customize underscore _use=x
 
-\customize comma=y htmlTag=td
-\customize comma use=y
+\customize comma=y _element=td
+\customize comma _use=y
 
 \debugcustomizex all
 
