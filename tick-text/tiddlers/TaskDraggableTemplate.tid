@@ -1,0 +1,6 @@
+created: 20200915105905737
+modified: 20200915105905818
+title: TaskDraggableTemplate
+type: text/vnd.tiddlywiki
+
+<$checkbox tag="erledigt"> <$link to={{!!title}}><$view field="title"/></$link></$checkbox>

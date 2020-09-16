@@ -1,0 +1,32 @@
+created: 20200908145256155
+modified: 20200916112811575
+tags: 
+title: test-table-use-single-as-ID
+type: text/vnd.tiddlywiki
+
+\customize single=table _element=table _endString="---" _mode=block
+\customize single=caption _element=caption
+\customize single=row _element=tr  _mode=block _endString="-"
+
+\customize single=th _element=th 
+\customize single=th2 _element=th  colspan=2
+
+\customize single _element=td 
+
+›table ›caption Some ´caption´ text
+›row
+›th header 1
+›th2 header 2
+-
+›row
+› 1 text
+› cell 12 text
+› cell 13 text
+-
+›row
+› 2 text
+› cell 22 text
+› cell 23 text
+-
+---
+

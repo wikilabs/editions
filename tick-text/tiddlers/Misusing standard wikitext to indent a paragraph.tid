@@ -1,0 +1,39 @@
+created: 20200915091508527
+modified: 20200915194754861
+tags: Basics
+title: Misusing standard wikitext to indent a paragraph
+type: text/vnd.tiddlywiki
+
+! Misusing standard wikitext to indent a paragraph
+
+As shown in: [[How to style a Paragraph]] there is some overhead in properly styling a paragraph in wikitext.
+
+''That's why'' some users use the ''[[definition list|https://tiddlywiki.com/#Definitions%20in%20WikiText]]'' wikitext rules: `; and :` eg: 
+
+```
+: paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. 
+```
+Which renders like this:
+
+: paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. 
+
+As you can see, it creates a ''similar visual'' impression as the real paragraph in [[How to style a Paragraph]]. BUT ''technically'', it is something ''completely different''!
+
+If we have a look at the rendered HTML text, the "definition list" elements looks like this: 
+
+```
+<dl>
+  <dd>paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. paragraph text comes here. </dd>
+</dl>
+```
+
+The rules `;` and `:` mean `; ... Definition Term` and `: Definition Details`, which is something completely different to a paragraph. 
+
+''On of the biggest downside is:''
+
+* ''It has the potential to confuse screen readers.''
+
+
+Tools for visually impaired users need a valid HTML structure to function right. It's essential to create valid rendered output. 
+
+''A possible solution'' are: [[Custom Wikitext Markers]]

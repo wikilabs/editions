@@ -1,0 +1,25 @@
+created: 20200913111735437
+modified: 20200913120553372
+tags: 
+title: show-paragraph-problem
+type: text/vnd.tiddlywiki
+
+<style>
+p {
+  border: 1px red solid
+}
+</style>
+
+<p>paragraph 1</p>
+<p></p>
+<p></p>
+<p>paragraph 2</p>
+<p>paragraph 3</p>
+
+-----
+
+´p line 1
+
+
+´p  line 2
+´p  line 3

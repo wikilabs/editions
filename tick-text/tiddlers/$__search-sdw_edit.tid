@@ -1,0 +1,42 @@
+caption: edit
+created: 20200915230500496
+icon: $:/plugins/wikilabs/advanced-search-plus/shadow-search.svg
+input-tiddler: $:/search-sdw/inp/edit
+input-title: $:/search-sdw/edit
+modified: 20200915230500572
+tags: $:/tags/AdvancedSearch
+title: $:/search-sdw/edit
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/language/Search/
+
+<$tiddler tiddler=<<currentTab>>>
+<$button tooltip={{$:/language/Buttons/Delete/Caption}} >
+  <$action-deletetiddler $tiddler={{!!input-tiddler}}/>
+  <$action-deletetiddler $tiddler={{!!input-title}}/>
+  <$transclude tiddler="$:/core/images/delete-button" />
+</$button>
+<<lingo Shadows/Hint>>
+
+<div class="tc-search">
+<$edit-text tiddler={{!!input-tiddler}} type="search" tag="input" placeholder="..." default=""/>
+<$reveal state={{!!input-tiddler}} type="nomatch" text="">
+<$button class="tc-btn-invisible">
+<$action-setfield $tiddler={{!!input-tiddler}} $field="text" $value=""/>
+{{$:/core/images/close-button}}
+</$button>
+</$reveal>
+</div>
+
+<$reveal state={{!!input-tiddler}} type="nomatch" text="">
+<$set name="search-term" tiddler={{!!input-tiddler}}>
+<$set name="resultCount" value="<$count filter='[all[shadows]search<search-term>]'/>">
+<div class="tc-search-results">
+<<lingo Shadows/Matches>>
+<$list filter="[all[shadows]search<search-term>sort[title]limit[250]]" template="$:/core/ui/ListItemTemplate"/>
+</div>
+</$set></$set>
+</$reveal>
+<$reveal state={{!!input-tiddler}} type="match" text="">
+</$reveal>
+</$tiddler>

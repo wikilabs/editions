@@ -4,77 +4,115 @@
   margin-bottom: 1em;
 }
 
+/*------------------------------------------*/
 /* Indent by level adjusted to bullet lists */
 
-.i, .wltc-l2 {
-  margin-left: 2.9em;
+.i, .indent, .wltc-l2 {
+  margin-left: 2.65em;
 }
 
 .ii, .wltc-l3 {
-  margin-left: 5.8em;
+  margin-left: 5.3em;
 }
 
 .iii, .wltc-l4 {
-  margin-left: 8.6em;
+  margin-left: 7.95em;
 }
 
-/* Text alignment */
-.j {
+/*------------------------------------------*/
+/* Text alignment                           */
+
+il1, .indentLine1 {
+  text-indent: 2.65em;
+}
+
+ol1, .outdentLine1 {
+  text-indent: -2.65em;
+}
+
+.j, .justify {
   text-align: justify;
 }
 
 /* Centering functions */
-.r {
+.r, .right-dedent {
   margin-right: 3em;
 }
 
-/* Simple custom list bullet */
+/*------------------------------------------*/
+/* Simple custom list bullet                */
 ul .star{
   list-style-type: "★ "
 }
 
-/* Margin double, margin half */
+/*------------------------------------------*/
+/* Margin double, margin half               */
 
-.md {
+.md, .margin-double {
   margin-top: 2em;
   margin-bottom: 2em;
 }
 
-.mtd {
+.mtd, .margin-top-double {
   margin-top: 2em;
 }
 
-.-mh {
+.-mh, .margin-half {
   margin-top: -.5em;
   margin-bottom: -.5em;
 }
 
-.-mth {
+.-mbh, .-margin-bottom-half {
   margin-bottom: -.5em;
 }
 
+/*------------------------------------------------------*/
 /* Undo some default definitions to get more variations */
 
-.-m {
+.-m, .margin-init {
   margin: initial;
 }
 
-.-mt {
+.-mt, .margin-top-init {
   margin-top: initial;
 }
 
-.-mb {
+.-mb, .margion-bottom-init {
   margin-bottom: initial;
 }
 
+/*-----------------------------------------------*/
+/* Remove margin-top for headings in color-boxes */
 .c h1, .c h2, .c h3, .c h4, .c h5, .c h6  {
   margin-top: initial;
 }
 
-.fl {
+/*------------------------------------------*/
+/* Float and .clearfixes                    */
+
+.fl, .float-left {
   float: left;
 }
 
-.fr {
+.fr, float-right {
   float: right;
+}
+
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/*------------------------------------------*/
+/* ASIDE needs float and .clearfixes        */
+
+aside {
+    width: 40%;
+    padding: .5em 1em;
+    margin-left: .5em;
+    float: right;
+    box-shadow: inset 5px 0 5px -5px #29627e;
+    font-style: italic;
+    color: #29627e;
 }

@@ -1,6 +1,5 @@
 created: 20200908124549669
-created: 20200908124549669
-modified: 20200908150829054
+modified: 20200916112952203
 tags: 
 title: new-naming-mix-is-terrible
 type: text/vnd.tiddlywiki
@@ -15,14 +14,11 @@ type: text/vnd.tiddlywiki
 \customize degree=th2 _element=th  colspan=2
 
 \customize tick=row _element=tr  _mode=block _endString="-"
-\customize tick=xxx _element=td 
-\customize tick _use=xxx
+\customize tick _element=td 
 
-\customize underscore=x _element=td
-\customize underscore _use=x
+\customize underscore _element=td
 
-\customize comma=y _element=td
-\customize comma _use=y
+\customize single _element=td
 
 \debugcustomizex all
 
@@ -32,14 +28,14 @@ type: text/vnd.tiddlywiki
 °th2 header 2
 -
 ´row
-´ 1 text
-´ cell 12 text
-´ cell 13 text
+› 1 text
+› cell 12 text
+› cell 13 text
 -
 ´row
-, 2 text
-, cell 22 text
-, cell 23 text
+› 2 text
+› cell 22 text
+› cell 23 text
 -
 ´row
 _ 2 text

@@ -1,0 +1,18 @@
+created: 20200915124848170
+modified: 20200915132707795
+tags: Basics
+title: Basics for advanced users
+type: text/vnd.tiddlywiki
+
+If you want to use a horizontal rule within the box and justify the text, so it also aligns on the right side, you can do so like so: 
+
+».indent.right-dedent.justify.cbox.cbox-primary `».indent.right-dedent.justify.cbox.cbox-primary` Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant eseruisse, sonet putent propriae et pri. 
+<hr>
+At vel nisl nobis, ne sea nulla corpora. At pri saperet nominati scriptorem, ei sale sanctus ea. Quo cu altera laoreet ceteros.
+
+As you can see, the "styling" overhead in the "prose text" reaches a level of distraction, that should be reduced. Right?
+
+''If you think it's OK you are done. Stop reading!''
+
+If you think it can be "optimized" [[go on reading.|Introducing Custom Markers for Advanced Users]]
+

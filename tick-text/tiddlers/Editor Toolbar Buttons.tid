@@ -1,0 +1,17 @@
+created: 20200915111228377
+modified: 20200916125836154
+tags: Reference
+title: Editor Toolbar Buttons
+type: text/vnd.tiddlywiki
+
+! New Toolbar Buttons
+
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/EditorToolbar]prefix[$:/plugins/wikilabs]]">
+
+´.i <$transclude tiddler={{!!icon}}/> <$link>{{!!caption}}</$link> - {{!!description}}
+
+</$list>
+
+! New Toolbar Icons
+
+<<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/tick-text/icons]]">>

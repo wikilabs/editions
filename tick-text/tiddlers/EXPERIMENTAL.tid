@@ -1,13 +1,13 @@
 created: 20200831074005709
-modified: 20200912004644234
+modified: 20200916125425796
 tags: $:/tags/AboveStory
 title: EXPERIMENTAL
 type: text/vnd.tiddlywiki
 
-[[why]] | [[easy-to-use]] | [[basic-docs-1]] 
+[[why]] | [[easy-to-use]] | [[Basics]] | [[Reference]] Start reading at: [[How to style a Paragraph]]
 
-! This PAGE and PLUGINS are EXPERIMENTAL
+! This PAGE and PLUGINS are BETA
 
-!! Version 0.3.0 --- Sept. 12, 2:50
+!! Version 0.4.0 --- Sept. 16, 14:35
 
-Everything is subject to change! There is no docs yet! Some tiddler names are weired! ... but have fun! Mario 
+Names may be subject to change! There is not enough docs yet! ... but have fun! Mario 

@@ -1,9 +1,13 @@
 created: 20200910193113085
-modified: 20200910195604358
+modified: 20200914114006770
 tags: 
 title: presentation-list-widget-config
-type: text/vnd.tiddlywiki
+type: text/plain
 
 \customize degree=presentation _element="$presentation" _mode=block _endString="---"
 \customize angel=list _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
 \customize tick=slide _element="$slide" _mode=block _endString="-"
+
+\customize tick _use=slide
+\customize degree _use=presentation
+\customize angel _use=list

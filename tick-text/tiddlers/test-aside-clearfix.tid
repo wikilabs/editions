@@ -1,0 +1,14 @@
+created: 20200901083625967
+modified: 20200914112324495
+tags: 
+title: test-aside-clearfix
+type: text/vnd.tiddlywiki
+
+\customize tick="§" _element="aside" _params="hl.c.cw" _endString="---" 
+
+´§ asdfsk 
+sdf test
+asdjfö las
+---
+
+´.clearfix fsadf sad  asdfj ösfölsdkf sjfs fsjd fsödfj södfsdjfsd öfsa

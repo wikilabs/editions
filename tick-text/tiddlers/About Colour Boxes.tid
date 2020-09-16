@@ -1,0 +1,76 @@
+created: 20200915104157275
+modified: 20200915130709299
+tags: Basics
+title: About Colour Boxes
+type: text/vnd.tiddlywiki
+
+! About Coloured Boxes
+
+In [[Easy styling for Paragraphs]] and [[More CSS Details]] I used "coloured boxes" to emphasize text elements. 
+
+The stylesheet that is used to define those settings is: [[colorbox-styles]]
+
+It defines: 
+
+* `.c` or `.cbox` ... definitions that are the same for all boxes
+* `.cp` or `.cbox-primary`
+* `.cl` or `.cbox-light`
+* `.cs` or `.cbox-success`
+* `.cw` or `.cbox-warning`
+* `.cd` or `.cbox-danger`
+* `.lbar` or `.leftbar`
+* `.-b` or `.noborder`
+* `.-bg` or `.nobackground`
+
+!! Examples
+
+The "long" names should be speaking for their own! ... The "short" names are intended for advanced users, that don't need to share wikis. ... If wikis are shared among more users it should be considered to use the longer names, even if they produce "bulkier" wikitext. 
+
+''Text''
+
+```
+».cbox-primary This paragraph only got the `.cbox-primary` class assigned. [...]
+```
+''Rendered''
+
+».cbox-primary This paragraph only got the `.cbox-primary` class assigned. That's why the border, the padding and the rounded corners are missing. BUT it shows the blue color. 
+
+---
+''Text''
+
+```
+This paragraph will use the "short" version of the class definition like so: `».c.cp`
+```
+
+''Rendered''
+
+».cbox.cbox-primary This paragraph uses the "long" version of the class definition like so: `».cbox.cbox-primary`. The short version would be:  `».c.cp`
+
+more
+
+».c.cl `».cbox.cbox-light` The "light" version. Short: `».c.cl`
+
+».c.cs `».cbox.cbox-success` The "success" version. Short: `».c.cs`
+
+».c.cw `».cbox.cbox-warning` The "warning" version. Short: `».c.cw`
+
+».c.cd `».cbox.cbox-danger` The "danger" version. Short: `».c.cd`
+
+---
+
+».c.cw.-b `».c.cw.-b` The short "warning" version without a border.
+
+».c.cs.lbar `».c.cs.lbar` The short "success" with a "left bar"
+
+»».c.cs.lbar `»».c.cs.lbar` The short "success" with a "left bar", ''indented''
+
+»».c.cs.lbar.r `»».c.cs.lbar.r` The short "success" with a "left bar", indented and ''right margin''
+
+»».c.cs.lbar.r.-bg `»».c.cs.lbar.r.-bg` The short "success" with a "left bar", indented, right margin and ''no background''
+
+
+''That's basically it, with the different "box styles". As you can see, they are made to be combined.''
+
+Just play with it and have fun!
+
+PS: There is one more thing at: [[Basics for advanced users]]

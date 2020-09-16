@@ -1,3 +1,6 @@
+/*-------------------------------*/
+/* Main Classes used in wikitext */
+
 .c, .cbox {
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
@@ -11,18 +14,10 @@
   border-color: #007bff;
 }
 
-.cp hr, .cbox-primary hr {
-  color: #9fcdff;
-}
-
 .cl, .cbox-light {
   color: #383d41;
   background-color: #e2e3e5;
   border-color: #6c757d;
-}
-
-.cl hr, .cbox-light hr {
-  color: #c8cbcf;
 }
 
 .cs, .cbox-success{
@@ -31,28 +26,16 @@
   border-color: #17a2b8;
 }
 
-.cs hr, .cbox-success hr {
-  color: #b1dfbb;
-}
-
 .cw, .cbox-warning {
   color: #856404;
   background-color: #fff3cd;
   border-color: #ffc107;
 }
 
-.cw hr, .cbox-warning hr {
-  color: #ffe8a1;
-}
-
 .cd, .cbox-danger {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #dc3545;
-}
-
-.cd hr, .cbox-danger hr {
-  color: #f1b0b7;
 }
 
 .lbar, leftbar {
@@ -67,4 +50,31 @@
 
 .-bg, nobackground {
   background-color: initial;
+}
+
+/*------------------------------*/
+/* Helpers NOT used in wikitext */
+
+.cp hr, .cbox-primary hr {
+  color: #9fcdff;
+}
+
+.cl hr, .cbox-light hr {
+  color: #c8cbcf;
+}
+
+.cs hr, .cbox-success hr {
+  color: #b1dfbb;
+}
+
+.cs hr, .cbox-success hr {
+  color: #b1dfbb;
+}
+
+.cw hr, .cbox-warning hr {
+  color: #ffe8a1;
+}
+
+.cd hr, .cbox-danger hr {
+  color: #f1b0b7;
 }

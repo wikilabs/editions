@@ -1,0 +1,21 @@
+created: 20200915091726829
+modified: 20200916122834423
+tags: Basics
+title: Custom Wikitext Markers
+type: text/vnd.tiddlywiki
+
+! Custom Wikitext Markers
+
+... are a possibility to use ''new'' markers like: Angle, Tilde, Degree, Accent, Comma and Underscore ''» ≈ ° ´ _'' 
+
+!! The new Custom Markers Plugin
+
+There is a new plugin named: "Custom Markers", that comes with some predefined defaults, that should make styling paragraphs much easier. 
+
+As shown in [[How to style a Paragraph]] and [[Misusing standard wikitext to indent a paragraph]] there is some overhead and some potential to mess up ~TiddlyWiki rendered content for screen readers and their users. 
+
+!! What's in the plugin
+
+* [[Easy styling for Paragraphs]]
+* Predefined CSS configurations for [[Colored Boxes|About Colour Boxes]]
+* New mechanisms to completely re-define [[markup for advanced users]]
