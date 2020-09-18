@@ -1,0 +1,22 @@
+created: 20200915111247673
+modified: 20200917125052201
+tags: Reference docs
+title: Keyboard Shortcuts
+type: text/vnd.tiddlywiki
+
+\customize tick="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
+
+\customize tick="list" _element="ul" _mode=block 
+
+! Keyborad Shortcuts
+
+The keyboard shortcuts can be defined in the $:/ControlPanel : Keyboard Shortcuts tab. The shortcuts that come with the plugin are: 
+
+<<list-links "[all[shadows+tiddlers]prefix[$:/config/ShortcutInfo/]search[$:/plugins/wikilabs/custom-markup]]">>
+
+The shortcuts are defined at: 
+
+´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
+
+
+TODO ... split parameter _element into _element and _widget

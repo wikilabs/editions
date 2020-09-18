@@ -1,0 +1,100 @@
+created: 20200915095444188
+modified: 20200917172354700
+tags: Basics docs
+title: More CSS Details
+type: text/vnd.tiddlywiki
+
+! wltc - CSS Details
+
+As described in [[Easy styling for Paragraphs]], some basic CSS classes are defined in 
+
+* [[:/plugins/wikilabs/custom-markup/styles]]
+* [[colorbox-styles]]
+
+!! ''wltc''
+
+It's a default class, that is assigned to every element, that is created by the "Custom Markup" plugin. It's primary usecase is, to define "global" CSS classes. 
+
+Eg: For testing: If we use 
+
+```
+<style>
+.wltc{border: 1px solid red}
+</style>
+
+»» some paragraph text<br>next line.
+```
+
+<style>.wltc{border: 1px solid red;}</style>
+
+»» some paragraph text<br>next line.
+
+It's easy to see the created elements, as long as the `<style>d` tiddler is visible. You can also create a temporary tiddler tagged `$:/tags/Stylesheet`. 
+
+!! ''wltc-l?''
+
+Eg: `wltc-l1`, `wltc-l2`, `wltc-l3`, `wltc-l4`, define the "block" indent level. Where level 1 does nothing. 
+
+```
+» some paragraph text<br>next line.
+
+»» some paragraph text<br>next line.
+
+»»» some paragraph text<br>next line.
+
+»»»» some paragraph text<br>next line.
+```
+
+Results in:
+
+» some paragraph text<br>next line.
+
+»» some paragraph text<br>next line.
+
+»»» some paragraph text<br>next line.
+
+»»»» some paragraph text<br>next line.
+
+HTML text of the last one is: 
+
+```
+<p class="wltc-l4 wltc">some paragraph text<br>next line.</p>
+```
+
+So the level is adjusted to the number of "angel quotes".
+
+''The paragraph indent levels are in line with TW "lists" ''
+
+```
+* list level 1
+»» some paragraph text<br>next line.
+
+* list level 1
+** list level 2
+»»» some paragraph text<br>next line.
+
+* list level 1
+** list level 2
+*** list level 3
+»»»» some paragraph text<br>next line.
+
+```
+
+* list level 1
+»» some paragraph text<br>next line.
+
+* list level 1
+** list level 2
+»»» some paragraph text<br>next line.
+
+* list level 1
+** list level 2
+*** list level 3
+»»»» some paragraph text<br>next line.
+
+
+».c.cw ''Important!''  
+  
+This is an example to show the indent levels. ''DO NOT mix'' unordered lists and paragraphs that way!
+
+Next: [[About Color Boxes]]

@@ -1,0 +1,9 @@
+created: 20200918111704547
+modified: 20200918111810116
+tags: task
+title: docs for multi-line table definition
+type: text/vnd.tiddlywiki
+
+see:
+
+<<list-links "[prefix[test-table]]">>

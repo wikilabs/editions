@@ -1,0 +1,34 @@
+created: 20200906091431254
+modified: 20200918142847405
+tags: 
+title: test-table-tick-final
+type: text/vnd.tiddlywiki
+
+\customize tick=table     _element=table _mode=block _endString="------" 
+\customize tick=caption _element=caption
+\customize tick=row       _element=tr      _mode=block _endString="---"
+
+\customize tick=th   _element=th
+
+\customize tick _element=td
+
+´table ´caption Some ´caption´ text
+´row
+´th header 1
+´th header 2
+´th header 3
+---
+´row
+´ 1 text
+´ cell 12 text
+´ cell 13 text
+---
+´row
+´ 2 text
+´ cell 22 text
+´ cell 23 text
+---
+------
+
+Some more text
+

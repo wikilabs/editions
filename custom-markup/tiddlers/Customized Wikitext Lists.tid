@@ -1,0 +1,24 @@
+created: 20200915195838828
+modified: 20200917205614697
+tags: Advanced docs
+title: Customized Wikitext Lists
+type: text/vnd.tiddlywiki
+
+! Custom List Widget
+
+TODO more info!
+
+!! Pragma
+
+```
+\customize tick="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
+\customize tick="list" _element="ul" _mode=block 
+```
+
+A custom wikitext list-widget can be found at: [[Keyboard Shortcuts]]
+
+!! Usage
+
+```
+´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
+```

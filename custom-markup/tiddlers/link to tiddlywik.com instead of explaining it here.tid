@@ -1,0 +1,9 @@
+created: 20200918101848530
+modified: 20200918101926491
+tags: task
+title: link to tiddlywik.com instead of explaining it here
+type: text/vnd.tiddlywiki
+
+see: [[GG thread|https://groups.google.com/d/msg/tiddlywikidev/sCMOjYxMk2Q/PA40pTYqBQAJ]]
+
+I think you could delegate the historical methods to a link rather than have them complicate the documentation from the beginning. How to style a Paragraph Misusing standard wikitext to indent a paragraph. 

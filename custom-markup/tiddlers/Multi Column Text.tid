@@ -1,0 +1,43 @@
+created: 20200915200156157
+modified: 20200917172114310
+tags: Basics docs
+title: Multi Column Text
+type: text/vnd.tiddlywiki
+
+\customize tick=2 _params=".c2.gap.justify.indent.right-dedent" _debug=both
+
+! Multi Columns in Wikitext
+
+~TiddlWiki default way to create multi columns is [[Styles and Classes|https://tiddlywiki.com/#Styles%20and%20Classes%20in%20WikiText]] definition. eg: 
+
+The styles used here can be found at: [[column-styles]]
+
+!! ''3 columns using Standard Wikitext''
+
+```
+@@.columns3.j
+Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam [...]
+@@
+```
+''Will be rendered:''
+
+@@.columns3.j
+Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant eseruisse, sonet putent propriae et pri. No vidisse definitiones his, te dolore blandit 
+lacerat cum. At vel nisl nobis, ne sea nulla corpora. At pri saperet nominati scriptorem, ei sale sanctus ea. Quo cu altera laoreet ceteros.
+@@
+
+!! ''2 columns using Custom Wikitext''
+
+A ''left indented'' and ''right dedented'' block with 2 columns can be create using:
+
+```
+´.c2.gap.j.i.r Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant deseruisse, [...]
+```
+
+´.c2.gap.j.i.r Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant deseruisse, sonet putent propriae et pri. No vidisse definitiones his, te dolore blandit placerat cum. At vel nisl nobis, ne sea nulla corpora. At pri saperet nominati scriptorem, mei sale sanctus ea. Quo cu altera laoreet ceteros.
+
+--------
+
+''Since all of these definitions are basically CSS only, there is no need to use a custom markup pragma. ... But you could if you want to:''
+
+´2 Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant deseruisse, sonet putent propriae et pri. No vidisse definitiones his, te dolore blandit placerat cum. At vel nisl nobis, ne sea nulla corpora. At pri saperet nominati scriptorem, mei sale sanctus ea. Quo cu altera laoreet ceteros.

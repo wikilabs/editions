@@ -1,0 +1,42 @@
+created: 20200917190543970
+modified: 20200917195536074
+tags: Advanced docs
+title: Import Predefined Pragmas
+type: text/vnd.tiddlywiki
+
+\importcustom [[pragma-details]]
+
+! Import Predefined Pragmas
+
+The import pragma is named: `\importcustom <filter expression>`. The reference description can be found at: [[Pragma - importcustom]]. 
+
+''The pragma imported here is:''
+
+!! [[pragma-details]]
+{{pragma-details}}
+
+!! Pragma Used Here
+
+```
+\importcustom [[pragma-details]]
+```
+
+!!! Usage
+
+```
+°d °s Details - Summay
+---
+line 1
+line 2
+------
+```
+
+!!! Rendered
+
+°d °s Details - Summay
+---
+line 1
+line 2
+------
+
+!! Next: [[Import and Re-define a Pragma]]

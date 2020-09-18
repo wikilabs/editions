@@ -1,0 +1,42 @@
+created: 20200918141625063
+modified: 20200918143123965
+tags: Advanced docs
+title: Customize a Table with Multiline Content
+type: text/vnd.tiddlywiki
+
+\customize tick=table _element=table _endString="---" _mode=block
+\customize tick=caption _element=caption
+
+\customize tick=th _element=th 
+
+\customize tick=row _element=tr _mode=block _endString="--"
+
+\customize tick _element=td _params=".hl"
+
+\customize angel _element=td _params=".hl"
+
+
+´table ´caption Some caption text
+´row
+´th  header 1
+´th header 2
+´th header 3
+--
+´row
+» 1 text
+
+» 12 text
+
+» cell 13 text
+line 2 alksjdfösdajf
+as döfjsadöfkjösadjf
+
+--
+´row
+´ 2 text
+´ 22 text
+´ 23 text
+--
+---
+
+Some more text

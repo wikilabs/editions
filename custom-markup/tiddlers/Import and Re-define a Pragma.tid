@@ -1,0 +1,44 @@
+created: 20200917195600440
+modified: 20200917202344990
+tags: Advanced docs
+title: Import and Re-define a Pragma
+type: text/vnd.tiddlywiki
+
+\importcustom [[pragma-details]]
+\customize degree=XXX _use=d _debug=both
+
+!! Redefine Imported Pragmas
+
+This tiddler talks about redefining imported pragmas. The pragma imported here is: [[pragma-details]].
+
+!! Pragmas Used Here
+
+```
+\importcustom [[pragma-details]]
+\customize degree=XXX _use=d _debug=both
+```
+!! _debug
+
+The reference documentation of the `_debug` parameter can be found at: [[Pragma Debug Options]]
+
+The `_debug=both` option here allows us, to see the pragma commands, definitions and the usage text. This makes it easier for me to document the functionality, without the need to duplicate a lot of code. 
+
+!!! Definition, Usage and Rendered
+
+°XXX.cbox-warning °s Details - Summay
+---
+line 1
+line 2
+------
+
+!! Explanation
+
+There are 2 "re-defines" going on here. 
+
+# New symbol `degree=XXX` and
+# Usage `XXX.cbox-warning`
+
+In [[Import Predefined Pragmas]] I did use the same `\importcustom` tiddler [[pragma-details]], which produced a blue box.
+
+Here we redefined the symbol: `b` with `XXX` and we added local parameters `.cbox-warning`, which produces the "yellow" box.
+

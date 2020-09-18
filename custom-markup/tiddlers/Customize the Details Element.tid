@@ -1,0 +1,70 @@
+created: 20200917105803339
+modified: 20200917190534107
+tags: Advanced docs
+title: Customize the Details Element
+type: text/vnd.tiddlywiki
+
+\customize tick="d" _element="details" _params=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open  _mode=block _debug=text
+
+\customize tick="s" _element="summary" _params=".margin-init"
+
+
+! Details Html Element
+
+At the moment there is no wikitext rule, in the ~TiddlyWiki core, to create an element like this, so we can customize one. 
+
+!! The DETAILS element looks like this: 
+
+```
+<details class="xxx">
+    <summary class="yyy">Details</summary>
+    Something small enough to escape casual notice.
+</details>
+```
+
+You need to use HTML syntax in wikitext or you need to create a macro with several parameters, that need to cover the whole text. Similar to:
+
+```
+<<details summary:"Details" status:"open" class:"xxx" src:"""
+Your text comes here
+""" >>
+```
+
+As you can see, it's almost the same amount to type and the "plain text" readability is similarly "bad!"
+
+With custom markup, it should be possible to improve the "plain text" readability, while still having the same output.
+
+!! The Pragma Definitions
+
+```
+\customize tick="d" _element="details" _params=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" _mode=block open  
+
+\customize tick="s" _element="summary" _params=".margin-init"
+```
+
+!! Usage and Rendered
+
+´d ´s Details - Summay
+---
+line 1
+line 2
+------
+
+!!! The HTML Code
+
+```
+<details class="notop c cl hl wltc-l1" open="">
+  <summary class="-m wltc-l1 wltc">Details - Summay</summary>
+  <hr>
+  <p>
+     line 1<br>line 2<br>adsf 
+  </p>
+</details>
+```
+
+! Conclusion
+
+You may say: OK ... but typing the pragma is the same amount of work. 
+
+I'll say: You only have to write it once and use it several times. So there is an advantage to write less if you want to use it. AND  
+Have a closer look at: [[Import Predefined Pragmas]]

@@ -1,0 +1,68 @@
+created: 20200918142853132
+modified: 20200918204817180
+tags: Advanced docs
+title: Customize a Table
+type: text/vnd.tiddlywiki
+
+\customize tick=table     _element=table _mode=block _endString="------" 
+\customize tick=caption _element=caption
+\customize tick=row       _element=tr      _mode=block _endString="---"
+
+\customize tick=th   _element=th
+
+\customize tick _element=td
+
+! A HTML Table 
+
+```
+<table>
+    <caption>Superheros and sidekicks</caption>
+    <colgroup>
+        <col>
+        <col span="2" class="batman">
+        <col span="2" class="flash">
+    </colgroup>
+    <tr>
+        <td> </td>
+        <th scope="col">Batman</th>
+        <th scope="col">Robin</th>
+        <th scope="col">The Flash</th>
+        <th scope="col">Kid Flash</th>
+    </tr>
+    <tr>
+        <th scope="row">Skill</th>
+        <td>Smarts</td>
+        <td>Dex, acrobat</td>
+        <td>Super speed</td>
+        <td>Super speed</td>
+    </tr>
+</table>
+```
+
+[[Detailed info|https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup]] can be found at: Mozilla MDN sites about tables.
+
+A second example table: [[Alien Football Stars|https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attr-scope]]
+
+! Customized Table
+
+
+´table ´caption Some ´caption´ text
+´row
+´th header 1
+´th header 2
+´th header 3
+---
+´row
+´ 1 text
+´ cell 12 text
+´ cell 13 text
+---
+´row
+´ 2 text
+´ cell 22 text
+´ cell 23 text
+---
+------
+
+Some more text
+

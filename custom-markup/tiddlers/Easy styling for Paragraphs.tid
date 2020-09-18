@@ -1,0 +1,98 @@
+created: 20200915092942889
+modified: 20200917172215101
+tags: Basics docs
+title: Easy styling for Paragraphs
+type: text/vnd.tiddlywiki
+
+! Easy styling for Paragraphs
+
+As shown in [[How to style a Paragraph]] there is some overhead, if you want to indent eg: 
+
+* The first line of a paragraph
+* Indent the paragraph as a whole
+
+!! The new predefined markup 
+
+.. looks like this: 
+
+```
+» My text comes here. Some more text: {{lorem-ipsum-1-para}}
+```
+
+Which renders like this: 
+
+» My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+You may say: "There's nothing different" ... I'll say technically there is. Let's have a closer look at the HMTL output: 
+
+```
+<p class="wltc-l1 wltc">My text comes here. Some more text: Ullum labore sensibus no vix. ...
+</p>
+```
+
+As you can see, there are 2 classes assigned to the HTML P-tag: `wltc-l1` and `wltc`. The exact meaning is described in detail later. Some of the responsible stylesheets are: 
+
+* [[:/plugins/wikilabs/custom-markup/styles]]
+* [[colorbox-styles]]
+
+A full list can be found at: [[Predefined Stylesheets]]
+
+!! ''Indenting the first line''
+
+.. will look like this: 
+
+```
+».indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+```
+
+».indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+Depending on the "styleguide" you need to follow it can be: 
+
+```
+»».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+```
+
+»».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+
+!! ''Cover it in a "success" box''
+
+```
+».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+```
+
+».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+!! ''Indent the whole box''
+
+```
+»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+```
+
+»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+!! ''Indent 1 more''
+
+```
+»»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+```
+
+»»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+The HTML code looks like this: 
+
+```
+<p class="cbox-success indentLine1 wltc-l3 wltc">My text comes here. Some more text: Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant ...</p>
+```
+
+As you can see there are 4 class definitions now: 
+
+* `cbox-success` ... which defines the green background
+* `indentLine1` ... which indents the first line
+* `wltc-l3` ... which sets the "block" indent level (3)
+* `wltc` ... as a general class for easy debugging
+
+!! ''More CSS Details''
+
+Go to: [[More CSS Details]]

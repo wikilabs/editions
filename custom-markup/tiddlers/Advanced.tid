@@ -1,0 +1,10 @@
+created: 20200915195938717
+list: [[Introducing Custom Markers for Advanced Users]] [[Customize the Details Element]] [[Import Predefined Pragmas]] [[Import and Re-define a Pragma]] [[Customized Wikitext Lists]]
+modified: 20200917201154205
+tags: toc
+title: Advanced
+type: text/vnd.tiddlywiki
+
+! Documentation for advanced users
+
+<<list-links "[tag{!!title}]">>
