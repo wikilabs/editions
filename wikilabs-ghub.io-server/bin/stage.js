@@ -1,29 +1,51 @@
-var fs = require('fs')
-var resolve = require('path').resolve
-var join = require('path').join
-var cp = require('child_process')
+const fs = require('fs')
+const resolve = require('path').resolve
+const join = require('path').join
+const exec = require('child-process-promise').exec
+
+const PromisePool = require('@supercharge/promise-pool')
 
 // get library path
-var lib = resolve(__dirname, '../../')
+const lib = resolve(__dirname, '../../')
 
-fs.readdirSync(lib)
-  .forEach(function (mod) {
-    var modPath = join(lib, mod)
+const mods = fs.readdirSync(lib)
+// console.log(mods)
 
-    // ensure path has package.json
-    if (!fs.existsSync(join(modPath, 'package.json'))) return
+async function run () {
+  const { results, errors } = await PromisePool
+    .withConcurrency(4)
+    .for(mods)
+    .process(async (mod) => {
+			var modPath = join(lib, mod)
 
-    // check if batch processing should be skipped
-    if (fs.existsSync(join(modPath, 'skip-stage'))) return
+			// ensure path has package.json
+			if (!fs.existsSync(join(modPath, 'package.json')))
+				return
 
-    // install folder
-    cp.exec('npm run stage', { env: process.env, cwd: modPath}, (e, stdout, stderr)=> {
-        if (e instanceof Error) {
-            console.error(e);
-            throw e;
-        }
+			// check if batch processing should be skipped
+			if (fs.existsSync(join(modPath, 'skip-build')))
+				return
 
-        if (stdout) console.log('finished: ', stdout);
-        if (stderr) console.log('error ', stderr);
-    })
-})
+			// install folder
+			console.log("enter directory:\n--> " + modPath + "\n--> stage started\n")
+
+			await exec('npm run stage', { env: process.env, cwd: modPath })
+				.then ((result) => {
+					var stdout = result.stdout;
+					var stderr = result.stderr;
+
+					if (stdout) {
+						console.log("finished ->", stdout);
+						return stdout;
+					}
+					if (stderr) {
+						console.log("error ->", stderr);
+						return stderr;
+					}
+				})
+		})
+
+  console.log(`Errors -> ${errors.length ? errors : 'none'}`)
+}
+
+run()
