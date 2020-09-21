@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20200917202344977
+modified: 20200921144043941
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -22,6 +22,7 @@ type: text/vnd.tiddlywiki
            _endString=<string>
            _mode=<mode>
            _use=<userSymbol reference>
+           _srcName=<source parameter>
            _debug=<debug options>
 ```
 ; IDs 
@@ -30,19 +31,22 @@ type: text/vnd.tiddlywiki
 ; userSymbol
 : Can be any single character or word that identifies your "symbol". The first pragma uses "example". The pragma below uses "§". So it depends on you, the user. 
 
-; element 
+; _element 
 : Can be any HTML element, that allows "content". Or as seen later it can also be a widget. In later examples we will use ''$list'' for the list-widget. See: [[Customized Wikitext Lists]]
 
-; class definitions
+; _params = class definitions
 : Can be a string with a "connected" list of CSS class definitions, as shown below. ".hard-linebreaks"
 
-; mode
+; _mode
 : Can be ''block'' or ''inline''. inline is the default value, if the parameter is missing.
 
-; userSymbol reference
-: Can be a "symbol" name from a pragma that is already defined, or from imported pragmas. See: [[Pragma - importcustom]]
+; _srcName
+: If a `_element=$widget` The source content will be an attribute named: `src` by default. If a different name should be used, it needs to be defined here. See: [[test-checkbox-widget]]. This is handy, using the $macrocall widget.
 
-; debug options
+; _use = userSymbol reference
+: Can be a "symbol" name from a pragma that is already defined, or from imported pragmas. See: See [[Import and Re-define a Pragma]]
+
+; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`
 : See: [[Pragma Debug Options]]
 

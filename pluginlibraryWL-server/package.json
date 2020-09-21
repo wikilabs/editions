@@ -14,7 +14,7 @@
     "build": "tiddlywiki ../pluginlibraryWL --build index",
     
     "prebuild:github": "tiddlywiki ../pluginlibraryWL --output ../../wikilabs.github.io/editions/pluginlibraryWL/library/latest --build library",
-    "build:github": "tiddlywiki ../pluginlibraryWL --build github",
+    "build:github": "tiddlywiki ../pluginlibraryWL --build github", 
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
