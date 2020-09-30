@@ -1,0 +1,12 @@
+a: field a with spaces
+b: field b
+c: field text c
+created: 20200929142055895
+modified: 20200929142316637
+tags: 
+title: test-checkbox-widget-transclude-as-template
+type: text/vnd.tiddlywiki
+x: field x
+yy: text from field: yy
+
+{{||test-checkbox-widget-transclusion-text-with-spaces}}

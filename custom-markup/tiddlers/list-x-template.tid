@@ -1,0 +1,7 @@
+created: 20200923095150979
+modified: 20200923100922783
+tags: 
+title: list-x-template
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]has[caption]] +[!is[blank]]">{{!!title}} {{!!caption}}<br></$list>

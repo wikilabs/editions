@@ -1,5 +1,5 @@
 created: 20200902144451840
-modified: 20200908145218195
+modified: 20200922194733087
 title: test-importcustom
 type: text/vnd.tiddlywiki
 
@@ -10,5 +10,4 @@ type: text/vnd.tiddlywiki
 ```
 \customize tick _use="success"   
 ```
-
 ´ {{test}}

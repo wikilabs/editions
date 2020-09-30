@@ -1,0 +1,7 @@
+created: 20200923093748150
+modified: 20200923093801121
+tags: 
+title: transclude-template
+type: text/vnd.tiddlywiki
+
+<$transclude mode=block/>

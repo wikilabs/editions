@@ -1,0 +1,23 @@
+created: 20200924190207521
+modified: 20200926122754926
+tags: 
+title: test-nl-nl-angel
+type: text/vnd.tiddlywiki
+
+\customize angel=2lines _element=div _params=".cl.hl"
+
+\customize angel=xx _element="$macrocall" $name="xx" _params=".cl.hl"
+
+\define xx(src) 
+<$checkbox tiddler=testX tag=done class="db hl cl"> <<__src__>></$checkbox>
+\end
+
+»2lines this is a test
+second line
+
+some more text
+
+»xx this is a test
+line 2
+
+more text

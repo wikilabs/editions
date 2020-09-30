@@ -1,6 +1,6 @@
 {
   "name": "wikilabs.github.io-server",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Auto deploy this project",
   "main": "index.js",
   "scripts": {
@@ -29,12 +29,9 @@
     "url": "https://github.com/wikilabs/wikilabs.github.io/issues"
   },
   "homepage": "https://wikilabs.github.io",
-  "dependencies": {
-    "chunk": "^0.0.3",
+  "dependencies": {},
+  "devDependencies": {
     "@supercharge/promise-pool": "^1.4.0",
     "child-process-promise": "2.2.1"
-  },
-  "devDependencies": {
-    "tiddlywiki": "^5.1.12"
   }
 }

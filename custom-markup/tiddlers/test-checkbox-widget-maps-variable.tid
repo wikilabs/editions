@@ -1,0 +1,33 @@
+created: 20200928083440150
+modified: 20200929142802659
+tags: 
+title: test-checkbox-widget-maps-variable
+type: text/vnd.tiddlywiki
+
+\customize tick=vars _element="$vars" tid=a yyy="value from variable" UID=<<qualify>> _endString="---" _mode=block
+
+\customize degree=☐ _element="$macrocall" $name="check" _1=tid _2=xxx _maps=":x:<<yyy>>"
+
+\define check(src, tid, xxx) 
+<$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - $xxx$</$checkbox>
+\end
+
+´vars
+
+! Test checkbox widgets and variable in _maps
+
+°☐ This is a test
+°☐:b An other test
+°☐:c This is a test
+
+!! State tiddlers here
+
+<<list-links "[prefix[$:/state/cb/]suffix<UID>]">>
+
+!! All State tiddlers
+
+<<list-links "[prefix[$:/state/cb/]]">>
+
+Since all of this has to be done, to make the handling reliable I'd use: https://grosinger.net/tw5-checklist/ instead. IMO it does a much, much better job here!!!!
+
+Just a test var yyy: <<yyy>>      

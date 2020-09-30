@@ -1,5 +1,5 @@
 created: 20200917121210781
-modified: 20200917195423674
+modified: 20200924165314051
 tags: $:/tags/Stylesheet
 title: wltc-docs-styles
 type: text/css
@@ -8,14 +8,14 @@ type: text/css
   padding-left: 2.65rem;
 }
 
-[data-tags~="docs"] .tc-tiddler-body h1,
-[data-tags~="docs"] .tc-tiddler-body h2  {
+[data-tags~="docs"] .tc-tiddler-body > h1,
+[data-tags~="docs"] .tc-tiddler-body > h2  {
   margin-left: -2.65rem;
 }
 
-[data-tags~="docs"] .tc-tiddler-body h3, 
-[data-tags~="docs"] .tc-tiddler-body h4,
-[data-tags~="docs"] .tc-tiddler-body h5,
-[data-tags~="docs"] .tc-tiddler-body h6  {
+[data-tags~="docs"] .tc-tiddler-body > h3, 
+[data-tags~="docs"] .tc-tiddler-body > h4,
+[data-tags~="docs"] .tc-tiddler-body > h5,
+[data-tags~="docs"] .tc-tiddler-body > h6  {
   margin-left: -1.325rem;
 }

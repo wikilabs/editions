@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20200921144043941
+modified: 20200929124918684
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -23,6 +23,9 @@ type: text/vnd.tiddlywiki
            _mode=<mode>
            _use=<userSymbol reference>
            _srcName=<source parameter>
+           _1=<name of parameter 1>
+           _2=<name of parameter 2>
+           _maps=<:param1Text:param2Text>
            _debug=<debug options>
 ```
 ; IDs 
@@ -45,6 +48,17 @@ type: text/vnd.tiddlywiki
 
 ; _use = userSymbol reference
 : Can be a "symbol" name from a pragma that is already defined, or from imported pragmas. See: See [[Import and Re-define a Pragma]]
+
+; _1, _2
+: Can be used, to define parameter names, that should be maped to "parameter aliases". Usage see: [[test-checkbox-widget-maps-variable]]
+
+; _maps
+: Can be used similar to the _params definition eg: `_maps=":param1Text:param2Text"` so it's possible to use those parameters without writing them.
+: If an `:param1` is defined, it maps to `_1`. `::param2` maps to `_2` and `:p1:p2` .. `p1` maps to `_1` and `p2` maps to `_2`
+: If `_maps=":a1"` is defined but `°:otherText` is used, `_maps` will be overruled!
+: ''Important'': 
+:* No spaces are allowed
+:* `°.a.b:c:d` _params have to be used before _maps. Mixing is ''not possible!''
 
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`
