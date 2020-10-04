@@ -1,0 +1,7 @@
+created: 20201002103508707
+modified: 20201003135611081
+tags: $:/tags/Macro
+title: $:/config/custom-markup/pragma/PageTemplate
+type: text/vnd.tiddlywiki
+
+\importcustom [tag[$:/tags/pragma]]

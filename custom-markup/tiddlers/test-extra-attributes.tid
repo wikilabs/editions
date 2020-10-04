@@ -4,8 +4,8 @@ tags:
 title: test-extra-attributes
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _params=".notop.c.cl.hl" _endString="------" _mode=block open
-\customize tick="s" _element="summary" _params=".-m"
+\customize tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" _mode=block open
+\customize tick="s" _element="summary" _classes=".-m"
 
 ´d ´s Summay Text
 ---

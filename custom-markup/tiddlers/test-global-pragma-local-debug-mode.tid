@@ -1,0 +1,20 @@
+created: 20201003104640076
+debug: both
+modified: 20201003143323387
+tags: 
+title: test-global-pragma-local-debug-mode
+type: text/vnd.tiddlywiki
+
+\customize degree=☐ _useGlobal=☐ _debug="both"
+
+\debugcustomize no global degree
+
+´vars
+
+°☐:a test global pragma
+°☐:b test global pragma
+°☐:c test global pragma
+
+!! State tiddlers here
+
+<<list-links "[prefix[$:/state/cb/]suffix<UID>]">>      

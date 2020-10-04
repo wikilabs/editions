@@ -4,11 +4,11 @@ tags:
 title: test-reveal-listwidget
 type: text/vnd.tiddlywiki
 
-\customize angel="present-a" _element="$presentation" _mode=block _endString="---"
+\customize angle="present-a" _element="$presentation" _mode=block _endString="---"
 
-\customize angel="list-tagged-slide" _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
+\customize angle="list-tagged-slide" _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
 
-\customize angel=with _element="$slide" _mode=block _endString="-"
+\customize angle=with _element="$slide" _mode=block _endString="-"
 
 »present-a »list-tagged-slide »with <$transclude mode=block /> - -- ---
 

@@ -4,9 +4,9 @@ tags:
 title: test-nl-tick
 type: text/vnd.tiddlywiki
 
-\customize tick=2lines _element=div _params=".cl.hl" _mode=block _endString="--"
+\customize tick=2lines _element=div _classes=".cl.hl" _mode=block _endString="--"
 
-\customize tick=xx _element="$macrocall" $name="xx" _params=".cl.hl"
+\customize tick=xx _element="$macrocall" $name="xx" _classes=".cl.hl"
 
 \define xx(src) 
 <$checkbox tiddler=test tag=done class="db hl cl"> <<__src__>></$checkbox>

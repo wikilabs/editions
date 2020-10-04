@@ -1,0 +1,9 @@
+created: 20201003134059622
+modified: 20201003135608938
+tags: $:/tags/Macro
+title: global-macro-definition
+type: text/vnd.tiddlywiki
+
+\define check(src, tid, xxx) 
+<$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - $xxx$</$checkbox> 
+\end

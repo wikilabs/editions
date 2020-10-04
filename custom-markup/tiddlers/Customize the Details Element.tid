@@ -4,9 +4,9 @@ tags: Advanced docs
 title: Customize the Details Element
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _params=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open  _mode=block _debug=text
+\customize tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open  _mode=block _debug=text
 
-\customize tick="s" _element="summary" _params=".margin-init"
+\customize tick="s" _element="summary" _classes=".margin-init"
 
 
 ! Details Html Element
@@ -37,9 +37,9 @@ With custom markup, it should be possible to improve the "plain text" readabilit
 !! The Pragma Definitions
 
 ```
-\customize tick="d" _element="details" _params=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" _mode=block open  
+\customize tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" _mode=block open  
 
-\customize tick="s" _element="summary" _params=".margin-init"
+\customize tick="s" _element="summary" _classes=".margin-init"
 ```
 
 !! Usage and Rendered

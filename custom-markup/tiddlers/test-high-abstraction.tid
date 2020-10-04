@@ -5,7 +5,7 @@ title: test-high-abstraction
 type: text/vnd.tiddlywiki
 
 \customize degree _element="$presentation" _mode=block _endString="----"
-\customize angel _element="$list" _mode=block _endString="---" filter="[tag[slide]sort[title]]"
+\customize angle _element="$list" _mode=block _endString="---" filter="[tag[slide]sort[title]]"
 \customize tick _element="$slide" _mode=block _endString="--"
 \customize single _element="$transclude" _mode=block _endString="-" mode=block
 

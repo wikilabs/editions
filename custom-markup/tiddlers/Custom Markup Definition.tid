@@ -1,13 +1,13 @@
 created: 20200908152739520
-modified: 20200929124918684
+modified: 20201003142738681
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
 
-\customize angel="§" _element="div" _params=".hard-linebreaks" _debug=both
+\customize angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
 
 
-\customize angel="example" _element="div" _params=".hl" _endString="---" _mode=block _debug=pragmaOnly
+\customize angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
 
 ! Pragma Example
 
@@ -18,18 +18,18 @@ type: text/vnd.tiddlywiki
 ```
 \customize <ID>=<userSymbol>
            _element=<element>
-           _params=<class definitions>
+           _classes=<class definitions>
            _endString=<string>
            _mode=<mode>
            _use=<userSymbol reference>
            _srcName=<source parameter>
            _1=<name of parameter 1>
            _2=<name of parameter 2>
-           _maps=<:param1Text:param2Text>
+           _params=<:param1Text:param2Text>
            _debug=<debug options>
 ```
 ; IDs 
-: `tick (´), single (›), degree (°), underscore (_), angel (»), almost (≈)`
+: `tick (´), single (›), degree (°), underscore (_), angle (»), almost (≈)`
 
 ; userSymbol
 : Can be any single character or word that identifies your "symbol". The first pragma uses "example". The pragma below uses "§". So it depends on you, the user. 
@@ -37,7 +37,7 @@ type: text/vnd.tiddlywiki
 ; _element 
 : Can be any HTML element, that allows "content". Or as seen later it can also be a widget. In later examples we will use ''$list'' for the list-widget. See: [[Customized Wikitext Lists]]
 
-; _params = class definitions
+; _classes = class definitions
 : Can be a string with a "connected" list of CSS class definitions, as shown below. ".hard-linebreaks"
 
 ; _mode
@@ -50,15 +50,15 @@ type: text/vnd.tiddlywiki
 : Can be a "symbol" name from a pragma that is already defined, or from imported pragmas. See: See [[Import and Re-define a Pragma]]
 
 ; _1, _2
-: Can be used, to define parameter names, that should be maped to "parameter aliases". Usage see: [[test-checkbox-widget-maps-variable]]
+: Can be used, to define parameter names, that should be maped to "parameter aliases". Usage see: [[test-checkbox-widget-params-variable]]
 
-; _maps
-: Can be used similar to the _params definition eg: `_maps=":param1Text:param2Text"` so it's possible to use those parameters without writing them.
+; _params
+: Can be used similar to the _classes definition eg: `_params=":param1Text:param2Text"` so it's possible to use those parameters without writing them.
 : If an `:param1` is defined, it maps to `_1`. `::param2` maps to `_2` and `:p1:p2` .. `p1` maps to `_1` and `p2` maps to `_2`
-: If `_maps=":a1"` is defined but `°:otherText` is used, `_maps` will be overruled!
+: If `_params=":a1"` is defined but `°:otherText` is used, `_params` will be overruled!
 : ''Important'': 
 :* No spaces are allowed
-:* `°.a.b:c:d` _params have to be used before _maps. Mixing is ''not possible!''
+:* `°.a.b:c:d` _classes have to be used before _params. Mixing is ''not possible!''
 
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`
@@ -67,6 +67,6 @@ type: text/vnd.tiddlywiki
 !! Pragma, Usage and Rendered
 
 »§ My text comes here.
-`angel` default end is `\n\n`. 
-The `_params=".hard-linebreaks"` 
+`angle` default end is `\n\n`. 
+The `_classes=".hard-linebreaks"` 
 allows us to see exactly that ;)

@@ -1,0 +1,13 @@
+created: 20201004114611431
+modified: 20201004114719478
+tags: task
+title: make the icons "simpler"
+type: text/vnd.tiddlywiki
+
+see: https://groups.google.com/d/msg/tiddlywikidev/JKp9Zp4hvGE/bia_LxPQBgAJ
+
+<<<
+Too Many Buttons? - I think there may be too many buttons :-). For instance are the buttons that just remove an ID needed at all?
+What is primary is to be able to insert IDs, which it does. 
+But I don't see added value (myself) to remove them where a single "delete" stroke does it anyway!
+<<<

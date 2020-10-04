@@ -4,11 +4,11 @@ tags: Advanced docs
 title: Introducing Custom Markers for Advanced Users
 type: text/vnd.tiddlywiki
 
-\customize angel=myBox _params=".indent.right-dedent.justify.cbox.cbox-primary" 
+\customize angle=myBox _classes=".indent.right-dedent.justify.cbox.cbox-primary" 
 
-\customize angel=success _params=".indent.right-dedent.justify.cbox.cbox-success" _debug
+\customize angle=success _classes=".indent.right-dedent.justify.cbox.cbox-success" _debug
 
-\customize angel=warning _params=".indent.right-dedent.justify.cbox.cbox-warning" _debug
+\customize angle=warning _classes=".indent.right-dedent.justify.cbox.cbox-warning" _debug
 
 ! Increase the level of abstraction
 
@@ -27,7 +27,7 @@ Pragmas are used to define eg: macros and rules. They can only be defined at the
 To make the above example easier to use we will need the following pragma
 
 ```
-\customize angel=myBox _params=".indent.right-dedent.justify.cbox.cbox-primary"
+\customize angle=myBox _classes=".indent.right-dedent.justify.cbox.cbox-primary"
 ```
 
 ''Then we can use the above example like so:''

@@ -5,9 +5,9 @@ title: presentation-list-widget-config
 type: text/plain
 
 \customize degree=presentation _element="$presentation" _mode=block _endString="---"
-\customize angel=list _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
+\customize angle=list _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
 \customize tick=slide _element="$slide" _mode=block _endString="-"
 
 \customize tick _use=slide
 \customize degree _use=presentation
-\customize angel _use=list
+\customize angle _use=list

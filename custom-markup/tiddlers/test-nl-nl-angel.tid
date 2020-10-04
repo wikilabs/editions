@@ -1,12 +1,12 @@
 created: 20200924190207521
 modified: 20200926122754926
 tags: 
-title: test-nl-nl-angel
+title: test-nl-nl-angle
 type: text/vnd.tiddlywiki
 
-\customize angel=2lines _element=div _params=".cl.hl"
+\customize angle=2lines _element=div _classes=".cl.hl"
 
-\customize angel=xx _element="$macrocall" $name="xx" _params=".cl.hl"
+\customize angle=xx _element="$macrocall" $name="xx" _classes=".cl.hl"
 
 \define xx(src) 
 <$checkbox tiddler=testX tag=done class="db hl cl"> <<__src__>></$checkbox>

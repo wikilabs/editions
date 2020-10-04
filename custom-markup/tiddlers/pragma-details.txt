@@ -1,2 +1,2 @@
-\customize degree="d" _element="details" _params=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" _mode=block open  
-\customize degree="s" _element="summary" _params=".margin-init"
+\customize degree="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" _mode=block open  
+\customize degree="s" _element="summary" _classes=".margin-init"

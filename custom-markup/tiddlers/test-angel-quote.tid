@@ -1,14 +1,14 @@
 created: 20200906114326359
 modified: 20200910210908371
 tags: 
-title: test-angel-quote
+title: test-angle-quote
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _params=".notop.c.cl.hl" open  _mode=block _endString="---"
+\customize tick="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
 
-\customize tick="s" _element="summary" _params=".-m"
+\customize tick="s" _element="summary" _classes=".-m"
 
-\customize angel="d" _element="details" _params=".notop.c.cl.hl" open  _mode=block _endString="---"
+\customize angle="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
 
 ´d ´s Details - Summay
 line 1
@@ -18,7 +18,7 @@ adsf
 
 ''Important!''
 
-»» "angel" and "tick" do the same thing if `_mode=block` 
+»» "angle" and "tick" do the same thing if `_mode=block` 
 
 »» If _mode=block there must be a `_endString` parameter
 

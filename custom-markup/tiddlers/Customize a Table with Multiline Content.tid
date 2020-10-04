@@ -11,9 +11,9 @@ type: text/vnd.tiddlywiki
 
 \customize tick=row _element=tr _mode=block _endString="--"
 
-\customize tick _element=td _params=".hl"
+\customize tick _element=td _classes=".hl"
 
-\customize angel _element=td _params=".hl"
+\customize angle _element=td _classes=".hl"
 
 
 ´table ´caption Some caption text

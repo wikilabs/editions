@@ -1,0 +1,8 @@
+created: 20201004150401659
+modified: 20201004150413611
+tags: [[debugcustomize pragma]]
+title: pragma-debugcustomize-tick-example
+type: text/vnd.tiddlywiki
+
+\importcustom [[debugcustomize pragma]]
+\debugcustomize global tick

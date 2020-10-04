@@ -61,7 +61,7 @@ HTML text of the last one is:
 <p class="wltc-l4 wltc">some paragraph text<br>next line.</p>
 ```
 
-So the level is adjusted to the number of "angel quotes".
+So the level is adjusted to the number of "angle quotes".
 
 ''The paragraph indent levels are in line with TW "lists" ''
 

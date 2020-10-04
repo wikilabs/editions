@@ -1,0 +1,64 @@
+created: 20200915152147177
+modified: 20201004150151299
+tags: Debugging docs
+title: debugcustomize pragma
+type: text/vnd.tiddlywiki
+
+\customize tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
+\customize tick="s" _element="summary" _classes=".-m"
+
+! Debugging Pragmas
+
+It's possible to show the internal variables, that are used to store pragma definitions. It will only show the definitions. NO content will be rendered.
+
+```
+\debugcustomize <params>
+```
+
+!! params
+
+; no params
+: same as "all"
+
+; all
+: shows all definitions, that are defined within this tiddler, including imported
+: eg: `\debugcustomize all`
+
+; list
+: Shows a list of IDs that contain a pragma definition
+: eg: `\debugcustomize list`
+
+; ID
+: Shows a the locally defined ID.
+: eg: `\debugcustomize tick`
+
+; global
+: Shows a verbose list of all pragma definitions defined global. Local definitions are _not_ shown.
+: eg: `\debugcustomize global`
+
+; global list
+: Shows a list of globally defined IDs
+: eg: `\debugcustomize global list`
+
+; global `<ID>`
+: Only lists this globally defined ID. 
+:eg: `\debugcustomize global tick`
+
+---
+
+´d ´s Details - Summay
+---
+Possible IDs can be found at: [[Custom Markup Definition]]  
+  
+There are different "_debug" options available. See: [[Pragma Debug Options]]
+------
+
+!! Code
+
+```
+\importcustom [[pragma-debugcustomize]]
+\debugcustomize all
+```
+
+{{pragma-debugcustomize-example}}
+

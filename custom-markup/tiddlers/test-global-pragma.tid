@@ -1,0 +1,16 @@
+created: 20201002103129518
+modified: 20201003143140824
+tags: 
+title: test-global-pragma
+type: text/vnd.tiddlywiki
+
+\debugcustomize no global 
+
+´vars
+
+°☐:aa test global pragma
+°☐:bb test global pragma
+
+!! State tiddlers here
+
+<<list-links "[prefix[$:/state/cb/]suffix<UID>]">>     

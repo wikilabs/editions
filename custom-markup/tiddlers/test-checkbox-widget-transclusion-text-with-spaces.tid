@@ -11,7 +11,7 @@ yy: text from field: yy
 
 \customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
 
-\customize degree=☐ _element="$macrocall" $name="check" _1=tid _maps=":x:{{!!yy}}"
+\customize degree=☐ _element="$macrocall" $name="check" _1=tid _params=":x:{{!!yy}}"
 
 \define check(src, tid) 
 <$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - {{!!$tid$}}</$checkbox> 
@@ -19,7 +19,7 @@ yy: text from field: yy
 
 ´vars 
 
-! Test checkbox widgets and transclusion in _maps
+! Test checkbox widgets and transclusion in _params
 
 °☐:a Das ist ein Test
 °☐:b Das ist ein Test 1
