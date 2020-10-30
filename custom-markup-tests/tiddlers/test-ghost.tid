@@ -1,0 +1,23 @@
+created: 20200926114212633
+modified: 20201016140303824
+tags: 
+title: test-ghost
+type: text/vnd.tiddlywiki
+
+\customize tick=ghost _element="$set" name=ghost filter="""[all[current]addprefix[$:/ghost/]]""" _endString="/ghost"
+
+´ghost <<ghost>><br>
+
+And <<ghost>> the value is here
+
+<$set name=new-var value=<<ghost>> >
+
+My <<new-var>>
+
+</$set>
+
+/ghost
+
+<<new-var>>
+
+<<ghost>>

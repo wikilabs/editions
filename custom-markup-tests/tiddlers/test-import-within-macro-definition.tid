@@ -1,0 +1,16 @@
+created: 20200918095746045
+modified: 20201016140303806
+tags: 
+title: test-import-within-macro-definition
+type: text/vnd.tiddlywiki
+
+\define x()
+\importcustom [[pragma-details]]
+°d °s Details - Summay
+---
+line 1
+line 2
+------
+\end
+
+<<x>>

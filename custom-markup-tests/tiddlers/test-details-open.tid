@@ -1,0 +1,30 @@
+created: 20200902111614401
+modified: 20201016140303840
+title: test-details-open
+type: text/vnd.tiddlywiki
+
+\customize tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
+\customize tick="s" _element="summary" _classes=".-m"
+
+\customize tick="x" _element="details" _classes=".notop.c.cl.hl" _endString="------"  _mode=block
+
+\customize tick="y" _element="div" _classes=".c.cs.hl" _mode=block
+
+\define tv-adjust-heading-level() 2
+
+´d ´s Details - Summay
+---
+line 1  
+line 2  
+adsf 
+------
+
+´x ´s Details - Summay
+---
+{{test}}
+------
+
+´y  {{test}}
+
+
+

@@ -1,0 +1,10 @@
+created: 20200921180338151
+modified: 20201016140303642
+tags: 
+title: test-useful-macrocall
+type: text/vnd.tiddlywiki
+
+\importcustom [[customOrderedList]]
+
+°orderedList [tag[slide]]
+

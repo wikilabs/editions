@@ -1,0 +1,17 @@
+{
+	"description": "TiddlyWiki core tests",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"tiddlywiki/internals",
+		"tiddlywiki/jasmine"
+	],
+	"themes": [
+	],
+		"includeWikis": [
+		"../custom-markup-tests"
+	],
+	"config": {
+		"default-tiddler-location": "../custom-markup-tests/tiddlers"
+	}
+}

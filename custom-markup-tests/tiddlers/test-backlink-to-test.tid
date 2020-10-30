@@ -1,0 +1,13 @@
+created: 20200925111846365
+modified: 20201016140303874
+tags: 
+title: test-backlink-to-test
+type: text/vnd.tiddlywiki
+
+\customize tick=link _element="$macrocall" $name=link to=<<src>>
+
+\define link(src)<$link to=<<__src__>>></$link>
+
+´link test
+
+TODO backlinks don't work that way !!!

@@ -1,0 +1,16 @@
+created: 20200923091617173
+debug: 
+modified: 20201016140303636
+tags: 
+title: test-visibility
+type: text/vnd.tiddlywiki
+
+\customize tick=debug _element="$list" filter="[all[current]has:field[debug]]"
+\customize tick=design _element="$list" filter="[{$:/config/design-mode}match[yes]]"
+\customize tick=draft _element="$list" filter="[all[current]has:field[draft.of]]"
+
+´debug  Debug: in <<currentTiddler>><br>Transclusion=<<transclusion>>  
+  
+´design Show only when global design mode is set. to yes  
+
+´draft `Show only when Tiddler is in draft mode`

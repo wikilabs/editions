@@ -1,0 +1,25 @@
+created: 20200906114326359
+modified: 20201016140303889
+tags: 
+title: test-angle-quote
+type: text/vnd.tiddlywiki
+
+\customize tick="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
+
+\customize tick="s" _element="summary" _classes=".-m"
+
+\customize angle="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
+
+´d ´s Details - Summay
+line 1
+line 2
+adsf
+---
+
+''Important!''
+
+»» "angle" and "tick" do the same thing if `_mode=block` 
+
+»» If _mode=block there must be a `_endString` parameter
+
+  

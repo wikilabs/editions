@@ -1,0 +1,18 @@
+created: 20200926113809794
+modified: 20201016140303614
+tags: 
+title: test-wikify
+type: text/vnd.tiddlywiki
+
+\customize tick=wikify _element="$wikify" _srcName=text name=result
+\customize tick=text _element="$text" _srcName=text
+
+´text {{{ [all[current]] }}} a
+<br>
+
+´wikify {{{ [all[current]] }}} b
+
+xxx
+
+´wikify {{{ [all[current]] }}} c
+

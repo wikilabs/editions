@@ -1,0 +1,35 @@
+created: 20200928114224104
+modified: 20201016140303860
+tags: 
+title: test-checkbox-widget-params-transclusion
+type: text/vnd.tiddlywiki
+yy: text from field: yy
+
+\customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
+
+\customize degree=☐ _element="$macrocall" $name="check" _1=tid _2=xxx _params=":x:{{!!yy}}"
+
+\define check(src, tid, xxx) 
+<$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - $xxx$</$checkbox> 
+\end
+
+´vars
+
+! Test checkbox widgets and transclusion in _params
+
+°☐:a Das ist ein Test
+°☐:b Das ist ein Test 1
+°☐ Das ist ein Test 1
+
+!! State tiddlers here
+
+<<list-links "[prefix[$:/state/cb/]suffix<UID>]">>
+
+!! All State tiddlers
+
+<<list-links "[prefix[$:/state/cb/]]">>
+
+
+Since all of this has to be done, to make the handling reliable I'd use: https://grosinger.net/tw5-checklist/ instead. IMO it does a much, much better job here!!!!
+
+Var yyy: <<yyy>>      

@@ -1,0 +1,47 @@
+created: 20200921093314701
+modified: 20201016140303697
+tags: 
+title: test-tonys-example
+type: text/vnd.tiddlywiki
+
+\customize degree=do _element="$macrocall" $name=☐ _srcName=content
+\define done-check(tiddlername)
+\whitespace trim
+<$set name=tiddlername value="""$tiddlername$""" emptyValue=<<currentTiddler>> >
+    <$list filter="[<tiddlername>!done[yes]!done[cancel]]">
+        <$button tooltip="click to indicate done" class="tc-btn-invisible">
+            <$action-setfield $tiddler=<<tiddlername>> done="yes"/>
+                ☐&nbsp;$(content)$
+        </$button>
+    </$list>
+    <$list filter="[<tiddlername>has[title]done[yes]]">
+        <$button tooltip="click to cancel or reset" class="tc-btn-invisible">
+            <$action-setfield $tiddler=<<tiddlername>> done="cancel"/>
+                ☑&nbsp;$(content)$
+        </$button>
+    </$list>
+    <$list filter="[<tiddlername>has[title]done[cancel]]">
+        <$button tooltip="click to reset" class="tc-btn-invisible">
+            <$action-setfield $tiddler=<<tiddlername>> done="no"/>
+                ☒&nbsp;$(content)$
+        </$button>
+    </$list>
+</$set>
+\end
+\define ☐(content)
+\whitespace trim
+<$set name=todo-tiddler value="""$:/todo/$(currentTiddler)$/$content$""">
+    <$set name=content value="""$content$""">
+        <$tiddler tiddler=<<todo-tiddler>> >
+            <$button tooltip="This is marked as a todo item, click to change status">
+                <$macrocall $name=done-check />
+            </$button>
+            <$list filter="[all[current]has[text]]">
+                &nbsp;{{||$:/core/ui/Buttons/edit}}
+            </$list>
+        </$tiddler>
+    </$set>
+</$set>
+\end
+
+°do This is a test

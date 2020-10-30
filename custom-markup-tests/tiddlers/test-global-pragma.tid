@@ -1,0 +1,20 @@
+created: 20201002103129518
+modified: 20201016140303820
+tags: 
+title: test-global-pragma
+type: text/vnd.tiddlywiki
+
+\debugcustomize no global 
+
+´vars
+
+°☐:aa test global pragma
+°☐:bb test global pragma
+
+!! State tiddlers here
+
+<<list-links "[prefix[$:/state/cb/]suffix<UID>]">>
+
+`´vars` is a global pragma and has an `_endString` param defined, but this tiddler doesn't contain it. So `´vars` parses till the end of the tiddler. This can be handy, but confusing for new users. 
+
+`<<yyy>>`: <<yyy>>

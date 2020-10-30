@@ -1,0 +1,9 @@
+created: 20200906211537971
+modified: 20201016143715260
+tags: $:/tags/Stylesheet
+title: inline-css
+type: text/vnd.tiddlywiki
+
+.wltc-inline {
+  background: lightsalmon;
+}

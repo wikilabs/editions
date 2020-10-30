@@ -1,0 +1,16 @@
+created: 20201002141757091
+modified: 20201016140303646
+tags: 
+title: test-use-pragma-error-message
+type: text/vnd.tiddlywiki
+
+\customize degree=☐ _use=☐ _debug=both
+
+´vars
+
+°☐:a test global pragma
+°☐:b test global pragma
+
+!! State tiddlers here
+
+<<list-links "[prefix[$:/state/cb/]suffix<UID>]">>     

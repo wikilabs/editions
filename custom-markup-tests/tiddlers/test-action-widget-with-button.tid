@@ -1,0 +1,22 @@
+created: 20200911095757239
+modified: 20201016140303903
+tags: 
+title: test-action-widget-with-button
+type: text/vnd.tiddlywiki
+
+\customize tick=button _element="$button"  actions="<<test>>"
+
+\define test()
+<$action-setfield $tiddler="$:/state/tab-1749438307" text="$:/core/ui/ControlPanel/Appearance"/>
+<$action-navigate $to="$:/ControlPanel"/>
+\end
+
+<$button actions=<<test>>>
+Go to Control Panel "Appearance" tab
+</$button>
+
+´button Go to Control Panel "Appearance" tab
+
+Some more text
+
+ToDo .. Inline button
