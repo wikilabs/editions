@@ -1,0 +1,9 @@
+created: 20201029183544019
+modified: 20201029183833777
+tags: 
+title: test-slash-nesting
+type: text/vnd.tiddlywiki
+
+\customize slash _debug=both
+
+/° slash /° slash nesting°/ nesting°/

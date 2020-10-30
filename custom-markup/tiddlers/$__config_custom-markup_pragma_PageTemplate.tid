@@ -4,4 +4,4 @@ tags: $:/tags/Macro
 title: $:/config/custom-markup/pragma/PageTemplate
 type: text/vnd.tiddlywiki
 
-\importcustom [tag[$:/tags/pragma]]
+\importcustom [tag[$:/tags/Pragma]]

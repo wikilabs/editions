@@ -1,0 +1,20 @@
+created: 20201029165404028
+modified: 20201029182029478
+tags: 
+title: test-underscore-mode-block
+type: text/vnd.tiddlywiki
+
+\\ that's cracy!!
+
+\customize underscore=a _element=div _mode=block _debug=both
+
+asd __a.hl some text
+
+!! H1 here, even /° slash°/ if it is inline markup
+3rd line
+asdf __ some more text
+
+more text
+ 
+  
+  

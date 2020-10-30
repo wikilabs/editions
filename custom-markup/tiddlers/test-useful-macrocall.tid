@@ -1,10 +1,14 @@
 created: 20200921180338151
-modified: 20200921182108348
+modified: 20201028153651373
 tags: 
 title: test-useful-macrocall
 type: text/vnd.tiddlywiki
 
 \importcustom [[customOrderedList]]
+\customize degree=x _use=orderedList _debug=both
 
 °orderedList [tag[slide]]
 
+!! Show debug info
+
+°x [tag[slide]]

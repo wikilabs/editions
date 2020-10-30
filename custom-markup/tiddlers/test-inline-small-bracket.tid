@@ -1,0 +1,14 @@
+created: 20201028010330163
+modified: 20201029165358182
+tags: 
+title: test-inline-small-bracket
+type: text/vnd.tiddlywiki
+
+asd﹙.hl some text
+! new line <- no H1 here since we are in inline mode!
+3rd line
+﹚some more text
+
+more text
+
+

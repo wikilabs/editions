@@ -1,7 +1,7 @@
 created: 20201004150237553
-modified: 20201004150255124
+modified: 20201004153542572
 tags: [[debugcustomize pragma]]
-title: pragma-debugcustomize-list-example
+title: pragma-debugcustomize-global-list-example
 type: text/vnd.tiddlywiki
 
 \importcustom [[debugcustomize pragma]]

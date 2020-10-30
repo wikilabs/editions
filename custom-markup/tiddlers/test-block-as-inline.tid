@@ -1,0 +1,14 @@
+created: 20201028151746514
+modified: 20201028153118741
+tags: 
+title: test-block-as-inline
+type: text/vnd.tiddlywiki
+
+\customize tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="/d" _mode=block open
+\customize tick="s" _element="summary" _classes=".margin-init"  _endString="/s"
+
+´d ´s Details - Summary /s
+line 1
+line 2 /d
+
+some more text

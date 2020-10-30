@@ -1,0 +1,33 @@
+created: 20201004150950125
+modified: 20201004153150541
+tags: docs Advanced
+title: Global Pragma Definitions
+type: text/vnd.tiddlywiki
+
+! Global Pragma Definitions
+
+The plugin contains a system configuration tiddler named: $:/config/custom-markup/pragma/PageTemplate
+
+This tiddler is tagged: <<tag $:/tags/Macro>>. 
+It contains the following text: 
+
+».cl <$view tiddler="$:/config/custom-markup/pragma/PageTemplate" />
+
+`\importcustom [tag[$:/tags/Pragma]]` makes sure, that the [[global pragma config tiddler|$:/config/custom-markup/pragma/PageTemplate]] contains every pragma defined with the tag `$:/tags/Pragma`
+
+!! Special Tags
+
+!!! Tag - ~$:/tags/Macro
+
+All tiddlers tagged that way are evaluated in the core [[$:/core/ui/PageTemplate]].  This gurantees, that pragmas ''and'' macros defined in the [[config tiddler|$:/config/custom-markup/pragma/PageTemplate]] are always available
+
+!!! Tag - ~$:/tags/Pragma
+
+The tag: <<tag "$:/tags/Pragma">> is defined by the custom-markup plugin. 
+
+<<list-links "[tag[$:/tags/Pragma]]">>
+
+''Important''
+
+The sort order of the tiddlers tagged: `$:/tags/Pragma` can be used to define, which definition will win, if there are conflicts.  
+''The last definition wins!''

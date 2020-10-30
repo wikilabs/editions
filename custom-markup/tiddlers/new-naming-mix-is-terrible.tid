@@ -16,11 +16,9 @@ type: text/vnd.tiddlywiki
 \customize tick=row _element=tr  _mode=block _endString="-"
 \customize tick _element=td 
 
-\customize underscore _element=td
-
 \customize single _element=td
 
-\debugcustomizex all
+\debugcustomize no all
 
 °table °caption Some ´caption´ text
 °row
@@ -38,9 +36,9 @@ type: text/vnd.tiddlywiki
 › cell 23 text
 -
 ´row
-_ 2 text
-_ cell 22 text
-_ cell 23 text
+› 2 text
+› cell 22 text
+› cell 23 text
 -
 ---
 

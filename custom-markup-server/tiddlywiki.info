@@ -4,7 +4,6 @@
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
 		"tiddlywiki/internals",
-		"wikilabs/link-to-tabs",
 		"wikilabs/info-session",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/custom-markup",

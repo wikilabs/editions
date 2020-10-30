@@ -1,6 +1,6 @@
 created: 20200923091617173
 debug: 
-modified: 20200923093013209
+modified: 20201028153317210
 tags: 
 title: test-visibility
 type: text/vnd.tiddlywiki
@@ -8,6 +8,8 @@ type: text/vnd.tiddlywiki
 \customize tick=debug _element="$list" filter="[all[current]has:field[debug]]"
 \customize tick=design _element="$list" filter="[{$:/config/design-mode}match[yes]]"
 \customize tick=draft _element="$list" filter="[all[current]has:field[draft.of]]"
+
+SEE THIS TIDDLER IN EDIT MODE!
 
 ´debug  Debug: in <<currentTiddler>><br>Transclusion=<<transclusion>>  
   

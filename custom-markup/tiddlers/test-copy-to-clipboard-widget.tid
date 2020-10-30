@@ -4,7 +4,7 @@ tags: task
 title: test-copy-to-clipboard-widget
 type: text/vnd.tiddlywiki
 
-\customize underscore=copy _element="$button" _mode=block _endString="------" message="tm-copy-to-clipboard"
+\customize degree=copy _element="$button" _mode=block _endString="------" message="tm-copy-to-clipboard"
 
 TODO create a copy to clipboard widget, that can be used with "custom markup"
 

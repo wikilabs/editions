@@ -29,7 +29,7 @@ type: text/vnd.tiddlywiki
            _debug=<debug options>
 ```
 ; IDs 
-: `tick (´), single (›), degree (°), underscore (_), angle (»), almost (≈)`
+: `tick (´), single (›), degree (°), angle (»), almost (≈)`
 
 ; userSymbol
 : Can be any single character or word that identifies your "symbol". The first pragma uses "example". The pragma below uses "§". So it depends on you, the user. 

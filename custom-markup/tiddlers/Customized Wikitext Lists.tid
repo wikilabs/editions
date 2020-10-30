@@ -1,24 +1,42 @@
+_debug: \debugcustomize global tick
 created: 20200915195838828
-modified: 20200917205614697
+modified: 20201005160714918
 tags: Advanced docs
 title: Customized Wikitext Lists
 type: text/vnd.tiddlywiki
 
+\importcustom [[Keyboard Shortcuts]]
+
+\customize tick=list-pragma _use=list _debug="pragma" 
+\customize tick=shortcut-pragma _use=shortcuts _debug="pragmaOnly"
+
+! Info
+
+This tiddler uses pragma definitions, that are defined in an other tiddler. They are imported with:
+
+```
+\importcustom [[Keyboard Shortcuts]]
+```
+
 ! Custom List Widget
 
-TODO more info!
+It's possible to customize a list widget into 2 commands. 
+
+* The wrapper named: eg: `´list` ... that creates the HTML ''UL'' element
+* The list widget `´shortcuts` ... that tells the author & user what to expect, if they read the plain text.
 
 !! Pragma
 
-```
-\customize tick="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
-\customize tick="list" _element="ul" _mode=block 
-```
+´list-pragma ´shortcut-pragma 
+---
 
-A custom wikitext list-widget can be found at: [[Keyboard Shortcuts]]
+The definitions can be found at: [[Keyboard Shortcuts]]
 
 !! Usage
 
 ```
 ´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
 ```
+ 
+´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
+---

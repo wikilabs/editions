@@ -1,5 +1,5 @@
 created: 20200915095444188
-modified: 20200917172354700
+modified: 20201016153719296
 tags: Basics docs
 title: More CSS Details
 type: text/vnd.tiddlywiki
@@ -97,4 +97,4 @@ So the level is adjusted to the number of "angle quotes".
   
 This is an example to show the indent levels. ''DO NOT mix'' unordered lists and paragraphs that way!
 
-Next: [[About Color Boxes]]
+Next: [[About Colour Boxes]]

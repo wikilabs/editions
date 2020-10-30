@@ -1,0 +1,48 @@
+created: 20201029192843006
+modified: 20201030125305352
+tags: 
+title: test-dave-table
+type: text/vnd.tiddlywiki
+
+\customize tick=table _element=table _endString="/endTable" _mode=block
+\customize tick=caption _element=caption
+
+\customize tick=! _element=th 
+\customize tick="header-2-columns" _element=th  colspan=2
+
+\customize tick=header2 _use="header-2-columns"
+
+\customize tick=cell _element=td _classes=".hl"
+\customize tick _use=cell
+
+\customize angle="===row" _element=tr _mode=block _endString="------"
+\customize angle=cmulti _element=td _classes=".hl" _mode=block 
+\customize angle=| _use=cmulti
+
+´table ´caption Some caption text
+»===row
+´! header 1
+´! header 2
+´! header 3
+------
+»===row
+»| 1 text 
+
+»| 12 text «  and  » 
+
+»|
+* cell 13 text
+* line 2 
+* line 3 
+------
+»===row
+»| 2 text 
+
+»| 22 text 
+
+»| 23 text 
+
+------
+/endTable
+
+Some more text

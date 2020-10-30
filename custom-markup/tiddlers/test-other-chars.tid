@@ -1,0 +1,12 @@
+created: 20201026132319811
+modified: 20201027161058794
+tags: 
+title: test-other-chars
+type: text/vnd.tiddlywiki
+
+(﹙symbol.class:param some text﹚) 
+
+⸨symbol.class.param⸩
+
+ asdf ｠((asdf))
+

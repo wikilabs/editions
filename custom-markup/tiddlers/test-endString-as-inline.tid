@@ -1,0 +1,11 @@
+created: 20201028152143567
+modified: 20201028162837311
+tags: 
+title: test-endString-as-inline
+type: text/vnd.tiddlywiki
+
+\customize tick="s" _element="summary" _classes=".margin-init"  _endString="/s"
+
+´s Details - Summary /s
+asdf
+  

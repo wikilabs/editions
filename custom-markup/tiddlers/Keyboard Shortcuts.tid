@@ -1,12 +1,15 @@
 created: 20200915111247673
-modified: 20200928124715204
+modified: 20201015135407821
 tags: Reference docs
 title: Keyboard Shortcuts
 type: text/vnd.tiddlywiki
 
 \customize tick="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
 
-\customize tick="list" _element="ul" _mode=block 
+\customize tick="list" _element="ul" _mode=block _endStringX=---
+
+\customize angle="list" _element="ul" _mode=block _endStringX=---
+\customize angle="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
 
 ! Keyborad Shortcuts
 
@@ -18,6 +21,4 @@ The shortcuts are defined at:
 
 ´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
 
-
-TODO ... split parameter _element into _element and _widget
- 
+more text
