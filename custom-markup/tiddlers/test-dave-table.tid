@@ -1,48 +1,61 @@
 created: 20201029192843006
-modified: 20201030125305352
+modified: 20201108185549891
 tags: 
 title: test-dave-table
 type: text/vnd.tiddlywiki
 
-\customize tick=table _element=table _endString="/endTable" _mode=block
+\customize tick=table _element=table _endString="/endTable" _mode=block 
 \customize tick=caption _element=caption
 
 \customize tick=! _element=th 
-\customize tick="header-2-columns" _element=th  colspan=2
-
-\customize tick=header2 _use="header-2-columns"
 
 \customize tick=cell _element=td _classes=".hl"
-\customize tick _use=cell
+\customize tick=| _use=cell
 
-\customize angle="===row" _element=tr _mode=block _endString="------"
+\customize angle="======row" _element=tr _mode=block _endString="/row==="
 \customize angle=cmulti _element=td _classes=".hl" _mode=block 
-\customize angle=| _use=cmulti
+\customize angle="------" _element=td _classes=".hl" _mode=block _endString="---"
 
 ´table ´caption Some caption text
-»===row
+
+»======row
 ´! header 1
 ´! header 2
 ´! header 3
-------
-»===row
-»| 1 text 
+/row===
 
-»| 12 text «  and  » 
+»======row
+´| cell 1
+´| cell 2 
+´| cell 3 
+/row===
 
-»|
+»======row 
+»------
+1 text
+---
+
+»------
+ 12 text «  and  »
+---
+
+»------
+a little bit of text
+
 * cell 13 text
 * line 2 
 * line 3 
-------
-»===row
-»| 2 text 
 
-»| 22 text 
+aslkdjöflsajf
+aösldjösda 
+---
+/row===
 
-»| 23 text 
-
-------
+»======row
+´| 2 text 
+´| 22 text 
+´| 23 text 
+/row===
 /endTable
 
 Some more text

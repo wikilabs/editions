@@ -144,3 +144,15 @@ aside {
     font-style: italic;
     color: #29627e;
 }
+
+/*------------------------------------------*/
+/* UL, OL and P inside a table              */
+
+td p {
+  margin: .5rem 0;
+}
+
+td ul, td ol {
+  margin:  .5rem 0;
+  padding-left: 2rem;
+}

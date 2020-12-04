@@ -1,0 +1,19 @@
+created: 20201101150120210
+modified: 20201108185504421
+tags: 
+title: test-checkbox-widget-inline
+type: text/vnd.tiddlywiki
+yy: text from field: yy
+
+\importcustom [[test-checkbox-widget-inline-code]]
+
+\\ Don't forget the next line !!!!
+\import [[test-checkbox-widget-inline-code]] 
+
+53
+⠒☐:a Das ist ein Test⠶more text87
+
+aaaa ⠒☐:a Das ist ein Test⠶more text87
+
+<<checkx aaa bbb ccc>>
+

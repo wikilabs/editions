@@ -1,0 +1,18 @@
+created: 20190906144716671
+modified: 20201120010108348
+title: range-log-actions
+type: text/vnd.tiddlywiki
+
+\define getText() $(currentTiddler)$ - $(attr-tiddler)$ - $(text)$ - value: $(value)$ - changed: $(actionValueHasChanged)$
+
+\define range-log(text:"", value:"", tiddler:"$:/temp/log")
+<$vars text="""$text$""" value="""$value$""" >
+<$action-setfield $tiddler="""$tiddler$""" $index=<<now "0hh-0mm-0ss:0XXX">> $value=<<getText>>/>
+</$vars>
+\end
+
+\define clear-range-log(tiddler:"$:/temp/log")
+<$action-setfield $tiddler="""$tiddler$""" text="{}" show=show/>
+\end
+
+<pre><$view field="text"/></pre>

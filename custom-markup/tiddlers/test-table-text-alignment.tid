@@ -1,0 +1,51 @@
+created: 20201030140531147
+modified: 20201030151531079
+tags: 
+title: test-table-text-alignment
+type: text/vnd.tiddlywiki
+
+\customize tick=table _element=table _endString="/endTable" _mode=block 
+\customize tick=caption _element=caption
+
+\customize tick=! _element=th 
+
+\customize tick=cell _element=td _classes=".hl"
+\customize tick=| _use=cell
+
+\customize angle="===row" _element=tr _mode=block _endString="------"
+\customize angle=cmulti _element=td _classes=".hl" _mode=block _classes="hl"
+\customize angle=| _use=cmulti
+
+! Table Text Alignment
+
+´table ´caption Table text alignment
+»===row
+´! Text align
+´! left (default)
+´! center `.ta-c`
+´! right `.ta-r`
+------
+»===row
+´| :: 
+
+»| 11 text left
+
+»|.ta-c
+12 text
+
+»|.ta-r
+13 text text
+
+------
+»===row
+´| ::
+´| ++++++++++++++++++
+´| ++++++++++++++++++
+´| ++++++++++++++++++
+------
+/endTable
+
+!! Code
+<pre><$view field="text"/></pre>
+
+TODO show difference between `_mode=block` and `_mode=inline` for "angle"

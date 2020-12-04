@@ -1,0 +1,40 @@
+created: 20201030215026611
+modified: 20201101142844809
+tags: 
+title: test-simple-table-tony
+type: text/vnd.tiddlywiki
+
+\customize tick=table _element=table _endString="/table" _mode=block
+\customize tick=caption _element=caption
+
+\customize tick=th _element=th
+
+\customize tick=td _element=td _classes=".hl"  _mode=block
+
+\customize tick="tr" _element=tr _mode=block _endString="/tr"
+
+
+´table ´caption Some caption text
+´tr
+´th header 1
+´th header 2
+´th header 3
+/tr
+
+
+´tr
+´td 1 text
+´td 12 text «  and  »
+´td
+* cell 13 text
+* line 2
+* line 3
+/tr
+
+
+´tr
+´td 2 text
+´td 22 text
+´td 23 text
+/tr
+/table

@@ -1,0 +1,25 @@
+created: 20201112121235487
+id: d
+modified: 20201130203205659
+tags: 
+title: test-wl-radio
+type: text/vnd.tiddlywiki
+
+\define newText() value: $(actionValue)$ - $(__value__)$
+
+\define radioActions()
+<$action-sendmessage $message="tm-notify" $param="test-radio-template" 
+    actions=<<__actions__>> tiddler=<<__tiddler__>> value=<<__value__>> action-value=<<actionValue>>
+    name=<<usr-name>> a=<<usr-a>> b=<<usr-b>> field=<<__field__>> 
+    current=<<currentTiddler>> />
+<$action-createtiddler $basetitle=<<usr-name>> $overwrite="yes" text=<<newText>>/>
+\end
+
+<$tiddler tiddler="$:/temp/test">
+	<$wl-radio field="id" value="a" actions=<<radioActions>> usr-name="/name/a" usr-a=x > a </$wl-radio>|
+	<$wl-radio field="id" value="b" actions=<<radioActions>> usr-name="/name/a" usr-b=y > b </$wl-radio>|
+	<$wl-radio field="id" value="c" actions=<<radioActions>> usr-name="/name/a" > c </$wl-radio>|
+</$tiddler>
+
+<$wl-radio field="id" value="d"  actions=<<radioActions>> usr-name="/name/x"> d </$wl-radio>|
+<$wl-radio field="id" value="e" actions=<<radioActions>> usr-name="/name/x"> e </$wl-radio>|

@@ -1,0 +1,25 @@
+created: 20201129124324819
+modified: 20201129130312792
+tags: 
+title: test-TT-poem
+type: text/vnd.tiddlywiki
+
+\\ CUSTOM POETRY 
+\\ -- container ----- 
+\customize angle=POEM _element="div" _endString="/POEM" _mode=block _classes=".poem-c"
+\\ -- components --- \\
+\customize single=P-H _element="h3"
+\customize pilcrow=P-B _element="div" _endString="/P-B" _mode=block
+
+
+»POEM
+
+  ›P-H JABBERWOCKY
+
+  ¶P-B ´Twas brillig, and the slithy toves
+      Did gyre and gimble in the wabe:
+All mimsy were the borogoves,
+      And the mome raths outgrabe.
+  /P-B
+
+/POEM

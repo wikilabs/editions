@@ -1,0 +1,25 @@
+created: 20201111145740823
+modified: 20201130151232261
+tags: 
+title: test-radio-template
+type: text/vnd.tiddlywiki
+
+tiddler = <<tiddler>>
+
+actions = <pre><code><$text text=<<actions>>/></code></pre>
+
+field = <<field>>
+
+value = <<value>>
+
+actionValue = <<action-value>>
+
+name = <<name>>
+
+a = <<a>>
+
+b = <<b>>
+
+caling tiddler: <<current>>
+
+<<currentTiddler>>

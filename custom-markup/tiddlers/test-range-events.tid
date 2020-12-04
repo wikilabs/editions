@@ -1,0 +1,44 @@
+created: 20201113135030871
+modified: 20201116110807377
+tags: 
+title: test-range-events
+type: text/vnd.tiddlywiki
+
+\import range-log-actions
+
+\define logTiddler()$:/temp/log
+
+\define clearLogButton()<$button actions=<<clear-range-log>>>Clear Log</$button>
+
+\define actionsMouseUp()
+<$macrocall $name="range-log" text="                    mouse up" value=<<attr-value>> />
+\end
+
+\define actionsMouseDown()
+<$macrocall $name="range-log" text="                    mouse down" value=<<attr-value>> />
+\end
+
+\define actionsInput()
+<$macrocall $name="range-log" text="input" value=<<attr-value>> />
+\end
+
+\define actionsChange()
+<$macrocall $name="range-log" text="                    change" value=<<attr-value>> />
+\end
+
+
+<$range tiddler="$:/temp/range/1__" min="-1" max="10" default="1" increment="1"
+  actionsMouseDown=<<actionsMouseDown>> actionsMouseUp=<<actionsMouseUp>>
+  actionsInput=<<actionsInput>> actionsChange=<<actionsChange>>
+/> {{$:/temp/range/1__}}
+
+<$range tiddler="$:/temp/range/__2" min="0" max="1" default=".01" increment=".01"
+  actionsMouseDown=<<actionsMouseDown>> actionsMouseUp=<<actionsMouseUp>>
+  actionsInput=<<actionsInput>> actionsChange=<<actionsChange>>
+/> {{$:/temp/range/__2}} 
+
+<$checkbox tiddler=<<logTiddler>> field="show" checked="show" unchecked="hide"> Show log</$checkbox> <<clearLogButton>>
+
+<$reveal stateTitle=<<logTiddler>> stateField="show" type="match" text="show">
+<$transclude tiddler=<<logTiddler>> />
+</$reveal>

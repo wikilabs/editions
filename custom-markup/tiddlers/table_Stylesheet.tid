@@ -1,0 +1,12 @@
+created: 20201030141227018
+modified: 20201108185817681
+tags: $:/tags/Stylesheet
+title: table/Stylesheet
+type: text/css
+
+.text-align-right, .ta-r {  text-align: right; }
+.text-align-center, .ta-c {  text-align: center; }
+
+.vertical-align-top, .va-t { vertical-align: top; }
+.vertical-align-bottom, .va-b { vertical-align: bottom; }
+
