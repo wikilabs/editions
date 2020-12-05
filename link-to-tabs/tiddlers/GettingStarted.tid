@@ -11,7 +11,7 @@ This plugin "Link-to-Tabs" adds internal tiddler links to every tab if selected.
 
 ! Settings
 
-The following setting can be also found in the [[Control Panel: Settings|$:/ControlPanel]].
+The following setting can also be found in the [[Control Panel: Settings|$:/ControlPanel]].
 
 {{$:/core/ui/ControlPanel/Settings/link-to-tabs}}
 
