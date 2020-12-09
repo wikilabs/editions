@@ -1,0 +1,15 @@
+[data-tags~="docs"] .tc-tiddler-body {
+  padding-left: 2.65rem;
+}
+
+[data-tags~="docs"] .tc-tiddler-body > h1,
+[data-tags~="docs"] .tc-tiddler-body > h2  {
+  margin-left: -2.65rem;
+}
+
+[data-tags~="docs"] .tc-tiddler-body > h3, 
+[data-tags~="docs"] .tc-tiddler-body > h4,
+[data-tags~="docs"] .tc-tiddler-body > h5,
+[data-tags~="docs"] .tc-tiddler-body > h6  {
+  margin-left: -1.325rem;
+}

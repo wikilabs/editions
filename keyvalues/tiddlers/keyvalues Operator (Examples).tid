@@ -1,10 +1,10 @@
-bag: default
 created: 20190607104842485
-modified: 20190607190641638
-tags: [[Operator Examples]] [[keyvalues Operator]]
+modified: 20201209173213884
+tags: [[Operator Examples]] [[keyvalues Operator]] docs
 title: keyvalues Operator (Examples)
 type: text/vnd.tiddlywiki
 
+! Basics Examples
 <$macrocall $name=".operator-example" n="1" eg="[[data]keyvalues[]]" ie="use the data-tiddler: <<.word data>> and show all keys and values"/>
 <$macrocall $name=".operator-example" n="2" eg="[[data]keyvalues:value,key:..[]]" ie="use the data-tiddler: <<.word 'data'>> and show all keys and values. Use a `..` string as separator. Values come first"/>
 <$macrocall $name=".operator-example" n="3" eg="[[data]keyvalues:value:+[]]" ie="same as above, but only show the value. The separator will be ignored, if only 1 element is shown"/>

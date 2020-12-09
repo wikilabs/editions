@@ -1,20 +1,14 @@
+created: 20201209172203055
+modified: 20201209173224106
+tags: docs
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
-! Overview
-
-TODO
-
-! Important
-
-
-! Example
-
-
-! Settings
-
-The following setting can be also found in the [[Control Panel: Settings|$:/ControlPanel]].
+{{keyvalues Operator}}
 
 {{$:/core/ui/ControlPanel/Settings/keyvalues}}
+
+{{keyvalues Operator (Examples)}}
 
 ! Plugins
 
