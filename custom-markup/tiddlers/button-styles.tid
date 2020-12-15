@@ -1,0 +1,10 @@
+created: 20201214214626195
+modified: 20201214214723704
+tags: $:/tags/Stylesheet
+title: button-styles
+type: text/vnd.tiddlywiki
+
+button:disabled svg,
+.tc-drop-down button:disabled svg {
+	fill: <<colour muted-foreground>>;
+}
