@@ -1,7 +1,0 @@
-created: 20200906175845968
-modified: 20201016140303694
-tags: 
-title: test-transclude-table
-type: text/vnd.tiddlywiki
-
-{{test-table-multiline-cells}}

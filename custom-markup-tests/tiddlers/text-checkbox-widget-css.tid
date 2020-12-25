@@ -1,9 +1,0 @@
-created: 20200921092824645
-modified: 20201016143715242
-tags: $:/tags/Stylesheet
-title: text-checkbox-widget-css
-type: text/vnd.tiddlywiki
-
-.db, .display-block {
-  display: block;
-}
