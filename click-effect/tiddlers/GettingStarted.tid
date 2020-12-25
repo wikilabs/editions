@@ -1,0 +1,11 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Click Effect" adds a little animation if the left mouse button is released
+
+{{$:/plugins/wikilabs/click-effect/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}

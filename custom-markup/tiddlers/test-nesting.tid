@@ -4,6 +4,6 @@ tags:
 title: test-nesting
 type: text/vnd.tiddlywiki
 
-__ underscore__, ﹙ little﹚, ⠒ braille⠶, /° slash°/
+﹙ little﹚, ⠒ braille⠶, /° slash°/
 
-aa __ asdf  ﹙ xxx   /° slash /° xxxx slash °/ °/ ﹚asdf __
+aa ﹙ xxx   /° slash /° xxxx slash °/ °/ ﹚asdf

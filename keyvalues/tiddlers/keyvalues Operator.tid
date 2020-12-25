@@ -1,17 +1,18 @@
-bag: default
 caption: keyvalues
 created: 20190607100941928
-modified: 20190607140848967
+modified: 20201209174205943
 op-input: a [[selection of data tiddler titles|Title Selection]]
 op-output: those input tiddlers in which <<.em all>> of the search terms can be found in the value of field <<.place F>>
 op-parameter: one or more search terms, separated by spaces, or a literal search string
-op-purpose: filter a DataTiddler and show <<.field key>> and/or <<.field value>>
+op-purpose: filter a ~DataTiddler and show <<.field key>> and/or <<.field value>>
 op-suffix: the <<.op keyvalues>> operator uses a rich suffix, see below for details
-tags: [[Data Operators]] [[Filter Operators]]
+tags: [[Data Operators]] [[Filter Operators]] docs
 title: keyvalues Operator
 type: text/vnd.tiddlywiki
 
-<<.from-version "5.1.20">> The "keyvalues" operator only works with DataTiddlers. Non data-tiddlers will be ignored!
+! ''keyvalues'' Operator
+
+The "keyvalues" operator only works with DataTiddlers. Non data-tiddlers will be ignored!
 
 The <<.op keyvalues>> operator uses an extended syntax that permits multiple fields and flags to be passed:
 
@@ -40,7 +41,4 @@ The available flags are:
 
 * ''usekey'' - the <<.field key>> will be used to filter the output. The `<operand>` contains a regexp filter
 * ''usevalue'' - the <<.field value>> will be used to filter the output. The `<operand>` contains a regexp filter
-
-
-<<.operator-examples "keyvalues">>
 
