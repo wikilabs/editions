@@ -1,11 +1,7 @@
 {
-	"description": "Adds a possibilty to style content with wikitext syntax",
+	"description": "Documentation for pragma-comment plugin",
 	"plugins": [
-		"tiddlywiki/internals",
-		"/relink",
-		"wikilabs/space-space-newline",
-		"wikilabs/pragma-comment",
-		"wikilabs/custom-markup"
+		"wikilabs/pragma-comment"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
@@ -16,7 +12,7 @@
 			"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"github": [
-				"--output", "../../wikilabs.github.io/editions/custom-markup", 
+				"--output", "../../wikilabs.github.io/editions/pragma-comment", 
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"externalimages": [
