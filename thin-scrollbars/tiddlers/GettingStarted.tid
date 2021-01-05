@@ -1,0 +1,9 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Thin Scrollbars" adds a little bit of CSS to create thin scrollbars for ~FireFox and ~WebKit-based browsers.
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
