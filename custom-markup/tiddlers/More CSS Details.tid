@@ -1,5 +1,5 @@
 created: 20200915095444188
-modified: 20201016153719296
+modified: 20201215170337324
 tags: Basics docs
 title: More CSS Details
 type: text/vnd.tiddlywiki
@@ -11,7 +11,7 @@ As described in [[Easy styling for Paragraphs]], some basic CSS classes are defi
 * [[:/plugins/wikilabs/custom-markup/styles]]
 * [[colorbox-styles]]
 
-!! ''wltc''
+!! wltc
 
 It's a default class, that is assigned to every element, that is created by the "Custom Markup" plugin. It's primary usecase is, to define "global" CSS classes. 
 
@@ -31,7 +31,7 @@ Eg: For testing: If we use
 
 It's easy to see the created elements, as long as the `<style>d` tiddler is visible. You can also create a temporary tiddler tagged `$:/tags/Stylesheet`. 
 
-!! ''wltc-l?''
+!! wltc-l?
 
 Eg: `wltc-l1`, `wltc-l2`, `wltc-l3`, `wltc-l4`, define the "block" indent level. Where level 1 does nothing. 
 

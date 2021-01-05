@@ -1,5 +1,5 @@
 created: 20200915200156157
-modified: 20200917172114310
+modified: 20201215170426081
 tags: Basics docs
 title: Multi Column Text
 type: text/vnd.tiddlywiki
@@ -12,7 +12,7 @@ type: text/vnd.tiddlywiki
 
 The styles used here can be found at: [[column-styles]]
 
-!! ''3 columns using Standard Wikitext''
+!! 3 columns using Standard Wikitext
 
 ```
 @@.columns3.j
@@ -26,7 +26,7 @@ Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant e
 lacerat cum. At vel nisl nobis, ne sea nulla corpora. At pri saperet nominati scriptorem, ei sale sanctus ea. Quo cu altera laoreet ceteros.
 @@
 
-!! ''2 columns using Custom Wikitext''
+!! 2 columns using Custom Wikitext
 
 A ''left indented'' and ''right dedented'' block with 2 columns can be create using:
 

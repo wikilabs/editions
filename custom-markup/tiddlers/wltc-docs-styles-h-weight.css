@@ -1,0 +1,6 @@
+.tc-tiddler-body > h1,
+.tc-tiddler-body > h2,
+.tc-tiddler-body > h3,
+.tc-tiddler-body > h4  {
+  font-weight: 600;
+}

@@ -1,5 +1,5 @@
 created: 20200915092942889
-modified: 20200917172215101
+modified: 20201215170249353
 tags: Basics docs
 title: Easy styling for Paragraphs
 type: text/vnd.tiddlywiki
@@ -37,7 +37,7 @@ As you can see, there are 2 classes assigned to the HTML P-tag: `wltc-l1` and `w
 
 A full list can be found at: [[Predefined Stylesheets]]
 
-!! ''Indenting the first line''
+!! Indenting the first line
 
 .. will look like this: 
 
@@ -56,7 +56,7 @@ Depending on the "styleguide" you need to follow it can be:
 »».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 
-!! ''Cover it in a "success" box''
+!! Cover it in a "success" box
 
 ```
 ».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
@@ -64,7 +64,7 @@ Depending on the "styleguide" you need to follow it can be:
 
 ».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
-!! ''Indent the whole box''
+!! Indent the whole box
 
 ```
 »».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
@@ -72,7 +72,7 @@ Depending on the "styleguide" you need to follow it can be:
 
 »».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
-!! ''Indent 1 more''
+!! Indent 1 more
 
 ```
 »»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
@@ -93,6 +93,6 @@ As you can see there are 4 class definitions now:
 * `wltc-l3` ... which sets the "block" indent level (3)
 * `wltc` ... as a general class for easy debugging
 
-!! ''More CSS Details''
+!! More CSS Details
 
 Go to: [[More CSS Details]]
