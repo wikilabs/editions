@@ -1,14 +1,30 @@
 created: 20201226122843513
-modified: 20201226123119353
+modified: 20210128145410288
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
-! Welcome
+\define switchToSidebar()
+<$action-setfield $tiddler="$:/state/tab/sidebar--595412856" text="$:/plugins/wikilabs/bundler/ui/Bundles"/>
+\end
+! {{$:/plugins/wikilabs/bundler/icon}} The Bundler Plugin
 
-This plugin allows you to configure "export / import" settings and save them as a "bundle".<br>
-Active configurations can be seen in the "right sidebar"!
+This plugin allows you to create "export/import" configurations and save them as a ''bundle''.
 
----
+Active bundles can be seen in the right sidebar: <$button actions=<<switchToSidebar>> >Click this button</$button>, to select the "Bundles" tab.
+
+Have Fun!
+
+! Tips and Tricks
+
+[[Tips and Tricks]]
+
+! Video
+
+{{VideoThumbnail - How to user the Bunder Plugin}}
 
 {{$:/plugins/wikilabs/bundler/readme}}
+
+! ~ControlPanel Plugins
+
+[[Open the control panel plugin tab|$:/core/ui/ControlPanel/Plugins]]

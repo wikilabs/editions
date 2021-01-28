@@ -1,0 +1,13 @@
+background-color: #fff
+caption: ~HowTo - Bundler Plugin
+color: red
+created: 20210122181308949
+icon: {{$:/core/images/video}}
+image: TODO.png
+link: How to use the Bundler Plugin
+modified: 20210128105117281
+tags: VideoThumbnail
+title: VideoThumbnail - How to user the Bunder Plugin
+type: text/vnd.tiddlywiki
+
+<<list-thumbnails filter:"[all[current]]" width:"336" height:"190">>

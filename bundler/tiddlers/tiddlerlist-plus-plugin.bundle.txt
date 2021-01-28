@@ -1,3 +1,6 @@
 a
 b
 $:/plugins/wikilabs/bundler
+$:/state/tab/sidebar--595412856
+$:/StoryList
+$:/temp/search
