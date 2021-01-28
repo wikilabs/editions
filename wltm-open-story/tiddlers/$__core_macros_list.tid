@@ -1,5 +1,5 @@
 created: 20191220102420238
-modified: 20191220134922130
+modified: 20210125221305329
 tags: $:/tags/Macro
 title: $:/core/macros/list
 type: text/vnd.tiddlywiki
@@ -26,7 +26,7 @@ type: text/vnd.tiddlywiki
 <span class="tc-links-draggable-list">
   <$vars targetTiddler="""$tiddler$""" targetField="""$field$""">
     <$type$ class="$class$">
-      <$list filter="[enlist:$suffix${$tiddler$!!$field$}]">
+      <$list filter="[xenlist:$suffix${$tiddler$!!$field$}]">
         <$droppable actions=<<list-links-draggable-drop-actions type:$suffix$>> tag="""$subtype$""">
           <div class="tc-droppable-placeholder" />
           <div>
@@ -100,3 +100,5 @@ type: text/vnd.tiddlywiki
   </$set>
 </span>
 \end
+
+<pre><$view /></pre>

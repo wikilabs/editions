@@ -3,7 +3,8 @@
 	"plugins": [
 		"tiddlywiki/browser-storage",
 		"wikilabs/wltm-open-story",
-		"wikilabs/link-to-tabs"
+		"wikilabs/link-to-tabs",
+		"wikilabs/xenlist"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",

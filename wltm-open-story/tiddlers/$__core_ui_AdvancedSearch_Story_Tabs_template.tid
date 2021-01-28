@@ -1,5 +1,5 @@
 created: 20191219115535436
-modified: 20200122100705135
+modified: 20210125221408773
 tags: 
 title: $:/core/ui/AdvancedSearch/Story/Tabs/template
 type: text/vnd.tiddlywiki
@@ -35,7 +35,7 @@ $:/temp/$(story-title)$/$(currentTab)$/edit
 
 \define showPreview()
 <$reveal state=<<getStatePreview>> type="match" text="yes" tag="div" class="tc-story-results tc-fr" animate=yes retain=yes>
-<$set name="resultCount" value={{{[enlist:array<myList>count[]]}}}>
+<$set name="resultCount" value={{{[xenlist:array<myList>count[]]}}}>
 <span class="tc-float-right"><<lingo Filter/Matches>></span>
 <$macrocall $name="list-links" filter={{{[{!!title}get<currentTab>]}}} type="div" subtype="div"/>
 </$set>

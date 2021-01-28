@@ -1,5 +1,5 @@
 created: 20200108164814312
-modified: 20200108180020042
+modified: 20210125212917559
 tags: $:/tags/Macro
 title: $:/core/macros/tabs
 type: text/vnd.tiddlywiki
@@ -35,3 +35,5 @@ type: text/vnd.tiddlywiki
 </div>
 </div>
 \end
+
+<pre><$view /></pre>

@@ -1,6 +1,6 @@
 caption: {{$:/language/Search/Story/Caption}} Story
 created: 20191022131630956
-modified: 20200121170428983
+modified: 20210125221411393
 tags: $:/tags/AdvancedSearch
 title: $:/core/ui/AdvancedSearch/Story
 type: text/vnd.tiddlywiki
@@ -14,7 +14,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define get-filter()
-[enlist:array{$(story-title)$!!filter}]
+[xenlist:array{$(story-title)$!!filter}]
 \end
 
 \define get-list()
