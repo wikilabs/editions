@@ -1,0 +1,6 @@
+[[--- This bundle will include itself ---]]
+[[comment-self.bundle]]
+
+[[--- A comment tiddler - This tiddler will not be counted against the numbers !! ---]]
+HelloThere
+GettingStarted
