@@ -2,7 +2,7 @@ a: text with spaces a
 b: text from field b
 c: text c
 created: 20200929140706728
-modified: 20200929142746275
+modified: 20210216141256741
 tags: 
 title: test-checkbox-widget-transclusion-text-with-spaces
 type: text/vnd.tiddlywiki
@@ -21,8 +21,8 @@ yy: text from field: yy
 
 ! Test checkbox widgets and transclusion in _params
 
-°☐:a Das ist ein Test
-°☐:b Das ist ein Test 1
+°☐:"a" Das ist ein Test
+°☐:"b" Das ist ein Test 1
 °☐ Das ist ein Test 1
 
 !! State tiddlers here

@@ -1,11 +1,10 @@
 created: 20200908152739520
-modified: 20201003142738681
+modified: 20210218174958469
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
 
 \customize angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
-
 
 \customize angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
 
@@ -16,7 +15,7 @@ type: text/vnd.tiddlywiki
 !! Pragma Schema
 
 ```
-\customize <ID>=<userSymbol>
+\customize <Glyph>=<userSymbol>
            _element=<element>
            _classes=<class definitions>
            _endString=<string>
@@ -28,8 +27,10 @@ type: text/vnd.tiddlywiki
            _params=<:param1Text:param2Text>
            _debug=<debug options>
 ```
-; IDs 
-: `tick (´), single (›), degree (°), angle (»), almost (≈)`
+; Glyph
+: Block: `tick (´), single (›), degree (°), angle (»), almost (≈), pilcrow (¶)`
+: Inline: `braille ⠒ ⠶`, `corner 『 』`, `slash /° °/`
+
 
 ; userSymbol
 : Can be any single character or word that identifies your "symbol". The first pragma uses "example". The pragma below uses "§". So it depends on you, the user. 
@@ -53,12 +54,15 @@ type: text/vnd.tiddlywiki
 : Can be used, to define parameter names, that should be maped to "parameter aliases". Usage see: [[test-checkbox-widget-params-variable]]
 
 ; _params
-: Can be used similar to the _classes definition eg: `_params=":param1Text:param2Text"` so it's possible to use those parameters without writing them.
-: If an `:param1` is defined, it maps to `_1`. `::param2` maps to `_2` and `:p1:p2` .. `p1` maps to `_1` and `p2` maps to `_2`
+: Can be used similar to the _classes definition eg: `_params=":param1Text:param2Text"` so it's possible to use those parameters without writing them. If:<br><br>
+:* `:param1` is defined, it maps to `_1`
+:* `::param2` maps to `_2` and 
+:*`:p1:p2` .. `p1` maps to `_1` and `p2` maps to `_2`<br><br>
 : If `_params=":a1"` is defined but `°:otherText` is used, `_params` will be overruled!
 : ''Important'': 
 :* No spaces are allowed
-:* `°.a.b:c:d` _classes have to be used before _params. Mixing is ''not possible!''
+:* `°.a.b:"c c":"d d"` _classes have to be used before _params. Mixing is ''not possible!''
+:* Example: [[test-params-with-spaces]]
 
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`

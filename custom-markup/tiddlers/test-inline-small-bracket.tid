@@ -1,13 +1,13 @@
 created: 20201028010330163
-modified: 20201029165358182
+modified: 20210216150639617
 tags: 
 title: test-inline-small-bracket
 type: text/vnd.tiddlywiki
 
-asd﹙.hl some text
+asd『.hl some text
 ! new line <- no H1 here since we are in inline mode!
 3rd line
-﹚some more text
+』 some more text
 
 more text
 

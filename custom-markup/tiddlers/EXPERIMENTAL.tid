@@ -1,5 +1,5 @@
 created: 20200831074005709
-modified: 20200923215024377
+modified: 20210209134329305
 tags: $:/tags/AboveStory
 title: EXPERIMENTAL
 type: text/vnd.tiddlywiki
@@ -8,4 +8,4 @@ type: text/vnd.tiddlywiki
 
 ! This PAGE and PLUGINS are BETA
 
-<$transclude tiddler="$:/plugins/wikilabs/custom-markup" subtiddler="$:/plugins/wikilabs/custom-markup/history-short" mode=block/>
+<$transclude tiddler="$:/plugins/wikilabs/custom-markup" subtiddler="$:/plugins/wikilabs/custom-markup/history" mode=block/>

@@ -1,5 +1,5 @@
 created: 20200906200519542
-modified: 20201027161043917
+modified: 20210216150053211
 tags: 
 title: tick-inline-simple
 type: text/vnd.tiddlywiki
@@ -18,18 +18,8 @@ or
 
 or
 
-__x some text /° some nested °/ text___. 
-
-or
-
-__.class:x some text ⠒.y some nested⠶ text_/. 
-
-
-or
-
-﹙.class:x some text ⠒.y some nested⠶ text﹚. 
+『.class:"x" some text ⠒.y some nested⠶ text』. 
 ```
-
 
 
 /°.myClass This is some text with a class. It starts at the beginning of the line°/
@@ -40,15 +30,8 @@ start ⠒.x some text /° some nested °/ text⠶.
 
 or
 
-start __x some text /° some nested °/ text___ end
 
-or
-
-__x some text ⠒.y some nested⠶ text_/. 
-
-or
-
-﹙.class:x some text ⠒.y some nested⠶ text﹚. 
+『.class:"x" some text ⠒.y some nested⠶ text』. 
 
 
 `⠪.class:param Braille 246 and Braille 2345 ⠞`

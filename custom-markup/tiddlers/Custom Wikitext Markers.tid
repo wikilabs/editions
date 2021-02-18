@@ -1,12 +1,15 @@
 created: 20200915091726829
-modified: 20200917172058478
+modified: 20210209144146259
 tags: Basics docs
 title: Custom Wikitext Markers
 type: text/vnd.tiddlywiki
 
 ! Custom Wikitext Markers
 
-... are a possibility to use ''new'' markers like: Angle, Tilde, Degree, Accent, Comma and Underscore ''» ≈ ° ´ _'' 
+... are a possibility to use ''new'' markers: 
+
+* Block markers are: Angle, Almost, Pilcrow, Degree, Tick, Single `» ≈ ¶ ° ´ ›` 
+* Inline markers are: Braille, Corner and Slash `⠒ .. ⠶`, `『 .. 』` and `/° .. °/`
 
 !! The new Custom Markers Plugin
 

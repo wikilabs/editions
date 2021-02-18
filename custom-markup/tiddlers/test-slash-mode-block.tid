@@ -6,15 +6,14 @@ type: text/vnd.tiddlywiki
 
 \\ that's cracy!!
 
-\customize little=a _element=div _mode=block _debug=both
+\customize corner=a _element=div _mode=block _debug=both
 
-asd ﹙a.hl some text
+asd 『a.hl some text
 
 !! H1 here, even /° slash°/ if it is inline markup
 3rd line
-asdf ﹚ some more text
+asdf 』 some more text
 
 more text
- 
-  
-  
+
+

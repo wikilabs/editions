@@ -1,5 +1,5 @@
 created: 20200928083440150
-modified: 20201015142507233
+modified: 20210216135032874
 tags: 
 title: test-checkbox-widget-params-variable
 type: text/vnd.tiddlywiki
@@ -17,8 +17,8 @@ type: text/vnd.tiddlywiki
 ! Test checkbox widgets and variable in _params
 
 °☐ This is a test
-°☐:b An other test
-°☐:c:second-param This is a test
+°☐:"b" An other test
+°☐:"c":"second-param" This is a test
 
 !! State tiddlers here
 

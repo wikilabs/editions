@@ -1,5 +1,5 @@
 created: 20201101150120210
-modified: 20201108185504421
+modified: 20210216142000659
 tags: 
 title: test-checkbox-widget-inline
 type: text/vnd.tiddlywiki
@@ -11,9 +11,10 @@ yy: text from field: yy
 \import [[test-checkbox-widget-inline-code]] 
 
 53
-⠒☐:a Das ist ein Test⠶more text87
+⠒☐:"a" Das ist ein Test⠶more text87
 
-aaaa ⠒☐:a Das ist ein Test⠶more text87
+aaaa ⠒☐:"a b" Das ist ein Test⠶more text87
 
 <<checkx aaa bbb ccc>>
 
+braill start ⠒☐ Das ist ein Test⠶more text

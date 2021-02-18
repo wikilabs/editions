@@ -1,5 +1,5 @@
 created: 20200915105905737
-modified: 20200915110437468
+modified: 20210216142515440
 tags: $:/tags/SideBar toc
 title: Tasks
 type: text/vnd.tiddlywiki
@@ -16,7 +16,7 @@ type: text/vnd.tiddlywiki
 
 !! Tasks Done
 
-<$list filter="[!has[draft.of]tag[task]tag[erledigt]!sort[modified]]">
+<$list filter="[!has[draft.of]tag[task]tag[done]!sort[modified]]">
 <div>
 <$checkbox tag="done"> ~~<$link to={{!!title}}><$view field="title"/></$link>~~</$checkbox>
 </div>
