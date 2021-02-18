@@ -1,6 +1,6 @@
 created: 20201003104640076
 debug: both
-modified: 20201003143323387
+modified: 20210218181924934
 tags: 
 title: test-global-pragma-local-debug-mode
 type: text/vnd.tiddlywiki
@@ -11,9 +11,9 @@ type: text/vnd.tiddlywiki
 
 ´vars
 
-°☐:a test global pragma
-°☐:b test global pragma
-°☐:c test global pragma
+°☐:"a" test global pragma
+°☐:"b" test global pragma
+°☐:"c" test global pragma
 
 !! State tiddlers here
 

@@ -1,0 +1,46 @@
+created: 20210218183428003
+modified: 20210218183859832
+tags: 
+title: test-tt-table
+type: text/vnd.tiddlywiki
+
+\customise angle=TABLE _endString=«TABLE _element=table _classes="class-table" _mode=block
+\customise single=CA _element=caption
+\customize single=CO _element="$macrocall" $name="addColSpan" _1="cols" _2="width"
+\define addColSpan(cols,width)<col span="$cols$" style="width:$width$">
+\customise single=HE _endString=‹HE _element=thead
+\customise single=BO _endString=‹BO _element=tbody
+\customise single=FO _endString=‹FO _element=tfoot 
+\customise slash=R  _element=tr
+\customise braille=! _element=th
+\customise braille   _element=td
+
+<style>
+.text-align-right, .tr {text-align: right;}
+.text-align-center, .tc {text-align: center;}
+.vertical-align-top, .vt {vertical-align: top;}
+.vertical-align-bottom, .vb {vertical-align: bottom;}
+</style>
+
+»TABLE.class-table-2 
+›CA CAPTION
+›CO:"1":"8rem"
+›CO:"2":"6rem"
+›HE /°R ⠒ Header Row⠶⠒.tc Col 2⠶⠒.tc Col 3⠶ °/‹HE
+›BO 
+    /°R ⠒!.tr head⠶⠒ data⠶⠒ data⠶°/
+    /°R ⠒!.tr.vt head⠶⠒ data
+and more
+  
+data⠶
+⠒ data 
+  
+and more
+  
+data
+  
+broken over lines...⠶°/
+    /°R ⠒!.tr.vt head⠶⠒ data⠶⠒ data⠶°/
+‹BO
+›FO /°R ⠒ Footer row⠶⠒ Col 2⠶⠒ Col 3⠶°/‹FO
+«TABLE

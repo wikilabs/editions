@@ -1,5 +1,5 @@
 created: 20201002103129518
-modified: 20201015141135170
+modified: 20210218181944319
 tags: 
 title: test-global-pragma
 type: text/vnd.tiddlywiki
@@ -8,8 +8,8 @@ type: text/vnd.tiddlywiki
 
 ´vars
 
-°☐:aa test global pragma
-°☐:bb test global pragma
+°☐:"aa" test global pragma
+°☐:"bb" test global pragma
 
 !! State tiddlers here
 

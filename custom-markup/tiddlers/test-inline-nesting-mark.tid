@@ -1,0 +1,20 @@
+created: 20210218182838356
+modified: 20210218182927365
+tags: 
+title: test-inline-nesting-mark
+type: text/vnd.tiddlywiki
+
+\\ HTML MARK: 3 color variants
+\customise slash=My _element=mark _classes="b-y"
+\customise slash=Mg _element=mark _classes="b-lg"
+\customise slash=Mp _element=mark _classes="b-p"
+
+<style>
+.b-y {background-color:yellow;}
+.b-lg {background-color:lightgreen;}
+.b-p{background-color:pink;}
+</style>
+
+Highlight using `<mark> ... </mark>` in /°My yellow°/ or /°Mg light green°/ or /°Mp pink°/.
+
+Will they nest? YES! Highlight using `<mark> ... </mark>` in /°My yellow°/ or /°Mg light /°My yel/°Mp pink°/low°/ green°/ or /°Mp pink°/.

@@ -1,5 +1,5 @@
 created: 20201028003006636
-modified: 20201029175712816
+modified: 20210218181415695
 tags: 
 title: test-tonys-examples
 type: text/vnd.tiddlywiki
@@ -19,5 +19,5 @@ line 1
 line 2
 /d
 
-This is some Text __.test Inline text__ with more
+This is some Text /°.test Inline text°/ with more
 
