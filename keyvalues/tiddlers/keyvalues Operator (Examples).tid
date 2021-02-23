@@ -1,5 +1,5 @@
 created: 20190607104842485
-modified: 20201209173213884
+modified: 20210223142327717
 tags: [[Operator Examples]] [[keyvalues Operator]] docs
 title: keyvalues Operator (Examples)
 type: text/vnd.tiddlywiki
@@ -7,19 +7,21 @@ type: text/vnd.tiddlywiki
 ! Basics Examples
 <$macrocall $name=".operator-example" n="1" eg="[[data]keyvalues[]]" ie="use the data-tiddler: <<.word data>> and show all keys and values"/>
 <$macrocall $name=".operator-example" n="2" eg="[[data]keyvalues:value,key:..[]]" ie="use the data-tiddler: <<.word 'data'>> and show all keys and values. Use a `..` string as separator. Values come first"/>
-<$macrocall $name=".operator-example" n="3" eg="[[data]keyvalues:value:+[]]" ie="same as above, but only show the value. The separator will be ignored, if only 1 element is shown"/>
-<$macrocall $name=".operator-example" n="4" eg="[tag[test-data]keyvalues[]]" ie="use all data-tiddlers tagged <<.op 'test-data'>>"/>
-<$macrocall $name=".operator-example" n="5" eg="[tag[test-data]keyvalues[]sort[]]" ie="same as above, but ''sorted''"/>
+<$macrocall $name=".operator-example" n="3" eg="[[data]keyvalues:value,key:&nbsp;&#58;&nbsp;[]]" ie="use the data-tiddler: <<.word 'data'>> and show all keys and values. Use a `<space><colon><space>` string as separator. Values come first"/>
+<$macrocall $name=".operator-example" n="4" eg="[[data]keyvalues:value,key:&nbsp;-x-&nbsp;[]]" ie="use the data-tiddler: <<.word 'data'>> and show all keys and values. Use a `<space>-x-<space>` string as separator. Values come first"/>
+<$macrocall $name=".operator-example" n="5" eg="[[data]keyvalues:value:+[]]" ie="same as above, but only show the value. The separator will be ignored, if only 1 element is shown"/>
+<$macrocall $name=".operator-example" n="6" eg="[tag[test-data]keyvalues[]]" ie="use all data-tiddlers tagged <<.op 'test-data'>>"/>
+<$macrocall $name=".operator-example" n="7" eg="[tag[test-data]keyvalues[]sort[]]" ie="same as above, but ''sorted''"/>
 
 !! The following examples work with [[regexp Operator]] rules. 
 
-<$macrocall $name=".operator-example" n="6" eg="[tag[test-data]keyvalues[test]]" ie="filter for keys that ''contain'' word <<.word test>>"/>
-<$macrocall $name=".operator-example" n="7" eg="[tag[test-data]keyvalues[^test]]" ie="filter for keys that ''start'' with the word <<.word test>>"/>
-<$macrocall $name=".operator-example" n="8" eg="[tag[test-data]keyvalues[test$]]" ie="filter for keys that ''end'' with the word <<.word test>>"/>
+<$macrocall $name=".operator-example" n="8" eg="[tag[test-data]keyvalues[test]]" ie="filter for keys that ''contain'' word <<.word test>>"/>
+<$macrocall $name=".operator-example" n="9" eg="[tag[test-data]keyvalues[^test]]" ie="filter for keys that ''start'' with the word <<.word test>>"/>
+<$macrocall $name=".operator-example" n="10" eg="[tag[test-data]keyvalues[test$]]" ie="filter for keys that ''end'' with the word <<.word test>>"/>
 <$set name="digit-pattern" value="^[0][3-9]">
 `<$set name="digit-pattern" value="^[0][3-9]">`
-<$macrocall $name=".operator-example" n="9" eg="[tag[test-data]keyvalues<digit-pattern>]" ie="use all data-tiddlers tagged <<.op 'test-data'>>. only show key 03 up to 09"/>
-<$macrocall $name=".operator-example" n="10" eg="[tag[test-data]keyvalues:value<digit-pattern>]" ie="same as above, but only show <<.field values>>"/>
+<$macrocall $name=".operator-example" n="11" eg="[tag[test-data]keyvalues<digit-pattern>]" ie="use all data-tiddlers tagged <<.op 'test-data'>>. only show key 03 up to 09"/>
+<$macrocall $name=".operator-example" n="12" eg="[tag[test-data]keyvalues:value<digit-pattern>]" ie="same as above, but only show <<.field values>>"/>
 </$set>
 
 A bit more code to test with: 
