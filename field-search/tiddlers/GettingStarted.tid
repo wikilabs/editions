@@ -1,16 +1,19 @@
+created: 20210304154903403
+modified: 20210304155819835
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
 ! Overview
 
-This plugin "Field Search" adds several new tabs to the search dropdown. The elements, that should be used can be configured in the $:/ControlPanel
+This plugin "Field Search" adds several new tabs to the search dropdown. The elements, that should be used can be configured in the ~$:/ControlPanel
 
 * If you use a new pluin-version you need to: `[Return to: Default Settings]`
 * Give feedback at: https://github.com/wikilabs/plugins/issues
 
 ! Configuration
 
-{{$:/plugins/wikilabs/field-search/readme}}
-
-! Plugins
-
-{{$:/core/ui/ControlPanel/Plugins}}
+Click: <$button>
+<$action-setfield $tiddler="$:/state/tab-1749438307" text="$:/plugins/wikilabs/field-search/CP/Settings/field-search"/>
+<$action-navigate $to="$:/ControlPanel"/>
+Open the Field-Search Configuration
+</$button>

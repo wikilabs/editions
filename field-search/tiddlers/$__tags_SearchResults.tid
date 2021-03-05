@@ -1,6 +1,5 @@
 created: 20190218162912200
-list: $:/core/ui/DefaultSearchResultList $:/plugins/wikilabs/field-search/ui/titleWrapper $:/plugins/wikilabs/field-search/ui/textWrapper $:/plugins/wikilabs/field-search/ui/fieldWrapper $:/plugins/wikilabs/field-search/ui/aliasWrapper $:/plugins/wikilabs/field-search/ui/captionWrapper
-modified: 20190219125606600
+list: $:/core/ui/DefaultSearchResultList [[$:/config/field-search/tab/Any Field]] [[$:/config/field-search/tab/Title only]] [[$:/config/field-search/tab/Text only]]
+modified: 20210304150118428
 title: $:/tags/SearchResults
 type: text/vnd.tiddlywiki
-
