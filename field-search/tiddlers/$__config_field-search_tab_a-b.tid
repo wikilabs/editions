@@ -1,9 +1,9 @@
 caption: a-b
 created: 20210304215401124
-modified: 20210304224956880
+modified: 20210306155158564
 opt-checked: [all[]]
 opt-unchecked: [!is[system]]
-search-set: [!is[system]]
+search-set: [all[]]
 search-sort: [sort[title]limit[250]]
 tags: $:/tags/SearchResults
 title: $:/config/field-search/tab/a-b
