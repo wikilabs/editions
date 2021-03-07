@@ -1,5 +1,5 @@
 created: 20210304154903403
-modified: 20210304155819835
+modified: 20210306183448111
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -17,3 +17,7 @@ Click: <$button>
 <$action-navigate $to="$:/ControlPanel"/>
 Open the Field-Search Configuration
 </$button>
+
+! This plugin replaces the following system modules
+
+<$list filter="[[$:/plugins/wikilabs/field-search]plugintiddlers[]prefix[$:/core/]]"><$link to=<<currentTiddler>>><<currentTiddler>><br></$link></$list>
