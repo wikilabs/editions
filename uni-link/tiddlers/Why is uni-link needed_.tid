@@ -9,7 +9,8 @@ type: text/vnd.tiddlywiki
 
 {{uni-link-alias}}
 
+{{uni-link-search}}
+
 {{uni-link-caption}}
 
 {{uni-link-subtitle}}
-

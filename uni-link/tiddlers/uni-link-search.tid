@@ -1,0 +1,20 @@
+created: 20210313163438150
+modified: 20210313171435452
+tags: 
+title: uni-link-search
+type: text/vnd.tiddlywiki
+
+! Uni-link Search
+
+`[[case insensitive title|??]]` will do a ''literal,  case-insensitive'' title search. It  will return ''the first'' tiddler it finds. 
+
+''Examples'':
+
+|`[[This is a Test|??]]`|[[this is a test|??]]|
+|`[[doesn't exist|??]]`|[[doesn't exist|??]]|
+
+!! Warning
+
+* uni-link V2.1.0 does ''not'' contain a "relink plugin" addOn!
+
+So if you change the tiddler name, those links won't be changed!
