@@ -1,4 +1,15 @@
+created: 20210317220919049
+modified: 20210317221018085
 title: GettingStarted
+type: text/vnd.tiddlywiki
+
+<style>
+.tc-thumbnail-icon {border:black 1px solid;}
+</style>
+
+! Video
+
+{{VideoThumbnail - Use the Plugin}}
 
 {{$:/plugins/wikilabs/uni-link/readme}}
 

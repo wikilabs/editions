@@ -1,0 +1,17 @@
+created: 20210122180642057
+modified: 20210317220517450
+tags: Video
+title: How to use the Uni-link Plugin
+type: text/vnd.tiddlywiki
+
+Youtube will start collecting user-info, if you play the video!
+
+Please ''Like'' and ''Subscribe'' to [[my channel!|https://www.youtube.com/c/MarioPietsch]]
+
+!! V1.0.0
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/IelDdM7iXrA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+!! V2.1.0
+
+TODO: Explain "Uni-link Search" function
