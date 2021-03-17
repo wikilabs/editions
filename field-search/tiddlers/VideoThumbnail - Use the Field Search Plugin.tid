@@ -1,0 +1,13 @@
+background-color: #fff
+caption: How to use the Field Search Plugin
+color: red
+created: 20210122181308949
+icon: {{$:/core/images/video}}
+image: field-search.png
+link: How to use the Field Search Plugin
+modified: 20210317145619723
+tags: VideoThumbnail
+title: VideoThumbnail - Use the Field Search Plugin
+type: text/vnd.tiddlywiki
+
+<<list-thumbnails filter:"[all[current]]" width:"336" height:"190">>

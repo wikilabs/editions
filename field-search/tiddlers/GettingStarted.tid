@@ -1,7 +1,11 @@
 created: 20210304154903403
-modified: 20210306183448111
+modified: 20210317145551226
 title: GettingStarted
 type: text/vnd.tiddlywiki
+
+<style>
+.tc-thumbnail-icon {border:black 1px solid;}
+</style>
 
 ! Overview
 
@@ -9,6 +13,12 @@ This plugin "Field Search" adds several new tabs to the search dropdown. The ele
 
 * If you use a new pluin-version you need to: `[Return to: Default Settings]`
 * Give feedback at: https://github.com/wikilabs/plugins/issues
+
+! Video
+
+<div style="font-size:0.8em;margin-top:2em;margin-bottom:2em;">
+{{VideoThumbnail - Use the Field Search Plugin}}
+</div>
 
 ! Configuration
 
