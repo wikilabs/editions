@@ -1,5 +1,5 @@
 created: 20201226122843513
-modified: 20210202000101930
+modified: 20210317105703008
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -7,6 +7,11 @@ type: text/vnd.tiddlywiki
 \define switchToSidebar()
 <$action-setfield $tiddler="$:/state/tab/sidebar--595412856" text="$:/plugins/wikilabs/bundler/ui/Bundles"/>
 \end
+
+<style>
+.tc-thumbnail-icon {border:black 1px solid;}
+</style>
+
 ! {{$:/plugins/wikilabs/bundler/icon}} The Bundler Plugin
 
 This plugin allows you to create "export/import" configurations and save them as a ''bundle''.
