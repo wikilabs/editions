@@ -1,15 +1,25 @@
 created: 20201226112253961
-modified: 20201226120723537
+modified: 20210317155432204
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
+
+<style>
+.tc-thumbnail-icon {border:black 1px solid;}
+</style>
 
 ! Welcome
 
 This plugin adds the advanced search tiddler to the right sidebar. To do so, the caption text is replaced by icons only.
 
-<$list filter="[all[shadows]tag[$:/tags/AdvancedSearch]prefix[$:/core/ui]]"><$wikify name=icon text={{{ [all[current]get[icon]get[text]] }}} mode=inline output=html ><<icon>> <$view field=info format=htmlwikified mode=inline /></$wikify><br></$list>
+<$list filter="[all[shadows]tag[$:/tags/AdvancedSearch]prefix[$:/core/ui]]"><$wikify name=icon text={{{ [all[current]get[icon]get[text]] }}} mode=inline output=html ><span class="tc-big-gap"><<icon>> <$view field=info format=htmlwikified mode=inline /></span></$wikify></$list>
+
+! Video
+
+{{VideoThumbnail - Use the Plugin}}
 
 ---
+
+! Info
 
 {{$:/plugins/wikilabs/advanced-search-plus/readme}}
