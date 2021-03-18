@@ -1,5 +1,5 @@
 created: 20200915091726829
-modified: 20210209144146259
+modified: 20210318125150196
 tags: Basics docs
 title: Custom Wikitext Markers
 type: text/vnd.tiddlywiki
@@ -8,8 +8,8 @@ type: text/vnd.tiddlywiki
 
 ... are a possibility to use ''new'' markers: 
 
-* Block markers are: Angle, Almost, Pilcrow, Degree, Tick, Single `» ≈ ¶ ° ´ ›` 
-* Inline markers are: Braille, Corner and Slash `⠒ .. ⠶`, `『 .. 』` and `/° .. °/`
+* ''Block'' markers are: ''Angle'': `»`, ''Approx'': `≈`, ''Pilcrow'': `¶`, ''Degree'': `°`, ''Tick'': `´` and ''Single'': `›` 
+* ''Inline'' markers are: ''Braille'': `⠒ .. ⠶`, ''Corner'': `『 .. 』` and ''Slash'': `/° .. °/`
 
 !! The new Custom Markers Plugin
 

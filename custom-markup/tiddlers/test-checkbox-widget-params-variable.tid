@@ -1,12 +1,12 @@
 created: 20200928083440150
-modified: 20210216135032874
+modified: 20210318174652546
 tags: 
 title: test-checkbox-widget-params-variable
 type: text/vnd.tiddlywiki
 
 \customize tick=vars _element="$vars" yyy="value from variable" UID=<<qualify>> _endString="---" _mode=block
 
-\customize degree=☐ _element="$macrocall" $name="check" _1=tid _2=xxx _params=":x:<<yyy>>"
+\customize degree=☐ _element="$macrocall" $name="check" _1=tid _2=xxx _params=":::x:::<<yyy>>"
 
 \define check(src, tid, xxx:"Error!") 
 <$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - $xxx$</$checkbox>
@@ -26,5 +26,5 @@ type: text/vnd.tiddlywiki
 
 Since all of this has to be done, to make the handling reliable I'd use: https://grosinger.net/tw5-checklist/ instead. IMO it does a much, much better job here!!!!
 
-Just a test var yyy: <<yyy>>      
+Just a test var yyy: <<yyy>>
   
