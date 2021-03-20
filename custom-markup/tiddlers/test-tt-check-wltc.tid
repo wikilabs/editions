@@ -1,0 +1,14 @@
+created: 20210320111522459
+modified: 20210320113034380
+tags: 
+title: test-tt-check-wltc
+type: text/vnd.tiddlywiki
+
+\customise single=TEST-BLOCK-CLASS _element=div _mode=block _classes=".test-class"
+\customise single=TEST-INLINE-CLASS _element=div _mode=inline _classes=".test-class"
+
+›TEST-BLOCK-CLASS Testing application of "classes" to _mode=block --- FAILS to include `wltc`
+
+›TEST-INLINE-CLASS Testing application of "classes" to _mode=inline --- SUCCESS to include `wltc`
+
+''should be fixed with: V0.11.2''
