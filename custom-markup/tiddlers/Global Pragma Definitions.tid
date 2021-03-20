@@ -1,15 +1,21 @@
 created: 20201004150950125
-modified: 20201004153150541
+modified: 20210320143156686
 tags: docs Advanced
 title: Global Pragma Definitions
 type: text/vnd.tiddlywiki
 
 ! Global Pragma Definitions
 
-The plugin contains a system configuration tiddler named: $:/config/custom-markup/pragma/PageTemplate
+!! Important
 
-This tiddler is tagged: <<tag $:/tags/Macro>>. 
-It contains the following text: 
+''If you have macros in your pragma tiddler tagged: `$:/tags/Pragma` you also _have to_ tag this tiddler with `$:/tags/Macro`.'' Otherwise the macros won't be global!
+
+!! Overview 
+
+The "custom-markup" plugin contains a system configuration tiddler named: $:/config/custom-markup/pragma/PageTemplate
+
+This tiddler is tagged: <<tag $:/tags/Macro>>-
+It contains the following text:
 
 ».cl <$view tiddler="$:/config/custom-markup/pragma/PageTemplate" />
 

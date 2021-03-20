@@ -1,0 +1,13 @@
+created: 20210320150825885
+modified: 20210320151535953
+tags: 
+title: test-tt-inline-html-tags
+type: text/vnd.tiddlywiki
+
+```
+Start sentence, /°mark gives text still wrapped in the "span" element°/, then end the sentence.
+```
+
+Start sentence, /°mark gives text still wrapped in the "span" element°/, then end the sentence.
+
+will be fixed with: V0.11.2
