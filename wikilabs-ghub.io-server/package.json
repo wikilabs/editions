@@ -1,6 +1,6 @@
 {
   "name": "wikilabs.github.io-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Auto deploy this project",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "stage:all": "node bin/stage",
     "stage": "npm run build:github",
     "predeploy": "npm run stage:all",
-    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
+    "deploy": "echo # Congratulation: The project is deploied!"
   },
   "repository": {
     "type": "git",
