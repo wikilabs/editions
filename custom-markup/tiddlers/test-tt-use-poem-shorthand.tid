@@ -1,0 +1,37 @@
+created: 20210325111023326
+modified: 20210325123116946
+tags: 
+title: test-tt-use-poem-shorthand
+type: text/vnd.tiddlywiki
+
+\\ POEM ----------------------------------
+\customize angle='POEM' _endString='«POEM' _element='div' _classes='.poem-strict' _mode='block' _debug=both
+
+\\ POEM: shorthand -----------------------
+\customize angle=§ _use=POEM _endString='«§' _debug=both
+
+
+»POEM Here is a poem
+Here is a line
+«POEM
+
+»§ Here is a poem
+Here is a line
+«§ 
+
+This example works since V 0.11.3
+
+<style>
+/* POEM --- Poem & Song Layout */
+.poem-strict {
+ margin: auto;         /* centers the poem div */
+ font-size: 1.2rem;
+ line-height: 1.5rem;
+ 
+ word-break: normal;
+ word-wrap: break-word;
+ white-space: pre-wrap;
+ padding-bottom: 5px;
+}
+</style>
+
