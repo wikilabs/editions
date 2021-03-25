@@ -1,11 +1,11 @@
-caption: params
-created: 20210318130153089
+caption: drop-block
+created: 20210318200530130
 icon: $:/plugins/wikilabs/advanced-search-plus/filter-search.svg
-input-tiddler: $:/search-flt/inp/params
-input-title: $:/search-flt/params
-modified: 20210318130153168
+input-tiddler: $:/search-flt/inp/drop-block
+input-title: $:/search-flt/drop-block
+modified: 20210318200530209
 tags: $:/tags/AdvancedSearch
-title: $:/search-flt/params
+title: $:/search-flt/drop-block
 type: text/vnd.tiddlywiki
 
 \define lingo-base() $:/language/Search/
