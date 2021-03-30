@@ -1,5 +1,5 @@
 created: 20191023112258770
-modified: 20191023113641276
+modified: 20210329145858333
 tags: $:/tags/Macro
 title: $:/core/macros/tree
 type: text/vnd.tiddlywiki
@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 \define link-icon() <span>{{$:/core/images/file}}</span>
 
 \define leaf-link(full-title,chunk,separator: "/")
-<$link to=<<__full-title__>>><$text text=<<__chunk__>>/></$link>
+<$link to=<<__full-title__>> class="tc-tiny-gap-left"><$text text=<<__chunk__>>/></$link>
 \end
 
 \define leaf-node(prefix,chunk)
