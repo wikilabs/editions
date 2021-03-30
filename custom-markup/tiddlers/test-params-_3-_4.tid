@@ -1,0 +1,50 @@
+created: 20210329131627379
+modified: 20210329154603779
+tags: 
+title: test-params-_3-_4
+type: text/vnd.tiddlywiki
+
+\customize degree=blockquote _element="$macrocall" $name="test" _1="para1" _2="para2" _3="para3" _4="para4"  _mode=block _endString="---" _params=":::t1:::t2:::t3:::t4" _debug=both
+
+\define test(src, para1, para2, para3, para4)
+<blockquote>
+$src$
+
+p1 = $para1$<br/>
+p2 = $para2$<br/>
+p3 = $para3$<br/>
+p4 = $para4$
+
+</blockquote>
+\end
+
+! Macro Code
+
+```
+\define test(src, para1, para2, para3, para4)
+<blockquote>
+$src$
+
+p1 = $para1$<br/>
+p2 = $para2$<br/>
+p3 = $para3$<br/>
+p4 = $para4$
+
+</blockquote>
+\end
+```
+
+
+! Standard Call
+
+°blockquote
+some text
+---
+
+! Call with local params
+
+°blockquote:"a":"b":"c":"d"
+some text
+---
+
+

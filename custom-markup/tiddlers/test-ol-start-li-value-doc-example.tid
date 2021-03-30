@@ -1,0 +1,13 @@
+created: 20210329123718075
+modified: 20210329124017056
+tags: 
+title: test-ol-start-li-value-doc-example
+type: text/vnd.tiddlywiki
+
+<ol start=2>
+  <li value=3>Mix flour, baking powder, sugar, and salt.</li>
+  <li>In another bowl, mix eggs, milk, and oil.</li>
+  <li>Stir both mixtures together.</li>
+  <li>Fill muffin tray 3/4 full.</li>
+  <li>Bake for 20 minutes.</li>
+</ol>

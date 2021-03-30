@@ -1,0 +1,15 @@
+created: 20210329124327759
+modified: 20210330093254224
+tags: 
+title: test-tt-use-poem-shorthand-error
+type: text/vnd.tiddlywiki
+
+\\ POEM ----------------------------------
+\customize angle='POEMXXXX' _endString='«POEM' _element='div' _classes='.poem-strict' _mode='block' _debug=both
+
+\\ POEM: shorthand -----------------------
+\customize angle=§ _use=POEM _endString='«§' _debug=both
+
+»§ There should be 
+an ''error message'' above!
+«§
