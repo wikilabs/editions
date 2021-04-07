@@ -1,0 +1,13 @@
+created: 20210403101827121
+modified: 20210403113614817
+tags: 
+title: test-endString-alien
+type: text/vnd.tiddlywiki
+
+\customize angle _endString="\n" _mode=block
+ 
+» test
+line 2
+
+some more text
+

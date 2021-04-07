@@ -1,5 +1,5 @@
 created: 20210329171954875
-modified: 20210330093311352
+modified: 20210404112713740
 tags: 
 title: test-html-elements-default-_endString
 type: text/vnd.tiddlywiki
@@ -8,6 +8,8 @@ type: text/vnd.tiddlywiki
 23
 
 27me more te39
-42
+42 
 
-This example doesn't work with V 0.11.4 ... will probably need help from the core
+This example doesn't work with V 0.11.4 ... will probably need help from the  core 
+
+\customize approx=details _element=details _endString=--- _mode=block
