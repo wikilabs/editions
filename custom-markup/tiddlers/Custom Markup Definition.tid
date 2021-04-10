@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20210325113432144
+modified: 20210410182448971
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -42,8 +42,11 @@ type: text/vnd.tiddlywiki
 ; _classes = class definitions
 : Can be a string with a "connected" list of CSS class definitions, as shown below. ".hard-linebreaks"
 
+; _endString
+: Can be used to define a custom "end string" eg: `--xx--`.<br/>By default:<br/>`tick (´), single (›), degree (°)` use `\n` and<br/>`angle (»), approx (≈), pilcrow (¶)` use `\n\n`
+
 ; _mode
-: Can be ''block'' or ''inline''. inline is the default value, if the parameter is missing.
+: Can be ''block'' or ''inline''. Inline is the default value, if the parameter is missing.
 
 ; _srcName
 : If a `_element=$widget` The source content will be an attribute named: `src` by default. If a different name should be used, it needs to be defined here. See: [[test-checkbox-widget]]. This is handy, using the $macrocall widget.
