@@ -1,11 +1,11 @@
-caption: edit
-created: 20200915230500496
+caption: drop
+created: 20210413114714304
 icon: $:/plugins/wikilabs/advanced-search-plus/shadow-search.svg
-input-tiddler: $:/search-sdw/inp/edit
-input-title: $:/search-sdw/edit
-modified: 20200915230500572
+input-tiddler: $:/search-sdw/inp/drop
+input-title: $:/search-sdw/drop
+modified: 20210413114714344
 tags: $:/tags/AdvancedSearch
-title: $:/search-sdw/edit
+title: $:/search-sdw/drop
 type: text/vnd.tiddlywiki
 
 \define lingo-base() $:/language/Search/

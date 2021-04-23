@@ -1,0 +1,36 @@
+created: 20210419153215096
+modified: 20210423143707968
+tags: $:/tags/Stylesheet
+title: dropdown-styles
+type: text/vnd.tiddlywiki
+
+.wltc-tiny-push-down {
+  margin-bottom: 3px;
+}
+
+.wltc-small-push-left {
+  margin-left: 5px;
+}
+
+.wltc-gap-right {
+  margin: 0 3px 0 0;
+}
+
+.tc-tiddler-frame .wltc-snippet-block {
+  display: block;
+}
+
+.wltc-snippet button:hover,
+.wltc-snippet-block:hover {
+	color: <<colour tiddler-link-background>>;
+	background-color: <<colour tiddler-link-foreground>>;
+	text-decoration: none;
+}
+
+.wltc-snippet button {
+  display: inline-block;
+  width: 85%;
+  background: none;
+  text-align: left;
+  padding: 0 .3em;
+}

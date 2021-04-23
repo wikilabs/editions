@@ -1,3 +1,9 @@
+created: 20200827100914489
+modified: 20210423143651725
+tags: $:/tags/Stylesheet
+title: :/plugins/wikilabs/custom-markup/styles
+type: text/vnd.tiddlywiki
+
 /* Make the toolbar more flexible */
 .tc-editor-toolbar {
   display: flex;
