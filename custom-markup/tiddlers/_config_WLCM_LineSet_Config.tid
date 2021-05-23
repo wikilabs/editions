@@ -1,82 +1,17 @@
-created: 20210422152632369
-modified: 20210423143415156
+created: 20210425113849845
+modified: 20210426141701028
 tags: 
 title: /config/WLCM/LineSet/Config
 type: text/vnd.tiddlywiki
 
-\whitespace trim
+\import [[/config/WLCM/LineSet/Config/Macros]]
 
-\define notify(key)
-<$action-sendmessage $message="tm-notify" $param="test-note" index=$key$/>
-\end
+\define characterRange() a b c d e f g h
 
-\define action()
-<$list filter="[<__key__>match[Escape]]">
-<<notify "Escape">>
-</$list>
-<$list filter="[<__key__>!match[Escape]]">
-<<notify "action detected">>
-<$action-sendmessage
-	$message="tm-edit-text-operation"
-	$param="toggle-tick"
-	character={{{ [[prefix-set]getindex<__key__>get[title]] }}}
-	count="1"
-	force={{{ [{$:/config/edit/linePrefix/force}] ~[[no]] }}}
-/>
-</$list>
-<$action-createtiddler $basetitle="xxx" $overwrite=yes text=<<__key__>> />
-\end
+! Select a Set
 
-\define element()
-\whitespace trim
-<span class="wltc-gap-right">$(index)$</span>
-<$select class="wltc-tiny-push-down wltc-small-push-left" tiddler="prefix-set" index="$(index)$" default='xxx'>
-  <$list filter='[all[shadows+tiddlers]tag[$:/tags/WL/Snippet/LinePrefix]]'>
-    <option value=<<currentTiddler>>><$view field='caption'><$text text={{!!title}}/></$view></option>
-  </$list>
-</$select>
-\end
+<<selectSet>>
 
-\define element()
-\whitespace trim
-<span class="wltc-gap-right">$(index)$</span>
-<$select class="wltc-tiny-push-down wltc-small-push-left" tiddler="prefix-set" index="$(index)$" default='xxx'>
-  <$list filter='[all[shadows+tiddlers]tag[$:/tags/WL/Snippet/LinePrefix]]'>
-    <option value=<<currentTiddler>>><$view field='caption'><$text text={{!!title}}/></$view></option>
-  </$list>
-</$select>
-\end
+This configuration allows you to define "line prefixes" for the selected set
 
-\define linkConfig()
-<$set name=currentTiddler value={{{[[prefix-set]getindex<index>get[title]]}}}>
-<$set name=captionMissing value={{{[[prefix-set]getindex<index>get[caption]then[]else[Info: caption is missing]]}}}>
-<$reveal type=nomatch text=<<currentTiddler>>>
-<$button to=<<currentTiddler>> class="tc-btn-invisible">{{$:/core/images/link}}</$button> <<captionMissing>>
-</$reveal>
-</$set>
-</$set>
-\end
-
-\define clearConfig()
-<$set name=currentTiddler value={{{[[prefix-set]getindex<index>get[title]]}}}>
-<$reveal type=nomatch text=<<currentTiddler>>>
-<$button class="tc-btn-invisible">{{$:/core/images/delete-button}}
-<$action-confirm $message="Remove element: -$(index)$- from the set?" >
-<$action-setfield $tiddler="prefix-set" $index=<<index>> />
-</$action-confirm>
-</$button>
-</$reveal>
-</$set>
-\end
-
-
-<$set name=range filter="[range[1, 9]] a b c ">
-<$set name=keys filter="""[enlist<range>] enter escape""">
-  <$wl-keyboard key=<<keys>> actions=<<action>> >
-    <$list filter=<<range>> variable=index>
-      <<element>> <<clearConfig>> <<linkConfig>><br>
-    </$list>
-    <!-- $edit-text tiddler="/config/WLCM/edit-default" tag=input disabled=yesX focusX / -->
-  </$wl-keyboard>
-</$set></$set>
-
+<<main>>

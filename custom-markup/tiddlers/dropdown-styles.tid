@@ -1,15 +1,19 @@
 created: 20210419153215096
-modified: 20210423143707968
+modified: 20210426225100693
 tags: $:/tags/Stylesheet
 title: dropdown-styles
 type: text/vnd.tiddlywiki
 
 .wltc-tiny-push-down {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
-.wltc-small-push-left {
+.wltc-small-push-right {
   margin-left: 5px;
+}
+
+.wltc-push-right {
+  margin-left: 1em;
 }
 
 .wltc-gap-right {
@@ -33,4 +37,22 @@ type: text/vnd.tiddlywiki
   background: none;
   text-align: left;
   padding: 0 .3em;
+}
+
+.wltc-font-mono {
+ font-family: {{$:/themes/tiddlywiki/vanilla/settings/codefontfamily}};
+}
+
+.wltc-selector {
+  min-width: 40%;
+}
+
+.wltc-selector-big {
+  min-width: 30%;
+  font-size: x-large;
+}
+
+button.wltc-btn-big svg {
+  width: 1.7em;
+  height: 1.7em;
 }
