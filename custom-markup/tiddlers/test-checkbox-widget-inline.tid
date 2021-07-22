@@ -7,7 +7,7 @@ yy: text from field: yy
 
 \importcustom [[test-checkbox-widget-inline-code]]
 
-\\ Don't forget the next line !!!!
+<!-- Don't forget the next line !!!! -->
 \import [[test-checkbox-widget-inline-code]] 
 
 53

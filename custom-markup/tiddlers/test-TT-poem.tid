@@ -4,10 +4,10 @@ tags:
 title: test-TT-poem
 type: text/vnd.tiddlywiki
 
-\\ CUSTOM POETRY 
-\\ -- container ----- 
+<!-- CUSTOM POETRY -->
+<!-- === container ===  -->
 \customize angle=POEM _element="div" _endString="/POEM" _mode=block _classes=".poem-c"
-\\ -- components --- \\
+<!-- === components === -->
 \customize single=P-H _element="h3"
 \customize pilcrow=P-B _element="div" _endString="/P-B" _mode=block
 

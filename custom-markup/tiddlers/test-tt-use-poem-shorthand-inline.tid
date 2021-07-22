@@ -4,10 +4,10 @@ tags:
 title: test-tt-use-poem-shorthand-inline
 type: text/vnd.tiddlywiki
 
-\\ POEM ----------------------------------
+<!-- POEM ===== -->
 \customize corner='POEM' _element='div' _classes='.poem-strict'  _debug=both
 
-\\ POEM: shorthand -----------------------
+<!-- POEM: shorthand ===== -->
 \customize corner=§ _use=POEM _classes='.poem-strict-X'
 
 

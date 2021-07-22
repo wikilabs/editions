@@ -4,7 +4,7 @@ tags:
 title: test-slash-mode-block
 type: text/vnd.tiddlywiki
 
-\\ that's cracy!!
+<!-- that's cracy!! -->
 
 \customize corner=a _element=div _mode=block _debug=both
 
