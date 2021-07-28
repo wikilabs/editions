@@ -1,5 +1,5 @@
 created: 20210329131627379
-modified: 20210329154603779
+modified: 20210722184716019
 tags: 
 title: test-params-_3-_4
 type: text/vnd.tiddlywiki
@@ -41,10 +41,21 @@ p4 = $para4$
 some text
 ---
 
-! Call with local params
+! Call with some local params
+
+°blockquote:"a":"":"c":""
+some text
+---
+
+! Call with 2 local params
+
+°blockquote:"":"b"
+some text
+---
+
+! Call with all local params
 
 °blockquote:"a":"b":"c":"d"
 some text
 ---
-
 
