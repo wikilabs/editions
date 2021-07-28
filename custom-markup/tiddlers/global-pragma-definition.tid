@@ -1,10 +1,10 @@
 created: 20201003134009541
-modified: 20210216141030442
+modified: 20210722175820837
 tags: $:/tags/Pragma
 title: global-pragma-definition
 type: text/vnd.tiddlywiki
 
-\customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
+\customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> XXX={{!!title}} _endString="---" _mode=block
 
 \customize degree=☐ _element="$macrocall" $name="check" _1=tid _2=xxx _params=":x:{{!!yy}}"
 

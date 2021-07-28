@@ -56,7 +56,7 @@ caption={{{ [<template>get[caption]] }}}
 
 \define Warnings()
 \whitespace trim
-<p>If the following list is empty we are good to go!<p>
+<p>If the following list is empty, we are good to go!<p>
 <table class="">
 	<$list filter='[{/config/WLCM/LineSet/selected}keyvalues:value[]]'>
 		<$list filter="[<currentTiddler>!has[title]]">

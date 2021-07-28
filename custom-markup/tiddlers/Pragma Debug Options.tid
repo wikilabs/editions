@@ -1,5 +1,5 @@
 created: 20200915185319344
-modified: 20200917203408994
+modified: 20210722175154401
 tags: Debugging docs
 title: Pragma Debug Options
 type: text/vnd.tiddlywiki
@@ -48,4 +48,4 @@ The full details to `<ID>, <userSymbol> and _use` can be found at the reference 
 ; pragmaOnly
 : Only the ''pragma'' will be shown
 
-TODO ´<tabs with examples´
+TODO `<tabs with examples`

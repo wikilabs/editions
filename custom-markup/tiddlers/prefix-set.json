@@ -1,11 +1,10 @@
 {
-    "1": "Colorbox Danger",
+    "1": "Colorbox Primary",
     "2": "Colorbox Light",
-    "3": "Colorbox Primary",
-    "4": "Colorbox Sucsess",
-    "5": "New Tiddler 1",
+    "3": "Colorbox Sucsess",
+    "4": "Colorbox Warning",
+    "5": "Colorbox Danger",
     "7": "Colorbox noCaption",
-    "9": "aa",
     "c": "Colorbox Danger",
     "b": "hugo"
 }
