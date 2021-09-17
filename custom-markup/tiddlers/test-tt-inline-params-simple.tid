@@ -1,10 +1,10 @@
 created: 20210218184012154
-modified: 20210218184118350
+modified: 20210917072829083
 tags: 
 title: test-tt-inline-params-simple
 type: text/vnd.tiddlywiki
 
-\customize slash=abbr _element="$macrocall" $name="addAttrib" _1="value" _2="addText"
+\customize slash=abbr _element="$macrocall" $name="addAttrib" _params="value addText"
 \define addAttrib(value,addText)<abbr title="$value$">$addText$</abbr>
 
 For some time I have been using /°abbr:"TiddlyWiki":"TW" °/ to write with.

@@ -1,0 +1,12 @@
+author: pmario
+core-version: >=5.1.14
+created: 20210917104018105
+dependents: 
+description: Simple UI to create tiddler bundles
+list: readme license history
+modified: 20210917104018105
+name: Bundler
+plugin-type: plugin
+title: $:/plugins/wikilabs/bundler
+type: application/json
+version: 0.3.2

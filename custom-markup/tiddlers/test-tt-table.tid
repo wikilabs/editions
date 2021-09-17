@@ -1,12 +1,12 @@
 created: 20210218183428003
-modified: 20210218183859832
+modified: 20210917072908433
 tags: 
 title: test-tt-table
 type: text/vnd.tiddlywiki
 
 \customise angle=TABLE _endString=«TABLE _element=table _classes="class-table" _mode=block
 \customise single=CA _element=caption
-\customize single=CO _element="$macrocall" $name="addColSpan" _1="cols" _2="width"
+\customize single=CO _element="$macrocall" $name="addColSpan" _params="cols width"
 \define addColSpan(cols,width)<col span="$cols$" style="width:$width$">
 \customise single=HE _endString=‹HE _element=thead
 \customise single=BO _endString=‹BO _element=tbody

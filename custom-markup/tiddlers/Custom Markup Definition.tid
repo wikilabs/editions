@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20210410182448971
+modified: 20210916154856848
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -23,9 +23,7 @@ type: text/vnd.tiddlywiki
            _use="userSymbol reference"
            _useGlobal="userSymbol reference"
            _srcName="source parameter"
-           _1="name of parameter 1"
-           _2="name of parameter 2"
-           _params=":::param 1 Text:::param 2 Text"
+           _params="""name1=value1 name2="value2 with spaces" """
            _debug="debug options"
 ```
 ; Glyph
@@ -57,20 +55,19 @@ type: text/vnd.tiddlywiki
 ; _useGlobal = userSymbol reference
 : Can be a "symbol" name from a globally defined pragma. See: [[Global Pragma Definitions]]
 
-; _1, _2
-: Can be used, to define parameter names, that should be maped to "parameter aliases". Usage see: [[test-checkbox-widget-params-variable]]
-
 ; _params
 : Can be used similar to the _classes definition eg: `_params=":::param1Text:::param2Text"` so it's possible to use those parameters without writing them. If:<br><br>
-:* `:::param1` is defined, it maps to `_1`
-:* `::::::param2` maps to `_2` and 
-:*`:::p1:::p2` .. `p1` maps to `_1` and `p2` maps to `_2`<br><br>
-: If `_params=":::a1"` is defined but `°:"otherText"` is used, `_params` will be overruled!
+:* `name1=param1` is defined, it maps to the variable named: `name1`
+:* `name1 name2=param2` ... `name1` is the first parameter, but it doesn't have a default value. 
+
+:''The order of the prameters matters''
+
+: If `_params="name1=a1"` is defined but `°:"otherText"` is used, `_params` will be overruled!
 :<br>
 : ''Important'': 
 :* No spaces are allowed, between classes and params
 :* `°.a.b:"c c":"d d"` _classes have to be used before _params. Mixing is ''not possible!''
-:* Example: [[test-params-with-spaces]]
+:* Example: [[test-_new_-params-with-spaces]]
 
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`

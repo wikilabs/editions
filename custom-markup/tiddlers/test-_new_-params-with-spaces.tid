@@ -1,10 +1,10 @@
-created: 20210318132448213
-modified: 20210916152657055
+created: 20210216125412478
+modified: 20210916151402722
 tags: 
-title: test-params-with-https://example.com
+title: test-_new_-params-with-spaces
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """ _debug=both
+\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """
 
 \define test(src, citeText, url)
 <blockquote cite="""$url$""">
@@ -12,25 +12,10 @@ $src$
 <cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
 </blockquote>
 \end
-
-!! Macro definition
-
-```
-\define test(src, citeText, url)
-<blockquote cite="""$url$""">
-$src$
-<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
-</blockquote>
-\end
-```
-
-!! First call
 
 °blockquote
 the cite links to example.com, which is defined in the `_params` attribute in the pragma. The link text is also defined in the pragma
 ---
-
-!! Second call
 
 °blockquote:"a different link text"
 the cite links to example.com
@@ -42,15 +27,7 @@ The "local" text wins over the pragma text
 Both params are defined with the cm-call
 ---
 
-!! Default wikitext call
-
-```
-<<<
-Wikitext example as a reference
-
-See: output: "HTML raw"
-<<<[[external link|https://tiddlywiki.com]]
-```
+------
 
 <<<
 Wikitext example as a reference

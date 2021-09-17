@@ -1,10 +1,10 @@
 created: 20210722093104863
-modified: 20210722095642642
+modified: 20210917083938936
 tags: 
 title: test-empty-params
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _1="para1" _2="para2" _mode=block _endString="---" _params=":::t1:::t2" _debug=both
+\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""para1=t1 para2=t2""" _debug=both
 
 \define test(src, para1, para2, para3, para4)
 <blockquote>
@@ -17,6 +17,9 @@ p2 = $para2$<br/>
 \end
 
 °blockquote:"xxx":""
-This test shows, the parameters from the `_params=":::t1:::t2"` if they are not defined in the custom call eg: `°blockquote:"xxx":""` See the second parameter is defined but empty.
+This test shows, the parameters from the `_params="""para1=t1 para2=t2"""` if they are not defined in the custom call eg: `°blockquote:"xxx":""` See the second parameter is defined but empty.
 ---
 
+°blockquote:"xxx"
+This test shows, the parameters from the `_params="""para1=t1 para2=t2"""` if they are not defined in the custom call eg: `°blockquote:"xxx":""` See the second parameter is defined but empty.
+---

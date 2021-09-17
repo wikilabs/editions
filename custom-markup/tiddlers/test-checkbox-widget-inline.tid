@@ -1,5 +1,5 @@
 created: 20201101150120210
-modified: 20210216142000659
+modified: 20210916170409098
 tags: 
 title: test-checkbox-widget-inline
 type: text/vnd.tiddlywiki
@@ -18,3 +18,13 @@ aaaa ⠒☐:"a b" Das ist ein Test⠶more text87
 <<checkx aaa bbb ccc>>
 
 braill start ⠒☐ Das ist ein Test⠶more text
+
+!! State tiddlers
+
+<<list-links "[prefix[$:/state/cb/]]">>
+
+This tiddler imports: [[test-checkbox-widget-inline-code]] 
+
+°sc °s ''Show Code''
+<pre><code><$view /></code></pre>
+----

@@ -1,18 +1,43 @@
 created: 20210216125412478
-modified: 20210916110136145
+modified: 20210916151907460
 tags: 
 title: test-params-with-spaces
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params=""" citeTxt="external link" url="https://example.com" """
+\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """ 
 
-\define test(src, citeTxt, url)
+
+\define test(src, citeText, url)
 <blockquote cite="""$url$""">
 $src$
-<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeTxt$</a></cite>
+<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
 </blockquote>
 \end
- 
-°blockquote:"new text - new link":"https://tiddlywiki.com" 
+
+°blockquote
+the cite links to example.com, which is defined in the `_params` attribute in the pragma. The link text is also defined in the pragma
+---
+
+°blockquote:"":""
+the cite links to example.com
+
+The "local" text wins over the pragma text
+---
+
+°blockquote:"a different link text"
+the cite links to example.com
+
+The "local" text wins over the pragma text
+---
+
+°blockquote:"new text - new link":"https://tiddlywiki.com"
 Both params are defined with the cm-call
 ---
+
+------
+
+<<<
+Wikitext example as a reference
+
+See: output: "HTML raw"
+<<<[[external link|https://tiddlywiki.com]]

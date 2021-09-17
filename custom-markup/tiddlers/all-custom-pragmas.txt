@@ -1,5 +1,5 @@
 \importcustom <filter expression>
 
-\customize angle="" _element="" _classes="" _endString="" _mode="" _use="" _useGlobal="" _1="" _2="" _classes="" _debug="no"
+\customize angle="" _element="" _classes="" _endString="" _mode="" _use="" _useGlobal="" _classes="" _debug="no"
 
 \debugcustomize no all list <ID (tick)> global <global list> <global ID (tick)>
