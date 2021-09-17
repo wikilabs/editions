@@ -4,13 +4,13 @@ tags:
 title: test-table-tick-final
 type: text/vnd.tiddlywiki
 
-\customize tick=table     _element=table _mode=block _endString="------" 
-\customize tick=caption _element=caption
-\customize tick=row       _element=tr      _mode=block _endString="---"
+\custom tick=table     _element=table _mode=block _endString="------" 
+\custom tick=caption _element=caption
+\custom tick=row       _element=tr      _mode=block _endString="---"
 
-\customize tick=th   _element=th
+\custom tick=th   _element=th
 
-\customize tick _element=td
+\custom tick _element=td
 
 ´table ´caption Some ´caption´ text
 ´row

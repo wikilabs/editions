@@ -4,8 +4,8 @@ tags: Debugging docs
 title: debugcustom pragma
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
-\customize tick="s" _element="summary" _classes=".-m"
+\custom tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
+\custom tick="s" _element="summary" _classes=".-m"
 
 ! Debugging Pragmas
 

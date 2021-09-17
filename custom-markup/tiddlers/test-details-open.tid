@@ -3,12 +3,12 @@ modified: 20200910210756077
 title: test-details-open
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
-\customize tick="s" _element="summary" _classes=".-m"
+\custom tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
+\custom tick="s" _element="summary" _classes=".-m"
 
-\customize tick="x" _element="details" _classes=".notop.c.cl.hl" _endString="------"  _mode=block
+\custom tick="x" _element="details" _classes=".notop.c.cl.hl" _endString="------"  _mode=block
 
-\customize tick="y" _element="div" _classes=".c.cs.hl" _mode=block
+\custom tick="y" _element="div" _classes=".c.cs.hl" _mode=block
 
 \define tv-adjust-heading-level() 2
 

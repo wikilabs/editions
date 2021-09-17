@@ -4,9 +4,9 @@ tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
 
-\customize angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
+\custom angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
 
-\customize angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
+\custom angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
 
 ! Pragma Example
 
@@ -15,16 +15,16 @@ type: text/vnd.tiddlywiki
 !! Pragma Schema
 
 ```
-\customize <Glyph>="userSymbol"
-           _element="element"
-           _classes="class definitions"
-           _endString="string"
-           _mode="mode"
-           _use="userSymbol reference"
-           _useGlobal="userSymbol reference"
-           _srcName="source parameter"
-           _params="""name1=value1 name2="value2 with spaces" """
-           _debug="debug options"
+\custom <Glyph>="userSymbol"
+        _element="element"
+        _classes="class definitions"
+        _endString="string"
+        _mode="mode"
+        _use="userSymbol reference"
+        _useGlobal="userSymbol reference"
+        _srcName="source parameter"
+        _params="""name1=value1 name2="value2 with spaces" """
+        _debug="debug options"
 ```
 ; Glyph
 : Block: `tick (´), single (›), degree (°), angle (»), approx (≈), pilcrow (¶)`

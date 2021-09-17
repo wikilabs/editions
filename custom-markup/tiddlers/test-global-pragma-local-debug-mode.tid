@@ -6,7 +6,7 @@ title: test-global-pragma-local-debug-mode
 type: text/vnd.tiddlywiki
 yy: local-field yy
 
-\customize degree=☐ _useGlobal=☐ _debug="both"
+\custom degree=☐ _useGlobal=☐ _debug="both"
 
 \debugcustom no global degree
 

@@ -5,7 +5,7 @@ title: test-useful-macrocall
 type: text/vnd.tiddlywiki
 
 \importcustom [[customOrderedList]]
-\customize degree=x _use=orderedList _debug=both
+\custom degree=x _use=orderedList _debug=both
 
 °orderedList [tag[slide]]
 

@@ -4,7 +4,7 @@ tags:
 title: test-params-p2-init-value
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText url="https://example.com" """ _debug=both
+\custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText url="https://example.com" """ _debug=both
 
 \define test(src, citeText, url)
 <blockquote cite="""$url$""">

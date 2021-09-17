@@ -4,7 +4,7 @@ tags:
 title: test-tt-inline-params-language-attributes
 type: text/vnd.tiddlywiki
 
-\customize slash=Q _element="$macrocall" $name="addAttribs" _params="p1 p2"
+\custom slash=Q _element="$macrocall" $name="addAttribs" _params="p1 p2"
 \define addAttribs(p1,p2)<q $p1$>$p2$</q>
 
 <style>q {font-size: 1.1em; font-style: italic;}</style>

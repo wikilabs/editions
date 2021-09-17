@@ -4,11 +4,11 @@ tags:
 title: test-angle-quote
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
+\custom tick="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
 
-\customize tick="s" _element="summary" _classes=".-m"
+\custom tick="s" _element="summary" _classes=".-m"
 
-\customize angle="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
+\custom angle="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
 
 ´d ´s Details - Summay
 line 1

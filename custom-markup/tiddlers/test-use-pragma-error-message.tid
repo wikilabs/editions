@@ -4,7 +4,7 @@ tags:
 title: test-use-pragma-error-message
 type: text/vnd.tiddlywiki
 
-\customize degree=☐ _use=☐ _debug=both
+\custom degree=☐ _use=☐ _debug=both
 
 ´vars
 

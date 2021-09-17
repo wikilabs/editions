@@ -4,12 +4,12 @@ tags: Reference docs
 title: Keyboard Shortcuts
 type: text/vnd.tiddlywiki
 
-\customize tick="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
+\custom tick="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
 
-\customize tick="list" _element="ul" _mode=block _endStringX=---
+\custom tick="list" _element="ul" _mode=block _endStringX=---
 
-\customize angle="list" _element="ul" _mode=block _endStringX=---
-\customize angle="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
+\custom angle="list" _element="ul" _mode=block _endStringX=---
+\custom angle="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
 
 ! Keyborad Shortcuts
 

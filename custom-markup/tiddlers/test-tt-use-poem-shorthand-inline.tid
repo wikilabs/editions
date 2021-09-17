@@ -5,10 +5,10 @@ title: test-tt-use-poem-shorthand-inline
 type: text/vnd.tiddlywiki
 
 <!-- POEM ===== -->
-\customize corner='POEM' _element='div' _classes='.poem-strict'  _debug=both
+\custom corner='POEM' _element='div' _classes='.poem-strict'  _debug=both
 
 <!-- POEM: shorthand ===== -->
-\customize corner=§ _use=POEM _classes='.poem-strict'
+\custom corner=§ _use=POEM _classes='.poem-strict'
 
 
 『POEM Here is a poem

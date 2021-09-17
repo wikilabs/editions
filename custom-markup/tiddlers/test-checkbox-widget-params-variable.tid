@@ -4,9 +4,9 @@ tags:
 title: test-checkbox-widget-params-variable
 type: text/vnd.tiddlywiki
 
-\customize tick=vars _element="$vars" yyy="value from variable" UID=<<qualify>> _endString="---" _mode=block
+\custom tick=vars _element="$vars" yyy="value from variable" UID=<<qualify>> _endString="---" _mode=block
 
-\customize degree=☐ _element="$macrocall" $name="check" _params="tid=x xxx=<<yyy>>"
+\custom degree=☐ _element="$macrocall" $name="check" _params="tid=x xxx=<<yyy>>"
 
 \define check(src, tid, xxx:"Error!") 
 <$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - $xxx$</$checkbox>

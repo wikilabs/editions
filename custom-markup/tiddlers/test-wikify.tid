@@ -4,8 +4,8 @@ tags:
 title: test-wikify
 type: text/vnd.tiddlywiki
 
-\customize tick=wikify _element="$wikify" _srcName=text name=result
-\customize tick=text _element="$text" _srcName=text
+\custom tick=wikify _element="$wikify" _srcName=text name=result
+\custom tick=text _element="$text" _srcName=text
 
 ´text {{{ [all[current]] }}} a
 <br>

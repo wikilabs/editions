@@ -4,7 +4,7 @@ tags:
 title: test-address-vars
 type: text/vnd.tiddlywiki
 
-\customize tick=address _element="$vars" address="N Blah St Randwick" name="Anthony Muscio" phone="612 4075581847" email="to...@virtual.com"
+\custom tick=address _element="$vars" address="N Blah St Randwick" name="Anthony Muscio" phone="612 4075581847" email="to...@virtual.com"
 
 ´address  Here we use <<name>> <<phone>> <<address>>
 ´address  Here we use <<name>><br>Phone: <<phone>><br><<address>>

@@ -4,4 +4,4 @@ tags:
 title: customOrderedList
 type: text/plain
 
-\customize degree="orderedList" _element="$macrocall" $name="list-links" type="ol" class="iNeedIt" emptyMessage="Nothing found!" _srcName=filter
+\custom degree="orderedList" _element="$macrocall" $name="list-links" type="ol" class="iNeedIt" emptyMessage="Nothing found!" _srcName=filter

@@ -4,7 +4,7 @@ tags: Basics docs
 title: Multi Column Text
 type: text/vnd.tiddlywiki
 
-\customize tick=2 _classes=".c2.gap.justify.indent.right-dedent" _debug=both
+\custom tick=2 _classes=".c2.gap.justify.indent.right-dedent" _debug=both
 
 ! Multi Columns in Wikitext
 

@@ -4,13 +4,13 @@ tags:
 title: test-TT-block-version
 type: text/vnd.tiddlywiki
 
-\customize angle="¶"  _endString="⁋"   _element="p"          _mode="block" _classes=".phrase-group"
-\customize single="¶"                  _element="p"                        _classes=".phrase-group"
-\customize degree="I"                  _element="span"                     _classes=".info"
-\customize degree="P"                  _element="span"                     _classes=".phrase .position"
-\customize degree="A"                  _element="span"                     _classes=".phrase .act"
-\customize degree="O"                  _element="span"                     _classes=":phrase .observe"
-\customize single="ABsa"               _element="abbr"                     _classes=".abbr-sa" title="Somatic Assay" 
+\custom angle="¶"  _endString="⁋"   _element="p"          _mode="block" _classes=".phrase-group"
+\custom single="¶"                  _element="p"                        _classes=".phrase-group"
+\custom degree="I"                  _element="span"                     _classes=".info"
+\custom degree="P"                  _element="span"                     _classes=".phrase .position"
+\custom degree="A"                  _element="span"                     _classes=".phrase .act"
+\custom degree="O"                  _element="span"                     _classes=":phrase .observe"
+\custom single="ABsa"               _element="abbr"                     _classes=".abbr-sa" title="Somatic Assay" 
 
 »¶
   °I In this 

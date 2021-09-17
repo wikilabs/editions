@@ -4,7 +4,7 @@ tags:
 title: test-centered-hr
 type: text/vnd.tiddlywiki
 
-\customize tick=hr-center _element=hr
+\custom tick=hr-center _element=hr
 
 <style>
 hr {width:50%;border-top:0;color:gray;}

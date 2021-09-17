@@ -4,8 +4,8 @@ tags:
 title: test-tt-class-definition
 type: text/vnd.tiddlywiki
 
-\customise slash=TEST _classes=""
-\customise tick=TEST _classes=""
+\custom slash=TEST _classes=""
+\custom tick=TEST _classes=""
 
 This shows the issue: /°TEST.repeated-style appears twice (fixed in 0.10.0)°/
 

@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 <!-- that's cracy!! -->
 
-\customize corner=a _element=div _mode=block _debug=both
+\custom corner=a _element=div _mode=block _debug=both
 
 asd 『a.hl some text
 

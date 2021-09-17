@@ -4,7 +4,7 @@ tags:
 title: test-params-_3-_4
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""para1=t1 para2='t2 x' para3="t3 y" para4=t4""" _debug=both
+\custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""para1=t1 para2='t2 x' para3="t3 y" para4=t4""" _debug=both
 
 \define test(src, para1, para2, para3, para4)
 <blockquote>

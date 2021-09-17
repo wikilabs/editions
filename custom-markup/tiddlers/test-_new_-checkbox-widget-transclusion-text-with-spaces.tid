@@ -9,9 +9,9 @@ type: text/vnd.tiddlywiki
 x: text x
 yy: text from field: yy
 
-\customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
+\custom tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
 
-\customize degree=☐ _element="$macrocall" $name="check" _params="""tid=x field={{!!yy}} """ _mode=block
+\custom degree=☐ _element="$macrocall" $name="check" _params="""tid=x field={{!!yy}} """ _mode=block
 
 \define check(src, tid, field) 
 <$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - {{!!$tid$}}</$checkbox>  

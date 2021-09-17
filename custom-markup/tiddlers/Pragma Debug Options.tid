@@ -5,17 +5,17 @@ title: Pragma Debug Options
 type: text/vnd.tiddlywiki
 
 \importcustom [[pragma-details]]
-\customize degree=XXX _use=d _debug=both
+\custom degree=XXX _use=d _debug=both
 
 ! Lokal Debugging
 
-A `\customize` pragma can have a debugging option. First seen in: [[Import and Re-define a Pragma]]. It helps the user to "find problems" and it helps me "creating the documentation"
+A `\custom` pragma can have a debugging option. First seen in: [[Import and Re-define a Pragma]]. It helps the user to "find problems" and it helps me "creating the documentation"
 
 !! Code
 
 ```
 \importcustom [[pragma-details]]
-\customize degree=XXX _use=d _debug=both
+\custom degree=XXX _use=d _debug=both
 ```
 
 !! Schema Used Here
@@ -23,9 +23,9 @@ A `\customize` pragma can have a debugging option. First seen in: [[Import and R
 The full details to `<ID>, <userSymbol> and _use` can be found at the reference docs at: [[Custom Markup Definition]]
 
 ```
-\customize <ID>=<userSymbol>
-           _use=<userSymbol reference>
-           _debug=<debug options>
+\custom <ID>=<userSymbol>
+        _use=<userSymbol reference>
+        _debug=<debug options>
 ```
 
 ; debug options

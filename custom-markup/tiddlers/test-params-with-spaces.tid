@@ -4,7 +4,7 @@ tags:
 title: test-params-with-spaces
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """ 
+\custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """ 
 
 
 \define test(src, citeText, url)

@@ -4,8 +4,8 @@ tags:
 title: easy-to-use
 type: text/vnd.tiddlywiki
 
-\customize angle="hard-linebreak" _classes=".hl"
-\customize angle _use="hard-linebreak"
+\custom angle="hard-linebreak" _classes=".hl"
+\custom angle _use="hard-linebreak"
 
 ! Basic Usage pattern
 
@@ -25,11 +25,11 @@ line 2
 
 The tripple double-quotes are OK, but it should be easier. Especially if a lot of text is "copy / pasted" into a tiddler from a different souce. 
 
-There is a possibilty to define a `\customize` pragma now. 
+There is a possibilty to define a `\custom` pragma now. 
 
 ```
-\customize angle="hard-linebreak" _classes=".hl"
-\customize angle _use="hard-linebreak"
+\custom angle="hard-linebreak" _classes=".hl"
+\custom angle _use="hard-linebreak"
 ```
 
 

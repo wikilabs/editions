@@ -5,9 +5,9 @@ title: test-checkbox-widget-params-transclusion
 type: text/vnd.tiddlywiki
 yy: text from field: yy
 
-\customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
+\custom tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block
 
-\customize degree=☐ _element="$macrocall" $name="check" _params="""tid="x x" xxx={{!!yy}}"""
+\custom degree=☐ _element="$macrocall" $name="check" _params="""tid="x x" xxx={{!!yy}}"""
 
 \define check(src, tid, xxx) 
 <$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class="db"> <<__src__>> - $xxx$</$checkbox> 

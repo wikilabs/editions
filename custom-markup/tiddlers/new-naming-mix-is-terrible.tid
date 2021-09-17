@@ -4,19 +4,19 @@ tags:
 title: new-naming-mix-is-terrible
 type: text/vnd.tiddlywiki
 
-\customize degree=table _element=table _endString="---" _mode=block
+\custom degree=table _element=table _endString="---" _mode=block
 
-\customize degree=caption _element=caption
+\custom degree=caption _element=caption
 
-\customize degree=row _element=tr  _mode=block _endString="-"
+\custom degree=row _element=tr  _mode=block _endString="-"
 
-\customize degree=th _element=th 
-\customize degree=th2 _element=th  colspan=2
+\custom degree=th _element=th 
+\custom degree=th2 _element=th  colspan=2
 
-\customize tick=row _element=tr  _mode=block _endString="-"
-\customize tick _element=td 
+\custom tick=row _element=tr  _mode=block _endString="-"
+\custom tick _element=td 
 
-\customize single _element=td
+\custom single _element=td
 
 \debugcustom no all
 

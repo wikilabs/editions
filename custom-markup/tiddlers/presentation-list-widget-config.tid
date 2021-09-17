@@ -4,10 +4,10 @@ tags:
 title: presentation-list-widget-config
 type: text/plain
 
-\customize degree=presentation _element="$presentation" _mode=block _endString="---"
-\customize angle=list _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
-\customize tick=slide _element="$slide" _mode=block _endString="-"
+\custom degree=presentation _element="$presentation" _mode=block _endString="---"
+\custom angle=list _element="$list" _mode=block _endString="--" filter="[tag[slide]sort[title]]"
+\custom tick=slide _element="$slide" _mode=block _endString="-"
 
-\customize tick _use=slide
-\customize degree _use=presentation
-\customize angle _use=list
+\custom tick _use=slide
+\custom degree _use=presentation
+\custom angle _use=list

@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 \importcustom [tag[pragmas]]
 
-\customize tick _use="success" 
+\custom tick _use="success" 
  
 
 \debugcustom all

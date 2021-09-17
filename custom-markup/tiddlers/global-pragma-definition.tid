@@ -4,11 +4,11 @@ tags: $:/tags/Pragma
 title: global-pragma-definition
 type: text/vnd.tiddlywiki
 
-\customize tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> XXX={{!!title}} _endString="---" _mode=block
+\custom tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> XXX={{!!title}} _endString="---" _mode=block
 
-\customize degree=☐ _element="$macrocall" $name="check" _params="tid=x xxx={{!!yy}}"
+\custom degree=☐ _element="$macrocall" $name="check" _params="tid=x xxx={{!!yy}}"
 
-\customize degree=sc _element="details" _classes=".notop.hl" _endString="----" _mode=block
-\customize degree=s _element="summary" _classes=".-m"
+\custom degree=sc _element="details" _classes=".notop.hl" _endString="----" _mode=block
+\custom degree=s _element="summary" _classes=".-m"
 
 <pre><code><$view /></code></pre>
