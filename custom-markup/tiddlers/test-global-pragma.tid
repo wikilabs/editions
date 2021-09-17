@@ -5,7 +5,7 @@ title: test-global-pragma
 type: text/vnd.tiddlywiki
 yy: yyyyyy
 
-\debugcustomize no global degree  
+\debugcustom no global degree  
 
 
 ´vars

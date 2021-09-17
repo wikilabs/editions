@@ -1,7 +1,7 @@
 created: 20200915152147177
 modified: 20201004154343083
 tags: Debugging docs
-title: debugcustomize pragma
+title: debugcustom pragma
 type: text/vnd.tiddlywiki
 
 \customize tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
@@ -12,7 +12,7 @@ type: text/vnd.tiddlywiki
 It's possible to show the internal variables, that are used to store pragma definitions. It will only show the definitions. NO content will be rendered.
 
 ```
-\debugcustomize <params>
+\debugcustom <params>
 ```
 
 !! params
@@ -21,31 +21,31 @@ Default is ''all''
 
 ; no
 : Disables the debug mode. This makes it possible to keep the parameter for later use, without side effects. 
-: eg: `\debugcustomize no all list global list `. It's only important, that the first parameter is "no".
+: eg: `\debugcustom no all list global list `. It's only important, that the first parameter is "no".
 
 ; all
 : shows all definitions, that are defined within this tiddler, including imported
-: eg: `\debugcustomize all`
+: eg: `\debugcustom all`
 
 ; list
 : Shows a list of IDs that contain a pragma definition
-: eg: `\debugcustomize list`
+: eg: `\debugcustom list`
 
 ; ID
 : Shows a the locally defined ID.
-: eg: `\debugcustomize tick`
+: eg: `\debugcustom tick`
 
 ; global
 : Shows a verbose list of all pragma definitions defined global. Local definitions are _not_ shown.
-: eg: `\debugcustomize global`
+: eg: `\debugcustom global`
 
 ; global list
 : Shows a list of globally defined IDs
-: eg: `\debugcustomize global list`
+: eg: `\debugcustom global list`
 
 ; global `<ID>`
 : Only lists this globally defined ID. 
-:eg: `\debugcustomize global tick`
+:eg: `\debugcustom global tick`
 
 ---
 
@@ -59,11 +59,11 @@ There are different "_debug" options available. See: [[Pragma Debug Options]]
 !! Code
 
 ```
-\importcustom [[pragma-debugcustomize-global-list-example]]
-\debugcustomize global list
+\importcustom [[pragma-debugcustom-global-list-example]]
+\debugcustom global list
 ```
 
-{{pragma-debugcustomize-global-list-example}}
+{{pragma-debugcustom-global-list-example}}
 
 !! More Examples
 

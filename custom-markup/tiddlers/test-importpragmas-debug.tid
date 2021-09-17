@@ -9,6 +9,6 @@ type: text/vnd.tiddlywiki
 \customize tick _use="success" 
  
 
-\debugcustomize all
+\debugcustom all
 
    

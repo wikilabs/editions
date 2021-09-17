@@ -8,7 +8,7 @@ yy: local-field yy
 
 \customize degree=☐ _useGlobal=☐ _debug="both"
 
-\debugcustomize no global degree
+\debugcustom no global degree
 
 ´vars
 

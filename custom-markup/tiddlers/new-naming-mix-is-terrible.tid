@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki
 
 \customize single _element=td
 
-\debugcustomize no all
+\debugcustom no all
 
 °table °caption Some ´caption´ text
 °row

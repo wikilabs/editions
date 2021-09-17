@@ -1,4 +1,4 @@
-_debug: \debugcustomize global tick
+_debug: \debugcustom global tick
 created: 20200915195838828
 modified: 20201005160714918
 tags: Advanced docs
