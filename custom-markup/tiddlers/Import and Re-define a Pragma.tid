@@ -5,7 +5,7 @@ title: Import and Re-define a Pragma
 type: text/vnd.tiddlywiki
 
 \importcustom [[pragma-details]]
-\customize degree=XXX _use=d _debug=both
+\custom degree=XXX _use=d _debug=both
 
 !! Redefine Imported Pragmas
 
@@ -15,7 +15,7 @@ This tiddler talks about redefining imported pragmas. The pragma imported here i
 
 ```
 \importcustom [[pragma-details]]
-\customize degree=XXX _use=d _debug=both
+\custom degree=XXX _use=d _debug=both
 ```
 !! _debug
 

@@ -4,7 +4,7 @@ tags:
 title: test-tonys-example
 type: text/vnd.tiddlywiki
 
-\customize degree=do _element="$macrocall" $name=☐ _srcName=content
+\custom degree=do _element="$macrocall" $name=☐ _srcName=content
 \define done-check(tiddlername)
 \whitespace trim
 <$set name=tiddlername value="""$tiddlername$""" emptyValue=<<currentTiddler>> >

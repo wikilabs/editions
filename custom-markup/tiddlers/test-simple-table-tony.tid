@@ -4,14 +4,14 @@ tags:
 title: test-simple-table-tony
 type: text/vnd.tiddlywiki
 
-\customize tick=table _element=table _endString="/table" _mode=block
-\customize tick=caption _element=caption
+\custom tick=table _element=table _endString="/table" _mode=block
+\custom tick=caption _element=caption
 
-\customize tick=th _element=th
+\custom tick=th _element=th
 
-\customize tick=td _element=td _classes=".hl"  _mode=block
+\custom tick=td _element=td _classes=".hl"  _mode=block
 
-\customize tick="tr" _element=tr _mode=block _endString="/tr"
+\custom tick="tr" _element=tr _mode=block _endString="/tr"
 
 
 ´table ´caption Some caption text

@@ -1,8 +1,0 @@
-created: 20201004150323007
-modified: 20201004150353920
-tags: [[debugcustomize pragma]]
-title: pragma-debugcustomize-single-example
-type: text/vnd.tiddlywiki
-
-\importcustom [[debugcustomize pragma]]
-\debugcustomize global single

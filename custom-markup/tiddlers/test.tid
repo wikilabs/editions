@@ -1,12 +1,14 @@
-created: 20200830185321183
-modified: 20200924203720970
-tags: 
+caption: New Inline Prefix
+created: 20210916084455821
+modified: 20210916084603698
+prefix: /°.test
+suffix: °/
+tags: $:/tags/WL/Snippet/Inline
 title: test
 type: text/vnd.tiddlywiki
 
-! heading level 1
-
-transcluded  line 1
-transcluded  line 2
-
-This tiddler is used to be transcluded in other tiddlers. 
+"""
+caption: {{!!caption}}
+prefix: {{!!prefix}}
+suffix: {{!!suffix}}
+"""

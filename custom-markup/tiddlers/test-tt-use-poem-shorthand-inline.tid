@@ -1,14 +1,14 @@
 created: 20210325123351622
-modified: 20210330093250139
+modified: 20210917082340922
 tags: 
 title: test-tt-use-poem-shorthand-inline
 type: text/vnd.tiddlywiki
 
-\\ POEM ----------------------------------
-\customize corner='POEM' _element='div' _classes='.poem-strict'  _debug=both
+<!-- POEM ===== -->
+\custom corner='POEM' _element='div' _classes='.poem-strict'  _debug=both
 
-\\ POEM: shorthand -----------------------
-\customize corner=§ _use=POEM _classes='.poem-strict-X'
+<!-- POEM: shorthand ===== -->
+\custom corner=§ _use=POEM _classes='.poem-strict'
 
 
 『POEM Here is a poem

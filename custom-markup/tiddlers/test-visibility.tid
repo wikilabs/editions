@@ -5,9 +5,9 @@ tags:
 title: test-visibility
 type: text/vnd.tiddlywiki
 
-\customize tick=debug _element="$list" filter="[all[current]has:field[debug]]"
-\customize tick=design _element="$list" filter="[{$:/config/design-mode}match[yes]]"
-\customize tick=draft _element="$list" filter="[all[current]has:field[draft.of]]"
+\custom tick=debug _element="$list" filter="[all[current]has:field[debug]]"
+\custom tick=design _element="$list" filter="[{$:/config/design-mode}match[yes]]"
+\custom tick=draft _element="$list" filter="[all[current]has:field[draft.of]]"
 
 SEE THIS TIDDLER IN EDIT MODE!
 

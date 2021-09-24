@@ -1,13 +1,14 @@
 created: 20201003104640076
 debug: both
-modified: 20210218181924934
+modified: 20210917083732684
 tags: 
 title: test-global-pragma-local-debug-mode
 type: text/vnd.tiddlywiki
+yy: local-field yy
 
-\customize degree=☐ _useGlobal=☐ _debug="both"
+\custom degree=☐ _useGlobal=☐ _debug="both"
 
-\debugcustomize no global degree
+\debugcustom no global degree
 
 ´vars
 

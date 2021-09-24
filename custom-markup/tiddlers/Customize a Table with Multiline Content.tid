@@ -4,16 +4,16 @@ tags: Advanced docs
 title: Customize a Table with Multiline Content
 type: text/vnd.tiddlywiki
 
-\customize tick=table _element=table _endString="---" _mode=block
-\customize tick=caption _element=caption
+\custom tick=table _element=table _endString="---" _mode=block
+\custom tick=caption _element=caption
 
-\customize tick=th _element=th 
+\custom tick=th _element=th 
 
-\customize tick=row _element=tr _mode=block _endString="--"
+\custom tick=row _element=tr _mode=block _endString="--"
 
-\customize tick _element=td _classes=".hl"
+\custom tick _element=td _classes=".hl"
 
-\customize angle _element=td _classes=".hl"
+\custom angle _element=td _classes=".hl"
 
 
 ´table ´caption Some caption text

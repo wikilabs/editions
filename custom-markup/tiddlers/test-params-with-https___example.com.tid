@@ -1,25 +1,25 @@
 created: 20210318132448213
-modified: 20210318175445336
+modified: 20210916152657055
 tags: 
 title: test-params-with-https://example.com
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _2="url" _1="citeTxt" _mode=block _endString="---" _params=":::external link:::https://example.com" _debug=both
+\custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """ _debug=both
 
-\define test(src, citeTxt, url)
+\define test(src, citeText, url)
 <blockquote cite="""$url$""">
 $src$
-<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeTxt$</a></cite>
+<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
 </blockquote>
 \end
 
 !! Macro definition
 
 ```
-\define test(src, citeTxt, url)
+\define test(src, citeText, url)
 <blockquote cite="""$url$""">
 $src$
-<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeTxt$</a></cite>
+<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
 </blockquote>
 \end
 ```

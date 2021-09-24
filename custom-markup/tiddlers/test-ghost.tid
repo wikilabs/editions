@@ -4,7 +4,7 @@ tags:
 title: test-ghost
 type: text/vnd.tiddlywiki
 
-\customize tick=ghost _element="$set" name=ghost filter="""[all[current]addprefix[$:/ghost/]]""" _endString="/ghost"
+\custom tick=ghost _element="$set" name=ghost filter="""[all[current]addprefix[$:/ghost/]]""" _endString="/ghost"
 
 ´ghost <<ghost>><br>
 

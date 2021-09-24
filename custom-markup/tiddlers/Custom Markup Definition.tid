@@ -1,12 +1,12 @@
 created: 20200908152739520
-modified: 20210325113432144
+modified: 20210916154856848
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
 
-\customize angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
+\custom angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
 
-\customize angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
+\custom angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
 
 ! Pragma Example
 
@@ -15,18 +15,16 @@ type: text/vnd.tiddlywiki
 !! Pragma Schema
 
 ```
-\customize <Glyph>="userSymbol"
-           _element="element"
-           _classes="class definitions"
-           _endString="string"
-           _mode="mode"
-           _use="userSymbol reference"
-           _useGlobal="userSymbol reference"
-           _srcName="source parameter"
-           _1="name of parameter 1"
-           _2="name of parameter 2"
-           _params=":::param 1 Text:::param 2 Text"
-           _debug="debug options"
+\custom <Glyph>="userSymbol"
+        _element="element"
+        _classes="class definitions"
+        _endString="string"
+        _mode="mode"
+        _use="userSymbol reference"
+        _useGlobal="userSymbol reference"
+        _srcName="source parameter"
+        _params="""name1=value1 name2="value2 with spaces" """
+        _debug="debug options"
 ```
 ; Glyph
 : Block: `tick (´), single (›), degree (°), angle (»), approx (≈), pilcrow (¶)`
@@ -42,8 +40,11 @@ type: text/vnd.tiddlywiki
 ; _classes = class definitions
 : Can be a string with a "connected" list of CSS class definitions, as shown below. ".hard-linebreaks"
 
+; _endString
+: Can be used to define a custom "end string" eg: `--xx--`.<br/>By default:<br/>`tick (´), single (›), degree (°)` use `\n` and<br/>`angle (»), approx (≈), pilcrow (¶)` use `\n\n`
+
 ; _mode
-: Can be ''block'' or ''inline''. inline is the default value, if the parameter is missing.
+: Can be ''block'' or ''inline''. Inline is the default value, if the parameter is missing.
 
 ; _srcName
 : If a `_element=$widget` The source content will be an attribute named: `src` by default. If a different name should be used, it needs to be defined here. See: [[test-checkbox-widget]]. This is handy, using the $macrocall widget.
@@ -54,20 +55,19 @@ type: text/vnd.tiddlywiki
 ; _useGlobal = userSymbol reference
 : Can be a "symbol" name from a globally defined pragma. See: [[Global Pragma Definitions]]
 
-; _1, _2
-: Can be used, to define parameter names, that should be maped to "parameter aliases". Usage see: [[test-checkbox-widget-params-variable]]
-
 ; _params
 : Can be used similar to the _classes definition eg: `_params=":::param1Text:::param2Text"` so it's possible to use those parameters without writing them. If:<br><br>
-:* `:::param1` is defined, it maps to `_1`
-:* `::::::param2` maps to `_2` and 
-:*`:::p1:::p2` .. `p1` maps to `_1` and `p2` maps to `_2`<br><br>
-: If `_params=":::a1"` is defined but `°:"otherText"` is used, `_params` will be overruled!
+:* `name1=param1` is defined, it maps to the variable named: `name1`
+:* `name1 name2=param2` ... `name1` is the first parameter, but it doesn't have a default value. 
+
+:''The order of the prameters matters''
+
+: If `_params="name1=a1"` is defined but `°:"otherText"` is used, `_params` will be overruled!
 :<br>
 : ''Important'': 
 :* No spaces are allowed, between classes and params
 :* `°.a.b:"c c":"d d"` _classes have to be used before _params. Mixing is ''not possible!''
-:* Example: [[test-params-with-spaces]]
+:* Example: [[test-_new_-params-with-spaces]]
 
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`

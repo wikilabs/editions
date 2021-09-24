@@ -4,8 +4,8 @@ tags:
 title: test-tonys-examples
 type: text/vnd.tiddlywiki
 
-\customize tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="/d" _mode=block
-\customize tick="s" _element="summary" _classes=".margin-init"  _endString="/s"
+\custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="/d" _mode=block
+\custom tick="s" _element="summary" _classes=".margin-init"  _endString="/s"
 
 ´d ´s Details - Summary /s
 line 1

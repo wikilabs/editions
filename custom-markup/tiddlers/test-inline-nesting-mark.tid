@@ -4,10 +4,10 @@ tags:
 title: test-inline-nesting-mark
 type: text/vnd.tiddlywiki
 
-\\ HTML MARK: 3 color variants
-\customise slash=My _element=mark _classes="b-y"
-\customise slash=Mg _element=mark _classes="b-lg"
-\customise slash=Mp _element=mark _classes="b-p"
+<!-- HTML MARK: 3 color variants -->
+\custom slash=My _element=mark _classes="b-y"
+\custom slash=Mg _element=mark _classes="b-lg"
+\custom slash=Mp _element=mark _classes="b-p"
 
 <style>
 .b-y {background-color:yellow;}

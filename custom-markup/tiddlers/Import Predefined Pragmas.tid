@@ -1,5 +1,5 @@
 created: 20200917190543970
-modified: 20200917195536074
+modified: 20210917110658450
 tags: Advanced docs
 title: Import Predefined Pragmas
 type: text/vnd.tiddlywiki
@@ -39,4 +39,4 @@ line 1
 line 2
 ------
 
-!! Next: [[Import and Re-define a Pragma]]
+Next: [[Import and Re-define a Pragma]]

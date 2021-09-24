@@ -4,7 +4,7 @@ tags:
 title: test-endString-as-inline
 type: text/vnd.tiddlywiki
 
-\customize tick="s" _element="summary" _classes=".margin-init"  _endString="/s"
+\custom tick="s" _element="summary" _classes=".margin-init"  _endString="/s"
 
 ´s Details - Summary /s
 asdf

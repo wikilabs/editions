@@ -6,11 +6,11 @@ type: text/vnd.tiddlywiki
 
 \importcustom [[Keyboard Shortcuts]]38
 
-\customize tick=a _use=list _debug=pragma 88
-\customize tick=b _use=shortcuts _debug=pragmaOnly 143
+\custom tick=a _use=list _debug=pragma 88
+\custom tick=b _use=shortcuts _debug=pragmaOnly 143
 
-\customize angle=a _use=list _debug=both 88
-\customize angle=b _use=shortcuts _debug=both 88
+\custom angle=a _use=list _debug=both 88
+\custom angle=b _use=shortcuts _debug=both 88
 
 
 ! Test

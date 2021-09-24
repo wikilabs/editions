@@ -4,8 +4,8 @@ tags:
 title: tick-inline-simple
 type: text/vnd.tiddlywiki
 
-\\ pragma comments
-\\ second line
+<!-- pragma comments -->
+<!-- second line -->
 
 \define test() test
 

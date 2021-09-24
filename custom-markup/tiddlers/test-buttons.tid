@@ -4,9 +4,9 @@ tags:
 title: test-buttons
 type: text/vnd.tiddlywiki
 
-\customize degree=X _element="$button" message="tm-close-all-tiddlers"
-\customize degree=C _element="$button" message="tm-copy-to-clipboard" param={{!!text}}
-\customize degree=x _element="$button" message="tm-close-tiddler"
+\custom degree=X _element="$button" message="tm-close-all-tiddlers"
+\custom degree=C _element="$button" message="tm-copy-to-clipboard" param={{!!text}}
+\custom degree=x _element="$button" message="tm-close-tiddler"
 
 °X Close all 
 °x Close me

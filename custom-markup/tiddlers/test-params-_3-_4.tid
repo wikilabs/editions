@@ -1,10 +1,10 @@
 created: 20210329131627379
-modified: 20210329154603779
+modified: 20210917073026605
 tags: 
 title: test-params-_3-_4
 type: text/vnd.tiddlywiki
 
-\customize degree=blockquote _element="$macrocall" $name="test" _1="para1" _2="para2" _3="para3" _4="para4"  _mode=block _endString="---" _params=":::t1:::t2:::t3:::t4" _debug=both
+\custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""para1=t1 para2='t2 x' para3="t3 y" para4=t4""" _debug=both
 
 \define test(src, para1, para2, para3, para4)
 <blockquote>
@@ -17,6 +17,8 @@ p4 = $para4$
 
 </blockquote>
 \end
+
+''The limit for `_params` has been removed in V0.20.0''
 
 ! Macro Code
 
@@ -41,10 +43,21 @@ p4 = $para4$
 some text
 ---
 
-! Call with local params
+! Call with some local params
+
+°blockquote:"a":"":"c":""
+some text
+---
+
+! Call with 2 local params
+
+°blockquote:"":"b"
+some text
+---
+
+! Call with all local params
 
 °blockquote:"a":"b":"c":"d"
 some text
 ---
-
 

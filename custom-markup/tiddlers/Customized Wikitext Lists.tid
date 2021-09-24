@@ -1,4 +1,4 @@
-_debug: \debugcustomize global tick
+_debug: \debugcustom global tick
 created: 20200915195838828
 modified: 20201005160714918
 tags: Advanced docs
@@ -7,8 +7,8 @@ type: text/vnd.tiddlywiki
 
 \importcustom [[Keyboard Shortcuts]]
 
-\customize tick=list-pragma _use=list _debug="pragma" 
-\customize tick=shortcut-pragma _use=shortcuts _debug="pragmaOnly"
+\custom tick=list-pragma _use=list _debug="pragma" 
+\custom tick=shortcut-pragma _use=shortcuts _debug="pragmaOnly"
 
 ! Info
 

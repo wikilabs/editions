@@ -5,7 +5,7 @@ title: Pragma - importcustom
 type: text/vnd.tiddlywiki
 
 \importcustom [tag[pragmas]]
-\customize tick _use="success"  _debug=both
+\custom tick _use="success"  _debug=both
 
 ! Import a custom marker
 
@@ -26,7 +26,7 @@ It's possible to import pragma definitions from other tiddlers. The pragma is na
 
 ```
 \importcustom [tag[pragmas]]
-\customize tick _use="success"   
+\custom tick _use="success"   
 ```
 
 !! Tiddlers used:

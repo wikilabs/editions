@@ -1,0 +1,14 @@
+caption: caption test inline
+created: 20210915084733571
+modified: 20210916074705663
+prefix: 『
+suffix: 』
+tags: $:/tags/WL/Snippet/Inline
+title: Test inline 1
+type: text/vnd.tiddlywiki
+
+"""
+caption: {{!!caption}}
+prefix: {{!!prefix}}
+suffix: {{!!suffix}}
+"""

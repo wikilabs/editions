@@ -4,11 +4,11 @@ tags:
 title: test-tt-use-poem-shorthand
 type: text/vnd.tiddlywiki
 
-\\ POEM ----------------------------------
-\customize angle='POEM' _endString='«POEM' _element='div' _classes='.poem-strict' _mode='block' _debug=both
+<!-- POEM ===== -->
+\custom angle='POEM' _endString='«POEM' _element='div' _classes='.poem-strict' _mode='block' _debug=both
 
-\\ POEM: shorthand -----------------------
-\customize angle=§ _use=POEM _endString='«§' _debug=both
+<!-- POEM: shorthand ===== -->
+\custom angle=§ _use=POEM _endString='«§' _debug=both
 
 
 »POEM Here is a poem

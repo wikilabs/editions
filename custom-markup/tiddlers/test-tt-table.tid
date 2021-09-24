@@ -1,19 +1,19 @@
 created: 20210218183428003
-modified: 20210218183859832
+modified: 20210917072908433
 tags: 
 title: test-tt-table
 type: text/vnd.tiddlywiki
 
-\customise angle=TABLE _endString=«TABLE _element=table _classes="class-table" _mode=block
-\customise single=CA _element=caption
-\customize single=CO _element="$macrocall" $name="addColSpan" _1="cols" _2="width"
+\custom angle=TABLE _endString=«TABLE _element=table _classes="class-table" _mode=block
+\custom single=CA _element=caption
+\custom single=CO _element="$macrocall" $name="addColSpan" _params="cols width"
 \define addColSpan(cols,width)<col span="$cols$" style="width:$width$">
-\customise single=HE _endString=‹HE _element=thead
-\customise single=BO _endString=‹BO _element=tbody
-\customise single=FO _endString=‹FO _element=tfoot 
-\customise slash=R  _element=tr
-\customise braille=! _element=th
-\customise braille   _element=td
+\custom single=HE _endString=‹HE _element=thead
+\custom single=BO _endString=‹BO _element=tbody
+\custom single=FO _endString=‹FO _element=tfoot 
+\custom slash=R  _element=tr
+\custom braille=! _element=th
+\custom braille   _element=td
 
 <style>
 .text-align-right, .tr {text-align: right;}

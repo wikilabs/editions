@@ -1,13 +1,13 @@
 created: 20201101152336303
-modified: 20210216141823539
+modified: 20210917072953420
 tags: 
 title: test-checkbox-widget-inline-code
 type: text/vnd.tiddlywiki
 
-\customize braille=☐ _element="$macrocall" $name="checkx" _1=tid _2=xxx _params=":x a:{{!!yy}}"
+\custom braille=☐ _element="$macrocall" $name="checkx" _params="""tid="x a" xxx={{!!yy}}"""
 
 \define checkx(src, tid, xxx) 
 <$checkbox tiddler=<<qualify "$:/state/cb/$tid$">> tag=done class=""> <<__src__>> - $xxx$</$checkbox> 
 \end
 
-<pre><$view field="text"/></pre>
+<pre><code><$view field="text"/></code></pre>

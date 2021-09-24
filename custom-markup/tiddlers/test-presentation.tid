@@ -4,10 +4,10 @@ tags:
 title: test-presentation
 type: text/vnd.tiddlywiki
 
-\customize tick="present" _element="$presentation" _mode=block _endString="---"
-\customize tick _element="$slide" 
+\custom tick="present" _element="$presentation" _mode=block _endString="---"
+\custom tick _element="$slide" 
 
-\customize angle _element="$slide" _mode=block _endString="--"
+\custom angle _element="$slide" _mode=block _endString="--"
  
 ´present
 ´ Welcome to ''Reveal.js''

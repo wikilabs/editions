@@ -4,14 +4,14 @@ tags:
 title: test-table-use-single-as-ID
 type: text/vnd.tiddlywiki
 
-\customize single=table _element=table _endString="---" _mode=block
-\customize single=caption _element=caption
-\customize single=row _element=tr  _mode=block _endString="-"
+\custom single=table _element=table _endString="---" _mode=block
+\custom single=caption _element=caption
+\custom single=row _element=tr  _mode=block _endString="-"
 
-\customize single=th _element=th 
-\customize single=th2 _element=th  colspan=2
+\custom single=th _element=th 
+\custom single=th2 _element=th  colspan=2
 
-\customize single _element=td 
+\custom single _element=td 
 
 ›table ›caption Some ´caption´ text
 ›row

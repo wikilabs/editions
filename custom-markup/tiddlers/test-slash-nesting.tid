@@ -4,6 +4,6 @@ tags:
 title: test-slash-nesting
 type: text/vnd.tiddlywiki
 
-\customize slash _debug=both
+\custom slash _debug=both
 
 /° slash /° slash nesting°/ nesting°/

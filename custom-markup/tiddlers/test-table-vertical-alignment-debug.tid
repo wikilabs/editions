@@ -4,23 +4,23 @@ tags:
 title: test-table-vertical-alignment-debug
 type: text/vnd.tiddlywiki
 
-\customize tick=table _element=table _endString="/endTable" _mode=block 
-\customize tick=caption _element=caption
+\custom tick=table _element=table _endString="/endTable" _mode=block 
+\custom tick=caption _element=caption
 
-\customize tick=! _element=th 
+\custom tick=! _element=th 
 
-\customize tick=cell _element=td _classes=".hl"
-\customize tick=| _use=cell
+\custom tick=cell _element=td _classes=".hl"
+\custom tick=| _use=cell
 
-\customize tick=top _element=td _classes=".hl .va-t"
-\customize tick=|^ _use=top
+\custom tick=top _element=td _classes=".hl .va-t"
+\custom tick=|^ _use=top
 
-\customize tick=bottom _element=td _classes=".hl .va-b"
-\customize tick=|, _use=bottom
+\custom tick=bottom _element=td _classes=".hl .va-b"
+\custom tick=|, _use=bottom
 
-\customize angle="===row" _element=tr _mode=block _endString="------"
-\customize angle=cmulti _element=td _classes=".hl" _mode=block _classes="hl"
-\customize angle=| _use=cmulti
+\custom angle="===row" _element=tr _mode=block _endString="------"
+\custom angle=cmulti _element=td _classes=".hl" _mode=block _classes="hl"
+\custom angle=| _use=cmulti
 
 ! Table Vertical Alignment
 

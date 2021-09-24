@@ -1,10 +1,12 @@
 created: 20201002103129518
-modified: 20210218181944319
+modified: 20210916220044600
 tags: 
 title: test-global-pragma
 type: text/vnd.tiddlywiki
+yy: yyyyyy
 
-\debugcustomize no global 
+\debugcustom no global degree  
+
 
 ´vars
 

@@ -1,5 +1,5 @@
 created: 20200915091726829
-modified: 20210318125150196
+modified: 20210917074126305
 tags: Basics docs
 title: Custom Wikitext Markers
 type: text/vnd.tiddlywiki
@@ -11,9 +11,9 @@ type: text/vnd.tiddlywiki
 * ''Block'' markers are: ''Angle'': `»`, ''Approx'': `≈`, ''Pilcrow'': `¶`, ''Degree'': `°`, ''Tick'': `´` and ''Single'': `›` 
 * ''Inline'' markers are: ''Braille'': `⠒ .. ⠶`, ''Corner'': `『 .. 』` and ''Slash'': `/° .. °/`
 
-!! The new Custom Markers Plugin
+!! The new Custom Markup Plugin
 
-There is a new plugin named: "Custom Markers", that comes with some predefined defaults, that should make styling paragraphs much easier. 
+There is a new plugin named: "Custom Markup", that comes with some predefined defaults, that should make styling paragraphs much easier. 
 
 As shown in [[How to style a Paragraph]] and [[Misusing standard wikitext to indent a paragraph]] there is some overhead and some potential to mess up ~TiddlyWiki rendered content for screen readers and their users. 
 

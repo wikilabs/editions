@@ -4,6 +4,6 @@ tags:
 title: test-list-template-1
 type: text/vnd.tiddlywiki
 
-\customize tick=system-shadows _element="$list" filter="[all[shadows]is[system]has[caption]limit[10]]" template="list-x-template"
+\custom tick=system-shadows _element="$list" filter="[all[shadows]is[system]has[caption]limit[10]]" template="list-x-template"
 
 ´system-shadows 

@@ -1,0 +1,8 @@
+created: 20201004150323007
+modified: 20210722175527283
+tags: [[debugcustom pragma]]
+title: pragma-debugcustom-degree-example
+type: text/vnd.tiddlywiki
+
+\importcustom [[debugcustom pragma]]
+\debugcustom global degree

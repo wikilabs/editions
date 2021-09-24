@@ -1,0 +1,37 @@
+created: 20210318180028108
+modified: 20210916153250424
+tags: 
+title: test-params-p2-init-value
+type: text/vnd.tiddlywiki
+
+\custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText url="https://example.com" """ _debug=both
+
+\define test(src, citeText, url)
+<blockquote cite="""$url$""">
+$src$
+<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
+</blockquote>
+\end
+
+!! Pragma
+
+If only the second parameter has a default value, it looks a bit strange `_params="""citeText url="https://example.com" """` ... But it works!
+
+The name of the first parameter ''must'' be defined, otherwise the macro doesn't know what to do. 
+
+!! Macro definition
+
+```
+\define test(src, citeText, url)
+<blockquote cite="""$url$""">
+$src$
+<cite><a class="tc-tiddlylink-external" href="""$url$""" rel="noopener noreferrer" target="_blank">$citeText$</a></cite>
+</blockquote>
+\end
+```
+
+!! First call
+
+°blockquote:"new link text"
+the cite links to example.com, which is defined in the `_params` attribute in the pragma. The link text is also defined in the pragma
+---
