@@ -1,0 +1,34 @@
+created: 20210407080929039
+modified: 20210407081433999
+tags: 
+title: test-tt-parameter
+type: text/vnd.tiddlywiki
+
+\\ Demo of unanticipated default _params deletion
+
+\customise degree=TS_ _element=$macrocall $name=testSet _params=":::P1:::P2" _1=test-1 _2=test-2 _debug=both
+
+\customise degree=TS _debug=text  _use=TS_
+
+\define testSet(src,test-1,test-2)
+renders as:
+<p>$test-1$ $test-2$ $src$</p>
+\end
+
+°TS_ -- Case 1: FINE with defaults.
+
+---
+
+°TS::"Override P2" -- Case 2: BREAKS - without quote marks for param 1.
+
+---
+
+°TS:"":"Override P2" -- Case 2: Works - ''with'' quote marks for param 1.
+
+---
+
+°TS:"":"Override P2" -- Case 3: DELETES P1 - with quote marks for param 1.
+
+---
+
+°TS:"Override P1":"Override P2" -- Case 4: FINE - correctly replaces P1 & P2 when needed.
