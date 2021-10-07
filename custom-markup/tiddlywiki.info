@@ -3,8 +3,8 @@
 	"plugins": [
 		"tiddlywiki/internals",
 		"/relink",
+		"wikilabs/bundler",
 		"wikilabs/space-space-newline",
-		"wikilabs/pragma-comment",
 		"wikilabs/custom-markup"
 	],
 	"themes": [
