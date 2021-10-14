@@ -1,7 +1,7 @@
 created: 20200917105803339
-modified: 20200917190534107
+modified: 20211014115359290
 tags: Advanced docs
-title: Customize the Details Element
+title: Customize an HTML Element
 type: text/vnd.tiddlywiki
 
 \custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open  _mode=block _debug=text

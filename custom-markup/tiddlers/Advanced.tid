@@ -1,6 +1,6 @@
 created: 20200915195938717
-list: [[Introducing Custom Markers for Advanced Users]] [[Customize the Details Element]] [[Import Predefined Pragmas]] [[Import and Re-define a Pragma]] [[Global Pragma Definitions]] [[Customized Wikitext Lists]] [[Customize a Table]] [[Customize a Table with Multiline Content]]
-modified: 20201004152935366
+list: [[Introducing Custom Markers for Advanced Users]] [[Customize an HTML Element]] [[Import Predefined Pragmas]] [[Import and Re-define a Pragma]] [[Global Pragma Definitions]] [[Customized Wikitext Lists]] [[Customize a Table]] [[Customize a Table with Multiline Content]]
+modified: 20211014115359283
 tags: toc
 title: Advanced
 type: text/vnd.tiddlywiki

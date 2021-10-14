@@ -1,5 +1,5 @@
 created: 20200918142853132
-modified: 20200918204817180
+modified: 20211014115620617
 tags: Advanced docs
 title: Customize a Table
 type: text/vnd.tiddlywiki
@@ -11,6 +11,10 @@ type: text/vnd.tiddlywiki
 \custom tick=th   _element=th
 
 \custom tick _element=td
+
+! TODO
+
+This info is a ''placeholder only''
 
 ! A HTML Table 
 
