@@ -1,0 +1,40 @@
+created: 20211012133850614
+modified: 20211012165430846
+nesting: no
+t1: Animated Fragments use down key
+t2: Element 2
+t3: Element 3
+tags: pr-test
+title: pr-list-fragments-animated
+type: text/vnd.tiddlywiki
+
+\custom angle=LIST _element=ul _endString="--" _mode=block data-auto-animation
+\custom single="*" _element=li _classes=".margin-init"
+\custom single="*=" _element=li _classes=".fragment .margin-init"
+
+\custom angle=ANIMATED _element="section" _mode=block _endString="---" data-auto-animate _classes="test"
+
+<style>
+section.test ul li {
+  color: #ccc;
+}
+section.test ul li.black {
+  color: #000;
+}
+</style>
+
+»ANIMATED
+*.black {{!!t1}}
+* {{!!t2}}
+* {{!!t3}}
+---
+»ANIMATED
+* {{!!t1}}
+*.black {{!!t2}}
+* {{!!t3}}
+---
+»ANIMATED
+* {{!!t1}}
+* {{!!t2}}
+*.black {{!!t3}}
+---

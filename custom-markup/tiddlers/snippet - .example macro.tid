@@ -1,0 +1,13 @@
+caption: snippet - .example macro
+created: 20211010153143475
+modified: 20211013174538416
+tags: $:/tags/WL/Snippet/LinePrefix
+title: snippet - .example macro
+type: text/vnd.tiddlywiki
+
+\custom degree="example" _element="$macrocall" $name=".example" _srcName="eg" _mode=block _params="n" _endString="---"
+
+°example:"1" Paragraph 1
+
+Paragraph 2 
+---

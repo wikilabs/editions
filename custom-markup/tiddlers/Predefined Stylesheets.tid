@@ -1,9 +1,9 @@
 created: 20200915093822946
-modified: 20200917172441328
+modified: 20211012172824577
 tags: Reference docs
 title: Predefined Stylesheets
 type: text/vnd.tiddlywiki
 
 ! Predefined Stylesheets
 
-<<list-links "[tag[$:/tags/Stylesheet]]">>
+<<list-links "[[$:/plugins/wikilabs/custom-markup/styles]] [[$:/plugins/wikilabs/custom-markup/styles/dropdown]] [tag[$:/tags/Stylesheet]]">>

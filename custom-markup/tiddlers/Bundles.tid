@@ -1,0 +1,19 @@
+created: 20211013161824227
+modified: 20211013162537369
+tags: toc
+title: Bundles
+type: text/vnd.tiddlywiki
+
+TODO - more description
+
+!! Standard Bundles
+
+<<list-links "[tag[$:/tags/Bundle]]">>
+
+!! Filtered Bundles
+
+<<list-links "[tag[$:/tags/Filter]]">>
+
+!! Set Bundles
+
+see: [[teach the bundler how to use "sets"]]

@@ -1,0 +1,11 @@
+created: 20211012215423544
+description: Bundle with all Inline Sets
+filter: [tag[$:/tags/WL/Inline/Set]]
+modified: 20211013162857692
+tags: $:/tags/Filter
+title: bundle-all-inline-prefix-sets
+type: text/vnd.tiddlywiki
+
+''Important'': Open the tiddler Info section: {{$:/core/ui/Buttons/info}}
+
+<pre>{{!!filter}}</pre>

@@ -1,0 +1,13 @@
+[
+    {
+        "created": "20211010134750015",
+        "text": "\"\"\"\ncaption: <$text text={{!!caption}}/>\nprefix: <$text text={{!!prefix}}/>\nsuffix: <$text text={{!!suffix}}/>\n\"\"\"\n",
+        "title": "set/iniline/braille",
+        "tags": "$:/tags/WL/Snippet/Inline",
+        "modified": "20211010134838572",
+        "type": "text/vnd.tiddlywiki",
+        "prefix": "⠒ ",
+        "suffix": "⠶",
+        "caption": "⠒ ⠶ braille"
+    }
+]

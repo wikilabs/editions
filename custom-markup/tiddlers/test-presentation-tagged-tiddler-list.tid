@@ -1,0 +1,19 @@
+TAG: pr-test
+created: 20211012131005899
+modified: 20211012165608501
+tags: 
+title: test-presentation-tagged-tiddler-list
+type: text/vnd.tiddlywiki
+
+\define tv-wikilinks() no
+
+<$presentation transition="slide"  loop controls progress center>
+<$list filter="[tag{!!TAG}!is[draft]]">
+  <$list filter="[all[current]!has[nesting]]">
+        <section><$transclude mode="block" /></section>
+  </$list>
+  <$list filter="[all[current]nesting[no]]">
+    <$transclude mode="block" />
+  </$list>
+</$list>
+</$presentation>

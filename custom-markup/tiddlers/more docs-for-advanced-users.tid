@@ -1,10 +1,10 @@
 created: 20200918101726573
-modified: 20200918101835156
-tags: task
+modified: 20211013164043903
+tags: task Prequel
 title: more docs-for-advanced-users
 type: text/vnd.tiddlywiki
 
-see: [[GG thread|https://groups.google.com/d/msg/tiddlywikidev/sCMOjYxMk2Q/PA40pTYqBQAJ]]
+see: [[GitHub issue|https://github.com/wikilabs/plugins/discussions/56]] that links to the "spec threads". (You don't want to read all of this. ... but it would give you the full background story ;)
 
 "markup for advanced users", yet to be written could be "use focused" (initially) rather than technically the current solution eg
 
@@ -17,5 +17,3 @@ Using the end string or \n or \n\n to terminate your custom markup
 It may also provide one or more "libraries" of css that can be activated. In future you could add effective ones, developed in the community (like mine :)
 
 When ever a solution enables the accumulation of techniques and methods it improves over time.
-
-Perhaps in https://wikilabs.github.io/editions/custom-markup/#Custom%20Markup%20Definition explain why the parameters begin with an underscore, this helps understanding and remembering the fact.

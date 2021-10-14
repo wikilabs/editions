@@ -1,0 +1,72 @@
+created: 20200910092000359
+modified: 20211012122133196
+tags: 
+title: test-presentation-in-1-tiddler
+type: text/vnd.tiddlywiki
+
+\custom degree="PRESENTATION" _element="$presentation" _mode=block _endString="END"  
+
+\custom angle _element="$slide" _mode=block _endString="--" 
+
+\custom angle=ANIME _element="$slide" _mode=block _endString="--" autoAnimate
+
+\custom tick _element="$slide" 
+\custom tick=ANIME _element="$slide" autoAnimate
+
+<style>
+.gray {
+  color: #ccc;
+}
+[data-class~="big"],
+.big {
+  font-size: 2em;
+}
+[data-class~="bigger"],
+.bigger {
+  font-size: 3em;
+}
+</style>
+
+ 
+°PRESENTATION
+´.big Welcome to Reveal.js
+´.big Create your own DSL with Custom Markup
+»
+Paragraph 1 
+
+Paragraph 2
+--
+»
+  ´ Vertical Slides
+  ´ Can also me managed with one level of nesting
+--
+»ANIME
+* We can have bullet points
+** Using standard wikitext syntax
+* They can be animated too
+--
+»ANIME
+* First Bullet Point
+--
+»ANIME
+* First Bullet Point
+* Second Bullet Point
+--
+»ANIME
+* First Bullet Point
+*.gray Second Bullet Point
+--
+»ANIME
+*.gray First Bullet Point
+* Second Bullet Point
+--
+»ANIME
+*.gray First Bullet Point
+*.gray Second Bullet Point
+* Third Bullet Point
+--
+´ Have fun!
+´ The End
+END
+
+Custom Markup by PMario

@@ -1,0 +1,12 @@
+created: 20211013174135253
+modified: 20211013175918705
+tags: 
+title: test-.example-macro
+type: text/vnd.tiddlywiki
+
+
+°example » My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+---
+
+some more text

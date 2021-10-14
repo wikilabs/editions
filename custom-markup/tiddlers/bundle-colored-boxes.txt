@@ -1,0 +1,18 @@
+[[--- Colorbox Styles ---]]
+colorbox-styles
+
+[[--- Colorbox Configuration ---]]
+config/line/default-box-set
+
+[[--- Colorbox Snippets ---]]
+"Colorbox Primary"
+"Colorbox Light"
+"Colorbox Sucsess"
+"Colorbox Warning"
+"Colorbox Danger"
+"Colorbox Primary LB"
+"Colorbox Light LB"
+"Colorbox Sucsess LB"
+"Colorbox noCaption"
+"Colorbox Danger LB"
+"Colorbox Warning LB"

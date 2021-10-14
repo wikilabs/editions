@@ -1,0 +1,24 @@
+created: 20211010140420321
+modified: 20211013174447911
+tags: 
+title: test-dot-example
+type: text/vnd.tiddlywiki
+
+<!-- I'm using exampleX here, because there is a global pragma with the name: example -->
+\custom degree="exampleX" _element="$macrocall" $name=".example" _srcName="eg" _mode=block _params="n" _endString="---"
+
+Also see the [[.example-macro]] for the simplified code.
+
+°exampleX:"1" """
+Test line 1
+Line 2
+
+Line 4
+"""
+---
+
+°exampleX:"2" Test line 1
+Line 2
+
+Line 4
+---

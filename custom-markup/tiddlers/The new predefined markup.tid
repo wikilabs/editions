@@ -1,0 +1,45 @@
+created: 20211013180909795
+modified: 20211013185621196
+tags: [[Easy styling for Paragraphs]]
+tiddler: $:/state/showeditpreview
+title: The new predefined markup
+type: text/vnd.tiddlywiki
+
+\define testCreate()
+<$action-setfield $tiddler="$:/state/showeditpreview" text=yes/>
+<$action-setfield $tiddler="$:/state/editpreviewtype" text="$:/plugins/tiddlywiki/internals/EditTemplate/body/preview/raw"/>
+<$action-sendmessage $message="tm-new-tiddler" title=<<unusedtitle baseName:"$:/temp" template:"$basename$/$count:2$">> 
+text="» My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+"/>
+\end
+
+! The new predefined markup 
+
+.. looks like this: 
+
+°example » My text comes here. Some more text: {{lorem-ipsum-1-para}} 
+
+---
+
+You may say: "There's nothing different" ... I'll say technically there is. Let's have a closer look at the HMTL output. 
+
+
+»» <$button actions=<<testCreate>> >
+Click this button!
+</$button>
+
+It should look similar to:
+
+```
+<p class="wltc-l1 wltc">My text comes here. Some more text: Ullum labore sensibus no vix. ...
+</p>
+```
+
+As you can see, there are 2 classes assigned to the HTML P-tag: `wltc-l1` and `wltc`. The exact meaning is described in detail later. 
+
+!! Styles
+
+The responsible stylesheet is: [[$:/plugins/wikilabs/custom-markup/styles]]
+
+A full list can be found at: [[Predefined Stylesheets]]

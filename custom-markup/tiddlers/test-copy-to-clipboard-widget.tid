@@ -1,25 +1,7 @@
 created: 20200917203521801
-modified: 20210216142519532
-tags: task
+modified: 20211012173314883
+tags: 
 title: test-copy-to-clipboard-widget
 type: text/vnd.tiddlywiki
 
-\custom degree=copy _element="$button" _mode=block _endString="------" message="tm-copy-to-clipboard"
-
-TODO create a copy to clipboard widget, that can be used with "custom markup"
-
-```
-<$clipboard buttonText="copy to clipboard" class="" showCode=yes/no showText=yes/no mode=block/inline template="name of a template tiddler">
-Content, that is copied to the clipboard
-</$clipboard>
-```
-
-
-showCode ... no/yes=default ... show `<code><pre> body text`
-
-showText ... no/yes=default ... show rendered outpub
-
-mode= inline/block
-
-template=will be used instead of the widget body.
-
+see: [[test-dot-example-global-pragma]] and: [[.example-macro]]

@@ -1,11 +1,27 @@
 created: 20200831074005709
-modified: 20210209134329305
-tags: $:/tags/AboveStory
+modified: 20211013171444577
+tags: 
 title: EXPERIMENTAL
 type: text/vnd.tiddlywiki
 
-[[why]] | [[easy-to-use]] | [[Basics]] | [[Advanced]] | [[Reference]] Start reading at: [[How to style a Paragraph]]
+\define tv-adjust-heading-level() 1
 
-! This PAGE and PLUGINS are BETA
+! Public Beta
+
+''BACKUP -- BACKUP -- BACKUP -- BACKUP''
+
+''This tiddler will be shown, if the "story" is empty!''
+
+Start reading at: Basics : [[How to style a Paragraph]] -- or see the ''Contents'' tab in the sidebar!
 
 <$transclude tiddler="$:/plugins/wikilabs/custom-markup" subtiddler="$:/plugins/wikilabs/custom-markup/history" mode=block/>
+
+! Videos
+
+TODO
+
+! Forum
+
+There is a forum sub-category in the Plugins section: [[Custom Markup at Talk-TiddlyWiki |https://talk.tiddlywiki.org/c/plugins/custom-markup/14]] -> Will be active soon! -- Is locked atm
+
+See: [[About|https://talk.tiddlywiki.org/t/about-the-custom-markup-category/593]] for more info

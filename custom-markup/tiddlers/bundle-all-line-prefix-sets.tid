@@ -1,0 +1,11 @@
+created: 20211012215254694
+description: Bundle with all Line Prefix Sets
+filter: [tag[$:/tags/WL/LinePrefix/Set]]
+modified: 20211013162930509
+tags: $:/tags/Filter
+title: bundle-all-line-prefix-sets
+type: text/vnd.tiddlywiki
+
+''Important'': Open the tiddler Info section: {{$:/core/ui/Buttons/info}}
+
+<pre>{{!!filter}}</pre>

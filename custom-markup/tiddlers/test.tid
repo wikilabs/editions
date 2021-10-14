@@ -1,14 +1,4 @@
-caption: New Inline Prefix
-created: 20210916084455821
-modified: 20210916084603698
-prefix: /°.test
-suffix: °/
-tags: $:/tags/WL/Snippet/Inline
+created: 20211012174219849
+modified: 20211013160950630
 title: test
 type: text/vnd.tiddlywiki
-
-"""
-caption: {{!!caption}}
-prefix: {{!!prefix}}
-suffix: {{!!suffix}}
-"""

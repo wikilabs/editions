@@ -1,0 +1,31 @@
+created: 20211013181133112
+modified: 20211013185856122
+tags: [[Easy styling for Paragraphs]]
+title: Indenting the first line
+type: text/vnd.tiddlywiki
+
+! Indenting the first line
+
+.. will look like this: 
+
+°clip ».indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+---
+
+Will be rendered like this: 
+
+ ».indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+''Depending on the "styleguide" you need to follow it can be: ''
+
+°clip »».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+---
+
+Will be rendered like this: 
+
+»».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+
+!! Styles
+
+The style definitions can be found at: $:/plugins/wikilabs/custom-markup/styles

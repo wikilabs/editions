@@ -1,0 +1,13 @@
+[
+    {
+        "created": "20211008123302292",
+        "text": "\"\"\"\ncaption: <$text text={{!!caption}}/>\nprefix: <$text text={{!!prefix}}/>\nsuffix: {{!!suffix}}\n\"\"\"",
+        "title": "set/iniline/slash",
+        "modified": "20211008125840584",
+        "tags": "$:/tags/WL/Snippet/Inline",
+        "type": "text/vnd.tiddlywiki",
+        "caption": "/° °/ slash",
+        "prefix": "/° ",
+        "suffix": "°/"
+    }
+]

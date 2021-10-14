@@ -1,13 +1,15 @@
 created: 20200910213411607
-modified: 20200911154635344
+modified: 20211013155559375
 tags: 
 title: test-aside-without-pragma
 type: text/vnd.tiddlywiki
 
 ».j.i {{lorem-ipsum-1-para}}
 
-´aside.-mt.-mb.j.fl This is a test using the hmtl element ASIDE
+´aside.-mt.-mb.j.fl.aside-class This is a test using the hmtl element ASIDE
 
 ».j.i {{lorem-ipsum-1-para}}
 
-CSS can be found at: [[aside-css]]
+CSS can be found at: $:/plugins/wikilabs/custom-markup/styles
+
+PS: `.aside-class` has to be used, because styling the ASIDE html element directly creates collisions with Reveal.js software. So [[test-aside-without-pragma-but-class]] and this tiddler are basically the same thing.  TODO - think about this

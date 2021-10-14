@@ -1,0 +1,73 @@
+caption: snippet - revealjs presentaion 1 tiddler
+created: 20211013154404447
+modified: 20211013154730835
+tags: $:/tags/WL/Snippet/LinePrefix
+title: snippet - a revealjs presentation in 1 tiddler
+type: text/vnd.tiddlywiki
+
+\custom degree="PRESENTATION" _element="$presentation" _mode=block _endString="END"  
+
+\custom angle _element="$slide" _mode=block _endString="--" 
+
+\custom angle=ANIMATED _element="$slide" _mode=block _endString="--" autoAnimate
+
+\custom tick _element="$slide" 
+\custom tick=ANIMATED _element="$slide" autoAnimate
+
+<style>
+.gray {
+  color: #ccc;
+}
+[data-class~="big"],
+.big {
+  font-size: 2em;
+}
+[data-class~="bigger"],
+.bigger {
+  font-size: 3em;
+}
+</style>
+
+ 
+°PRESENTATION
+´.big Welcome to Reveal.js
+´.big Create your own DSL with Custom Markup
+»
+Paragraph 1 
+
+Paragraph 2
+--
+»
+  ´ Vertical Slides
+  ´ Can also me managed with one level of nesting
+--
+»ANIMATED
+* We can have bullet points
+** Using standard wikitext syntax
+* They can be animated too
+--
+»ANIMATED
+* First Bullet Point Animated
+--
+»ANIMATED
+* First Bullet Point Animated
+* Second Bullet Point
+--
+»ANIMATED
+* First Bullet Point Animated
+*.gray Second Bullet Point
+--
+»ANIMATED
+*.gray First Bullet Point Animated
+* Second Bullet Point
+--
+»ANIMATED
+*.gray First Bullet Point Animated
+*.gray Second Bullet Point
+* Third Bullet Point
+--
+´ Have fun!
+´ The End
+END
+
+Custom Markup by PMario

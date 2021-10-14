@@ -1,5 +1,5 @@
 created: 20200915095444188
-modified: 20201215170337324
+modified: 20211013161813381
 tags: Basics docs
 title: More CSS Details
 type: text/vnd.tiddlywiki
@@ -8,8 +8,8 @@ type: text/vnd.tiddlywiki
 
 As described in [[Easy styling for Paragraphs]], some basic CSS classes are defined in 
 
-* [[:/plugins/wikilabs/custom-markup/styles]]
-* [[colorbox-styles]]
+* [[$:/plugins/wikilabs/custom-markup/styles]]
+* [[colorbox-styles]] ... which is part of [[bundle-colored-boxes]]
 
 !! wltc
 

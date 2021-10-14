@@ -1,0 +1,40 @@
+created: 20211010134726116
+modified: 20211014113932072
+tags: $:/tags/Macro $:/tags/Pragma
+title: .example-macro
+type: text/vnd.tiddlywiki
+
+\custom degree="example" _element="$macrocall" $name=".example" _srcName="eg" _mode=block _params="n" _endString="---"
+
+\custom degree="clip" _element="$macrocall" $name=".clip" _srcName="code" _mode=block _endString="---"
+
+\define .state-prefix() $:/state/custom-markup/
+
+\define .example(n, eg, btn-txt-1:"Try It" btn-txt-2:"Hide")
+\whitespace trim
+<div class="doc-example">
+	<$macrocall $name="copy-to-clipboard-above-right" src=<<__eg__>>/>
+	<$codeblock code=<<__eg__>>/>
+<$list filter="[title<.state-prefix>addsuffix{!!title}addsuffix[/]addsuffix[$n$]]" variable=".state">
+<$reveal state=<<.state>> type="nomatch" text="show">
+    <$button class="indent" set=<<.state>> setTo="show"><<__btn-txt-1__>></$button>
+</$reveal>
+<$reveal state=<<.state>> type="match" text="show">
+	<$button class="indent" set=<<.state>> setTo=""><<__btn-txt-2__>></$button>
+	<blockquote class="doc-example-result">
+
+      <<__eg__>>
+
+	</blockquote>
+</$reveal>
+</$list>
+\end
+
+\define .clip(code)
+\whitespace trim
+<div class="doc-example">
+	<$macrocall $name="copy-to-clipboard-above-right" src=<<__code__>>/>
+	<pre><code><$text text=<<__code__>>/></code></pre>
+\end
+
+<pre><code><$view /></code></pre>

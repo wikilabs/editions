@@ -1,0 +1,13 @@
+[
+    {
+        "created": "20210915084733571",
+        "text": "\"\"\"\ncaption: <$text text={{!!caption}}/>\nprefix: <$text text={{!!prefix}}/>\nsuffix: {{!!suffix}}\n\"\"\"",
+        "title": "set/iniline/corner",
+        "modified": "20211008125854983",
+        "tags": "$:/tags/WL/Snippet/Inline",
+        "type": "text/vnd.tiddlywiki",
+        "caption": "『 』corner",
+        "prefix": "『 ",
+        "suffix": "』"
+    }
+]

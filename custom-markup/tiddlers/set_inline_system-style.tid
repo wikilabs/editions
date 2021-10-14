@@ -1,0 +1,14 @@
+caption: @@.myStyle system style @@
+created: 20211010134413239
+modified: 20211010134715200
+prefix: @@.myStyle
+suffix: @@
+tags: $:/tags/WL/Snippet/Inline
+title: set/inline/system-style
+type: text/vnd.tiddlywiki
+
+"""
+caption: <$text text={{!!caption}}/>
+prefix: <$text text={{!!prefix}}/>
+suffix: <$text text={{!!suffix}}/>
+"""

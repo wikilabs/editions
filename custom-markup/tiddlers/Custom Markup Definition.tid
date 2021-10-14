@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20210916154856848
+modified: 20211012173918937
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -26,6 +26,14 @@ type: text/vnd.tiddlywiki
         _params="""name1=value1 name2="value2 with spaces" """
         _debug="debug options"
 ```
+
+; Important:
+: All pragma parameters are prefixed with an ''underscore `_`'' character. This way we avoid naming conflicts with the TW core. TW core uses a `$` prefix for special parameters for some widgets. 
+
+: If parameters are not listed here they will be sent 1:1 to widgets as "default" parameters. eg: The `open` parameter in [[test-details-open]]
+
+---
+
 ; Glyph
 : Block: `tick (´), single (›), degree (°), angle (»), approx (≈), pilcrow (¶)`
 : Inline: `braille ⠒ ⠶`, `corner 『 』`, `slash /° °/`

@@ -1,5 +1,5 @@
 created: 20201225123841675
-modified: 20201225130619796
+modified: 20211010155146770
 tags: 
 title: test-aside-without-pragma-but-class
 type: text/vnd.tiddlywiki
@@ -11,4 +11,4 @@ type: text/vnd.tiddlywiki
 ''Important:'' If the ASIDE element is directly styled, it could create problems with plugins, that use the ASIDE element in a different context. Eg: The reveal.js plugin also uses this element, as a wrapper for the "previous / next" buttons. 
 
 
-CSS can be found at: [[aside-css]]
+CSS can be found at: [[$:/plugins/wikilabs/custom-markup/styles]]

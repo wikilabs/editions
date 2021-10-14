@@ -1,0 +1,8 @@
+caption: snippet - custom angle ...
+created: 20211010141057741
+modified: 20211010141305259
+tags: $:/tags/WL/Snippet/LinePrefix
+title: Help - Custom angle
+type: text/vnd.tiddlywiki
+
+\custom angle='example' _element='div' _classes='.hl' _endString='---' _mode='block' _debug='pragmaOnly'

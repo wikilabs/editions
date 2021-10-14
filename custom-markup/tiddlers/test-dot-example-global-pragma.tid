@@ -1,0 +1,23 @@
+created: 20211010150904286
+modified: 20211010152508676
+tags: 
+title: test-dot-example-global-pragma
+type: text/vnd.tiddlywiki
+
+\importcustom [[.example-macro]]
+
+This test imports the pragma definition from [[.example-macro]]
+
+°example:"1" """
+Test line 1
+Line 2
+
+Line 4
+"""
+---
+
+°example:"2" Test line 1
+Line 2
+
+Line 4
+---
