@@ -1,0 +1,8 @@
+caption: show-code
+created: 20211014132915308
+modified: 20211014132923927
+tags: $:/tags/WL/Snippet/LinePrefix
+title: show-code
+type: text/vnd.tiddlywiki
+
+<pre><code><$view /></code></pre>

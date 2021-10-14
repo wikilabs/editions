@@ -9,37 +9,37 @@ type: text/vnd.tiddlywiki
 !! Cover it in a "success" box
 
 ```
-».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+».cbox-success.text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 ```
 
-».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+».cbox-success.text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 !! Indent the whole box
 
 ```
-»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+»».cbox-success.text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 ```
 
-»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+»».cbox-success.text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 !! Indent 1 more
 
 ```
-»»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+»»».cbox-success.text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 ```
 
-»»».cbox-success.indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+»»».cbox-success.text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 The HTML code looks like this: 
 
 ```
-<p class="cbox-success indentLine1 wltc-l3 wltc">My text comes here. Some more text: Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant ...</p>
+<p class="cbox-success text-indent wltc-l3 wltc">My text comes here. Some more text: Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant ...</p>
 ```
 
 As you can see there are 4 class definitions now: 
 
 * `cbox-success` ... which defines the green background
-* `indentLine1` ... which indents the first line
+* `text-indent` ... which indents the first line
 * `wltc-l3` ... which sets the "block" indent level (3)
 * `wltc` ... as a general class for easy debugging
 

@@ -8,23 +8,23 @@ type: text/vnd.tiddlywiki
 
 .. will look like this: 
 
-°clip ».indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+°clip ».text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 ---
 
 Will be rendered like this: 
 
- ».indentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+ ».text-indent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 ''Depending on the "styleguide" you need to follow it can be: ''
 
-°clip »».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+°clip »».text-outdent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 ---
 
 Will be rendered like this: 
 
-»».outdentLine1 My text comes here. Some more text: {{lorem-ipsum-1-para}}
+»».text-outdent My text comes here. Some more text: {{lorem-ipsum-1-para}}
 
 !! Styles
 

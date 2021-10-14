@@ -1,5 +1,5 @@
 created: 20211013171706961
-modified: 20211013174728837
+modified: 20211014133058807
 tags: 
 title: test-.clip-macro
 type: text/vnd.tiddlywiki
@@ -8,3 +8,10 @@ type: text/vnd.tiddlywiki
 
 Paragraph 2
 ---
+
+°clip-1 Stop at first linebreak
+Some more text the won't be clipped.
+
+!! Code
+
+<pre><code><$view /></code></pre>

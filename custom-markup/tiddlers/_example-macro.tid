@@ -1,5 +1,5 @@
 created: 20211010134726116
-modified: 20211014113932072
+modified: 20211014132652178
 tags: $:/tags/Macro $:/tags/Pragma
 title: .example-macro
 type: text/vnd.tiddlywiki
@@ -7,6 +7,7 @@ type: text/vnd.tiddlywiki
 \custom degree="example" _element="$macrocall" $name=".example" _srcName="eg" _mode=block _params="n" _endString="---"
 
 \custom degree="clip" _element="$macrocall" $name=".clip" _srcName="code" _mode=block _endString="---"
+\custom degree="clip-1" _element="$macrocall" $name=".clip" _srcName="code" _mode=block 
 
 \define .state-prefix() $:/state/custom-markup/
 

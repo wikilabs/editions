@@ -1,8 +1,7 @@
 {
-    "1": "Colorbox Danger",
-    "2": "Colorbox Light",
     "3": "Colorbox Primary",
     "4": "Colorbox Sucsess",
     "7": "Colorbox noCaption",
-    "c": "Colorbox Danger"
+    "c": "Colorbox Danger",
+    "h": "show-code"
 }
