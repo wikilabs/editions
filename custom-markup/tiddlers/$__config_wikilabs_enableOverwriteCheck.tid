@@ -1,6 +1,6 @@
 created: 20211012174927548
-modified: 20211012174927551
+modified: 20211015144559743
 title: $:/config/wikilabs/enableOverwriteCheck
 type: text/vnd.tiddlywiki
 
-yes
+no

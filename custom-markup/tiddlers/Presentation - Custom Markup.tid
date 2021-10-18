@@ -1,0 +1,19 @@
+TAG: pr-cm
+created: 20211015120347915
+modified: 20211015144607000
+tags: 
+title: Presentation - Custom Markup
+type: text/vnd.tiddlywiki
+
+\define tv-wikilinks() no
+
+<$presentation transition="slide"  loop controls progress center>
+<$list filter="[tag{!!TAG}!is[draft]]">
+  <$list filter="[all[current]!has[nesting]]">
+        <section><$transclude mode="block" /></section>
+  </$list>
+  <$list filter="[all[current]nesting[no]]">
+    <$transclude mode="block" />
+  </$list>
+</$list>
+</$presentation>

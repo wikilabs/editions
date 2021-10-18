@@ -1,0 +1,10 @@
+created: 20211014192231717
+modified: 20211014224031010
+tags: 
+title: test-free-glyph-X
+type: text/vnd.tiddlywiki
+
+
+\custom X  _element=p _debug=both
+
+X.asdf some text  

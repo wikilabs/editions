@@ -1,5 +1,5 @@
 created: 20200915185319344
-modified: 20210722175154401
+modified: 20211014214555156
 tags: Debugging docs
 title: Pragma Debug Options
 type: text/vnd.tiddlywiki
@@ -23,7 +23,7 @@ A `\custom` pragma can have a debugging option. First seen in: [[Import and Re-d
 The full details to `<ID>, <userSymbol> and _use` can be found at the reference docs at: [[Custom Markup Definition]]
 
 ```
-\custom <ID>=<userSymbol>
+\custom <glyph>=<userSymbol>
         _use=<userSymbol reference>
         _debug=<debug options>
 ```

@@ -1,0 +1,17 @@
+created: 20211015135812006
+modified: 20211015144607029
+tags: pr-cm
+title: pr-cm-end
+type: text/vnd.tiddlywiki
+
+\custom angle=LIST _element=ul _endString="---" _mode=block 
+\custom single="*" _element=li _classes=".margin-init"
+\custom single="*=" _element=li _classes=".fragment .margin-init"
+
+!!! Custom Markup 
+<br>
+
+»LIST
+›* Custom Markup by Mario Pietsch
+›*= Have fun!
+›*= END

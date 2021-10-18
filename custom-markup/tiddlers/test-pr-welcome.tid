@@ -1,0 +1,21 @@
+created: 20211012122134706
+modified: 20211015122435309
+tags: pr-test
+title: test-pr-welcome
+type: text/vnd.tiddlywiki
+
+<style>
+.gray {
+  color: #ccc;
+}
+[data-class~="big"],
+.big {
+  font-size: 2em;
+}
+[data-class~="bigger"],
+.bigger {
+  font-size: 3em;
+}
+</style>
+
+´.bigger Welcome !

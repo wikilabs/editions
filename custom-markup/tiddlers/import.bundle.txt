@@ -1,2 +1,0 @@
-$:/config/EmptyStoryMessage
-book-style

@@ -1,0 +1,77 @@
+created: 20211015120904907
+modified: 20211015144607015
+nesting: no
+t1: Indenting paragraphs using wikitext
+t2: Create an e-book-like layout using wikitext
+t3: Format imported content from other sites
+t4: Abstract Macros - eg: copy-to-clipboard
+t5: Abstract Widgets - eg: this presentation
+tags: pr-cm
+title: pr-cm-toc-animated
+type: text/vnd.tiddlywiki
+
+\custom angle=LIST _element=ul _endString="--" _mode=block data-auto-animation
+\custom single="*" _element=li _classes=".margin-init"
+\custom single="*=" _element=li _classes=".fragment .margin-init"
+
+\custom angle=ANIMATED _element="section" _mode=block _endString="---" data-auto-animate _classes="test"
+
+<style>
+section.test ul li {
+  color: #ccc;
+}
+section.test ul li.black {
+  color: #000;
+}
+</style>
+
+»ANIMATED
+!!! Custom Markup 
+<br>
+
+*.black {{!!t1}}
+* {{!!t2}}
+* {{!!t3}}
+* {{!!t4}}
+* {{!!t5}}
+---
+»ANIMATED
+!!! Custom Markup 
+<br>
+
+* {{!!t1}}
+*.black {{!!t2}}
+* {{!!t3}}
+* {{!!t4}}
+* {{!!t5}}
+---
+»ANIMATED
+!!! Custom Markup 
+<br>
+
+* {{!!t1}}
+* {{!!t2}}
+*.black {{!!t3}}
+* {{!!t4}}
+* {{!!t5}}
+---
+»ANIMATED
+!!! Custom Markup 
+<br>
+
+* {{!!t1}}
+* {{!!t2}}
+* {{!!t3}}
+*.black {{!!t4}}
+* {{!!t5}}
+---
+»ANIMATED
+!!! Custom Markup 
+<br>
+
+* {{!!t1}}
+* {{!!t2}}
+* {{!!t3}}
+* {{!!t4}}
+*.black {{!!t5}}
+---

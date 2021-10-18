@@ -1,0 +1,24 @@
+[[--- Main Tiddler ---]]
+[[Presentation - Custom Markup]]
+
+[[--- Slides ---]]
+[[pr-welcome 1]]
+pr-cm-toc-fragments
+pr-cm-toc-animated
+pr-cm-end
+
+[[--- tag ---]]
+pr-cm
+
+[[--- This Bundle ---]]
+[[Presentation Custom Markup.bundle]]
+
+[[--- Sidebar Preview ---]]
+pr-preview
+
+[[--- Settings ---]]
+$:/themes/tiddlywiki/vanilla/options/sidebarlayout
+$:/themes/tiddlywiki/vanilla/metrics/tiddlerwidth
+$:/themes/tiddlywiki/vanilla/metrics/storyright
+$:/themes/tiddlywiki/vanilla/metrics/storywidth
+

@@ -1,0 +1,19 @@
+created: 20211015124220181
+modified: 20211015144607020
+tags: pr-cm
+title: pr-cm-toc-fragments
+type: text/vnd.tiddlywiki
+
+\custom angle=LIST _element=ul _endString="---" _mode=block 
+\custom single="*" _element=li _classes=".margin-init"
+\custom single="*=" _element=li _classes=".fragment .margin-init"
+
+!!! Custom Markup 
+<br>
+
+»LIST
+›* Indenting paragraphs using wikitext
+›*= Create an e-book-like layout using wikitext
+›*= Format imported content from other sites
+›*= Abstract Macros - eg: copy-to-clipboard
+›*= Abstract Widgets - eg: this presentation
