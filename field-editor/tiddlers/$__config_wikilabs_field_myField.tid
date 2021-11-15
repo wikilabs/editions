@@ -1,0 +1,9 @@
+created: 20211115140645582
+description: A Test Field
+icon: {{$:/core/images/spiral}}
+modified: 20211115140711723
+tags: $:/tags/wikilabs/fieldswitcher
+title: $:/config/wikilabs/field/myField
+type: text/vnd.tiddlywiki
+
+myField

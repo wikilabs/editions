@@ -1,0 +1,12 @@
+[
+    {
+        "created": "20211115140733397",
+        "text": "Some text in the text field",
+        "tags": "",
+        "title": "test-myField",
+        "modified": "20211115141009139",
+        "type": "text/vnd.tiddlywiki",
+        "wl-field-name-text": "myField",
+        "myField": "This tiddler contains some text in the field named: myField. \n\nThe field will be shown in the \"subtitle\" element of the tiddler. See info top right."
+    }
+]
