@@ -1,0 +1,33 @@
+created: 20211112123009188
+modified: 20211112124655889
+tags: 
+test: some text in filed test
+test-invisible: some text in field: test-invisible
+title: test-field-visibility
+type: text/vnd.tiddlywiki
+
+\define showInfo()
+<$action-setfield $tiddler="$:/state/popup/tiddler-info-471453735" text="yes" />
+\end
+
+!! Important
+
+* The "toggle visibility" buttons can only be seen in view mode
+* To see the fields switch to tiddler edit mode
+
+<$button actions=<<showInfo>> >
+Click this button to show the tiddler info area
+</$button>
+
+--------
+
+```
+Field `test` content: ''{{!!test}}''
+
+Field `test-invisible` content: ''{{!!test-invisible}}''
+```
+
+Field `test` content: ''{{!!test}}''
+
+Field `test-invisible` content: ''{{!!test-invisible}}''
+

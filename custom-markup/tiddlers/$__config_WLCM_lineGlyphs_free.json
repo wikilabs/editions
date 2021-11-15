@@ -1,0 +1,12 @@
+[
+  {
+    "idType": "poem",
+    "glyph": "POEM",
+    "useParagraph": true
+  },
+  {
+    "idType": "note",
+    "glyph": "NOTE",
+    "useParagraph": true
+  }
+]

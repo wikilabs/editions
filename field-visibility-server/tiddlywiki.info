@@ -1,0 +1,21 @@
+{
+	"description": "Server configuration of the wikilabs edition",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"wikilabs/link-to-tabs",
+		"wikilabs/advanced-search-plus"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+	],
+	"includeWikis": [
+		"../field-visibility"
+	],
+	"config": {
+		"default-tiddler-location": "../field-visibility/tiddlers"
+	},
+	"build": {
+	 }
+}
