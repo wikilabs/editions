@@ -1,12 +1,12 @@
 created: 20211022122738993
-modified: 20211025144756699
+modified: 20211115195717136
 tags: 
 title: test-free-line-glyphs
 type: text/vnd.tiddlywiki
 
 \custom  note _element=aside _debug=both
 
-\debugcustom note list
+\debugcustomx note list
 
 This test loades the glyph definition from the tiddler [[$:/config/WLCM/lineGlyphs/free]]
 
