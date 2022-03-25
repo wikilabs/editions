@@ -1,5 +1,5 @@
 created: 20210128134935994
-modified: 20210128145331721
+modified: 20220325105229227
 title: Tips and Tricks
 type: text/vnd.tiddlywiki
 
@@ -10,7 +10,7 @@ type: text/vnd.tiddlywiki
 
 * Have a look at the Video: [[How to use the Bundler Plugin]] ;)
 
-* Since version 0.2.0 it's possible to import system tiddlers into any TW, that ''also uses the bundler plugin!''
+* Since TW Version 5.1.23 it's possible to import system tiddlers into any TW. That can be very useful in combination with bundles
 
 * Bulk delete for bundles can be done with the new button from the tiddler info-area. 
 ** It switches to the ~AdvancedSearch : Filter tab

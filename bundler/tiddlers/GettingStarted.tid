@@ -1,5 +1,5 @@
 created: 20201226122843513
-modified: 20210317105703008
+modified: 20220325122547752
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -14,22 +14,39 @@ type: text/vnd.tiddlywiki
 
 ! {{$:/plugins/wikilabs/bundler/icon}} The Bundler Plugin
 
-This plugin allows you to create "export/import" configurations and save them as a ''bundle''.
+!! Introduction
+
+This plugin allows you to ''Improve your export / import workflow''
+
+* Create ''export'' configurations and save them as a ''bundle''
+* Use an ''improved import workflow'' enabled by bundles
+* Automatically ''rename'' imported tiddlers, if they already exist
+* Automatically ''rename content'', that is imported ''from'' the ''clipboard''. eg: Images
 
 Active bundles can be seen in the right sidebar: <$button actions=<<switchToSidebar>> >Click this button</$button>, to select the "Bundles" tab.
 
 Have Fun!
 
-! Tips and Tricks
-
-[[Tips and Tricks]]
-
 ! Video
 
 {{VideoThumbnail - How to user the Bunder Plugin}}
 
+! Tips and Tricks
+
+* See: [[Tips and Tricks]]
+
 {{$:/plugins/wikilabs/bundler/readme}}
 
-! ~ControlPanel Plugins
+! Bundler Plugin Settings
 
-[[Open the control panel plugin tab|$:/core/ui/ControlPanel/Plugins]]
+The bundle configuration can be easily activated from the right sidebar as shown in the image below
+<br><br>
+[img[sidebar-config-buttons.png]]
+
+! All Filters in this Wiki
+
+{{$:/plugins/wikilabs/bundler/doc/table-all-filters}}
+
+! License
+
+See: [[License]]
