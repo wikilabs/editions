@@ -13,3 +13,7 @@ type: text/vnd.tiddlywiki
 ! Plugins
 
 {{$:/core/ui/ControlPanel/Plugins}}
+
+! License
+
+See: [[License]]
