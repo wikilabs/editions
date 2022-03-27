@@ -1,0 +1,9 @@
+title: License
+
+''Human readable summary:''
+
+<<<
+{{$:/plugins/wikilabs/link-to-tabs/license}}
+<<<
+
+The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/link-to-tabs/license!!license-text}}
