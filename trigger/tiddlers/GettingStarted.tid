@@ -27,4 +27,3 @@ type: text/vnd.tiddlywiki
 * Only use the "Next" button. 
 ** "Previous" may cause errors, because the whole state may be out of sync
 
-
