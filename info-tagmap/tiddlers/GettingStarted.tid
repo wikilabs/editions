@@ -20,6 +20,6 @@ The slant-01 theme uses this plugin in a different way. ... It activates the inf
 
 {{$:/core/ui/ControlPanel/Plugins}}
 
-have fun!
-mario
+! License
 
+See: [[License]]
