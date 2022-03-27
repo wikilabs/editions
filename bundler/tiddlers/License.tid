@@ -1,10 +1,6 @@
-created: 20220325115816277
-modified: 20220325120340417
-tags: 
 title: License
-type: text/vnd.tiddlywiki
 
-''Human readable summary: ''
+''Human readable summary:''
 
 <<<
 {{$:/plugins/wikilabs/bundler/license}}
