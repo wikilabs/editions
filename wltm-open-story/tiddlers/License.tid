@@ -1,0 +1,9 @@
+title: License
+
+''Human readable summary:''
+
+<<<
+{{$:/plugins/wikilabs/tm-open-story/license}}
+<<<
+
+The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/tm-open-story/license!!license-text}}
