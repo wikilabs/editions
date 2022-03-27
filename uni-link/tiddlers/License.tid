@@ -1,0 +1,9 @@
+title: License
+
+''Human readable summary:''
+
+<<<
+{{$:/plugins/wikilabs/uni-link/license}}
+<<<
+
+The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/uni-link/license!!license-text}}
