@@ -1,0 +1,9 @@
+title: License
+
+''Human readable summary:''
+
+<<<
+{{$:/plugins/wikilabs/advanced-search-plus/license}}
+<<<
+
+The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/advanced-search-plus/license!!license-text}}

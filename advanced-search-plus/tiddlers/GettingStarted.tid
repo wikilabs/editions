@@ -23,3 +23,7 @@ This plugin adds the advanced search tiddler to the right sidebar. To do so, the
 ! Info
 
 {{$:/plugins/wikilabs/advanced-search-plus/readme}}
+
+! License
+
+See: [[License]]
