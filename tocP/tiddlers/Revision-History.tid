@@ -6,8 +6,6 @@ type: text/vnd.tiddlywiki
 
 !! Version
 
-0.0.2 .. initial release
-
 0.1.0 .. beta-1
 
 <<<
@@ -20,3 +18,4 @@ type: text/vnd.tiddlywiki
 * tocP now shows the tooltip field, if available in tiddlers. see [[examples|GettingStarted]] or open [[level-1]] in edit mode.
 <<<
 
+See: [[$:/plugins/wikilabs/tocP/history]]
