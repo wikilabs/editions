@@ -30,4 +30,8 @@ Open the Field-Search Configuration
 
 ! This plugin replaces the following system modules
 
-<$list filter="[[$:/plugins/wikilabs/field-search]plugintiddlers[]prefix[$:/core/]]"><$link to=<<currentTiddler>>><<currentTiddler>><br></$link></$list>
+<ul><$list filter="[[$:/plugins/wikilabs/field-search]plugintiddlers[]prefix[$:/core/]]"><li><$link to=<<currentTiddler>>><<currentTiddler>><br></$link></li></$list></ul>
+
+! License
+
+See: [[License]]
