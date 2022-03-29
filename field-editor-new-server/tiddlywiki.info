@@ -11,9 +11,9 @@
 	"themes": [
 	],
 	"includeWikis": [
-		"../field-editor"
+		"../field-editor-new"
 	],
 	"config": {
-		"default-tiddler-location": "../field-editor/tiddlers"
+		"default-tiddler-location": "../field-editor-new/tiddlers"
 	}
 }

@@ -1,6 +1,6 @@
 created: 20211113165504122
 modified: 20211115140833159
-title: $:/config/wikilabs/viewtemplate/body/field-config
+title: $:/state/wikilabs/viewtemplate/body/active/field
 type: text/vnd.tiddlywiki
 
-$:/config/wikilabs/field/myField
+$:/config/wikilabs/field-editor/myField
