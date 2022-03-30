@@ -1,9 +1,0 @@
-created: 20211025140746175
-modified: 20211025140829041
-tags: task
-title: Document the "disable" configuration
-type: text/vnd.tiddlywiki
-
-It's now possible to disable glyphs if needed. 
-
-It may be a "hidden setting"
