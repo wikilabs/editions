@@ -1,6 +1,3 @@
-created: 20201226125520274
-modified: 20201226125542162
 title: $:/SiteSubtitle
-type: text/vnd.tiddlywiki
 
-allows comments in tidder "pragma section"
+DEPRECATED: allows comments in tidder "pragma section"
