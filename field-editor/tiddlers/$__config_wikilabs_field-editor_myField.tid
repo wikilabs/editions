@@ -1,7 +1,7 @@
-created: 20211115140645582
-description: A Test Field
+created: 20220330111023948
+description: This is a configuration to test the multiline "field editor"
 icon: {{$:/core/images/spiral}}
-modified: 20211115140711723
+modified: 20220330111125583
 tags: $:/tags/wikilabs/fieldswitcher
 title: $:/config/wikilabs/field-editor/myField
 type: text/vnd.tiddlywiki

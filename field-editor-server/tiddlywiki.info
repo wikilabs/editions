@@ -5,7 +5,6 @@
 		"tiddlywiki/filesystem",
 		"tiddlywiki/internals",
 		"wikilabs/link-to-tabs",
-		"wikilabs/field-search",
 		"wikilabs/advanced-search-plus"
 	],
 	"themes": [
