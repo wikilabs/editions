@@ -13,7 +13,7 @@ const mods = fs.readdirSync(lib)
 
 async function run () {
   const { results, errors } = await PromisePool
-    .withConcurrency(4)
+    .withConcurrency(8)
     .for(mods)
     .process(async (mod) => {
 			var modPath = join(lib, mod)
