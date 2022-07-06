@@ -13,7 +13,7 @@
     "stage:all": "node bin/stage",
     "stage": "npm run build:github",
     "predeploy": "npm run stage:all",
-    "deploy": "echo # Congratulation: The project is deploied!"
+    "deploy": "echo # Congratulation: The project is deployed!"
   },
   "repository": {
     "type": "git",
