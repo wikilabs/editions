@@ -1,0 +1,12 @@
+[
+    {
+        "created": "20220828175638487",
+        "text": "<pre>{{!!filter}}</pre>",
+        "title": "palette-manager-wip.bundle",
+        "tags": "$:/tags/Filter",
+        "modified": "20220828175844380",
+        "type": "text/vnd.tiddlywiki",
+        "description": "---> Palette Manager WIP",
+        "filter": "palette-manager-wip.bundle $:/palettes/test-PE $:/palette $:/_tw5.com-styles $:/themes/tiddlywiki/vanilla/base $:/PaletteManager [prefix[:/palettes/]] "
+    }
+]

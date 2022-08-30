@@ -1,0 +1,15 @@
+created: 20220830093110632
+modified: 20220830101111910
+tags: 
+title: Content
+type: text/vnd.tiddlywiki
+
+!! Usage
+
+* Open : $:/ControlPanel --> Appearence --> Palette -> <kbd>show editor</kbd> button
+* or the [[$:/PaletteManager]] in the story river
+
+
+!! The plugin contains the following preview elements
+
+<<list-links "[all[shadows+tiddlers]prefix[:/palettes/]]">>

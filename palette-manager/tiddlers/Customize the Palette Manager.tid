@@ -1,0 +1,36 @@
+created: 20220830105705314
+modified: 20220830110428610
+tags: 
+title: Customize the Palette Manager
+type: text/vnd.tiddlywiki
+
+!! General ideas for the new preview function
+
+# It should be easy to see, what changing colours does to the wiki UI
+
+## All previews should show “live” UI elements (if possible) so interaction is possible
+## Especially hovering and selecting UI elements
+## There should be a visual connection between the colour and the UI elements
+
+#    Users should be able to add new previews on their own
+## preview tiddler names are constructed using a `prefix/colour-name`
+## using this convention will show the preview right below the colour
+## Adding or removing new previews should be possible without editing and shadow tiddler
+    
+# Existing previews should be easy to overwrite or hide
+## adding the suffix `/_custom` like so `prefix/colour-name/_custom` name will take precedence over the default tiddler
+## An empty `prefix/colour-name/_custom` tiddler will hide the default tiddler
+
+# Replacing or hiding the whole existing system should be easy. So users can use their own code if needed
+## `prefix/_custom` will take precedence over the existing structure and completely replace it.
+## an empty `prefix/_custom/` will hide all defaults
+
+!! Changing Default Previews
+
+There are several new tiddlers all prefixed: `:/palettes/preview/` and colour name like  `alert-muted-foreground`
+
+eg: `:/palettes/preview/alert-muted-foreground` .. is the first preview that is shown. At the moment the `$` as the first character is missing for easy development. This will change in the final PR.
+
+    The palette manager edits a palette, that was based on vanilla
+    The best way to create your own palett is to clone vanilla and start from there.
+

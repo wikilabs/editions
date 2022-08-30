@@ -1,0 +1,15 @@
+created: 20170207203843163
+modified: 20170207210722644
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+
+{{$:/plugins/wikilabs/palette-manager/readme}}
+
+! Screenshot
+
+[img[palette-manager-wip-01.png]]
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
