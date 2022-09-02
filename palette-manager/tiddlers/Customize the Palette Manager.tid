@@ -1,5 +1,5 @@
 created: 20220830105705314
-modified: 20220830110428610
+modified: 20220901161100783
 tags: 
 title: Customize the Palette Manager
 type: text/vnd.tiddlywiki
@@ -13,17 +13,16 @@ type: text/vnd.tiddlywiki
 ## There should be a visual connection between the colour and the UI elements
 
 #    Users should be able to add new previews on their own
-## preview tiddler names are constructed using a `prefix/colour-name`
+## preview tiddler names are constructed using a `<prefix>/<colour-name>`
 ## using this convention will show the preview right below the colour
 ## Adding or removing new previews should be possible without editing and shadow tiddler
     
 # Existing previews should be easy to overwrite or hide
-## adding the suffix `/_custom` like so `prefix/colour-name/_custom` name will take precedence over the default tiddler
-## An empty `prefix/colour-name/_custom` tiddler will hide the default tiddler
+## `<prefix>/<colour-name>/_custom` will take precedence over the existing structure and replace it.
 
 # Replacing or hiding the whole existing system should be easy. So users can use their own code if needed
-## `prefix/_custom` will take precedence over the existing structure and completely replace it.
-## an empty `prefix/_custom/` will hide all defaults
+## Replace $:/PaletteManager/preview with your own preview code
+## `<<palette-preview-row-segment>>` is the macro that needs to be defined in the custom code
 
 !! Changing Default Previews
 
