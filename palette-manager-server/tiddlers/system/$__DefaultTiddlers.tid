@@ -1,9 +1,6 @@
 created: 20210131210056365
-modified: 20220830110735536
+modified: 20220901143906325
 title: $:/DefaultTiddlers
 type: text/vnd.tiddlywiki
 
-GettingStarted
-Content
-[[Customize the Palette Manager]]
-$:/PaletteManager
+[list[$:/StoryList]]

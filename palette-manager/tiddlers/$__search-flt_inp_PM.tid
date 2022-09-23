@@ -1,0 +1,6 @@
+created: 20220902125602168
+modified: 20220907172225278
+title: $:/search-flt/inp/PM
+type: text/vnd.tiddlywiki
+
+[all[shadows+tiddlers]prefix[$:/Pal]] $:/snippets/paletteswitcher $:/snippets/currpalettepreview

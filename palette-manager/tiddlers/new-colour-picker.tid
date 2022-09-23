@@ -1,0 +1,28 @@
+created: 20220915115734447
+modified: 20220916160957449
+tags: 
+title: new-colour-picker
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define swatchStyle()
+	background-color: $(resolvedColour)$;
+\end
+
+\define getTooltip() $(__colourName__)$ -- $(swatchColour)$
+
+\define swatchX(palette colourName)
+<$set name="swatchColour" value= {{{ [<__palette__>getindex<__colourName__>] }}} > 
+	<$wikify name="resolvedColour" text="<<swatchColour>>" output=text mode=inline>
+		<<swatchColour>> -- <<resolvedColour>>
+
+		<div class="tc-swatch" style=<<swatchStyle>> title=<<getTooltip>> />
+		
+		<$colour tiddler=test index=<<__colourName__>> default=<<swatchColour>> resolveColourFilter="[<resolvedColour>]" detectMacroFilter="[<swatchColour>prefix[<<colour]suffix[>>]]" tooltip=<<getTooltip>>/>
+		
+	</$wikify>
+</$set>
+\end
+
+<$macrocall $name=swatchX palette={{{ [{$:/palette}] }}} colourName=aaa />
