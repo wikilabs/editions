@@ -1,0 +1,41 @@
+created: 20220902153148524
+modified: 20220903161546275
+tags: 
+title: test-cascade
+type: text/vnd.tiddlywiki
+
+\define blank() [is[blank]then<previewName>]
+\define blank() [prefix[<<]then<previewName>]
+\define search-is-token() [match<token>then<previewName>]
+\define colour-is-preview() [<previewName>has[search-term]then<previewName>]
+\define search() [all[shadows+tiddlers]tag[$:/tags/palette/preview]search:search-term{$:/temp/search-term}]
+
+\define getColour() [{$:/palette}indexes[]search:title{$:/temp/search-term}]
+\define hasValue() [{$:/palette}indexes[]] :filter[{$:/palette}getindex<currentTiddler>prefix{$:/temp/search-term}]
+
+<$let activeFilter={{{ [{$:/temp/search-term}prefix[<<]then<hasValue>else<getColour>] }}}>
+
+Search: <$edit-text tiddler="$:/temp/search-term" tag="input" placeholder="colour name" default="" class="tc-palette-manager-text-input tc-small-gap-left"/> -- {{{ [subfilter<activeFilter>] +[count[]] }}}
+
+<$list filter="[subfilter<activeFilter>]" variable="colourName" >
+
+	<$let previewName={{{ [<colourName>addprefix[:/palettes/preview/]] }}} 
+			token={{{ [<colourName>split[-]nth[1]] }}} 
+			tokenPrefix={{{ [<token>addprefix[:/palettes/preview/]] }}} 
+	>
+		<$list filter="[{$:/temp/search-term}] :cascade[<blank>append<search-is-token>append<colour-is-preview>append<search>]" variable=preview>
+		<!-- $list filter="[{$:/temp/search-term}] :cascade[<colour-is-preview>]" variable="preview"-->
+			<<preview>>
+		</$list>
+	</$let>
+</$list>
+
+---
+
+- <<token>>
+
+- <<tokenPrefix>>
+	
+- <<colourName>>
+
+</$let>
