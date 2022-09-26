@@ -1,0 +1,20 @@
+created: 20220925111953309
+modified: 20220925134439933
+tags: 
+title: EditColourWidget (Examples)
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define getTooltip() $(__colourName__)$ -- $(currentColour)$
+
+\define colourPicker(palette colourName)
+\whitespace trim
+<$set name="currentColour" value= {{{ [<__palette__>getindex<__colourName__>] }}} > 
+	<$wikify name="resolvedColour" text="<<currentColour>>" output=text mode=inline>
+		<$colour tiddler=<<__palette__>> index=<<__colourName__>> default=<<currentColour>> resolveColourFilter="[<resolvedColour>]" detectMacroFilter="[<currentColour>prefix[<<colour]suffix[>>]]" tooltip=<<getTooltip>>/>
+	</$wikify>
+</$set>
+\end
+
+<$macrocall $name=colourPicker palette="EditColourWidget (Palette)" colourName=aaa />
