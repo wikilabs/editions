@@ -1,10 +1,11 @@
 {
   "name": "palette-manager-server",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+    "start": "tiddlywiki . --listen",
+    "net": "tiddlywiki . --listen host=local.lan",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",

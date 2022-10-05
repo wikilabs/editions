@@ -1,0 +1,23 @@
+created: 20221003090453263
+modified: 20221004172221496
+tags: Macros [[Core Macros]]
+title: colour-picker-resolved Macro
+type: text/vnd.tiddlywiki
+
+
+The <<.def colour-picker-resolved>> [[macro|Macros]] displays the native browser colour picker.
+
+!! Parameters
+
+; palette
+: The name of the palette to be changed
+
+; colourName
+: The name / index of the colour to be changed
+
+; resolver
+: Defaults to: `resolveColourMacro`
+: The macro name, that is used to convert colour macros into RGB values, that can be used by the browser native colour picker. 
+
+<<.macro-examples "colour-picker-resolved">>
+

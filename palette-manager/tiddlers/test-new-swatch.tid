@@ -1,9 +1,0 @@
-created: 20220915120659061
-modified: 20220915131713998
-tags: 
-title: test-new-swatch
-type: text/vnd.tiddlywiki
-
-\import new-swatch
-
-<$macrocall $name=swatchX palette={{{ [{$:/palette}] }}} colourName=aaa />

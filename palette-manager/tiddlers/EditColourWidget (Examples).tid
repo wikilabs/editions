@@ -1,20 +1,60 @@
 created: 20220925111953309
-modified: 20220925134439933
+modified: 20221004174248812
 tags: 
 title: EditColourWidget (Examples)
 type: text/vnd.tiddlywiki
 
-\whitespace trim
-
-\define getTooltip() $(__colourName__)$ -- $(currentColour)$
-
-\define colourPicker(palette colourName)
-\whitespace trim
-<$set name="currentColour" value= {{{ [<__palette__>getindex<__colourName__>] }}} > 
-	<$wikify name="resolvedColour" text="<<currentColour>>" output=text mode=inline>
-		<$colour tiddler=<<__palette__>> index=<<__colourName__>> default=<<currentColour>> resolveColourFilter="[<resolvedColour>]" detectMacroFilter="[<currentColour>prefix[<<colour]suffix[>>]]" tooltip=<<getTooltip>>/>
-	</$wikify>
-</$set>
+\define resetPaletteActions()
+<$action-createtiddler $basetitle="EditColourWidget (Palette)"
+  $overwrite="yes"
+	$timestamp="no"
+	created="20221003082622427"
+	modified="20221003082622697"
+	type="application/x-tiddler-dictionary"
+	text="""aaa: <<colour bbb>>
+bbb: <<colour ccc>>
+ccc: #a0a3e9"""
+/>
 \end
 
-<$macrocall $name=colourPicker palette="EditColourWidget (Palette)" colourName=aaa />
+\define resetPalette()
+<$button actions=<<resetPaletteActions>> class="tc-small-gap-left" >Reset</$button>
+\end
+
+! Example
+
+The tiddler used is [[EditColourWidget (Palette)]] which looks like this: 
+
+{{EditColourWidget (Palette)}}
+
+!! Known Issue
+
+* If the <kbd>cancel</kbd> button is used in the browser colour dialogue, it will write the resolved value. So you need to use the "rest-button" to test again.
+
+* You'll need to use the `liveUpdate="no"` parameter, to avoid this issue
+
+!! Try it
+
+```
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=aaa />
+```
+
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=aaa /> <<resetPalette>>
+
+```
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=bbb />
+```
+
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=bbb /> <<resetPalette>>
+
+```
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=ccc />
+```
+
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=ccc /> <<resetPalette>>
+
+! Custom Colour Picker
+
+This is an example, how we can create a colour picker, that is able to resolve the `<<colour xx>>` macro used in ~TiddlyWiki colour palettes. See: [[$:/core/macros/colour-picker-resolved]]
+
+{{$:/core/macros/colour-picker-resolved}}

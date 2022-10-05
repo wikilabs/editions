@@ -1,0 +1,33 @@
+created: 20221004132628516
+modified: 20221004153644606
+tags: 
+title: test-new-colour-picker-recursive
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+\define swatchStyle()
+	background-color: $(colourResolved)$;
+\end
+
+\define colPrefix() <<colour
+\define colSuffix() >>
+
+\define swatchX(palette colourName)
+\whitespace trim
+<$set name=colourResolved value={{{ [<__palette__>getindex<__colourName__>] }}}>
+	<$list filter="[<colourResolved>!prefix<colPrefix>]" variable="ignore">
+		<$text text=<<colourResolved>>/>
+		<div class="tc-swatch" style=<<swatchStyle>> title=<<colorResolved>>/>
+	</$list>
+	<$list filter="[<colourResolved>prefix<colPrefix>]" variable="ignore">
+		<$set name=colourName filter={{{ [<colourResolved>removeprefix<colPrefix>removesuffix<colSuffix>] }}}>
+				<$text text=<<colourName>>/>--
+				<$macrocall $name="swatchX" palette=<<__palette__>> colourName=<<colourName>>/>
+		</$set>
+	</$list>
+</$set>
+\end
+
+<$macrocall $name=swatchX palette="test" colourName=aaa />
+

@@ -1,0 +1,42 @@
+caption: col-resolved
+created: 20221003093131780
+icon: $:/plugins/wikilabs/advanced-search-plus/system-search.svg
+input-tiddler: $:/search-sys/inp/col-resolved
+input-title: $:/search-sys/col-resolved
+modified: 20221003093131780
+tags: $:/tags/AdvancedSearch
+title: $:/search-sys/col-resolved
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/language/Search/
+
+<$tiddler tiddler=<<currentTab>>>
+<$button tooltip={{$:/language/Buttons/Delete/Caption}} >
+  <$action-deletetiddler $tiddler={{!!input-tiddler}}/>
+  <$action-deletetiddler $tiddler={{!!input-title}}/>
+  <$transclude tiddler="$:/core/images/delete-button" />
+</$button>
+<<lingo System/Hint>>
+
+<div class="tc-search">
+<$edit-text tiddler={{!!input-tiddler}} type="search" tag="input" placeholder="..." default=""/>
+<$reveal state={{!!input-tiddler}} type="nomatch" text="">
+<$button class="tc-btn-invisible">
+<$action-setfield $tiddler={{!!input-tiddler}} $field="text" $value=""/>
+{{$:/core/images/close-button}}
+</$button>
+</$reveal>
+</div>
+
+<$reveal state={{!!input-tiddler}} type="nomatch" text="">
+<$set name="search-term" tiddler={{!!input-tiddler}}>
+<$set name="resultCount" value="<$count filter='[is[system]search<search-term>]'/>">
+<div class="tc-search-results">
+<<lingo System/Matches>>
+<$list filter="[is[system]search<search-term>sort[title]limit[250]]" template="$:/core/ui/ListItemTemplate"/>
+</div>
+</$set></$set>
+</$reveal>
+<$reveal state={{!!input-tiddler}} type="match" text="">
+</$reveal>
+</$tiddler>

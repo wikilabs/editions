@@ -1,0 +1,9 @@
+created: 20221004160624038
+modified: 20221004164023331
+tags: 
+title: test-resolve-macro
+type: text/vnd.tiddlywiki
+
+<$macrocall $name="resolve" palette="EditColourWidget (Palette)" colourName=aaa />
+
+<$macrocall $name="colour-picker-resolved" palette="EditColourWidget (Palette)" colourName=bbb />

@@ -1,7 +1,7 @@
 created: 20220915115734447
-modified: 20220925110950474
+modified: 20221004172415389
 tags: 
-title: test-new-colour-picker
+title: test-new-colour-picker-deprecated
 type: text/vnd.tiddlywiki
 
 \whitespace trim
@@ -25,4 +25,6 @@ type: text/vnd.tiddlywiki
 </$set>
 \end
 
-<$macrocall $name=swatchX palette={{{ [{$:/palette}] }}} colourName=aaa />
+<$macrocall $name=swatchX palette="test" colourName=aaa />
+
+<$macrocall $name=swatchX palette="test" colourName=test />
