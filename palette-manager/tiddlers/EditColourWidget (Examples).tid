@@ -1,5 +1,5 @@
 created: 20220925111953309
-modified: 20221004174248812
+modified: 20221102120448836
 tags: 
 title: EditColourWidget (Examples)
 type: text/vnd.tiddlywiki
@@ -29,9 +29,10 @@ The tiddler used is [[EditColourWidget (Palette)]] which looks like this:
 
 !! Known Issue
 
-* If the <kbd>cancel</kbd> button is used in the browser colour dialogue, it will write the resolved value. So you need to use the "rest-button" to test again.
+* ''~WebKit'' based browsers like Chrome or Edge automatically close the colour popup if the color input is redrawn, so `liveUpdate` canot be used. 
+** ~FireFox works fine
 
-* You'll need to use the `liveUpdate="no"` parameter, to avoid this issue
+* ''~ToDo'': Check for browser-sniff plugin and auto-disable liveUpdate for chromium based browsers.
 
 !! Try it
 
