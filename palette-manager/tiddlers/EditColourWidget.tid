@@ -1,6 +1,6 @@
 caption: edit-text
 created: 20131024141900000
-modified: 20221004173131546
+modified: 20221109151702157
 tags: Widgets
 title: EditColourWidget
 type: text/vnd.tiddlywiki
@@ -19,15 +19,18 @@ The content of the `<$edit-colour>` widget is ignored.
 |tiddler |The tiddler to edit (defaults to the [[current tiddler|Current Tiddler]]) |
 |field |The field to edit (defaults to `color`). Takes precedence over the `index` attribute |
 |index |The [[data-tiddler|DataTiddlers]] index to edit |
-|default |The default colour value to be provided when the target tiddler, index or field doesn't exist |
-|class |A CSS class to be assigned to the generated HTML editing element |
-|liveUpdate |Defaults to "yes". If "yes" the `onChangeActions` are triggered every time the colour picker value changes. If set to "no" the actions are only triggered, if colour-picker value is set with the OK-button. If the colour-picker dialogue is "cancelled" the `onChangeActions` will ''not'' be triggered|
-|onChangeActions |Optional actions that are triggered every time an event occurs within the colour picker.<br>This action depends on the `liveUpdate` value. The variable `actionValue` is available to the `onChangeActions` and contains the RGB colour value. |
-|resolvedColour |The value of the resolved colour, if a macro is specivied as the colour-value in the palette tiddler. This attribute will be ignored if `detectMacroFilter` is missing |
-|detectMacroFilter |A filter that allows the widget to detect if the value is a macro instead of a valid RGB value. This attribute will be ignored if `resolvedColour` is missing |
-|tooltip|Tooltip shown on mouse hover |
-|disabled|<<.from-version "5.1.23">> Optional, disables the text input if set to "yes". Defaults to "no"|
-|id |Optional unique identifier, can be used together with a label element |
+|default |Optional -- The default colour value to be provided when the target tiddler, index or field doesn't exist OR a macro cannot be resolved. Defaults to the "red" RGB value `#ff0000` at the moment|
+|class |Optional -- A CSS class to be assigned to the generated HTML editing element |
+|liveUpdate |Optional -- Defaults to "yes". If "yes" the `onChangeActions` are triggered every time the colour picker value changes. If set to "no" the actions are only triggered, if colour-picker value is set with the OK-button. If the colour-picker dialogue is "cancelled" the `onChangeActions` will ''not'' be triggered|
+|$change |Optional -- Actions that are triggered once, if the colour is selected. The variable `actionValue` is available to the `changeActions` and contains the RGB colour value. |
+|$input |Optional -- Actions that are triggered every time an input event occurs within the colour picker.<br>This action depends on the `liveUpdate` value. The variable `actionValue` is available to the `inputActions` and contains the RGB colour value. |
+|resolveColourActions |Optional -- This aciton is activated, when the widget is initialized or refreshed.<br>* The action must create a valid RGB colour value.<br>* The action must create a temporary tiddler, that contains the resolved colours<br>* The temporary tiddler title can be accessed with the variable `resolved-temp-tiddler`|
+|tempPrefix|Optionial -- Prefix for a temporary tiddler, that contains the resolved colours created by the `resolveColourActions` actions.<br>* The prefix defaults to `$:/temp/` <br>* The tiddler title is dynamically created with the following attributes `<tempPrefix><tiddler>`. See: [[$:/temp/EditColourWidget (Palette)]]  |
+|template|Optional -- TODO|
+|tooltip|Optional -- Tooltip shown on mouse hover |
+|disabled|Optional -- Disables the input if set to "yes". Defaults to "no"|
+|id |Optional -- unique identifier, can be used together with a label element |
 |name |Optional -- Can be used with label element. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/color |
+
 
 {{EditColourWidget (Examples)}}

@@ -1,0 +1,60 @@
+created: 20221109143612844
+modified: 20221109144934901
+tags: 
+title: test-colour-widget-index-minimal-no-resolver
+type: text/vnd.tiddlywiki
+
+\define palette-name() EditColourWidget (Palette) index
+
+\define resetPaletteActions()
+<$action-createtiddler $basetitle=<<palette-name>>
+  $overwrite="yes"
+	$timestamp="no"
+	created="20221003082622427"
+	modified="20221003082622697"
+	type="application/x-tiddler-dictionary"
+	text="""aaa: <<colour bbb>>
+bbb: <<colour ccc>>
+ccc: #a0a3e9"""
+/>
+\end
+
+\define resetPalette()
+<$button actions=<<resetPaletteActions>> class="tc-small-gap-left" >Reset</$button>
+\end
+
+This test case uses a "data-tiddler based" palette with 3 colours defined.
+
+{{{ [<palette-name>] }}}
+
+<$tiddler tiddler=<<palette-name>>>
+	<$transclude mode=block />
+</$tiddler>
+
+''Code''
+
+```
+<$colour tiddler=<<palette-name>>
+	index=bbb
+	class=test
+	default="#0f0"
+/>
+```
+
+<$colour tiddler=<<palette-name>>
+	index=bbb
+	class=test
+	default="#0f0"
+/> <<resetPalette>>
+
+```
+<$colour tiddler=<<palette-name>>
+	index=ccc
+	class=test
+/>
+```
+
+<$colour tiddler=<<palette-name>>
+	index=ccc
+	class=test
+/>

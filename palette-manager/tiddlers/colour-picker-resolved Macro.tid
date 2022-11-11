@@ -1,11 +1,11 @@
 created: 20221003090453263
-modified: 20221102101914347
+modified: 20221109151706255
 tags: Macros [[Core Macros]]
 title: colour-picker-resolved Macro
 type: text/vnd.tiddlywiki
 
 
-The <<.def colour-picker-resolved>> [[macro|Macros]] displays the native browser colour picker.
+The <<.def colour-picker-resolved>> [[macro|Macros]] displays the native browser colour picker and resolves colours defined with the TW [[colour Macro]]. This macro is used by the $:/PaletteManager
 
 !! Parameters
 

@@ -1,5 +1,5 @@
 created: 20220830105705314
-modified: 20220901161100783
+modified: 20221109151611720
 tags: 
 title: Customize the Palette Manager
 type: text/vnd.tiddlywiki
@@ -30,6 +30,6 @@ There are several new tiddlers all prefixed: `:/palettes/preview/` and colour na
 
 eg: `:/palettes/preview/alert-muted-foreground` .. is the first preview that is shown. At the moment the `$` as the first character is missing for easy development. This will change in the final PR.
 
-    The palette manager edits a palette, that was based on vanilla
-    The best way to create your own palett is to clone vanilla and start from there.
+* The palette manager edits a palette, that was based on vanilla
+* The best way to create your own palett is to clone vanilla and start from there.
 

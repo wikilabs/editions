@@ -1,0 +1,14 @@
+aaa: <<colour bbb>>
+bbb: <<colour ccc>>
+ccc: #a0a3e9
+created: 20221003082622427
+modified: 20221003082622697
+title: EditColourWidget (Palette) fields
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+<table class="tc-view-field-table">
+<tbody>
+<$list filter="[all[current]fields[]sort[title]] -text -title -created -modified -bag -type -revision" template="$:/core/ui/TiddlerFieldTemplate" variable="listItem"/>
+</tbody>
+</table>

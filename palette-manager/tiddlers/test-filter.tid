@@ -1,0 +1,12 @@
+created: 20220801132358694
+modified: 20220801132828108
+tags: 
+title: test-filter
+type: text/vnd.tiddlywiki
+
+\define macroPrefix() <<colour
+\define macroSuffix() >>
+
+<$let colourValue="<<colour bbb>>" >
+{{{ [<colourValue>prefix<macroPrefix>suffix<macroSuffix>] }}}
+</$let>

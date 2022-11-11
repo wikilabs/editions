@@ -1,0 +1,68 @@
+created: 20221103122207156
+modified: 20221109144856658
+tags: 
+title: test-colour-widget-fields-minimal-no-resolver
+type: text/vnd.tiddlywiki
+
+\define palette-name() EditColourWidget (Palette) fields
+
+\define resetPaletteActions()
+<$action-createtiddler $basetitle=<<palette-name>>
+  $overwrite="yes"
+	$timestamp="no"
+	created="20221003082622427"
+	modified="20221003082622697"
+	aaa="<<colour bbb>>"
+	bbb="<<colour ccc>>"
+	ccc="#a0a3e9"
+	text="""\whitespace trim
+<table class="tc-view-field-table">
+<tbody>
+<$list filter="[all[current]fields[]sort[title]] -text -title -created -modified -bag -type -revision" template="$:/core/ui/TiddlerFieldTemplate" variable="listItem"/>
+</tbody>
+</table>"""
+	
+/>
+\end
+
+\define resetPalette()
+<$button actions=<<resetPaletteActions>> class="tc-small-gap-left" >Reset</$button>
+\end
+
+This test case uses a "field based" palette with 3 colours defined.
+
+{{{ [<palette-name>] }}}
+
+Press the <<resetPalette>> button to initialize the example palette.
+
+<$tiddler tiddler=<<palette-name>>>
+	<$transclude mode=block />
+</$tiddler>
+
+''Code''
+
+```
+<$colour tiddler=<<palette-name>>
+	field=bbb
+	class=test
+	default="#0f0"
+/>
+```
+
+<$colour tiddler=<<palette-name>>
+	field=bbb
+	class=test
+	default="#0f0"
+/> -- This example will show the default colour, since the macro can't be resolved without the `resolveColourActions` parameter. See the docs at: [[EditColourWidget]] 
+
+```
+<$colour tiddler=<<palette-name>>
+	field=ccc
+	class=test
+/>
+```
+
+<$colour tiddler=<<palette-name>>
+	field=ccc
+	class=test
+/>
