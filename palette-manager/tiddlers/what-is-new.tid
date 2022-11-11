@@ -1,5 +1,5 @@
 created: 20221111125644772
-modified: 20221111130723747
+modified: 20221111133933078
 tags: 
 title: what-is-new
 type: text/vnd.tiddlywiki
@@ -14,6 +14,7 @@ type: text/vnd.tiddlywiki
 * If TW `<<colour xxx>>` macro is used the color-widget will show the resolved colour
 * Every colour-group has a preview element now
 * It's straight forward to create your own previews
+* The palette manager can be opened in a new window
 ** if the colour is eg: `alert-muted-foreground`
 ** the preview tiddler is named: `:/palettes/preview/alert-muted-foreground` which will be shown right below the colour
 * The palette manager can be heavily customized. See [[Customize the Palette Manager]]
