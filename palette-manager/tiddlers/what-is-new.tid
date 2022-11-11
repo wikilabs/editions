@@ -1,0 +1,20 @@
+created: 20221111125644772
+modified: 20221111130723747
+tags: 
+title: what-is-new
+type: text/vnd.tiddlywiki
+
+! What's New
+
+* Cloned palettes have an `origin` field now, that allows us to have an "undo-button" per color changed
+* New Undo button if a color is different to the shadow palette
+* There is a new "Search input" to filter based on colour names
+* There is a new "Focus button" that sets the filter input to the first element of the colour names
+** eg: `alert` to focus on the alert notification element
+* If TW `<<colour xxx>>` macro is used the color-widget will show the resolved colour
+* Every colour-group has a preview element now
+* It's straight forward to create your own previews
+** if the colour is eg: `alert-muted-foreground`
+** the preview tiddler is named: `:/palettes/preview/alert-muted-foreground` which will be shown right below the colour
+* The palette manager can be heavily customized. See [[Customize the Palette Manager]]
+
