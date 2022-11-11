@@ -1,7 +1,7 @@
 created: 20220925111953309
-modified: 20221109151646446
+modified: 20221111112249259
 tags: 
-title: EditColourWidget (Examples)
+title: colour-picker-resolved (Examples)
 type: text/vnd.tiddlywiki
 
 \define resetPaletteActions()
@@ -21,7 +21,7 @@ ccc: #a0a3e9"""
 <$button actions=<<resetPaletteActions>> class="tc-small-gap-left" >Reset</$button>
 \end
 
-! Example
+! Examples
 
 The tiddler used is [[EditColourWidget (Palette)]] which looks like this: 
 

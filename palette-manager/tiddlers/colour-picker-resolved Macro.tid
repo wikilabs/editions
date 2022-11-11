@@ -1,5 +1,5 @@
 created: 20221003090453263
-modified: 20221109151706255
+modified: 20221111112236882
 tags: Macros [[Core Macros]]
 title: colour-picker-resolved Macro
 type: text/vnd.tiddlywiki
@@ -27,5 +27,5 @@ The <<.def colour-picker-resolved>> [[macro|Macros]] displays the native browser
 : ''Important:'' This setting depends on the behaviour of the browser native colour dialogue
 : For Chromium-based browsers it should be set to ''no''
 
-<<.macro-examples "colour-picker-resolved">>
+{{colour-picker-resolved (Examples)}}
 

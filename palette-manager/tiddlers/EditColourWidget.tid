@@ -1,6 +1,6 @@
 caption: edit-text
 created: 20131024141900000
-modified: 20221109151702157
+modified: 20221111112012651
 tags: Widgets
 title: EditColourWidget
 type: text/vnd.tiddlywiki
@@ -32,5 +32,7 @@ The content of the `<$edit-colour>` widget is ignored.
 |id |Optional -- unique identifier, can be used together with a label element |
 |name |Optional -- Can be used with label element. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/color |
 
+! Examples
 
-{{EditColourWidget (Examples)}}
+<<list-links "[prefix[test-colour-widget]]">>
+

@@ -1,5 +1,5 @@
 created: 20221109143612844
-modified: 20221109144934901
+modified: 20221111112633742
 tags: 
 title: test-colour-widget-index-minimal-no-resolver
 type: text/vnd.tiddlywiki
@@ -23,6 +23,13 @@ ccc: #a0a3e9"""
 <$button actions=<<resetPaletteActions>> class="tc-small-gap-left" >Reset</$button>
 \end
 
+
+!! Important
+
+Information how TW colour-macros can be resolved can be found at: [[colour-picker-resolved Macro]]
+
+---
+
 This test case uses a "data-tiddler based" palette with 3 colours defined.
 
 {{{ [<palette-name>] }}}
@@ -45,7 +52,7 @@ This test case uses a "data-tiddler based" palette with 3 colours defined.
 	index=bbb
 	class=test
 	default="#0f0"
-/> <<resetPalette>>
+/> <<resetPalette>> -- This example will show the default colour, since the macro can't be resolved without the `resolveColourActions` parameter. See the docs at: [[EditColourWidget]] 
 
 ```
 <$colour tiddler=<<palette-name>>
