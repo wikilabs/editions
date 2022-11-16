@@ -1,5 +1,5 @@
 created: 20221111125644772
-modified: 20221111133933078
+modified: 20221116122452880
 tags: 
 title: what-is-new
 type: text/vnd.tiddlywiki
@@ -17,5 +17,5 @@ type: text/vnd.tiddlywiki
 * The palette manager can be opened in a new window
 ** if the colour is eg: `alert-muted-foreground`
 ** the preview tiddler is named: `:/palettes/preview/alert-muted-foreground` which will be shown right below the colour
-* The palette manager can be heavily customized. See [[Customize the Palette Manager]]
+
 

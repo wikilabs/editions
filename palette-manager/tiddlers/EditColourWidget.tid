@@ -1,6 +1,6 @@
 caption: edit-text
 created: 20131024141900000
-modified: 20221111112012651
+modified: 20221116114121700
 tags: Widgets
 title: EditColourWidget
 type: text/vnd.tiddlywiki
@@ -25,12 +25,12 @@ The content of the `<$edit-colour>` widget is ignored.
 |$change |Optional -- Actions that are triggered once, if the colour is selected. The variable `actionValue` is available to the `changeActions` and contains the RGB colour value. |
 |$input |Optional -- Actions that are triggered every time an input event occurs within the colour picker.<br>This action depends on the `liveUpdate` value. The variable `actionValue` is available to the `inputActions` and contains the RGB colour value. |
 |resolveColourActions |Optional -- This aciton is activated, when the widget is initialized or refreshed.<br>* The action must create a valid RGB colour value.<br>* The action must create a temporary tiddler, that contains the resolved colours<br>* The temporary tiddler title can be accessed with the variable `resolved-temp-tiddler`|
-|tempPrefix|Optionial -- Prefix for a temporary tiddler, that contains the resolved colours created by the `resolveColourActions` actions.<br>* The prefix defaults to `$:/temp/` <br>* The tiddler title is dynamically created with the following attributes `<tempPrefix><tiddler>`. See: [[$:/temp/EditColourWidget (Palette)]]  |
-|template|Optional -- TODO|
+|tempPrefix|Optionial -- Prefix for a temporary tiddler, that contains the resolved colours created by the `resolveColourActions` actions.<br>* The prefix defaults to `$:/temp/` <br>* The tiddler title is dynamically created with the following attributes `<tempPrefix><tiddler>`. Eg: [[EditColourWidget (Palette) index]]  |
 |tooltip|Optional -- Tooltip shown on mouse hover |
 |disabled|Optional -- Disables the input if set to "yes". Defaults to "no"|
-|id |Optional -- unique identifier, can be used together with a label element |
-|name |Optional -- Can be used with label element. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/color |
+<!-- |id |Optional -- unique identifier, can be used together with a label element |
+|name |Optional -- Can be used with label element. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/color | 
+|template|Optional -- TODO| -- not implemented atm -->
 
 ! Examples
 
