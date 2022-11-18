@@ -1,0 +1,15 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "youtube-lite" adds a ligth weight Youtube Player Embedd element
+
+{{$:/plugins/wikilabs/youtube-lite/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+! License
+
+See: [[License]]
