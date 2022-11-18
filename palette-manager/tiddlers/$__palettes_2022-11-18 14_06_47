@@ -56,7 +56,7 @@ sidebar-muted-foreground-hover: #444444
 sidebar-muted-foreground: #c0c0c0
 sidebar-tab-background-selected: #363636
 sidebar-tab-background: <<colour tab-background>>
-sidebar-tab-border-selected: <<colour tab-border-selected>>
+sidebar-tab-border-selected: #7c7c7c
 sidebar-tab-border: <<colour tab-border>>
 sidebar-tab-divider: <<colour tab-divider>>
 sidebar-tab-foreground-selected: #df4d50
