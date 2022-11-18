@@ -26,9 +26,9 @@ type: text/vnd.tiddlywiki
 
 !! Changing Default Previews
 
-There are several new tiddlers all prefixed: `:/palettes/preview/` and colour name like  `alert-muted-foreground`
+There are several new tiddlers all prefixed: `$:/palettes/preview/` and colour name like  `alert-muted-foreground`
 
-eg: `:/palettes/preview/alert-muted-foreground` .. is the first preview that is shown. At the moment the `$` as the first character is missing for easy development. This will change in the final PR.
+eg: `$:/palettes/preview/alert-muted-foreground` .. is the first preview that is shown. At the moment the `$` as the first character is missing for easy development. This will change in the final PR.
 
 * The palette manager edits a palette, that was based on vanilla
 * The best way to create your own palett is to clone vanilla and start from there.

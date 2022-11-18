@@ -19,9 +19,9 @@ Search: <$edit-text tiddler="$:/temp/search-term" tag="input" placeholder="colou
 
 <$list filter="[subfilter<activeFilter>]" variable="colourName" >
 
-	<$let previewName={{{ [<colourName>addprefix[:/palettes/preview/]] }}} 
+	<$let previewName={{{ [<colourName>addprefix[$:/palettes/preview/]] }}} 
 			token={{{ [<colourName>split[-]nth[1]] }}} 
-			tokenPrefix={{{ [<token>addprefix[:/palettes/preview/]] }}} 
+			tokenPrefix={{{ [<token>addprefix[$:/palettes/preview/]] }}} 
 	>
 		<$list filter="[{$:/temp/search-term}] :cascade[<blank>append<search-is-token>append<colour-is-preview>append<search>]" variable=preview>
 		<!-- $list filter="[{$:/temp/search-term}] :cascade[<colour-is-preview>]" variable="preview"-->

@@ -16,6 +16,6 @@ type: text/vnd.tiddlywiki
 * It's straight forward to create your own previews
 * The palette manager can be opened in a new window
 ** if the colour is eg: `alert-muted-foreground`
-** the preview tiddler is named: `:/palettes/preview/alert-muted-foreground` which will be shown right below the colour
+** the preview tiddler is named: `$:/palettes/preview/alert-muted-foreground` which will be shown right below the colour
 
 
