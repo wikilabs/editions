@@ -1,0 +1,11 @@
+caption: ContentsX
+list-before: $:/core/ui/SideBar/Open
+tags: $:/tags/SideBar  MagicTabs
+title: $:/plugins/amp/MagicTabs/TableOfContents
+type: text/vnd.tiddlywiki
+
+<div class="tc-table-of-contents">
+
+<<mt-tocsx sort:'sort[mt-part.order]'>>
+
+</div>

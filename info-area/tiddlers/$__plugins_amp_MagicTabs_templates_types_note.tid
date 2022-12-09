@@ -1,0 +1,9 @@
+about: 
+color: #FFA500
+description: 
+icon: $:/plugins/amp/MagicTabs/images/note
+mt-source.parents.list: 
+mt-source.tiddler: 
+tags: $:/type/note
+title: $:/plugins/amp/MagicTabs/templates/types/note
+type: text/vnd.tiddlywiki

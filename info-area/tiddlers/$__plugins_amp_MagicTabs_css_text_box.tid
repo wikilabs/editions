@@ -1,0 +1,51 @@
+tags: $:/tags/Stylesheet MagicTabs 
+title: $:/plugins/amp/MagicTabs/css/text/box
+type: text/vnd.tiddlywiki
+
+.box {
+display:inline-block;
+-moz-border-radius: 10px;
+border-radius: 10px;
+margin: 0.3em 1em 1.25em 1em; 
+padding:0.25em 3em;
+background-color:#ececec;
+}
+
+.box.yellow {
+	background-color:#FFFFDD;
+}
+
+.box.red {
+	background-color:#FFDDDD;
+}
+
+.box.blue {
+	background-color:#F6F6FF;
+}
+
+.important {
+	display:inline-block;
+	border:1px solid #CCCCCC;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin: 1em 1em 1em 1em; 
+	padding: 0em 3em 1em 6em;
+	background-color:#FFFFCC;
+	font-weight: 700;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.important:before {
+	display: block;
+	content: "!";
+	font-size: 80px;
+	font-weight: bold;
+	position: relative;
+	left: -50px;
+	top: 50px;
+	color: <<color foreground>>;
+}
+
+.important b {
+color:red;
+}

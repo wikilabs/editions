@@ -1,0 +1,60 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/SearchBox/filters
+type: text/vnd.tiddlywiki
+
+\define mt-filter-select()
+tag[$(currentTiddler)$]
+\end
+\define searchResultFilters()
+<div class="tc-table-of-contents" style="margin-bottom: -20px;">
+        <$reveal state=<<qualify "$:/state/mt/filter-search">> type="nomatch" text="show" default="hide">
+            <$button class="tc-btn-invisible">
+                <$action-setfield $tiddler=<<qualify "$:/state/mt/filter-search">> text="show"/>
+                {{$:/core/images/right-arrow}} filters
+            </$button>
+        </$reveal>
+        <$reveal state=<<qualify "$:/state/mt/filter-search">> type="match" text="show" default="hide">
+            <$button class="tc-btn-invisible">
+                <$action-setfield $tiddler=<<qualify "$:/state/mt/filter-search">> text="hide"/>
+                {{$:/core/images/down-arrow}} filters
+            </$button>
+        </$reveal>
+</div>
+<table class="invisible" style="font-size: 90%">
+<$reveal state=<<qualify "$:/state/mt/filter-search">> type="match" text="show" default="hide">
+<$tiddler tiddler="$:/temp/mt/searchresults">
+<table class="invisible">
+<tr>
+<td>Filter by: </td>
+<td>
+<$select tiddler='$:/temp/mt/searchresults' field="filter" default=''>
+<option value=""></option>
+<$list filter='[all[shadows+tiddlers]tag[$:/tags/MagicTabs/dashboard]sort[]]'>
+<option value=<<mt-filter-select>>><$view field='caption'/></option>
+</$list>
+</$select>
+{{$:/plugins/amp/MagicTabs/images/filter}}
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>Sort by: </td>
+<td><<mt-sort-title>></td>
+<td><<mt-sort-modified>></td>
+<td></td>
+</tr>
+</table>
+
+
+sort: {{!!sort}}<br>
+
+order: {{!!order}}
+
+</$tiddler>
+</$reveal>
+</table>
+
+
+\end

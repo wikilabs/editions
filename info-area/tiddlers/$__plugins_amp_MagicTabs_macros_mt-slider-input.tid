@@ -1,0 +1,196 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-slider-input
+type: text/vnd.tiddlywiki
+
+\define mt-current-type() $:/temp/$(currentType)$
+
+\define mt-topics-inherit() $(sourceTopics)$ $(templateTopics)$
+
+\define mt-slider-input-button(tiddler, type, template, btnClass:"tab", contentClass)
+
+	<$set name="currentType" value={{$:/state/mt/slider-input}}>
+
+		<$set name="currentTemp" value=<<mt-current-type>>>
+
+			<$reveal state="$type$!!modified" type="match" text="">
+
+				<$button popup=<<qualify "$:/state/mt/slider-input-popup">> class="btn-slider-input $btnClass$" tooltip="add">
+
+					<$action-deletetiddler $tiddler=<<currentTemp>>/>
+
+					<$reveal state=<<qualify "$:/state/mt/slider-input-popup">> type="match" text="" default="">
+
+						{{$:/core/images/new-button}}
+
+					</$reveal>
+
+					<$reveal state=<<qualify "$:/state/mt/slider-input-popup">> type="nomatch" text="" default="">
+
+						{{$:/core/images/cancel-button}}
+
+					</$reveal>
+
+				</$button>
+
+			</$reveal>
+
+			<$reveal state="$type$!!modified" type="nomatch" text="">
+
+				<$reveal default={{$type$!!mt-template.fields}} type="nomatch" text="">
+        
+					<$set name="hasRoot" filter="[[$(storyTiddler)$]!mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.root}} emptyValue="">
+
+						<$set name="noRoot" filter="[[$(storyTiddler)$]!mt-source.tiddler[]mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.tiddler}} emptyValue="">
+
+							<$set name="rootTiddler" value=<<mt-select-root>>>
+
+							<$set name="templateTopics" filter="[[$template$]has[modified]!modified[]has[mt-topics.list]!mt-topics.list[]]" value={{$template$!!mt-topics.list}} emptyValue="">
+
+							<$set name="sourceTopics" value={{$(storyTiddler)$!!mt-topics.list}}>
+
+
+								<$button popup=<<qualify "$:/state/mt/slider-input-popup">>  class="btn-slider-input $btnClass$" tooltip="add">
+
+									<$action-deletetiddler $tiddler=<<currentTemp>>/>
+
+									<$action-setfield $tiddler="$:/state/mt/slider-input" text="$type$"/>
+                
+									<$action-setfield $tiddler={{$type$!!mt-template.fields}} title="$:/temp/$type$"/>
+
+									<$action-setfield $tiddler="$:/temp/$type$" mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>> mt-topics.list=<<mt-topics-inherit>>/>
+
+									<$reveal state=<<qualify "$:/state/mt/slider-input-popup">> type="match" text="" default="">
+
+										{{$:/core/images/new-button}}
+
+									</$reveal>
+
+									<$reveal state=<<qualify "$:/state/mt/slider-input-popup">> type="nomatch" text="" default="">
+
+										{{$:/core/images/cancel-button}}
+
+									</$reveal>
+
+								</$button>
+
+							</$set>
+
+							</$set>
+
+							</$set>
+
+						</$set>
+
+					</$set>
+
+				</$reveal>
+
+			</$reveal>
+
+		</$set>
+
+	</$set>
+                    
+                    
+
+	<$reveal type="nomatch" text="" default="" state=<<qualify "$:/state/mt/slider-input-popup">> class="tc-popup-handle" animate="yes" retain="yes">
+
+		<$reveal default="$tiddler$" type="nomatch" text="">
+
+			<div class="$contentClass$">
+
+				<$tiddler tiddler="$(storyTiddler)$">
+
+					<$transclude tiddler="""$tiddler$"""/>
+
+                </$tiddler>
+
+            </div>
+
+        </$reveal>
+
+        <$reveal default="$tiddler$" type="match" text="">
+
+            <$list filter="[[$type$]prefix[$:/type/]has[modified]!modified[]]" emptyMessage="""No valid type defined""">
+
+                <div class="$contentClass$">
+
+                    !New {{$type$!!caption}}
+
+                    <<mt-new-tiddler "$type$">>
+
+                </div>
+
+            </$list>
+
+        </$reveal>
+
+</$reveal>
+\end
+
+
+
+
+\define mt-slider-input-seek-template(tiddler, type, btnClass, contentClass)
+
+        <$macrocall $name="mt-slider-input-button"
+            tiddler="$tiddler$"
+            type="$type$"
+            template={{$type$!!mt-template.fields}}
+            btnClass="$btnClass$"
+            contentClass="$contentClass$"
+            />
+
+\end
+
+
+
+\define mt-slider-input-seek-form(type, btnClass, contentClass)
+
+        <$macrocall $name="mt-slider-input-button"
+            tiddler={{$type$!!mt-template.form}}
+            type="$type$"
+            template={{$type$!!mt-template.fields}}
+            btnClass="$btnClass$"
+            contentClass="$contentClass$"
+            />
+
+\end
+
+
+
+
+\define mt-slider-input(tiddler, type, btnClass, contentClass)
+
+<$list filter="[[$tiddler$]] [[$type$]prefix[$:/type/]] +[has[title]limit[1]]" emptyMessage="""
+	<$reveal state="$(currentTab)$!!mt-contents.type" type="nomatch" text="">
+		<$macrocall $name='mt-slider-input-seek-form' 
+			type={{$(currentTab)$!!mt-contents.type}}
+			btnClass='$btnClass$'
+			contentClass='$contentClass$'
+			/>
+	</$reveal>""">
+
+<$list filter="[[$type$]has[modified]!modified[]]" variable="ignore" emptyMessage="""
+	<$macrocall $name='mt-slider-input-seek-template'
+		tiddler='$tiddler$'
+		type={{$(currentTab)$!!mt-contents.type}}
+		btnClass='$btnClass$'
+		contentClass='$contentClass$'
+		/>
+        """>
+
+	<$macrocall $name="mt-slider-input-button"
+		tiddler="$tiddler$"
+		type="$type$"
+		template={{$type$!!mt-template.fields}}
+		btnClass="$btnClass$"
+		contentClass="$contentClass$"
+		/>
+
+</$list>
+
+</$list>
+\end
+
+<<mt-slider-input type:"$:/type/note">>

@@ -1,0 +1,64 @@
+tags: MagicTabs $:/tags/Macro 
+title: $:/plugins/amp/MagicTabs/macros/mt-new-tiddler
+type: text/vnd.tiddlywiki
+
+\define mt-select-root()
+$(hasRoot)$$(noRoot)$
+\end
+\define mt-new-tiddler-button(type, template, label:"add", class="")
+
+<$set name="hasRoot" filter="[[$(storyTiddler)$]!mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.root}} emptyValue="">
+
+<$set name="noRoot" filter="[[$(storyTiddler)$]!mt-source.tiddler[]mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.tiddler}} emptyValue="">
+
+<$set name="rootTiddler" value=<<mt-select-root>>>
+
+    <$button tooltip="$label$" class="$class$">
+        <$action-setfield $tiddler="$:/state/mt/new-tiddler" text={{$:/temp/$type$!!draft.title}}/>
+        <$action-setfield $tiddler="$:/temp/$type$" title={{$:/temp/$type$!!draft.title}}/>
+        <$action-setfield $tiddler={{$:/temp/$type$!!draft.title}} mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>>/>
+        <$action-deletetiddler $tiddler="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$:/temp/$type$" mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>>/>
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-tiddler"/>
+        $label$
+    </$button>
+    
+</$set>
+    
+</$set>
+    
+</$set>
+
+\end
+
+\define mt-new-tiddler(type,label:"add",class="")
+
+    <<mt-fields-form "$type$">>
+
+<$reveal state="$:/temp/$type$!!draft.title" type="nomatch" text="">
+
+    <$reveal default="$(currentTab)$" type="nomatch" text="">
+
+        <$macrocall $name="mt-new-tiddler-button"
+            type="$type$"
+            template={{$type$!!mt-template.fields}}
+            mt-source.tiddler="$(storyTiddler)$"
+            />
+
+    </$reveal>
+
+    <$reveal default="$(currentTab)$" type="match" text="">
+
+        <$macrocall $name="mt-new-tiddler-button"
+            type="$type$"
+            template={{$type$!!mt-template.fields}}
+            />
+
+    </$reveal>
+
+</$reveal>
+
+\end
+
+<<mt-new-tiddler "$:/type/biography">>

@@ -1,0 +1,57 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/dashboard/input
+type: text/vnd.tiddlywiki
+
+\define mt-current-temp()
+$:/temp/$(currentType)$
+\end
+
+\define mt-dashboard-input-button(type, template)
+
+<$set name="currentType" value={{$:/state/mt/slider-input}}>
+
+		<$button>
+
+			<$action-deletetiddler $tiddler=<<mt-current-temp>>/>
+
+			<$action-setfield $tiddler="$:/state/mt/slider-input" text="$type$"/>
+                
+			<$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+
+			<$action-setfield $tiddler="$:/state/mt/slider-input" text="$type$" default="$:/type/note"/>
+
+			{{$type$!!caption}}
+
+		</$button>
+
+</$set>
+
+\end
+
+
+\define mt-dashboard-input-list(rootType, state)
+
+	<$list filter="$rootType$ [all[shadows+tiddlers]prefix[$:/type]mt-source.type[$rootType$]sort[title]]">
+
+		<$macrocall $name="mt-dashboard-input-button" type=<<currentTiddler>> template={{!!mt-template.fields}}/>
+
+	</$list>
+
+	<$reveal state="$state$" type="nomatch" text="" default="$rootType$">
+
+		<$tiddler tiddler={{$state$!!text}}>
+
+			!New {{!!caption}}
+
+			<$list filter="[all[current]has[mt-dashboard.add.content]!mt-dashboard.add.content[]]" emptyMessage="""<$macrocall $name='mt-new-tiddler' type={{!!title}}/>""">
+
+				<$transclude tiddler={{!!mt-dashboard.add.content}} mode="block"/>
+            
+			</$list>
+
+		</$tiddler>
+
+	</$reveal>
+\end
+
+<$macrocall $name="mt-dashboard-input-list" rootType={{$:/state/mt/dashboard}} state="$:/state/mt/slider-input"/>

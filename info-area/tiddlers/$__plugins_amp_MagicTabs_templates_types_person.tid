@@ -1,0 +1,13 @@
+about: 
+icon: $:/plugins/amp/MagicTabs/images/person
+mt-person.birth.date: 
+mt-person.birth.place: 
+mt-person.death.date: 
+mt-person.death.place: 
+mt-person.gender: 
+mt-person.name: 
+mt-person.picture: 
+mt-person.surname: 
+tags: $:/type/person
+title: $:/plugins/amp/MagicTabs/templates/types/person
+type: text/vnd.tiddlywiki

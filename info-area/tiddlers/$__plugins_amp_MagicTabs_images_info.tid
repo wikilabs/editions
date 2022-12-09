@@ -1,0 +1,10 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/images/info
+type: text/vnd.tiddlywiki
+
+<$reveal state="$:/plugins/TheDiveO/FontAwesome/fonts/FontAwesome!!modified" type="nomatch" text="">
++ <i class="fa fa-info"></i>
+</$reveal>
+<$reveal state="$:/plugins/TheDiveO/FontAwesome/fonts/FontAwesome!!modified" type="match" text="">
+info
+</$reveal>

@@ -1,0 +1,18 @@
+tags: $:/tags/Macro  MagicTabs
+title: $:/plugins/amp/MagicTabs/forms/input/person/name
+type: text/vnd.tiddlywiki
+
+\define inputPersonName(type:"$:/type/person")
+<table class="invisible" style="width: 100%">
+<tr>
+<td><$edit-text tiddler="$:/temp/$type$" field="mt-person.name" tag="input" placeholder="Name" class="tc-edit-texteditor" size="20"/></td>
+<td><$edit-text tiddler="$:/temp/$type$" field="mt-person.surname" tag="input" placeholder="Surname" class="tc-edit-texteditor" size="20"/></td>
+<td><<buttonPersonPicture>></td>
+</tr>
+<tr>
+<td colspan="3"><$list filter="[all[tiddlers]tag[$type$]has[mt-person.name]field:mt-person.name{!!mt-person.name}has[mt-person.surname]field:mt-person.surname{!!mt-person.surname}] -$:/temp/$type$">@@color:red;There is already a tiddler for that person:@@ <$link><$view field="title"/></$link></$list></td>
+</tr>
+</table>
+\end
+
+<<inputPersonName>>

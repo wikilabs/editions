@@ -1,0 +1,17 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/new/part
+type: text/vnd.tiddlywiki
+
+!New part
+
+<<mt-new-part-table "$:/type/part">>
+
+<$macrocall $name="mt-new-part-button"
+    type="$:/type/part"
+    template={{$:/type/part!!mt-template.fields}}
+    title={{$:/temp/$:/type/part!!draft.title}}
+    label="add"
+    class=""
+    pre={{$:/temp/mt/part/preTitle}}
+    order={{$:/temp/$:/type/part!!mt-part.order}}
+	/>

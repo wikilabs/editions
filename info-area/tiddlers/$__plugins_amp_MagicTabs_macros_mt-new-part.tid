@@ -1,0 +1,76 @@
+tags: MagicTabs $:/tags/Macro 
+title: $:/plugins/amp/MagicTabs/macros/mt-new-part
+type: text/vnd.tiddlywiki
+
+\define mt-new-part-button2(type:"$:/type/part", template, label:"add", class="", pre, order)
+
+<$set name="hasRoot" filter="[[$(storyTiddler)$]!mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.root}} emptyValue="">
+
+<$set name="noRoot" filter="[[$(storyTiddler)$]!mt-source.tiddler[]mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.tiddler}} emptyValue="">
+
+<$set name="rootTiddler" value=<<mt-select-root>>>
+
+<$reveal state="$:/temp/$type$!!draft.title" type="nomatch" text="">
+
+<$set name="caption" filter="[[$:/temp/$type$]has[mt-part.title]!mt-part.title[]]" value={{$:/temp/$type$!!mt-part.title}} emptyValue={{$:/temp/$type$!!draft.title}}>
+
+    <$button tooltip="$label$" class="$class$">
+        <$action-setfield $tiddler="$:/state/mt/new-tiddler" text={{$:/temp/$type$!!draft.title}}/>
+        <$action-setfield $tiddler="$:/temp/$type$" title={{$:/temp/$type$!!draft.title}}/>
+        <$action-setfield $tiddler={{$:/temp/$type$!!draft.title}} mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>> caption=<<caption>>/>
+        <$action-deletetiddler $tiddler="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$:/temp/$type$" mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>>/>
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-tiddler"/>
+        $label$: {{$:/temp/$type$!!draft.title}}
+    </$button>
+
+</$set>
+
+</$reveal>
+
+<$reveal state="$:/temp/$type$!!draft.title" type="match" text="">
+
+<$set name="title" value="$(storyTiddler)$$pre$$order$">
+
+<$set name="caption" filter="[[$:/temp/$type$]has[mt-part.title]!mt-part.title[]]" value={{$:/temp/$type$!!mt-part.title}} emptyValue=<<title>>>
+
+CAPTION: <<caption>>
+
+    <$button tooltip="$label$" class="$class$">
+        <$action-setfield $tiddler="$:/state/mt/new-tiddler" text=<<title>>/>
+        <$action-setfield $tiddler="$:/temp/$type$" title=<<title>>/>
+        <$action-setfield $tiddler=<<title>> mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>> caption=<<caption>>/>
+        <$action-deletetiddler $tiddler="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$:/temp/$type$" mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>>/>
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-tiddler"/>
+        <<title>>
+    </$button>
+    
+</$set>
+    
+</$set>
+
+</$reveal>
+
+</$set>
+    
+</$set>
+    
+</$set>
+
+\end
+
+\define mt-new-part-button(type:"$:/type/part")
+<$macrocall $name="mt-new-part-button2"
+    type="$type$"
+    template={{$type$!!mt-template.fields}}
+    title={{$:/temp/$type$!!draft.title}}
+    label="add"
+    class=""
+    pre={{$:/temp/mt/part/preTitle}}
+    order={{$:/temp/$type$!!mt-part.order}}
+	/>
+\end
+<<mt-new-part>>

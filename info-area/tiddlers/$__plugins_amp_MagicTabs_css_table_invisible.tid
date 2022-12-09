@@ -1,0 +1,23 @@
+tags: $:/tags/Stylesheet MagicTabs 
+title: $:/plugins/amp/MagicTabs/css/table/invisible
+type: text/vnd.tiddlywiki
+
+html body.tc-body .invisible {
+     border-color:#fff;
+     border-width:0px
+}
+
+html body.tc-body .invisible th {
+     border-color:#fff;
+     border-width:0px;
+}
+
+html body.tc-body .invisible tr {
+     border-color:#fff;
+     border-width:0px;
+}
+
+html body.tc-body .invisible td {
+     border-color:#fff;
+     border-width:0px;
+}

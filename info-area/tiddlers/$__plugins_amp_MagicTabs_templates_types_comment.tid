@@ -1,0 +1,6 @@
+color: #daa520
+icon: $:/plugins/amp/MagicTabs/images/comment
+mt-source.tiddler: 
+tags: $:/type/comment $:/type/note
+title: $:/plugins/amp/MagicTabs/templates/types/comment
+type: text/vnd.tiddlywiki

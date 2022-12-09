@@ -1,0 +1,33 @@
+list-after: $:/core/ui/ViewTemplate/title
+tags: $:/tags/ViewTemplate MagicTabs 
+title: $:/plugins/amp/MagicTabs/ViewTemplate/subtitle
+type: text/vnd.tiddlywiki
+
+\define fieldValue()
+	<$tiddler tiddler={{!!$(fieldName)$}}>
+		<$transclude tiddler={{!!icon}}/>
+        <$link><$view field="title"/></$link>&nbsp;
+    </$tiddler>
+\end
+\define fieldList()
+	<$list filter="[all[current]list[!!$(fieldName)$]]">
+    	<$transclude tiddler={{!!icon}}/>
+        <$link><$view field="title"/></$link>&nbsp;
+    </$list>
+\end
+<div class="tc-subtitle">
+    <$list filter="[all[current]!tag[$:/action/show/modifier]!tag[$:/action/hide/subtitle]]">
+        <$list filter="[all[current]tag[$:/type/person]!is[system]]">
+            {{!!mt-person.birth.place}} {{!!mt-person.birth.date}} – {{!!mt-person.death.place}} {{!!mt-person.death.date}}<br>
+        </$list>
+        <$list filter="[all[current]fields[]prefix[mt-source]!suffix[list]]" variable="fieldName">
+        	<<fieldValue>>
+        </$list>
+        <$list filter="[all[current]fields[]prefix[mt-source]suffix[list]]" variable="fieldName">
+        	<<fieldList>>
+        </$list>
+    </$list>
+    <$list filter="[all[current]tag[$:/action/show/modifier]]">
+        {{||$:/core/ui/ViewTemplate/subtitle}}
+    </$list>
+</div>

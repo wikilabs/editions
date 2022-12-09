@@ -1,0 +1,40 @@
+tags: MagicTabs $:/tags/Macro 
+title: $:/plugins/amp/MagicTabs/macros/fields-table
+type: text/vnd.tiddlywiki
+
+\define fields-table2(tiddler, fieldTitle:"title")
+    <$reveal state="$tiddler$!!modified" type="match" text="">
+        The tiddler [[$tiddler$]] doesn't exist.
+    </$reveal>
+    <$reveal state="$tiddler$!!modified" type="nomatch" text="">
+        <$tiddler tiddler="$tiddler$">
+            <table class="" style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td>title</td>
+                        <td><$edit-text field="$fieldTitle$" size="40" class="tc-edit-fields"/></td>
+                    </tr>
+                    <$list filter="[all[current]fields[]sort[]] -created -creator -modified -modifier -title -text" variable="field">
+                        <tr>
+                            <td><<field>></td>
+                            <td><$edit-text field=<<field>> size="40" class="tc-edit-fields"/></td>
+                        </tr>
+                    </$list>
+                    <tr>
+                        <td>text</td>
+                        <td><$edit-text field="text" class="tc-edit-texteditor"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </$tiddler>
+    </$reveal>
+\end
+
+\define fields-table(tiddler, fieldTitle:"title")
+    <$reveal default="$tiddler$" text="" type="match">
+        <$macrocall $name="fields-table2" tiddler=<<currentTiddler>> fieldTitle="$fieldTitle$"/>
+    </$reveal>
+    <$reveal default="$tiddler$" text="" type="nomatch">
+        <$macrocall $name="fields-table2" tiddler="$tiddler$" fieldTitle="$fieldTitle$"/>
+    </$reveal>
+\end

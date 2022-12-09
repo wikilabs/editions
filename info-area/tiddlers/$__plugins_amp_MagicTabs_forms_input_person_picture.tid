@@ -1,0 +1,16 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/forms/input/person/picture
+type: text/vnd.tiddlywiki
+
+\define buttonPersonPicture()
+<$button class="tc-btn-invisible pretty">
+    <$action-sendmessage $message="tm-modal" $param="$:/plugins/amp/MagicTabs/forms/input/image"/>
+    <$reveal state="$:/temp/$:/type/image!!type" type="match" text="">
+        <span style="font-size:2em;">{{$:/plugins/amp/MagicTabs/images/person}}</span>
+    </$reveal>
+    <$reveal state="$:/temp/$:/type/image!!type" type="nomatch" text="">
+        <$image source="$:/temp/$:/type/image" width="128"/>
+    </$reveal>
+</$button>
+\end
+<<buttonPersonPicture>>

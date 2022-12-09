@@ -1,0 +1,9 @@
+tags: $:/tags/Stylesheet MagicTabs 
+title: $:/plugins/amp/MagicTabs/css/text/grey
+type: text/vnd.tiddlywiki
+
+.text-grey {
+	font-size: 0.9em;
+	color: #c0c0c0;
+	font-weight: 300;
+}

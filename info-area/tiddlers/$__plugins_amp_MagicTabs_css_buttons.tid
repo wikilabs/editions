@@ -1,0 +1,96 @@
+tags: $:/tags/Stylesheet MagicTabs 
+title: $:/plugins/amp/MagicTabs/css/buttons
+type: text/vnd.tiddlywiki
+
+.agenda td button {
+	padding: 10%;
+	margin: 0px 0px;
+	width: 100%;
+	height: 100%;
+	border: none;
+	text-align: center;
+	background: #FFFFDD;
+}
+
+.btn-sidebar {
+	height: 6em;
+	width: 6em;
+	margin: 0px -10px 0px 0px;
+	background: none;
+	color: <<color sidebar-controls-foreground>>;
+	border: none;
+	font-size: 1em;
+	line-height: 1.2em;
+}
+
+.btn-sidebar-down {
+	height: 6em;
+	width: 6em;
+	margin: 0px -10px 0px 0px;
+	background: none;
+	color: <<color sidebar-controls-foreground-hover>>;
+	border: none;
+	font-size: 1em;
+	line-height: 1.4em;
+}
+
+.btn-sidebar:hover {
+	color: <<color sidebar-controls-foreground-hover>>;
+}
+
+.btn-sidebar-down:hover {
+	color: <<color sidebar-controls-foreground>>;
+}
+
+.btn-newHere-sidebar {
+	background: none;
+	color: #FFFFFF;
+	border: 1px solid white;
+	font-size: 1.2em;
+	font-weight:bold;
+	line-height: 1.6em;
+}
+
+
+.btn-big {
+	padding: 8px;
+	margin: 0px 8px 4px 0px;
+	color: <<colour download-foreground>>;
+	fill: <<colour download-foreground>>;
+	border: none;
+	font-size: 1.2em;
+	font-weight: bold;
+	line-height: 1.4em;
+}
+
+.btn-big.grey {
+	background: grey;
+}
+
+.btn-big.green {
+	background: <<colour download-background>>;
+}
+
+.btn-big.red {
+	background: red;
+}
+
+.btn-slider-input {
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+}
+
+.btn-slider-input.tab {
+	float: right;
+	position:relative;
+	top: -3px;
+}
+
+.btn-slider-input.dashboard {
+	float: right;
+	position:relative;
+	top: 0px;
+}
+

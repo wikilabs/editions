@@ -1,0 +1,20 @@
+caption: <<mt-tab-caption>>
+color: #d3d3d3
+description: 
+icon: 
+mt-contents.type: 
+mt-list.filter: 
+mt-list.filter_alt: 
+mt-list.heading: 
+mt-list.heading_alt: 
+mt-list.sort: 
+mt-list.sort_alt: 
+mt-list.template: 
+mt-list.template_alt: 
+tags: $:/type/tab MagicTabs
+title: $:/plugins/amp/MagicTabs/templates/types/tab
+type: text/vnd.tiddlywiki
+
+<<mt-slider-input>>
+
+<<mt-tab-contents>>

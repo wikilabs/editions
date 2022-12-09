@@ -1,0 +1,13 @@
+about: 
+icon: $:/plugins/amp/MagicTabs/images/check
+mt-date.alpha: 
+mt-date.due: 
+mt-date.omega: 
+mt-source.parents.list: 
+mt-source.tiddler: 
+mt-task.owner: 
+mt-task.prority: 
+mt-task.status: 
+tags: $:/type/task
+title: $:/plugins/amp/MagicTabs/templates/types/task
+type: text/vnd.tiddlywiki

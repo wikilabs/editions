@@ -1,0 +1,14 @@
+caption: Dashboard
+tags: MagicTabs $:/tags/config 
+title: $:/plugins/amp/MagicTabs/config/dashboard
+type: text/vnd.tiddlywiki
+
+!!!Dashboard buttons
+<$list filter="[all[shadows+tiddlers]prefix[$:/type/]sort[]]">
+<$checkbox tag="$:/tags/MagicTabs/dashboard">
+{{!!caption}}
+</$checkbox>
+<br>
+</$list>
+
+Buttons size: <$edit-text tiddler="$:/config/MagicTabs/btn-touch/font-size/$:/plugins/amp/MagicTabs" tag="input" size="6"/>

@@ -1,0 +1,10 @@
+about: 
+color: #3333D3
+icon: $:/plugins/amp/MagicTabs/images/part
+mt-part.order: 
+mt-part.title: 
+mt-source.root: 
+mt-source.tiddler: 
+tags: $:/type/part
+title: $:/plugins/amp/MagicTabs/templates/types/part
+type: text/vnd.tiddlywiki

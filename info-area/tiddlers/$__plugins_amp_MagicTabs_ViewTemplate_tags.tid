@@ -1,0 +1,11 @@
+list-before: $:/core/ui/ViewTemplate/body
+tags: $:/tags/ViewTemplate MagicTabs 
+title: $:/plugins/amp/MagicTabs/ViewTemplate/tags
+type: text/vnd.tiddlywiki
+
+<div class="tc-tags-wrapper">
+<$list filter="[all[current]!tag[$:/action/hide/tags]]" variable="yes">
+<$list filter="[all[current]!is[system]list[!!mt-topics.list]]" template="$:/core/ui/TagTemplate" storyview="pop"/>
+<$list filter="[all[current]!is[system]tags[]!is[system]sort[title]] [all[current]is[system]tags[]]" template="$:/core/ui/TagTemplate" storyview="pop"/>
+</$list>
+</div>

@@ -1,0 +1,66 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-tab-contents
+type: text/vnd.tiddlywiki
+
+\define mt-tab-contents3(tag, sort)
+<$list filter="[all[current]listed[mt-source.topics.list]] [all[tiddlers]mt-source.tiddler[$(storyTiddler)$]] +[tag[$tag$]!is[system]!has[draft.of]sort[$sort$]]">
+<$link><$transclude tiddler={{!!icon}}/><$view field="title"/></$link><br>
+</$list>
+\end
+
+\define mt-tab-contents2(tag, sort)
+<$set name="icon" filter="[[$(currentTab)$]has[icon]!icon[]]" value={{$(currentTab)$!!icon}}>
+    <$set name="mt-list.heading" filter="[[$(currentTab)$]has[mt-list.heading]!mt-list.heading[]]" value={{$(currentTab)$!!mt-list.heading}} emptyValue={{$(currentTab)$!!description}}>
+        <$set name="mt-list.heading_alt" filter="[[$(currentTab)$]has[mt-list.heading_alt]!mt-list.heading[]]" value={{$(currentTab)$!!mt-list.heading_alt}} emptyValue="Tagging">
+            <$set name="mt-list.filter" filter="[[$(currentTab)$]has[mt-list.filter]!mt-list.filter[]]" value={{$(currentTab)$!!mt-list.filter}} emptyValue=<<mt-tab-filter "$tag$" "$sort$">> >
+                <$set name="mt-list.filter_alt" filter="[[$(currentTab)$]has[mt-list.filter_alt]!mt-list.filter_alt[]]" value={{$(currentTab)$!!mt-list.filter_alt}} emptyValue=<<mt-tab-filter-alt "$tag$">> >
+
+                    <h1><$transclude tiddler=<<icon>>/> <$text text=<<mt-list.heading>>/></h1>
+
+                        <$list filter=<<mt-list.filter>> template={{$(currentTab)$!!mt-list.template}} emptyMessage="none"/>
+
+                    <h1><$transclude tiddler=<<icon>>/> <$text text=<<mt-list.heading_alt>>/></h1>
+
+                        <$list filter=<<mt-list.filter_alt>> template={{$(currentTab)$!!mt-list.template_alt}} emptyMessage="none"/>
+
+                </$set>
+            </$set>
+        </$set>
+    </$set>
+</$set>
+\end
+
+\define buttonConfig(text)
+<$button set=<<qualify "$:/state/MagicTabs/tab">> setTo="$text$">
+{{$:/core/images/options-button}}
+</$button>
+\end
+
+\define mt-tab-contents()
+<$reveal state="$(currentTab)$!!mt-contents.type" type="nomatch" text="">
+
+    <$macrocall $name="mt-tab-contents2" tag={{$(currentTab)$!!mt-contents.type}} sort={{$(currentTab)$!!mt-list.sort}}/>
+
+</$reveal>
+
+<$reveal state="$(currentTab)$!!mt-contents.type" text="" type="match">
+
+    <$reveal state="$(currentTab)$!!mt-list.filter" text="" type="match">
+
+!No results here!
+
+!!What do you want to show in this tab?
+
+Please define either:
+
+# the type and description of the tiddlers you want to show (for instance: $:/type/comment):
+#> fill the fields `mt-contents.type` and `description` in the tiddler [[$(currentTab)$]]
+
+# the list filter, heading and template you want to use to show results:
+#> fill the fields `mt-list.filter`, `mt-list.heading`, `mt-list.template` in the tiddler [[$(currentTab)$]]
+
+    </$reveal>
+
+</$reveal>
+
+\end

@@ -1,0 +1,11 @@
+tags: MagicTabs $:/plugins/amp/MagicTabs/reading
+title: $:/plugins/amp/MagicTabs/templates/tabs/biography
+type: text/vnd.tiddlywiki
+
+<h2><$link to={{!!title}}><$view field="title"/></$link></h2>
+
+<h3><$transclude field="description"/></h3>
+
+<$list filter="[all[current]mt-source.tiddler<currentTiddler>] [all[current]list[!!mt-topics.list]] [all[current]list[!!mt-source.parents.list]] -[title<storyTiddler>]" template="$:/core/ui/TagTemplate"/><$list filter="[all[current]tags[]!is[system]]" template="$:/core/ui/TagTemplate"/>
+
+<$transclude tiddler={{!!title}} mode="block"/>

@@ -1,0 +1,54 @@
+list-after: 
+tags: $:/tags/ViewTemplate MagicTabs 
+title: $:/plugins/amp/MagicTabs/ViewTemplate/TabsBar
+type: text/vnd.tiddlywiki
+
+\define resettab(state)
+<$reveal state=<<qualify $state$>> type="nomatch" text="">
+   <$tiddler tiddler=<<qualify $state$>>>
+      <div style="float:right;clear:right;" class="tc-tiddler-controls">
+      <span title="Close tabs">
+         <$button set={{!!title}} setTo="" class="tc-btn-invisible close-tabs">{{$:/core/images/close-button}}</$button>
+      </span>
+      </div>
+   </$tiddler>
+</$reveal>
+\end
+
+\define bottom-tabs()
+<$tiddler tiddler=<<storyTiddler>> >
+<$list filter="[all[current]tags[]prefix[$:/type/]limit[1]]" variable="ignore">
+<<tabs tabsList:"[all[shadows+tiddlers]tag[$:/tabs/all]] [all[shadows+tiddlers]tag[$:/tabs/typed]] [all[current]tags[]prefix[$:/type/]removeprefix[$:/type/]addprefix[$:/tabs/]tagging[]] -[has[draft.of]]" class:"bottom-tabs $(color)$" template:"$:/plugins/amp/MagicTabs/TabsBar/template">>
+</$list>
+<$list filter="[all[current]] -[all[current]tags[]prefix[$:/type/]tagging[]field:title{!!title}] +[limit[1]]" variable="ignore">
+<<tabs tabsList:"[all[shadows+tiddlers]tag[$:/tabs/all]] [all[shadows+tiddlers]tag[$:/tabs/untyped]] [all[current]tags[]prefix[$:/type/]removeprefix[$:/type/]addprefix[$:/tabs/]tagging[]] -[has[draft.of]]" class:"bottom-tabs $(color)$" template:"$:/plugins/amp/MagicTabs/TabsBar/template">>
+</$list>
+ </$tiddler>
+\end
+
+<$list filter="[all[current]!tag[$:/action/hide/tabs]limit[1]]">
+<div style="clear:both;">
+<<resettab "$:/state/tab">>
+<$tiddler tiddler=<<tabsTag>> >
+    <$reveal state=<<qualify "$:/state/tab">> type="nomatch" text="">
+        <$reveal state="!!tabs-color" type="nomatch" text="">
+            <$set name="color" value={{!!tabs-color}} >        
+                <<bottom-tabs>>       
+            </$set>
+        </$reveal>
+        <$reveal state="!!tabs-color" type="match" text="">
+            <$set name="color" value="blue" >        
+                <<bottom-tabs>>       
+            </$set>
+        </$reveal>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/tab">> type="match" text="">
+        <$set name="color" value="" >        
+            <<bottom-tabs>>       
+        </$set>
+    </$reveal>
+</$tiddler>
+</div>
+</$list>
+
+

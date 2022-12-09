@@ -1,0 +1,83 @@
+caption: Type manager
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/config/TypeManager
+type: text/vnd.tiddlywiki
+
+\define edit-type(style)
+    <$reveal state=<<qualify "$:/state/mt/edit-type">> type="nomatch" text=<<currentTiddler>>>
+        <$button set=<<qualify "$:/state/mt/edit-type">> setTo=<<currentTiddler>> class="tc-btn-invisible" style="$style$">
+            {{$:/core/images/right-arrow}} <$view field="caption"/>
+        </$button>
+    </$reveal>
+
+    <$reveal state=<<qualify "$:/state/mt/edit-type">> type="match" text=<<currentTiddler>>>
+        <$button set=<<qualify "$:/state/mt/edit-type">> setTo="" class="tc-btn-invisible" style="$style$">
+        	{{$:/core/images/down-arrow}} <$view field="caption"/>
+        </$button>
+        <$link to=<<currentTiddler>>>…</$link>
+        
+        <<fields-table>>
+
+        <$checkbox tag="$:/tags/MagicTabs/dashboard"> Show in dashboard</$checkbox><br>
+
+        <$list filter="[all[current]tag[$:/tags/MagicTabs/dashboard]]">
+            <h3>Dashboard</h3>
+            <table>
+                <tr>
+                    <td>mt-dashboard.add.content</td>
+                    <td><$edit-text field="mt-dashboard.add.content" size="40"/></td>
+                </tr>
+                <tr>
+                    <td>mt-dashboard.heading</td>
+                    <td><$edit-text field="mt-dashboard.heading" size="40"/></td>
+                </tr>
+                <tr>
+                    <td>mt-dashboard.icon</td>
+                    <td><$edit-text field="mt-dashboard.icon" size="40"/></td>
+                </tr>
+            </table>
+        </$list>
+
+        <br><h3>Template for {{!!caption}}</h3>
+
+        <$list filter="[all[current]has[mt-template.fields]!mt-template.fields[]]" emptyMessage="The template title hasn't been defined">
+
+            <$macrocall $name="fields-table" tiddler={{!!mt-template.fields}}/>
+
+        </$list>
+
+        <br><br>
+
+    </$reveal>
+\end
+
+<<mt-slider-input tiddler:"$:/plugins/amp/MagicTabs/new/type" type:"$:/type/type" contentClass:"tc-tiddler-info">>
+
+!!Type manager
+
+<$list filter="[all[shadows+tiddlers]prefix[$:/type/]mt-source.type[$:/type/root]sort[]]">
+
+    <<edit-type "font-size: 1.2em; font-weight: 500;">>
+
+    <$list filter="[all[shadows+tiddlers]prefix[$:/type]mt-source.type<currentTiddler>sort[]]">
+
+        <<edit-type "padding-left:1.5em; font-size: 1.1em; font-weight: 400;">>
+        
+       	<$list filter="[all[shadows+tiddlers]prefix[$:/type]mt-source.type<currentTiddler>sort[]]">
+
+        	<<edit-type "padding-left:3em; font-size: 1.0em; font-weight: 300;">>
+
+    	</$list>
+
+    </$list>
+
+</$list>
+
+<strong>Unclassified</strong>
+
+<$list filter="[all[shadows+tiddlers]prefix[$:/type/]mt-source.type[]sort[]]">
+
+<<edit-type "padding-left:1em;">>
+
+</$list>
+

@@ -1,0 +1,49 @@
+dependencies: $:/plugins/amp/MagicTabs/tabs/info $:/plugins/amp/MagicTabs/tabs/comments $:/config/MagicTabs/position/$:/plugins/amp/MagicTabs $:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs
+tags: MagicTabs $:/tags/config 
+title: $:/plugins/amp/MagicTabs/config/MagicTabs
+type: text/vnd.tiddlywiki
+
+!Default tabs
+
+<div class="troiscolonnes">
+<$list filter="[all[tiddlers+shadows]prefix[$:/plugins/amp/MagicTabs/tabs]sort[]]">
+<$set name="tabName" filter="[all[current]has[description]!description[]]" value="description" emptyValue="title">
+    <$checkbox tag="$:/tabs/all"> 
+        <$link>
+            <$view field=<<tabName>>/>
+        </$link>
+    </$checkbox>
+<br>
+
+</$set>
+</$list>
+</div>
+
+!Position
+
+<$radio tiddler="$:/config/MagicTabs/position/$:/plugins/amp/MagicTabs" field="text" value="left">Left</$radio>      
+<$radio tiddler="$:/config/MagicTabs/position/$:/plugins/amp/MagicTabs" field="text" value="right">Right</$radio>
+
+! Colors
+
+<$tiddler tiddler="$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs">
+
+|!Blue: |<$edit-text index="blue" tag="input"/>|<$edit-text index="blue" type="color" tag="input"/>|
+|!Red: |<$edit-text index="red" tag="input"/>|<$edit-text index="red" type="color" tag="input"/>|
+|!Yellow: |<$edit-text index="yellow" tag="input"/>|<$edit-text index="yellow" type="color" tag="input"/>|
+
+</$tiddler>
+
+!Caption
+
+Font-size: <$edit-text tiddler="$:/config/MagicTabs/caption/font-size/$:/plugins/amp/MagicTabs" default="1em" tag="input" size="6"/>
+
+Font-size selected: <$edit-text tiddler="$:/config/MagicTabs/caption-selected/font-size/$:/plugins/amp/MagicTabs" tag="input" size="6"/>
+
+Font-size counter: <$edit-text tiddler="$:/config/MagicTabs/caption-counter/font-size/$:/plugins/amp/MagicTabs" tag="input" size="6"/>
+
+Color: <$edit-text tiddler="$:/config/MagicTabs/caption/color/$:/plugins/amp/MagicTabs" tag="input" default=""/> <$edit-text tiddler="$:/config/MagicTabs/caption/color/$:/plugins/amp/MagicTabs" tag="input" type="color"/>
+
+Counter: 
+<$radio tiddler="$:/config/MagicTabs/caption/counter/$:/plugins/amp/MagicTabs" field="text" value="show">Show</$radio>      
+<$radio tiddler="$:/config/MagicTabs/caption/counter/$:/plugins/amp/MagicTabs" field="text" value="hide">Hide</$radio>

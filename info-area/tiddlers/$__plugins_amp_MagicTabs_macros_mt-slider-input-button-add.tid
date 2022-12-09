@@ -1,0 +1,53 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-slider-input-button-add
+type: text/vnd.tiddlywiki
+
+\define mt-slider-input-button-add(type, template, btnClass)
+
+$:/state/mt/slider-input: {{$:/state/mt/slider-input}}
+
+
+	<$reveal default="$template$" type="nomatch" text="">
+        
+		<$set name="hasRoot" filter="[[$(storyTiddler)$]!mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.root}} emptyValue="">
+
+		<$set name="noRoot" filter="[[$(storyTiddler)$]!mt-source.tiddler[]mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.tiddler}} emptyValue="">
+
+		<$set name="rootTiddler" value=<<mt-select-root>>>
+
+			<$button class="btn-slider-input $btnClass$" tooltip="add"> 
+                
+				<$action-setfield $tiddler="$:/state/mt/slider-input" text={{$:/state/mt/dashboard}}/>
+                
+                <$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+
+                <$action-setfield $tiddler="$:/temp/$type$" mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>>/>
+
+                {{$:/core/images/new-button}}
+
+            </$button>
+   
+		</$set>
+
+		</$set>
+
+		</$set>
+        
+	</$reveal>
+
+    <$reveal default="$template$" type="match" text="">
+
+    	<$button class="btn-slider-input $btnClass$" tooltip="add"> 
+
+			<$action-setfield $tiddler="$:/state/mt/slider-input" text={{$:/state/mt/dashboard}}/>
+
+			<$action-setfield $tiddler="$:/temp/$type$" tags="$type$"/>
+
+            {{$:/core/images/new-button}}
+
+		</$button>
+
+	</$reveal>
+\end
+
+<<mt-slider-input-button-add "$:/type/part">>

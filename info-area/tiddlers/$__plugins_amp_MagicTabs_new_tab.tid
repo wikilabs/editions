@@ -1,0 +1,206 @@
+tags:  MagicTabs
+title: $:/plugins/amp/MagicTabs/new/tab
+type: text/vnd.tiddlywiki
+
+\define mt-type-selector()
+    <$select tiddler="$:/temp/$:/type/tab" field="mt-contents.type" default="">
+        <option></option>
+        <$list filter="[all[shadows+tiddlers]prefix[$:/type/]mt-source.parents.list[$:/type/root]sort[]]">
+            <option value={{!!title}}><strong><$view field="caption"/></strong></option>
+            <$list filter="[all[shadows+tiddlers]mt-source.parents.list{!!title}sort[]]">
+                <option value={{!!title}}>&nbsp;&nbsp;<$view field="caption"/></option>
+            </$list>
+        </$list>
+        <$list filter="[all[shadows+tiddlers]prefix[$:/type/]mt-source.parents.list[]sort[]]">
+            <option value={{!!title}}><$view field="caption"/></option>
+        </$list>
+    </$select>
+\end
+
+
+
+
+
+
+
+\define mt-check-template()
+    <$reveal state="!!mt-contents.type" type="nomatch" text="">
+        <$tiddler tiddler={{!!mt-contents.type}}>
+            <$reveal state="!!mt-template.fields" type="match" text="">
+                @@color:red;This type has no valid template!@@
+            </$reveal>
+            <$reveal state="!!mt-template.fields" type="nomatch" text="">
+                <$tiddler tiddler={{!!mt-template.fields}}>
+                    <$reveal state="!!modified" type="match" text="">
+                        @@color:red;This type has no valid template!@@
+                    </$reveal>
+                </$tiddler>
+            </$reveal>
+        </$tiddler>
+    </$reveal>
+\end
+
+
+
+
+
+
+\define mt-types-list-checkboxes()
+    <div class="troiscolonnes">
+        <$checkbox tiddler="$:/temp/$:/type/tab" tag="$:/tabs/all"> ''all''</$checkbox><br>
+        <$checkbox tiddler="$:/temp/$:/type/tab" tag="$:/tabs/typed"> ''typed''</$checkbox><br><br><br>
+    </div>
+    <div class="troiscolonnes">
+        <$list filter="[all[shadows+tiddlers]prefix[$:/type/]] -$:/type/type -$:/type/tab +[removeprefix[$:/type/]addprefix[$:/tabs/]sort[]]">
+            <$set name="caption" filter="[all[current]removeprefix[$:/tabs/]]">
+                <$checkbox tiddler="$:/temp/$:/type/tab" tag={{!!title}}> <<caption>></$checkbox><br>
+            </$set>
+        </$list>
+    </div>
+\end
+
+
+
+
+
+
+\define mt-seek-icon()
+    <$reveal state="$:/state/mt/new-tab!!icon" type="nomatch" text="change" default="">
+        <div class="troiscolonnes">
+            <$radio tiddler="$:/temp/$:/type/tab" field="icon" value="$:/plugins/amp/MagicTabs/images/default">
+                <$transclude tiddler="$:/plugins/amp/MagicTabs/images/default"/>
+                    <span class="text-grey">
+                        (default)
+                    </span>
+            </$radio>
+            <br> 
+            <$list filter="[all[current]has[mt-contents.type]!field:mt-contents.type[]get[mt-contents.type]has[mt-template.fields]!mt-template.fields[]get[mt-template.fields]has[icon]!icon[]]">
+                <$radio tiddler="$:/temp/$:/type/tab" field="icon" value={{!!icon}}>
+                    <$transclude tiddler={{!!icon}}/>
+                    <span class="text-grey">
+                        <$tiddler tiddler={{$:/temp/$:/type/tab!!mt-contents.type}}>
+                            (<$view field="caption"/>)
+                        </$tiddler>
+                    </span>
+                </$radio>
+            </$list>
+            <br>       
+            <$radio tiddler="$:/state/mt/new-tab" field="icon" value="change">
+                <$button set="$:/state/mt/new-tab!!icon" setTo="change" class="tc-btn-invisible">
+                    other
+                </$button>
+            </$radio>
+        </div>
+    </$reveal>
+
+    <$reveal state="$:/state/mt/new-tab!!icon" type="match" text="change" default="">
+        <$edit-text tiddler="$:/temp/$:/type/tab" field="icon" tag="input" size="40"/>
+        <$macrocall $name="mt-clear-field" tiddler="$:/temp/$:/type/tab" field="icon" state="$:/state/mt/new-tab!!icon"/>
+    </$reveal>
+\end
+
+
+
+
+
+
+
+
+
+
+
+\define mt-new-tab-more-info()
+    <div class="tc-table-of-contents">
+        <$reveal state="$:/state/mt/new-tab!!more-info" type="nomatch" text="show" default="hide">
+            <$button set="$:/state/mt/new-tab!!more-info" setTo="show" class="tc-btn-invisible">
+                {{$:/core/images/right-arrow}} more info
+            </$button>
+        </$reveal>
+        <$reveal state="$:/state/mt/new-tab!!more-info" type="match" text="show">
+            <$button set="$:/state/mt/new-tab!!more-info" setTo="hide" class="tc-btn-invisible">
+                {{$:/core/images/down-arrow}} more info
+            </$button>
+        </$reveal>
+    </div>
+
+    <$reveal state="$:/state/mt/new-tab!!more-info" type="match" text="show">
+        <span class="text-grey">The information above is enough to create a magic tab using default parameters. But if you want more control, you can fill or change the fields below. </span>
+        <table>
+            <$list filter="[[$:/plugins/amp/MagicTabs/templates/types/tab]fields[]sort[]] -created -creator -modified -modifier -title -draft.title -text" variable="field">
+                <tr>
+                    <td><<field>></td>
+                    <td><$edit-text tiddler="$:/temp/$:/type/tab" field=<<field>> size="40"/></td>
+                </tr>
+            </$list>
+                <tr>
+                    <td>text</td>
+                    <td><$edit-text tiddler="$:/temp/$:/type/tab" field="text" class="tc-edit-texteditor"/></td>
+                </tr>
+        </table>
+    </$reveal>
+\end
+
+
+
+
+
+
+
+
+
+
+\define mt-check-field(field)
+<$reveal state="$:/state/mt/new-tab!!status" type="match" text="incomplete"><$reveal state="$field$" type="match" text="">@@color:red; incomplete@@</$reveal></$reveal>
+\end
+
+
+
+
+
+
+
+
+
+
+!Create a new tab
+
+<$tiddler tiddler="$:/temp/$:/type/tab">
+
+|invisible|k
+|Tiddler: |<$edit-text field="draft.title" placeholder="title of the tiddler that will contain the tab" tag="input" size="40"/><<mt-check-field "draft.title">>|
+|Description: |<$edit-text field="description" placeholder="what this tab is about (ie notes, quotes, tasks…)" tag="input" size="40"/><<mt-check-field "description">>|
+|Contents type*: |<<mt-type-selector>> <<mt-check-template>>|
+| |<span class="text-grey">* The type of contents you want to show in that tab. Required information will be taken from its template.</span> |
+
+|invisible|k
+|Tiddlers typed: |<span class="text-grey">This tab will be displayed at the bottom of tiddlers belonging to the following types.</span> |
+| |<<mt-types-list-checkboxes>>|
+|&nbsp;| |
+|Icon: |<<mt-seek-icon>> |
+|&nbsp;| |
+|<<mt-new-tab-more-info>>|<|
+
+
+<br>
+<$reveal state="!!draft.title" type="nomatch" text="" default="">
+<$reveal state="!!description" type="nomatch" text="" default="">
+
+<$button class="btn-big green">
+<$action-setfield title={{!!draft.title}}/>
+<$action-deletetiddler $tiddler="$:/temp/$:/type/tab"/>
+<$action-deletetiddler $tiddler="$:/state/mt/new-tab"/>
+<$action-setfield $tiddler="$:/plugins/amp/MagicTabs/templates/types/tab" title="$:/temp/$:/type/tab"/>
+<$action-setfield $tiddler="$:/temp/$:/type/tab" description=""/>
+create
+</$button>
+
+</$reveal>
+</$reveal>
+
+<$list filter="[all[current]!has[draft.title]] [all[current]has[draft.title]field:draft.title[]] [all[current]!has[description]] [all[current]has[description]field:description[]]">
+<$button set="$:/state/mt/new-tab!!status" setTo="incomplete" class="btn-big grey">
+create
+</$button>
+</$list>
+
+</$tiddler>

@@ -1,0 +1,70 @@
+tags: MagicTabs $:/tags/MagicTabs/config 
+title: $:/plugins/amp/MagicTabs/config/TabManager
+type: text/vnd.tiddlywiki
+
+\define fields(fieldTitle:"title")
+
+<br><br><$checkbox tag="$:/tabs/all"> default (applies to all tiddlers)</$checkbox>
+    <$checkbox tag="$:/tabs/typed"> typed (all typed tiddlers)</$checkbox>
+    <$checkbox tag="$:/tabs/untyped"> typed (all ''untyped'' tiddlers)</$checkbox>
+
+<table class="tc-view-field-table">
+<tbody>
+<tr>
+<td>title</td>
+<td><$edit-text field="$fieldTitle$" size="40"/></td>
+</tr>
+<$list filter="[all[current]fields[]sort[title]] -text -created -creator -modified -modifier -title -draft.title" variable="field">
+<tr>
+<td><<field>></td>
+<td><$edit-text field=<<field>> size="40"/></td>
+</tr>
+</$list>
+<tr>
+<td>text</td>
+<td><$edit-text field="text" size="40"/></td>
+</tr>
+</tbody>
+</table>
+\end
+
+\define accordion()
+    <$reveal state=<<qualify "$:/state/mt/accordion">> type="nomatch" text=<<currentTiddler>>>
+        <$button set=<<qualify "$:/state/mt/accordion">> setTo=<<currentTiddler>> class="tc-btn-invisible" style="padding-left:1em">
+            <strong>{{$:/core/images/right-arrow}} <$view field="description"/></strong>
+        </$button>
+    </$reveal>
+
+    <$reveal state=<<qualify "$:/state/mt/accordion">> type="match" text=<<currentTiddler>>>
+        <$button set=<<qualify "$:/state/mt/accordion">> setTo="" class="tc-btn-invisible" style="padding-left:1em">
+            <strong>{{$:/core/images/down-arrow}} <$view field="description"/></strong>
+        </$button>
+        <$link to={{!!title}}>…</$link>
+
+        <<fields>>
+
+    </$reveal>
+\end
+<<mt-slider-input tiddler:"$:/plugins/amp/MagicTabs/new/tab" type:"$:/type/tab" contentClass:"tc-tiddler-info">>
+
+!!Tab manager
+
+<$list filter="[all[shadows+tiddlers]tag[$:/type/tab]tags[]has[plugin-type]plugin-type[plugin]]">
+
+!!!<$link to={{!!title}}><$view field="description"/></$link>
+
+<$list filter="[all[shadows+tiddlers]tag[$:/type/tab]tag{!!title}!has[draft.of]!prefix[$:/temp/]]">
+
+<<accordion>>
+
+</$list>
+
+</$list>
+
+!!!Custom
+
+<$list filter="[all[shadows+tiddlers]tag[$:/type/tab]] -[all[shadows+tiddlers]plugin-type[plugin]tagging[]] -$:/plugins/amp/MagicTabs/templates/types/tab +[!has[draft.of]!prefix[$:/temp/]sort[]]" emptyMessage="none">
+
+<<accordion>>
+
+</$list>

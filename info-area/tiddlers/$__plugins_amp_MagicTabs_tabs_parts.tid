@@ -1,0 +1,27 @@
+caption: <<mt-tab-caption>>
+color: #d3d3d3
+description: Parts (chapters, sections)
+icon: $:/plugins/amp/MagicTabs/images/part
+mt-contents.type: $:/type/part
+mt-list.filter: 
+mt-list.filter_alt: 
+mt-list.heading: 
+mt-list.heading_alt: 
+mt-list.sort: 
+mt-list.sort_alt: 
+mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/parts
+mt-list.template_alt: 
+tags: $:/type/tab $:/tabs/publication $:/tabs/part MagicTabs  $:/tabs/untyped
+title: $:/plugins/amp/MagicTabs/tabs/parts
+type: text/vnd.tiddlywiki
+
+<<mt-slider-input>>
+
+!Parts
+
+<$list filter="[!is[system]tag[$:/type/part]mt-source.tiddler<currentTiddler>sort[mt-part.order]]" emptyMessage="""
+<div class="tc-table-of-contents">
+
+<$macrocall $name="mt-toc-selective-expandable" parent=<<currentTiddler>> sort="sort[mt-part.order]"/>
+
+</div>"""/>

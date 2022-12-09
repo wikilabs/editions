@@ -1,0 +1,41 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-accordion-full
+type: text/vnd.tiddlywiki
+
+\define mt-accordion-full-edit()
+    <$reveal state=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> type="nomatch" text="yes" default="no">
+        <$button set=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> setTo="yes" tooltip="edit this section" class="tc-btn-invisible text-grey" style="background-color: #ffffff;">        
+            {{$:/plugins/amp/MagicTabs/images/edit}}
+        </$button>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> type="match" text="yes" default="no">
+        <$button set=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> setTo="no" tooltip="done" class="tc-btn-invisible small" style="background-color: #ffffff; color: green;">        
+            {{$:/plugins/amp/MagicTabs/images/done}}
+        </$button>
+    </$reveal>
+\end
+
+
+
+\define mt-accordion-full-button(tiddler, pre, heading)
+<$set name="caption" filter="[[$tiddler$]has[caption]!caption[]]" value={{$tiddler$!!caption}} emptyValue="$tiddler$">
+<div class="">
+    <$reveal state=<<qualify "$:/state/mt/accordion">> type="nomatch" text="$tiddler$">
+        <$button set=<<qualify "$:/state/mt/accordion">> setTo="$tiddler$" class="tc-btn-invisible">
+            <$heading$>{{$:/core/images/right-arrow}} $pre$ <<caption>> <<mt-accordion-full-edit>></$heading$>
+        </$button>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/mt/accordion">> type="match" text="$tiddler$">
+        <$button set=<<qualify "$:/state/mt/accordion">> setTo="" class="tc-btn-invisible">
+            <$heading$>{{$:/core/images/down-arrow}} $pre$ <<caption>> <<mt-accordion-full-edit>></$heading$>
+        </$button>
+        <$transclude tiddler="$tiddler$" mode="block"/>
+    </$reveal>
+</div>
+</$set>
+\end
+\define mt-accordion-full(tiddler, pre, heading:"a")
+<$set name="tiddler" filter="[[$tiddler$]is[tiddler]]" value="$tiddler$" emptyValue=<<currentTiddler>>>
+<$macrocall $name="mt-accordion-full-button" tiddler=<<tiddler>> heading="$heading$" pre="""$pre$"""/>
+</$set>
+\end

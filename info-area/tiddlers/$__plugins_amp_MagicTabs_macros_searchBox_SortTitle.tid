@@ -1,0 +1,45 @@
+sort: title
+tags: $:/tags/Macro
+title: $:/plugins/amp/MagicTabs/macros/searchBox/SortTitle
+type: text/vnd.tiddlywiki
+
+\define mt-sort-title()
+	<$reveal state="!!sort" type="match" text="title">
+
+		<$reveal state="!!order" type="nomatch" text="!">
+			<$button class="tc-btn-invisible">
+				<$action-setfield sort="title"/>
+				<$action-setfield order="!"/>
+				@@color:black;title: {{$:/plugins/amp/MagicTabs/images/sort-alpha-asc}}@@
+			</$button>
+		</$reveal>
+
+		<$reveal state="!!order" type="match" text="!">
+			<$button class="tc-btn-invisible">
+				<$action-setfield sort="title"/>
+				<$action-setfield order=""/>
+				@@color:black;title: {{$:/plugins/amp/MagicTabs/images/sort-alpha-desc}}@@
+			</$button>
+		</$reveal>
+
+	</$reveal>
+
+	<$reveal state="!!sort" type="nomatch" text="title">
+
+		<$reveal state="!!order" type="nomatch" text="!">
+			<$button class="tc-btn-invisible">
+				<$action-setfield sort="title"/>
+				@@color:#aaaaaa;title: {{$:/plugins/amp/MagicTabs/images/sort-alpha-asc}}@@
+			</$button>
+		</$reveal>
+
+		<$reveal state="!!order" type="match" text="!">
+			<$button class="tc-btn-invisible">
+				<$action-setfield sort="title"/>
+				@@color:#aaaaaa;title: {{$:/plugins/amp/MagicTabs/images/sort-alpha-desc}}@@
+			</$button>
+		</$reveal>
+
+	</$reveal>
+\end
+<<mt-sort-title>>

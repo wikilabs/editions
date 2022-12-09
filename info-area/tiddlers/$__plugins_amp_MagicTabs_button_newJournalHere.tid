@@ -1,0 +1,23 @@
+description: Custom new-here journal button
+tags: $:/tags/ViewToolbar MagicTabs 
+title: $:/plugins/amp/MagicTabs/button/newJournalHere
+type: text/vnd.tiddlywiki
+
+\define journalButtonTags()
+$:/type/journal
+\end
+\define journalButton()
+<$button tooltip={{!!description}} class=<<tv-config-toolbar-class>>>
+<$action-sendmessage $message="tm-new-tiddler" title=<<now "$(currentTiddlerTag)$ - $(journalTitleTemplate)$">> tags=<<journalButtonTags>> mt-topics.list="[[$(currentTiddlerTag)$]]" datetime=<<now "YY0MM0DD0hh0mm0ss">> description="" tasks=""/>
+<$list filter="[<tv-config-toolbar-icons>prefix[yes]]">
+{{$:/core/images/new-journal-button}}
+</$list>
+<$list filter="[<tv-config-toolbar-text>prefix[yes]]">
+<span class="tc-btn-text"><$text text={{$:/language/Buttons/NewJournalHere/Caption}}/></span>
+</$list>
+</$button>
+\end
+<$set name="journalTitleTemplate" value="0DD/0MM/YY">
+<$set name="currentTiddlerTag" value=<<currentTiddler>>>
+<<journalButton>>
+</$set></$set>

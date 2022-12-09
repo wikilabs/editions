@@ -1,0 +1,7 @@
+caption: tab
+icon: $:/plugins/amp/MagicTabs/images/magic
+mt-source.parents: 
+mt-template.fields: $:/plugins/amp/MagicTabs/templates/types/tab
+mt-template.form: 
+title: $:/type/tab
+type: text/vnd.tiddlywiki

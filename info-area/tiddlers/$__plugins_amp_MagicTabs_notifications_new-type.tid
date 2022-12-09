@@ -1,0 +1,12 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/notifications/new-type
+type: text/vnd.tiddlywiki
+
+<$tiddler tiddler={{$:/state/new-type}}>
+<$reveal state="!!modified" type="nomatch" text="" default="">
+<$tiddler tiddler={{$:/state/new-type}}>
+<$transclude tiddler="tag"/>
+</$tiddler>
+</$reveal>
+</$tiddler>
+ successfully created !

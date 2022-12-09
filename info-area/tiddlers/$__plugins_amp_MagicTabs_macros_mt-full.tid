@@ -1,0 +1,260 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-full
+type: text/vnd.tiddlywiki
+
+\define full-caption()
+<$set name="tv-wikilinks" value="no">
+<$reveal state="!!order" type="nomatch" text=""><$view field="order"/>. </$reveal>
+<$transclude field="caption">
+<$view field="title"/>
+</$transclude>
+</$set>
+\end
+
+\define mt-full-body-show(body:"")
+    <$reveal state=<<qualify "$:/state/mt/edit/$body$">> type="nomatch" text="yes" default="no">
+        <$transclude tiddler="$body$" mode="block"/>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/mt/edit/$body$">> type="match" text="yes" default="no">
+        {{$body$||$:/core/ui/EditTemplate/body}}
+    </$reveal>
+\end
+
+\define mt-full-body(root, parent, operator:"source", sort:"", itemClassFilter, body:"")    
+    <<mt-full-body-show body:"$body$">>
+    <ol class="tc-toc">
+        <$list filter="""[all[tiddlers]$operator$[$parent$]!is[system]!has[draft.of]$sort$]""">
+            <$set name="toc-item-class" 
+                filter="""$itemClassFilter$""" 
+                value="toc-item-selected" 
+                emptyValue="toc-item"
+                >
+                <li class=<<toc-item-class>>>
+                  <heading>
+                    <$list filter="[all[current]toc-link[no]]"
+                        emptyMessage="<$link>
+                                          <$view field='caption'>
+                                              <$view field='title'/>
+                                          </$view>
+                                      </$link>
+                                      <<mt-slider-full-edit>>"
+                        >
+                        <<full-caption>>
+                    </$list>
+                  </heading>
+                    <$list filter="""[all[current]] -[[$root$]]""">
+                        <$macrocall $name="mt-full-body"
+                            root="""$root$""" 
+                            parent=<<currentTiddler>> 
+                            operator="""$operator$""" 
+                            sort="""$sort$""" 
+                            itemClassFilter="""$itemClassFilter$""" 
+                            body={{!!title}}
+                            />
+                    </$list>
+                </li>
+            </$set>
+        </$list>
+    </ol>
+\end
+
+\define mt-full(parent,operator:"source",sort:"",itemClassFilter)
+    <$list filter="[[$parent$]is[tiddler]]">
+        <<mt-full-body 
+            root:"""$parent$""" 
+            parent:"""$parent$""" 
+            operator:"""$operator$""" 
+            sort:"""$sort$""" 
+            itemClassFilter:"""itemClassFilter"""
+            >>
+    </$list>
+    <$list filter="[[$parent$]!is[tiddler]]">
+        <<mt-full-body 
+            root:"""$(currentTiddler)$"""
+            parent:"""$(currentTiddler)$""" 
+            operator:"""$operator$""" 
+            sort:"""$sort$""" 
+            itemClassFilter:"""itemClassFilter"""
+            >>
+    </$list>
+\end
+
+
+
+
+
+\define mt-full-linked-expandable-body(parent:"$:/tags/toc", operator:"source", sort:"", itemClassFilter, body:"")
+    <$set name="toc-state" value=<<qualify "$:/state/toc/$parent$-$(currentTiddler)$">>>
+        <$set name="toc-item-class" filter="""$itemClassFilter$""" value="toc-item-selected" emptyValue="toc-item">
+            <li class=<<toc-item-class>>>
+                <$link>
+                    <$reveal type="nomatch" state=<<toc-state>> text="open">
+                        <$button set=<<toc-state>> setTo="open" class="tc-btn-invisible">
+                            {{$:/core/images/right-arrow}}
+                        </$button>
+                    </$reveal>
+                    <$reveal type="match" state=<<toc-state>> text="open">
+                        <$button set=<<toc-state>> setTo="close" class="tc-btn-invisible">
+                            {{$:/core/images/down-arrow}}
+                        </$button>
+                    </$reveal>
+                    <<full-caption>>
+                </$link>
+                <$reveal type="match" state=<<toc-state>> text="open">
+                    <$macrocall $name="mt-full-expandable" 
+                        parent=<<currentTiddler>> 
+                        operator="""$operator$""" 
+                        sort="""$sort$""" 
+                        itemClassFilter="""$itemClassFilter$"""
+                        />
+                </$reveal>
+            </li>
+        </$set>
+    </$set>
+\end
+
+
+\define mt-full-unlinked-expandable-body(parent:"$:/tags/toc", operator:"source", sort:"", itemClassFilter)
+    <$set name="toc-state" value=<<qualify "$:/state/toc/$parent$-$(currentTiddler)$">>>
+<$set name="toc-item-class" filter="""$itemClassFilter$""" value="toc-item-selected" emptyValue="toc-item">
+<li class=<<toc-item-class>>>
+<$reveal type="nomatch" state=<<toc-state>> text="open">
+<$button set=<<toc-state>> setTo="open" class="tc-btn-invisible">
+{{$:/core/images/right-arrow}}
+<<full-caption>>
+</$button>
+</$reveal>
+<$reveal type="match" state=<<toc-state>> text="open">
+<$button set=<<toc-state>> setTo="close" class="tc-btn-invisible">
+{{$:/core/images/down-arrow}}
+<<full-caption>>
+</$button>
+</$reveal>
+<$reveal type="match" state=<<toc-state>> text="open">
+<$macrocall $name="mt-full-expandable" parent=<<currentTiddler>> operator="""$operator$""" sort="""$sort$""" itemClassFilter="""$itemClassFilter$"""/>
+</$reveal>
+</li>
+</$set>
+</$set>
+\end
+
+\define mt-full-expandable(parent:"$:/tags/toc", operator:"source", sort:"", itemClassFilter, body:"")
+    <ol class="tc-toc toc-expandable">
+        <$list filter="[all[shadows+tiddlers]$operator$[$parent$]!has[draft.of]$sort$]">
+            <$list filter="[all[current]toc-link[no]]" emptyMessage="<<mt-full-linked-expandable-body parent:'$parent$' operator:'$operator$' sort:'$sort$' itemClassFilter:'$itemClassFilter$'>>">
+                <<mt-full-unlinked-expandable-body parent:"""$parent$""" operator:"""operator""" sort:"""$sort$""" itemClassFilter:"""itemClassFilter""">>
+            </$list>
+        </$list>
+    </ol>
+\end
+
+
+
+
+
+
+
+
+
+
+
+
+
+\define mt-full-linked-selective-expandable-body(parent, operator:"mt-source.tiddler",sort:"", itemClassFilter, body:"")
+    <$set name="toc-state" value=<<qualify "$:/state/toc/$parent$-$(currentTiddler)$">>>
+        <$set name="toc-item-class" filter="""$itemClassFilter$""" value="toc-item-selected" emptyValue="toc-item">
+            <li class=<<toc-item-class>>>
+                <heading>
+                    <$list filter="[all[tiddlers]$operator$<currentTiddler>] [all[current]has[text]!text[]] +[!is[system]limit[1]]" 
+                        variable="ignore" 
+                        emptyMessage="<$button class='tc-btn-invisible'>{{$:/core/images/blank}}</$button><<full-caption>>"
+                        >
+                        <$reveal type="nomatch" state=<<toc-state>> text="open">
+                            <$button set=<<toc-state>> setTo="open" class="tc-btn-invisible">
+                                {{$:/core/images/right-arrow}} <<full-caption>>
+                            </$button>
+                        </$reveal>
+                        <$reveal type="match" state=<<toc-state>> text="open">
+                            <$button set=<<toc-state>> setTo="close" class="tc-btn-invisible">
+                                {{$:/core/images/down-arrow}} <<full-caption>>
+                            </$button><<mt-slider-full-edit>>
+                        </$reveal>
+                    </$list>                    
+                </heading>
+                <$reveal type="match" state=<<toc-state>> text="open">
+                    <$macrocall $name="mt-full-selective-expandable" 
+                        parent=<<currentTiddler>> 
+                        operator="""$operator$""" 
+                        sort="""$sort$""" 
+                        itemClassFilter="""$itemClassFilter$"""
+                        body=<<currentTiddler>>
+                        />
+                </$reveal>
+            </li>
+        </$set>
+    </$set>
+\end
+
+\define mt-full-unlinked-selective-expandable-body(parent, operator:"mt-source.tiddler", sort:"", itemClassFilter)
+3. cocouCOUCOUCOUCOUCOUCOUCOUCUOCOCUOCUOCUCOUOCUCUOCOU
+    <$set name="toc-state" value=<<qualify "$:/state/toc/$parent$-$(currentTiddler)$">>>
+        <$set name="toc-item-class" filter="""$itemClassFilter$""" value="toc-item-selected" emptyValue="toc-item">
+            <li class=<<toc-item-class>>>
+                <$list filter="[all[shadows+tiddlers]$operator<currentTiddler>limit[1]]" 
+                    variable="ignore" 
+                    emptyMessage="<$button class='tc-btn-invisible'>
+                        {{$:/core/images/blank}}
+                        </$button> 
+                        <$view field='caption'><$view field='title'/></$view>">
+                    <$reveal type="nomatch" state=<<toc-state>> text="open">
+                        <$button set=<<toc-state>> setTo="open" class="tc-btn-invisible">
+                            {{$:/core/images/right-arrow}}
+                            <<full-caption>>
+                        </$button>
+                    </$reveal>
+                    <$reveal type="match" state=<<toc-state>> text="open">
+                        <$button set=<<toc-state>> setTo="close" class="tc-btn-invisible">
+                            {{$:/core/images/down-arrow}}
+                            <<full-caption>>
+                        </$button>
+                    </$reveal>
+                </$list>
+                <$reveal type="match" state=<<toc-state>> text="open">
+                    
+                    <$macrocall $name="""mt-full-selective-expandable""" 
+                        parent=<<currentTiddler>> 
+                        operator="""$operator$""" 
+                        sort="""$sort$""" 
+                        itemClassFilter="""$itemClassFilter$"""
+                        body=<<currentTiddler>>
+                        />
+                </$reveal>
+            </li>
+        </$set>
+    </$set>
+\end
+
+\define mt-full-selective-expandable(parent, operator:"mt-source.tiddler", sort:"", itemClassFilter, body:"")
+    <ul><<mt-full-body-show body:"$body$">></ul>
+    <ol class="tc-toc toc-selective-expandable">
+        <$list filter="[all[tiddlers]$operator$[$parent$]!is[system]!has[draft.of]$sort$]">
+            <$list filter="[all[current]toc-link[no]]" 
+                 variable="ignore" 
+                 emptyMessage="<<mt-full-linked-selective-expandable-body 
+                     parent:'$parent$' 
+                     operator:'$operator$' 
+                     sort:'$sort$' 
+                     itemClassFilter:'$itemClassFilter$'>>"
+                     >
+                     1. COUCOUCOUCOUCOUCOUCOUCOUCOUCCOU
+                     <<mt-full-unlinked-selective-expandable-body 
+                         parent:"""$parent$""" 
+                         operator:"""operator""" 
+                         sort:"""$sort$""" 
+                         itemClassFilter:"""$itemClassFilter$"""
+                         >>
+            </$list>
+        </$list>
+    </ol>
+\end
+

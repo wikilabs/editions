@@ -1,0 +1,18 @@
+tags: $:/type/template MagicTabs 
+title: $:/plugins/amp/MagicTabs/templates/tabs/parts
+type: text/vnd.tiddlywiki
+
+<h2><$link to={{!!title}}><$view field="caption"><$view field="title"/></$view></$link></h2>
+
+<h3><$transclude field="description"/></h3>
+
+<$list filter="[all[current]get[mt-source.tiddler]] [all[current]list[!!mt-topics.list]] [all[current]list[!!mt-source.parents.list]] -[title<storyTiddler>]" template="$:/core/ui/TagTemplate"/>
+<$list filter="[all[current]tags[]!is[system]]" template="$:/core/ui/TagTemplate"/>
+
+<blockquote>
+
+<$transclude field="text" mode="block"/>
+
+</blockquote>
+
+<br>

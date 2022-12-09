@@ -1,0 +1,11 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/forms/input/person/more-info/table
+type: text/vnd.tiddlywiki
+
+\define inputPersonMoreInfoTable()
+|invisible|k
+|<$radio field="mt-person.gender" value="female"> female&nbsp;&nbsp;&nbsp;</$radio> <$radio field="mt-person.gender" value="male"> male&nbsp;&nbsp;&nbsp;</$radio><$radio field="mt-person.gender" value="other"> other&nbsp;&nbsp;&nbsp;</$radio>|<|<|<|<|<|<|<|
+|<$edit-text field="mt-person.birth.place" tag="input" placeholder="Place of birth" class="tc-edit-texteditor" size="40"/>|<$edit-text field="mt-person.birth.date" tag="input" placeholder="Date of birth" class="tc-edit-texteditor" size="10"/>|<|<|<|<|<|<|
+|<$edit-text field="mt-person.death.place" tag="input" placeholder="Place of death" class="tc-edit-texteditor" size="40"/>|<$edit-text field="mt-person.death.date" tag="input" placeholder="Date of death" class="tc-edit-texteditor" size="10"/>|<|<|<|<|<|<|
+\end
+<<inputPersonMoreInfoTable>>

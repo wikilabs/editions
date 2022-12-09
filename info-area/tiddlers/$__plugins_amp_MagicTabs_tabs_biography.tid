@@ -1,0 +1,18 @@
+caption: <<mt-tab-caption>>
+color: #d3d3d3
+description: Biography
+icon: $:/plugins/amp/MagicTabs/images/default
+mt-contents.type: $:/type/biography
+mt-list.filter: 
+mt-list.filter_alt: 
+mt-list.heading: 
+mt-list.heading_alt: 
+mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/biography
+mt-list.template_alt: 
+tags: $:/type/tab $:/tabs/person 
+title: $:/plugins/amp/MagicTabs/tabs/biography
+type: text/vnd.tiddlywiki
+
+<<mt-slider-input>>
+
+<<mt-tab-contents>>

@@ -1,0 +1,8 @@
+tags: $:/action/hide/tabs MagicTabs $:/action/hide/tags 
+title: $:/plugins/amp/MagicTabs/new/person
+type: text/vnd.tiddlywiki
+
+<<mt-input-person type:"$:/type/person">>
+
+<br>
+<<mt-new-person type:"$:/type/person">>

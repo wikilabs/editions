@@ -1,0 +1,59 @@
+caption: {{$:/plugins/amp/MagicTabs/images/info}}
+description: Info
+icon: 
+mt-list.filter: 
+mt-list.heading: 
+mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/info
+tags: MagicTabs $:/type/tab  $:/tabs/all
+title: $:/plugins/amp/MagicTabs/tabs/info
+type: text/vnd.tiddlywiki
+
+\define mt-seek-children()
+<$list filter="[all[tiddlers]$(sourceField)$[$(storyTiddler)$]!is[system]!has[draft.of]sort[]]">
+<$link><$transclude tiddler={{!!icon}}/><$view field="title"/></$link><br>
+</$list>
+\end
+\define mt-seek-children-list()
+<$list filter="[all[current]listed[$(sourceFieldList)$]!is[system]!has[draft.of]sort[]]">
+<$link><$transclude tiddler={{!!icon}}/><$view field="title"/></$link><br>
+</$list>
+\end
+
+\define tabInfo()
+<div class="tc-menu-list-item">
+<div class="text-grey">
+Children of this tiddler:
+</div>
+<div class="tc-menu-list-subitem">
+<$list filter="[all[tiddlers]fields[]prefix[mt-source]!suffix[list]sort[]] -mt-source.root" variable="sourceField">
+<<mt-seek-children>>
+</$list>
+<$list filter="[all[tiddlers]fields[]prefix[mt-source]suffix[list]sort[]] -mt-source.root" variable="sourceFieldList">
+<<mt-seek-children-list>>
+</$list>
+
+<$list filter="[all[current]listed[mt-source.parents.list]] +[!is[system]!has[draft.of]]" template={{$(currentTab)$!!mt-list.template}} emptyMessage="@@.text-grey none@@"/>
+
+</div>
+
+<div class="text-grey">
+About this tiddler:
+</div>
+<div class="tc-menu-list-subitem">
+
+<$list filter="[all[current]listed[mt-topics.list]!is[system]!has[draft.of]]" template={{$(currentTab)$!!mt-list.template}} emptyMessage="@@.text-grey none@@"/>
+
+</div>
+
+<div class="text-grey">
+Tagging:
+</div>
+<div class="tc-menu-list-subitem">
+
+<$list filter="[all[current]tagging[]!is[system]!has[draft.of]] -[[$(currentTiddler)$]]" template={{$(currentTab)$!!mt-list.template}} emptyMessage="@@.text-grey none@@"/>
+
+</div>
+</div>
+\end
+
+<<tabInfo>>

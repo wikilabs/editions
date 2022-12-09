@@ -1,0 +1,55 @@
+tags: MagicTabs $:/tags/Macro 
+title: $:/plugins/amp/MagicTabs/macros/typed-lists/filter
+type: text/vnd.tiddlywiki
+
+\define mt-typed-filter-types(state)
+
+    <$reveal state="$state$!!logic" text="and" type="match">
+        <$checkbox tiddler="$state$" tag="$(type)$">
+            {{$(type)$!!caption}}
+        </$checkbox>
+    </$reveal>
+
+    <$reveal state="$state$!!logic" text="or" type="match">
+        <$radio tiddler="$state$" field="tags" value="$(type)$">
+            {{$(type)$!!caption}}
+        </$radio>
+    </$reveal>
+
+\end
+
+\define mt-typed-filter(type,state)
+<table class="invisible">
+<tr>
+<td class="">
+<tr>
+<td style="padding:0.5em;">
+<$set name="types" filter="[[$type$]] [all[shadows+tiddlers]mt-source.type[$type$]]">
+<$radio tiddler="$state$" field="tags" value=<<types>> > all</$radio>
+</$set>
+</td>
+<td style="padding:0.5em;">
+<$radio tiddler="$state$" field="tags" value="" > none</$radio>
+</td>
+</tr>
+<tr>
+<td style="padding:0.5em;">
+<$radio tiddler="$state$" field="logic" value="or" > or</$radio>
+</td>
+<td style="padding:0.5em;">
+<$radio tiddler="$state$" field="logic" value="and" > and</$radio>
+</td>
+</tr>
+</td>
+<$list filter="[[$type$]] [all[shadows+tiddlers]mt-source.type[$type$]]" variable="type">
+<td>
+<<mt-typed-filter-types "$state$">>
+</td>
+</$list>
+</tr>
+</table>
+\end
+
+<<mt-typed-filter "$:/type/note" "$:/state/MagicTabs/list/notes">>
+
+

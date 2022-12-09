@@ -1,0 +1,11 @@
+tags: MagicTabs  $:/tags/Macro
+title: $:/plugins/amp/MagicTabs/macros/mt-slider-input-button-cancel
+type: text/vnd.tiddlywiki
+
+\define mt-slider-input-button-cancel(type, btnClass)
+	<$button class="tc-btn-invisible" tooltip="cancel" class="btn-slider-input $btnClass$">
+    	<$action-setfield $tiddler="$:/state/mt/slider-input" text=""/>
+		<$action-deletetiddler $tiddler="$:/temp/$type$"/>
+		{{$:/core/images/cancel-button}}
+	</$button>
+\end

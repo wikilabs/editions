@@ -1,0 +1,18 @@
+subtitle: External image
+tags: MagicTabs $:/action/hide/tabs $:/action/hide/tags 
+title: $:/plugins/amp/MagicTabs/forms/input/image
+type: text/vnd.tiddlywiki
+
+<$tiddler tiddler="$:/temp/$:/type/image">
+
+|invisible|k
+|Address:|<|
+|<$edit-text field="_canonical_uri" placeholder="paste or write here the address of the image" tag="input" class="tc-edit-texteditor" size="60"/>| <<clear "$:/temp/$:/type/image" "_canonical_uri">> |
+
+|invisible|k
+|{{||$:/core/ui/EditTemplate/type}} |
+
+|invisible|k
+| <$image source="$:/temp/$:/type/image" height="300"/> |
+
+</$tiddler>

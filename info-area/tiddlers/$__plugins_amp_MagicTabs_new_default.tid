@@ -1,0 +1,80 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/new/default
+type: text/vnd.tiddlywiki
+
+\define mt-current-temp() $:/temp/$(currentType)$
+\define mt-tab-input-button(type, template)
+
+	<$set name="currentType" value={{$:/state/mt/slider-input}}>
+
+	<$set name="rootTiddler" value=<<mt-select-root>>>
+
+	<$set name="templateTopics" filter="[[$template$]has[modified]!modified[]has[mt-topics.list]!mt-topics.list[]]" value={{$template$!!mt-topics.list}} emptyValue="">
+
+	<$set name="sourceTopics" value={{$(storyTiddler)$!!mt-topics.list}}>
+
+    	<$button>
+
+			<$action-deletetiddler $tiddler=<<mt-current-temp>>/>
+
+			<$action-setfield $tiddler="$:/state/mt/slider-input" text="$type$"/>
+                
+			<$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+
+			<$action-setfield $tiddler="$:/temp/$type$" mt-source.tiddler="$(storyTiddler)$" mt-source.root=<<rootTiddler>> mt-topics.list=<<mt-topics-inherit>>/>
+
+        	{{$type$!!caption}}
+
+    	</$button>
+
+	</$set>
+
+	</$set>
+
+	</$set>
+
+	</$set>
+
+\end
+
+\define mt-tab-input-list(rootType, inputType)
+
+    <$list filter="$rootType$ [all[shadows+tiddlers]prefix[$:/type]mt-source.type[$rootType$]]">
+		<$set name="hasRoot" filter="[[$(storyTiddler)$]!mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.root}} emptyValue="">
+        <$set name="noRoot" filter="[[$(storyTiddler)$]!mt-source.tiddler[]mt-source.root[]]" value={{$(storyTiddler)$!!mt-source.tiddler}} emptyValue="">
+        <$macrocall $name="mt-tab-input-button"
+            type=<<currentTiddler>> 
+            template={{!!mt-template.fields}} 
+            inputType="$inputType$"
+            />
+        </$set>
+        </$set>
+    </$list>
+
+        <$tiddler tiddler="$inputType$">
+
+            !New {{!!caption}}
+            
+            <$list filter="[all[current]has[mt-template.form]!mt-template.form[]]" emptyMessage="""<$macrocall $name='mt-new-tiddler' type={{!!title}}/>""">
+                        
+       		<$transclude tiddler={{!!mt-template.form}} mode="block"/>
+            
+            </$list>            
+
+        </$tiddler>
+
+\end
+
+
+\define mt-tab-input()
+	<$set name="inputType" filter="[[$:/state/mt/slider-input]is[tiddler]]" value={{$:/state/mt/slider-input}} emptyValue={{$(currentTab)$!!mt-contents.type}}>
+
+		<$macrocall $name="mt-tab-input-list" 
+			rootType={{$(currentTab)$!!mt-contents.type}} 
+			inputType=<<inputType>>
+			/>
+        
+	</$set>
+\end
+
+<<mt-tab-input>>

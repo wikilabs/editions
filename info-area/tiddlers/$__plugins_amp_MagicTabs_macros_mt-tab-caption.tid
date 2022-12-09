@@ -1,0 +1,50 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-tab-caption
+type: text/vnd.tiddlywiki
+
+\define mt-tab-caption3(type, caption)
+<$set name="mt-list.filter" filter="[[$(currentTab)$]has[mt-list.filter]!mt-list.filter[]]" value={{$(currentTab)$!!mt-list.filter}} emptyValue=<<mt-tab-filter "$type$">> >
+<$set name="mt-list.filter_alt" filter="[[$(currentTab)$]has[mt-list.filter_alt]!mt-list.filter_alt[]]" value={{$(currentTab)$!!mt-list.filter_alt}} emptyValue=<<mt-tab-filter-alt "$type$">> >
+$caption$
+<$reveal state="$:/config/MagicTabs/caption/counter/$:/plugins/amp/MagicTabs" type="match" text="show">
+    <small><$count filter=<<mt-list.filter>>/>/<$count filter=<<mt-list.filter_alt>>/></small>
+</$reveal>
+</$set>
+</$set>
+\end
+
+
+
+
+
+
+\define mt-tab-caption2(type,caption)
+$caption$
+\end
+
+
+\define mt-tab-caption1(type, icon)
+    <$macrocall $name="mt-tab-caption3" type="$type$" caption={{$icon$}}/>
+\end
+
+
+\define mt-tab-caption()
+    <$reveal state="$(currentTab)$!!icon" type="nomatch" text="">
+            <$macrocall $name="mt-tab-caption1" type={{$(currentTab)$!!mt-contents.type}} icon={{$(currentTab)$!!icon}}/>
+    </$reveal>
+    <$reveal state="$(currentTab)$!!icon" type="match" text="">
+        <$reveal state="$(currentTab)$!!description" type="nomatch" text="">
+            <$macrocall $name="mt-tab-caption3" type={{$(currentTab)$!!mt-contents.type}} caption={{$(currentTab)$!!description}}/>
+        </$reveal>
+        <$reveal state="$(currentTab)$!!description" type="match" text="">
+            <$reveal state="$(currentTab)$!!mt-contents.type" type="nomatch" text="">
+                <$set name="caption" filter="[[$(currentTab)$]get[mt-contents.type]removeprefix[$:/type/]]">
+                    <$macrocall $name="mt-tab-caption3" type={{$(currentTab)$!!mt-contents.type}} caption=<<caption>>/>
+                </$set>
+            </$reveal>
+            <$reveal state="$(currentTab)$!!mt-contents.type" type="match" text="">
+                $(currentTab)$
+            </$reveal>
+        </$reveal>
+    </$reveal>
+\end

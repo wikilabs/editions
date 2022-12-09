@@ -1,0 +1,15 @@
+description: Open MagicTabs dashboard
+list-after: 
+tags: $:/tags/PageControls MagicTabs 
+title: $:/plugins/amp/MagicTabs/buttons/MagicTabs
+type: text/vnd.tiddlywiki
+
+<$button tooltip="Open MagicTabs dashboard" aria-label="Open MagicTabs dashboard" class=<<tv-config-toolbar-class>>>
+<$action-navigate $to="MagicTabs"/>
+<$list filter="[<tv-config-toolbar-icons>prefix[yes]]">
+{{$:/plugins/amp/MagicTabs/images/magic}}
+</$list>
+<$list filter="[<tv-config-toolbar-text>prefix[yes]]">
+<span class="tc-btn-text"><$text text="Open MagicTabs dashboard"/></span>
+</$list>
+</$button>

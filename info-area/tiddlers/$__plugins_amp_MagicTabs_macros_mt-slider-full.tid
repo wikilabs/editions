@@ -1,0 +1,43 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-slider-full
+type: text/vnd.tiddlywiki
+
+\define mt-slider-full-edit()
+    <$reveal state=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> type="nomatch" text="yes" default="no">
+        <$button set=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> setTo="yes" tooltip="edit this section" class="tc-btn-invisible text-grey">        
+            {{$:/plugins/amp/MagicTabs/images/edit}}
+        </$button>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> type="match" text="yes" default="no">
+        <$button set=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> setTo="no" tooltip="done" class="tc-btn-invisible small" style="color: green;">        
+            {{$:/plugins/amp/MagicTabs/images/done}}
+        </$button>
+    </$reveal>
+\end
+
+
+
+\define mt-slider-full-button(tiddler, pre, heading, default)
+<$set name="caption" filter="[[$tiddler$]has[caption]!caption[]]" value={{$tiddler$!!caption}} emptyValue="$tiddler$">
+<div class="">
+    <$reveal state=<<qualify "$:/state/mt/slider-$tiddler$">> type="match" text="hide" default="$default$">
+        <$button set=<<qualify "$:/state/mt/slider-$tiddler$">> setTo="show" class="tc-btn-invisible">
+            <$heading$>{{$:/core/images/right-arrow}} $pre$ <<caption>> <<mt-accordion-full-edit>></$heading$>
+        </$button>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/mt/slider-$tiddler$">> type="match" text="show" default="$default$">
+        <$button set=<<qualify "$:/state/mt/slider-$tiddler$">> setTo="hide" class="tc-btn-invisible">
+            <$heading$>{{$:/core/images/down-arrow}} $pre$ <<caption>> <<mt-accordion-full-edit>></$heading$>
+        </$button>
+        <$transclude tiddler="$tiddler$" mode="block"/>
+    </$reveal>
+</div>
+</$set>
+\end
+\define mt-slider-full(tiddler, pre, heading:"a", default:"show")
+<$set name="tiddler" filter="[[$tiddler$]is[tiddler]]" value="$tiddler$" emptyValue=<<currentTiddler>>>
+<$macrocall $name="mt-slider-full-button" tiddler=<<tiddler>> heading="$heading$" pre="""$pre$""" default="$default$"/>
+</$set>
+\end
+
+<<mt-slider-full tiddler:"Antecedentes de la Revolución" heading:"h1">>

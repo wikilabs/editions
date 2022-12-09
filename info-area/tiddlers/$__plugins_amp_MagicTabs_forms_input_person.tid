@@ -1,0 +1,43 @@
+tags: MagicTabs  $:/tags/Macro
+title: $:/plugins/amp/MagicTabs/forms/input/person
+type: text/vnd.tiddlywiki
+
+\define inputPersonMoreInfo(type)
+<$reveal state="$:/state/mt/input/person!!more_info" type="nomatch" text="show" default="hide">
+
+|invisible tc-table-of-contents|k
+|<<inputPersonConfigButton>>|<$button set="$:/state/mt/input/person!!more_info" setTo="show" class="tc-btn-invisible">{{$:/core/images/right-arrow}} more info</$button>|
+
+</$reveal>
+
+<$reveal state="$:/state/mt/input/person!!more_info" type="match" text="show" default="hide">
+
+<div class="tc-table-of-contents">
+
+|invisible|k
+|<<inputPersonConfigButton>>|<$button set="$:/state/mt/input/person!!more_info" setTo="hide" class="tc-btn-invisible">{{$:/core/images/down-arrow}} less info</$button> |
+
+</div>
+
+<<inputPersonMoreInfoTable>>
+
+<<mt-fields-form-more type:"$type$">>
+
+</$reveal>
+\end
+
+
+\define mt-input-person(type:"$:/type/person")
+<$tiddler tiddler="$:/temp/$type$">
+
+<<inputPersonName "$type$">>
+
+<<inputPersonRadioButtons>>
+
+<<inputPersonMoreInfo "$type$">>
+
+</$tiddler>
+\end
+
+<<mt-input-person>>
+

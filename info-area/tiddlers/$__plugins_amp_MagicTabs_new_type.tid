@@ -1,0 +1,208 @@
+tags: MagicTabs
+title: $:/plugins/amp/MagicTabs/new/type
+type: text/vnd.tiddlywiki
+
+\define new-type-button(extension)
+    <$reveal state="!!caption" type="nomatch" text="">
+        <$button set="$:/state/new-type" setTo="$:/type/$extension$" class="btn-big green">
+            <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-type"/>
+            <$action-setfield title="$:/type/$extension$"/>
+			create
+        </$button>
+    </$reveal>
+
+    <$reveal state="!!caption" type="match" text="">
+        <$button class="btn-big grey">
+            create
+        </$button>
+     </$reveal>
+\end
+
+
+
+\define mt-check-template(template, type)
+    <$reveal state="$template$!!modified" type="nomatch" text="">
+        <$button set="$:/state/new-template" setTo="$template$">
+        assign @@color:green;{{$:/plugins/amp/MagicTabs/images/done}}@@
+        </$button>
+    </$reveal>
+
+    <$reveal state="$template$!!modified" type="match" text="">
+        <$button set="$:/state/new-template" setTo="$template$">
+            <$action-setfield $tiddler="$:/temp/new-template"  tags="$type$"/>
+            <$action-setfield $tiddler="$:/temp/new-template" title="$template$"/>
+            create
+        </$button>
+    </$reveal>
+\end
+
+
+
+
+\define mt-new-template-done(template)
+    <$button set="$:/state/new-template" setTo="done" class="btn-big green">
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-type"/>
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-template"/>
+        done
+    </$button>
+\end
+
+
+
+
+\define mt-start-again-button()
+    <$button class="btn-big red">
+        <$action-deletetiddler $tiddler="$:/state/new-type"/>
+        <$action-deletetiddler $tiddler="$:/state/new-template"/>
+        <$action-deletetiddler $tiddler="$:/temp/$:/type/type"/>
+        <$action-deletetiddler $tiddler="$:/state/new-template"/>
+        <$action-setfield $tiddler="$:/temp/$:/type/type" text=""/>
+        start again
+    </$button>
+\end
+
+
+
+
+
+!New tiddler type in two steps
+
+
+<$reveal state="$:/state/new-type" type="match" text="" default="">
+
+
+<$tiddler tiddler="$:/temp/$:/type/type">
+
+!!1. Create a new type
+
+<<<
+
+<table class="invisible">
+<tr>
+<td>name</td>
+<td>$:/type/<$reveal state="!!caption" type="match" text="">@@color:grey;extension@@</$reveal><$reveal state="!!caption" type="nomatch" text="">{{!!caption}}</$reveal></td>
+</tr>
+<tr>
+<td>extension</td>
+<td>
+<$edit-text field="caption" placeholder="example: note, journal, task, etc." tag="input" size="30"/>
+</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>parents</td>
+<td>
+<$select field="parents">
+<option></option>
+<$list filter="[all[shadows+tiddlers]prefix[$:/type/]sort[]]" variable="type">
+<option value=<<type>>><$view tiddler=<<type>> field="caption"/></option>
+</$list>
+</$select>
+</td>
+</tr>
+<tr style="">
+<td></td>
+<td style="text-align:left"><br><$macrocall $name="new-type-button" extension={{!!caption}}/></td>
+</tr>
+</table>
+
+<<<
+
+@@color:grey;
+!!2. Assign or create a template
+@@
+
+</$tiddler>
+
+</$reveal>
+
+
+
+
+
+
+<$reveal state="$:/state/new-type" type="nomatch" text="" default="">
+
+<$tiddler tiddler={{$:/state/new-type}}>
+
+!!1. Create a new type @@color:green;{{$:/plugins/amp/MagicTabs/images/done}}@@
+
+:<$transclude tiddler="tag"/>
+
+
+<$reveal state="$:/state/new-template" type="nomatch" text="done" default="">
+
+!!2. Assign or create a template
+
+</$reveal>
+
+
+<$reveal state="$:/state/new-template" type="match" text="done" default="">
+
+!!2. Assign or create a template@@color:green;{{$:/plugins/amp/MagicTabs/images/done}}@@
+
+:<$link to={{!!mt-template.fields}}><$view field="mt-template.fields"/></$link>
+
+<<mt-start-again-button>>
+
+</$reveal>
+
+
+
+<$reveal state="$:/state/new-template" type="match" text="" default="">
+
+<table class="invisible">
+<tr>
+<td>//In order to create new tiddlers based on that type, you should assign or create a template://<br><br></td>
+</tr>
+<tr>
+<td><$edit-text field="mt-template.fields" placeholder="template title" tag="input" size="40"/>
+<$reveal state="!!mt-template.fields" type="nomatch" text=""> <$macrocall $name="mt-check-template" template={{!!mt-template.fields}} type={{$:/state/new-type}}/></$reveal>
+</td>
+</tr>
+</table>
+
+</$reveal>
+
+
+<$reveal state="!!mt-template.fields" type="nomatch" text="">
+<$reveal state="$:/state/new-template" type="match" text={{!!mt-template.fields}} default="">
+
+<$tiddler tiddler={{!!mt-template.fields}}>
+
+<table class="invisible">
+<tr>
+<td>Edit the template</td>
+</tr>
+<tr>
+<td>
+<h2><$view field="title"/></h2>
+</td>
+</tr>
+<tr>
+<td>{{||$:/core/ui/EditTemplate/tags}}</td>
+</tr>
+<tr>
+<td><$edit-text field="text" placeholder="text" class="tc-edit-texteditor"/></td>
+</tr>
+<tr>
+<td>{{||$:/core/ui/EditTemplate/fields}}</td>
+</tr>
+<tr>
+<td><br><<mt-new-template-done template={{!!mt-template.fields}}>></td>
+</tr>
+</table>
+
+
+
+</$tiddler>
+
+</$reveal>
+</$reveal>
+
+</$tiddler>
+
+</$reveal>

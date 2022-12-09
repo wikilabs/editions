@@ -1,0 +1,5 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/images/comment
+type: text/vnd.tiddlywiki
+
+<<mt-image "fa-comment-o" "comment" "Comment">>

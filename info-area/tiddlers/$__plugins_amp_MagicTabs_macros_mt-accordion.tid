@@ -1,0 +1,19 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-accordion
+type: text/vnd.tiddlywiki
+
+\define mt-accordion(caption, body, heading:"a")
+<div class="">
+    <$reveal state=<<qualify "$:/state/mt/accordion">> type="nomatch" text="$body$">
+        <$button set=<<qualify "$:/state/mt/accordion">> setTo="$body$" class="tc-btn-invisible">
+            <$heading$>{{$:/core/images/right-arrow}} $caption$</$heading$>
+        </$button>
+    </$reveal>
+    <$reveal state=<<qualify "$:/state/mt/accordion">> type="match" text="$body$">
+        <$button set=<<qualify "$:/state/mt/accordion">> setTo="" class="tc-btn-invisible">
+            <$heading$>{{$:/core/images/down-arrow}} $caption$</$heading$>
+        </$button>
+        <$transclude tiddler="$body$" mode="block"/>
+    </$reveal>
+</div>
+\end

@@ -1,0 +1,18 @@
+caption: <<mt-tab-caption>>
+color: #d3d3d3
+description: Tasks
+icon: $:/plugins/amp/MagicTabs/images/check
+mt-contents.type: $:/type/task
+mt-list.filter: 
+mt-list.filter_alt: 
+mt-list.heading: 
+mt-list.heading_alt: Completed
+mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/tasks
+mt-list.template_alt: 
+tags: $:/type/tab  MagicTabs
+title: $:/plugins/amp/MagicTabs/tabs/tasks
+type: text/vnd.tiddlywiki
+
+<<mt-slider-input>>
+
+<<mt-tab-contents>>

@@ -1,0 +1,10 @@
+list-before: $:/core/ui/ViewTemplate/body
+tags: $:/tags/ViewTemplate MagicTabs 
+title: $:/plugins/amp/MagicTabs/ViewTemplate/picture
+type: text/vnd.tiddlywiki
+
+<$list filter="[all[current]has[mt-tiddler.picture]]">
+<$reveal type="nomatch" state="!!mt-tiddler.picture" text="">
+<$image source={{!!mt-tiddler.picture}} class="person"/>
+</$reveal>
+</$list>

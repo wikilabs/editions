@@ -1,0 +1,18 @@
+caption: <<mt-tab-caption>>
+color: #d3d3d3
+description: Notes
+icon: $:/plugins/amp/MagicTabs/images/note
+mt-contents.type: $:/type/note
+mt-list.filter: 
+mt-list.filter_alt: 
+mt-list.heading: Notes
+mt-list.heading_alt: Related
+mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/notes
+mt-list.template_alt: $:/plugins/amp/MagicTabs/templates/tabs/notes
+tags: MagicTabs $:/type/tab  $:/tabs/all $:/tabs/publication $:/tabs/part
+title: $:/plugins/amp/MagicTabs/tabs/notes
+type: text/vnd.tiddlywiki
+
+<<mt-slider-input "$:/plugins/amp/MagicTabs/new/default">>
+
+<<mt-tab-contents>>

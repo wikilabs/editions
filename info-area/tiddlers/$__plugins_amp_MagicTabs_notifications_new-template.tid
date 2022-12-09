@@ -1,0 +1,11 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/notifications/new-template
+type: text/vnd.tiddlywiki
+
+<$tiddler tiddler={{$:/state/new-template}}>
+<$reveal state="!!modified" type="nomatch" text="" default="">
+<$link><$view field="title"/></$link>
+</$reveal>
+</$tiddler>
+
+Successfully created !

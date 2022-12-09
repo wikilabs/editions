@@ -1,0 +1,22 @@
+tags: MagicTabs $:/tags/Stylesheet 
+title: $:/plugins/amp/MagicTabs/css/buttons/touch
+type: text/vnd.tiddlywiki
+
+.btn-touch-big {
+	background: none;
+	color: #999999;
+	border: none;
+	font-size: {{$:/config/MagicTabs/btn-touch/font-size/$:/plugins/amp/MagicTabs}};
+}
+
+.btn-touch-big-down {
+	background: none;
+	color: #333333;
+	border: none;
+	font-size: {{$:/config/MagicTabs/btn-touch/font-size/$:/plugins/amp/MagicTabs}};
+}
+
+.btn-touch-big:hover {
+	color: <<couleur btn-courses-hover>>;
+}
+

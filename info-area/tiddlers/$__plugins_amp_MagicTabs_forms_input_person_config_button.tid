@@ -1,0 +1,12 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/forms/input/person/config/button
+type: text/vnd.tiddlywiki
+
+\define inputPersonConfigButton()
+<$reveal state="$:/state/mt/input/person!!config" type="nomatch" text="show" default="hide">
+<span><$button set="$:/state/mt/input/person!!config" setTo="show" class="tc-btn-invisible">{{$:/core/images/options-button}}</$button></span>
+</$reveal>
+<$reveal state="$:/state/mt/input/person!!config" type="match" text="show" default="hide">
+<span><$button set="$:/state/mt/input/person!!config" setTo="hide" class="tc-btn-invisible">{{$:/core/images/options-button}}</$button></span>
+</$reveal>
+\end

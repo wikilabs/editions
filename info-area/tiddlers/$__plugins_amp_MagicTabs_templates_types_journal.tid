@@ -1,0 +1,8 @@
+about: 
+datetime: 
+description: 
+icon: $:/core/images/new-journal-button
+mt-source.tiddler: 
+tags: $:/type/journal
+title: $:/plugins/amp/MagicTabs/templates/types/journal
+type: text/vnd.tiddlywiki

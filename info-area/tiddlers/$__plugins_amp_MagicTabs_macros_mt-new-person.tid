@@ -1,0 +1,128 @@
+tags: MagicTabs $:/tags/Macro 
+title: $:/plugins/amp/MagicTabs/macros/mt-new-person
+type: text/vnd.tiddlywiki
+
+\define mt-new-person-button(type, title, template, label:"add", class:"btn-big green")
+
+<$list filter="[[$:/temp/$:/type/image]has[_cannonical_uri]!_cannonical_uri[]]">
+
+    <$button tooltip="$label$" class="$class$">
+        <$action-setfield $tiddler="$:/temp/$:/type/image" title="$title$: picture"/>
+        <$action-deletetiddler $tiddler="$:/temp/$:/type/image"/>        
+        <$action-setfield $tiddler="$:/temp/$type$" mt-tiddler.picture="$title$: picture"/>
+        <$action-setfield $tiddler="$:/temp/$type$" title="$title$"/>
+        <$action-deletetiddler $tiddler="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-tiddler"/>
+        $label$
+    </$button>
+    
+</$list>
+
+<$list filter="[[$:/temp/$:/type/image]!has[_cannonical_uri]] [[$:/temp/$:/type/image]has[_cannonical_uri]_cannonical_uri[]]">
+
+    <$button tooltip="$label$" class="$class$">
+        <$action-deletefield $tiddler="$:/temp/$type$" mt-source.tiddler mt-source.root/>
+        <$action-setfield $tiddler="$:/temp/$type$" title="$title$"/>
+        <$action-deletetiddler $tiddler="$:/temp/$type$"/>
+        <$action-setfield $tiddler="$template$" title="$:/temp/$type$"/>
+        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-tiddler"/>
+        $label$
+    </$button>
+    
+</$list>
+
+\end
+
+
+
+
+
+
+\define authorTitleName()
+$(authorName)$
+\end
+
+\define authorTitleSurname()
+$(authorSurname)$
+\end
+
+\define authorTitleBoth()
+$(authorName)$ $(authorSurname)$
+\end
+
+
+
+
+
+\define mt-new-person-button-call(type)
+<$set name="mt-source.tiddler" filter="[[$(currentTab)$]is[tiddler]]" value="$(currentTab)$" emptyValue="">
+
+        <$macrocall $name="mt-new-person-button"
+            type="$type$"
+            title=<<authorTitle$(person-title)$>>
+            template={{$type$!!mt-template.fields}}
+            source=<<mt-source.tiddler>>
+	    label=<<authorTitle$(person-title)$>>
+            />
+
+</$set>
+
+\end
+
+\define mt-new-person(type:"$:/type/person")
+
+	<$set name="authorName" value={{$:/temp/$type$!!mt-person.name}}>
+
+		<$set name="authorSurname" value={{$:/temp/$type$!!mt-person.surname}}>
+
+			<$set name="person-title" value={{$:/config/MagicTabs/person/title/$:/plugins/amp/MagicTabs}}>
+
+				<$reveal default=<<person-title>> type="match" text="Name">
+
+				<$list filter="[[$:/temp/$type$]has[mt-person.name]!mt-person.name[]]" variable="ignore" 
+				emptyMessage="""
+				<$button class="btn-big grey">add</$button>
+				 """>
+
+					<$macrocall $name="mt-new-person-button-call" type="$type$"/>			
+
+				</$list>
+
+				</$reveal>
+
+				<$reveal default=<<person-title>> type="match" text="Surname">
+
+				<$list filter="[[$:/temp/$type$]!mt-person.surname[]]" variable="ignore" 
+				emptyMessage="""
+				<$button class="btn-big grey">add</$button>
+				 """>
+
+					<$macrocall $name="mt-new-person-button-call" type="$type$"/>			
+
+				</$list>
+
+				</$reveal>
+
+				<$reveal default=<<person-title>> type="match" text="Both">
+
+				<$list filter="[[$:/temp/$type$]!mt-person.name[]!mt-person.surname[]]" variable="ignore" 
+				emptyMessage="""
+				<$button class="btn-big grey">add</$button>
+				 """>
+
+					<$macrocall $name="mt-new-person-button-call" type="$type$"/>			
+
+				</$list>
+
+				</$reveal>
+
+			</$set>
+
+		</$set>
+
+	</$set>
+
+\end
+
+<<mt-new-person>>

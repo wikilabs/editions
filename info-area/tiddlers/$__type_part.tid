@@ -1,0 +1,9 @@
+caption: part
+mt-slider-input.add: 
+mt-slider-input.cancel: 
+mt-source.type: $:/type/root
+mt-template.fields: $:/plugins/amp/MagicTabs/templates/types/part
+mt-template.form: $:/plugins/amp/MagicTabs/new/part
+tags: MagicTabs 
+title: $:/type/part
+type: text/vnd.tiddlywiki

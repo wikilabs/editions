@@ -1,0 +1,12 @@
+caption: person
+color: #ff8383
+icon: $:/plugins/amp/MagicTabs/images/person
+mt-dashboard.add.content: $:/plugins/amp/MagicTabs/new/person
+mt-dashboard.heading: People
+mt-dashboard.icon: $:/plugins/amp/MagicTabs/images/people
+mt-source.type: $:/type/root
+mt-template.fields: $:/plugins/amp/MagicTabs/templates/types/person
+mt-template.form: $:/plugins/amp/MagicTabs/new/person
+tags: $:/tags/MagicTabs/dashboard MagicTabs
+title: $:/type/person
+type: text/vnd.tiddlywiki

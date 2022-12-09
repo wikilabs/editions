@@ -1,0 +1,99 @@
+dependencies: $:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs $:/config/MagicTabs/position/$:/plugins/amp/MagicTabs
+list-after: 
+tags: $:/tags/Stylesheet MagicTabs 
+title: $:/plugins/amp/MagicTabs/css/bottom-tabs
+type: text/vnd.tiddlywiki
+
+.bottom-tabs {
+ margin: 0px 0px -42px 0px;
+}
+
+.tc-tab-divider {
+ display: none;
+}
+
+.tc-tiddler-controls .close-tabs {
+ color: red;
+ min-width:2em;
+ position: relative;
+ bottom: -3px;
+ right: -6px;
+}
+
+.bottom-tabs div.tc-tab-buttons {
+ text-align: {{$:/config/MagicTabs/position/$:/plugins/amp/MagicTabs}};
+ padding: 0px 0px 14px 0px;
+}
+
+.bottom-tabs .tc-tab-buttons button{
+ color: {{$:/config/MagicTabs/caption/color/$:/plugins/amp/MagicTabs}};
+ background-color: transparent;
+ min-width:2em;
+ display:inline-block;
+ font-size: {{$:/config/MagicTabs/caption/font-size/$:/plugins/amp/MagicTabs}};
+ text-align:center;
+ border-radius: 10px 10px 0px 0px;
+ box-shadow: 2px 2px 3px rgba(0, 0, 0, 0) inset;
+}
+
+
+.bottom-tabs .tc-tab-buttons button:not(.tc-tab-selected) {
+ background-color: <<color background>>;
+ border-left: <<color background>>;
+ border-right: <<color background>>;
+ border-top: <<color background>>;
+}
+
+.bottom-tabs .tc-tab-buttons button:not(.tc-tab-selected):hover {
+ color: <<color foreground>>;
+ font-weight: bold;
+ font-size: {{$:/config/MagicTabs/caption-selected/font-size/$:/plugins/amp/MagicTabs}};
+ margin-top:-5px;
+}
+
+
+.bottom-tabs .tc-tab-buttons button.tc-tab-selected {
+ font-weight: bold;
+ font-size: {{$:/config/MagicTabs/caption-selected/font-size/$:/plugins/amp/MagicTabs}};
+ padding-bottom:6px;
+ margin-bottom: -4px;
+ box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+.bottom-tabs .tc-tab-buttons.blue button.tc-tab-selected {
+ background-color: {{$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs##blue}};
+}
+
+.bottom-tabs .tc-tab-buttons.red button.tc-tab-selected {
+ background-color: {{$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs##red}};
+}
+
+.bottom-tabs .tc-tab-buttons.yellow button.tc-tab-selected {
+ background-color: {{$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs##yellow}};
+}
+
+.bottom-tabs .tc-tab-content {
+ margin: -14px -42px 0px -42px;
+ padding: 14px 42px 14px 42px;
+}
+
+.bottom-tabs .tc-tab-content.blue {
+ background-color: {{$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs##blue}};
+ border-top: 1px solid <<colour tiddler-info-border>>;
+ border-bottom: 1px solid <<colour tiddler-info-border>>;
+ box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+.bottom-tabs .tc-tab-content.red {
+ background-color: {{$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs##red}};
+ border-top: 1px solid <<colour tiddler-info-border>>;
+ border-bottom: 1px solid <<colour tiddler-info-border>>;
+ box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+.bottom-tabs .tc-tab-content.yellow {
+ background-color: {{$:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs##yellow}};
+ border-top: 1px solid <<colour tiddler-info-border>>;
+ border-bottom: 1px solid <<colour tiddler-info-border>>;
+ box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1) inset;
+}

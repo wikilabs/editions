@@ -1,0 +1,104 @@
+tags: MagicTabs 
+title: $:/plugins/amp/MagicTabs/dashboard
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/language/Search/
+\define mt-typed-list2(type, tags, heading, state, tiddler)
+<<mt-slider-input tiddler:"$:/plugins/amp/MagicTabs/dashboard/input" type:"$type$" btnClass:"dashboard" contentClass:"tc-tiddler-info">>
+
+<h1>$heading$</h1>
+
+<$linkcatcher to="$:/temp/advancedsearch">
+
+<<searchBox>>
+
+<<mt-typed-filter "$type$" "$state$">>
+
+</$linkcatcher>
+
+
+
+<div class="deuxcolonnes">
+    <$list filter="$tags$ +[tagging[]!is[system]search{$:/temp/advancedsearch}!has[draft.of]sort[]]">
+        <$reveal state="$:/temp/advancedsearch" type="nomatch" text="">
+            <$link><$transclude tiddler={{!!icon}}/><$view field="title"/></$link><br>
+        </$reveal>
+
+        <$reveal state="$:/temp/advancedsearch" type="match" text="">  
+            <$link><$transclude tiddler={{!!icon}}/><$view field="title"/></$link><br>
+        </$reveal>
+    </$list>
+</div>
+\end
+
+
+
+
+\define mt-typed-list(type:"$:/type/note",heading)
+<$reveal state="$:/state/mt-typed-list/$type$!!modified" type="nomatch" text="">
+
+<$macrocall $name="mt-typed-list2"
+    type="$type$"
+    tags={{$:/state/mt-typed-list/$type$!!tags}}
+    heading="$heading$"
+    state="$:/state/mt-typed-list/$type$"
+    tiddler={{$type$!!mt-dashboard.add.content}}
+    />
+
+</$reveal>
+
+<$reveal state="$:/state/mt-typed-list/$type$!!modified" type="match" text="">
+<$macrocall $name="mt-typed-list2"
+    type="$type$"
+    tags="$type$"
+    heading="$heading$"
+    state="$:/state/mt-typed-list/$type$"
+    tiddler={{$type$!!mt-dashboard.add.content}}
+    />
+</$reveal>
+\end
+
+
+<br>
+<$list filter="[[$:/plugins/amp/MagicTabs/SideBarLists]] [all[shadows+tiddlers]tag[$:/tags/MagicTabs/dashboard]] [[$:/plugins/amp/MagicTabs/dashboard/configuration]]">
+<$reveal type="nomatch" state="$:/state/mt/dashboard" text={{!!title}} default="$:/type/note">
+    <$button class="btn-touch-big" tooltip={{!!mt-dashboard.heading}}>
+        <$action-setfield $tiddler="$:/state/mt/dashboard" text={{!!title}}/>
+        <$action-setfield $tiddler="$:/state/mt/dashboard/input" text={{!!title}}/>
+        <$transclude tiddler={{!!mt-dashboard.icon}}/>
+    </$button>
+</$reveal>
+<$reveal type="match" state="$:/state/mt/dashboard" text={{!!title}} default="$:/type/note">
+    <$button class="btn-touch-big-down" style="line-height:5%;position:relative; top:0.5em">
+        <$transclude tiddler={{!!mt-dashboard.icon}}/><br><span style="font-size:0.4em;">{{$:/plugins/amp/MagicTabs/images/caret-up}}</span>
+    </$button>
+</$reveal>
+</$list>
+
+<div style="border-top:solid 1px #ececec;">
+
+
+<$list filter="[[$:/state/mt/dashboard]!text[$:/plugins/amp/MagicTabs/SideBarLists]!text[$:/plugins/amp/MagicTabs/dashboard/configuration]]">
+<$tiddler tiddler={{$:/state/mt/dashboard}}>
+<$macrocall $name="mt-typed-list"
+    type={{!!title}}
+    heading={{!!mt-dashboard.heading}}
+    />
+</$tiddler>
+</$list>
+
+
+<$list filter="[[$:/state/mt/dashboard]text[$:/plugins/amp/MagicTabs/SideBarLists]] [[$:/state/mt/dashboard]text[$:/plugins/amp/MagicTabs/dashboard/configuration]]">
+
+<$tiddler tiddler={{$:/state/mt/dashboard}}>
+
+<h1>{{!!mt-dashboard.heading}}</h1>
+
+<$transclude tiddler={{!!title}} mode="inline"/>
+
+</$tiddler>
+
+</$list>
+
+
+</div>

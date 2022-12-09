@@ -1,0 +1,13 @@
+tags: $:/tags/Stylesheet MagicTabs 
+title: $:/plugins/amp/MagicTabs/css/button/grey
+type: text/vnd.tiddlywiki
+
+.tc-btn-grey {
+	font-size: 1em;
+	color: #c0c0c0;
+	font-weight: 200;
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+}

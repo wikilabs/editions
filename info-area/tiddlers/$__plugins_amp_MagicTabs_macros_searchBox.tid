@@ -1,0 +1,37 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/searchBox
+type: text/vnd.tiddlywiki
+
+\define lingo-base() $:/language/Search/
+\define searchBox()
+<$linkcatcher to="$:/temp/advancedsearch">
+
+<<lingo Standard/Hint>>
+
+<div class="tc-search">
+<$edit-text tiddler="$:/temp/advancedsearch" type="search" tag="input" placeholder="search here" size="30"/>
+<$reveal state="$:/temp/advancedsearch" type="nomatch" text="">
+<$button class="tc-btn-invisible">
+<$action-setfield $tiddler="$:/temp/advancedsearch" $field="text" $value="" size="30"/>
+{{$:/core/images/close-button}}
+</$button>
+&nbsp;&nbsp;&nbsp;
+</$reveal>
+</div>
+
+</$linkcatcher>
+
+\end
+
+<<searchBox>>
+
+
+
+
+
+
+
+
+
+
+

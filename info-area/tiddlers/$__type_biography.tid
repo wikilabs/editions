@@ -1,0 +1,7 @@
+caption: biography
+mt-source.type: $:/type/note
+mt-template.fields: $:/plugins/amp/MagicTabs/templates/types/biography
+mt-template.form: 
+tags: MagicTabs 
+title: $:/type/biography
+type: text/vnd.tiddlywiki
