@@ -2,7 +2,7 @@ caption:
 color: 
 icon: 
 parents: 
-tags: MagicTabs
+tags:
 template: 
 title: $:/plugins/amp/MagicTabs/templates/type
 type: text/vnd.tiddlywiki

@@ -1,5 +1,4 @@
 dependencies: $:/config/SystemTags/Visibility/$:/plugins/amp/MagicTabs/noSysTags $:/core/ui/ViewTemplate/tags $:/plugins/amp/MagicTabs/noSysTags/ViewTemplate/tags $:/plugins/amp/MagicTabs/noSysTags/notification/hidden $:/plugins/amp/MagicTabs/noSysTags/notification/visible
-tags: MagicTabs 
 title: $:/plugins/amp/MagicTabs/button/noSysTags
 type: text/vnd.tiddlywiki
 

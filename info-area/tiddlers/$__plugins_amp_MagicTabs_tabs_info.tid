@@ -4,7 +4,7 @@ icon:
 mt-list.filter: 
 mt-list.heading: 
 mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/info
-tags: MagicTabs $:/type/tab  $:/tabs/all
+tags: $:/type/tab  $:/tabs/all
 title: $:/plugins/amp/MagicTabs/tabs/info
 type: text/vnd.tiddlywiki
 

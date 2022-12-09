@@ -9,7 +9,7 @@ mt-list.heading: Ideas
 mt-list.heading_alt: Related
 mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/notes
 mt-list.template_alt: 
-tags: MagicTabs $:/type/tab 
+tags: $:/type/tab 
 title: $:/plugins/amp/MagicTabs/tabs/ideas
 type: text/vnd.tiddlywiki
 

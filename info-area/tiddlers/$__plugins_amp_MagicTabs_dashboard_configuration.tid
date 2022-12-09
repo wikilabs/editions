@@ -1,7 +1,7 @@
 icon: $:/plugins/amp/MagicTabs/images/config
 mt-dashboard.heading: Configuration
 mt-dashboard.icon: $:/plugins/amp/MagicTabs/images/config
-tags: MagicTabs  $:/tags/ControlPanel
+tags: $:/tags/ControlPanel
 title: $:/plugins/amp/MagicTabs/dashboard/configuration
 type: text/vnd.tiddlywiki
 

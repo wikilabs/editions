@@ -1,5 +1,5 @@
 dependencies: $:/plugins/amp/MagicTabs/tabs/info $:/plugins/amp/MagicTabs/tabs/comments $:/config/MagicTabs/position/$:/plugins/amp/MagicTabs $:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs
-tags: MagicTabs $:/tags/config 
+tags: $:/tags/config 
 title: $:/plugins/amp/MagicTabs/config/MagicTabs
 type: text/vnd.tiddlywiki
 

@@ -1,5 +1,5 @@
 subtitle: External image
-tags: MagicTabs $:/action/hide/tabs $:/action/hide/tags 
+tags: $:/action/hide/tabs $:/action/hide/tags 
 title: $:/plugins/amp/MagicTabs/forms/input/image
 type: text/vnd.tiddlywiki
 

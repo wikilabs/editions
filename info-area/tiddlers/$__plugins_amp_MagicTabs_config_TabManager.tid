@@ -1,4 +1,5 @@
-tags: MagicTabs $:/tags/MagicTabs/config 
+caption: Tab Manager
+tags: $:/tags/MagicTabs/config 
 title: $:/plugins/amp/MagicTabs/config/TabManager
 type: text/vnd.tiddlywiki
 

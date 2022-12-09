@@ -4,6 +4,6 @@ icon: $:/plugins/amp/MagicTabs/images/idea
 mt-source.type: $:/type/note
 mt-template.fields: $:/plugins/amp/MagicTabs/templates/types/idea
 mt-template.form: 
-tags: MagicTabs 
+tags:
 title: $:/type/idea
 type: text/vnd.tiddlywiki

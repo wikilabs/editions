@@ -1,5 +1,5 @@
 caption: Dashboard
-tags: MagicTabs $:/tags/config 
+tags: $:/tags/config 
 title: $:/plugins/amp/MagicTabs/config/dashboard
 type: text/vnd.tiddlywiki
 

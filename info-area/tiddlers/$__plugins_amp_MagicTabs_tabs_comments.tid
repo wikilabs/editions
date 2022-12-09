@@ -9,7 +9,7 @@ mt-list.heading: Comments
 mt-list.heading_alt: Related
 mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/comments
 mt-list.template_alt: $:/plugins/amp/MagicTabs/templates/tabs/comments
-tags: MagicTabs $:/type/tab  $:/tabs/all
+tags: $:/type/tab  $:/tabs/all
 title: $:/plugins/amp/MagicTabs/tabs/comments
 type: text/vnd.tiddlywiki
 

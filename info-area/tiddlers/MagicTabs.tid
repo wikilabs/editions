@@ -1,5 +1,5 @@
 icon: $:/plugins/amp/MagicTabs/images/magic
-tags: MagicTabs $:/action/hide/tags $:/type/dashboard $:/action/hide/tabs $:/favorite
+tags: $:/action/hide/tags $:/type/dashboard $:/action/hide/tabs $:/favorite
 title: MagicTabs
 type: text/vnd.tiddlywiki
 
