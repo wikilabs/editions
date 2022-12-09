@@ -1,6 +1,5 @@
 tags: $:/tags/Stylesheet MagicTabs 
 title: $:/plugins/amp/MagicTabs/css/table/invisible
-type: text/vnd.tiddlywiki
 
 html body.tc-body .invisible {
      border-color:#fff;

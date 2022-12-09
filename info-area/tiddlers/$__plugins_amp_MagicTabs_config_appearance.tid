@@ -2,7 +2,6 @@ caption: ~MagicTabs tweaks
 dependencies: $:/plugins/amp/MagicTabs/config/MagicTabs
 tags: $:/tags/ControlPanel/Appearance $:/tags/MagicTabs/config 
 title: $:/plugins/amp/MagicTabs/config/appearance
-type: text/vnd.tiddlywiki
 
 !!~MagicTabs tweaks
 

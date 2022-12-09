@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/forms/input/person/picture
-type: text/vnd.tiddlywiki
 
 \define buttonPersonPicture()
 <$button class="tc-btn-invisible pretty">

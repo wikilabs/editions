@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/macros/mt-image
-type: text/vnd.tiddlywiki
 
 \define mt-image(fa-name,image-name,label)
 <$reveal state="$:/_images/$image-name$!!modified" type="nomatch" text="">

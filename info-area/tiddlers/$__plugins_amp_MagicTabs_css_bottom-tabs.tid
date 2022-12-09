@@ -2,7 +2,6 @@ dependencies: $:/config/MagicTabs/colors/$:/plugins/amp/MagicTabs $:/config/Magi
 list-after: 
 tags: $:/tags/Stylesheet MagicTabs 
 title: $:/plugins/amp/MagicTabs/css/bottom-tabs
-type: text/vnd.tiddlywiki
 
 .bottom-tabs {
  margin: 0px 0px -42px 0px;

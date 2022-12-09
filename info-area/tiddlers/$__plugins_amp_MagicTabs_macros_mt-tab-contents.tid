@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/macros/mt-tab-contents
-type: text/vnd.tiddlywiki
 
 \define mt-tab-contents3(tag, sort)
 <$list filter="[all[current]listed[mt-source.topics.list]] [all[tiddlers]mt-source.tiddler[$(storyTiddler)$]] +[tag[$tag$]!is[system]!has[draft.of]sort[$sort$]]">

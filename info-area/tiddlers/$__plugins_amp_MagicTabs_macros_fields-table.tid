@@ -1,6 +1,5 @@
 tags: $:/tags/Macro 
 title: $:/plugins/amp/MagicTabs/macros/fields-table
-type: text/vnd.tiddlywiki
 
 \define fields-table2(tiddler, fieldTitle:"title")
     <$reveal state="$tiddler$!!modified" type="match" text="">

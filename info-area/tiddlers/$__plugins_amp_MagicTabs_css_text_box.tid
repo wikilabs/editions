@@ -1,6 +1,5 @@
 tags: $:/tags/Stylesheet MagicTabs 
 title: $:/plugins/amp/MagicTabs/css/text/box
-type: text/vnd.tiddlywiki
 
 .box {
 display:inline-block;

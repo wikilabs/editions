@@ -1,7 +1,6 @@
 caption: Plugins
 tags: $:/tags/MagicTabs/config 
 title: $:/plugins/amp/MagicTabs/config/plugins
-type: text/vnd.tiddlywiki
 
 <$set name="plugins" filter=>
 <table>

@@ -1,7 +1,6 @@
 caption: Dashboard
 tags: $:/tags/config 
 title: $:/plugins/amp/MagicTabs/config/dashboard
-type: text/vnd.tiddlywiki
 
 !!!Dashboard buttons
 <$list filter="[all[shadows+tiddlers]prefix[$:/type/]sort[]]">

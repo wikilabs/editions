@@ -1,6 +1,5 @@
 tags: $:/tags/Macro 
 title: $:/plugins/amp/MagicTabs/macros/typed-lists/filter
-type: text/vnd.tiddlywiki
 
 \define mt-typed-filter-types(state)
 

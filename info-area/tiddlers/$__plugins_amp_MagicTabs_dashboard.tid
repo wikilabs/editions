@@ -1,5 +1,4 @@
 title: $:/plugins/amp/MagicTabs/dashboard
-type: text/vnd.tiddlywiki
 
 \define lingo-base() $:/language/Search/
 \define mt-typed-list2(type, tags, heading, state, tiddler)

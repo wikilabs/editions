@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/macros/mt-tab-caption
-type: text/vnd.tiddlywiki
 
 \define mt-tab-caption3(type, caption)
 <$set name="mt-list.filter" filter="[[$(currentTab)$]has[mt-list.filter]!mt-list.filter[]]" value={{$(currentTab)$!!mt-list.filter}} emptyValue=<<mt-tab-filter "$type$">> >

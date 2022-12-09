@@ -1,6 +1,5 @@
 tags: $:/tags/Macro  MagicTabs
 title: $:/plugins/amp/MagicTabs/forms/input/person/name
-type: text/vnd.tiddlywiki
 
 \define inputPersonName(type:"$:/type/person")
 <table class="invisible" style="width: 100%">

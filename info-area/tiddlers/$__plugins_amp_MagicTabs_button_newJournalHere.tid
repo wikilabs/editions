@@ -1,7 +1,6 @@
 description: Custom new-here journal button
 tags: $:/tags/ViewToolbar MagicTabs 
 title: $:/plugins/amp/MagicTabs/button/newJournalHere
-type: text/vnd.tiddlywiki
 
 \define journalButtonTags()
 $:/type/journal

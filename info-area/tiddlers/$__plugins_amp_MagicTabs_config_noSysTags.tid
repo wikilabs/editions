@@ -1,7 +1,6 @@
 dependencies: $:/config/SystemTags/Visibility/$:/plugins/amp/MagicTabs/noSysTags $:/plugins/amp/MagicTabs/button/noSysTags
 tags: $:/tags/ControlPanel/Appearance $:/tags/config MagicTabs 
 title: $:/plugins/amp/MagicTabs/config/noSysTags
-type: text/vnd.tiddlywiki
 
 \define buttonState()
 <$reveal state="$:/config/SystemTags/Visibility/$:/plugins/amp/MagicTabs/noSysTags" type="match" text="show" default="hide">Hide</$reveal>

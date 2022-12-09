@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/macros/mt-accordion-full
-type: text/vnd.tiddlywiki
 
 \define mt-accordion-full-edit()
     <$reveal state=<<qualify "$:/state/mt/edit/$(currentTiddler)$">> type="nomatch" text="yes" default="no">

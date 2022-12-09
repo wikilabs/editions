@@ -1,7 +1,6 @@
 sort: title
 tags: $:/tags/Macro
 title: $:/plugins/amp/MagicTabs/macros/searchBox/SortTitle
-type: text/vnd.tiddlywiki
 
 \define mt-sort-title()
 	<$reveal state="!!sort" type="match" text="title">

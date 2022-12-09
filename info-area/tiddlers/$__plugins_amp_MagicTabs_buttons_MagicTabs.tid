@@ -2,7 +2,6 @@ description: Open MagicTabs dashboard
 list-after: 
 tags: $:/tags/PageControls MagicTabs 
 title: $:/plugins/amp/MagicTabs/buttons/MagicTabs
-type: text/vnd.tiddlywiki
 
 <$button tooltip="Open MagicTabs dashboard" aria-label="Open MagicTabs dashboard" class=<<tv-config-toolbar-class>>>
 <$action-navigate $to="MagicTabs"/>

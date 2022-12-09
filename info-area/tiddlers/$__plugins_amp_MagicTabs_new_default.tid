@@ -1,5 +1,4 @@
 title: $:/plugins/amp/MagicTabs/new/default
-type: text/vnd.tiddlywiki
 
 \define mt-current-temp() $:/temp/$(currentType)$
 \define mt-tab-input-button(type, template)

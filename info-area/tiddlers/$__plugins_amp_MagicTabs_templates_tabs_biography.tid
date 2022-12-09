@@ -1,6 +1,5 @@
 tags: $:/plugins/amp/MagicTabs/reading
 title: $:/plugins/amp/MagicTabs/templates/tabs/biography
-type: text/vnd.tiddlywiki
 
 <h2><$link to={{!!title}}><$view field="title"/></$link></h2>
 

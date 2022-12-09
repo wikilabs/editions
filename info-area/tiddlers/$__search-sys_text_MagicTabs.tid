@@ -6,7 +6,6 @@ input-title: $:/search-sys/text:MagicTabs
 modified: 20221209140712352
 tags: $:/tags/AdvancedSearch
 title: $:/search-sys/text:MagicTabs
-type: text/vnd.tiddlywiki
 
 \define lingo-base() $:/language/Search/
 

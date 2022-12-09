@@ -1,7 +1,6 @@
 subtitle: External image
 tags: $:/action/hide/tabs $:/action/hide/tags 
 title: $:/plugins/amp/MagicTabs/forms/input/image
-type: text/vnd.tiddlywiki
 
 <$tiddler tiddler="$:/temp/$:/type/image">
 

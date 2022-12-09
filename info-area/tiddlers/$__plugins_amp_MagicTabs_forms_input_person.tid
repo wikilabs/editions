@@ -1,6 +1,5 @@
 tags: $:/tags/Macro
 title: $:/plugins/amp/MagicTabs/forms/input/person
-type: text/vnd.tiddlywiki
 
 \define inputPersonMoreInfo(type)
 <$reveal state="$:/state/mt/input/person!!more_info" type="nomatch" text="show" default="hide">

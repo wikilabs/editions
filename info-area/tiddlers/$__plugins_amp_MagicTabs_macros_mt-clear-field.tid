@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/macros/mt-clear-field
-type: text/vnd.tiddlywiki
 
 \define mt-clear-field(tiddler, field, state)
 <$button set="$state$" setTo="" class="tc-btn-invisible">

@@ -1,7 +1,6 @@
 list-after: 
 tags: $:/tags/ViewTemplate MagicTabs 
 title: $:/plugins/amp/MagicTabs/ViewTemplate/TabsBar
-type: text/vnd.tiddlywiki
 
 \define resettab(state)
 <$reveal state=<<qualify $state$>> type="nomatch" text="">

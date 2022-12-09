@@ -1,6 +1,5 @@
 tags: $:/tags/Stylesheet MagicTabs 
 title: $:/plugins/amp/MagicTabs/css/button/grey
-type: text/vnd.tiddlywiki
 
 .tc-btn-grey {
 	font-size: 1em;

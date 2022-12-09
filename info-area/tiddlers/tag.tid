@@ -1,5 +1,4 @@
 tags: nouveau
 title: tag
-type: text/vnd.tiddlywiki
 
 {{!!title||$:/core/ui/TagTemplate}}

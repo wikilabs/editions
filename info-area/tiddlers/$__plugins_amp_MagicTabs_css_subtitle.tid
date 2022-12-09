@@ -1,6 +1,5 @@
 tags: $:/tags/Stylesheet MagicTabs 
 title: $:/plugins/amp/MagicTabs/css/subtitle
-type: text/vnd.tiddlywiki
 
 .my-subtitle {
     font-size: 1.8em;

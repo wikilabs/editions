@@ -1,6 +1,5 @@
 tags: $:/tags/Macro  MagicTabs
 title: $:/plugins/amp/MagicTabs/macros/mt-check-title
-type: text/vnd.tiddlywiki
 
 \define mt-check-title()
 <$list filter="[all[current]get[draft.title]is[tiddler]]">

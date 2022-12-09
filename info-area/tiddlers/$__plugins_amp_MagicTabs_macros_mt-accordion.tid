@@ -1,6 +1,5 @@
 tags: $:/tags/Macro MagicTabs 
 title: $:/plugins/amp/MagicTabs/macros/mt-accordion
-type: text/vnd.tiddlywiki
 
 \define mt-accordion(caption, body, heading:"a")
 <div class="">

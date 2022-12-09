@@ -1,5 +1,4 @@
 tags:
 title: $:/plugins/amp/MagicTabs/templates/tabs/tasks
-type: text/vnd.tiddlywiki
 
 <$checkbox field="mt-task.status" checked="done" unchecked=""> <$link to={{!!title}}><$view field="title"/></$link></$checkbox><br>

@@ -1,6 +1,5 @@
 tags: $:/tags/Stylesheet MagicTabs 
 title: $:/plugins/amp/MagicTabs/css/image/person
-type: text/vnd.tiddlywiki
 
 .person {
 	border: none;

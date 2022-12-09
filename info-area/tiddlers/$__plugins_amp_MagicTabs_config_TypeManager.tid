@@ -1,6 +1,5 @@
 caption: Type manager
 title: $:/plugins/amp/MagicTabs/config/TypeManager
-type: text/vnd.tiddlywiki
 
 \define edit-type(style)
     <$reveal state=<<qualify "$:/state/mt/edit-type">> type="nomatch" text=<<currentTiddler>>>

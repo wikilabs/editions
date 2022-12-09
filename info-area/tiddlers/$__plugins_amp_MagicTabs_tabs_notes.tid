@@ -11,7 +11,6 @@ mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/notes
 mt-list.template_alt: $:/plugins/amp/MagicTabs/templates/tabs/notes
 tags: $:/type/tab  $:/tabs/all $:/tabs/publication $:/tabs/part
 title: $:/plugins/amp/MagicTabs/tabs/notes
-type: text/vnd.tiddlywiki
 
 <<mt-slider-input "$:/plugins/amp/MagicTabs/new/default">>
 

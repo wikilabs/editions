@@ -1,6 +1,5 @@
 tags: $:/tags/Macro 
 title: $:/plugins/amp/MagicTabs/macros/mt-new-person
-type: text/vnd.tiddlywiki
 
 \define mt-new-person-button(type, title, template, label:"add", class:"btn-big green")
 

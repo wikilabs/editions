@@ -1,5 +1,4 @@
 dependencies: 
 title: $:/plugins/amp/MagicTabs/notification/noSysTags/hidden
-type: text/vnd.tiddlywiki
 
 System tags are now hidden

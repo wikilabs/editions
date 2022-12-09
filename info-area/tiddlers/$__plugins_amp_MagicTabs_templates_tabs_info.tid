@@ -1,5 +1,4 @@
 tags: $:/type/template MagicTabs 
 title: $:/plugins/amp/MagicTabs/templates/tabs/info
-type: text/vnd.tiddlywiki
 
 <$link><$transclude tiddler={{!!icon}}/> <$view field="title"/></$link><br>

@@ -1,5 +1,4 @@
 title: $:/plugins/amp/MagicTabs/new/type
-type: text/vnd.tiddlywiki
 
 \define new-type-button(extension)
     <$reveal state="!!caption" type="nomatch" text="">

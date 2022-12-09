@@ -6,7 +6,6 @@ mt-list.heading:
 mt-list.template: $:/plugins/amp/MagicTabs/templates/tabs/info
 tags: $:/type/tab  $:/tabs/all
 title: $:/plugins/amp/MagicTabs/tabs/info
-type: text/vnd.tiddlywiki
 
 \define mt-seek-children()
 <$list filter="[all[tiddlers]$(sourceField)$[$(storyTiddler)$]!is[system]!has[draft.of]sort[]]">

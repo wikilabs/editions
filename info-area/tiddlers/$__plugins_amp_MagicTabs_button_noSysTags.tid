@@ -1,6 +1,5 @@
 dependencies: $:/config/SystemTags/Visibility/$:/plugins/amp/MagicTabs/noSysTags $:/core/ui/ViewTemplate/tags $:/plugins/amp/MagicTabs/noSysTags/ViewTemplate/tags $:/plugins/amp/MagicTabs/noSysTags/notification/hidden $:/plugins/amp/MagicTabs/noSysTags/notification/visible
 title: $:/plugins/amp/MagicTabs/button/noSysTags
-type: text/vnd.tiddlywiki
 
 <$reveal state="$:/config/SystemTags/Visibility/$:/plugins/amp/MagicTabs/noSysTags" type="match" text="show" default="hide">
 <$button>

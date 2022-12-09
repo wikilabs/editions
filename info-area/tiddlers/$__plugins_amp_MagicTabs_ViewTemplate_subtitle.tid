@@ -1,7 +1,6 @@
 list-after: $:/core/ui/ViewTemplate/title
 tags: $:/tags/ViewTemplate MagicTabs 
 title: $:/plugins/amp/MagicTabs/ViewTemplate/subtitle
-type: text/vnd.tiddlywiki
 
 \define fieldValue()
 	<$tiddler tiddler={{!!$(fieldName)$}}>

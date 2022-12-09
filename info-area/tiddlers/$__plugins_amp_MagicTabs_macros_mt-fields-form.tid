@@ -1,7 +1,6 @@
 tags: $:/tags/Macro 
 test: 
 title: $:/plugins/amp/MagicTabs/macros/mt-fields-form
-type: text/vnd.tiddlywiki
 
 \define mt-more-fields-btn()
 <div class="tc-table-of-contents">

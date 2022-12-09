@@ -1,7 +1,6 @@
 sort: modified
 tags: $:/tags/Macro
 title: $:/plugins/amp/MagicTabs/macros/searchBox/SortModified
-type: text/vnd.tiddlywiki
 
 \define mt-sort-modified()
 	<$reveal state="!!sort" type="match" text="modified">
