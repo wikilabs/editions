@@ -1,8 +1,0 @@
-title: $:/plugins/amp/MagicTabs/images/comments-o
-
-<$reveal state="$:/plugins/TheDiveO/FontAwesome/fonts/FontAwesome!!modified" type="nomatch" text="">
-<i class="fa fa-comments-o"></i>
-</$reveal>
-<$reveal state="$:/plugins/TheDiveO/FontAwesome/fonts/FontAwesome!!modified" type="match" text="">
-comments
-</$reveal>

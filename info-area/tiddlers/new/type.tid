@@ -1,62 +1,62 @@
 title: $:/plugins/amp/MagicTabs/new/type
 
 \define new-type-button(extension)
-    <$reveal state="!!caption" type="nomatch" text="">
-        <$button set="$:/state/new-type" setTo="$:/type/$extension$" class="btn-big green">
-            <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-type"/>
-            <$action-setfield title="$:/type/$extension$"/>
+	<$reveal state="!!caption" type="nomatch" text="">
+		<$button set="$:/state/new-type" setTo="$:/type/$extension$" class="btn-big green">
+			<$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-type"/>
+			<$action-setfield title="$:/type/$extension$"/>
 			create
-        </$button>
-    </$reveal>
+		</$button>
+	</$reveal>
 
-    <$reveal state="!!caption" type="match" text="">
-        <$button class="btn-big grey">
-            create
-        </$button>
-     </$reveal>
+	<$reveal state="!!caption" type="match" text="">
+		<$button class="btn-big grey">
+			create
+		</$button>
+	</$reveal>
 \end
 
 
 
 \define mt-check-template(template, type)
-    <$reveal state="$template$!!modified" type="nomatch" text="">
-        <$button set="$:/state/new-template" setTo="$template$">
-        assign @@color:green;{{$:/plugins/amp/MagicTabs/images/done}}@@
-        </$button>
-    </$reveal>
+	<$reveal state="$template$!!title" type="nomatch" text="">
+		<$button set="$:/state/new-template" setTo="$template$">
+		assign @@color:green;{{$:/plugins/amp/MagicTabs/images/done}}@@
+		</$button>
+	</$reveal>
 
-    <$reveal state="$template$!!modified" type="match" text="">
-        <$button set="$:/state/new-template" setTo="$template$">
-            <$action-setfield $tiddler="$:/temp/new-template"  tags="$type$"/>
-            <$action-setfield $tiddler="$:/temp/new-template" title="$template$"/>
-            create
-        </$button>
-    </$reveal>
+	<$reveal state="$template$!!title" type="match" text="">
+		<$button set="$:/state/new-template" setTo="$template$">
+			<$action-setfield $tiddler="$:/temp/new-template"  tags="$type$"/>
+			<$action-setfield $tiddler="$:/temp/new-template" title="$template$"/>
+			create
+		</$button>
+	</$reveal>
 \end
 
 
 
 
 \define mt-new-template-done(template)
-    <$button set="$:/state/new-template" setTo="done" class="btn-big green">
-        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-type"/>
-        <$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-template"/>
-        done
-    </$button>
+	<$button set="$:/state/new-template" setTo="done" class="btn-big green">
+		<$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-type"/>
+		<$action-sendmessage $message="tm-notify" $param="$:/plugins/amp/MagicTabs/notifications/new-template"/>
+		done
+	</$button>
 \end
 
 
 
 
 \define mt-start-again-button()
-    <$button class="btn-big red">
-        <$action-deletetiddler $tiddler="$:/state/new-type"/>
-        <$action-deletetiddler $tiddler="$:/state/new-template"/>
-        <$action-deletetiddler $tiddler="$:/temp/$:/type/type"/>
-        <$action-deletetiddler $tiddler="$:/state/new-template"/>
-        <$action-setfield $tiddler="$:/temp/$:/type/type" text=""/>
-        start again
-    </$button>
+	<$button class="btn-big red">
+		<$action-deletetiddler $tiddler="$:/state/new-type"/>
+		<$action-deletetiddler $tiddler="$:/state/new-template"/>
+		<$action-deletetiddler $tiddler="$:/temp/$:/type/type"/>
+		<$action-deletetiddler $tiddler="$:/state/new-template"/>
+		<$action-setfield $tiddler="$:/temp/$:/type/type" text=""/>
+		start again
+	</$button>
 \end
 
 

@@ -2,10 +2,10 @@ tags: $:/tags/Macro
 title: $:/plugins/amp/MagicTabs/macros/fields-table
 
 \define fields-table2(tiddler, fieldTitle:"title")
-    <$reveal state="$tiddler$!!modified" type="match" text="">
+    <$reveal state="$tiddler$!!title" type="match" text="">
         The tiddler [[$tiddler$]] doesn't exist.
     </$reveal>
-    <$reveal state="$tiddler$!!modified" type="nomatch" text="">
+    <$reveal state="$tiddler$!!title" type="nomatch" text="">
         <$tiddler tiddler="$tiddler$">
             <table class="" style="width: 100%">
                 <tbody>

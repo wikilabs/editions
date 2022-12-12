@@ -7,7 +7,7 @@ title: $:/plugins/amp/MagicTabs/new/default
 
 	<$set name="rootTiddler" value=<<mt-select-root>>>
 
-	<$set name="templateTopics" filter="[[$template$]has[modified]!modified[]has[mt-topics.list]!mt-topics.list[]]" value={{$template$!!mt-topics.list}} emptyValue="">
+	<$set name="templateTopics" filter="[[$template$]has[title]has[mt-topics.list]!mt-topics.list[]]" value={{$template$!!mt-topics.list}} emptyValue="">
 
 	<$set name="sourceTopics" value={{$(storyTiddler)$!!mt-topics.list}}>
 

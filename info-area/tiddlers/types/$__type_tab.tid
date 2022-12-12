@@ -1,7 +1,10 @@
 caption: tab
+created: 20221209152342941
 icon: $:/plugins/amp/MagicTabs/images/magic
+modified: 20221209152344493
 mt-source.parents: 
 mt-template.fields: $:/plugins/amp/MagicTabs/templates/types/tab
 mt-template.form: 
+tags: 
 title: $:/type/tab
 type: text/vnd.tiddlywiki

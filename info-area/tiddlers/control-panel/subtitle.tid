@@ -1,3 +1,4 @@
+caption: Subtitle
 dependencies: $:/core/ui/ViewTemplate/subtitle $:/plugins/amp/MagicTabs/ViewTemplate/subtitle
 tags: $:/tags/config MagicTabs 
 title: $:/plugins/amp/MagicTabs/config/subtitle

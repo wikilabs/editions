@@ -33,7 +33,7 @@ title: $:/plugins/amp/MagicTabs/dashboard
 
 
 \define mt-typed-list(type:"$:/type/note",heading)
-<$reveal state="$:/state/mt-typed-list/$type$!!modified" type="nomatch" text="">
+<$reveal state="$:/state/mt-typed-list/$type$!!title" type="nomatch" text="">
 
 <$macrocall $name="mt-typed-list2"
     type="$type$"
@@ -45,7 +45,7 @@ title: $:/plugins/amp/MagicTabs/dashboard
 
 </$reveal>
 
-<$reveal state="$:/state/mt-typed-list/$type$!!modified" type="match" text="">
+<$reveal state="$:/state/mt-typed-list/$type$!!title" type="match" text="">
 <$macrocall $name="mt-typed-list2"
     type="$type$"
     tags="$type$"

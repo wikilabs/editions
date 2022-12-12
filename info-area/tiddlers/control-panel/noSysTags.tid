@@ -1,3 +1,4 @@
+caption: System Tags
 dependencies: $:/config/SystemTags/Visibility/$:/plugins/amp/MagicTabs/noSysTags $:/plugins/amp/MagicTabs/button/noSysTags
 tags: $:/tags/ControlPanel/Appearance $:/tags/config MagicTabs 
 title: $:/plugins/amp/MagicTabs/config/noSysTags

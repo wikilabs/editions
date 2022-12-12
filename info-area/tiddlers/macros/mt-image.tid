@@ -1,0 +1,17 @@
+tags: $:/tags/Macro MagicTabs 
+title: $:/plugins/amp/MagicTabs/macros/mt-image
+
+\define mt-image(fa-name,image-name,label)
+\whitespace trim
+<$reveal state="$:/_images/$image-name$!!title" type="nomatch" text="">
+    {{$:/_images/$image-name$}}
+</$reveal>
+<$reveal state="$:/_images/$image-name$!!title" type="match" text="">
+    <$reveal state="$:/plugins/TheDiveO/FontAwesome/fonts/FontAwesome!!title" type="nomatch" text="">
+        <i class="fa $fa-name$"></i>
+    </$reveal>
+    <$reveal state="$:/plugins/TheDiveO/FontAwesome/fonts/FontAwesome!!title" type="match" text="">
+        $label$
+    </$reveal>
+</$reveal>
+\end

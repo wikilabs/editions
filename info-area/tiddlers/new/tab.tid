@@ -30,7 +30,7 @@ title: $:/plugins/amp/MagicTabs/new/tab
             </$reveal>
             <$reveal state="!!mt-template.fields" type="nomatch" text="">
                 <$tiddler tiddler={{!!mt-template.fields}}>
-                    <$reveal state="!!modified" type="match" text="">
+                    <$reveal state="!!title" type="match" text="">
                         @@color:red;This type has no valid template!@@
                     </$reveal>
                 </$tiddler>

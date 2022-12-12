@@ -11,7 +11,7 @@ title: $:/plugins/amp/MagicTabs/macros/mt-slider-input
 
 		<$set name="currentTemp" value=<<mt-current-type>>>
 
-			<$reveal state="$type$!!modified" type="match" text="">
+			<$reveal state="$type$!!title" type="match" text="">
 
 				<$button popup=<<qualify "$:/state/mt/slider-input-popup">> class="btn-slider-input $btnClass$" tooltip="add">
 
@@ -33,7 +33,7 @@ title: $:/plugins/amp/MagicTabs/macros/mt-slider-input
 
 			</$reveal>
 
-			<$reveal state="$type$!!modified" type="nomatch" text="">
+			<$reveal state="$type$!!title" type="nomatch" text="">
 
 				<$reveal default={{$type$!!mt-template.fields}} type="nomatch" text="">
         
@@ -43,7 +43,7 @@ title: $:/plugins/amp/MagicTabs/macros/mt-slider-input
 
 							<$set name="rootTiddler" value=<<mt-select-root>>>
 
-							<$set name="templateTopics" filter="[[$template$]has[modified]!modified[]has[mt-topics.list]!mt-topics.list[]]" value={{$template$!!mt-topics.list}} emptyValue="">
+							<$set name="templateTopics" filter="[[$template$]has[mt-topics.list]!mt-topics.list[]]" value={{$template$!!mt-topics.list}} emptyValue="">
 
 							<$set name="sourceTopics" value={{$(storyTiddler)$!!mt-topics.list}}>
 
@@ -110,7 +110,7 @@ title: $:/plugins/amp/MagicTabs/macros/mt-slider-input
 
         <$reveal default="$tiddler$" type="match" text="">
 
-            <$list filter="[[$type$]prefix[$:/type/]has[modified]!modified[]]" emptyMessage="""No valid type defined""">
+            <$list filter="[[$type$]prefix[$:/type/]has[title]]" emptyMessage="""No valid type defined""">
 
                 <div class="$contentClass$">
 
@@ -170,7 +170,7 @@ title: $:/plugins/amp/MagicTabs/macros/mt-slider-input
 			/>
 	</$reveal>""">
 
-<$list filter="[[$type$]has[modified]!modified[]]" variable="ignore" emptyMessage="""
+<$list filter="[[$type$]has[title]]" variable="ignore" emptyMessage="""
 	<$macrocall $name='mt-slider-input-seek-template'
 		tiddler='$tiddler$'
 		type={{$(currentTab)$!!mt-contents.type}}
