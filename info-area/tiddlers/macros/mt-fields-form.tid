@@ -3,6 +3,7 @@ test:
 title: $:/plugins/amp/MagicTabs/macros/mt-fields-form
 
 \define mt-more-fields-btn()
+\whitespave trim
 <div class="tc-table-of-contents">
 	<$reveal state=<<qualify "$:/state/mt/slider">> type="nomatch" text="show" default="">
 		<$button set=<<qualify "$:/state/mt/slider">> setTo="show" class="tc-btn-invisible">
@@ -17,28 +18,12 @@ title: $:/plugins/amp/MagicTabs/macros/mt-fields-form
 </div>
 \end
 
-
-
-
-
-
-
-
-
-
 \define edit-field()
 <$edit-text field=$(field)$ placeholder={{$(template)$!!$(field)$}} default="" class="tc-edit-fields"/>
 \end
 
-
-
-
-
-
-
-
 \define mt-fields-form-more-table(type)
-
+\whitespave trim
 <table class="" style="width:100%">
 	<tr>
 		<td style="height: 2em;">Source:</td>
@@ -81,15 +66,7 @@ title: $:/plugins/amp/MagicTabs/macros/mt-fields-form
 	</td>
 	</tr>
 </table>
-
 \end
-
-
-
-
-
-
-
 
 \define mt-fields-form-more-inherit(type)
 <$set name="show" filter="[[$type$]has[mt-source.type]!mt-source.type[]!mt-source.type[$:/type/root]]" value="yes" emptyValue="no">
@@ -99,85 +76,54 @@ title: $:/plugins/amp/MagicTabs/macros/mt-fields-form
 </$set>
 \end
 
-
-
-
-
-
-
 \define mt-fields-form-more(type, size)
-
+\whitespave trim
 <$tiddler tiddler="$:/temp/$type$">
-
-<$set name="template" filter="[[$type$]has[mt-template.fields]!mt-template.fields[]get[mt-template.fields]]" value={{$type$!!mt-template.fields}} emptyValue="">
-
-<$set name="parentType" value={{$type$!!mt-source.type}}>
-
-<<mt-more-fields-btn>>
-
-<$reveal state=<<qualify "$:/state/mt/slider">> type="match" text="show" default="$default$">
-
-<<mt-fields-form-more-inherit type:"$type$">>
-
-<<mt-fields-form-more-table type:"$type$">>
-
-</$reveal>
-
-</$set>
-
-</$set>
-
+	<$set name="template" filter="[[$type$]has[mt-template.fields]!mt-template.fields[]get[mt-template.fields]]" value={{$type$!!mt-template.fields}} emptyValue="">
+		<$set name="parentType" value={{$type$!!mt-source.type}}>
+			<<mt-more-fields-btn>>
+			<$reveal state=<<qualify "$:/state/mt/slider">> type="match" text="show" default="$default$">
+				<<mt-fields-form-more-inherit type:"$type$">>
+				<<mt-fields-form-more-table type:"$type$">>
+			</$reveal>
+		</$set>
+	</$set>
 </$tiddler>
-
 \end
 
-
-
-
-
-
-
 \define mt-fields-form(type)
+\whitespave trim
 <$list filter="[[$type$]is[shadow]]" emptyMessage="The tiddler [[$type$]] doesn't exist.">
-
-<$reveal state="$:/temp/$type$!!title" type="nomatch" text="" default="">
-
-<$tiddler tiddler="$:/temp/$type$">
-
-<table class="invisible" style="width:100%">
-<tr>
-<td>
-<$edit-text field<$edit-text field="draft.title" placeholder="Title" class="tc-edit-fields"/><<mt-check-title>>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-<$edit-text field="mt-topics.list" placeholder="Topics [[Inside brackets]]" tag="input" class="tc-edit-fields"/>
-</td>
-<td style="width: 5px;">{{$:/plugins/amp/MagicTabs/images/question-circle}}</td>
-</tr>
-<tr>
-<td>
-<$edit-text field="text" placeholder="Text" default="" tag="textarea" class="tc-edit-fields"/>
-</td>
-<td></td>
-</tr>
-</table>
-
-<<mt-fields-form-more type:"$type$">>
-
-</$tiddler>
-
-</$reveal>
-
-<$reveal state="$:/temp/$type$!!title" type="match" text="" default="">
-
-[[$:/temp/$type$]] doesn't exit!
-
-</$reveal>
-
+	<$reveal state="$:/temp/$type$!!title" type="nomatch" text="" default="">
+		<$tiddler tiddler="$:/temp/$type$">
+			<table class="invisible" style="width:100%">
+				<tr>
+					<td>
+						<$edit-text field<$edit-text field="draft.title" placeholder="Title" class="tc-edit-fields">
+						<<mt-check-title>>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<$edit-text field="mt-topics.list" placeholder="Topics [[Inside brackets]]" tag="input" class="tc-edit-fields"/>
+					</td>
+					<td style="width: 5px;">{{$:/plugins/amp/MagicTabs/images/question-circle}}</td>
+				</tr>
+				<tr>
+					<td>
+						<$edit-text field="text" placeholder="Text" default="" tag="textarea" class="tc-edit-fields"/>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+			<<mt-fields-form-more type:"$type$">>
+		</$tiddler>
+	</$reveal>
+	<$reveal state="$:/temp/$type$!!title" type="match" text="" default="">
+		[[$:/temp/$type$]] doesn't exit!
+	</$reveal>
 </$list>
 \end
 

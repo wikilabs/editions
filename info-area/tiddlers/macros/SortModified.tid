@@ -3,8 +3,8 @@ tags: $:/tags/Macro
 title: $:/plugins/amp/MagicTabs/macros/searchBox/SortModified
 
 \define mt-sort-modified()
+\whitespave trim
 	<$reveal state="!!sort" type="match" text="modified">
-
 		<$reveal state="!!order" type="nomatch" text="!">
 			<$button class="tc-btn-invisible">
 				<$action-setfield sort="modified"/>
@@ -12,7 +12,6 @@ title: $:/plugins/amp/MagicTabs/macros/searchBox/SortModified
 				@@color:black;recent {{$:/plugins/amp/MagicTabs/images/sort-numeric-asc}}@@
 			</$button>
 		</$reveal>
-
 		<$reveal state="!!order" type="match" text="!">
 			<$button class="tc-btn-invisible">
 				<$action-setfield sort="modified"/>
@@ -20,25 +19,20 @@ title: $:/plugins/amp/MagicTabs/macros/searchBox/SortModified
 				@@color:black;recent {{$:/plugins/amp/MagicTabs/images/sort-numeric-desc}}@@
 			</$button>
 		</$reveal>
-
 	</$reveal>
-
 	<$reveal state="!!sort" type="nomatch" text="modified">
-
 		<$reveal state="!!order" type="nomatch" text="!">
 			<$button class="tc-btn-invisible">
 				<$action-setfield sort="modified"/>
 				@@color:#aaaaaa;recent {{$:/plugins/amp/MagicTabs/images/sort-numeric-asc}}@@
 			</$button>
 		</$reveal>
-
 		<$reveal state="!!order" type="match" text="!">
 			<$button class="tc-btn-invisible">
 				<$action-setfield sort="modified"/>
 				@@color:#aaaaaa;recent {{$:/plugins/amp/MagicTabs/images/sort-numeric-desc}}@@
 			</$button>
 		</$reveal>
-
 	</$reveal>
 \end
 <<mt-sort-modified>>

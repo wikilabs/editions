@@ -1,8 +1,9 @@
 title: $:/plugins/amp/MagicTabs/notifications/new-tiddler
 
+\whitespave trim
 <$tiddler tiddler={{$:/state/mt/new-tiddler}}>
-<$reveal state="!!title" type="nomatch" text="" default="">
-<$link><$view field="title"/></$link>
-</$reveal>
+	<$reveal state="!!title" type="nomatch" text="" default="">
+		<$link><$view field="title"/></$link>
+	</$reveal>
 </$tiddler>
 has been successfully created !
