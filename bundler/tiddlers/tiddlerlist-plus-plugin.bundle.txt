@@ -1,5 +1,7 @@
+[[--- Non existent tiddlers ---]]
 a
 b
+[[--- System tiddlers + the plugin itself ---]]
 $:/plugins/wikilabs/bundler
 $:/state/tab/sidebar--595412856
 $:/StoryList

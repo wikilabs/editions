@@ -1,3 +1,5 @@
+[[--- Lines starting with [[--- are treated as comments. ---]]
+
 [[--- This bundle will include itself ---]]
 [[comment-self.bundle]]
 

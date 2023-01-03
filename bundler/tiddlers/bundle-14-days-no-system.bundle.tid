@@ -1,9 +1,8 @@
 created: 20170602124431835
-description: list all standard tiddlers modified during the last 14 days
+description: List all standard tiddlers modified during the last 14 days
 filter: [!is[system]days[-14]]
-modified: 20180131112418745
+modified: 20230103230911189
 tags: $:/tags/Filter
 title: bundle-14-days-no-system.bundle
 type: text/vnd.tiddlywiki
 
-<pre>{{!!filter}}</pre>
