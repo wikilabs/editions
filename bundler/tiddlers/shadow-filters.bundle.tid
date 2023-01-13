@@ -1,9 +1,7 @@
 created: 20170604153156183
 description: Bundling all shadow-tiddlers tagged ~$:/tags/Filter
 filter: [all[shadows]] +[tag[$:/tags/Filter]]
-modified: 20180131112418683
+modified: 20230113214200214
 tags: $:/tags/Filter
 title: shadow-filters.bundle
 type: text/vnd.tiddlywiki
-
-<pre>{{!!filter}}</pre>

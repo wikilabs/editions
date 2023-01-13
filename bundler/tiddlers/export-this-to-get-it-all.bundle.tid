@@ -1,7 +1,7 @@
 created: 20170609134146756
 description: Export this bundle to get the whole thing including examples
 filter: [tag[$:/tags/Filter]] [tag[$:/tags/Bundle]] a b $:/plugins/wikilabs/bundler
-modified: 20220325122434582
+modified: 20230113214212123
 tags: $:/tags/Filter
 title: export-this-to-get-it-all.bundle
 type: text/vnd.tiddlywiki
@@ -9,6 +9,3 @@ type: text/vnd.tiddlywiki
 !! Info
 
 If you export this bundle, you'll get all the example configurations, the test tiddlers and the plugin.<br>Have fun!
-
-!! Filter
-<pre>{{!!filter}}</pre>

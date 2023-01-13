@@ -1,9 +1,7 @@
 created: 20170602113331845
 description: List the active tiddlers in the story
 filter: [list[$:/StoryList]]
-modified: 20180131112418667
+modified: 20230113214152750
 tags: $:/tags/Filter
 title: story-list.bundle
 type: text/vnd.tiddlywiki
-
-<pre>{{!!filter}}</pre>

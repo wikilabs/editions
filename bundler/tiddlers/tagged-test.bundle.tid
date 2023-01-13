@@ -1,9 +1,7 @@
 created: 20170602113801111
 description: A tagged test filter
 filter: [tag[test]] tagged-test.bundle
-modified: 20180131112418652
+modified: 20230113214144248
 tags: $:/tags/Filter
 title: tagged-test.bundle
 type: text/vnd.tiddlywiki
-
-<pre>{{!!filter}}</pre>

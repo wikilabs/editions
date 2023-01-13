@@ -1,9 +1,7 @@
 created: 20170602133447566
 description: Bundling all tiddlers tagged ~$:/tags/Filter
 filter: [tag[$:/tags/Filter]]
-modified: 20180131112418730
+modified: 20230113214238688
 tags: $:/tags/Filter
 title: bundle-the-filters.bundle
 type: text/vnd.tiddlywiki
-
-<pre>{{!!filter}}</pre>
