@@ -1,0 +1,34 @@
+created: 20230113225852075
+modified: 20230118162251189
+tags: doc
+title: doc-bundle-lists
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/wikilabs/bundler/readme]]
+
+! Bundle Lists
+
+Using bundled lists is the easiest way to export a selection of related tiddlers. 
+
+!! Info
+
+Bundle lists are standard tiddlers
+
+* Where the text field contains a whitespace-separated list of tiddler titles
+* Tiddlers with spaces need to be covered in double-braces like so: `[[Title with spaces]]`
+* Comments are similar to tiddlers with spaces but start with `[[--- ` 
+** So `[[--- Lines starting with [[--- are treated as comments. ---]]` is bundler-plugin specific convention. Such tiddlers are //not// counted as tiddlers
+** Comment tiddlers are also ''not exported'' since usually they do not exist
+** So if you want to see the "comment tiddlers" you'll need to export the bundle-configuration tiddler too
+
+See: [[example.bundle]]
+
+{{example.bundle}}
+
+!! Export a Bundled List
+
+Exporting a bundeled list can be done from the  <$button actions=<<rightSidebarBundlesTab>> class="tc-btn-invisible tc-tiddlylink">right sidebar Bundles-tab</$button> if you click the "Export Button" <$button class="tc-btn-invisible">{{$:/core/images/export-button}}</$button>.
+
+or from the tiddler (i)nfo area in the tiddler toolbar.
+
+[img[export-bundle.png]]

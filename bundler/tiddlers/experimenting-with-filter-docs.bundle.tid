@@ -1,7 +1,7 @@
 created: 20170602152428406
-description: just an experiment
+description: Just an experiment
 filter: [list[$:/StoryList]]
-modified: 20180131112418714
+modified: 20230118155033111
 tags: $:/tags/Filter
 title: experimenting-with-filter-docs.bundle
 type: text/vnd.tiddlywiki

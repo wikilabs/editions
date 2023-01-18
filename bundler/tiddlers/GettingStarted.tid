@@ -1,5 +1,5 @@
 created: 20201226122843513
-modified: 20220325122547752
+modified: 20230118155423000
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -31,19 +31,19 @@ Have Fun!
 
 {{VideoThumbnail - How to user the Bunder Plugin}}
 
+{{$:/plugins/wikilabs/bundler/readmeXX}}
+
+! Documentation
+
+<<list-links "[tag[doc]]">>
+
 ! Tips and Tricks
 
-* See: [[Tips and Tricks]]
+* [[tips-and-tricks]]
 
-{{$:/plugins/wikilabs/bundler/readme}}
+! All Filters Available in the Wiki
 
-! Bundler Plugin Settings
-
-The bundle configuration can be easily activated from the right sidebar as shown in the image below
-<br><br>
-[img[sidebar-config-buttons.png]]
-
-! All Filters in this Wiki
+See: [[$:/plugins/wikilabs/bundler/doc/table-all-filters]]
 
 {{$:/plugins/wikilabs/bundler/doc/table-all-filters}}
 

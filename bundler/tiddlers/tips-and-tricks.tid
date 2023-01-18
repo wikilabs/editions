@@ -1,16 +1,26 @@
 created: 20210128134935994
-modified: 20220325105229227
-title: Tips and Tricks
+modified: 20230118155629812
+title: tips-and-tricks
 type: text/vnd.tiddlywiki
 
 ! Tips and Tricks
 
+Some tips and tricks that may be not obvious, but useful. 
+
+!! Enable Import Bundle
+
 * If you enable the [["import bundle option"|$:/config/wikilabs/enableImportBundle]] from the beginning, you will be able to track all your imports
 ** See: [[ProTip from TT|https://github.com/wikilabs/plugins/issues/23#issue-358115963]] at github
 
+!! Video
+
 * Have a look at the Video: [[How to use the Bundler Plugin]] ;)
 
+!! Import System Tiddlers
+
 * Since TW Version 5.1.23 it's possible to import system tiddlers into any TW. That can be very useful in combination with bundles
+
+!! Bulk Delete
 
 * Bulk delete for bundles can be done with the new button from the tiddler info-area. 
 ** It switches to the ~AdvancedSearch : Filter tab

@@ -1,0 +1,11 @@
+created: 20230113230305001
+modified: 20230113230319436
+tags: 
+title: plugin-settings
+type: text/vnd.tiddlywiki
+
+! Bundler Plugin Settings
+
+The bundle configuration can be easily activated from the right sidebar as shown in the image below
+<br><br>
+[img[sidebar-config-buttons.png]]

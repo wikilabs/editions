@@ -1,0 +1,57 @@
+created: 20230113230433713
+modified: 20230118162826406
+tags: doc
+title: doc-filtered-bundles
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/wikilabs/bundler/readme]]
+
+! Filtered Bundles
+
+This tiddler gives some info about how to 
+
+* Enable Filtered Bundles
+* Info About FB Fields
+* How to Test Filtered Bundles
+* How to Export Filtered Bundles
+
+!! Enable Filtered Bundles
+
+Filtered bundles are disabled by default. They can easily be enabled in <$button actions=<<openControlBundlesTab>> class="tc-btn-invisible tc-tiddlylink">~$:/ControlPanel : Bundles tab</$button> in the "Enable Filtered Bundles" section.
+
+[img[endable-filtered-bundles.png]]
+
+!! About Fields
+
+* Filtered bundles must have a `filter` field to be able to work. 
+* Usually they also have a `description` field. 
+
+Since the format is the same as the $:/AdvancedSearch - Filter tab uses, the filtered bundles can be seen in the "Filter" dropdown. 
+
+The text field is not used by any bundled filters function, it can be used for additional documentation. 
+
+All tiddlers tagged <<tag "$:/tags/Filter">> have a custom view-template that shows the filter and the description at the footer of the tiddler. 
+
+See [[export-this-to-get-it-all.bundle]]
+
+!! Test Filtered Bundles
+
+Filtered bundles can easily be tested if the "counter number" next to the export button is clicked as shown in the next image. 
+
+[img[test-filtered-bundle.png]]
+
+!! Export Filtered Bundles
+
+There are 2 ways to export filtered bundles. 
+
+# With the tiddler (i)nfo button in the tiddler toolbar
+# From the $:/AdvancedSearch Filter tab 
+
+!!! Export with Tiddler Info Button
+
+[img[export-filtered-bundle-2.png]]
+
+!!! Export from Advanced Search Filter Tab
+
+[img[export-filtered-bundle.png]]
+
