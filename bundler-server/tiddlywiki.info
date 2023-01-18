@@ -4,10 +4,10 @@
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
-		"wikilabs/info-session",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/bundler",
-		"wikilabs/uni-link"
+		"wikilabs/uni-link",
+		"relink"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
