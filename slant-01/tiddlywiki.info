@@ -4,7 +4,6 @@
 	"plugins": [
 		"wikilabs/info-tagmap",
 		"wikilabs/multicol-dropdown",
-		"wikilabs/info-session",
 		"wikilabs/new-tiddler-from-search"
 	],
 	"themes": [
