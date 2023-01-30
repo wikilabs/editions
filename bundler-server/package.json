@@ -1,10 +1,13 @@
 {
   "name": "bundler-server",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+		"watch": "nodemon",
+		"net": "tiddlywiki . --listen host=local.lan",
+
+    "start": "tiddlywiki . --listen",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
@@ -17,6 +20,17 @@
 
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
+	"nodemonConfig": {
+		"exec": "npm run net",
+		"ext": "*.*",
+		"restartable": "rs",
+		"ignore": [
+			".git"
+		],
+		"verbose": true,
+		"watch": ["../../plugins/wikilabs/bundler/**"],
+		"delay": 200
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wikilabs/plugins"
@@ -35,6 +49,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "tiddlywiki": "^5.1.12"
+    "tiddlywiki": "^5.1.12",
+		"nodemon": "^1.8.1"
   }
 }
