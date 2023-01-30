@@ -1,41 +1,53 @@
 {
-  "name": "advanced-search-plus-server",
-  "version": "0.0.2",
-  "description": "tiddlywiki edition development helper",
-  "main": "index.js",
-  "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
-    "test": "echo ---- no tests atm ----",
+	"name": "advan1ced-search-plus-server",
+	"version": "0.1.0",
+	"description": "tiddlywiki edition development helper",
+	"main": "index.js",
+	"scripts": {
+		"watch": "nodemon",
+		"net": "tiddlywiki . --listen host=local.lan",
+		"start": "tiddlywiki . --listen",
+		"test": "npm run watch",
+		"server": "npm start",
+		"build:github": "tiddlywiki ../advanced-search-plus --build github",
+		"build": "tiddlywiki ../advanced-search-plus --build index",
 
-    "server": "npm start",
+		"prestage": "npm run build",
+		"stage": "npm run build:github",
 
-    "build:github": "tiddlywiki ../advanced-search-plus --build github",
-    "build": "tiddlywiki ../advanced-search-plus --build index",
-
-    "prestage": "npm run build",
-    "stage": "npm run build:github",
-
-    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wikilabs/plugins"
-  },
-  "keywords": [
-    "tiddlywiki",
-    "search",
-    "advanced",
-    "plugin"
-  ],
-  "author": "Mario Pietsch",
-  "license": "",
-  "bugs": {
-    "url": "https://github.com/wikilabs/plugins/issues"
-  },
-  "homepage": "https://wikilabs.github.io/editions/advanced-search-plus",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "tiddlywiki": "^5.1.12"
-  }
+		"deploy": "echo # deploy is done with wikilabs.github.io repo!"
+	},
+	"nodemonConfig": {
+		"exec": "npm run net",
+		"ext": "*.*",
+		"restartable": "rs",
+		"ignore": [
+			".git"
+		],
+		"verbose": true,
+		"watch": ["../../plugins/wikilabs/advanced-search-plus/**"],
+		"delay": 200
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wikilabs/plugins"
+	},
+	"keywords": [
+		"tiddlywiki",
+		"search",
+		"advanced",
+		"plugin"
+	],
+	"author": "Mario Pietsch",
+	"license": "",
+	"bugs": {
+		"url": "https://github.com/wikilabs/plugins/issues"
+	},
+	"homepage": "https://wikilabs.github.io/editions/advanced-search-plus",
+	"dependencies": {
+	},
+	"devDependencies": {
+		"tiddlywiki": "^5.1.12",
+		"nodemon": "^1.8.1"
+	}
 }
