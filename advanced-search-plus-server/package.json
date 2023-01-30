@@ -6,9 +6,12 @@
 	"scripts": {
 		"watch": "nodemon",
 		"net": "tiddlywiki . --listen host=local.lan",
+
 		"start": "tiddlywiki . --listen",
 		"test": "npm run watch",
+
 		"server": "npm start",
+
 		"build:github": "tiddlywiki ../advanced-search-plus --build github",
 		"build": "tiddlywiki ../advanced-search-plus --build index",
 
