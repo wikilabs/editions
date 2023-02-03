@@ -12,7 +12,7 @@ type: text/vnd.tiddlywiki
 
 This plugin adds the advanced search tiddler to the right sidebar. To do so, the caption text is replaced by icons only.
 
-<$list filter="[all[shadows]tag[$:/tags/AdvancedSearch]prefix[$:/core/ui]]"><$wikify name=icon text={{{ [all[current]get[icon]get[text]] }}} mode=inline output=html ><span class="tc-big-gap"><<icon>> <$view field=info format=htmlwikified mode=inline /></span></$wikify></$list>
+<$list filter="[all[shadows]tag[$:/tags/AdvancedSearchPlus]prefix[$:/core/ui]]"><$wikify name=icon text={{{ [all[current]get[icon]get[text]] }}} mode=inline output=html ><span class="tc-big-gap"><<icon>> <$view field=info format=htmlwikified mode=inline /></span></$wikify></$list>
 
 ! Video
 
