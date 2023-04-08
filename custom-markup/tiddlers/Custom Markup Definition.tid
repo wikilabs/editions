@@ -36,7 +36,7 @@ type: text/vnd.tiddlywiki
 
 ; Glyph
 : Block: `tick (´), single (›), degree (°), angle (»), approx (≈), pilcrow (¶)`
-: Inline: `braille ⠒ ⠶`, `corner 『 』`, `slash /° °/`
+: Inline: `braille ⠒ ⠶`, `corner ❮ ❯`, `slash /° °/`
 
 
 ; userSymbol

@@ -11,12 +11,12 @@ type: text/vnd.tiddlywiki
 \custom corner=§ _use=POEM _classes='.poem-strict'
 
 
-『POEM Here is a poem
-Here is a line』
+❮POEM Here is a poem
+Here is a line❯
 
-『§ Here is a poem
+❮§ Here is a poem
 Here is a line
-』
+❯
 
 This example works since V 0.11.3
 

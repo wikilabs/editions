@@ -9,7 +9,7 @@ type: text/vnd.tiddlywiki
 ... are a possibility to use ''new'' markers: 
 
 * ''Block'' markers are: ''Angle'': `»`, ''Approx'': `≈`, ''Pilcrow'': `¶`, ''Degree'': `°`, ''Tick'': `´` and ''Single'': `›` 
-* ''Inline'' markers are: ''Braille'': `⠒ .. ⠶`, ''Corner'': `『 .. 』` and ''Slash'': `/° .. °/`
+* ''Inline'' markers are: ''Braille'': `⠒ .. ⠶`, ''Corner'': `❮ .. ❯` and ''Slash'': `/° .. °/`
 
 !! The new Custom Markup Plugin
 

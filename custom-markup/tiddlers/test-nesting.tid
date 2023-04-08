@@ -4,6 +4,6 @@ tags:
 title: test-nesting
 type: text/vnd.tiddlywiki
 
-`『 xxx   /° slash /° xxxx slash °/ °/ 』`
+`❮ xxx   /° slash /° xxxx slash °/ °/ ❯`
 
-aa 『 xxx   /° slash /° xxxx slash °/ °/ 』 asdf
+aa ❮ xxx   /° slash /° xxxx slash °/ °/ ❯ asdf

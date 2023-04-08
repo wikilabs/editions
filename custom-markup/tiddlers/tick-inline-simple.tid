@@ -18,7 +18,7 @@ or
 
 or
 
-『.class:"x" some text ⠒.y some nested⠶ text』. 
+❮.class:"x" some text ⠒.y some nested⠶ text❯. 
 ```
 
 
@@ -31,7 +31,7 @@ start ⠒.x some text /° some nested °/ text⠶.
 or
 
 
-『.class:"x" some text ⠒.y some nested⠶ text』. 
+❮.class:"x" some text ⠒.y some nested⠶ text❯. 
 
 
 `⠪.class:param Braille 246 and Braille 2345 ⠞`
