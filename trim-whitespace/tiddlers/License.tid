@@ -1,0 +1,13 @@
+created: 20220325115816277
+modified: 20220325120340417
+tags: 
+title: License
+type: text/vnd.tiddlywiki
+
+''Human readable summary: ''
+
+<<<
+{{$:/plugins/wikilabs/trim-whitespace/license}}
+<<<
+
+The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/trim-whitespace/license!!license-text}}

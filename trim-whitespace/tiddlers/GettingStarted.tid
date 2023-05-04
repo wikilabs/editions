@@ -1,0 +1,15 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "Trim Whitespace" adds a new editor button to the edit toolbar
+
+{{$:/plugins/wikilabs/trim-whitespace/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+! License
+
+See: [[License]]
