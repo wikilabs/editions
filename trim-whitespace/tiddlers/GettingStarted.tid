@@ -1,15 +1,22 @@
+created: 20230504151415474
+modified: 20230504151824267
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
-! Overview
+\define openTestTiddler()
+<$action-sendmessage $message="tm-edit-tiddler" $param="test-whitespace-trim-button"/>
+\end
 
-This plugin "Trim Whitespace" adds a new editor button to the edit toolbar
+!! Overview
+
+<$button actions=<<openTestTiddler>>>Open Test Tiddler</$button>
 
 {{$:/plugins/wikilabs/trim-whitespace/readme}}
 
-! Plugins
+!! Plugins
 
 {{$:/core/ui/ControlPanel/Plugins}}
 
-! License
+!! License
 
 See: [[License]]

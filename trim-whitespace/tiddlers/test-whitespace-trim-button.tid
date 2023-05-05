@@ -1,0 +1,17 @@
+created: 20230505095154723
+modified: 20230505095157808
+title: test-whitespace-trim-button
+type: text/vnd.tiddlywiki
+
+  leading spaces
+trailing spaces  
+  leading and trailing spaces  
+  
+  
+
+Above are some lines with whitespace.<br>
+Use CTRL-A to see them.
+
+Then click the new "whitespace trim" button in the editor toolbar: <kbd>{{$:/plugins/wikilabs/trim-whitespace/icons/trim-whitespace}}</kbd>
+
+{{$:/plugins/wikilabs/trim-whitespace/settings}}
