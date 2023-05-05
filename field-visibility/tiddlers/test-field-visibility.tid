@@ -1,14 +1,12 @@
 created: 20211112123009188
-modified: 20211112124655889
+modified: 20230505103250707
 tags: 
 test: some text in filed test
 test-invisible: some text in field: test-invisible
 title: test-field-visibility
 type: text/vnd.tiddlywiki
 
-\define showInfo()
-<$action-setfield $tiddler="$:/state/popup/tiddler-info-471453735" text="yes" />
-\end
+\import [[$:/plugins/wikilabs/field-visibility/readme]]
 
 !! Important
 
