@@ -1,11 +1,14 @@
 {
   "name": "uni-link-server",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
-    "test": "echo ---- no tests atm ----",
+    "watch": "nodemon",
+    "net": "tiddlywiki . --listen host=local.lan",
+
+    "start": "tiddlywiki . -listen",
+		"test": "npm run watch",
 
     "server": "npm start",
 
@@ -17,6 +20,17 @@
 
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
+  "nodemonConfig": {
+		"exec": "npm run net",
+		"ext": "*.*",
+		"restartable": "rs",
+		"ignore": [
+			".git"
+		],
+		"verbose": true,
+		"watch": ["../../plugins/wikilabs/uni-link/**"],
+		"delay": 200
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wikilabs/plugins"
@@ -24,7 +38,7 @@
   "keywords": [
     "tiddlywiki",
     "parser",
-	"wikitext"
+    "wikitext"
   ],
   "author": "Mario Pietsch",
   "license": "",
@@ -32,9 +46,8 @@
     "url": "https://github.com/wikilabs/plugins/issues"
   },
   "homepage": "https://wikilabs.github.io/editions/uni-link",
-  "dependencies": {
-  },
   "devDependencies": {
-    "tiddlywiki": "^5.1.0"
+    "tiddlywiki": "^5.1.0",
+    "nodemon": "^2.0.22"
   }
 }
