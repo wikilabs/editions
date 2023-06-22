@@ -1,0 +1,22 @@
+created: 20230605223102513
+modified: 20230605230207840
+tags: 
+title: filter-test
+type: text/vnd.tiddlywiki
+
+\define xx(tag, field:"parent")
+
+<$list filter="""[has<__field__>] :filter[get<__field__>match<__tag__>]""">
+<<currentTiddler>>
+</$list>
+
+\end
+
+<<xx root>>
+
+---
+
+
+<$list filter="""[has<__field__>field:<__field__><__tag__>]""">
+<<currentTiddler>>
+</$list>

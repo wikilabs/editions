@@ -1,12 +1,12 @@
 created: 20170201225717966
-modified: 20170202141301980
+modified: 20230622121951723
 tags: default
 title: tocP - Parent Based TOC
 type: text/vnd.tiddlywiki
 
 ! Overview
 
-* This plugin contains several "Table of Content" macros, that have the same parameters as the core toc macro.
+* This plugin contains several "Table of Content" macros, that have ''almost'' the same parameters as the core toc macro.
 * The main difference is, that ''it doesn't use tags'' to create the TOC scructure. 
 * It uses a <<.field parent>> field in so called "child - tiddlers".
 
@@ -14,10 +14,13 @@ type: text/vnd.tiddlywiki
 
 ; `tocP`
 : A simple tree
+
 ; `tocP-expandable`
 : A tree in which all the branches can be expanded and collapsed
+
 ; `tocP-selective-expandable`
 : A tree in which the non-empty branches can be expanded and collapsed
+
 ; `tocP-tabbed-internal-nav` and `toc-tabbed-external-nav`
 : A two-panel browser:
 :* on the left, a selectively expandable tree that behaves like a set of vertical tabs
@@ -27,6 +30,7 @@ The `tabbed-` versions have a different link handling, in the right-hand panel:
 
 ; `tocP-tabbed-internal-nav`
 : The target tiddler appears in the right-hand panel, replacing the tiddler that contained the link
+
 ; `tocP-tabbed-external-nav`
 : The target tiddler appears in the normal way (which depends on the user's configured storyview)
 
@@ -49,15 +53,16 @@ The `tabbed-` versions have a different link handling, in the right-hand panel:
 
 <<<
 
-;tag
+; tag
 : The root tag that identifies the top level of the tree
-;sort
-: An optional extra [[filter step|http://tiddlywiki.com/#Filter Step]], e.g. `sort[title]`
-: These two parameters are combined into a single [[filter expression|http://tiddlywiki.com/Filter Expression]] like this:
-:> `[tag[$tag$]$sort$]`
 
-;field
-: default: `parent`
+; sort
+: ''Important:'' This parameter is different to the core toc-macros. Here, it has to be a valid "subfilter" expression. Internally it is activated like so: `+[subfilter<__sort__>]`
+: An optional extra [[filter step|http://tiddlywiki.com/#Filter Step]], e.g. `[sort[title]]` or `[!sort[created]]`
+:
+
+; field
+: ''Any'' field name, that contains the parent connection. default: `parent`
 : If you change the field name, be aware, what you are doing! see:  [[test-tocP-asdf]]
 
 <<<
@@ -68,13 +73,16 @@ The `tabbed-` versions have a different link handling, in the right-hand panel:
 
 `toc-tabbed-internal-nav` and `toc-tabbed-external-nav` take additional parameters:
 
-;selectedTiddler
+; selectedTiddler
 : The title of the [[state tiddler|http://tiddlywiki.comStateMechanism]] for noting the currently selected tiddler, defaulting to `$:/temp/toc/selectedTiddler`. It is recommended that this be a [[system tiddler|http://tiddlywiki.com/SystemTiddlers]]
-;unselectedText
+
+; unselectedText
 : The text to display when no tiddler is selected in the tree
-;missingText
+
+; missingText
 : The text to display if the selected tiddler doesn't exist
-;template
+
+; template
 : Optionally, the title of a tiddler to use as a [[template|http://tiddlywiki.com/TemplateTiddlers]] for transcluding the selected tiddler into the right-hand panel
 
 <<<

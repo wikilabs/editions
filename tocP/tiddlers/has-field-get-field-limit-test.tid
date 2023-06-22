@@ -1,0 +1,22 @@
+created: 20230622085137332
+modified: 20230622121117541
+tags: 
+title: has-field-get-field-limit-test
+type: text/vnd.tiddlywiki
+
+\define __field__() parent
+\define __tag__() root
+\define __sort__() [enlist-input[]]
+\define currentTiddler() level-2a
+
+<!-- {{{ [has<__field__>!has[draft.of]] -[<__tag__>] -[subfilter<__exclude__>] :filter[get<__field__>match<__tag__>] +[subfilter<__sort__>] }}} -->
+
+
+last: {{{ [has<__field__>] :filter[get<__field__>match<..currentTiddler>]  +[limit[1]] }}}
+
+
+---
+
+<div class="tc-table-of-contents">
+<<tocP-selective-expandable root>>
+</div>

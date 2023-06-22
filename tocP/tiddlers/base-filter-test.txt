@@ -1,0 +1,7 @@
+\define __field__() parent
+\define __tag__() root
+\define __sort__() [enlist-input[]]
+
+{{{ [has<__field__>!has[draft.of]] -[<__tag__>] -[subfilter<__exclude__>] :filter[get<__field__>match<__tag__>] +[subfilter<__sort__>] }}}
+
+

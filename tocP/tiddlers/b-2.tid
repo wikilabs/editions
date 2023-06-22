@@ -1,9 +1,14 @@
 asdf: b
 created: 20170202141800107
-modified: 20170505112317176
+modified: 20230605231650628
 tags: 
 title: b-2
 toc-link: no
 tooltip: test
 type: text/vnd.tiddlywiki
 
+asdf: {{!!asdf}}
+
+toc-link: {{!!toc-link}}
+
+tooltip: {{!!tooltip}}

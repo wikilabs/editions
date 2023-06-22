@@ -1,6 +1,6 @@
-created: 20170505124727906
-modified: 20170505124729075
+created: 20230622121915140
+modified: 20230622121915140
 title: $:/config/wikilabs/tocP/newChild
 type: text/vnd.tiddlywiki
 
-<span class='wltc-btn-new-child'>{{||$:/wikilabs/ui/buttons/new-child-alone}}</span>
+<span class='wltc-btn-new-child tc-tiny-gap-left'>{{||$:/wikilabs/ui/buttons/new-child-alone}}</span>
