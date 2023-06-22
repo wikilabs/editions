@@ -1,21 +1,7 @@
 created: 20170505085037276
-modified: 20170505133721365
+modified: 20230622130859164
 tags: default
 title: Revision-History
 type: text/vnd.tiddlywiki
 
-!! Version
-
-0.1.0 .. beta-1
-
-<<<
-* improved / fixed tool button tooltips
-* fixed plugin license typo
-* new [[StyleSheet|$:/plugins/wikilabs/tocP/Stylesheet]] setting for `.tocp` class. It sets the default link color to green, which should set it apart from the standard toc.
-** This is probably a temporary solution, because it doesn't work for tabbed tocPs.
-* The "New Child" buttons now show a more detailed tooltip.
-** The actual "field-name: value" pair which will be used to create the new child. 
-* tocP now shows the tooltip field, if available in tiddlers. see [[examples|GettingStarted]] or open [[level-1]] in edit mode.
-<<<
-
-See: [[$:/plugins/wikilabs/tocP/history]]
+{{$:/plugins/wikilabs/tocP/history}}
