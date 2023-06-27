@@ -1,0 +1,15 @@
+created: 20230627082955287
+modified: 20230627083147091
+tags: 
+title: test-using-sort-created
+type: text/vnd.tiddlywiki
+
+```
+<div class="tocp tc-table-of-contents">
+<<tocP root sort:"[sort[created]]">>
+</div>
+```
+
+<div class="tocp tc-table-of-contents">
+<<tocP root sort:"[sort[created]]">>
+</div>

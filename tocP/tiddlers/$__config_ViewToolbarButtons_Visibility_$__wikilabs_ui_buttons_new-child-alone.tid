@@ -1,6 +1,6 @@
 created: 20170201224310682
-modified: 20170201231935407
+modified: 20230627073206033
 title: $:/config/ViewToolbarButtons/Visibility/$:/wikilabs/ui/buttons/new-child-alone
 type: text/vnd.tiddlywiki
 
-hide
+show
