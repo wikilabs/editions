@@ -1,0 +1,19 @@
+created: 20230627143911160
+modified: 20230627162424898
+tags: 
+title: test-viewFieldTemplate
+type: text/vnd.tiddlywiki
+
+This example uses a template to show the link-text
+
+template: [[viewFieldTemplate]] ... `xxx--<<currentTiddler>>`
+
+```
+<div class="tocp tc-table-of-contents">
+<<tocP root viewFieldTemplate:viewFieldTemplate viewField:text>>
+</div>
+```
+
+<div class="tocp tc-table-of-contents">
+<<tocP root viewFieldTemplate:viewFieldTemplate viewField:text>>
+</div>

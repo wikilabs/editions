@@ -1,0 +1,18 @@
+created: 20170201220635764
+modified: 20230627162604025
+modifier: pmario
+tags: 
+title: test-tabbed-internal-nav
+type: text/vnd.tiddlywiki
+
+If a link in the "text body" is clicked, the tiddler will open in place of the current view.
+
+```
+<div class="tc-table-of-contents">
+<<tocP-tabbed-internal-nav root missingText:"missing" unselectedText:"select a tiddler from the left section">>
+</div>
+```
+
+<div class="tc-table-of-contents">
+<<tocP-tabbed-internal-nav root missingText:"missing" unselectedText:"select a tiddler from the left section">>
+</div>

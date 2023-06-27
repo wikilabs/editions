@@ -1,5 +1,5 @@
 created: 20170201225717966
-modified: 20230627133221066
+modified: 20230627204920341
 tags: default
 title: tocP - Parent Based TOC
 type: text/vnd.tiddlywiki
@@ -9,6 +9,24 @@ type: text/vnd.tiddlywiki
 * This plugin contains several "Table of Content" macros, that have ''almost'' the same parameters as the core toc macro.
 * The main difference is, that ''it doesn't use tags'' to create the TOC scructure. 
 * It uses a <<.field parent>> field in so called "child - tiddlers".
+
+! Important
+
+!! Breaking Changes with v0.3.0
+
+* ''The order of the macro parameters has changed''. This had to be done, since the "sort" parameter at the second position caused a lot of recursion errors when the preview-area was visible
+** The new order should avoid these problems
+* You should use "named parameters" to avoid problems in the future
+
+
+<<<
+|Name |Parameter Order|h
+|tocP |tag, exclude, path, field, viewField, viewFieldTemplate, itemClassFilter, sort:"[sort[]]" |
+|tocP-expandable |tag, exclude, path, field:"parent", viewField, viewFieldTemplate, itemClassFilter, sort:"[sort[]]") |
+|tocP-selective-expandable |tag, exclude, path, field:"parent", viewField, viewFieldTemplate, itemClassFilter, sort:"[sort[]]") |
+|tocP-tabbed-external-nav |tag, exclude, path, selectedTiddler:"$:/temp/tocP/selectedTiddler", unselectedText, missingText, template:"", field:"parent", viewField, sort:"[sort[]]") |
+|tocP-tabbed-internal-nav |tag, exclude, path, selectedTiddler:"$:/temp/tocP/selectedTiddler", unselectedText, missingText, template:"", field:"parent", viewField, sort:"[sort[]]") |
+<<<
 
 !! Macro Names
 
@@ -56,25 +74,30 @@ The `tabbed-` versions have a different link handling, in the right-hand panel:
 ; tag
 : The root tag that identifies the top level of the tree
 
-; sort
-: ''Important:'' This parameter is ''different'' to the //toc-macros//. Here, it has to be a valid "subfilter" expression. Internally it is activated like so: `+[subfilter<__sort__>]`
-: An optional extra [[filter step|http://tiddlywiki.com/#Filter Step]], e.g. `[sort[title]]` or `[!sort[created]]`
-:
+; exclude <<.from-version "5.3.0">>
+: This optional parameter can be used to exclude tiddlers from the tocP list. It allows a [[Title List]] or a ''subfilter''. Eg: `exclude:"HelloThere [[Title with spaces]]"` or `exclude:"[has[excludeTOCP]]"`. Where the former will exclude two tiddlers and the later would exclude every tiddler that has a field `excludeTOCP` independent of its value.<br>''Be aware'' that eg: `[prefix[H]]` is a shortcut for `[all[tiddlers]prefix[H]]`, which can have a performance impact, if used carelessly. So use $:/AdvancedSearch -> ''Filters'' tab to test the ''exclude'' parameter
+
+; path
+: This is an optional parameter, that is not used at the moment. Internally it creates a "namespaced" string that is reserved for future use
 
 ; field
 : ''Any'' field name, that contains the parent connection. default: `parent`
 : If you change the field name, be aware, what you are doing! see:  [[test-tocP-asdf]]
 
-; exclude <<.from-version "5.3.0">>
-: This optional parameter can be used to exclude tiddlers from the tocP list. It allows a [[Title List]] or a ''subfilter''. Eg: `exclude:"HelloThere [[Title with spaces]]"` or `exclude:"[has[excludeTOCP]]"`. Where the former will exclude two tiddlers and the later would exclude every tiddler that has a field `excludeTOCP` independent of its value.<br>''Be aware'' that eg: `[prefix[H]]` is a shortcut for `[all[tiddlers]prefix[H]]`, which can have a performance impact, if used carelessly. So use $:/AdvancedSearch -> ''Filters'' tab to test the ''exclude'' parameter
-
 ; viewField
 : ''Any'' field name, that contains a "caption-like" information. Eg: `subtitle` or `description` It will be shown as the link text. default: `caption`
 : If you change the viewField name, be aware, what you are doing! See: [[test-using-viewFiled-param]]
 
+; viewFieldTemplate
+: This optional parameter works in combination with the viewField parameter. It was added to allow the tocP macro to work with the stream-plugin internal structure. See: [[Streams Related Examples|streams-examples]]
+
+; sort
+: ''Important:'' This parameter is ''different'' to the //toc-macros//. Here, it has to be a valid "subfilter" expression. Internally it is activated like so: `+[subfilter<__sort__>]`
+: An optional extra [[filter step|http://tiddlywiki.com/#Filter Step]], e.g. `[sort[title]]` or `[!sort[created]]`
+
 <<<
 
-''Additional Parameters''
+''Additional "Tabbed" Parameters''
 
 <<<
 

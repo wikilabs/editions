@@ -1,8 +1,10 @@
 created: 20230627114021046
-modified: 20230627140202917
+modified: 20230627162312725
 tags: 
-title: test-using-viewFiled-param
+title: test-using-viewFiled-text
 type: text/vnd.tiddlywiki
+
+This example shows the tiddler `text` instead of the `caption` or the fallback `title`
 
 ```
 <div class="tocp tc-table-of-contents">

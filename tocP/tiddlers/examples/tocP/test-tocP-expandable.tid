@@ -1,9 +1,11 @@
 created: 20170201220447114
-modified: 20170201220518744
+modified: 20230627162854808
 modifier: pmario
 tags: 
 title: test-tocP-expandable
 type: text/vnd.tiddlywiki
+
+This toc will show "open" / "close" arrows for every element, even if there is no child
 
 ```
 <div class="tc-table-of-contents">

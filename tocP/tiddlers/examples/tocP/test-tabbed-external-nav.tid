@@ -1,0 +1,18 @@
+created: 20170201220720791
+modified: 20230627162525363
+modifier: pmario
+tags: 
+title: test-tabbed-external-nav
+type: text/vnd.tiddlywiki
+
+If a link in the "text body" is clicked, the tiddler will open in the wiki story-river
+
+```
+<div class="tc-table-of-contents">
+<<tocP-tabbed-external-nav root missingText:"missing" unselectedText:"select a tiddler from the left section">>
+</div>
+```
+
+<div class="tc-table-of-contents">
+<<tocP-tabbed-external-nav root missingText:"missing" unselectedText:"select a tiddler from the left section">>
+</div>

@@ -1,0 +1,8 @@
+code-body: yes
+created: 20230627160149204
+modified: 20230627163153198
+tags: 
+title: streamTextTemplate
+type: text/vnd.tiddlywiki
+
+<$transclude mode=block/>

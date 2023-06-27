@@ -1,0 +1,39 @@
+created: 20230627155203787
+modified: 20230627173737914
+tags: streams-example
+title: streams-viewField-viewFieldTemplate
+type: text/vnd.tiddlywiki
+
+This example needs the Stream-Plugin from https://saqimtiaz.github.io/streams/
+
+template: [[streamTextTemplate]] ... `<$transclude mode=block/>`
+
+```
+<div class="tocp tc-table-of-contents">
+<$set name="tv-wikilinks" value="no">
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"streamTextTemplate">> >
+</div>
+```
+
+<div class="tocp tc-table-of-contents">
+<$set name="tv-wikilinks" value="no">
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"streamTextTemplate">>
+</$set>
+</div>
+
+------------
+
+If the viewFieldTemplate parameter is used, but the ''template tiddler does not exist'', it falls back to ''titles'', which is also interesting. So it's up to you to modify the template from above to use ''links'' instead of plain text
+
+```
+<div class="tocp tc-table-of-contents">
+<$set name="tv-wikilinks" value="no">
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"XXX">> >
+</div>
+```
+
+<div class="tocp tc-table-of-contents">
+<$set name="tv-wikilinks" value="no">
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"XXX">>
+</$set>
+</div>

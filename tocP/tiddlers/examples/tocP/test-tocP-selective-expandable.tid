@@ -1,9 +1,11 @@
 created: 20170201220306845
-modified: 20170505131704555
+modified: 20230627162931291
 modifier: pmario
 tags: 
 title: test-tocP-selective-expandable
 type: text/vnd.tiddlywiki
+
+This toc will only show "open" / "close" arrows for elements that have a child element
 
 ```
 <div class="tocp tc-table-of-contents">

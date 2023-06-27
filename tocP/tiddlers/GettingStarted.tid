@@ -1,5 +1,5 @@
 created: 20170201222808372
-modified: 20230622124611485
+modified: 20230627165337575
 modifier: pmario
 tags: default
 title: GettingStarted
@@ -23,3 +23,7 @@ TBD
 !! Examples
 
 <<tabs "[all[]prefix[test-]]" "test-tocP" "$:/state/tab1">>
+
+---
+
+{{streams-examples}}
