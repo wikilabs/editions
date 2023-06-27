@@ -1,15 +1,15 @@
 created: 20230627114021046
-modified: 20230627114054651
+modified: 20230627140202917
 tags: 
 title: test-using-viewFiled-param
 type: text/vnd.tiddlywiki
 
 ```
 <div class="tocp tc-table-of-contents">
-<<tocP root sort:"[sort[created]]" viewField:"text">>
+<<tocP root viewField:"text">>
 </div>
 ```
 
 <div class="tocp tc-table-of-contents">
-<<tocP root sort:"[sort[created]]" viewField:"text">>
+<<tocP root viewField:"text">>
 </div>

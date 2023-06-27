@@ -1,5 +1,5 @@
 created: 20170201225717966
-modified: 20230622124801135
+modified: 20230627133221066
 tags: default
 title: tocP - Parent Based TOC
 type: text/vnd.tiddlywiki
@@ -67,6 +67,10 @@ The `tabbed-` versions have a different link handling, in the right-hand panel:
 
 ; exclude <<.from-version "5.3.0">>
 : This optional parameter can be used to exclude tiddlers from the tocP list. It allows a [[Title List]] or a ''subfilter''. Eg: `exclude:"HelloThere [[Title with spaces]]"` or `exclude:"[has[excludeTOCP]]"`. Where the former will exclude two tiddlers and the later would exclude every tiddler that has a field `excludeTOCP` independent of its value.<br>''Be aware'' that eg: `[prefix[H]]` is a shortcut for `[all[tiddlers]prefix[H]]`, which can have a performance impact, if used carelessly. So use $:/AdvancedSearch -> ''Filters'' tab to test the ''exclude'' parameter
+
+; viewField
+: ''Any'' field name, that contains a "caption-like" information. Eg: `subtitle` or `description` It will be shown as the link text. default: `caption`
+: If you change the viewField name, be aware, what you are doing! See: [[test-using-viewFiled-param]]
 
 <<<
 
