@@ -1,8 +1,11 @@
 asdf: b-2
 created: 20170202141816370
-modified: 20230605231606792
+modified: 20230627131307352
 tags: 
 title: b-2-1
+toc-link: no
 type: text/vnd.tiddlywiki
 
-asdf: {{!!asdf}}
+asdf-field: {{!!asdf}}
+
+text
