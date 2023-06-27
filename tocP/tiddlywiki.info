@@ -1,7 +1,8 @@
 {
 	"description": "Server configuration of the wikilabs edition",
 	"plugins": [
-		"wikilabs/tocP"
+		"wikilabs/tocP",
+		"wikilabs/link-to-tabs"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
