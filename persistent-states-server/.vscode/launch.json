@@ -1,0 +1,49 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "PowerShell Attach to Host Process",
+			"type": "PowerShell",
+			"request": "attach",
+			"runspaceId": 1
+		},
+		
+		{
+			"name": "Attach to Edge",
+			"port": 9222,
+			"request": "attach",
+			"type": "msedge",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"name": "Launch index.html",
+			"type": "firefox",
+			"request": "launch",
+			"reAttach": true,
+			"file": "${workspaceFolder}/index.html"
+		},
+		{
+			"name": "Launch localhost",
+			"type": "firefox",
+			"request": "launch",
+			"reAttach": true,
+			"url": "http://localhost/index.html",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"name": "Attach",
+			"type": "firefox",
+			"request": "attach"
+		},
+		{
+			"name": "Launch WebExtension",
+			"type": "firefox",
+			"request": "launch",
+			"reAttach": true,
+			"addonPath": "${workspaceFolder}"
+		}
+	]
+}

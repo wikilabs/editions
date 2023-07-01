@@ -1,0 +1,43 @@
+{
+  "name": "persistent-states server",
+  "version": "0.1.0",
+  "description": "tiddlywiki edition development helper",
+  "main": "index.js",
+  "scripts": {
+    "start": "tiddlywiki . --listen",
+    "net": "tiddlywiki . --listen host=local.lan",
+    "test": "echo ---- no tests atm ----",
+
+    "server": "npm start",
+
+    "build:github": "tiddlywiki ../persistent-states --build github",
+    "build": "tiddlywiki ../persistent-states --build index",
+
+    "prestage": "npm run build",
+    "stage": "npm run build:github",
+
+    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikilabs/plugins"
+  },
+  "keywords": [
+    "tiddlywiki",
+    "colour",
+    "color",
+    "manager",
+    "palette"
+  ],
+  "author": "Mario Pietsch",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/wikilabs/plugins/issues"
+  },
+  "homepage": "https://wikilabs.github.io/editions/persistent-states",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "tiddlywiki": "^5.2.3"
+  }
+}
