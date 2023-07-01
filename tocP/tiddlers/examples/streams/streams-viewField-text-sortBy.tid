@@ -10,6 +10,7 @@ This example needs the Stream-Plugin from https://saqimtiaz.github.io/streams/. 
 <div class="tocp tc-table-of-contents">
 <$set name="tv-wikilinks" value="no">
 <<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]">>
+</$set>
 </div>
 ```
 

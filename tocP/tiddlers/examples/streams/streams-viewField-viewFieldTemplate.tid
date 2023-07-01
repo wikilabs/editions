@@ -11,7 +11,8 @@ template: [[streamTextTemplate]] ... `<$transclude mode=block/>`
 ```
 <div class="tocp tc-table-of-contents">
 <$set name="tv-wikilinks" value="no">
-<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"streamTextTemplate">> >
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"streamTextTemplate">>
+</$set>
 </div>
 ```
 
@@ -28,7 +29,8 @@ If the viewFieldTemplate parameter is used, but the ''template tiddler does not 
 ```
 <div class="tocp tc-table-of-contents">
 <$set name="tv-wikilinks" value="no">
-<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"XXX">> >
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortBy{..currentTiddler!!stream-list}]" viewFieldTemplate:"XXX">>
+</$set>
 </div>
 ```
 
