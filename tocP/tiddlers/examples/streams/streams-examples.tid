@@ -8,4 +8,4 @@ type: text/vnd.tiddlywiki
 
 <<tag "streams-example">> You can drag & drop this tag-pill to export / import the tagged tiddlers to a different wiki.
 
-<<tabs "[tag[streams-example]]" "streams-viewField-text-sortBy" "$:/state/tab2">>
+<<tabs "[tag[streams-example]]" "streams-viewField-text-sortby" "$:/state/tab2">>
