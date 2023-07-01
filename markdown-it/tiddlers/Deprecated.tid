@@ -1,0 +1,13 @@
+created: 20230701160814395
+modified: 20230701161027128
+tags: 
+title: Deprecated
+type: text/vnd.tiddlywiki
+
+! Deprecated
+
+''Since TW v5.2.7 the a newer version of the markdown-it library used here is part of the TiddlyWik core.''
+
+''That's why this plugin is deprecated and will not be maintained anymore.''
+
+Use the TiddlyWiki [[Markdown Plugin|https://tiddlywiki.com/#Markdown%20Plugin:%5B%5BMarkdown%20Plugin%5D%5D%20Markdown]] instead
