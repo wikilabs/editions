@@ -9,13 +9,13 @@ This example needs the Stream-Plugin from https://saqimtiaz.github.io/streams/. 
 ```
 <div class="tocp tc-table-of-contents">
 <$set name="tv-wikilinks" value="no">
-<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortby{..currentTiddler!!stream-list}]">>
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortby{!!stream-list}]">>
 </$set>
 </div>
 ```
 
 <div class="tocp tc-table-of-contents">
 <$set name="tv-wikilinks" value="no">
-<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortby{..currentTiddler!!stream-list}]">>
+<<tocP "Streams 0.2 improvements" viewField:"text" sort:"[sortby{!!stream-list}]">>
 </$set>
 </div>
