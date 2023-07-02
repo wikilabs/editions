@@ -1,5 +1,5 @@
 {
-	"name": "advan1ced-search-plus-server",
+	"name": "advanced-search-plus-server",
 	"version": "0.1.0",
 	"description": "tiddlywiki edition development helper",
 	"main": "index.js",
