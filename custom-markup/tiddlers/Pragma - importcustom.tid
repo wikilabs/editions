@@ -1,5 +1,5 @@
 created: 20200915185301184
-modified: 20200917171944531
+modified: 20230702151349636
 tags: Reference docs
 title: Pragma - importcustom
 type: text/vnd.tiddlywiki
@@ -33,7 +33,7 @@ It's possible to import pragma definitions from other tiddlers. The pragma is na
 
 <<list-links "[tag[pragmas]][[test]]">>
 
-''The resolfed pragma configuration is:''
+''The resolved pragma configuration is:''
 
 ´ {{test}}
 ---
