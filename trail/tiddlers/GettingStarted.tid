@@ -1,0 +1,13 @@
+title: GettingStarted
+
+! Overview
+
+This plugin allows you to use 3 different Trail Navigation Functions
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+! License
+
+See: [[License]]
