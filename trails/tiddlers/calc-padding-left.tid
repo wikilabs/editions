@@ -1,0 +1,13 @@
+created: 20230717124424949
+modified: 20230717130337026
+tags: 
+title: calc-padding-left
+type: text/vnd.tiddlywiki
+
+<$let trHeight={{{ [[$:/config/wl/trails/height]get[text]trim[]] :else[[22]] }}}
+	trPaddingLeft={{{ [<trHeight>subtract[22]divide[2]add[20]] }}}
+>
+
+trHeight: <<trHeight>>
+
+trPaddingLeft: <<trPaddingLeft>>

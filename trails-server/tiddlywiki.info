@@ -3,15 +3,16 @@
 	"plugins": [
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
+		"tiddlywiki/internals",
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus"
 	],
 	"themes": [
 	],
 	"includeWikis": [
-		"../trail"
+		"../trails"
 	],
 	"config": {
-		"default-tiddler-location": "../trail/tiddlers"
+		"default-tiddler-location": "../trails/tiddlers"
 	}
 }

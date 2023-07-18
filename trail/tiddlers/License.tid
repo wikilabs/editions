@@ -1,9 +1,0 @@
-title: License
-
-''Human readable summary:''
-
-<<<
-{{$:/plugins/wikilabs/trail/license}}
-<<<
-
-The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/trail/license!!license-text}}

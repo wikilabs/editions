@@ -1,7 +1,7 @@
 {
-	"description": "trail Navigation Functions",
+	"description": "Trail Navigation Functions",
 	"plugins": [
-		"wikilabs/trail"
+		"wikilabs/trails"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
@@ -12,7 +12,7 @@
 			"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"github": [
-				"--output", "../../wikilabs.github.io/editions/trail", 
+				"--output", "../../wikilabs.github.io/editions/trails",
 				"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
 		],
 		"externalimages": [
