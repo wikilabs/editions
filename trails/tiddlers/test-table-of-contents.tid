@@ -1,0 +1,11 @@
+caption: Contents
+created: 20230719102742324
+list-before: $:/core/ui/SideBar/Recent
+modified: 20230719102952332
+tags: $:/tags/SideBar
+title: test-table-of-contents
+type: text/vnd.tiddlywiki
+
+<div class="tc-table-of-contents">
+<<toc-selective-expandable "toc">>
+</div>

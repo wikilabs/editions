@@ -1,18 +1,19 @@
-trail: aa bb cc dd ee
 created: 20230408131424728
-modified: 20230713083111113
-tags: 
+modified: 20230719103201603
+tags: docs
 title: Trails Navigation
+trail: aa bb cc dd ee
 type: text/vnd.tiddlywiki
 
 !! Introduction
 
 At the moment the trail macros are only available for the TiddlyWiki documentation branch.
 
-[[trail]] are used as a navigational aid in user interfaces and on web pages. It allows users to keep track and maintain awareness of their locations within programs, documents, or websites.
+[[Trail]]s are used as a navigational aid in user interfaces and on web pages. It allows users to keep track and maintain awareness of their locations within programs, documents, or websites.
 
 There are 4 documentation `<<trail ...>>` calls, which are designed for different usecaseses.
 
+|Macro |Description |h
 |`trail` |A wrapper macro that calls "-Story" (default) "-Simple" or "-Field", depending on the <<.param mode>> parameter |
 |`trailStory` |By default, this recursive macro uses the ''tags'' field to create the trail structure. Opening the links recreates this structure in the story-list as close as possible |
 |`trailSimple` |This recursive macro also uses the ''tags'' field to define the trail structure. Opening linked tiddlers uses the wiki default settings  |
@@ -77,7 +78,7 @@ The trail navigation elements are responsive. So for small screens, they will lo
 The story river should reflect the hierarchy as close as possible. 
 
 <$macrocall $name='wikitext-example-without-html'
-src="""<$macrocall $name="trail" stop="Filters" mode="story" start="Filter Step"/>
+src="""<$macrocall $name="trail" stop="tag-1" mode="story" start="tag-1.1.1" exclude="tag"/>
 """/>
 
 !!! Simple Mode
@@ -85,7 +86,7 @@ src="""<$macrocall $name="trail" stop="Filters" mode="story" start="Filter Step"
 Navigation respects the global setting. 
 
 <$macrocall $name='wikitext-example-without-html'
-src="""<$macrocall $name="trail" stop="Filters" mode="simple" start="Filter Step"/>
+src="""<$macrocall $name="trail" stop="tag-1" mode="simple" start="tag-1.1.1" exclude="tag"/>
 """/>
 
 !!! Field Mode
@@ -95,3 +96,9 @@ The story river should reflect the hierarchy as close as possible. It uses the l
 <$macrocall $name='wikitext-example-without-html'
 src="""<$macrocall $name="trail" mode="field" field="trail" />
 """/>
+
+!! View Template - Tag Trail
+
+The template used for the documentation is only used to demonstrate the possibilities. For a production wiki the filter should be adjusted according to the usecase at hand.
+
+See: [[tag-template]]

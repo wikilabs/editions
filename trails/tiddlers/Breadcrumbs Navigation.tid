@@ -1,0 +1,49 @@
+created: 20230719095038376
+modified: 20230719103147711
+tags: docs
+title: Breadcrumbs Navigation
+type: text/vnd.tiddlywiki
+
+!! Introduction
+
+[[Breadcrumbs]] are used as a navigational aid in user interfaces and on web pages. It allows users to keep track and maintain awareness of their locations within programs, documents, or websites.
+
+The `<<breadcrumbs>>` macro technically is a wrapper for a `<<trail ...>>` call, which are designed for different usecases.
+
+|Macro |Description |h
+|`breadcrumbs` |A wrapper macro that calls "trails" with <<.param mode>> "Story" default parameter |
+
+''Important:'' Breadcrumbs do ''not have'' a <<.param sort>> parameter. The rest of the parameters are the same as for `trails`
+
+!! Parameters
+
+!!! See: [[Trails Navigation]]
+
+!! View Template -- Breadcrumbs
+
+The template used for the documentation is only used to demonstrate the possibilities. For a production wiki the filter should be adjusted according to the usecase at hand.
+
+See: [[level-template]]
+
+!! Example
+
+<$macrocall $name='wikitext-example-without-html'
+src="""<$macrocall $name="breadcrumbs" stop="level-1" start="level-1.1.1"/>
+"""/>
+
+Or
+
+<$macrocall $name='wikitext-example-without-html'
+src="""<<breadcrumbs start:"level-1.1.1" stop:"level-1">>
+"""/>
+
+
+!! TocP Helper to Create a Structure
+
+This edition includes the [[tocP-plugin|https://wikilabs.github.io/#tocP-parent-based-toc]], to simplify experiments.
+
+<$macrocall $name='wikitext-example-without-html'
+src="""<div class="tocp tc-table-of-contents">
+<<tocP root sort:"[sortby{!!stream-list}]">>
+</div>
+"""/>

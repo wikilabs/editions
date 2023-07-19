@@ -1,6 +1,7 @@
 {
 	"description": "Trail Navigation Functions",
 	"plugins": [
+		"wikilabs/tocP",
 		"wikilabs/trails"
 	],
 	"themes": [

@@ -1,0 +1,18 @@
+created: 20230718083450702
+modified: 20230719104929514
+tags: example
+title: tag
+type: text/vnd.tiddlywiki
+
+Since every tiddler in this structure has 2 tags 
+
+* A group tag: `tag` -- and 
+* A structural tag: `tag-??`
+
+The structure below shows both of them. That's intended. ''But'' the breadcrumbs shown in the top of the view-template only show 1 path. That's intended too
+
+See: [[tag-template]]
+
+<div class="tc-table-of-contents">
+<<toc-selective-expandable "tag">>
+</div>

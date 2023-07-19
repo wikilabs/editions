@@ -1,0 +1,6 @@
+created: 20230718072443795
+modified: 20230718072443795
+title: $:/config/wikilabs/tocP/newChild
+type: text/vnd.tiddlywiki
+
+<span class='wltc-btn-new-child tc-tiny-gap-left'>{{||$:/wikilabs/ui/buttons/new-child-alone}}</span>

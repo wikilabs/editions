@@ -1,0 +1,9 @@
+caption: Configurations
+created: 20230719110012946
+list-before: template
+modified: 20230719110254715
+tags: toc
+title: configuration
+type: text/vnd.tiddlywiki
+
+<<list-links "[tag<currentTiddler>]">>

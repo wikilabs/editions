@@ -1,0 +1,11 @@
+created: 20230718072344497
+modified: 20230719105828804
+tags: test
+title: test-create-tocP
+type: text/vnd.tiddlywiki
+
+A `tocP` based navigation structure creates a deterministic structure, which creates a uniqe breadcrumbs path by default.
+
+<div class="tocp tc-table-of-contents">
+<<tocP root sort:"[sortby{!!stream-list}]">>
+</div>
