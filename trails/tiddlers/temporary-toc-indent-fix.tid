@@ -1,0 +1,9 @@
+created: 20230721145023370
+modified: 20230721151555918
+tags: 
+title: temporary-toc-indent-fix
+type: text/vnd.tiddlywiki
+
+.toc-item .tc-toc-caption {
+  margin-left: .25em;
+}

@@ -1,12 +1,12 @@
 code-body: yes
 created: 20230718083009618
 list-before: $:/core/ui/ViewTemplate/body
-modified: 20230719104158194
+modified: 20230721123136555
 tags: $:/tags/ViewTemplate template
 title: tag-template
 type: text/vnd.tiddlywiki
 
 \define pre() tag-1
 <$list filter="[all[current]tag[tag]]" variable="ignore">
-<$macrocall $name=trail stop=<<pre>> exclude=tag/>
+<$macrocall $name=trail stop=<<pre>> exclude="" mode=simple/>
 </$list>
