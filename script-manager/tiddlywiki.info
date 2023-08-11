@@ -1,6 +1,7 @@
 {
 	"description": "Server configuration of the wikilabs edition",
 	"plugins": [
+		"tiddlywiki/internals"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",

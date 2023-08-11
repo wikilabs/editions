@@ -41,7 +41,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define getInfo()
-<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/todo/">> /> 
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/todo/">> />
 \end
 
 \define getScript(default:"---")

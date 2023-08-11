@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define edit-link-button()
-<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/state/editDescription/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon={{$:/core/images/edit-button}} okIcon={{$:/core/images/save-button}} okActions=<<set-link>> openActions=<<init-link-editor>>/>
+<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/state/editDescription/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon="$:/core/images/edit-button" okIcon="$:/core/images/save-button" okActions=<<set-link>> openActions=<<init-link-editor>>/>
 \end
 
 \define edit-link-input()
