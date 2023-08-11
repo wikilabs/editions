@@ -24,3 +24,4 @@ $:/_bundle/wikilabs/script-manager/ui/ControlPanel/styles-config
 [[Overview ToDo's]]
 $:/DefaultTiddlers
 ---
+$:/config/wikilabs/PluginLibraryWL/latest
