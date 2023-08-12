@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define edit-link-button()
-<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/state/editDescription/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon="$:/core/images/edit-button" okIcon="$:/core/images/save-button" okActions=<<set-link>> openActions=<<init-link-editor>>/>
+<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/temp/editDescription/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon="$:/core/images/edit-button" okIcon="$:/core/images/save-button" okActions=<<set-link>> openActions=<<init-link-editor>>/>
 \end
 
 \define edit-link-input()
@@ -31,10 +31,10 @@ type: text/vnd.tiddlywiki
 \end
 
 \define index-text-template()
-<$reveal state=<<qualifyTitle "$:/state/editDescription/">> tag=span class="box" type="match" text="closed" default=closed >
+<$reveal state=<<qualifyTitle "$:/temp/editDescription/">> tag=span class="box" type="match" text="closed" default=closed >
 <<getLink>>
 </$reveal>
-<$reveal state=<<qualifyTitle "$:/state/editDescription/">> tag=span class="box" type="match" text="open" >
+<$reveal state=<<qualifyTitle "$:/temp/editDescription/">> tag=span class="box" type="match" text="open" >
 <<edit-link-input>>
 </$reveal>
 <span class="box center"><<edit-link-button>></span>

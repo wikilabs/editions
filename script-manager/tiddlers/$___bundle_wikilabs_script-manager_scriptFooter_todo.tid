@@ -19,10 +19,10 @@ type: text/vnd.tiddlywiki
 <$macrocall $name="todo-overview"  script=<<currentTiddler>> /> 
 
 <span class="wltc-btn-big-green tc-btn-big-green">
-<$macrocall $name="toggleMe" openActions=<<toggleMeOpenActions>> closeActions=<<toggleMeCloseActions>> state="$:/state/newTodo" openText="New Todo"/>
+<$macrocall $name="toggleMe" openActions=<<toggleMeOpenActions>> closeActions=<<toggleMeCloseActions>> state="$:/temp/newTodo" openText="New Todo"/>
 </span>
 
-<$reveal state="$:/state/newTodo" type="match" text="open" default="closed" >
+<$reveal state="$:/temp/newTodo" type="match" text="open" default="closed" >
 <$vars defaultScript=<<currentTiddler>> >
 {{$:/_bundle/wikilabs/script-manager/grid-todo-template}}
 </$vars>

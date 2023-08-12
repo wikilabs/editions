@@ -15,12 +15,12 @@ code-body: yes
 \whitespace trim
 <$reveal state=<<state>> type="match" text="closed" default="closed">
 	<$button set=<<state>> setTo="open" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<openActions>> >
-		<$transclude $tiddler=<<openIcon>>/> <<openText>>
+		<$transclude $tiddler=<<openIcon>>/> <span class="tc-tiny-gap-left"><<openText>></span>
 	</$button>
 </$reveal>
 <$reveal state=<<state>> type="match" text="open" default="closed">
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<closeActions>> >
-		<$transclude $tiddler=<<closeIcon>>/> <<closeText>>
+		<$transclude $tiddler=<<closeIcon>>/> <span class="tc-tiny-gap-left"><<closeText>></span>
 	</$button>
 </$reveal>
 \end
@@ -29,12 +29,12 @@ code-body: yes
 \whitespace trim
 <$reveal state=<<state>> type="match" text="closed" default="closed">
 	<$button set=<<state>> setTo="open" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<openActions>> >
-		<$transclude $tiddler=<<openIcon>>/> <<openText>>
+		<$transclude $tiddler=<<openIcon>>/> <span class="tc-tiny-gap-left"><<openText>></span>
 	</$button>
 </$reveal>
 <$reveal state=<<state>> type="match" text="open" default="closed">
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<cancelActions>> >
-		<$transclude $tiddler=<<cancelIcon>>/> <<closeText>>
+		<$transclude $tiddler=<<cancelIcon>>/> <span class="tc-tiny-gap-left"><<closeText>></span>
 	</$button>&nbsp;
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<okActions>> >
 		<$transclude $tiddler=<<okIcon>>/> <<okText>>
@@ -46,18 +46,17 @@ code-body: yes
 \whitespace trim
 <$reveal state=<<state>> type="match" text="closed" default="closed">
 	<$button set=<<state>> setTo="open" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<openActions>> >
-		<$transclude $tiddler=<<openIcon>>/> <<openText>>
+		<$transclude $tiddler=<<openIcon>>/> <span class="tc-tiny-gap-left"><<openText>></span>
 	</$button>
 </$reveal>
 <$reveal state=<<state>> type="match" text="open" default="closed">
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<deleteActions>> >
-		<$transclude $tiddler=<<deleteIcon>>/> <<deleteText>>
+		<$transclude $tiddler=<<deleteIcon>>/> <span class="tc-tiny-gap-left"><<deleteText>></span>
 	</$button>&nbsp;&nbsp;
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<cancelActions>> >
 		<$transclude $tiddler=<<cancelIcon>>/> <<cancelText>>
 	</$button>&nbsp;&nbsp;
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<okActions>> >
-		<$transclude $tiddler=<<okIcon>>/> <<okText>>
-	</$button>
+		<$transclude $tiddler=<<okIcon>>/> <span class="tc-tiny-gap-left"><<okText>></span>
 </$reveal>
 \end

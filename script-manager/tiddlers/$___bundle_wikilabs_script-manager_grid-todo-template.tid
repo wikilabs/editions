@@ -9,7 +9,7 @@ type: text/vnd.tiddlywiki
 
 \define show-create-button()
   <$list filter="[[$:/_new-todo]] +[has[new-title]]" emptyMessage=<<empty-button>> variable=newTitle>
-     <$button class="tc-btn-invisible" actions=<<record-todo>> >{{$:/core/images/save-button}}</$button>
+    <$button class="tc-btn-invisible" actions=<<record-todo>> >{{$:/core/images/save-button}}</$button>
   </$list>
 \end
 
@@ -29,7 +29,7 @@ type: text/vnd.tiddlywiki
 <$action-setfield $tiddler={{!!new-title}} $field=script $value={{!!script}}/>
 <$action-deletefieldXXX $tiddler={{!!new-title}} $field="new-title"/>
 <$action-deletetiddler $tiddler="$:/_new-todo"/>
-<$action-deletetiddler $tiddler="$:/state/newTodo"/>
+<$action-deletetiddler $tiddler="$:/temp/newTodo"/>
 <$action-setfield $tiddler="$:/_new-todo" $field="text" $value=""/>
 <$action-setfield $tiddler="$:/_new-todo" $field="script" $value=<<defaultScript>>/>
 \end
@@ -41,7 +41,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define getInfo()
-<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/todo/">> />
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/temp/todo/">> />
 \end
 
 \define getScript(default:"---")
@@ -74,7 +74,7 @@ type: text/vnd.tiddlywiki
 <span class="box clear center"><<clear-todo>></span>
 <span class="box action center"><<create-todo>></span>
 
-<$reveal state=<<qualifyTitle "$:/state/todo/">> tag=div class="comment-grid" type="match" text="open" >
+<$reveal state=<<qualifyTitle "$:/temp/todo/">> tag=div class="comment-grid" type="match" text="open" >
 <span class="box header">Comment</span>
 <span class="box "><<getComment>></span>
 </$reveal>

@@ -32,15 +32,15 @@ $:/temp/$(currentTiddler)$.list
 \end
 
 \define new-link-button()
-<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/newLink/">> openText="New" closeText="Close" class="wltc-btn-big-green tc-btn-big-green"/>
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/temp/newLink/">> openText="New" closeText="Close" class="wltc-btn-big-green tc-btn-big-green"/>
 \end
 
 \define new-link-ok()
-<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/state/newLink/">> openText=" " okText=" " closeText=" " okActions=<<record-link>> okIcon="$:/core/images/save-button" />
+<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/temp/newLink/">> openText=" " okText=" " closeText=" " okActions=<<record-link>> okIcon="$:/core/images/save-button" />
 \end
 
 \define edit-link-button()
-<$macrocall $name="toggleOkCancelDelete" state=<<qualifyTitleList "$:/state/editLink/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon="$:/core/images/edit-button" okIcon="$:/core/images/save-button" okActions=<<set-link>> openActions=<<init-link-editor>> deleteActions=<<delete-link>>/>
+<$macrocall $name="toggleOkCancelDelete" state=<<qualifyTitleList "$:/temp/editLink/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon="$:/core/images/edit-button" okIcon="$:/core/images/save-button" okActions=<<set-link>> openActions=<<init-link-editor>> deleteActions=<<delete-link>>/>
 \end
 
 \define new-link-input()
@@ -62,7 +62,7 @@ $:/temp/$(currentTiddler)$.list
 \end
 
 \define index-text-template()
-<$let state=<<qualifyTitleList "$:/state/editLink/">> >
+<$let state=<<qualifyTitleList "$:/temp/editLink/">> >
 <span class="box script-index"><<listItem>></span>
 <$reveal state=<<state>> tag=span class="box" type="match" text="closed" default=closed >
 <<getLink>>
@@ -75,7 +75,7 @@ $:/temp/$(currentTiddler)$.list
 \end
 
 \define new-link-row()
-<$let state=<<qualifyTitle "$:/state/newLink/">> >
+<$let state=<<qualifyTitle "$:/temp/newLink/">> >
 <$reveal state=<<state>> tag=div class="table script-link-grid" type="match" text="open" >
 <<table-header>>
 <span class="box">auto</span>
