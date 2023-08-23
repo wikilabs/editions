@@ -58,5 +58,6 @@ code-body: yes
 	</$button>&nbsp;&nbsp;
 	<$button set=<<state>> setTo="closed" class=`$(class)$ tc-btn-invisible` selectedClass="tc-selected" actions=<<okActions>> >
 		<$transclude $tiddler=<<okIcon>>/> <span class="tc-tiny-gap-left"><<okText>></span>
+	</$button>
 </$reveal>
 \end

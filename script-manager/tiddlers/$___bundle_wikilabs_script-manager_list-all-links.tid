@@ -44,14 +44,14 @@ $:/temp/$(currentTiddler)$.list
 \end
 
 \define new-link-input()
-<$keyboard actions=<<record-link>> key="((link-confirm))">
-<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="link" tag=input placeholder="link" focus={{{ [{$:/config/script-manager/focus-new-link}match[yes]then[true]else[false]] }}}/>
+<$keyboard actions=<<record-link>> key="((input-confirm))">
+	<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="link" tag=input placeholder="link" focus={{{ [{$:/config/script-manager/focus-new-link}match[yes]then[true]else[false]] }}}/>
 </$keyboard>
 \end
 
 \define edit-link-input()
-<$keyboard actions=<<set-link>> key="((link-confirm))">
-<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="$(listItem)$" tag=input placeholder="link"/>
+<$keyboard actions=<<set-link>> key="((input-confirm))">
+	<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="$(listItem)$" tag=input placeholder="link"/>
 </$keyboard>
 \end
 
@@ -63,25 +63,25 @@ $:/temp/$(currentTiddler)$.list
 
 \define index-text-template()
 <$let state=<<qualifyTitleList "$:/temp/editLink/">> >
-<span class="box script-index"><<listItem>></span>
-<$reveal state=<<state>> tag=span class="box" type="match" text="closed" default=closed >
-<<getLink>>
-</$reveal>
-<$reveal state=<<state>> tag=span class="box" type="match" text="open" >
-<<edit-link-input>>
-</$reveal>
-<span class="box center"><<edit-link-button>></span>
+	<span class="box script-index"><<listItem>></span>
+	<$reveal state=<<state>> tag=span class="box" type="match" text="closed" default=closed >
+		<<getLink>>
+	</$reveal>
+	<$reveal state=<<state>> tag=span class="box" type="match" text="open" >
+		<<edit-link-input>>
+	</$reveal>
+	<span class="box center"><<edit-link-button>></span>
 </$let>
 \end
 
 \define new-link-row()
 <$let state=<<qualifyTitle "$:/temp/newLink/">> >
-<$reveal state=<<state>> tag=div class="table script-link-grid" type="match" text="open" >
-<<table-header>>
-<span class="box">auto</span>
-<span class="box"><<new-link-input>></span>
-<span class="box center"><<new-link-ok>></span>
-</$reveal>
+	<$reveal state=<<state>> tag=div class="table script-link-grid" type="match" text="open" >
+		<<table-header>>
+		<span class="box">auto</span>
+		<span class="box"><<new-link-input>></span>
+		<span class="box center"><<new-link-ok>></span>
+	</$reveal>
 </$let>
 \end
 

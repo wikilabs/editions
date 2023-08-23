@@ -1,10 +1,10 @@
 created: 20170918134833365
-modified: 20171215213449100
+modified: 20230823074127986
 tags: 
 title: Overview ToDo's
 type: text/vnd.tiddlywiki
 
-!!! New ~ToDo
+!!! List all tiddlers tagged: <<tag todo>>
 
 {{$:/_bundle/wikilabs/script-manager/grid-todo-template}}
 
@@ -14,7 +14,7 @@ type: text/vnd.tiddlywiki
 
 !!! Done
 
-<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/showDone/">> />
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/showDone/">> /> 
 
 <$reveal state=<<qualifyTitle "$:/state/showDone/">> type="match" text="open">
 <<checklist-done>>
