@@ -1,3 +1,0 @@
-title: $:/config/EmptyStoryMessage
-
-{{GettingStarted||$:/core/ui/ViewTemplate}}

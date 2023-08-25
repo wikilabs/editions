@@ -1,13 +1,13 @@
 code-body: yes
 created: 20230718080935385
 list-before: $:/core/ui/ViewTemplate/body
-modified: 20230719105205077
+modified: 20230721123018746
 tags: $:/tags/ViewTemplate template
 title: level-template
 type: text/vnd.tiddlywiki
 
 <$list filter="[all[current]prefix[level]]" variable="ignore">
-<$macrocall $name=breadcrumbs stop=level exclude="root "/>
+<$macrocall $name=breadcrumbs stop="level" exclude="root"/>
 
 See: [[Breadcrumbs Navigation]]
 </$list>

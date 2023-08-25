@@ -5,7 +5,7 @@ title: $:/_bundle/wikilabs/script-manager/script-footer-macros
 type: text/vnd.tiddlywiki
 
 \define getComment()
-<$view field="comment" format=text/>
+<$transclude field="comment"/>
 \end
 
 \define getScript()
@@ -18,12 +18,12 @@ type: text/vnd.tiddlywiki
 
 \define getLink()
 <$list filter="""[{!!title}] +[tag[done]]""" emptyMessage="""<$link to={{!!title}}><$view field="title"/></$link>""">
-~~<$link to={{!!title}}><$view field="title"/></$link>~~
+<$view field="title"/> / <$link to={{!!title}}>-- Done</$link>
 </$list>
 \end
 
 \define createFilter(tag:"todo" prefix:"")
-[!has[draft.of]tag[$tag$]$prefix$tag[done]sort[created]]
+[!has[draft.of]tag[$tag$]$prefix$tag[done]]
 \end
 
 \define todo-body(tag:"todo" prefix:"")
@@ -49,7 +49,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define createScriptFilter(tag:"todo" script:"" prefix:"")
-[!has[draft.of]tag[$tag$]field:script[$script$]$prefix$tag[done]sort[created]]
+[!has[draft.of]tag[$tag$]field:script[$script$]$prefix$tag[done]]
 \end
 
 \define script-body(tag:"todo" script:"" prefix:"")

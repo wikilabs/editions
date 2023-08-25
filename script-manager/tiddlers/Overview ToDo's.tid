@@ -1,10 +1,10 @@
 created: 20170918134833365
-modified: 20171215213449100
+modified: 20230823074127986
 tags: 
 title: Overview ToDo's
 type: text/vnd.tiddlywiki
 
-!!! New ~ToDo
+!!! List all tiddlers tagged: <<tag todo>>
 
 {{$:/_bundle/wikilabs/script-manager/grid-todo-template}}
 

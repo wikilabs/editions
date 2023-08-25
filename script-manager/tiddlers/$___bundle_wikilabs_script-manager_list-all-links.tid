@@ -5,10 +5,14 @@ type: text/vnd.tiddlywiki
 
 \define record-link()
 <$action-setfield $tiddler=<<currentTiddler>> $index=<<now "YYYY/0MM/0DD, 0hh-0mm-0ss">> $value={{$(tempTiddler)$##link}}/>
+<!-- needed for keyboard actions-->
+<$action-deletetiddler $tiddler=<<state>> />
 \end
 
 \define set-link()
 <$action-setfield $tiddler=<<currentTiddler>> $index=<<listItem>> $value={{$(tempTiddler)$##$(listItem)$}}/>
+<!-- needed for keyboard actions-->
+<$action-deletetiddler $tiddler=<<state>> />
 \end
 
 \define delete-link()
@@ -28,23 +32,27 @@ $:/temp/$(currentTiddler)$.list
 \end
 
 \define new-link-button()
-<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/state/newLink/">> openText="New" closeText="Close" class="wltc-btn-big-green tc-btn-big-green"/>
+<$macrocall $name="toggleMe" state=<<qualifyTitle "$:/temp/newLink/">> openText="New" closeText="Close" class="wltc-btn-big-green tc-btn-big-green"/>
 \end
 
 \define new-link-ok()
-<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/state/newLink/">> openText=" " okText=" " closeText=" " okActions=<<record-link>> okIcon={{$:/core/images/save-button}} />
+<$macrocall $name="toggleOkCancel" state=<<qualifyTitle "$:/temp/newLink/">> openText=" " okText=" " closeText=" " okActions=<<record-link>> okIcon="$:/core/images/save-button" />
 \end
 
 \define edit-link-button()
-<$macrocall $name="toggleOkCancelDelete" state=<<qualifyTitleList "$:/state/editLink/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon={{$:/core/images/edit-button}} okIcon={{$:/core/images/save-button}} okActions=<<set-link>> openActions=<<init-link-editor>> deleteActions=<<delete-link>> />
+<$macrocall $name="toggleOkCancelDelete" state=<<qualifyTitleList "$:/temp/editLink/">> openText=" " okText=" " closeText=" " deleteText=" " openIcon="$:/core/images/edit-button" okIcon="$:/core/images/save-button" okActions=<<set-link>> openActions=<<init-link-editor>> deleteActions=<<delete-link>>/>
 \end
 
 \define new-link-input()
-<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="link" tag=input placeholder="link"/>
+<$keyboard actions=<<record-link>> key="((input-confirm))">
+	<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="link" tag=input placeholder="link" focus={{{ [{$:/config/script-manager/focus-new-link}match[yes]then[true]else[false]] }}}/>
+</$keyboard>
 \end
 
 \define edit-link-input()
-<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="$(listItem)$" tag=input placeholder="link"/>
+<$keyboard actions=<<set-link>> key="((input-confirm))">
+	<$edit-text class="wltc-edit-input" tiddler=<<tempTiddler>> index="$(listItem)$" tag=input placeholder="link"/>
+</$keyboard>
 \end
 
 \define table-header()
@@ -54,23 +62,27 @@ $:/temp/$(currentTiddler)$.list
 \end
 
 \define index-text-template()
-<span class="box script-index"><<listItem>></span>
-<$reveal state=<<qualifyTitleList "$:/state/editLink/">> tag=span class="box" type="match" text="closed" default=closed >
-<<getLink>>
-</$reveal>
-<$reveal state=<<qualifyTitleList "$:/state/editLink/">> tag=span class="box" type="match" text="open" >
-<<edit-link-input>>
-</$reveal>
-<span class="box center"><<edit-link-button>></span>
+<$let state=<<qualifyTitleList "$:/temp/editLink/">> >
+	<span class="box script-index"><<listItem>></span>
+	<$reveal state=<<state>> tag=span class="box" type="match" text="closed" default=closed >
+		<<getLink>>
+	</$reveal>
+	<$reveal state=<<state>> tag=span class="box" type="match" text="open" >
+		<<edit-link-input>>
+	</$reveal>
+	<span class="box center"><<edit-link-button>></span>
+</$let>
 \end
 
 \define new-link-row()
-<$reveal state=<<qualifyTitle "$:/state/newLink/">> tag=div class="table script-link-grid" type="match" text="open" >
-<<table-header>>
-<span class="box">auto</span>
-<span class="box"><<new-link-input>></span>
-<span class="box center"><<new-link-ok>></span>
-</$reveal>
+<$let state=<<qualifyTitle "$:/temp/newLink/">> >
+	<$reveal state=<<state>> tag=div class="table script-link-grid" type="match" text="open" >
+		<<table-header>>
+		<span class="box">auto</span>
+		<span class="box"><<new-link-input>></span>
+		<span class="box center"><<new-link-ok>></span>
+	</$reveal>
+</$let>
 \end
 
 \define link-list()

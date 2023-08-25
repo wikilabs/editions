@@ -17,7 +17,7 @@ type: text/vnd.tiddlywiki
 \end
 
 \define createScriptFilter(tag:"script" prefix:"")
-[!has[draft.of]tag[$tag$]sort[created]]
+[!has[draft.of]tag[$tag$]]
 \end
 
 \define list-body(tag:"script" prefix:"")

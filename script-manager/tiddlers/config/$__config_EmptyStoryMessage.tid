@@ -1,0 +1,6 @@
+created: 20230823073739930
+modified: 20230823073741401
+title: $:/config/EmptyStoryMessage
+type: text/vnd.tiddlywiki
+
+{{Overview Scripts||$:/core/ui/ViewTemplate}}

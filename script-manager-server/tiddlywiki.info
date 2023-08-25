@@ -6,7 +6,14 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/info-session",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/bundler"
+		"wikilabs/bundler",
+		"tiddlywiki/codemirror",
+		"tiddlywiki/codemirror-closebrackets",
+		"tiddlywiki/codemirror-autocomplete",
+		"tiddlywiki/codemirror-search-replace",
+		"tiddlywiki/codemirror-fullscreen-editing",
+		"tiddlywiki/codemirror-mode-css",
+		"tiddlywiki/codemirror-keymap-sublime-text"
 	],
 	"themes": [
 	],

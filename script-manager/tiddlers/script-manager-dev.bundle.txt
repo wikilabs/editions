@@ -1,6 +1,9 @@
+[[--- Some useful plugins ---]]
 $:/plugins/wikilabs/remove-states
 $:/plugins/wikilabs/link-to-tabs
 $:/plugins/wikilabs/bundler
 $:/plugins/wikilabs/advanced-search-plus 
+
+[[--- Bundles that contain the whole project ---]]
 script-manager-dev.bundle
 script-manager.bundle
