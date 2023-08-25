@@ -7,8 +7,8 @@
     "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
     "test": "echo ---- no tests atm ----",
     "server": "npm start",
-    "build:github": "tiddlywiki ../trail --build github",
-    "build": "tiddlywiki ../trail --build index",
+    "build:github": "tiddlywiki ../trails --build github",
+    "build": "tiddlywiki ../trails --build index",
     "prestage": "npm run build",
     "stage": "npm run build:github",
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
@@ -19,7 +19,7 @@
   },
   "keywords": [
     "tiddlywiki",
-    "trail",
+    "trails",
     "structure",
     "links",
     "breadcrumbs"
@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/wikilabs/plugins/issues"
   },
-  "homepage": "https://wikilabs.github.io/editions/trail",
+  "homepage": "https://wikilabs.github.io/editions/trails",
   "dependencies": {},
   "devDependencies": {
     "tiddlywiki": "^5.2.0"
