@@ -1,0 +1,17 @@
+{
+	"description": "Server configuration of the wikilabs edition",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"wikilabs/link-to-tabs",
+		"wikilabs/advanced-search-plus"
+	],
+	"themes": [
+	],
+	"includeWikis": [
+		"../palette-switcher"
+	],
+	"config": {
+		"default-tiddler-location": "../palette-switcher/tiddlers"
+	}
+}

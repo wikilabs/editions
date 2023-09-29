@@ -1,0 +1,17 @@
+created: 20230504151415474
+modified: 20230504151824267
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+
+!! Overview
+
+{{$:/plugins/wikilabs/palette-switcher/readme}}
+
+!! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+!! License
+
+See: [[License]]
