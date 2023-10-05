@@ -3,7 +3,6 @@
 	"plugins": [
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
-		"wikilabs/info-session",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/edit-tabs"
 	],

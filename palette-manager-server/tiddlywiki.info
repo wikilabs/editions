@@ -4,10 +4,7 @@
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
-		"wikilabs/info-session",
-		"wikilabs/advanced-search-plus",
-		"tiddlywiki/mobiledragdrop"
-
+		"wikilabs/advanced-search-plus"
 	],
 	"themes": [
 	],

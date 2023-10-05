@@ -5,7 +5,6 @@
 		"tiddlywiki/filesystem",
 		"tiddlywiki/internals",
 		"wikilabs/link-to-tabs",
-		"wikilabs/info-session",
 		"wikilabs/wltm-open-story",
 		"wikilabs/advanced-search-plus"
 	],
