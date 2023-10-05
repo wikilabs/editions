@@ -1,0 +1,6 @@
+created: 20231003133548541
+modified: 20231003133548541
+title: $:/config/BrowserStorage/SaveFilter
+type: text/vnd.tiddlywiki
+
+[all[]] -[prefix[$:/state/popup/]] -[prefix[$:/temp/]] -[prefix[$:/HistoryList]]
