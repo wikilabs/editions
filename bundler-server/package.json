@@ -4,8 +4,8 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-		"watch": "nodemon",
-		"net": "tiddlywiki . --listen host=local.lan",
+    "watch": "nodemon",
+    "net": "tiddlywiki . --listen host=local.lan",
 
     "start": "tiddlywiki . --listen",
     "test": "echo ---- no tests atm ----",
@@ -17,20 +17,21 @@
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
+    "poststage": "powershell copy ./files/images/*.* ../../wikilabs.github.io/editions/bundler/images",
 
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
-	"nodemonConfig": {
-		"exec": "npm run net",
-		"ext": "*.*",
-		"restartable": "rs",
-		"ignore": [
-			".git"
-		],
-		"verbose": true,
-		"watch": ["../../plugins/wikilabs/bundler/**"],
-		"delay": 200
-	},
+  "nodemonConfig": {
+    "exec": "npm run net",
+    "ext": "*.*",
+    "restartable": "rs",
+    "ignore": [
+      ".git"
+    ],
+    "verbose": true,
+    "watch": [ "../../plugins/wikilabs/bundler/**" ],
+    "delay": 200
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wikilabs/plugins"
