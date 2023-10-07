@@ -1,6 +1,6 @@
 title: $:/config/LocalPluginLibrary
 tags: $:/tags/PluginLibrary
-url: http://127.0.0.1:8080/files/local/library/latest/index.html
+url: http://127.0.0.1:8080/files/local/library/tmp/latest/index.html
 caption: Wikilabs Plugin Library (Local)
 
 A locally installed version of the WikiLabs plugin library //Requires a local web server to share the library//

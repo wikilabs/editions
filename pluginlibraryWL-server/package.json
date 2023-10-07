@@ -1,6 +1,6 @@
 {
   "name": "pluginlibrary-test-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "tiddlywiki edition development helper",
   "main": "",
   "scripts": {
@@ -9,12 +9,12 @@
     "pretest": "npm run build:test:library",
     "test": "npm run build && npm start",
 
-    "build:test:library": "tiddlywiki ../pluginlibraryWL --output ../pluginlibraryWL-server/files/local/library/latest --build library",
+    "build:test:library": "tiddlywiki ../pluginlibraryWL --output ../pluginlibraryWL-server/files/local/library/tmp/latest --build library",
 
     "build": "tiddlywiki ../pluginlibraryWL --build index",
 
     "prebuild:github": "tiddlywiki ../pluginlibraryWL --output ../../wikilabs.github.io/editions/pluginlibraryWL/library/latest --build library",
-    "build:github": "tiddlywiki ../pluginlibraryWL --build github", 
+    "build:github": "tiddlywiki ../pluginlibraryWL --build github",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
