@@ -25,5 +25,8 @@
 			"--rendertiddler","$:/plugins/tiddlywiki/pluginlibrary/library.template.html","index.html","text/plain"
 			]
 
+	},
+	"config": {
+		"retain-original-tiddler-path": true
 	}
 }
