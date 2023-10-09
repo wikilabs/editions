@@ -1,18 +1,28 @@
 created: 20230502111446061
-modified: 20231003133728956
+modified: 20231009124347397
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
-!! Overview
+! {{$:/plugins/wikilabs/cheatsheet/icon}} The Cheatsheet Plugin
+
+!! Introduction
 
 This plugin adds 2 new "Show Wikitext Cheatsheet" buttons and an editor-shortcut to your wiki
 
 * A "Cheatsheet" button is added as a "page button"
-* A "Cheatsheet" button is added to the edit toolbars .. Shortcut <kbd>F1</kbd>
+* A "Cheatsheet" button is added to the edit toolbars .. ''Shortcut'' <kbd>F1</kbd>
 
 This [[Wikitext Cheatsheet]] edition should give you a compact overview, that you can modify to your liking. 
 
-Feedback and improvements are very welcome at: https://github.com/wikilabs/plugins/issues
+{{doc-cheatsheet}}
+
+
+!! Feedback
+
+Feedback and improvements are very welcome at: 
+
+* TiddlyWiki Talk Forum: [[[INTRO] TiddlyWiki Wikitext Cheatsheet|https://talk.tiddlywiki.org/t/intro-tiddlywiki-wikitext-cheatsheet/6926]]
+* GitHub: https://github.com/wikilabs/plugins/issues
 
 !! Plugins
 

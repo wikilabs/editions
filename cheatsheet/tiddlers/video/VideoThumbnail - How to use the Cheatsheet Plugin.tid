@@ -1,0 +1,13 @@
+background-color: #fff
+caption: ~HowTo - Cheatsheet Plugin
+color: red
+created: 20210122181308949
+icon: {{$:/core/images/video}}
+image: cheatsheet-intro.gif
+link: How to use the Cheatsheet Plugin
+modified: 20231009125025286
+tags: VideoThumbnail
+title: VideoThumbnail - How to use the Cheatsheet Plugin
+type: text/vnd.tiddlywiki
+
+<<list-thumbnails filter:"[all[current]]" width:"336" height:"190">>

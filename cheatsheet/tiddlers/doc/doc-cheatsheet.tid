@@ -1,0 +1,19 @@
+created: 20231009122727340
+modified: 20231009123937924
+tags: doc
+title: doc-cheatsheet
+type: text/vnd.tiddlywiki
+
+!! Activating the Popup
+
+* The popup can be activated using the riht-sidebar button: {{$:/core/images/tip|14pt}} or
+
+* The editor toolbar button: <kbd>{{$:/core/images/tip|10pt}}</kbd> or <kbd>F1</kbd>
+
+{{cheatsheet-f1.gif}}
+
+!! Keyboard Shortcuts
+
+Keyboard shortcuts can be defined in the $:/ControlPanel -> ''Keyboard Shortcuts'' tab, with the "show-cheatsheet" setting.
+
+{{cheatsheet-keyboard-shortcuts.gif}} 
