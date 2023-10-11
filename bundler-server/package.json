@@ -17,7 +17,7 @@
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
-    "poststage": "powershell copy ./files/images/*.* ../../wikilabs.github.io/editions/bundler/images",
+    "poststage": "powershell copy ./files/images/*.* ../../wikilabs.github.io/editions/bundler/files/images",
 
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
