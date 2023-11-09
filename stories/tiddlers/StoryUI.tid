@@ -1,0 +1,24 @@
+created: 20200117142725655
+description: This story contains "The Story UI"
+modified: 20200119122522571
+title: StoryUI
+
+! BETA - BETA - BETA - BETA - BETA - BETA
+
+* ''Do not use'' this wiki ''in production''. It contains several modified core javascript modules and UI code. 
+* ''The UI of this wiki will _not_ work with any other TW version!''
+
+! Video
+
+
+!! Info
+
+* This Story contains the whole story UI without the core javascript functions.
+* It won't work without the upcoming changes to the core !
+
+! Modified core macros and UI stuff
+
+
+!! Moar
+
+
