@@ -2,7 +2,7 @@ created: 20191216121603705
 default: filter
 description: Das ist ein Test Story
 filter: 4321-0-0-pg 4-321-0-pg 321-0-0-p4 [subfilter{Story/Tower of Hanoi/A-C Sequence!!list}]
-modified: 20200122100931782
-tags: $:/tags/Story
+modified: 20231109115328965
+tags: Story
 title: Story/TOH/4-Stones-filtered
 type: text/vnd.tiddlywiki
