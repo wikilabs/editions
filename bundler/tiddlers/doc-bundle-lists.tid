@@ -1,5 +1,5 @@
 created: 20230113225852075
-modified: 20230118170845268
+modified: 20231110134959718
 tags: doc
 title: doc-bundle-lists
 type: text/vnd.tiddlywiki
@@ -23,14 +23,16 @@ Bundle lists are standard tiddlers
 
 See: [[example.bundle]]
 
-{{example.bundle}}
+{{example.bundle||text-plain-template}}
 
 !! Export a Bundled List
 
-Exporting a bundeled list can be done from the  <$button actions=<<rightSidebarBundlesTab>> class="tc-btn-invisible tc-tiddlylink">right sidebar Bundles-tab</$button> if you click the "Export Button" <$button class="tc-btn-invisible">{{$:/core/images/export-button}}</$button>.
+Exporting a bundeled list can be done from the  <$button actions=<<rightSidebarBundlesTab>> class="tc-btn-invisible tc-tiddlylink">right sidebar Bundles-tab</$button> if you click the {{$:/core/images/export-button|1em}} "Export Button".
 
 [img[export-bundle-sidebar-x.png]]
 
-or from the tiddler (i)nfo area in the tiddler toolbar.
+or from the tiddler {{$:/core/images/info-button|1em}} info area in the tiddler toolbar.
 
 [img[export-bundle.png]]
+
+''Also see:'' [[new-in-v1.0.0]]

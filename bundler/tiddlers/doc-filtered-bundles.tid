@@ -1,5 +1,5 @@
 created: 20230113230433713
-modified: 20230118162826406
+modified: 20231110135031384
 tags: doc
 title: doc-filtered-bundles
 type: text/vnd.tiddlywiki
@@ -55,3 +55,4 @@ There are 2 ways to export filtered bundles.
 
 [img[export-filtered-bundle.png]]
 
+''Also see:'' [[doc-new-in-v1.0.0]]

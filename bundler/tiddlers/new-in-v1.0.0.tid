@@ -1,0 +1,35 @@
+created: 20231110132121292
+modified: 20231110135348942
+tags: doc
+title: new-in-v1.0.0
+type: text/vnd.tiddlywiki
+
+!! New in v1.0.0
+
+* New "Open in Story" and "Open List Below" Buttons
+* New Button Visibility Settings
+* Bundle tiddlers are now ''type: text/vnd.tiddlywiki'' using the field `code-body: yes`
+** This will allow the relink-plugin to work properly. 
+** New bundles will be created using the new setting. 
+
+!! "Open in Story" and "Open List Below" Buttons
+
+There are 2 new buttons in the tiddler {{$:/core/images/info-button|1em}} info area.
+
+* Open in Story ... Will open the configured tiddler in the story river
+* Open List Below ... Will open the listed tiddlers and keep the bundle tiddler open
+
+The same functionality can be achieved, if the "bundle preview" button is clicked. There are 3 settings now.
+
+|Action |Behaviour |h
+|click |Open the bundle configuration in $:/AdvancedSearc |
+|CTRL-click|Open all tiddlers in the story river |
+|CTRL-SHIFT-click|Open all tiddlers below the current bundle tiddler |
+
+[img[new-story-buttons-annotated.png]]
+
+!! Visibility Settings
+
+These 4 configuration settings will allow you to customize the list template in the right sidebar "Bundles" tab. 
+
+[img[new-enable-drag-export-config-settings.png]]
