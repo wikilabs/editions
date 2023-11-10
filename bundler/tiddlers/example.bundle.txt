@@ -1,5 +1,0 @@
-[[--- Lines starting with [[--- are treated as comments. ---]]
-[[--- Simple configuration for testing ---]]
-
-HelloThere
-GettingStarted

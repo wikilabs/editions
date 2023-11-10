@@ -1,0 +1,12 @@
+code-body: yes
+created: 20170601134910443
+modified: 20231109130657125
+tags: $:/tags/Bundle
+title: example.bundle
+type: text/vnd.tiddlywiki
+
+[[--- Lines starting with [[--- are treated as comments. ---]]
+[[--- Simple configuration for testing ---]]
+
+HelloThere
+GettingStarted

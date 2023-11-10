@@ -1,3 +1,10 @@
+code-body: yes
+created: 20210131215527177
+modified: 20231109130634685
+tags: $:/tags/Bundle
+title: comment-self.bundle
+type: text/vnd.tiddlywiki
+
 [[--- Lines starting with [[--- are treated as comments. ---]]
 
 [[--- This bundle will include itself ---]]
