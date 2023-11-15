@@ -1,0 +1,12 @@
+created: 20231115113727773
+modified: 20231115115234068
+tags: doc
+title: new-in-v1.1.0
+type: text/vnd.tiddlywiki
+
+!! New in v1.1.0
+
+* Add "caption" field handling to - Right Sidebar: Bundles Tab
+* Improve Tooltips for Links and Caption-links
+
+[img[bundler-caption-tooltip-handling.png]]
