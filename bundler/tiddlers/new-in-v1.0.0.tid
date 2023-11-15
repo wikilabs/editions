@@ -1,16 +1,30 @@
 created: 20231110132121292
-modified: 20231110135348942
+modified: 20231115094623067
 tags: doc
 title: new-in-v1.0.0
 type: text/vnd.tiddlywiki
 
 !! New in v1.0.0
 
+* Bundles sidebar tab now allows you to filter the bundles lists
 * New "Open in Story" and "Open List Below" Buttons
 * New Button Visibility Settings
 * Bundle tiddlers are now ''type: text/vnd.tiddlywiki'' using the field `code-body: yes`
 ** This will allow the relink-plugin to work properly. 
 ** New bundles will be created using the new setting. 
+
+!! Filter Bundle Lists
+
+The bundle lists can be filtered now. The screenshot below shows the full list
+
+[img[bundler-list-filter-input.png]]
+
+''Short List''
+
+The screenshot below shows the filtered "short" list
+
+[img[bundler-list-filter-input-short.png]]
+
 
 !! "Open in Story" and "Open List Below" Buttons
 
