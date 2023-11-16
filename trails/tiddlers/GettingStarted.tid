@@ -1,8 +1,15 @@
+created: 20231116142952877
+modified: 20231116143138724
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
-! Overview
+! {{$:/plugins/wikilabs/trails/icon}} Trails and Breadcrumbs Plugin
 
-This plugin allows you to use 3 different Trail Navigation Functions
+This plugin allows you to use 3 different "Trail and Breadcrumbs Navigation Functions"
+
+! Documentation
+
+{{docs}}
 
 ! Plugins
 
