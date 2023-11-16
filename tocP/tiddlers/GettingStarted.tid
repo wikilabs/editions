@@ -5,7 +5,7 @@ tags: default
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
-! Plugin
+! {{$:/plugins/wikilabs/tocP/icon}} tocP Plugin
 
 * What's new: see [[Revision-History]]
 * Documentation: [[tocP - Parent Based TOC]] 
