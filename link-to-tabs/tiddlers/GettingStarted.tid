@@ -1,6 +1,6 @@
 title: GettingStarted
 
-! Overview
+! {{$:/plugins/wikilabs/link-to-tabs/icon}} Link to Tabs Plugin
 
 This plugin "Link-to-Tabs" adds internal tiddler links to every tab if selected. This comes in handy, if you are creating a lot of new stuff.
 
