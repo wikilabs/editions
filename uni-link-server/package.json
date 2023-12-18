@@ -7,8 +7,8 @@
     "watch": "nodemon",
     "net": "tiddlywiki . --listen host=local.lan",
 
-    "start": "tiddlywiki . -listen",
-		"test": "npm run watch",
+    "start": "tiddlywiki . --listen",
+    "test": "npm run watch",
 
     "server": "npm start",
 
@@ -21,16 +21,16 @@
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
   "nodemonConfig": {
-		"exec": "npm run net",
-		"ext": "*.*",
-		"restartable": "rs",
-		"ignore": [
-			".git"
-		],
-		"verbose": true,
-		"watch": ["../../plugins/wikilabs/uni-link/**"],
-		"delay": 200
-	},
+    "exec": "npm run net",
+    "ext": "*.*",
+    "restartable": "rs",
+    "ignore": [
+      ".git"
+    ],
+    "verbose": true,
+    "watch": [ "../../plugins/wikilabs/uni-link/**" ],
+    "delay": 200
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wikilabs/plugins"
@@ -47,7 +47,7 @@
   },
   "homepage": "https://wikilabs.github.io/editions/uni-link",
   "devDependencies": {
-    "tiddlywiki": "^5.1.0",
+    "tiddlywiki": "^5.3.0",
     "nodemon": "^2.0.22"
   }
 }
