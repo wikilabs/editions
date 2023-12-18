@@ -14,8 +14,9 @@
 		"../../wikilabs.github.io"
 	],
 	"config": {
-		"default-tiddler-location": "../../wikilabs.github.io/tiddlers"
+		"default-tiddler-location": "../../wikilabs.github.io/tiddlers",
+		"retain-original-tiddler-path": true
 	},
 	"build": {
-	 }
+	}
 }
