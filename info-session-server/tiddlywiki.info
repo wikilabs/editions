@@ -17,5 +17,5 @@
 		"default-tiddler-location": "../info-session/tiddlers"
 	},
 	"build": {
-	 }
+	}
 }

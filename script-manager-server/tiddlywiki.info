@@ -23,5 +23,5 @@
 		"default-tiddler-location": "../script-manager/tiddlers"
 	},
 	"build": {
-	 }
+	}
 }

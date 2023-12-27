@@ -20,5 +20,5 @@
 		"default-tiddler-location": "../bundler/tiddlers"
 	},
 	"build": {
-	 }
+	}
 }

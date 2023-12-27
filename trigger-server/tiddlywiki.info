@@ -20,5 +20,5 @@
 		"default-tiddler-location": "../trigger/tiddlers"
 	},
 	"build": {
-	 }
+	}
 }

@@ -12,6 +12,6 @@
 		"../palette-manager"
 	],
 	"config": {
-	 "default-tiddler-location": "../palette-manager/tiddlers"
+		"default-tiddler-location": "../palette-manager/tiddlers"
 	}
 }

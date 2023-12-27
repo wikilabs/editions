@@ -12,6 +12,6 @@
 		"../persistent-states"
 	],
 	"config": {
-	 "default-tiddler-location": "../persistent-states/tiddlers"
+		"default-tiddler-location": "../persistent-states/tiddlers"
 	}
 }
