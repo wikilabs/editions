@@ -1,28 +1,40 @@
+created: 20231229134345571
+modified: 20231229135005549
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
 ! {{$:/plugins/wikilabs/link-to-tabs/icon}} Link to Tabs Plugin
 
 This plugin "Link-to-Tabs" adds internal tiddler links to every tab if selected. This comes in handy, if you are creating a lot of new stuff.
 
-! Important
+!! Important
 
 * This plugin is compatible to "slant-01" theme
 * This plugin modifies the core: [[$:/core/macros/tabs]] macro
 
-! Settings
+!! Example
 
-The following setting can also be found in the [[Control Panel: Settings|$:/ControlPanel]].
+<$button>
+<$action-sendmessage $message="tm-new-tiddler" title="Tab Tests"  text="""
+{{$:/plugins/wikilabs/link-to-tabs/settings}}
 
-{{$:/core/ui/ControlPanel/Settings/link-to-tabs}}
+<<tabs "tab1 tab2 tab3 $:/test" "tab1" "$:/state/tabTest" >>
+"""/>
+Create a test tiddler
+</$button>
 
-! Alternatives
+!! Settings
 
-* http://tablinks.tiddlyspot.com/ ... which uses a slightly different approach
+The following setting can also be found in the ''$:/ControlPanel -> Settings -> WikiLabs -> Link-to-Tabs''.
 
-! Plugins
+!! Plugins
 
 {{$:/core/ui/ControlPanel/Plugins}}
 
-! License
+!! License
 
 See: [[License]]
+
+!! Alternatives
+
+* http://tablinks.tiddlyspot.com/ ... which uses a slightly different approach
