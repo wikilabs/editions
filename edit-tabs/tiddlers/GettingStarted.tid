@@ -1,4 +1,13 @@
+created: 20231229170254180
+modified: 20231229170706154
 title: GettingStarted
+type: text/vnd.tiddlywiki
+
+! DEPRECATED
+
+''The functionality of edit-tabs plugin is now part of the [[link-to-tabs plugin|https://wikilabs.github.io/editions/link-to-tabs/]]''
+
+''This plugin will be no longer supported or maintained -> use link-to-tabs instead.''
 
 ! Overview
 
@@ -26,12 +35,6 @@ Create a test tiddler
 
 The following setting can be also found in the [[Control Panel: Settings|$:/ControlPanel]].
 
-{{$:/core/ui/ControlPanel/Settings/edit-tabs}}
-
-! Alternatives
-
-* http://tablinks.tiddlyspot.com/ ... which uses a slightly different approach
-
 ! Plugins
 
 {{$:/core/ui/ControlPanel/Plugins}}
@@ -39,3 +42,7 @@ The following setting can be also found in the [[Control Panel: Settings|$:/Cont
 ! License
 
 See: [[License]]
+
+! Alternatives
+
+* http://tablinks.tiddlyspot.com/ ... which uses a slightly different approach
