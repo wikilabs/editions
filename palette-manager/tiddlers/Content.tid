@@ -10,6 +10,10 @@ type: text/vnd.tiddlywiki
 * or the [[$:/PaletteManager]] in the story river
 
 
-!! The plugin contains the following preview elements
+!! This ''edtion'' contains the following palettes
 
-<<list-links "[all[shadows+tiddlers]prefix[:/palettes/]]">>
+<<list-links filter:"[all[shadows+tiddlers]prefix[$:/palettes/]] :and[!prefix[$:/palettes/preview/]]" class:"multi-columns">>
+
+!! The ''plugin'' contains the following previews
+
+<<list-links filter:"[all[shadows+tiddlers]prefix[$:/palettes/preview/]]" class:"multi-columns">>

@@ -5,7 +5,3 @@ title: GettingStarted
 type: text/vnd.tiddlywiki
 
 {{$:/plugins/wikilabs/palette-manager/readme}}
-
-! Plugins
-
-{{$:/core/ui/ControlPanel/Plugins}}
