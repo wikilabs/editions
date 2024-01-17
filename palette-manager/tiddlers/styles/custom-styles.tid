@@ -1,4 +1,4 @@
-title: pm-styles
+title: custom-styles
 tags: $:/tags/Stylesheet
 
 /* Increases the input element accessibility quite a bit
@@ -49,3 +49,14 @@ textarea, input, select {
 	fill: <<colour sidebar-muted-foreground-hover>>;
 }
 
+/* TODO create a PR - It's prettier than the existing separator */
+.tc-untagged-separator {
+	width: 10em;
+	left: 0;
+	margin-left: 0;
+}
+
+/* TODO create a PR:  A different color for the ControlPanel -> Plugins listing */
+.tc-plugin-info-chunk.tc-plugin-info-description h2 {
+	color: <<colour download-background>>;
+}
