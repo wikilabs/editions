@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 \define resetPaletteActions()
 <$action-createtiddler $basetitle="EditColourWidget (Palette)"
-  $overwrite="yes"
+	$overwrite="yes"
 	$timestamp="no"
 	created="20221003082622427"
 	modified="20221003082622697"
@@ -20,6 +20,10 @@ ccc: #a0a3e9"""
 \define resetPalette()
 <$button actions=<<resetPaletteActions>> class="tc-small-gap-left" >Reset</$button>
 \end
+
+! DEPRECATED
+
+This macro is deactivated atm and will probably be removed.
 
 ! Examples
 
