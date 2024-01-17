@@ -1,0 +1,25 @@
+created: 20240117094430934
+modified: 20240117095646197
+tags: 
+title: what-is-new-v0.10.0
+type: text/vnd.tiddlywiki
+
+! What's New
+
+* The PaletteManager does ''not'' need a browser restart anymore
+** "Cudos" go to Eric Shulman / TiddlyTools
+** The plugin can be imported to every online wiki to optimize the existing palettes
+
+* Previews can be hidden now (default is visible)
+
+* The "search field" is now compatible with TiddlyTools PaletteManager (TT-PM)
+** Both palette managers can be used at the same time
+
+* WikiLabs PaletteManager (WL-PM) can now properly preview colour values using the RGBA CSS format eg: rgba(0,200,0,0.7)
+* WL-PM can use the X11 Colour settings and the custom colour picker
+** Import from TT: [[TiddlyTools/Settings/Colors/X11|https://tiddlytools.com/#TiddlyTools%2FSettings%2FColors%2FX11]]
+* TT-PM can use the WL previews
+** Drag & Drop the [[WikiLabs PaletteManager Plugin|$:/plugins/wikilabs/palette-manager]] to https://tiddlytools.com to test it
+** See: [[TiddlyTools/Palettes/Manager|https://tiddlytools.com/#TiddlyTools%2FPalettes%2FManager]]
+
+
