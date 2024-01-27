@@ -3,5 +3,6 @@ list: grafik.png
 modified: 20221118114314295
 title: GettingStarted
 type: text/vnd.tiddlywiki
+tags: TableOfContents
 
 {{$:/plugins/wikilabs/palette-manager/readme}}
