@@ -60,3 +60,19 @@ textarea, input, select {
 .tc-plugin-info-chunk.tc-plugin-info-description h2 {
 	color: <<colour download-background>>;
 }
+
+<!-- These setting is experimentell and disabled atm -->
+
+/* TODO - This fixes problems with dark themes and ControlPanel tabs */
+<!-- .tc-tab-buttons button.tc-tab-selected {
+	border-bottom: 1px solid <<colour tab-background-selected>>;
+} -->
+
+
+/*
+* TODO - This fixes a problem with dark palettes and the Alert-box. eg: Twilight-Node-Red palette
+* This fix needs a new element in the palette tiddler itself: `alert-foreground`
+*/
+<!-- .tc-alert-body {
+	color: <<colour alert-foreground>>;
+} -->
