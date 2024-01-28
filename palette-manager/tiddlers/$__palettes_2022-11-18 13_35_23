@@ -10,7 +10,7 @@ code-border: <<colour pre-border>>
 code-foreground: #c7c7c7
 dirty-indicator: #FF453A
 download-background: <<colour primary>>
-download-foreground: #959595
+download-foreground: <<colour background>>
 dragger-background: <<colour foreground>>
 dragger-foreground: <<colour background>>
 dropdown-background: <<colour tiddler-info-background>>
@@ -52,8 +52,8 @@ sidebar-controls-foreground-hover: #FF9F0A
 sidebar-controls-foreground: #8E8E93
 sidebar-foreground-shadow: transparent
 sidebar-foreground: rgba(255, 255, 255, 0.54)
-sidebar-muted-foreground-hover: #999999
-sidebar-muted-foreground: #6e6e6e
+sidebar-muted-foreground-hover: #acacac
+sidebar-muted-foreground: #787878
 sidebar-tab-background-selected: #3F638B
 sidebar-tab-background: <<colour background>>
 sidebar-tab-border-selected: #313131
@@ -68,7 +68,7 @@ static-alert-foreground: #B4B4B4
 tab-background-selected: #3F638B
 tab-background: <<colour page-background>>
 tab-border-selected: <<colour page-background>>
-tab-border: <<colour page-background>>
+tab-border: #4a4a4a
 tab-divider: <<colour page-background>>
 tab-foreground-selected: #ffffff
 tab-foreground: #adadad

@@ -44,7 +44,7 @@ notification-border: <<colour foreground>>
 page-background: <<colour background>>
 pre-background: <<colour background>>
 pre-border: <<colour foreground>>
-primary: #00f
+primary: #5959ff
 select-tag-background: 
 select-tag-foreground: 
 sidebar-button-foreground: <<colour foreground>>
@@ -80,7 +80,7 @@ tag-foreground: #000
 tiddler-background: <<colour background>>
 tiddler-border: <<colour foreground>>
 tiddler-controls-foreground-hover: #ddd
-tiddler-controls-foreground-selected: #fdd
+tiddler-controls-foreground-selected: #8a0000
 tiddler-controls-foreground: <<colour foreground>>
 tiddler-editor-background: <<colour background>>
 tiddler-editor-border-image: <<colour foreground>>

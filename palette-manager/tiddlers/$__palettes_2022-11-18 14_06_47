@@ -45,11 +45,11 @@ page-background: #000
 pre-background: #f5f5f5
 pre-border: #cccccc
 primary: #cc0000
-select-tag-background: 
-select-tag-foreground: 
+select-tag-background: <<colour foreground>>
+select-tag-foreground: <<colour foreground>>
 sidebar-button-foreground: <<colour foreground>>
-sidebar-controls-foreground-hover: #000000
-sidebar-controls-foreground: #ffffff
+sidebar-controls-foreground-hover: #797979
+sidebar-controls-foreground: #cacaca
 sidebar-foreground-shadow: rgba(255,255,255, 0.0)
 sidebar-foreground: #acacac
 sidebar-muted-foreground-hover: #444444
@@ -68,7 +68,7 @@ static-alert-foreground: #aaaaaa
 tab-background-selected: #ffffff
 tab-background: #d8d8d8
 tab-border-selected: #d8d8d8
-tab-border: #cccccc
+tab-border: #bbbbbb
 tab-divider: #d8d8d8
 tab-foreground-selected: <<colour tab-foreground>>
 tab-foreground: #666666

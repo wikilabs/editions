@@ -14,7 +14,7 @@ diff-equal-background:
 diff-equal-foreground: <<colour foreground>>
 diff-insert-background: #A3BE8C
 diff-insert-foreground: <<colour background>>
-diff-invisible-background: 
+diff-invisible-background: #f9f3b5
 diff-invisible-foreground: <<colour muted-foreground>>
 dirty-indicator: #BF616A
 download-background: #A3BE8C
@@ -46,24 +46,24 @@ modal-border: #3b4252
 modal-footer-background: #3b4252
 modal-footer-border: #3b4252
 modal-header-border: #3b4252
-muted-foreground: #4C566A
+muted-foreground: #687693
 notification-background: <<colour primary>>
 notification-border: #EBCB8B
 page-background: #2e3440
 pre-background: #2E3440
 pre-border: #2E3440
-primary: #5E81AC
+primary: #7b98bb
 select-tag-background: #3b4252
 select-tag-foreground: <<colour foreground>>
-selection-background: #5E81AC
+selection-background: #52749e
 selection-foreground: <<colour foreground>>
 sidebar-button-foreground: <<colour foreground>>
 sidebar-controls-foreground-hover: #D8DEE9
-sidebar-controls-foreground: #4C566A
+sidebar-controls-foreground: #5e6a84
 sidebar-foreground-shadow: transparent
 sidebar-foreground: #D8DEE9
-sidebar-muted-foreground-hover: #4C566A
-sidebar-muted-foreground: #4C566A
+sidebar-muted-foreground-hover: #9fa8bb
+sidebar-muted-foreground: #6c7b97
 sidebar-tab-background-selected: #ECEFF4
 sidebar-tab-background: #4C566A
 sidebar-tab-border-selected: <<colour tab-border-selected>>
@@ -78,15 +78,15 @@ static-alert-foreground: #B48EAD
 tab-background-selected: #ECEFF4
 tab-background: #4C566A
 tab-border-selected: #4C566A
-tab-border: #4C566A
+tab-border: #5c6883
 tab-divider: #4C566A
-tab-foreground-selected: #4C566A
+tab-foreground-selected: #6c7a97
 tab-foreground: #D8DEE9
 table-border: #4C566A
 table-footer-background: #2e3440
 table-header-background: #2e3440
-tag-background: #A3BE8C
-tag-foreground: #4C566A
+tag-background: #a0c486
+tag-foreground: #687693
 tiddler-background: <<colour background>>
 tiddler-border: <<colour background>>
 tiddler-controls-foreground-hover: 

@@ -1,5 +1,5 @@
 alert-background: <<colour background>>
-alert-border: <<colour very-muted-foreground>>
+alert-border: #bf0005
 alert-highlight: <<colour very-muted-foreground>>
 alert-muted-foreground: <<colour muted-foreground>>
 background: #303030
@@ -40,13 +40,13 @@ modal-footer-border: <<colour background>>
 modal-header-border: <<colour very-muted-foreground>>
 muted-foreground: #939393
 notification-background: <<colour dropdown-background>>
-notification-border: <<colour dropdown-background>>
+notification-border: #999999
 page-background: #212121
 pre-background: #2a2a2a
 pre-border: transparent
-primary: #5656f3
-select-tag-background: <<colour background>>
-select-tag-foreground: <<colour foreground>>
+primary: #7474f5
+select-tag-background: #464646
+select-tag-foreground: #7a7a7a
 sidebar-button-foreground: <<colour foreground>>
 sidebar-controls-foreground-hover: #818181
 sidebar-controls-foreground: #5d5d5d
@@ -68,7 +68,7 @@ static-alert-foreground: #aaaaaa
 tab-background-selected: <<colour background>>
 tab-background: transparent
 tab-border-selected: <<colour table-border>>
-tab-border: transparent
+tab-border: #4e4e4e
 tab-divider: <<colour table-border>>
 tab-foreground-selected: #dfdfdf
 tab-foreground: #b6b6b6
@@ -87,7 +87,7 @@ tiddler-editor-border-image:
 tiddler-editor-border: #404040
 tiddler-editor-fields-even: #3b3b3b
 tiddler-editor-fields-odd: #484848
-tiddler-info-background: #454545
+tiddler-info-background: #2e2e2e
 tiddler-info-border: #454545
 tiddler-info-tab-background: <<colour tiddler-editor-fields-odd>>
 tiddler-link-background: <<colour background>>
