@@ -1,0 +1,22 @@
+{
+	"description": "Server configuration of the wikilabs edition",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"wikilabs/link-to-tabs",
+		"wikilabs/advanced-search-plus",
+		"wikilabs/saver-timestamps"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+	],
+	"includeWikis": [
+		"../saver-timestamps"
+	],
+	"config": {
+		"default-tiddler-location": "../saver-timestamps/tiddlers"
+	},
+	"build": {
+	}
+}
