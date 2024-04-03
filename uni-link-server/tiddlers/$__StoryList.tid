@@ -1,5 +1,3 @@
-created: 20230307121953434
-list: $:/AdvancedSearch $:/core/ui/SideBarSegments/search $:/core/ui/SideBarSegments/page-controls $:/core/ui/SideBarLists $:/ControlPanel [[<<listAliases>> - macro]] $:/plugins/wikilabs/uni-link/ui/MoreSideBar/Aliases $:/plugins/wikilabs/uni-link/ui/MoreSideBar/Aliases/byAlias
-modified: 20230308110319306
+list: x-0-a-0-2 x-0-a-0-1 x-0-a-0-0
 title: $:/StoryList
 type: text/vnd.tiddlywiki
