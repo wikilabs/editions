@@ -1,5 +1,5 @@
 created: 20171215131522502
-modified: 20190210234829513
+modified: 20240408124036214
 tags: 
 title: Alias Examples
 type: text/vnd.tiddlywiki
@@ -13,10 +13,16 @@ type: text/vnd.tiddlywiki
 
 Since Version 1.0.0 the alias links have the possibility to select the field, that should be shown.
 
+All following links open the same tiddler! Open it in ''edit-mode'', to see the fields!
+
 |`[[darwinism|?]]` |[[darwinism|?]] |
 |`[[darwinism|?t]]` |[[darwinism|?t]] |
 |`[[darwinism|?c]]` |[[darwinism|?c]] |
 |`[[darwinism|?s]]` |[[darwinism|?s]] |
 |`[[darwinism|?my-field]]` |[[darwinism|?my-field]] |
 
-All those links open the same tiddler! Open it in ''edit-mode'', to see the fields!
+The following alias is not defined and will be "red". It will link to a tiddler title: "?"
+
+If you open the ''right sidebar -> More -> Aliases -> Undefined'' tab you should see a list of all undefined aliases. 
+
+|`[[undefined alias|?]]`|[[undefined alias|?]] |

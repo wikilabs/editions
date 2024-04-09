@@ -1,0 +1,13 @@
+created: 20240408111715298
+modified: 20240408122349678
+tags: 
+title: augmented-backlinks
+type: text/vnd.tiddlywiki
+
+\function f.tid() [<currentTiddler>split[||]trim[]first[]]
+\function f.alias() [<currentTiddler>split[||]last[]]
+
+<$list filter="[[Darwinism]aliasbacklinks:augmented[]]">
+<$link to=<<f.tid>>/> - <<f.alias>><br>
+</$list>
+

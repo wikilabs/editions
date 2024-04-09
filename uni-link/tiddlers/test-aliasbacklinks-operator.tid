@@ -1,9 +1,24 @@
 created: 20171203005136679
-modified: 20171215144444454
+modified: 20240408094821391
 tags: 
 title: test-aliasbacklinks-operator
 type: text/vnd.tiddlywiki
 
 `<<list-links filter:"[[Darwinism]aliasbacklinks[]]">>`
 
+<<list-links filter:"[[Darwinism]aliasbacklinks:keys[]]">>
+
+-----
+
 <<list-links filter:"[[Darwinism]aliasbacklinks[]]">>
+
+-----
+
+<<list-links filter:"[[Darwinism]aliasbacklinks[natural selection]]">>
+
+-----
+
+<<list-links filter:"[list[Darwinism!!aliases]]">>
+
+---
+
