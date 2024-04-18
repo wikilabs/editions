@@ -5,4 +5,4 @@ title: test-trails-configuration
 trail: aa bb cc dd ee ff
 type: text/vnd.tiddlywiki
 
-{{$:/plugins/wikilabs/trails/config}}
+{{$:/plugins/wikilabs/trails/settings}}
