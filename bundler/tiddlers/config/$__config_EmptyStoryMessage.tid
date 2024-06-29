@@ -5,6 +5,7 @@ title: $:/config/EmptyStoryMessage
 	<!-- :else[<shadowDefaults>trim[]format:titlelist[]join[ ]] -->
 \function getDefaults()
 	[subfilter{$:/DefaultTiddlers}trim[]format:titlelist[]join[ ]]
+	:else[<shadowDefaults>trim[]format:titlelist[]join[ ]]
 	:else[!is[system]has[modified]!sort[modified]limit[1]format:titlelist[]]
 \end
 \procedure showDefaultTiddlers()
