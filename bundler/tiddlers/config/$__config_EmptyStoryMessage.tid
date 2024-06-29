@@ -1,3 +1,36 @@
 title: $:/config/EmptyStoryMessage
 
-{{GettingStarted||$:/core/ui/ViewTemplate}}
+\whitespace trim
+<!-- can be used in getDefaults if we want to get shadowDefaults -->
+	<!-- :else[<shadowDefaults>trim[]format:titlelist[]join[ ]] -->
+\function getDefaults()
+	[subfilter{$:/DefaultTiddlers}trim[]format:titlelist[]join[ ]]
+	:else[!is[system]has[modified]!sort[modified]limit[1]format:titlelist[]]
+\end
+\procedure showDefaultTiddlers()
+<$wikify name=shadowDefaults text="""<$transclude $tiddler="$:/core" $subtiddler="$:/DefaultTiddlers" $mode="text/plain" />""">
+	<$let defaults=<<getDefaults>>>
+		<$action-setfield $tiddler=<<tv-story-list>> $field="list" $value=<<defaults>>/>
+	</$let>
+</$wikify>
+\end
+<style>
+.tc-story-empty {
+	text-align: center;
+	padding-top: 5em;
+}
+.tc-story-empty button svg.tc-image-button {
+	height: 30em;
+	width: 30em;
+}
+.tc-story-empty button:hover svg {
+	fill: <<colour sidebar-controls-foreground-hover>>;
+}
+</style>
+<$wikify name="fill-colour" text="<<color muted-foreground>>">
+	<div class="tc-story-empty">
+		<$button actions=<<showDefaultTiddlers>> class=" tc-btn-invisible" style=`fill: $(fill-colour)$;`>
+			{{$:/core/images/home-button}}
+		</$button>
+	</div>
+</$wikify>
