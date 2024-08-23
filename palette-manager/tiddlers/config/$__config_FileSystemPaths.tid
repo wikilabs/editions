@@ -1,0 +1,6 @@
+created: 20240823070242419
+modified: 20240823070851730
+title: $:/config/FileSystemPaths
+type: text/vnd.tiddlywiki
+
+[is[system]!has[draft.of]prefix[$:/palettes/]removeprefix[$:/palettes/]addprefix[_palettes/]]
