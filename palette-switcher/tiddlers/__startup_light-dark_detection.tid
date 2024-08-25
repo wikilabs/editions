@@ -1,0 +1,13 @@
+caption: Detect browser or OS setting on startup
+code-body: yes
+created: 20240825200932225
+modified: 20240825200932225
+tags: $:/tags/StartupAction/Browser
+title: _/startup/light-dark/detection
+type: text/vnd.tiddlywiki
+
+<$reveal type="match" stateTitle="$:/config/palette/enable-light-dark-detection" text="yes">
+	<$let default={{{ [{$:/info/darkmode}match[yes]then[$:/config/palette/default-dark]else[$:/config/palette/default-light]] }}}>
+		<$action-setfield $tiddler="$:/palette" text={{{ [<default>get[text]] }}}/>
+	</$let>
+</$reveal>
