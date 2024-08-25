@@ -1,0 +1,22 @@
+created: 20240825150243870
+modified: 20240825195140587
+tags: [[What's New]]
+title: what-is-new-v1.0.2
+type: text/vnd.tiddlywiki
+
+! What's New
+
+* Add testcase preview for new TestCase tiddlers
+> {{$:/palettes/preview/testcase-accent-level-3}}
+
+* Add stability badges
+> {{$:/palettes/preview/stability-stable}}
+
+* Settings are now in $:/ControlPanel -> Settings -> WikiLabs tab
+
+* Add tabbed-toc-expandable preview to {{$:/palettes/preview/tab-foreground-selected}} tiddler
+** improve doc text in several other preview tiddlers
+
+* Change the license: $:/plugins/wikilabs/palette-manager/license
+
+* Some bugfixes

@@ -1,7 +1,7 @@
 caption: {{$:/language/ControlPanel/Palette/Config/DefaultDark/Caption}}
 created: 20240127163520410
-modified: 20240127200714125
+modified: 20240825150017348
 title: $:/config/palette/default-dark
 type: text/vnd.tiddlywiki
 
-$:/palettes/Twilight-Node-Red
+$:/palettes/GruvboxDark

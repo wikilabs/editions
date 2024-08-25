@@ -1,7 +1,9 @@
 {
 	"description": "Palette Manager - Experimental",
 	"plugins": [
-		"wikilabs/palette-manager"
+		"wikilabs/palette-manager",
+		"wikilabs/palette-switcher",
+		"wikilabs/palette-watch"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
