@@ -1,0 +1,7 @@
+caption: {{$:/language/ControlPanel/Palette/Config/DefaultLight/Caption}}
+created: 20240824185512745
+modified: 20240824185515536
+title: $:/config/palette/default-light
+type: text/vnd.tiddlywiki
+
+$:/palettes/Vanilla

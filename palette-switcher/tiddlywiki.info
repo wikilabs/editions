@@ -1,7 +1,8 @@
 {
 	"description": "Animation for left mouse button",
 	"plugins": [
-		"wikilabs/palette-switcher"
+		"wikilabs/palette-switcher",
+		"wikilabs/palette-watch"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",

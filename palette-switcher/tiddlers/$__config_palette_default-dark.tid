@@ -1,0 +1,7 @@
+caption: {{$:/language/ControlPanel/Palette/Config/DefaultDark/Caption}}
+created: 20240824185518297
+modified: 20240824185523754
+title: $:/config/palette/default-dark
+type: text/vnd.tiddlywiki
+
+$:/palettes/GruvboxDark

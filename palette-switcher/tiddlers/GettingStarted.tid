@@ -6,11 +6,9 @@ type: text/vnd.tiddlywiki
 
 !! Overview
 
+Intro Video: TODO ;)
+
 {{$:/plugins/wikilabs/palette-switcher/readme}}
-
-!! Plugins
-
-{{$:/core/ui/ControlPanel/Plugins}}
 
 !! License
 

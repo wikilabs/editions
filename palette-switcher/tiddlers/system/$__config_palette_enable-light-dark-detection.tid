@@ -1,6 +1,6 @@
 created: 20230929123727029
-modified: 20230929123731063
+modified: 20240825141205245
 title: $:/config/palette/enable-light-dark-detection
 type: text/vnd.tiddlywiki
 
-no
+yes

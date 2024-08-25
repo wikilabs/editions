@@ -1,0 +1,6 @@
+created: 20240825110203301
+modified: 20240825110203301
+title: $:/search-flt/inp/test
+type: text/vnd.tiddlywiki
+
+[all[shadows+tiddlers]tag[$:/tags/Palette]sort[name]] :filter[{$:/config/palette/show-all-palettes}match[yes]then<currentTiddler>] :else[color-scheme[dark]]
