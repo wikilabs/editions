@@ -1,0 +1,7 @@
+caption: {{$:/language/ControlPanel/Palette/Config/DefaultLight/Caption}}
+created: 20241007093836186
+modified: 20241007093836186
+title: $:/config/palette/default-light
+type: text/vnd.tiddlywiki
+
+$:/palettes/FlexokiLight

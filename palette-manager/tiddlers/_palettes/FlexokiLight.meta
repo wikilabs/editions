@@ -1,8 +1,9 @@
 color-scheme: light
 created: 20240822114606978
 description: An inky color scheme for prose and code from https://stephango.com/flexoki
-modified: 20240822141154418
+modified: 20241007115330137
 name: FlexokiLight WIP
+origin: $:/palettes/Vanilla
 tags: $:/tags/Palette
 title: $:/palettes/FlexokiLight
 type: application/x-tiddler-dictionary

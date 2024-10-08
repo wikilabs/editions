@@ -56,8 +56,8 @@ flexoki-cy-2: <<colour flexoki-cyan-600>>
 flexoki-bl-2: <<colour flexoki-blue-600>>
 flexoki-pu-2: <<colour flexoki-purple-600>>
 flexoki-ma-2: <<colour flexoki-magenta-600>>
-alert-background: <<colour flexoki-yellow-100>>
-alert-border: <<colour flexoki-ye-2>>
+alert-background: <<colour flexoki-ui>>
+alert-border: <<colour flexoki-ye>>
 alert-highlight: <<colour flexoki-re>>
 alert-muted-foreground: <<colour flexoki-ye>>
 background: <<colour flexoki-bg-2>>
@@ -71,7 +71,7 @@ code-foreground: <<colour flexoki-re>>
 diff-delete-background: #ffc9c9
 diff-delete-foreground: <<colour flexoki-bg>>
 diff-equal-background: 
-diff-equal-foreground: <<colour flexoki-bg>>
+diff-equal-foreground: <<colour flexoki-tx>>
 diff-insert-background: #aaefad
 diff-insert-foreground: <<colour background>>
 diff-invisible-background: 
@@ -149,7 +149,7 @@ tab-foreground: <<colour flexoki-tx-2>>
 table-border: <<colour flexoki-ui>>
 table-footer-background: <<colour flexoki-ui>>
 table-header-background: <<colour flexoki-ui>>
-tag-background: <<colour flexoki-ye-2>>
+tag-background: #d7dd62
 tag-foreground: <<colour flexoki-paper>>
 testcase-accent-level-1: <<colour flexoki-bl-2>>
 testcase-accent-level-2: <<colour flexoki-ye-2>>
@@ -199,3 +199,4 @@ wikilist-toolbar-foreground: #888
 wikilist-droplink-dragover: rgba(255,192,192,0.5)
 wikilist-button-background: #acacac
 wikilist-button-foreground: #000
+alert-foreground: 
