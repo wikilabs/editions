@@ -1,5 +1,5 @@
 {
-  "name": "uheprng-server",
+  "name": "prng-server",
   "version": "0.0.1",
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
@@ -9,8 +9,8 @@
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../uheprng --build github",
-    "build": "tiddlywiki ../uheprng --build index",
+    "build:github": "tiddlywiki ../prng --build github",
+    "build": "tiddlywiki ../prng --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
@@ -23,7 +23,7 @@
   },
   "keywords": [
     "tiddlywiki",
-    "PRNG",
+    "prng",
     "random"
   ],
   "author": "Mario Pietsch",
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/wikilabs/plugins/issues"
   },
-  "homepage": "https://wikilabs.github.io/editions/uheprng",
+  "homepage": "https://wikilabs.github.io/editions/prng",
   "dependencies": {
   },
   "devDependencies": {

@@ -1,12 +1,12 @@
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
-! {{$:/plugins/wikilabs/uheprng/icon}} 
+! {{$:/plugins/wikilabs/prng/icon}} 
 
-This plugin "uheprng" adds
+This plugin "prng" adds
 
-* A new filter operator `uheprng`
-* A new widget: `<$uheprng />`
+* A new filter operator `prng`
+* A new widget: `<$prng />`
 
 
 !! Example

@@ -9,9 +9,9 @@
 	"themes": [
 	],
 	"includeWikis": [
-		"../uheprng"
+		"../prng"
 	],
 	"config": {
-		"default-tiddler-location": "../uheprng/tiddlers"
+		"default-tiddler-location": "../prng/tiddlers"
 	}
 }
