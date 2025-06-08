@@ -1,0 +1,28 @@
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+! {{$:/plugins/wikilabs/uheprng/icon}} 
+
+This plugin "uheprng" adds
+
+* A new filter operator `uheprng`
+* A new widget: `<$uheprng />`
+
+
+!! Example
+
+TODO
+
+
+!! Settings
+
+TODO
+
+!! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+!! License
+
+See: [[License]]
+
