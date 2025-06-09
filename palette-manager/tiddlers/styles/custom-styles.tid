@@ -1,5 +1,5 @@
 title: custom-styles
-tags: $:/tags/Stylesheet
+tags: $:/tags/StylesheetXXX
 
 /* Increases the input element accessibility quite a bit
 * Important for FireFox:
@@ -57,9 +57,9 @@ textarea, input, select {
 }
 
 /* TODO create a PR:  A different color for the ControlPanel -> Plugins listing */
-.tc-plugin-info-chunk.tc-plugin-info-description h2 {
+<!-- -->.tc-plugin-info-chunk.tc-plugin-info-description h2 {
 	color: <<colour download-background>>;
-}
+} -->
 
 <!-- These setting is experimentell and disabled atm -->
 
