@@ -1,5 +1,5 @@
 created: 20201226122843513
-modified: 20230118155423000
+modified: 20250617120620005
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -39,7 +39,7 @@ Have Fun!
 
 ! Tips and Tricks
 
-* [[tips-and-tricks]]
+<<list-links "[tag[tips-and-tricks]]">>
 
 ! All Filters Available in the Wiki
 

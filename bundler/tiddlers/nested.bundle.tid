@@ -1,0 +1,39 @@
+created: 20250617115519682
+description: Nested bundle including the configuration tiddlers and bundled tiddlers
+filter: [[nested.bundle]] [[doc.bundle]] [subfilter{doc.bundle!!text}] [subfilter{tagged-test.bundle!!filter}]
+modified: 20250617124749154
+tags: $:/tags/Filter tips-and-tricks
+title: nested.bundle
+type: text/vnd.tiddlywiki
+
+!! Nested Bundles 
+
+Filtered bundles, ''like this one'', can contain extensive documentation, which makes them easier to handle and maintain. 
+
+Nested bundles can be created by using [[filtered bundles|doc-filtered-bundles]] eg:
+
+# To include a ''regular bundle'', add `[subfilter{doc.bundle!!text}]` to the ''filter field'' of the parent bundle
+## See the `!!text` reference in the filter
+
+# To include a ''filtered bundle'', add `[subfilter{tagged-test.bundle.bundle!!filter}]` to the ''filter field'' of the parent bundle
+## See the `!!filter` reference in the filter
+
+This works for multiple levels of nesting. So exporting the data of a bundle that includes other bundle configurations, will export all the tiddlers from the whole hierarchy.
+
+!! Example
+
+See: [[nested.bundle]] configuration as an example. 
+
+Please ''test your filters carefully'', so you get, what you want.
+
+!! Subfilter Docs
+
+Also read the docs for the [[subfilter operator|https://tiddlywiki.com/#subfilter%20Operator]]
+
+!! Important
+
+As you can see, the `tagged-test.bundle` tiddler is ''not'' part of the filter here ''but'' it is part of the exported bundle. ''Because'' it is part of the [[tagged-test.bundle]] configuration. 
+
+* You should decide if your bundles should contain the configuration tiddler or not.
+* Then ''you should be consistent''
+* ''Test carefully!''

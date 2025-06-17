@@ -1,0 +1,7 @@
+created: 20250617115759602
+modified: 20250617115841441
+tags: test
+title: tagged-test-tiddler
+type: text/vnd.tiddlywiki
+
+This tiddler is tagged "test" so it shows up in the [[tagged-test.bundle]] configuration
