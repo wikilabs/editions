@@ -1,9 +1,9 @@
 created: 20250617115519682
 description: Nested bundle including the configuration tiddlers and bundled tiddlers
-filter: [[nested.bundle]] [[doc.bundle]] [subfilter{doc.bundle!!text}] [subfilter{tagged-test.bundle!!filter}]
-modified: 20250617124749154
+filter: nested.bundles [[doc.bundle]] [subfilter{doc.bundle!!text}] [subfilter{tagged-test.bundle!!filter}]
+modified: 20250617125152332
 tags: $:/tags/Filter tips-and-tricks
-title: nested.bundle
+title: nested.bundles
 type: text/vnd.tiddlywiki
 
 !! Nested Bundles 
@@ -22,7 +22,7 @@ This works for multiple levels of nesting. So exporting the data of a bundle tha
 
 !! Example
 
-See: [[nested.bundle]] configuration as an example. 
+See: [[nested.bundles]] configuration as an example. 
 
 Please ''test your filters carefully'', so you get, what you want.
 
