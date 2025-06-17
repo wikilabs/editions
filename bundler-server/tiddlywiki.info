@@ -6,8 +6,7 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/bundler",
-		"wikilabs/uni-link",
-		"relink"
+		"flibbles/relink"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
