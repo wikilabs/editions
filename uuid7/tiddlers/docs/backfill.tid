@@ -1,0 +1,31 @@
+title: uuid7/backfill
+type: text/vnd.tiddlywiki
+
+! Backfill: Adding `c7` to Existing Tiddlers
+
+The backfill module runs once at startup and assigns a `c7` field to every non-system tiddler that doesn't already have one.
+
+!! How it works
+
+# For each tiddler without a `c7` field, the module generates a UUID v7 using the best available timestamp:
+#* `created` field (preferred)
+#* `modified` field (fallback)
+#* `Date.now()` (last resort)
+# A log tiddler [[_log/backfill-c7]] is written with a table of all affected tiddlers
+# In ''live'' mode, `$:/config/TimestampDisable` is temporarily set to `yes` so that writing the `c7` field does not change the `modified` date
+
+!! Modes
+
+Configure the mode in <<tag ControlPanel>> > Settings > WikiLabs > UUID v7, or set the tiddler `$:/config/wikilabs/uuid7/backfill-mode` directly.
+
+|!Mode |!Behaviour |
+|''dry-run'' |Generates UUIDs and writes the log, but does ''not'' modify any tiddlers. Use this to preview what would change. This is the default. |
+|''live'' |Writes the `c7` field to all tiddlers that need one. |
+|''disabled'' |Skips backfill entirely. |
+
+!! Recommended workflow
+
+# Set mode to ''dry-run'' and reload
+# Review [[_log/backfill-c7]] — check the tiddler count and timestamp sources
+# If satisfied, switch to ''live'' and reload
+# After backfill completes, set mode to ''disabled'' to avoid running it on every startup
