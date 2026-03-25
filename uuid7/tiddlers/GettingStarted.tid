@@ -3,17 +3,42 @@ modified: 20260325192612000
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
-! {{$:/plugins/wikilabs/uuif7/icon}} UUID v7 Plugin
+! UUID v7 Plugin
 
+Every new tiddler automatically receives a `c7` field containing a [[UUID v7|https://www.rfc-editor.org/rfc/rfc9562]] — a globally unique, time-ordered identifier. This ID survives renaming, copying, and cross-wiki migration.
 
-!! Important
+!! Try it
 
+# Create a new tiddler
+# Open the fields editor — notice the `c7` field with a UUID like `019ce7af-ff4d-7897-ae47-6dd818e2d476`
+# The phrase badge at the bottom of the tiddler shows its mnemonic encoding
 
-!! Example
+!! Mnemonic Phrases
 
+Each UUID is encoded as 8 ''adjective noun verb'' triplets. The first two triplets are derived from the timestamp:
+
+* ''Triplet 1'' — stable for years (adjective ~278 years, noun ~4 years)
+* ''Triplet 2'' — stable for days (adjective ~1.5 days, noun ~34 minutes)
+
+Example: `metal fox lurks, calm dove soars, ...`
+
+Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
+
+!! Filter Operators
+
+|!Filter |!Returns |
+|`[get[c7]uuid7[phrase]]` |Full 8-triplet mnemonic phrase |
+|`[get[c7]uuid7[phrase],[1],[2]]` |First 2 triplets (timestamp part) |
+|`[get[c7]uuid7[phrase],[3]]` |Single triplet |
+|`[get[c7]uuid7[ms]]` |Unix timestamp in milliseconds |
+|`[get[c7]uuid7[ms]format:timestamp[YYYY-0MM-0DD]]` |Creation date |
+|`[get[c7]uuid7[valid]]` |`yes` or `no` |
+
+See [[$:/plugins/wikilabs/uuid7/filter-docs]] for the full reference and [[$:/plugins/wikilabs/uuid7/mnemonic]] for encoding details.
 
 !! Settings
 
+The plugin works out of the box — no configuration needed.
 
 !! Plugins
 
