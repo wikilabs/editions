@@ -9,6 +9,7 @@ output/
 node_modules/
 *.log
 $__StoryList.tid
+_log_backfill*.tid
 # Playwright
 /test-results/
 /playwright-report/
