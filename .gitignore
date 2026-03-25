@@ -1,5 +1,22 @@
+.DS_Store
+.c9/
+.vs/
+.vscode/
+.claude/
+# TiddlyWiki
 tmp/
 output/
 node_modules/
 *.log
 $__StoryList.tid
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+test-screenshots/
+test-output.txt
+.playwright-mcp
+# TiddlyWiki MPC
+.tw-mcp
