@@ -3,7 +3,7 @@ type: text/vnd.tiddlywiki
 
 ! Backfill: Adding `c7` to Existing Tiddlers
 
-The backfill module runs once at startup and assigns a `c7` field to every non-system tiddler that doesn't already have one.
+When the plugin is installed, the backfill module runs once at startup and assigns a `c7` field to every non-system tiddler that doesn't already have one.
 
 !! How it works
 
