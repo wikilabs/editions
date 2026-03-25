@@ -1,9 +1,8 @@
 title: License
+modified: 20260325214015000
 
 ''Human readable summary:''
 
 <<<
-{{$:/plugins/wikilabs/link-to-tabs/license}}
+{{$:/plugins/wikilabs/uuid7/license}}
 <<<
-
-The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/link-to-tabs/license!!license-text}}
