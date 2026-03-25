@@ -36,9 +36,13 @@ Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
 
 See [[$:/plugins/wikilabs/uuid7/filter-docs]] for the full reference and [[$:/plugins/wikilabs/uuid7/mnemonic]] for encoding details.
 
+!! Backfill Existing Tiddlers
+
+The plugin can add `c7` fields to tiddlers that were created before the plugin was installed. On startup it runs in ''dry-run'' mode by default — check [[_log/backfill-c7]] to see what would change. See [[uuid7/backfill]] for details on how to switch to ''live'' mode.
+
 !! Settings
 
-The plugin works out of the box — no configuration needed.
+Configure the plugin in <<tag ControlPanel>> > Settings > WikiLabs > UUID v7.
 
 !! Plugins
 
