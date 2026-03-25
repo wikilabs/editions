@@ -15,10 +15,12 @@ Every new tiddler automatically receives a `c7` field containing a [[UUID v7|htt
 
 !! Mnemonic Phrases
 
-Each UUID is encoded as 8 ''adjective noun verb'' triplets. The first two triplets are derived from the timestamp:
+Each UUID is encoded as 8 ''adjective noun verb'' triplets. The first three triplets are derived from the timestamp, triplets 4-8 encode the random and fixed bits:
 
-* ''Triplet 1'' — stable for years (adjective ~278 years, noun ~4 years)
-* ''Triplet 2'' — stable for days (adjective ~1.5 days, noun ~34 minutes)
+* ''Triplet 1'' — stable for years (adjective ~278 years, noun ~4 years, verb ~50 days)
+* ''Triplet 2'' — stable for minutes (adjective ~1.5 days, noun ~34 minutes, verb ~1 minute)
+* ''Triplet 3'' — sub-second (adjective ~2 seconds, noun ~32 ms, verb ~1 ms)
+* ''Triplet 8'' — lowest 16 bits of the UUID — fully random, unique per tiddler
 
 Example: `metal fox lurks, calm dove soars, ...`
 
