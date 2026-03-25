@@ -22,7 +22,7 @@ Each UUID is encoded as 8 ''adjective noun verb'' triplets. The first three trip
 * ''Triplet 3'' — sub-second (adjective ~2 seconds, noun ~32 ms, verb ~1 ms)
 * ''Triplet 8'' — lowest 16 bits of the UUID — fully random, unique per tiddler
 
-Example: `metal fox lurks, calm dove soars, ...`
+Example: `metal dog soars, calm seal hunts, ...`
 
 Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
 
@@ -44,7 +44,7 @@ The plugin can add `c7` fields to tiddlers that were created before the plugin w
 
 !! Settings
 
-Configure the plugin in <<tag ControlPanel>> > Settings > WikiLabs > UUID v7.
+Configure the plugin in [[ControlPanel]] > Settings > WikiLabs > UUID v7.
 
 !! Plugins
 
