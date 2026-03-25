@@ -16,7 +16,7 @@ The backfill module runs once at startup and assigns a `c7` field to every non-s
 
 !! Modes
 
-Configure the mode in <<tag ControlPanel>> > Settings > WikiLabs > UUID v7, or set the tiddler `$:/config/wikilabs/uuid7/backfill-mode` directly.
+Configure the mode in [[$:/ControlPanel]] > Settings > WikiLabs > UUID v7, or set the tiddler `$:/config/wikilabs/uuid7/backfill-mode` directly.
 
 |!Mode |!Behaviour |
 |''dry-run'' |Generates UUIDs and writes the log, but does ''not'' modify any tiddlers. Use this to preview what would change. This is the default. |
@@ -25,7 +25,7 @@ Configure the mode in <<tag ControlPanel>> > Settings > WikiLabs > UUID v7, or s
 
 !! Recommended workflow
 
-# Set mode to ''dry-run'' and reload
+# Set mode to ''dry-run'' (default) and reload
 # Review [[_log/backfill-c7]] — check the tiddler count and timestamp sources
 # If satisfied, switch to ''live'' and reload
 # After backfill completes, set mode to ''disabled'' to avoid running it on every startup
