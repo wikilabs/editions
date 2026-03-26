@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" font-family="monospace" font-size="12">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold">phrase-navigate.js — Navigation Flow</text>
+
+  <!-- Start -->
+  <ellipse cx="360" cy="70" rx="100" ry="20" fill="#e8e8e8" stroke="#333"/>
+  <text x="360" y="75" text-anchor="middle">URL hash or link</text>
+
+  <!-- Arrow -->
+  <line x1="360" y1="90" x2="360" y2="120" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- Tiddler exists? -->
+  <polygon points="360,120 480,155 360,190 240,155" fill="#fff3cd" stroke="#333"/>
+  <text x="360" y="159" text-anchor="middle">Tiddler exists?</text>
+
+  <!-- Yes arrow -->
+  <line x1="480" y1="155" x2="560" y2="155" stroke="#333" marker-end="url(#arrow)"/>
+  <text x="520" y="148" text-anchor="middle" fill="#060">yes</text>
+  <rect x="565" y="140" width="130" height="30" rx="5" fill="#d4edda" stroke="#333"/>
+  <text x="630" y="160" text-anchor="middle">Open tiddler</text>
+
+  <!-- No arrow -->
+  <line x1="360" y1="190" x2="360" y2="225" stroke="#333" marker-end="url(#arrow)"/>
+  <text x="375" y="212" fill="#900">no</text>
+
+  <!-- UUID check -->
+  <polygon points="360,225 480,260 360,295 240,260" fill="#fff3cd" stroke="#333"/>
+  <text x="360" y="264" text-anchor="middle">Valid UUID v7?</text>
+
+  <!-- UUID yes -->
+  <line x1="480" y1="260" x2="560" y2="260" stroke="#333" marker-end="url(#arrow)"/>
+  <text x="520" y="253" text-anchor="middle" fill="#060">yes</text>
+  <rect x="565" y="245" width="130" height="30" rx="5" fill="#cce5ff" stroke="#333"/>
+  <text x="630" y="265" text-anchor="middle">Find by c7 field</text>
+
+  <!-- UUID find arrow -->
+  <line x1="630" y1="275" x2="630" y2="305" stroke="#333" marker-end="url(#arrow)"/>
+  <polygon points="630,305 700,330 630,355 560,330" fill="#fff3cd" stroke="#333"/>
+  <text x="630" y="334" text-anchor="middle">Found?</text>
+  <line x1="700" y1="330" x2="710" y2="330" stroke="#333"/>
+  <line x1="710" y1="330" x2="710" y2="160" stroke="#333"/>
+  <line x1="710" y1="160" x2="695" y2="160" stroke="#333" marker-end="url(#arrow)"/>
+  <text x="715" y="250" fill="#060" font-size="10">yes</text>
+
+  <!-- UUID not found -->
+  <line x1="560" y1="330" x2="500" y2="330" stroke="#333"/>
+  <text x="530" y="323" fill="#900" font-size="10">no</text>
+  <line x1="500" y1="330" x2="500" y2="370" stroke="#333"/>
+  <line x1="500" y1="370" x2="360" y2="370" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- No UUID arrow -->
+  <line x1="360" y1="295" x2="360" y2="370" stroke="#333" stroke-dasharray="4"/>
+  <text x="375" y="335" fill="#900">no</text>
+
+  <!-- Phrase search check -->
+  <polygon points="360,370 490,405 360,440 230,405" fill="#fff3cd" stroke="#333"/>
+  <text x="360" y="402" text-anchor="middle">Has + , or ; ?</text>
+  <text x="360" y="416" text-anchor="middle">All lowercase?</text>
+
+  <!-- No phrase -->
+  <line x1="230" y1="405" x2="140" y2="405" stroke="#333" marker-end="url(#arrow)"/>
+  <text x="185" y="398" text-anchor="middle" fill="#900">no</text>
+  <rect x="30" y="390" width="110" height="30" rx="5" fill="#f8d7da" stroke="#333"/>
+  <text x="85" y="410" text-anchor="middle">Missing tiddler</text>
+
+  <!-- Yes phrase -->
+  <line x1="360" y1="440" x2="360" y2="475" stroke="#333" marker-end="url(#arrow)"/>
+  <text x="375" y="462" fill="#060">yes</text>
+
+  <!-- Parse -->
+  <rect x="270" y="475" width="180" height="35" rx="5" fill="#cce5ff" stroke="#333"/>
+  <text x="360" y="493" text-anchor="middle">Split on ; (OR groups)</text>
+
+  <line x1="360" y1="510" x2="360" y2="540" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- Smart prefix -->
+  <rect x="245" y="540" width="230" height="50" rx="5" fill="#cce5ff" stroke="#333"/>
+  <text x="360" y="558" text-anchor="middle">Smart prefix inheritance:</text>
+  <text x="360" y="575" text-anchor="middle">groups without , get prefix</text>
+
+  <line x1="360" y1="590" x2="360" y2="620" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- Parse patterns -->
+  <rect x="245" y="620" width="230" height="50" rx="5" fill="#cce5ff" stroke="#333"/>
+  <text x="360" y="638" text-anchor="middle">Each group: split on ,</text>
+  <text x="360" y="655" text-anchor="middle">Parse position prefix 1-8</text>
+
+  <line x1="360" y1="670" x2="360" y2="700" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- Match loop -->
+  <rect x="220" y="700" width="280" height="60" rx="5" fill="#d4edda" stroke="#333"/>
+  <text x="360" y="718" text-anchor="middle">For each tiddler with c7:</text>
+  <text x="360" y="735" text-anchor="middle">Match all AND patterns</text>
+  <text x="360" y="750" text-anchor="middle">against triplets (position-aware)</text>
+
+  <line x1="360" y1="760" x2="360" y2="790" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- Sort -->
+  <rect x="260" y="790" width="200" height="35" rx="5" fill="#e2d9f3" stroke="#333"/>
+  <text x="360" y="812" text-anchor="middle">Sort: in-order first</text>
+
+  <line x1="360" y1="825" x2="360" y2="855" stroke="#333" marker-end="url(#arrow)"/>
+
+  <!-- Result -->
+  <ellipse cx="360" cy="875" rx="120" ry="20" fill="#d4edda" stroke="#333"/>
+  <text x="360" y="880" text-anchor="middle">Open all matching tiddlers</text>
+
+  <!-- Legend -->
+  <rect x="20" y="480" width="15" height="15" fill="#fff3cd" stroke="#333"/>
+  <text x="40" y="492" font-size="10">Decision</text>
+  <rect x="20" y="500" width="15" height="15" rx="3" fill="#cce5ff" stroke="#333"/>
+  <text x="40" y="512" font-size="10">Parse / Transform</text>
+  <rect x="20" y="520" width="15" height="15" rx="3" fill="#d4edda" stroke="#333"/>
+  <text x="40" y="532" font-size="10">Action</text>
+  <rect x="20" y="540" width="15" height="15" rx="3" fill="#e2d9f3" stroke="#333"/>
+  <text x="40" y="552" font-size="10">Sort</text>
+</svg>
