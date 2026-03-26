@@ -1,80 +1,164 @@
 c7: 019d289f-14e7-71e1-a749-93b08ea62aff
-modified: 20260326160000000
+modified: 20260326180000000
 title: uuid7/phrase-links
 type: text/vnd.tiddlywiki
 
 ! Phrase Links: Navigate by UUID Phrase
 
-You can open tiddlers by their mnemonic phrase words using URL hash links or wiki links.
+Open tiddlers by their mnemonic phrase words using URL hashes or wiki links. The plugin intercepts navigation to non-existent tiddlers and searches UUID phrases for matches.
 
-!! URL format
+!! Three separators
 
-Use `+` to separate words within a triplet, `,` for AND (multiple patterns), and `;` for OR (multiple tiddlers):
+Phrase links use three separators, each with a distinct meaning:
+
+|!Separator |!Name |!Meaning |!Example |
+|`+` |Word join |Joins words within a single pattern |`metal+dog+soars` |
+|`,` |AND |All patterns must match (each in a different triplet) |`metal+dog+soars,5cool+dune+casts` |
+|`;` |OR |Open tiddlers matching ''any'' group |`group1;group2;group3` |
+
+!! Position prefix
+
+A leading digit `1`-`8` on a pattern restricts it to a specific triplet position:
+
+|!Pattern |!Meaning |
+|`cool+dune+casts` |Match in ''any'' triplet |
+|`5cool+dune+casts` |Match only in ''triplet 5'' |
+
+Position-specific matching dramatically reduces collisions in large wikis. Without position: a triplet value could match any of 5 random positions (5× more collisions). With position: only 1 slot is checked.
+
+!! Building a link step by step
+
+!!! Single tiddler
+
+To link to one specific tiddler, combine a timestamp prefix with a random discriminator:
 
 ```
-http://localhost:8080/#metal+dog+soars,cool+dune+casts
-http://localhost:8080/#metal+dog+soars,cool+dune+casts;sharp+reef+keeps;firm+grove+forms
+metal+dog+soars,5cool+dune+casts
 ```
 
-!! Separators
+This means: find a tiddler whose phrase has `metal dog soars` in some triplet ''AND'' `cool dune casts` specifically in ''triplet 5''.
 
-|!Separator |!Meaning |!Example |
-|`+` |Words within a pattern |`metal+dog+soars` |
-|`,` |AND — all patterns must match different triplets |`metal+dog+soars,cool+dune+casts` |
-|`;` |OR — open tiddlers matching any group |`group1;group2;group3` |
+* `metal+dog+soars` is the timestamp prefix — groups tiddlers by era (~50-day window)
+* `5cool+dune+casts` is the position-specific discriminator — pinpoints this tiddler among those sharing the era
+
+!!! Multiple tiddlers with `;`
+
+To open several tiddlers in one link, add discriminators separated by `;`:
+
+```
+metal+dog+soars,5cool+dune+casts;6sharp+reef+keeps;4firm+grove+forms
+```
+
+This opens 3 tiddlers. Each `;`-separated group is evaluated independently:
+
+* Group 1: `metal+dog+soars,5cool+dune+casts` — full query
+* Group 2: `6sharp+reef+keeps` — short form, inherits prefix
+* Group 3: `4firm+grove+forms` — short form, inherits prefix
 
 !! Smart prefix inheritance
 
-When using `;`, groups without a `,` inherit the shared prefix from the first group:
+Groups after `;` that contain ''no comma'' automatically inherit the prefix from the first group. This keeps links short.
+
+The link above is equivalent to the fully expanded form:
 
 ```
-#metal+dog+soars,cool+dune+casts;sharp+reef+keeps;firm+grove+forms
+metal+dog+soars,5cool+dune+casts;metal+dog+soars,6sharp+reef+keeps;metal+dog+soars,4firm+grove+forms
 ```
 
-is equivalent to:
+The rule:
+
+* Group has no `,` → inherits prefix from group 1 (everything before the last `,` in group 1)
+* Group has `,` → treated as its own complete query, no inheritance
+
+!!! Mixed example
 
 ```
-#metal+dog+soars,cool+dune+casts;metal+dog+soars,sharp+reef+keeps;metal+dog+soars,firm+grove+forms
+metal+dog+soars,5calls;6hunts;metal+fox+lurks,7draws
 ```
+
+* `5calls` → no comma → inherits → `metal+dog+soars,5calls`
+* `6hunts` → no comma → inherits → `metal+dog+soars,6hunts`
+* `metal+fox+lurks,7draws` → has comma → standalone query
 
 !! How matching works
 
-* Each comma-separated group is a ''search pattern'' matched against individual triplets
-* Words within a pattern are matched at word boundaries (consecutive words within a triplet)
-* ''All'' patterns in a group must match for a tiddler to be included
-* Each pattern matches against a different triplet — the same triplet is not reused
-* Matching is case-insensitive
+# The link is split on `;` into OR groups
+# Each group is split on `,` into AND patterns
+# Each pattern is split on `+` into search words
+# A leading digit on a pattern sets the position constraint
+# For each tiddler with a `c7` field, all AND patterns in a group must match
+# Each pattern must match consecutive words within a ''different'' triplet
+# A tiddler appears in results if ''any'' OR group matches it
 
-!! Generating phrase links
+!! AND matching in detail
 
-Use the `uuid7link` filter operator to generate the shortest stable link for a set of tiddlers:
+Given `metal+dog+soars,5cool+dune+casts`:
+
+# Pattern 1: `metal+dog+soars` → search words: `["metal", "dog", "soars"]`, any position
+# Pattern 2: `5cool+dune+casts` → search words: `["cool", "dune", "casts"]`, position 5 only
+# For each tiddler: pattern 1 must match some triplet, pattern 2 must match triplet 5
+# Both must match ''different'' triplets — the same triplet can't satisfy two patterns
+
+!! Partial patterns
+
+Patterns don't have to be full triplets:
+
+|!Pattern |!What it matches |
+|`metal` |Any triplet containing the word "metal" in any position |
+|`metal+dog` |Any triplet where "metal" and "dog" are consecutive |
+|`metal+dog+soars` |A full triplet match |
+|`5metal` |Triplet 5 containing "metal" |
+
+Shorter patterns match more tiddlers. For unique identification, use full triplets with position prefixes.
+
+!! Generating phrase links automatically
+
+The `uuid7link` filter operator generates the shortest stable link for a set of tiddlers:
 
 ```
 [<myTiddler>uuid7link[]]
 [[TiddlerA]] [[TiddlerB]] [[TiddlerC]] +[uuid7link[]]
 ```
 
-The operator generates a link with:
+The operator:
 
-* ''Timestamp prefix'' (triplet 1) — shared by tiddlers created in the same era
-* ''Random discriminator'' (one full triplet from triplets 4-7) — uniquely identifies each tiddler
+* Finds the shared timestamp prefix (triplet 1) across all input tiddlers
+* For each tiddler, finds a position-specific random triplet (from triplets 4-7) that uniquely identifies it
+* Outputs one link string combining prefix + discriminators with `;`
 
-Discriminators always come from random triplets to ensure the link remains valid after importing tiddlers with matching timestamps.
+Discriminators always come from ''random'' triplets (4-7) to ensure the link survives merging wikis with tiddlers that share the same timestamp.
+
+!! Collision probability
+
+With position-specific matching, one random triplet has 2^16 = 65,536 possible values at a specific slot:
+
+|!Wiki size |!Clash probability (1 discriminator triplet) |
+|1,000 |~1.5% |
+|5,000 |~7.4% |
+|10,000 |~14% |
+|20,000 (2 wikis merged) |~26% |
+
+If the `uuid7link` operator can't find a unique single triplet, it uses ''two'' position-specific triplets (32 bits = 4.3 billion combinations, clash probability ≈ 0% at any practical wiki size).
+
+!! URL examples
+
+|!URL hash |!Opens |
+|`#metal+dog+soars` |All tiddlers with "metal dog soars" in any triplet |
+|`#metal+dog+soars,5cool+dune+casts` |The one tiddler matching both patterns |
+|`#metal+dog+soars,5cool+dune+casts;6sharp+reef+keeps` |Two specific tiddlers |
+|`#metal+dog,5cool` |Tiddlers with "metal dog" + "cool" in triplet 5 |
+|`#clear,joins,dry` |Tiddlers with "clear" AND "joins" AND "dry" each in different triplets |
 
 !! Ordering
 
 When several tiddlers match:
 
 * Tiddlers where the search patterns match in ''ascending triplet order'' are listed first
-* Tiddlers where the patterns match out of order are listed after
-
-!! Multiple matches
-
-All matching tiddlers are opened in the active story river. The first match is scrolled into view. The plugin respects the `tv-story-list` variable, so it works with multiple story rivers.
+* Out-of-order matches are listed after
 
 !! Limitations
 
-* The link must contain at least one `+`, `,`, or `;` character
-* If a tiddler with the exact title exists, it takes precedence (no phrase search)
-* Only lowercase letters are recognised as phrase search words
-* Triplet 8 (2 words, 11 bits) is not used as a discriminator — too few combinations for large wikis
+* The link must contain at least one `+`, `,`, or `;`
+* If a tiddler with the exact title exists, it takes precedence
+* Only lowercase letters and digits 1-8 (position prefix) are recognised
+* Triplet 8 (2 words, 11 bits) is not used as a discriminator
