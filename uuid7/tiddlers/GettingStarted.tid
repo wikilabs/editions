@@ -40,14 +40,12 @@ Both `c32` and `uuid7` filters have full feature parity — phrase encoding, tim
 
 Open tiddlers by c32 value (full or partial) or phrase words in URL hashes:
 
-```
-http://localhost:8080/#01KMNH-72WK-FM8S1A277T55-S8DK
-http://localhost:8080/#S8DK
-http://localhost:8080/#FM8S1A277T55
-http://localhost:8080/#metal+dog+soars,cool+dune+casts
-```
+https://wikilabs.github.io/editions/uuid7/#01KMP4-ND9W-E8Y8V5YM1DR0-01VG
+https://wikilabs.github.io/editions/uuid7/#QDSR
+https://wikilabs.github.io/editions/uuid7/#FM8S1A277T55
+https://wikilabs.github.io/editions/uuid7/#metal+dog+soars,brisk+oak+pulls
 
-Wiki links work the same way: `[[S8DK]]` or `[[metal+dog+soars]]`. Use `;` to open multiple tiddlers in one phrase link. See [[uuid7/crockford32]] and [[uuid7/phrase-links]] for details.
+Wiki links work the same way: `[[QDSR ]]` or `[[metal+dog+soars]]`. Use `;` to open multiple tiddlers in one phrase link. See [[uuid7/crockford32]] and [[uuid7/phrase-links]] for details.
 
 !! Backfill Existing Tiddlers
 
