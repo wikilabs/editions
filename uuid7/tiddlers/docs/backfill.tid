@@ -29,3 +29,25 @@ Configure the mode in [[$:/ControlPanel]] > Settings > WikiLabs > UUID v7, or se
 # Review [[_log/backfill-c7]] — check the tiddler count and timestamp sources
 # If satisfied, switch to ''live'' and reload
 # After backfill completes, set mode to ''disabled'' to avoid running it on every startup
+
+!! Import
+
+When tiddlers are imported (drag & drop, `.json` file, or the import UI), the plugin automatically adds a `c7` field to each imported tiddler that doesn't already have one. The same timestamp logic applies: `created` → `modified` → `Date.now()`.
+
+By default, only non-system tiddlers are processed. System tiddlers are only assigned a `c7` if they match the custom backfill filter (see below).
+
+Imported tiddlers that already have a `c7` field are left unchanged — their existing identity is preserved.
+
+All import activity is logged to [[_log/backfill-c7]] under an ''Import'' heading.
+
+!! Custom filter
+
+By default, backfill and import only process non-system tiddlers (`[is[tiddler]!is[system]]`). To also include specific system tiddlers, define a custom filter in [[$:/ControlPanel]] > Settings > WikiLabs > UUID v7.
+
+For example, to also backfill config tiddlers:
+
+```
+[is[system]prefix[$:/config/]]
+```
+
+The custom filter is combined with the default — it adds to, not replaces, the default set. A live preview of matching tiddlers is shown in the settings panel.
