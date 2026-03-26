@@ -1,11 +1,11 @@
 title: uuid7/filter-c32
 modified: 20260326233000000
 
-! Filter Operator: `c32`
+!! Filter Operator: `c32`
 
 The `c32` filter operator works with Crockford Base32 encoded UUID v7 values. It accepts both the `c32` field (formatted `6-4-12-4`) and raw 26-char strings. Input is case-insensitive with Crockford alias support (`O`→`0`, `I`→`1`, `L`→`1`).
 
-!! Default: Normalize
+!!! Default: Normalize
 
 With no operand, the filter normalizes input to canonical uppercase with alias substitution. Works on full and partial c32 strings.
 
@@ -15,7 +15,7 @@ With no operand, the filter normalizes input to canonical uppercase with alias s
 [[01kmnh-a]c32[]]            →  01KMNH-A
 ```
 
-!! Operand: `check`
+!!! Parameter: `check`
 
 Returns the Crockford Base32 check symbol (mod 37). Single character from the extended alphabet (`0-9`, `A-Z`, `*`, `~`, `$`, `=`, `U`).
 
@@ -23,7 +23,7 @@ Returns the Crockford Base32 check symbol (mod 37). Single character from the ex
 [{!!c32}c32[check]]          →  A
 ```
 
-!! Operand: `c7`
+!!! Parameter: `c7`
 
 Converts the c32 value to a standard UUID v7 hex string.
 
@@ -31,7 +31,7 @@ Converts the c32 value to a standard UUID v7 hex string.
 [{!!c32}c32[c7]]             →  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
 ```
 
-!! Operand: `ms`
+!!! Parameter: `ms`
 
 Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timestamp` for human-readable dates.
 
@@ -41,7 +41,7 @@ Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timesta
 [{!!c32}c32[ms]format:timestamp[0hh:0mm:0ss]]  →  17:00:34
 ```
 
-!! Operand: `phrase`
+!!! Parameter: `phrase`
 
 Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated string.
 
@@ -49,7 +49,7 @@ Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated strin
 [{!!c32}c32[phrase]]         →  metal arch binds, calm fox calls, dark gem digs, ...
 ```
 
-!!! Triplet selection
+!!!! Triplet selection
 
 Select specific triplets with additional operands (1-based index, count):
 
@@ -59,7 +59,7 @@ Select specific triplets with additional operands (1-based index, count):
 [{!!c32}c32[phrase],[3],[4]] →  dark gem digs, bright wolf soars, ...  (triplets 3-6)
 ```
 
-!!! Custom word separator
+!!!! Custom word separator
 
 Use a suffix to change the separator between words within a triplet:
 
@@ -70,7 +70,7 @@ Use a suffix to change the separator between words within a triplet:
 
 This is useful for building phrase links (see [[uuid7/phrase-links]]).
 
-!! Operand: `rnd`
+!!! Parameter: `rnd`
 
 Returns the random portion of the UUID as hex in `4-4-12` format, visually matching the UUID structure.
 
@@ -78,7 +78,7 @@ Returns the random portion of the UUID as hex in `4-4-12` format, visually match
 [{!!c32}c32[rnd]]            →  7897-ae47-6dd818e2d476
 ```
 
-!! Operand: `version`
+!!! Parameter: `version`
 
 Returns the UUID version number. Always `7` for UUID v7.
 
@@ -86,7 +86,7 @@ Returns the UUID version number. Always `7` for UUID v7.
 [{!!c32}c32[version]]        →  7
 ```
 
-!! Operand: `variant`
+!!! Parameter: `variant`
 
 Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
 
@@ -94,7 +94,7 @@ Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
 [{!!c32}c32[variant]]        →  2
 ```
 
-!! Operand: `valid`
+!!! Parameter: `valid`
 
 Returns `yes` if the input is a valid c32 string (raw or formatted), `no` otherwise.
 
@@ -104,7 +104,7 @@ Returns `yes` if the input is a valid c32 string (raw or formatted), `no` otherw
 [[01KMNH-72WK-FM8S1A277T55-S8DK]c32[valid]]  →  yes
 ```
 
-!! Also see
+!!! Also see
 
 * [[uuid7/filter-uuid7]] — The `uuid7` filter operator (works with c7 hex values)
 * [[uuid7/crockford32]] — Crockford Base32 encoding reference

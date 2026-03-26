@@ -1,11 +1,11 @@
 title: uuid7/filter-uuid7
 modified: 20260326233000000
 
-! Filter Operator: `uuid7`
+!! Filter Operator: `uuid7`
 
 The `uuid7` filter operator works with UUID v7 hex strings (the `c7` field). It extracts components, converts formats, and encodes to mnemonic phrases.
 
-!! Default: Pass-through
+!!! Default: Pass-through
 
 With no operand, passes through valid UUID v7 strings and filters out invalid ones.
 
@@ -14,7 +14,7 @@ With no operand, passes through valid UUID v7 strings and filters out invalid on
 [[not-a-uuid]uuid7[]]        →  (empty — filtered out)
 ```
 
-!! Operand: `ms`
+!!! Parameter: `ms`
 
 Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timestamp` for human-readable dates.
 
@@ -24,7 +24,7 @@ Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timesta
 [{!!c7}uuid7[ms]format:timestamp[0hh:0mm:0ss]]  →  17:00:34
 ```
 
-!! Operand: `phrase`
+!!! Parameter: `phrase`
 
 Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated string.
 
@@ -32,7 +32,7 @@ Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated strin
 [{!!c7}uuid7[phrase]]        →  metal arch binds, calm fox calls, dark gem digs, ...
 ```
 
-!!! Triplet selection
+!!!! Triplet selection
 
 Select specific triplets with additional operands (1-based index, count):
 
@@ -42,7 +42,7 @@ Select specific triplets with additional operands (1-based index, count):
 [{!!c7}uuid7[phrase],[3],[4]] →  dark gem digs, bright wolf soars, ...  (triplets 3-6)
 ```
 
-!!! Custom word separator
+!!!! Custom word separator
 
 Use a suffix to change the separator between words within a triplet:
 
@@ -53,7 +53,7 @@ Use a suffix to change the separator between words within a triplet:
 
 This is useful for building phrase links (see [[uuid7/phrase-links]]).
 
-!! Operand: `rnd`
+!!! Parameter: `rnd`
 
 Returns the random portion of the UUID as hex in `4-4-12` format, visually matching the UUID structure.
 
@@ -61,7 +61,7 @@ Returns the random portion of the UUID as hex in `4-4-12` format, visually match
 [{!!c7}uuid7[rnd]]           →  7897-ae47-6dd818e2d476
 ```
 
-!! Operand: `version`
+!!! Parameter: `version`
 
 Returns the UUID version number. Always `7` for UUID v7.
 
@@ -69,7 +69,7 @@ Returns the UUID version number. Always `7` for UUID v7.
 [{!!c7}uuid7[version]]       →  7
 ```
 
-!! Operand: `variant`
+!!! Parameter: `variant`
 
 Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
 
@@ -77,7 +77,7 @@ Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
 [{!!c7}uuid7[variant]]       →  2
 ```
 
-!! Operand: `c32`
+!!! Parameter: `c32`
 
 Converts the UUID hex string to Crockford Base32 formatted as `6-4-12-4`.
 
@@ -85,7 +85,7 @@ Converts the UUID hex string to Crockford Base32 formatted as `6-4-12-4`.
 [{!!c7}uuid7[c32]]           →  01KMNH-72WK-FM8S1A277T55-S8DK
 ```
 
-!! Operand: `check`
+!!! Parameter: `check`
 
 Returns the Crockford Base32 check symbol (mod 37) for the UUID. Converts to c32 internally.
 
@@ -93,7 +93,7 @@ Returns the Crockford Base32 check symbol (mod 37) for the UUID. Converts to c32
 [{!!c7}uuid7[check]]         →  A
 ```
 
-!! Operand: `valid`
+!!! Parameter: `valid`
 
 Returns `yes` if the input is a structurally valid UUID v7, `no` otherwise.
 
@@ -102,7 +102,7 @@ Returns `yes` if the input is a structurally valid UUID v7, `no` otherwise.
 [[not-valid]uuid7[valid]]    →  no
 ```
 
-!! `uuid7link` operator
+!!! `uuid7link` operator
 
 Generates the shortest stable phrase link for a set of tiddlers:
 
@@ -113,7 +113,7 @@ Generates the shortest stable phrase link for a set of tiddlers:
 
 See [[uuid7/phrase-links]] for details on link format and collision probability.
 
-!! Also see
+!!! Also see
 
 * [[uuid7/filter-c32]] — The `c32` filter operator (works with Crockford Base32 values)
 * [[uuid7/crockford32]] — Crockford Base32 encoding reference
