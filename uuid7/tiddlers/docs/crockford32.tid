@@ -1,0 +1,301 @@
+title: uuid7/crockford32
+modified: 20260326212718000
+
+!! Crockford Base32 (c32): Compact Sortable UUID Encoding
+
+The `c32` field stores the same 128-bit UUID v7 value as `c7`, but encoded in [[Crockford Base32|https://www.crockford.com/base32.html]] — a compact, sortable, URL-safe format designed by Douglas Crockford (2002).
+
+!! Why c32?
+
+|!Property |!c7 (UUID hex) |!c32 (Crockford Base32) |
+|Length |36 chars |29 chars (with hyphens) |
+|Sortable |Yes |Yes |
+|URL-safe |Yes |Yes |
+|Human-friendly |No |Better — grouping shows structure |
+|Case |Lowercase hex |Uppercase (case-insensitive decode) |
+|Characters |`0-9a-f` + hyphens |`0-9A-Z` (no I, L, O, U) + hyphens |
+
+Both fields are derived from the same 128 bits. You can always convert between them:
+
+```
+c7:  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
+c32: 01KMNH-72WK-FM8S1A277T55-S8DK
+```
+
+!! Display Format: 6-4-12-4
+
+The c32 value is stored and displayed in `6-4-12-4` format with hyphens at fixed positions:
+
+```
+01KMNH-72WK-FM8S1A277T55-S8DK
+└────┘ └──┘ └──────────┘ └──┘
+ group1 grp2    group3    grp4
+```
+
+|!Group |!Chars |!Contains |!Purpose |
+|1 (6 chars) |`01KMNH` |28 timestamp bits |~17.5 minute "session" window |
+|2 (4 chars) |`72WK` |20 bits (timestamp tail + version) |Completes timestamp to ms precision |
+|3 (12 chars) |`FM8S1A277T55` |60 bits (random bulk) |Main random payload |
+|4 (4 chars) |`S8DK` |20 bits (random tail) |Memorable quick identifier |
+
+Hyphens are at fixed positions, so ''lexicographic sort equals chronological sort'' — even with hyphens.
+
+!! Check Symbol
+
+A check symbol is displayed after the c32 value (separated by a space). It detects typos and copy-paste errors.
+
+```
+01KMNH-72WK-FM8S1A277T55-S8DK A
+                               ^
+                         check symbol
+```
+
+The check symbol is computed as `value mod 37` (37 is the smallest prime > 32) and uses an extended alphabet:
+
+|!Values 0-31 |Standard Crockford characters (`0-9`, `A-Z` minus I,L,O,U) |
+|!Value 32 |`*` |
+|!Value 33 |`~` |
+|!Value 34 |`$` |
+|!Value 35 |`=` |
+|!Value 36 |`U` |
+
+The check symbol is ''display-only'' — it is not stored in the `c32` field.
+
+!! Double-Click Copy-Paste
+
+Each group between hyphens is a separate "word" for double-click selection:
+
+* Double-click `01KMNH` → selects the timestamp prefix
+* Double-click `FM8S1A277T55` → selects the 12-char random block
+* Double-click `S8DK` → selects the last 4 chars
+
+This makes it easy to copy specific segments for search, sharing, or URL navigation.
+
+!! Remembering c32 Values
+
+You don't need to memorize the full 29-character string. A few characters from the beginning and end are enough to uniquely identify a tiddler:
+
+!!! Table 1: Memorized chars vs clash resistance
+
+|!Remembered chars |!Example |!Bits |!Safe up to |!Equivalent phrase triplets |
+|`0` + 1 + last 4 (5 chars) |`01` + `S8DK` |28 |~1K tiddlers |2 (32 bits) |
+|`0` + 2 + last 4 (6 chars) |`01K` + `S8DK` |33 |~5K tiddlers |3 (48 bits) |
+|`0` + 3 + last 4 (7 chars) |`01KM` + `S8DK` |38 |~100K tiddlers |3 (48 bits) |
+|`0` + 4 + last 4 (8 chars) |`01KMN` + `S8DK` |43 |~1M tiddlers |3 (48 bits) |
+|`0` + 5 + last 4 (9 chars) |`01KMNH` + `S8DK` |48 |~millions |3 (48 bits) |
+|`0` + 6 + last 4 (10 chars) |`01KMNH7` + `S8DK` |53 |~billions |4 (64 bits) |
+
+The first character is always `0` (for the next ~1,000 years) so it's free to remember.
+
+The first group changes slowly (~17.5-minute windows), so tiddlers from the same editing session share the same prefix. The last group is the quick differentiator.
+
+!!! Table 2: Timestamp resolution by prefix length
+
+|!Prefix |!Chars |!Timestamp bits |!Window |
+|`0` |1 |3 |~1,115 years |
+|`01` |2 |8 |~34.8 years |
+|`01K` |3 |13 |~398 days |
+|`01KM` |4 |18 |~12.4 days |
+|`01KMN` |5 |23 |~9.3 hours |
+|`01KMNH` |6 |28 |~17.5 minutes |
+|`01KMNH-7` |7 |33 |~33 seconds |
+|`01KMNH-72` |8 |38 |~1 second |
+|`01KMNH-72W` |9 |43 |~32 ms |
+|`01KMNH-72WK` |10 |48 |1 ms (full timestamp) |
+
+Note: The first Crockford character encodes only 3 timestamp bits (not 5) because 128 bits padded to 130 bits for encoding leaves 2 zero-padding bits at the top.
+
+!! Crockford Base32 Alphabet
+
+!!! Encoding (canonical output)
+
+```
+Value:  0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+Char:   0 1 2 3 4 5 6 7 8 9  A  B  C  D  E  F
+
+Value: 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+Char:   G  H  J  K  M  N  P  Q  R  S  T  V  W  X  Y  Z
+```
+
+Excluded from the alphabet: ''I'' (confused with 1), ''L'' (confused with 1), ''O'' (confused with 0), ''U'' (reserved for check symbol)
+
+!!! Decoding (forgiving input)
+
+The decoder accepts both upper and lowercase, plus common visual substitutions:
+
+|!Input |!Decoded as |!Reason |
+|`a`-`z` |Same as `A`-`Z` |Case-insensitive |
+|`I` or `i` |`1` |Visual similarity |
+|`L` or `l` |`1` |Visual similarity |
+|`O` or `o` |`0` |Visual similarity |
+
+This means users can type `01kmnh` or `0lKMNH` and the system will correctly interpret both.
+
+!! Navigation: Links and URLs
+
+c32 values (full or partial) work as wiki links and URL hashes. The system normalizes input (case-insensitive + alias substitution) and searches for substring matches.
+
+!!! Wiki links
+
+```
+Full c32 value:
+[[01KMNH-72WK-FM8S1A277T55-S8DK]]
+
+Last 4 chars (copy from badge):
+[[S8DK]]
+
+Middle 12-char random block (double-click from badge):
+[[FM8S1A277T55]]
+
+First group:
+[[01KMNH]]
+
+Prefix + second group:
+[[01KMNH-72WK]]
+
+Lowercase (case-insensitive):
+[[01kmnh]]
+
+With visual aliases:
+[[0lKMNH]]  (l decoded as 1)
+```
+
+All searches match ''contiguous substrings'' of the stored c32 value after normalization. Minimum 4 characters required.
+
+!!! URL hashes
+
+```
+Full c32:
+https://mywiki.example.com/#01KMNH-72WK-FM8S1A277T55-S8DK
+
+Last 4 chars:
+https://mywiki.example.com/#S8DK
+
+Random block:
+https://mywiki.example.com/#FM8S1A277T55
+
+First group:
+https://mywiki.example.com/#01KMNH
+
+Lowercase:
+https://mywiki.example.com/#01kmnh-72wk
+```
+
+When multiple tiddlers match a partial c32, all matching tiddlers open in the story river with the best match focused.
+
+URL hash navigation works for:
+
+* New browser windows/tabs
+* Editing the URL bar in an existing window
+* Bookmarks and shared links
+
+!! Filter Operators
+
+!!! The `c32` filter operator
+
+```
+Default (normalize): canonical uppercase + alias substitution
+  [[01kmnh-a]c32[]]          →  01KMNH-A
+  [[oiLKMNH]c32[]]          →  011KMNH
+
+Check symbol:
+  [{!!c32}c32[check]]        →  A  (single character, mod 37)
+
+Convert to UUID hex:
+  [{!!c32}c32[c7]]           →  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
+
+Timestamp (Unix milliseconds):
+  [{!!c32}c32[ms]]           →  1774542834655
+
+Timestamp formatted:
+  [{!!c32}c32[ms]format:timestamp[YYYY-0MM-0DD]]  →  2026-03-26
+
+Validation:
+  [{!!c32}c32[valid]]        →  yes
+  [[not-valid]c32[valid]]    →  no
+```
+
+!!! Searching with standard TW operators
+
+Since c32 is a regular tiddler field, you can use standard filter operators:
+
+```
+All tiddlers with c32:
+  [has[c32]]
+
+Tiddlers from the same ~17.5-minute window:
+  [has[c32]get[c32]prefix[01KMNH]]
+
+Case-insensitive prefix search:
+  [has[c32]get[c32]prefix:caseinsensitive[01kmnh]]
+
+Tiddlers matching last 4 chars:
+  [has[c32]get[c32]suffix[S8DK]]
+
+Substring search (e.g., random block):
+  [has[c32]get[c32]search[FM8S1A277T55]]
+
+Search with normalized user input:
+  [has[c32]get[c32]prefix{aaa}c32[]]
+
+Search with normalized user input. Search term is stored in tiddler: searchInput
+  {{{ [has[c32]get[c32]search{searchInput}c32[]] }}}
+```
+
+!! Conversion Between c7 and c32
+
+Both fields encode the same 128-bit UUID v7. Conversion is lossless:
+
+```
+c7 → c32:   [{!!c7}c32[]]    ... via uuid7 filter (not yet implemented)
+c32 → c7:   [{!!c32}c32[c7]]
+```
+
+In JavaScript (for plugins):
+
+```javascript
+var c32lib = require("$:/plugins/wikilabs/uuid7/crockford32.js");
+
+// UUID hex → c32
+var c32 = c32lib.fromUUID("019d2a48-c7e7-f42b-5a39-d1e8f204c6b0");
+// → "01KMNH-72WK-FM8S1A277T55-S8DK"
+
+// c32 → UUID hex
+var uuid = c32lib.toUUID("01KMNH-72WK-FM8S1A277T55-S8DK");
+// → "019d2a48-c7e7-f42b-5a39-d1e8f204c6b0"
+
+// Normalize user input
+var norm = c32lib.normalize("oiLkmnh");
+// → "011KMNH"
+
+// Check symbol
+var check = c32lib.checkSymbol("01KMNH-72WK-FM8S1A277T55-S8DK");
+// → "A"
+
+// Extract timestamp
+var ms = c32lib.extractTimestampMs("01KMNH-72WK-FM8S1A277T55-S8DK");
+// → 1774542834655
+
+// Validate
+var ok = c32lib.isValidC32("01KMNH-72WK-FM8S1A277T55-S8DK");
+// → true
+```
+
+!! Interoperability
+
+The c32 field is just a ''representation'' of UUID v7, not a new ID format:
+
+* ''No lock-in'' — convert to standard UUID v7 hex at any time with `c32lib.toUUID()`
+* ''Same bits'' — the underlying 128-bit value is identical to the `c7` field
+* ''Standards-based'' — Crockford Base32 (2002), UUID v7 (RFC 9562, 2024)
+* ''URL-safe'' — only uses `0-9`, `A-Z`, and `-`
+
+!! Backfill and Import
+
+When importing tiddlers:
+
+* Tiddlers with `c7` but no `c32` → `c32` is derived from `c7` automatically
+* Tiddlers with neither `c7` nor `c32` → both are generated from the same UUID bytes
+* Tiddlers that already have both → left unchanged
+
+The backfill module handles the same logic at startup for existing tiddlers (see [[uuid7/backfill]]).
