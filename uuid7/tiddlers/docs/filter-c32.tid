@@ -23,7 +23,7 @@ With no operand, the filter normalizes input to canonical uppercase with alias s
 Returns the Crockford Base32 check symbol (mod 37). Single character from the extended alphabet (`0-9`, `A-Z`, `*`, `~`, `$`, `=`, `U`).
 
 ```
-[{!!c32}c32[check]]          →  A
+[{!!c32}c32[check]]          →  U
 ```
 
 !!! Parameter: `c7`
@@ -31,7 +31,7 @@ Returns the Crockford Base32 check symbol (mod 37). Single character from the ex
 Converts the c32 value to a standard UUID v7 hex string.
 
 ```
-[{!!c32}c32[c7]]             →  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
+[{!!c32}c32[c7]]             →  019d2c4a-b53c-723c-8d97-d40b70000770
 ```
 
 !!! Parameter: `ms`
@@ -39,9 +39,9 @@ Converts the c32 value to a standard UUID v7 hex string.
 Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timestamp` for human-readable dates.
 
 ```
-[{!!c32}c32[ms]]                              →  1774542834655
+[{!!c32}c32[ms]]                              →  1774564586812
 [{!!c32}c32[ms]format:timestamp[YYYY-0MM-0DD]] →  2026-03-26
-[{!!c32}c32[ms]format:timestamp[0hh:0mm:0ss]]  →  17:00:34
+[{!!c32}c32[ms]format:timestamp[0hh:0mm:0ss]]  →  22:36:26
 ```
 
 !!! Parameter: `phrase`
@@ -49,7 +49,7 @@ Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timesta
 Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated string.
 
 ```
-[{!!c32}c32[phrase]]         →  metal arch binds, calm fox calls, dark gem digs, ...
+[{!!c32}c32[phrase]]         →  metal dog soars, clear hawk drifts, proud leaf seeks, ...
 ```
 
 !!!! Triplet selection
@@ -57,9 +57,9 @@ Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated strin
 Select specific triplets with additional operands (1-based index, count):
 
 ```
-[{!!c32}c32[phrase],[1]]     →  metal arch binds          (triplet 1 only)
-[{!!c32}c32[phrase],[1],[2]] →  metal arch binds, calm fox calls  (triplets 1-2)
-[{!!c32}c32[phrase],[3],[4]] →  dark gem digs, bright wolf soars, ...  (triplets 3-6)
+[{!!c32}c32[phrase],[1]]     →  metal dog soars          (triplet 1 only)
+[{!!c32}c32[phrase],[1],[2]] →  metal dog soars, clear hawk drifts  (triplets 1-2)
+[{!!c32}c32[phrase],[3],[4]] →  proud leaf seeks, calm gem casts, fast newt keeps, metal elm seeks  (triplets 3-6)
 ```
 
 !!!! Custom word separator
@@ -67,8 +67,8 @@ Select specific triplets with additional operands (1-based index, count):
 Use a suffix to change the separator between words within a triplet:
 
 ```
-[{!!c32}c32:+[phrase]]       →  metal+arch+binds, calm+fox+calls, ...
-[{!!c32}c32:+[phrase],[1]]   →  metal+arch+binds
+[{!!c32}c32:+[phrase]]       →  metal+dog+soars, clear+hawk+drifts, ...
+[{!!c32}c32:+[phrase],[1]]   →  metal+dog+soars
 ```
 
 This is useful for building phrase links (see [[uuid7/phrase-links]]).
@@ -78,7 +78,7 @@ This is useful for building phrase links (see [[uuid7/phrase-links]]).
 Returns the random portion of the UUID as hex in `4-4-12` format, visually matching the UUID structure.
 
 ```
-[{!!c32}c32[rnd]]            →  7897-ae47-6dd818e2d476
+[{!!c32}c32[rnd]]            →  723c-8d97-d40b70000770
 ```
 
 !!! Parameter: `version`
@@ -104,7 +104,7 @@ Returns `yes` if the input is a valid c32 string (raw or formatted), `no` otherw
 ```
 [{!!c32}c32[valid]]          →  yes
 [[not-valid]c32[valid]]      →  no
-[[01KMNH-72WK-FM8S1A277T55-S8DK]c32[valid]]  →  yes
+[[01KMP4-ND9W-E8Y8V5YM1DR0-01VG]c32[valid]]  →  yes
 ```
 
 !!! Also see

@@ -1,6 +1,6 @@
 c32: 01KMP4-NG53-FZZ8YSH6SAXP-QDSR
 c7: 019d2c4a-c0a3-7ffe-8f66-26cabb6bb738
-modified: 20260326223629731
+modified: 20260326233916177
 title: uuid7/filter-uuid7
 type: text/vnd.tiddlywiki
 
@@ -13,7 +13,7 @@ The `uuid7` filter operator works with UUID v7 hex strings (the `c7` field). It 
 With no operand, passes through valid UUID v7 strings and filters out invalid ones.
 
 ```
-[{!!c7}uuid7[]]              →  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
+[{!!c7}uuid7[]]              →  019d2c4a-c0a3-7ffe-8f66-26cabb6bb738
 [[not-a-uuid]uuid7[]]        →  (empty — filtered out)
 ```
 
@@ -22,9 +22,9 @@ With no operand, passes through valid UUID v7 strings and filters out invalid on
 Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timestamp` for human-readable dates.
 
 ```
-[{!!c7}uuid7[ms]]                              →  1774542834655
+[{!!c7}uuid7[ms]]                              →  1774564589731
 [{!!c7}uuid7[ms]format:timestamp[YYYY-0MM-0DD]] →  2026-03-26
-[{!!c7}uuid7[ms]format:timestamp[0hh:0mm:0ss]]  →  17:00:34
+[{!!c7}uuid7[ms]format:timestamp[0hh:0mm:0ss]]  →  22:36:29
 ```
 
 !!! Parameter: `phrase`
@@ -32,7 +32,7 @@ Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timesta
 Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated string.
 
 ```
-[{!!c7}uuid7[phrase]]        →  metal arch binds, calm fox calls, dark gem digs, ...
+[{!!c7}uuid7[phrase]]        →  metal dog soars, clear hawk drifts, quick brook casts, ...
 ```
 
 !!!! Triplet selection
@@ -40,9 +40,9 @@ Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated strin
 Select specific triplets with additional operands (1-based index, count):
 
 ```
-[{!!c7}uuid7[phrase],[1]]     →  metal arch binds          (triplet 1 only)
-[{!!c7}uuid7[phrase],[1],[2]] →  metal arch binds, calm fox calls  (triplets 1-2)
-[{!!c7}uuid7[phrase],[3],[4]] →  dark gem digs, bright wolf soars, ...  (triplets 3-6)
+[{!!c7}uuid7[phrase],[1]]     →  metal dog soars          (triplet 1 only)
+[{!!c7}uuid7[phrase],[1],[2]] →  metal dog soars, clear hawk drifts  (triplets 1-2)
+[{!!c7}uuid7[phrase],[3],[4]] →  quick brook casts, wide wren casts, soft dog draws, proud egret glides  (triplets 3-6)
 ```
 
 !!!! Custom word separator
@@ -50,8 +50,8 @@ Select specific triplets with additional operands (1-based index, count):
 Use a suffix to change the separator between words within a triplet:
 
 ```
-[{!!c7}uuid7:+[phrase]]      →  metal+arch+binds, calm+fox+calls, ...
-[{!!c7}uuid7:+[phrase],[1]]  →  metal+arch+binds
+[{!!c7}uuid7:+[phrase]]      →  metal+dog+soars, clear+hawk+drifts, ...
+[{!!c7}uuid7:+[phrase],[1]]  →  metal+dog+soars
 ```
 
 This is useful for building phrase links (see [[uuid7/phrase-links]]).
@@ -61,7 +61,7 @@ This is useful for building phrase links (see [[uuid7/phrase-links]]).
 Returns the random portion of the UUID as hex in `4-4-12` format, visually matching the UUID structure.
 
 ```
-[{!!c7}uuid7[rnd]]           →  7897-ae47-6dd818e2d476
+[{!!c7}uuid7[rnd]]           →  7ffe-8f66-26cabb6bb738
 ```
 
 !!! Parameter: `version`
@@ -85,15 +85,17 @@ Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
 Converts the UUID hex string to Crockford Base32 formatted as `6-4-12-4`.
 
 ```
-[{!!c7}uuid7[c32]]           →  01KMNH-72WK-FM8S1A277T55-S8DK
+[{!!c7}uuid7[c32]]           →  01KMP4-NG53-FZZ8YSH6SAXP-QDSR
 ```
+
+{{{ [{!!c7}uuid7[c32]] }}}
 
 !!! Parameter: `check`
 
 Returns the Crockford Base32 check symbol (mod 37) for the UUID. Converts to c32 internally.
 
 ```
-[{!!c7}uuid7[check]]         →  A
+[{!!c7}uuid7[check]]         →  C
 ```
 
 !!! Parameter: `valid`
