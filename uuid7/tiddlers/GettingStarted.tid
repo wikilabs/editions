@@ -5,13 +5,14 @@ type: text/vnd.tiddlywiki
 
 ! UUID v7 Plugin
 
-Every new tiddler automatically receives a `c7` field containing a [[UUID v7|https://www.rfc-editor.org/rfc/rfc9562]] — a globally unique, time-ordered identifier. This ID survives renaming, copying, and cross-wiki migration.
+Every new tiddler automatically receives a `c32` field containing a [[UUID v7|https://www.rfc-editor.org/rfc/rfc9562]] encoded in [[Crockford Base32|https://www.crockford.com/base32.html]] — a globally unique, time-ordered, compact identifier. This ID survives renaming, copying, and cross-wiki migration.
 
 !! Try it
 
 # Create a new tiddler
-# Open the fields editor — notice the `c7` field with a UUID like `019ce7af-ff4d-7897-ae47-6dd818e2d476`
-# The phrase badge at the bottom of the tiddler shows its mnemonic encoding
+# Open the fields editor — notice the `c32` field with a value like `01KMNH-72WK-FM8S1A277T55-S8DK`
+# The c32 badge at the bottom-right shows the value with its check symbol
+# The phrase badge at the bottom-left shows its mnemonic encoding
 
 !! Mnemonic Phrases
 
@@ -26,33 +27,47 @@ Example: `metal dog soars, calm seal hunts, ...`
 
 Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
 
-!! Filter Operators
+!! c32 Filter Operators
 
-|!Filter |!Returns |
+|! Filter |! Returns |
+|`[get[c32]c32[]]` |Normalize input (uppercase + alias substitution) |
+|`[get[c32]c32[check]]` |Check symbol (mod 37) |
+|`[get[c32]c32[c7]]` |Convert to UUID v7 hex string |
+|`[get[c32]c32[ms]]` |Unix timestamp in milliseconds |
+|`[get[c32]c32[ms]format:timestamp[YYYY-0MM-0DD]]` |Creation date |
+|`[get[c32]c32[phrase]]` |Full 8-triplet mnemonic phrase |
+|`[get[c32]c32[valid]]` |`yes` or `no` |
+
+See [[uuid7/crockford32]] for the full c32 reference.
+
+!! c7 Filter Operators
+
+|! Filter |! Returns |
 |`[get[c7]uuid7[phrase]]` |Full 8-triplet mnemonic phrase |
 |`[get[c7]uuid7[phrase],[1],[2]]` |First 2 triplets (timestamp part) |
-|`[get[c7]uuid7[phrase],[3]]` |Single triplet |
 |`[get[c7]uuid7[ms]]` |Unix timestamp in milliseconds |
-|`[get[c7]uuid7[ms]format:timestamp[YYYY-0MM-0DD]]` |Creation date |
 |`[get[c7]uuid7:+[phrase]]` |Phrase with `+` word separators (for links) |
 |`[get[c7]uuid7[valid]]` |`yes` or `no` |
 |`[<tiddler>uuid7link[]]` |Shortest stable phrase link for a tiddler |
 
-See [[$:/plugins/wikilabs/uuid7/filter-docs]] for the full reference and [[$:/plugins/wikilabs/uuid7/mnemonic]] for encoding details.
+See [[$:/plugins/wikilabs/uuid7/mnemonic]] for encoding details.
 
-!! Phrase Links
+!! Navigation: c32 and Phrase Links
 
-Open tiddlers by their phrase words using URL hashes:
+Open tiddlers by c32 value (full or partial) or phrase words in URL hashes:
 
 ```
+http://localhost:8080/#01KMNH-72WK-FM8S1A277T55-S8DK
+http://localhost:8080/#S8DK
+http://localhost:8080/#FM8S1A277T55
 http://localhost:8080/#metal+dog+soars,cool+dune+casts
 ```
 
-Use `;` to open multiple tiddlers in one link. See [[uuid7/phrase-links]] for details.
+Wiki links work the same way: `[[S8DK]]` or `[[metal+dog+soars]]`. Use `;` to open multiple tiddlers in one phrase link. See [[uuid7/crockford32]] and [[uuid7/phrase-links]] for details.
 
 !! Backfill Existing Tiddlers
 
-The plugin can add `c7` fields to tiddlers that were created before the plugin was installed. On startup it runs in ''dry-run'' mode by default — check [[_log/backfill-c7]] to see what would change. See [[uuid7/backfill]] for details on how to switch to ''live'' mode.
+The plugin can add `c7` and `c32` fields to tiddlers that were created before the plugin was installed. On startup it runs in ''dry-run'' mode by default — check [[_log/backfill-c7]] to see what would change. See [[uuid7/backfill]] for details on how to switch to ''live'' mode.
 
 !! Settings
 
