@@ -34,9 +34,21 @@ Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
 |`[get[c7]uuid7[phrase],[3]]` |Single triplet |
 |`[get[c7]uuid7[ms]]` |Unix timestamp in milliseconds |
 |`[get[c7]uuid7[ms]format:timestamp[YYYY-0MM-0DD]]` |Creation date |
+|`[get[c7]uuid7:+[phrase]]` |Phrase with `+` word separators (for links) |
 |`[get[c7]uuid7[valid]]` |`yes` or `no` |
+|`[<tiddler>uuid7link[]]` |Shortest stable phrase link for a tiddler |
 
 See [[$:/plugins/wikilabs/uuid7/filter-docs]] for the full reference and [[$:/plugins/wikilabs/uuid7/mnemonic]] for encoding details.
+
+!! Phrase Links
+
+Open tiddlers by their phrase words using URL hashes:
+
+```
+http://localhost:8080/#metal+dog+soars,cool+dune+casts
+```
+
+Use `;` to open multiple tiddlers in one link. See [[uuid7/phrase-links]] for details.
 
 !! Backfill Existing Tiddlers
 

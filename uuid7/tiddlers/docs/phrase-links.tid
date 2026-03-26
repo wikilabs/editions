@@ -1,0 +1,80 @@
+c7: 019d289f-14e7-71e1-a749-93b08ea62aff
+modified: 20260326160000000
+title: uuid7/phrase-links
+type: text/vnd.tiddlywiki
+
+! Phrase Links: Navigate by UUID Phrase
+
+You can open tiddlers by their mnemonic phrase words using URL hash links or wiki links.
+
+!! URL format
+
+Use `+` to separate words within a triplet, `,` for AND (multiple patterns), and `;` for OR (multiple tiddlers):
+
+```
+http://localhost:8080/#metal+dog+soars,cool+dune+casts
+http://localhost:8080/#metal+dog+soars,cool+dune+casts;sharp+reef+keeps;firm+grove+forms
+```
+
+!! Separators
+
+|!Separator |!Meaning |!Example |
+|`+` |Words within a pattern |`metal+dog+soars` |
+|`,` |AND — all patterns must match different triplets |`metal+dog+soars,cool+dune+casts` |
+|`;` |OR — open tiddlers matching any group |`group1;group2;group3` |
+
+!! Smart prefix inheritance
+
+When using `;`, groups without a `,` inherit the shared prefix from the first group:
+
+```
+#metal+dog+soars,cool+dune+casts;sharp+reef+keeps;firm+grove+forms
+```
+
+is equivalent to:
+
+```
+#metal+dog+soars,cool+dune+casts;metal+dog+soars,sharp+reef+keeps;metal+dog+soars,firm+grove+forms
+```
+
+!! How matching works
+
+* Each comma-separated group is a ''search pattern'' matched against individual triplets
+* Words within a pattern are matched at word boundaries (consecutive words within a triplet)
+* ''All'' patterns in a group must match for a tiddler to be included
+* Each pattern matches against a different triplet — the same triplet is not reused
+* Matching is case-insensitive
+
+!! Generating phrase links
+
+Use the `uuid7link` filter operator to generate the shortest stable link for a set of tiddlers:
+
+```
+[<myTiddler>uuid7link[]]
+[[TiddlerA]] [[TiddlerB]] [[TiddlerC]] +[uuid7link[]]
+```
+
+The operator generates a link with:
+
+* ''Timestamp prefix'' (triplet 1) — shared by tiddlers created in the same era
+* ''Random discriminator'' (one full triplet from triplets 4-7) — uniquely identifies each tiddler
+
+Discriminators always come from random triplets to ensure the link remains valid after importing tiddlers with matching timestamps.
+
+!! Ordering
+
+When several tiddlers match:
+
+* Tiddlers where the search patterns match in ''ascending triplet order'' are listed first
+* Tiddlers where the patterns match out of order are listed after
+
+!! Multiple matches
+
+All matching tiddlers are opened in the active story river. The first match is scrolled into view. The plugin respects the `tv-story-list` variable, so it works with multiple story rivers.
+
+!! Limitations
+
+* The link must contain at least one `+`, `,`, or `;` character
+* If a tiddler with the exact title exists, it takes precedence (no phrase search)
+* Only lowercase letters are recognised as phrase search words
+* Triplet 8 (2 words, 11 bits) is not used as a discriminator — too few combinations for large wikis
