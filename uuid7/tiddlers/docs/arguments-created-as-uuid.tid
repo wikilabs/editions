@@ -88,3 +88,12 @@ UUID v7 is defined in [[RFC 9562|https://www.rfc-editor.org/rfc/rfc9562]] (May 2
 Modify the Tiddler constructor to recognize UUID v7 in the `created` field and derive the Date object during construction, before `Object.freeze()`. This is ~20 lines of code that unlocks globally unique tiddler identity for the entire ecosystem.
 
 See [[$:/plugins/wikilabs/uuid7/core-changes]] for the specific files and changes needed.
+
+!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
+* [[$:/plugins/wikilabs/uuid7/mnemonic]] — Mnemonic phrase encoding (adjective-noun-verb triplets)
+* [[uuid7/crockford32]] — Compact sortable c32 encoding for UUID v7
+* [[uuid7/phrase-links]] — Navigate by mnemonic phrase words
+* [[uuid7/backfill]] — Backfill configuration and modes for existing tiddlers
+* [[uuid7/core-changes]] — Proposed TiddlyWiki core changes for deeper integration

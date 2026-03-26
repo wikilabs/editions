@@ -1,5 +1,6 @@
+c32: 01KMNZ-23XZ-E7T87GJ7DFNB-Q3NS
 c7: 019d289f-14e7-71e1-a749-93b08ea62aff
-modified: 20260326180000000
+modified: 20260326210003246
 title: uuid7/phrase-links
 type: text/vnd.tiddlywiki
 
@@ -11,7 +12,7 @@ Open tiddlers by their mnemonic phrase words using URL hashes or wiki links. The
 
 Phrase links use three separators, each with a distinct meaning:
 
-|!Separator |!Name |!Meaning |!Example |
+|! Separator |! Name |! Meaning |! Example |
 |`+` |Word join |Joins words within a single pattern |`metal+dog+soars` |
 |`,` |AND |All patterns must match (each in a different triplet) |`metal+dog+soars,5cool+dune+casts` |
 |`;` |OR |Open tiddlers matching ''any'' group |`group1;group2;group3` |
@@ -20,7 +21,7 @@ Phrase links use three separators, each with a distinct meaning:
 
 A leading digit `1`-`8` on a pattern restricts it to a specific triplet position:
 
-|!Pattern |!Meaning |
+|! Pattern |! Meaning |
 |`cool+dune+casts` |Match in ''any'' triplet |
 |`5cool+dune+casts` |Match only in ''triplet 5'' |
 
@@ -103,7 +104,7 @@ Given `metal+dog+soars,5cool+dune+casts`:
 
 Patterns don't have to be full triplets:
 
-|!Pattern |!What it matches |
+|! Pattern |! What it matches |
 |`metal` |Any triplet containing the word "metal" in any position |
 |`metal+dog` |Any triplet where "metal" and "dog" are consecutive |
 |`metal+dog+soars` |A full triplet match |
@@ -144,7 +145,7 @@ P(clash) = 1 - (1 - 1/2^B)^N  ≈  N / 2^B  (when N << 2^B)
 
 !!! Strategy comparison
 
-|!Link format |!Example |!Words |!Bits |!Combinations |!Clash at 20k |!Clash at 1M |
+|! Link format |! Example |! Words |! Bits |! Combinations |! Clash at 20k |! Clash at 1M |
 |1 full triplet |`6crisp+toad+guards` |3 |16 |65,536 |~26% |~100% |
 |1 triplet + 1 word |`1soars,6crisp+toad+guards` |4 |21 |2,097,152 |~0.95% |~38% |
 |1 partial + 1 triplet |`1dog+soars,6crisp+toad+guards` |5 |27 |134,217,728 |~0.015% |~0.74% |
@@ -154,7 +155,7 @@ P(clash) = 1 - (1 - 1/2^B)^N  ≈  N / 2^B  (when N << 2^B)
 
 The link `1dog+soars,6crisp+toad+guards` uses 5 words and provides 27 bits of discrimination (134 million combinations):
 
-|!Scenario |!Clash probability |!Odds |
+|! Scenario # tiddlers |! Clash probability |! Odds |
 |1,000 |~0.00075% |1 in 134,000 |
 |10,000 |~0.0075% |1 in 13,400 |
 |20,000 (2 × 10k merged) |~0.015% |1 in 6,700 |
@@ -174,7 +175,7 @@ At 20k tiddlers the chance is 1 in 6,700. You would need to merge ~70 wikis of 1
 
 If the `uuid7link` operator can't find a unique single triplet, it uses two position-specific triplets (32 bits = 4.3 billion combinations):
 
-|!Scenario |!Clash probability |!Odds |
+|! Scenario # tiddlers |! Clash probability |! Odds |
 |20,000 |~0.00047% |1 in 215,000 |
 |100,000 |~0.0023% |1 in 43,000 |
 |1,000,000 |~0.023% |1 in 4,295 |
@@ -183,7 +184,7 @@ Sufficient for any practical wiki size.
 
 !! URL examples
 
-|!URL hash |!Opens |
+|! URL hash |! Opens |
 |`#metal+dog+soars` |All tiddlers with "metal dog soars" in any triplet |
 |`#metal+dog+soars,5cool+dune+casts` |The one tiddler matching both patterns |
 |`#metal+dog+soars,5cool+dune+casts;6sharp+reef+keeps` |Two specific tiddlers |
@@ -203,3 +204,10 @@ When several tiddlers match:
 * If a tiddler with the exact title exists, it takes precedence
 * Only lowercase letters and digits 1-8 (position prefix) are recognised
 * Triplet 8 (2 words, 11 bits) is not used as a discriminator
+
+!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
+* [[$:/plugins/wikilabs/uuid7/mnemonic]] — Mnemonic phrase encoding (adjective-noun-verb triplets)
+* [[uuid7/crockford32]] — Compact sortable c32 encoding (alternative navigation format)
+* [[uuid7/backfill]] — Backfill configuration and modes for existing tiddlers

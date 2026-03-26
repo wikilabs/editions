@@ -150,3 +150,9 @@ if(value && $tw.utils.isDate(value) && value.toString() !== "Invalid Date")
 See [[$:/plugins/wikilabs/uuid7/core-changes]] for the full list. The key change:
 
 Modify the `$tw.Tiddler` constructor to support ''computed fields'' — fields that are derived from other fields during construction. This would allow `created` to be set from `c7` before `Object.freeze()` is called, making it a first-class field with no patching needed.
+
+!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
+* [[uuid7/core-changes]] — Proposed core changes based on these lessons
+* [[uuid7/crockford32]] — Compact sortable c32 encoding for UUID v7

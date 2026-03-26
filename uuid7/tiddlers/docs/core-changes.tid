@@ -83,9 +83,14 @@ JSON and .tid serializers could treat `c7` as a first-class field:
 
 !! Files that would need changes
 
-|!File|!Change|
+|! File|! Change|
 |`boot/boot.js` ~line 1135|Add `c7` field type definition|
 |`core/modules/wiki.js` ~line 274|Modify `getCreationFields()`|
 |`core/modules/wiki.js` ~line 292|Consider `getModificationFields()` for future `modified-7`|
 |`boot/boot.js` Tiddler constructor ~line 1016|Read-only enforcement for `c7`|
 |MWS SQL adapter|Binary storage and primary key support|
+
+!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
+* [[uuid7/crockford32]] — Compact sortable c32 encoding for UUID v7

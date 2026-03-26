@@ -18,7 +18,7 @@ When the plugin is installed, the backfill module runs at startup and assigns a 
 
 Configure the mode in [[$:/ControlPanel]] > Settings > WikiLabs > UUID v7, or set the tiddler `$:/config/wikilabs/uuid7/backfill-mode` directly.
 
-|!Mode |!Behaviour |
+|! Mode |! Behaviour |
 |''dry-run'' |Generates UUIDs and writes the log, but does ''not'' modify any tiddlers. Use this to preview what would change. This is the default. |
 |''live'' |Writes the `c7` field to all tiddlers that need one. |
 |''disabled'' |Skips backfill entirely. |
@@ -51,3 +51,9 @@ For example, to also backfill config tiddlers:
 ```
 
 The custom filter is combined with the default — it adds to, not replaces, the default set. A live preview of matching tiddlers is shown in the settings panel.
+
+!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
+* [[uuid7/crockford32]] — Compact sortable c32 encoding (also backfilled alongside c7)
+* [[uuid7/phrase-links]] — Navigate by mnemonic phrase words

@@ -7,7 +7,7 @@ The `c32` field stores the same 128-bit UUID v7 value as `c7`, but encoded in [[
 
 !! Why c32?
 
-|!Property |!c7 (UUID hex) |!c32 (Crockford Base32) |
+|! Property|! c7 (UUID hex) |! c32 (Crockford Base32) |
 |Length |36 chars |29 chars (with hyphens) |
 |Sortable |Yes |Yes |
 |URL-safe |Yes |Yes |
@@ -32,7 +32,7 @@ The c32 value is stored and displayed in `6-4-12-4` format with hyphens at fixed
  group1 grp2    group3    grp4
 ```
 
-|!Group |!Chars |!Contains |!Purpose |
+|! Group |! Chars |! Contains |! Purpose |
 |1 (6 chars) |`01KMNH` |28 timestamp bits |~17.5 minute "session" window |
 |2 (4 chars) |`72WK` |20 bits (timestamp tail + version) |Completes timestamp to ms precision |
 |3 (12 chars) |`FM8S1A277T55` |60 bits (random bulk) |Main random payload |
@@ -52,12 +52,12 @@ A check symbol is displayed after the c32 value (separated by a space). It detec
 
 The check symbol is computed as `value mod 37` (37 is the smallest prime > 32) and uses an extended alphabet:
 
-|!Values 0-31 |Standard Crockford characters (`0-9`, `A-Z` minus I,L,O,U) |
-|!Value 32 |`*` |
-|!Value 33 |`~` |
-|!Value 34 |`$` |
-|!Value 35 |`=` |
-|!Value 36 |`U` |
+|! Values 0-31 |Standard Crockford characters (`0-9`, `A-Z` minus I,L,O,U) |
+|! Value 32 |`*` |
+|! Value 33 |`~` |
+|! Value 34 |`$` |
+|! Value 35 |`=` |
+|! Value 36 |`U` |
 
 The check symbol is ''display-only'' — it is not stored in the `c32` field.
 
@@ -77,7 +77,7 @@ You don't need to memorize the full 29-character string. A few characters from t
 
 !!! Table 1: Memorized chars vs clash resistance
 
-|!Remembered chars |!Example |!Bits |!Safe up to |!Equivalent phrase triplets |
+|! Remembered chars |! Example |! Bits |! Safe up to |! Equivalent phrase triplets |
 |`0` + 1 + last 4 (5 chars) |`01` + `S8DK` |28 |~1K tiddlers |2 (32 bits) |
 |`0` + 2 + last 4 (6 chars) |`01K` + `S8DK` |33 |~5K tiddlers |3 (48 bits) |
 |`0` + 3 + last 4 (7 chars) |`01KM` + `S8DK` |38 |~100K tiddlers |3 (48 bits) |
@@ -91,7 +91,7 @@ The first group changes slowly (~17.5-minute windows), so tiddlers from the same
 
 !!! Table 2: Timestamp resolution by prefix length
 
-|!Prefix |!Chars |!Timestamp bits |!Window |
+|! Prefix |! Chars |! Timestamp bits |! Window |
 |`0` |1 |3 |~1,115 years |
 |`01` |2 |8 |~34.8 years |
 |`01K` |3 |13 |~398 days |
@@ -123,7 +123,7 @@ Excluded from the alphabet: ''I'' (confused with 1), ''L'' (confused with 1), ''
 
 The decoder accepts both upper and lowercase, plus common visual substitutions:
 
-|!Input |!Decoded as |!Reason |
+|! Input |! Decoded as |! Reason |
 |`a`-`z` |Same as `A`-`Z` |Case-insensitive |
 |`I` or `i` |`1` |Visual similarity |
 |`L` or `l` |`1` |Visual similarity |
@@ -299,3 +299,11 @@ When importing tiddlers:
 * Tiddlers that already have both → left unchanged
 
 The backfill module handles the same logic at startup for existing tiddlers (see [[uuid7/backfill]]).
+
+!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
+* [[$:/plugins/wikilabs/uuid7/mnemonic]] — Mnemonic phrase encoding (adjective-noun-verb triplets)
+* [[uuid7/phrase-links]] — Navigate by mnemonic phrase words (alternative human-readable layer)
+* [[uuid7/backfill]] — Backfill configuration and modes for existing tiddlers
+* [[uuid7/core-changes]] — Proposed TiddlyWiki core changes for deeper integration
