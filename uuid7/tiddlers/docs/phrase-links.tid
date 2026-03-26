@@ -209,5 +209,7 @@ When several tiddlers match:
 
 * [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
 * [[$:/plugins/wikilabs/uuid7/mnemonic]] — Mnemonic phrase encoding (adjective-noun-verb triplets)
+* [[uuid7/filter-c32]] — `c32` filter operator reference
+* [[uuid7/filter-uuid7]] — `uuid7` filter operator reference
 * [[uuid7/crockford32]] — Compact sortable c32 encoding (alternative navigation format)
 * [[uuid7/backfill]] — Backfill configuration and modes for existing tiddlers

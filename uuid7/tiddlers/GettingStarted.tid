@@ -27,30 +27,14 @@ Example: `metal dog soars, calm seal hunts, ...`
 
 Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
 
-!! c32 Filter Operators
+!! Filter Operators
 
-|! Filter |! Returns |
-|`[get[c32]c32[]]` |Normalize input (uppercase + alias substitution) |
-|`[get[c32]c32[check]]` |Check symbol (mod 37) |
-|`[get[c32]c32[c7]]` |Convert to UUID v7 hex string |
-|`[get[c32]c32[ms]]` |Unix timestamp in milliseconds |
-|`[get[c32]c32[ms]format:timestamp[YYYY-0MM-0DD]]` |Creation date |
-|`[get[c32]c32[phrase]]` |Full 8-triplet mnemonic phrase |
-|`[get[c32]c32[valid]]` |`yes` or `no` |
+Both `c32` and `uuid7` filters have full feature parity — phrase encoding, timestamps, check symbols, validation, and cross-conversion:
 
-See [[uuid7/crockford32]] for the full c32 reference.
-
-!! c7 Filter Operators
-
-|! Filter |! Returns |
-|`[get[c7]uuid7[phrase]]` |Full 8-triplet mnemonic phrase |
-|`[get[c7]uuid7[phrase],[1],[2]]` |First 2 triplets (timestamp part) |
-|`[get[c7]uuid7[ms]]` |Unix timestamp in milliseconds |
-|`[get[c7]uuid7:+[phrase]]` |Phrase with `+` word separators (for links) |
-|`[get[c7]uuid7[valid]]` |`yes` or `no` |
-|`[<tiddler>uuid7link[]]` |Shortest stable phrase link for a tiddler |
-
-See [[$:/plugins/wikilabs/uuid7/mnemonic]] for encoding details.
+|! Filter |! Example |! Reference |
+|`c32` |`[get[c32]c32[phrase]]` |[[uuid7/filter-c32]] |
+|`uuid7` |`[get[c7]uuid7[phrase]]` |[[uuid7/filter-uuid7]] |
+|`uuid7link` |`[<tiddler>uuid7link[]]` |[[uuid7/phrase-links]] |
 
 !! Navigation: c32 and Phrase Links
 

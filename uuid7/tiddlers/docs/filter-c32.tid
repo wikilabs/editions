@@ -1,0 +1,112 @@
+title: uuid7/filter-c32
+modified: 20260326233000000
+
+! Filter Operator: `c32`
+
+The `c32` filter operator works with Crockford Base32 encoded UUID v7 values. It accepts both the `c32` field (formatted `6-4-12-4`) and raw 26-char strings. Input is case-insensitive with Crockford alias support (`O`→`0`, `I`→`1`, `L`→`1`).
+
+!! Default: Normalize
+
+With no operand, the filter normalizes input to canonical uppercase with alias substitution. Works on full and partial c32 strings.
+
+```
+[[01kmnh]c32[]]              →  01KMNH
+[[oiLKMNH]c32[]]            →  011KMNH
+[[01kmnh-a]c32[]]            →  01KMNH-A
+```
+
+!! Operand: `check`
+
+Returns the Crockford Base32 check symbol (mod 37). Single character from the extended alphabet (`0-9`, `A-Z`, `*`, `~`, `$`, `=`, `U`).
+
+```
+[{!!c32}c32[check]]          →  A
+```
+
+!! Operand: `c7`
+
+Converts the c32 value to a standard UUID v7 hex string.
+
+```
+[{!!c32}c32[c7]]             →  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
+```
+
+!! Operand: `ms`
+
+Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timestamp` for human-readable dates.
+
+```
+[{!!c32}c32[ms]]                              →  1774542834655
+[{!!c32}c32[ms]format:timestamp[YYYY-0MM-0DD]] →  2026-03-26
+[{!!c32}c32[ms]format:timestamp[0hh:0mm:0ss]]  →  17:00:34
+```
+
+!! Operand: `phrase`
+
+Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated string.
+
+```
+[{!!c32}c32[phrase]]         →  metal arch binds, calm fox calls, dark gem digs, ...
+```
+
+!!! Triplet selection
+
+Select specific triplets with additional operands (1-based index, count):
+
+```
+[{!!c32}c32[phrase],[1]]     →  metal arch binds          (triplet 1 only)
+[{!!c32}c32[phrase],[1],[2]] →  metal arch binds, calm fox calls  (triplets 1-2)
+[{!!c32}c32[phrase],[3],[4]] →  dark gem digs, bright wolf soars, ...  (triplets 3-6)
+```
+
+!!! Custom word separator
+
+Use a suffix to change the separator between words within a triplet:
+
+```
+[{!!c32}c32:+[phrase]]       →  metal+arch+binds, calm+fox+calls, ...
+[{!!c32}c32:+[phrase],[1]]   →  metal+arch+binds
+```
+
+This is useful for building phrase links (see [[uuid7/phrase-links]]).
+
+!! Operand: `rnd`
+
+Returns the random portion of the UUID as hex in `4-4-12` format, visually matching the UUID structure.
+
+```
+[{!!c32}c32[rnd]]            →  7897-ae47-6dd818e2d476
+```
+
+!! Operand: `version`
+
+Returns the UUID version number. Always `7` for UUID v7.
+
+```
+[{!!c32}c32[version]]        →  7
+```
+
+!! Operand: `variant`
+
+Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
+
+```
+[{!!c32}c32[variant]]        →  2
+```
+
+!! Operand: `valid`
+
+Returns `yes` if the input is a valid c32 string (raw or formatted), `no` otherwise.
+
+```
+[{!!c32}c32[valid]]          →  yes
+[[not-valid]c32[valid]]      →  no
+[[01KMNH-72WK-FM8S1A277T55-S8DK]c32[valid]]  →  yes
+```
+
+!! Also see
+
+* [[uuid7/filter-uuid7]] — The `uuid7` filter operator (works with c7 hex values)
+* [[uuid7/crockford32]] — Crockford Base32 encoding reference
+* [[uuid7/phrase-links]] — Navigate by mnemonic phrase words
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview
