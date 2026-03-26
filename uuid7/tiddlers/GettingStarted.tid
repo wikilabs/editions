@@ -44,7 +44,7 @@ The plugin can add `c7` fields to tiddlers that were created before the plugin w
 
 !! Settings
 
-Configure the plugin in [[ControlPanel]] > Settings > WikiLabs > UUID v7.
+Configure the plugin in [[$:/ControlPanel]] > Settings > WikiLabs > UUID v7.
 
 !! Plugins
 
