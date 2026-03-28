@@ -1,7 +1,7 @@
 c32: 01KMP7-YVY4-EEMSSMV6DW11-R0H5
 c7: 019d2c7f-6fc4-73a9-9cd3-666f021c0225
 created: 20260326233402436
-modified: 20260326233650354
+modified: 20260328004150162
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -47,7 +47,7 @@ Open tiddlers by c32 value (full or partial) or phrase words in URL hashes:
 * https://wikilabs.github.io/editions/uuid7/#E7T87GJ7DFNB
 * https://wikilabs.github.io/editions/uuid7/#metal+dog+soars,clear+hawk+drifts;wide+wren+casts
 
-Wiki links work the same way: `[[QDSR ]]` or `[[metal+dog+soars]]`. Use `;` to open multiple tiddlers in one phrase link. See [[uuid7/crockford32]] and [[uuid7/phrase-links]] for details.
+Wiki links work the same way: `[[QDSR]]` or `[[metal+dog+soars]]`. Use `;` to open multiple tiddlers in one phrase link. See [[uuid7/crockford32]] and [[uuid7/phrase-links]] for details.
 
 !! Backfill Existing Tiddlers
 

@@ -18,8 +18,8 @@ The `c32` field stores the same 128-bit UUID v7 value as `c7`, but encoded in [[
 Both fields are derived from the same 128 bits. You can always convert between them:
 
 ```
-c7:  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
-c32: 01KMNH-72WK-FM8S1A277T55-S8DK
+c7:  019d2c4a-b53c-723c-8d97-d40b70000770
+c32: 01KMP4-ND9W-E8Y8V5YM1DR0-01VG
 ```
 
 !! Display Format: 6-4-12-4
@@ -27,16 +27,16 @@ c32: 01KMNH-72WK-FM8S1A277T55-S8DK
 The c32 value is stored and displayed in `6-4-12-4` format with hyphens at fixed positions:
 
 ```
-01KMNH-72WK-FM8S1A277T55-S8DK
+01KMP4-ND9W-E8Y8V5YM1DR0-01VG
 └────┘ └──┘ └──────────┘ └──┘
  group1 grp2    group3    grp4
 ```
 
 |! Group |! Chars |! Contains |! Purpose |
-|1 (6 chars) |`01KMNH` |28 timestamp bits |~17.5 minute "session" window |
-|2 (4 chars) |`72WK` |20 bits (timestamp tail + version) |Completes timestamp to ms precision |
-|3 (12 chars) |`FM8S1A277T55` |60 bits (random bulk) |Main random payload |
-|4 (4 chars) |`S8DK` |20 bits (random tail) |Memorable quick identifier |
+|1 (6 chars) |`01KMP4` |28 timestamp bits |~17.5 minute "session" window |
+|2 (4 chars) |`ND9W` |20 bits (timestamp tail + version) |Completes timestamp to ms precision |
+|3 (12 chars) |`E8Y8V5YM1DR0` |60 bits (random bulk) |Main random payload |
+|4 (4 chars) |`01VG` |20 bits (random tail) |Memorable quick identifier |
 
 Hyphens are at fixed positions, so ''lexicographic sort equals chronological sort'' — even with hyphens.
 
@@ -45,7 +45,7 @@ Hyphens are at fixed positions, so ''lexicographic sort equals chronological sor
 A check symbol is displayed after the c32 value (separated by a space). It detects typos and copy-paste errors.
 
 ```
-01KMNH-72WK-FM8S1A277T55-S8DK A
+01KMP4-ND9W-E8Y8V5YM1DR0-01VG U
                                ^
                          check symbol
 ```
@@ -65,9 +65,9 @@ The check symbol is ''display-only'' — it is not stored in the `c32` field.
 
 Each group between hyphens is a separate "word" for double-click selection:
 
-* Double-click `01KMNH` → selects the timestamp prefix
-* Double-click `FM8S1A277T55` → selects the 12-char random block
-* Double-click `S8DK` → selects the last 4 chars
+* Double-click `01KMP4` → selects the timestamp prefix
+* Double-click `E8Y8V5YM1DR0` → selects the 12-char random block
+* Double-click `01VG` → selects the last 4 chars
 
 This makes it easy to copy specific segments for search, sharing, or URL navigation.
 
@@ -78,12 +78,12 @@ You don't need to memorize the full 29-character string. A few characters from t
 !!! Table 1: Memorized chars vs clash resistance
 
 |! Remembered chars |! Example |! Bits |! Safe up to |! Equivalent phrase triplets |
-|`0` + 1 + last 4 (5 chars) |`01` + `S8DK` |28 |~1K tiddlers |2 (32 bits) |
-|`0` + 2 + last 4 (6 chars) |`01K` + `S8DK` |33 |~5K tiddlers |3 (48 bits) |
-|`0` + 3 + last 4 (7 chars) |`01KM` + `S8DK` |38 |~100K tiddlers |3 (48 bits) |
-|`0` + 4 + last 4 (8 chars) |`01KMN` + `S8DK` |43 |~1M tiddlers |3 (48 bits) |
-|`0` + 5 + last 4 (9 chars) |`01KMNH` + `S8DK` |48 |~millions |3 (48 bits) |
-|`0` + 6 + last 4 (10 chars) |`01KMNH7` + `S8DK` |53 |~billions |4 (64 bits) |
+|`0` + 1 + last 4 (5 chars) |`01` + `01VG` |28 |~1K tiddlers |2 (32 bits) |
+|`0` + 2 + last 4 (6 chars) |`01K` + `01VG` |33 |~5K tiddlers |3 (48 bits) |
+|`0` + 3 + last 4 (7 chars) |`01KM` + `01VG` |38 |~100K tiddlers |3 (48 bits) |
+|`0` + 4 + last 4 (8 chars) |`01KMN` + `01VG` |43 |~1M tiddlers |3 (48 bits) |
+|`0` + 5 + last 4 (9 chars) |`01KMP4` + `01VG` |48 |~millions |3 (48 bits) |
+|`0` + 6 + last 4 (10 chars) |`01KMP4N` + `01VG` |53 |~billions |4 (64 bits) |
 
 The first character is always `0` (for the next ~1,000 years) so it's free to remember.
 
@@ -97,11 +97,11 @@ The first group changes slowly (~17.5-minute windows), so tiddlers from the same
 |`01K` |3 |13 |~398 days |
 |`01KM` |4 |18 |~12.4 days |
 |`01KMN` |5 |23 |~9.3 hours |
-|`01KMNH` |6 |28 |~17.5 minutes |
-|`01KMNH-7` |7 |33 |~33 seconds |
-|`01KMNH-72` |8 |38 |~1 second |
-|`01KMNH-72W` |9 |43 |~32 ms |
-|`01KMNH-72WK` |10 |48 |1 ms (full timestamp) |
+|`01KMP4` |6 |28 |~17.5 minutes |
+|`01KMP4-N` |7 |33 |~33 seconds |
+|`01KMP4-ND` |8 |38 |~1 second |
+|`01KMP4-ND9` |9 |43 |~32 ms |
+|`01KMP4-ND9W` |10 |48 |1 ms (full timestamp) |
 
 Note: The first Crockford character encodes only 3 timestamp bits (not 5) because 128 bits padded to 130 bits for encoding leaves 2 zero-padding bits at the top.
 
@@ -129,7 +129,7 @@ The decoder accepts both upper and lowercase, plus common visual substitutions:
 |`L` or `l` |`1` |Visual similarity |
 |`O` or `o` |`0` |Visual similarity |
 
-This means users can type `01kmnh` or `0lKMNH` and the system will correctly interpret both.
+This means users can type `01kmp4` or `0lKMP4` and the system will correctly interpret both.
 
 !! Navigation: Links and URLs
 
@@ -139,25 +139,25 @@ c32 values (full or partial) work as wiki links and URL hashes. The system norma
 
 ```
 Full c32 value:
-[[01KMNH-72WK-FM8S1A277T55-S8DK]]
+[[01KMP4-ND9W-E8Y8V5YM1DR0-01VG]]
 
 Last 4 chars (copy from badge):
-[[S8DK]]
+[[01VG]]
 
 Middle 12-char random block (double-click from badge):
-[[FM8S1A277T55]]
+[[E8Y8V5YM1DR0]]
 
 First group:
-[[01KMNH]]
+[[01KMP4]]
 
 Prefix + second group:
-[[01KMNH-72WK]]
+[[01KMP4-ND9W]]
 
 Lowercase (case-insensitive):
-[[01kmnh]]
+[[01kmp4]]
 
 With visual aliases:
-[[0lKMNH]]  (l decoded as 1)
+[[0lKMP4]]  (l decoded as 1)
 ```
 
 All searches match ''contiguous substrings'' of the stored c32 value after normalization. Minimum 4 characters required.
@@ -166,19 +166,19 @@ All searches match ''contiguous substrings'' of the stored c32 value after norma
 
 ```
 Full c32:
-https://mywiki.example.com/#01KMNH-72WK-FM8S1A277T55-S8DK
+https://mywiki.example.com/#01KMP4-ND9W-E8Y8V5YM1DR0-01VG
 
 Last 4 chars:
-https://mywiki.example.com/#S8DK
+https://mywiki.example.com/#01VG
 
 Random block:
-https://mywiki.example.com/#FM8S1A277T55
+https://mywiki.example.com/#E8Y8V5YM1DR0
 
 First group:
-https://mywiki.example.com/#01KMNH
+https://mywiki.example.com/#01KMP4
 
 Lowercase:
-https://mywiki.example.com/#01kmnh-72wk
+https://mywiki.example.com/#01kmp4-nd9w
 ```
 
 When multiple tiddlers match a partial c32, all matching tiddlers open in the story river with the best match focused.
@@ -195,17 +195,17 @@ URL hash navigation works for:
 
 ```
 Default (normalize): canonical uppercase + alias substitution
-  [[01kmnh-a]c32[]]          →  01KMNH-A
-  [[oiLKMNH]c32[]]          →  011KMNH
+  [[01kmp4-a]c32[]]          →  01KMP4-A
+  [[oiLKMP4]c32[]]          →  011KMP4
 
 Check symbol:
-  [{!!c32}c32[check]]        →  A  (single character, mod 37)
+  [{!!c32}c32[check]]        →  U  (single character, mod 37)
 
 Convert to UUID hex:
-  [{!!c32}c32[c7]]           →  019d2a48-c7e7-f42b-5a39-d1e8f204c6b0
+  [{!!c32}c32[c7]]           →  019d2c4a-b53c-723c-8d97-d40b70000770
 
 Timestamp (Unix milliseconds):
-  [{!!c32}c32[ms]]           →  1774542834655
+  [{!!c32}c32[ms]]           →  1774564586812
 
 Timestamp formatted:
   [{!!c32}c32[ms]format:timestamp[YYYY-0MM-0DD]]  →  2026-03-26
@@ -224,16 +224,16 @@ All tiddlers with c32:
   [has[c32]]
 
 Tiddlers from the same ~17.5-minute window:
-  [has[c32]get[c32]prefix[01KMNH]]
+  [has[c32]get[c32]prefix[01KMP4]]
 
 Case-insensitive prefix search:
-  [has[c32]get[c32]prefix:caseinsensitive[01kmnh]]
+  [has[c32]get[c32]prefix:caseinsensitive[01kmp4]]
 
 Tiddlers matching last 4 chars:
-  [has[c32]get[c32]suffix[S8DK]]
+  [has[c32]get[c32]suffix[01VG]]
 
 Substring search (e.g., random block):
-  [has[c32]get[c32]search[FM8S1A277T55]]
+  [has[c32]get[c32]search[E8Y8V5YM1DR0]]
 
 Search with normalized user input:
   [has[c32]get[c32]prefix{aaa}c32[]]
@@ -257,27 +257,27 @@ In JavaScript (for plugins):
 var c32lib = require("$:/plugins/wikilabs/uuid7/crockford32.js");
 
 // UUID hex → c32
-var c32 = c32lib.fromUUID("019d2a48-c7e7-f42b-5a39-d1e8f204c6b0");
-// → "01KMNH-72WK-FM8S1A277T55-S8DK"
+var c32 = c32lib.fromUUID("019d2c4a-b53c-723c-8d97-d40b70000770");
+// → "01KMP4-ND9W-E8Y8V5YM1DR0-01VG"
 
 // c32 → UUID hex
-var uuid = c32lib.toUUID("01KMNH-72WK-FM8S1A277T55-S8DK");
-// → "019d2a48-c7e7-f42b-5a39-d1e8f204c6b0"
+var uuid = c32lib.toUUID("01KMP4-ND9W-E8Y8V5YM1DR0-01VG");
+// → "019d2c4a-b53c-723c-8d97-d40b70000770"
 
 // Normalize user input
-var norm = c32lib.normalize("oiLkmnh");
-// → "011KMNH"
+var norm = c32lib.normalize("oiLkmp4");
+// → "011KMP4"
 
 // Check symbol
-var check = c32lib.checkSymbol("01KMNH-72WK-FM8S1A277T55-S8DK");
-// → "A"
+var check = c32lib.checkSymbol("01KMP4-ND9W-E8Y8V5YM1DR0-01VG");
+// → "U"
 
 // Extract timestamp
-var ms = c32lib.extractTimestampMs("01KMNH-72WK-FM8S1A277T55-S8DK");
-// → 1774542834655
+var ms = c32lib.extractTimestampMs("01KMP4-ND9W-E8Y8V5YM1DR0-01VG");
+// → 1774564586812
 
 // Validate
-var ok = c32lib.isValidC32("01KMNH-72WK-FM8S1A277T55-S8DK");
+var ok = c32lib.isValidC32("01KMP4-ND9W-E8Y8V5YM1DR0-01VG");
 // → true
 ```
 
