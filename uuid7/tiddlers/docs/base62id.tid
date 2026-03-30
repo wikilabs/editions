@@ -76,16 +76,16 @@ Prefix + suffix (remember first + last):
 
 ```
 Full:
-https://mywiki.com/#FdAvKdH2VJLpGl6ZYed8DQ
+https://wikilabs.github.io/editions/uuid7/#FdAvKdH2VJLpGl6ZYed8DQ
 
 Partial prefix (opens all from session):
-https://mywiki.com/#FdAvKd
+https://wikilabs.github.io/editions/uuid7/#FdAvKd
 
 Last 4 chars:
-https://mywiki.com/#d8DQ
+https://wikilabs.github.io/editions/uuid7/#d8DQ
 
 Prefix + suffix:
-https://mywiki.com/#FdAvKd+d8DQ
+https://wikilabs.github.io/editions/uuid7/#FdAvKd+d8DQ
 ```
 
 When multiple tiddlers match, all open in the story river with the best match focused.

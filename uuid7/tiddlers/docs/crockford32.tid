@@ -169,19 +169,22 @@ Searches match ''contiguous substrings'' of the stored c32 value after normaliza
 
 ```
 Full c32:
-https://mywiki.example.com/#01KMP4-ND9W-E8Y8V5YM1DR0-01VG
+https://wikilabs.github.io/editions/uuid7/#01KMP4-ND9W-E8Y8V5YM1DR0-01VG
 
 Last 4 chars:
-https://mywiki.example.com/#01VG
+https://wikilabs.github.io/editions/uuid7/#01VG
 
 Random block:
-https://mywiki.example.com/#E8Y8V5YM1DR0
+https://wikilabs.github.io/editions/uuid7/#E8Y8V5YM1DR0
 
 First group:
-https://mywiki.example.com/#01KMP4
+https://wikilabs.github.io/editions/uuid7/#01KMP4
 
 Lowercase:
-https://mywiki.example.com/#01kmp4-nd9w
+https://wikilabs.github.io/editions/uuid7/#01kmp4-nd9w
+
+Prefix + suffix:
+https://wikilabs.github.io/editions/uuid7/#01KMP4+01VG
 ```
 
 When multiple tiddlers match a partial c32, all matching tiddlers open in the story river with the best match focused.
