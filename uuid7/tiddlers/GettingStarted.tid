@@ -31,10 +31,11 @@ Use the sidebar search tab ''UUID Phrase'' to find tiddlers by phrase words.
 
 !! Filter Operators
 
-Both `c32` and `uuid7` filters have full feature parity — phrase encoding, timestamps, check symbols, validation, and cross-conversion:
+The `c32`, `c62`, and `uuid7` filters have full feature parity — phrase encoding, timestamps, check symbols, validation, and cross-conversion:
 
 |! Filter |! Example |! Reference |
 |`c32` |`[get[c32]c32[phrase]]` |[[uuid7/filter-c32]] |
+|`c62` |`[get[c62]c62[phrase]]` |[[uuid7/filter-c62]] |
 |`uuid7` |`[get[c7]uuid7[phrase]]` |[[uuid7/filter-uuid7]] |
 |`uuid7link` |`[<tiddler>uuid7link[]]` |[[uuid7/phrase-links]] |
 
