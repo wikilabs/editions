@@ -109,7 +109,9 @@ Returns `yes` if the input is a valid c32 string (raw or formatted), `no` otherw
 
 !!! Also see
 
+* [[uuid7/filter-c62]] — The `c62` filter operator (Base62id)
 * [[uuid7/filter-uuid7]] — The `uuid7` filter operator (works with c7 hex values)
+* [[uuid7/base62id]] — Base62id encoding reference
 * [[uuid7/crockford32]] — Crockford Base32 encoding reference
 * [[uuid7/phrase-links]] — Navigate by mnemonic phrase words
 * [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview

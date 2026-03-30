@@ -121,6 +121,8 @@ See [[uuid7/phrase-links]] for details on link format and collision probability.
 !!! Also see
 
 * [[uuid7/filter-c32]] — The `c32` filter operator (works with Crockford Base32 values)
+* [[uuid7/filter-c62]] — The `c62` filter operator (Base62id)
+* [[uuid7/base62id]] — Base62id encoding reference
 * [[uuid7/crockford32]] — Crockford Base32 encoding reference
 * [[uuid7/phrase-links]] — Navigate by mnemonic phrase words
 * [[$:/plugins/wikilabs/uuid7/mnemonic]] — Mnemonic phrase encoding details

@@ -304,7 +304,9 @@ The backfill module handles the same logic at startup for existing tiddlers (see
 
 * [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview and features
 * [[$:/plugins/wikilabs/uuid7/mnemonic]] — Mnemonic phrase encoding (adjective-noun-verb triplets)
+* [[uuid7/base62id]] — Base62id encoding (c62 alternative, 22 chars)
 * [[uuid7/filter-c32]] — `c32` filter operator reference
+* [[uuid7/filter-c62]] — `c62` filter operator reference
 * [[uuid7/filter-uuid7]] — `uuid7` filter operator reference
 * [[uuid7/phrase-links]] — Navigate by mnemonic phrase words (alternative human-readable layer)
 * [[uuid7/backfill]] — Backfill configuration and modes for existing tiddlers

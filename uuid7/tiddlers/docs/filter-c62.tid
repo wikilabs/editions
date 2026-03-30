@@ -1,0 +1,125 @@
+modified: 20260330141500000
+title: uuid7/filter-c62
+type: text/vnd.tiddlywiki
+
+!! Filter Operator: `c62`
+
+The `c62` filter operator works with Base62id encoded UUID v7 values. Base62id encodes 128-bit UUIDs as 22-character strings using the alphabet `0-9A-Za-z` (62 characters, case-sensitive).
+
+!!! Default: Pass-through
+
+With no operand, passes through valid Base62id strings (exactly 22 alphanumeric characters).
+
+```
+[{!!c62}c62[]]               →  F3q8VwK1mN4xR7bT9cYz2A
+```
+
+!!! Parameter: `c7`
+
+Converts the Base62id value to a standard UUID v7 hex string.
+
+```
+[{!!c62}c62[c7]]             →  019d2c4a-b53c-723c-8d97-d40b70000770
+```
+
+!!! Parameter: `c32`
+
+Converts the Base62id value to Crockford Base32 formatted as `6-4-12-4`.
+
+```
+[{!!c62}c62[c32]]            →  01KMP4-ND9W-E8Y8V5YM1DR0-01VG
+```
+
+!!! Parameter: `ms`
+
+Extracts the 48-bit timestamp as Unix milliseconds. Compose with `format:timestamp` for human-readable dates.
+
+```
+[{!!c62}c62[ms]]                              →  1774564586812
+[{!!c62}c62[ms]format:timestamp[YYYY-0MM-0DD]] →  2026-03-26
+[{!!c62}c62[ms]format:timestamp[0hh:0mm:0ss]]  →  22:36:26
+```
+
+!!! Parameter: `phrase`
+
+Returns all 8 mnemonic triplets (adjective noun verb) as a comma-separated string.
+
+```
+[{!!c62}c62[phrase]]         →  metal dog soars, clear hawk drifts, ...
+```
+
+!!!! Triplet selection
+
+Select specific triplets with additional operands (1-based index, count):
+
+```
+[{!!c62}c62[phrase],[1]]     →  metal dog soars
+[{!!c62}c62[phrase],[1],[2]] →  metal dog soars, clear hawk drifts
+```
+
+!!!! Custom word separator
+
+Use a suffix to change the separator between words within a triplet:
+
+```
+[{!!c62}c62:+[phrase]]       →  metal+dog+soars, clear+hawk+drifts, ...
+```
+
+!!! Parameter: `rnd`
+
+Returns the random portion of the UUID as hex in `4-4-12` format.
+
+```
+[{!!c62}c62[rnd]]            →  723c-8d97-d40b70000770
+```
+
+!!! Parameter: `version`
+
+Returns the UUID version number. Always `7` for UUID v7.
+
+```
+[{!!c62}c62[version]]        →  7
+```
+
+!!! Parameter: `variant`
+
+Returns the variant bits as a hex digit. Always `2` for RFC 9562 UUIDs.
+
+```
+[{!!c62}c62[variant]]        →  2
+```
+
+!!! Parameter: `check`
+
+Returns the Crockford Base32 check symbol (mod 37). Converts to c32 internally.
+
+```
+[{!!c62}c62[check]]          →  U
+```
+
+!!! Parameter: `value`
+
+Decodes a single Base62id character to its decimal value (0-61).
+
+```
+[[A]c62[value]]              →  10
+[[z]c62[value]]              →  61
+[[0]c62[value]]              →  0
+```
+
+!!! Parameter: `valid`
+
+Returns `yes` if the input is a valid Base62id string (22 alphanumeric chars), `no` otherwise.
+
+```
+[{!!c62}c62[valid]]          →  yes
+[[not-valid]c62[valid]]      →  no
+```
+
+!!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview
+* [[uuid7/base62id]] — Base62id encoding overview
+* [[uuid7/filter-c32]] — `c32` filter operator (Crockford Base32)
+* [[uuid7/filter-uuid7]] — `uuid7` filter operator (UUID hex)
+* [[uuid7/crockford32]] — Crockford Base32 encoding reference

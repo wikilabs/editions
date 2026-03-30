@@ -1,0 +1,96 @@
+modified: 20260330141500000
+title: uuid7/base62id
+type: text/vnd.tiddlywiki
+
+!! Base62id: Compact Sortable UUID Encoding
+
+The `c62` field stores the same 128-bit UUID v7 value as `c7` and `c32`, encoded using [[Base62id|https://github.com/sergeyprokhorenko/Base62id]]. At 22 characters, it is the most compact sortable encoding available in this plugin.
+
+!!! Why Base62id?
+
+|! Property |! c62 (Base62id) |! c32 (Crockford Base32) |! c7 (UUID hex) |
+|Length |22 chars |29 chars |36 chars |
+|Sortable |Yes (ASCII order) |Yes |Yes |
+|URL-safe |Yes |Yes |Yes |
+|Case |Case-sensitive |Case-insensitive |Lowercase |
+|Alphabet |`0-9A-Za-z` (62 chars) |`0-9A-Z` no I,L,O,U (32 chars) |`0-9a-f` (16 chars) |
+|Bits/char |5.95 |5 |4 |
+
+!!! How it works
+
+Base62id adds a 2-bit binary `10` prefix to the 128-bit UUID value, producing a 130-bit number. This number is then converted to base 62 using repeated division, producing exactly 22 characters.
+
+The prefix guarantees:
+
+* The output is always exactly 22 characters (no leading-zero ambiguity)
+* The first character is always an uppercase letter (`A`-`L`)
+
+!!! Encoding example
+
+```
+UUID v7:   019d2c4a-b53c-723c-8d97-d40b70000770
+c32:       01KMP4-ND9W-E8Y8V5YM1DR0-01VG  (29 chars)
+c62:       F3q8VwK1mN4xR7bT9cYz2A          (22 chars)
+```
+
+!!! Tradeoffs vs Crockford Base32
+
+|! |! Base62id (c62) |! Crockford Base32 (c32) |
+|''Compact'' |22 chars — shortest |29 chars |
+|''Case'' |Case-sensitive — `A` ≠ `a` |Case-insensitive — forgiving |
+|''Ambiguity'' |None built-in |O→0, I→1, L→1 aliases |
+|''Grouping'' |No hyphens |6-4-12-4 display format |
+|''Double-click'' |Selects full 22 chars |Selects individual groups |
+|''Check symbol'' |None |Mod 37 check digit |
+|''Bit alignment'' |~5.95 bits/char (no clean boundaries) |5 bits/char (clean mapping) |
+
+Base62id is ideal when ''compactness'' is the priority. Crockford Base32 is better for ''human interaction'' (typing, reading aloud, copy-paste of segments).
+
+!!! Conversion between formats
+
+All three fields encode the same 128 bits — conversion is lossless:
+
+```
+c62 → c7:    [{!!c62}c62[c7]]
+c62 → c32:   [{!!c62}c62[c32]]
+c7  → c62:   [{!!c7}uuid7[c62]]
+c32 → c62:   [{!!c32}c32[c62]]
+```
+
+!!! JavaScript API
+
+```javascript
+var b62lib = require("$:/plugins/wikilabs/uuid7/base62id.js");
+
+// UUID hex → Base62id
+var c62 = b62lib.fromUUID("019d2c4a-b53c-723c-8d97-d40b70000770");
+
+// Base62id → UUID hex
+var uuid = b62lib.toUUID(c62);
+
+// Encode raw bytes
+var bytes = new Uint8Array(16);
+var encoded = b62lib.encode(bytes);
+
+// Validate
+var ok = b62lib.isValidB62(c62);  // true
+
+// Extract timestamp
+var ms = b62lib.extractTimestampMs(c62);
+```
+
+!!! Backfill and import
+
+When importing tiddlers:
+
+* Tiddlers with `c7` but no `c62` → `c62` is derived from `c7` automatically
+* Tiddlers with neither → all three fields (`c7`, `c32`, `c62`) are generated from the same UUID bytes
+* Tiddlers that already have all fields → left unchanged
+
+!!! Also see
+
+* [[$:/plugins/wikilabs/uuid7/readme]] — Plugin overview
+* [[uuid7/filter-c62]] — `c62` filter operator reference
+* [[uuid7/crockford32]] — Crockford Base32 encoding (c32 alternative)
+* [[uuid7/filter-c32]] — `c32` filter operator
+* [[uuid7/filter-uuid7]] — `uuid7` filter operator
