@@ -1,4 +1,4 @@
-modified: 20260330141500000
+modified: 20260330153000000
 title: uuid7/base62id
 type: text/vnd.tiddlywiki
 
@@ -27,11 +27,15 @@ The prefix guarantees:
 
 !!! Encoding example
 
+Three tiddlers created in the same session:
+
 ```
-UUID v7:   019d2c4a-b53c-723c-8d97-d40b70000770
-c32:       01KMP4-ND9W-E8Y8V5YM1DR0-01VG  (29 chars)
-c62:       F3q8VwK1mN4xR7bT9cYz2A          (22 chars)
+c62: FdAvKdH2VJLpGl6ZYed8DQ     c32: 01KMZ9-TVYM-E5ZA5NCBT6CH-GKH8     c7: 019d3e9d-6fd4-717e-a2d5-8bd199184e28
+c62: FdAvKdDrmzZ9EAqrvuP87I     c32: 01KMZ9-TSZJ-E6AB4VYQ3DXV-SRDW     c7: 019d3e9d-67f2-7194-b26f-d71b7bbce1bc
+c62: FdAvKdAgyeCllbTI4qzZpA     c32: 01KMZ9-TR0F-E9RVVJN5BXTS-YJP8     c7: 019d3e9d-600f-7271-bdca-a55f759f4ac8
 ```
+
+Note how all three share the c62 prefix `FdAvKd` — this is the timestamp portion. The remaining characters encode the random bits.
 
 !!! Tradeoffs vs Crockford Base32
 
@@ -45,6 +49,57 @@ c62:       F3q8VwK1mN4xR7bT9cYz2A          (22 chars)
 |''Bit alignment'' |~5.95 bits/char (no clean boundaries) |5 bits/char (clean mapping) |
 
 Base62id is ideal when ''compactness'' is the priority. Crockford Base32 is better for ''human interaction'' (typing, reading aloud, copy-paste of segments).
+
+!!! Navigation: Links and URLs
+
+c62 values work as wiki links and URL hashes — full, partial, or prefix+suffix. The system searches the `c62` field for substring matches (case-sensitive, min 4 chars).
+
+!!!! Wiki links
+
+```
+Full c62 value:
+[[FdAvKdH2VJLpGl6ZYed8DQ]]
+
+Partial — prefix (shared timestamp):
+[[FdAvKd]]                         → opens all 3 tiddlers from that session
+
+Partial — last 4 chars:
+[[d8DQ]]                           → opens the specific tiddler
+
+Prefix + suffix (remember first + last):
+[[FdAvKd+d8DQ]]                    → prefix AND suffix must both match
+[[FdAvKd+P87I]]                    → a different tiddler from the same session
+[[FdAvKd+zZpA]]                    → the third tiddler
+```
+
+!!!! URL hashes
+
+```
+Full:
+https://mywiki.com/#FdAvKdH2VJLpGl6ZYed8DQ
+
+Partial prefix (opens all from session):
+https://mywiki.com/#FdAvKd
+
+Last 4 chars:
+https://mywiki.com/#d8DQ
+
+Prefix + suffix:
+https://mywiki.com/#FdAvKd+d8DQ
+```
+
+When multiple tiddlers match, all open in the story river with the best match focused.
+
+!!!! Remembering c62 values
+
+Like c32, you can remember just the first few and last few characters:
+
+|! Remembered |! Example |! What it finds |
+|Shared prefix (6 chars) |`FdAvKd` |All tiddlers from that time window |
+|Last 4 chars |`d8DQ` |Usually unique in any wiki |
+|Prefix + last 4 (10 chars) |`FdAvKd+d8DQ` |Practically unique |
+
+Note: c62 has no visual grouping (no hyphens), so double-click selects the full 22 chars. For group-level copy-paste, use c32 instead.
 
 !!! Conversion between formats
 
@@ -63,20 +118,19 @@ c32 → c62:   [{!!c32}c32[c62]]
 var b62lib = require("$:/plugins/wikilabs/uuid7/base62id.js");
 
 // UUID hex → Base62id
-var c62 = b62lib.fromUUID("019d2c4a-b53c-723c-8d97-d40b70000770");
+var c62 = b62lib.fromUUID("019d3e9d-6fd4-717e-a2d5-8bd199184e28");
+// → "FdAvKdH2VJLpGl6ZYed8DQ"
 
 // Base62id → UUID hex
-var uuid = b62lib.toUUID(c62);
-
-// Encode raw bytes
-var bytes = new Uint8Array(16);
-var encoded = b62lib.encode(bytes);
+var uuid = b62lib.toUUID("FdAvKdH2VJLpGl6ZYed8DQ");
+// → "019d3e9d-6fd4-717e-a2d5-8bd199184e28"
 
 // Validate
-var ok = b62lib.isValidB62(c62);  // true
+var ok = b62lib.isValidB62("FdAvKdH2VJLpGl6ZYed8DQ");  // true
 
 // Extract timestamp
-var ms = b62lib.extractTimestampMs(c62);
+var ms = b62lib.extractTimestampMs("FdAvKdH2VJLpGl6ZYed8DQ");
+// → 1774607847380
 ```
 
 !!! Backfill and import
@@ -94,3 +148,4 @@ When importing tiddlers:
 * [[uuid7/crockford32]] — Crockford Base32 encoding (c32 alternative)
 * [[uuid7/filter-c32]] — `c32` filter operator
 * [[uuid7/filter-uuid7]] — `uuid7` filter operator
+* [[uuid7/phrase-links]] — Phrase-based navigation

@@ -158,9 +158,12 @@ Lowercase (case-insensitive):
 
 With visual aliases:
 [[0lKMP4]]  (l decoded as 1)
+
+Prefix + suffix (remember first group + last group):
+[[01KMP4+01VG]]
 ```
 
-All searches match ''contiguous substrings'' of the stored c32 value after normalization. Minimum 4 characters required.
+Searches match ''contiguous substrings'' of the stored c32 value after normalization (min 4 chars). The `+` separator matches prefix AND suffix independently — `[[01KMP4+01VG]]` finds tiddlers whose c32 starts with `01KMP4` and ends with `01VG`.
 
 !!! URL hashes
 
