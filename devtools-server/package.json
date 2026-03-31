@@ -14,7 +14,7 @@
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
-    "poststage": "powershell copy ./files/images/*.* ../../wikilabs.github.io/editions/devtools/files/images",
+    "poststage": "powershell -Command \"New-Item -ItemType Directory -Force -Path ../../wikilabs.github.io/editions/devtools/files/images | Out-Null; Copy-Item ./files/images/*.* ../../wikilabs.github.io/editions/devtools/files/images\"",
 
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
