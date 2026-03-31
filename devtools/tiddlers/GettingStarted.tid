@@ -1,5 +1,5 @@
 created: 20260331215750022
-modified: 20260331215752406
+modified: 20260331220144307
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -14,7 +14,7 @@ The ''TiddlyWiki Developer Tools'' plugin is part of the [[WikiLabs|https://wiki
 |! [[Context Menu]] |Right-click any element for copy options, navigation, source viewing, and editing |
 |! [[Source Viewer]] |A floating panel that accumulates source code entries with deduplication and origin highlighting |
 |! [[Variable Inspector]] |Inspect all variables in scope at any element — with filtering, type badges, and previews |
-|! [[Inline Editor]] |Edit wikitext source directly in a floating popup (optional) |
+
 
 !! Quick Start
 
@@ -38,7 +38,7 @@ Line numbers in the `data-source-pos` attribute are ''file-ready'' — they incl
 
 !! Interactions at a Glance
 
-|! Action |! Effect |
+| ! Action |! Effect |
 | ''Hover'' |Tooltip with source position and caller chain |
 | ''Right-click'' |DevTools context menu |
 | ''Ctrl+click'' |Navigate directly to source tiddler |

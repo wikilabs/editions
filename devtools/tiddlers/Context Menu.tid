@@ -1,5 +1,7 @@
+created: 20260331220320319
+modified: 20260331220321025
 title: Context Menu
-modified: 20260331214851063
+type: text/vnd.tiddlywiki
 
 !! Introduction
 
@@ -31,7 +33,7 @@ Below the header, the menu offers these actions:
 
 !! Keyboard Modifiers
 
-|! Action |! Effect |
+| ! Action |! Effect |
 | ''Right-click'' |Opens DevTools context menu |
 | ''Ctrl+right-click'' |Passes through to native browser context menu |
 | ''Ctrl+click'' |Directly navigates to the source tiddler (no menu) |
