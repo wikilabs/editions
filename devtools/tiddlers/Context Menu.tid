@@ -36,7 +36,6 @@ Below the header, the menu offers these actions:
 | ! Action |! Effect |
 | ''Right-click'' |Opens DevTools context menu |
 | ''Ctrl+right-click'' |Passes through to native browser context menu |
-| ''Ctrl+click'' |Directly navigates to the source tiddler (no menu) |
 
 !! How It Works
 

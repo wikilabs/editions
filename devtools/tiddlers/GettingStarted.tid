@@ -41,7 +41,6 @@ Line numbers in the `data-source-pos` attribute are ''file-ready'' — they incl
 | ! Action |! Effect |
 | ''Hover'' |Tooltip with source position and caller chain |
 | ''Right-click'' |DevTools context menu |
-| ''Ctrl+click'' |Navigate directly to source tiddler |
 | ''Ctrl+right-click'' |Native browser context menu (passthrough) |
 
 !! Useful With
