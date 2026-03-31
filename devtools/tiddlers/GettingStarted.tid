@@ -1,0 +1,18 @@
+title: GettingStarted
+
+! Overview
+
+This plugin adds browser-side: hover tooltips, context menu, variable inspector, source viewer. 
+
+* Works best in combination with MCP-server.
+* Useful for any TiddlyWiki developer.
+
+{{$:/plugins/wikilabs/devtools/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+! License
+
+See: [[License]]
