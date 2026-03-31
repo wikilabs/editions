@@ -1,0 +1,45 @@
+title: Context Menu
+modified: 20260331214851063
+
+!! Introduction
+
+Right-clicking any element with source position tracking enabled opens the DevTools context menu instead of the browser's default menu.
+
+[img[screenshot-context-menu]]
+
+!! Menu Header
+
+The header row shows the source position (e.g., `L5 @ GettingStarted`) with three icon buttons:
+
+|! Icon |! Action |! Description |
+|! Pencil |Edit at position |Opens the tiddler in edit mode and auto-selects the corresponding source text range, scrolling the textarea to the selection |
+|! Eye |Show source |Appends the source code entry to the [[Source Viewer]] panel |
+|! X |Close |Closes the context menu |
+
+!! Menu Items
+
+Below the header, the menu offers these actions:
+
+|! Item |! Description |
+|! Copy tiddler title |Copies the source tiddler title to the clipboard |
+|! Copy source position |Copies the full position info including context and caller chain |
+|! Inspect variables |Opens the [[Variable Inspector]] showing all variables in scope at the clicked element |
+|! Open //tiddlerTitle// |Navigates to the source tiddler in the story river |
+|! Edit at L//range// |Opens the tiddler in edit mode and selects the source range (only visible when `ShowEditMenuItem` is enabled — see [[Configuration]]) |
+|! Edit inline |Opens the [[Inline Editor]] popup (only visible when `ShowEditInline` is enabled — see [[Configuration]]) |
+|! Open &larr; //callerTitle// |One entry per caller in the transclusion chain — navigates to that caller tiddler |
+
+!! Keyboard Modifiers
+
+|! Action |! Effect |
+| ''Right-click'' |Opens DevTools context menu |
+| ''Ctrl+right-click'' |Passes through to native browser context menu |
+| ''Ctrl+click'' |Directly navigates to the source tiddler (no menu) |
+
+!! How It Works
+
+The context menu replaces the browser's native `contextmenu` event when the clicked element (or any ancestor) has a `data-source-pos` attribute. It is rendered as a plain DOM overlay — no TiddlyWiki store writes, so it does not interfere with TW's refresh cycle or popup system.
+
+---
+
+<< Back to [[GettingStarted]]

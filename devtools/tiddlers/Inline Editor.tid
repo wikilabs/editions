@@ -1,0 +1,49 @@
+title: Inline Editor
+modified: 20260331215409726
+
+!! Introduction
+
+The Inline Editor is an optional floating popup that allows direct wikitext editing of the source text for any element. It must be enabled via [[Configuration]] before it appears in the [[Context Menu]].
+
+!! Enabling
+
+Set `$:/config/wikilabs/SourcePositionTracking/ShowEditInline` to `show` to add the "Edit inline" option to the context menu.
+
+!! How to Use
+
+# ''Right-click'' on any element with source position tracking
+# Select ''Edit inline'' from the context menu
+# The popup opens with the source wikitext pre-selected in a monospace textarea
+# Edit the text as needed
+# Press ''Apply'' (or ''Ctrl+Enter'') to splice the changes back into the source tiddler
+# Press ''Cancel'' (or ''Escape'') to dismiss without changes
+
+!! Panel Layout
+
+* ''Header bar'' — draggable, shows the source position
+* ''Textarea'' — monospace editor with the source wikitext, auto-focused on open
+* ''Buttons'' — Apply and Cancel
+* ''Resize handle'' — bottom-right corner for resizing
+
+!! How It Works
+
+The editor uses the exact character positions stored in `data-source-start` and `data-source-end` to extract and splice text. When you click Apply, the edited text replaces the original character range in the source tiddler's text field.
+
+!! Layout Persistence
+
+Panel size is stored in `$:/temp/sourcepos/editor-layout` and persists across popup reopens during the same session.
+
+!! Positioning
+
+* The popup appears ''below'' the clicked element by default
+* Falls back to ''above'' the element if there is insufficient space below
+
+!! Keyboard Shortcuts
+
+|! Key |! Action |
+| ''Ctrl+Enter'' |Apply changes |
+| ''Escape'' |Cancel and close |
+
+---
+
+<< Back to [[GettingStarted]]

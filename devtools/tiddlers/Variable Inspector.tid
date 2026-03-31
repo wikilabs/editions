@@ -1,0 +1,94 @@
+title: Variable Inspector
+modified: 20260331215234581
+
+!! Introduction
+
+The Variable Inspector shows all variables in scope at a specific element. Open it via ''Inspect variables'' in the [[Context Menu]]. Multiple inspectors can be open simultaneously, each with its own colour.
+
+[img[screenshot-variable-inspector]]
+
+!! Panel Layout
+
+* ''Coloured top border'' — each inspector gets a unique colour from a rotating palette of 6 colours (blue, green, orange, purple, yellow, cyan)
+* ''Header'' — colour dot, title showing variable count, filter input, link button, close button
+* ''Variable list'' — scrollable list grouped by source tiddler
+
+!! Variable Types
+
+Each variable is shown with a coloured type badge:
+
+|! Badge |! Type |! Description |
+|! `widget` |Widget definition |Purple badge |
+|! `fn` |Function definition |Dark red badge |
+|! `proc` |Procedure definition |Green badge |
+|! `macro` |Macro definition |Brown badge |
+|! `def` |Definition with parameters |Blue badge |
+|! `var` |Simple variable |Gray badge |
+
+!! Variable Display
+
+Each row shows:
+
+* ''Type badge'' — coloured label indicating the variable type
+* ''Variable name'' — in cyan
+* ''Parameters'' — for definitions: `(param1:default, param2)`
+* ''Value'' — truncated at 80 characters with ellipsis for long values
+* ''Macro substitution'' — for macros, the evaluated body is shown with colour-coded substitutions:
+** ''Green'' — matched variable substitutions
+** ''Red'' — missing variable substitutions
+
+!! Grouping
+
+Variables are grouped by their ''source tiddler'', with separator lines showing the tiddler title (e.g., `── $:/core/macros/CSS`). Local variables (no source tiddler) appear first under `── local scope`.
+
+!! Filtering
+
+The filter input supports smart matching:
+
+* ''Type keywords'' (`var`, `macro`, `proc`, `def`, `fn`, `widget`) — match against the type badge only
+* ''Other terms'' — match against variable name or value (case-insensitive)
+* ''Local variables'' (no source tiddler) — any term matches (OR logic)
+* ''Non-local variables'' (from tiddlers) — all terms must match (AND logic)
+
+!! Action Buttons
+
+Buttons appear on hover for each variable row:
+
+|! Button |! When shown |! Action |
+|! Preview (eye) |Tiddler references |Toggles an inline preview of the tiddler content below the row |
+|! Open (link) |Tiddler references |Navigates to the tiddler in the story river |
+|! View (eye) |Definitions with body |Toggles the full definition preview with syntax |
+|! Evaluate (eye) |Function definitions |Shows the filter evaluation result or error |
+
+!! Preview Features
+
+* Previews are limited to ''3.6em height'' by default with a fade gradient
+* ''Click to expand/collapse'' the full content
+* Preview state persists for that inspector session
+
+!! Linked Panels
+
+The ''link button'' (&#x1F517;) controls synchronisation across all open inspector panels:
+
+* ''Linked'' (default) — filter text, panel size, and preview toggles are synced across all inspectors
+* ''Unlinked'' — each panel operates independently
+
+!! Origin Highlighting
+
+* The inspected element gets a ''persistent coloured outline'' matching the panel's colour
+* Opening the panel ''blinks'' the element 3 times in red, then applies the steady colour
+* Each panel uses a different colour, so multiple inspectors can highlight different elements simultaneously
+
+!! Live Updates
+
+* Variables are ''re-collected'' after each TiddlyWiki page refresh (`th-page-refreshed` hook)
+* The variable list updates automatically while maintaining filter state
+* If the origin element is removed from the DOM (e.g., by a TW re-render), the panel shows a ''&#x26A0; disconnected'' badge and attempts to relocate the element
+
+!! Keyboard
+
+* ''Escape'' — closes the panel when the mouse is over it
+
+---
+
+<< Back to [[GettingStarted]]

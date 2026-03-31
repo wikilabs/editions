@@ -1,13 +1,53 @@
+created: 20260331215750022
+modified: 20260331215752406
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
-! Overview
+!! Introduction
 
-This plugin adds browser-side: hover tooltips, context menu, variable inspector, source viewer. 
+The ''TiddlyWiki Developer Tools'' plugin is part of the [[WikiLabs|https://wikilabs.github.io/]] collection of plugins for TiddlyWiki. It adds powerful browser-side inspection capabilities, helping you understand how rendered output maps back to wikitext source — across transclusion boundaries, macros, procedures, and list widgets.
 
-* Works best in combination with MCP-server.
-* Useful for any TiddlyWiki developer.
+!! Key Features
 
-{{$:/plugins/wikilabs/devtools/readme}}
+|! Feature |! Description |
+|! [[Hover Tooltip]] |Hover any element to see its source position, context, and transclusion caller chain |
+|! [[Context Menu]] |Right-click any element for copy options, navigation, source viewing, and editing |
+|! [[Source Viewer]] |A floating panel that accumulates source code entries with deduplication and origin highlighting |
+|! [[Variable Inspector]] |Inspect all variables in scope at any element — with filtering, type badges, and previews |
+|! [[Inline Editor]] |Edit wikitext source directly in a floating popup (optional) |
+
+!! Quick Start
+
+# Enable source position tracking: ''Control Panel'' &rarr; ''Settings'' &rarr; ''Source Position Tracking'' &rarr; check the box
+# ''Save and reload'' the page
+# ''Hover'' over any element to see its source position tooltip
+# ''Right-click'' any element to open the context menu with more options
+
+See [[Configuration]] for all available settings.
+
+!! How It Works
+
+The plugin uses TiddlyWiki's hook system — ''zero overhead when disabled'':
+
+* `th-dom-rendering-element` — tracks HTML elements
+* `th-dom-rendering-link` — tracks link elements
+* `th-dom-rendering-codeblock` — tracks code blocks
+* Monkey-patches the transclude widget to track source context across transclusion boundaries
+
+Line numbers in the `data-source-pos` attribute are ''file-ready'' — they include the `.tid` file header offset so they match what your editor shows.
+
+!! Interactions at a Glance
+
+|! Action |! Effect |
+| ''Hover'' |Tooltip with source position and caller chain |
+| ''Right-click'' |DevTools context menu |
+| ''Ctrl+click'' |Navigate directly to source tiddler |
+| ''Ctrl+right-click'' |Native browser context menu (passthrough) |
+
+!! Useful With
+
+* Works best in combination with an MCP-server for editor integration
+* Useful for any TiddlyWiki developer investigating template rendering
 
 ! Plugins
 

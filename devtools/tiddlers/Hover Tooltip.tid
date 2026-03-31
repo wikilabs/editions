@@ -1,0 +1,43 @@
+title: Hover Tooltip
+modified: 20260331214738412
+
+!! Introduction
+
+When source position tracking is enabled, hovering over any rendered element shows a tooltip with source position information.
+
+[img[screenshot-tooltip]]
+
+!! What the Tooltip Shows
+
+The tooltip displays up to three lines of information:
+
+|! Line |! Content |! Example |
+|! 1 |Source position and tiddler |`L3 @ GettingStarted` |
+|! 2 |Transclusion caller chain |`← $:/core/ui/ViewTemplate/body/default` |
+|! 3 |Additional callers (abbreviated) |`← $:/core/ui/ViewTemplate ← +3 more` |
+
+!! Tooltip Behaviour
+
+* Appears after a ''400ms hover delay'' — prevents flickering during normal mouse movement
+* Shows the ''innermost'' source position — when elements are nested, the most specific match is shown
+* ''Context'' (`currentTiddler`) is shown when it differs from the source tiddler — useful for list widgets where the same template renders different tiddlers
+* The ''caller chain'' traces transclusion boundaries, stopping at the first non-system tiddler to avoid showing TW's internal UI template chain
+
+!! Visual Feedback
+
+* The hovered element gets a ''2px dashed orange outline''
+* Parent outlines are ''hidden'' when a child with `data-source-pos` is hovered, so only the innermost element is highlighted
+* The outline has a smooth ''150ms transition''
+
+!! Position Format
+
+The `data-source-pos` attribute value follows this format:
+
+* Multi-line: `L{start}-L{end} @ tiddlerTitle`
+* Single-line: `L{line} @ tiddlerTitle`
+
+Line numbers are ''file-ready'' — they include the `.tid` file header offset (field count + blank separator line) and macro body offset, so they match exactly what your text editor shows.
+
+---
+
+<< Back to [[GettingStarted]]

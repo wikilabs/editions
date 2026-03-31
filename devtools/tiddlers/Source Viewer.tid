@@ -1,0 +1,58 @@
+title: Source Viewer
+modified: 20260331215017845
+
+!! Introduction
+
+The Source Viewer is a floating, draggable, resizable panel that accumulates source code entries. Open it by clicking the ''eye icon'' in the [[Context Menu]].
+
+[img[screenshot-source-viewer]]
+
+!! Panel Layout
+
+* ''Header bar'' — draggable (cursor: move), with "Source Viewer" title, "Clear" button, and close button
+* ''Content area'' — scrollable list of source entries
+* ''Resize handle'' — bottom-right corner for resizing (min 300 &times; 150px)
+
+!! Entry Structure
+
+Each source entry consists of:
+
+!!! Header Row
+
+Shows the source position and metadata on a single line:
+
+* ''Source position'' — e.g., `L5 @ GettingStarted`
+* ''Procedure name'' — if the source is inside a `\procedure`, `\define`, `\widget`, or `\function`, the definition name is shown after an em-dash
+* ''Context'' — if `currentTiddler` differs from the source tiddler, shown after a &raquo; symbol
+* ''Edit button'' (pencil icon) — opens the tiddler in edit mode with the source range selected
+* ''Remove button'' (&times;) — removes just this header; if no headers remain, the entire entry is removed
+
+!!! Code Block
+
+A read-only monospace display of the source wikitext. If the source is inside a definition (`\procedure`, `\define`, `\widget`, `\function`), the ''entire definition'' is shown (from `\procedure` to `\end`), not just the element's range.
+
+!! Deduplication
+
+If the same source snippet is viewed again from a different context (e.g., the same procedure used in two different list items), a ''new header row is added above the existing code block'' instead of duplicating the code. This keeps the viewer compact while preserving the context trail.
+
+!! Origin Highlighting
+
+* ''Hover'' a header row to highlight its origin element in the page — blinks 3 times in red, then shows a steady ''blue outline''
+* With ''exactly 1 entry'', the origin is always highlighted (auto-highlight)
+* With ''multiple entries'', highlights are shown on hover only
+
+!! Controls
+
+|! Control |! Action |
+|! Clear |Removes all entries and clears all origin highlights |
+|! Close (&times;) |Closes the entire panel and clears all highlights |
+|! Remove (&times; on header) |Removes a single header row; removes the entry if no headers remain |
+
+!! Limits
+
+* Maximum ''100 entries'' — oldest entries are removed when exceeded
+* Layout (size and position) is stored ''in-memory only'' — no TiddlyWiki store writes, so no refresh cycle interference
+
+---
+
+<< Back to [[GettingStarted]]

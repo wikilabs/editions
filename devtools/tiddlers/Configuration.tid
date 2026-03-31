@@ -1,0 +1,63 @@
+title: Configuration
+modified: 20260331215542318
+
+!! Introduction
+
+All DevTools settings are controlled via TiddlyWiki configuration tiddlers. The main toggle is also available in the Control Panel under ''Settings'' &rarr; ''Source Position Tracking''.
+
+!! Settings Overview
+
+|! Tiddler |! Values |! Default |! Description |
+|! `$:/config/wikilabs/SourcePositionTracking` |`yes` / `no` |`no` |Master switch — enables or disables all source position tracking |
+|! `$:/config/wikilabs/SourcePositionTracking/ShowEditMenuItem` |`show` / (empty) |hidden |Shows "Edit at L..." in the [[Context Menu]] — opens tiddler editor with source range selected |
+|! `$:/config/wikilabs/SourcePositionTracking/ShowEditInline` |`show` / (empty) |hidden |Shows "Edit inline" in the [[Context Menu]] — opens the [[Inline Editor]] popup |
+
+!! Enabling Source Position Tracking
+
+!!! Via Control Panel
+
+# Open ''Control Panel'' (gear icon in the sidebar)
+# Go to the ''Settings'' tab
+# Find ''Source Position Tracking''
+# Check the box
+# ''Save and reload'' the page
+
+!!! Via Tiddler
+
+Set the text of `$:/config/wikilabs/SourcePositionTracking` to `yes` and reload.
+
+!! Performance
+
+When tracking is ''disabled'' (the default), the plugin has ''zero overhead'' — the hooks are registered but do nothing because `$tw.wiki.trackSourcePositions` is `false`.
+
+When ''enabled'', the plugin:
+
+* Adds `data-source-pos` attributes to every rendered element and link
+* Caches line offsets, header line counts, and body offsets per tiddler
+* Uses binary search (O(log n)) for character-to-line conversion
+* Caches are cleared when tracking is toggled
+
+!! Data Attributes
+
+When tracking is enabled, the following attributes are added to DOM elements:
+
+|! Attribute |! Description |! Example |
+|! `data-source-pos` |Formatted position string |`L81-L84 @ $:/cards/procedures` |
+|! `data-source-start` |Character offset of start |`1542` |
+|! `data-source-end` |Character offset of end |`1698` |
+|! `data-source-context` |`currentTiddler` if different from source |`MyListItem` |
+|! `data-source-caller` |Transclusion caller chain |`← $:/core/ui/ViewTemplate` |
+
+!! Widget Patches
+
+The plugin monkey-patches several core widgets to enable tracking (no core file modifications needed):
+
+* `setVariable` — stores `sourceTitle` for variable-to-tiddler attribution
+* `importvariables` — propagates `sourceTitle` through imported globals
+* `link` widget — invokes `th-dom-rendering-link` hook
+* `codeblock` widget — invokes `th-dom-rendering-codeblock` hook
+* `transclude` widget — sets `sourceContext` for position attribution across transclusion boundaries
+
+---
+
+<< Back to [[GettingStarted]]
