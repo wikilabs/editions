@@ -36,6 +36,6 @@
   "dependencies": {
   },
   "devDependencies": {
-    "tiddlywiki": "^5.1.22"
+    "tiddlywiki": "^5.3.8"
   }
 }
