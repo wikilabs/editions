@@ -10,7 +10,6 @@ All DevTools settings are controlled via TiddlyWiki configuration tiddlers. The 
 |! Tiddler |! Values |! Default |! Description |
 |! `$:/config/wikilabs/SourcePositionTracking` |`yes` / `no` |`no` |Master switch — enables or disables all source position tracking |
 |! `$:/config/wikilabs/SourcePositionTracking/ShowEditMenuItem` |`show` / (empty) |hidden |Shows "Edit at L..." in the [[Context Menu]] — opens tiddler editor with source range selected |
-|! `$:/config/wikilabs/SourcePositionTracking/ShowEditInline` |`show` / (empty) |hidden |Shows "Edit inline" in the [[Context Menu]] — opens the [[Inline Editor]] popup |
 
 !! Enabling Source Position Tracking
 

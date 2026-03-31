@@ -28,7 +28,7 @@ Below the header, the menu offers these actions:
 |! Inspect variables |Opens the [[Variable Inspector]] showing all variables in scope at the clicked element |
 |! Open //tiddlerTitle// |Navigates to the source tiddler in the story river |
 |! Edit at L//range// |Opens the tiddler in edit mode and selects the source range (only visible when `ShowEditMenuItem` is enabled — see [[Configuration]]) |
-|! Edit inline |Opens the [[Inline Editor]] popup (only visible when `ShowEditInline` is enabled — see [[Configuration]]) |
+
 |! Open &larr; //callerTitle// |One entry per caller in the transclusion chain — navigates to that caller tiddler |
 
 !! Keyboard Modifiers
