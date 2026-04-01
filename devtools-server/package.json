@@ -32,7 +32,6 @@
   },
   "homepage": "https://wikilabs.github.io/editions/devtools",
   "devDependencies": {
-    "@playwright/test": "^1.59.0",
-    "tiddlywiki": "^5.3.8"
+    "@playwright/test": "^1.59.0"
   }
 }
