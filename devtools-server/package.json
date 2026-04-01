@@ -5,17 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
-    "test": "echo ---- no tests atm ----",
-
+    "test": "playwright test",
+    "test:update": "playwright test --update-snapshots",
     "server": "npm start",
-
     "build:github": "tiddlywiki ../devtools --build github",
     "build": "tiddlywiki ../devtools --build index",
-
     "prestage": "npm run build",
     "stage": "npm run build:github",
     "poststage": "powershell -Command \"New-Item -ItemType Directory -Force -Path ../../wikilabs.github.io/editions/devtools/files/images | Out-Null; Copy-Item ./files/images/*.* ../../wikilabs.github.io/editions/devtools/files/images\"",
-
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
   "repository": {
@@ -34,9 +31,8 @@
     "url": "https://github.com/wikilabs/plugins/issues"
   },
   "homepage": "https://wikilabs.github.io/editions/devtools",
-  "dependencies": {
-  },
   "devDependencies": {
+    "@playwright/test": "^1.59.0",
     "tiddlywiki": "^5.3.8"
   }
 }
