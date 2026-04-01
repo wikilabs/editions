@@ -1,9 +1,9 @@
 // @ts-check
 const { test, expect } = require("@playwright/test");
 
-// Locate a tracked element inside the GettingStarted tiddler
+// Locate a tracked content element inside the GettingStarted tiddler body
 function tracked(page) {
-	return page.locator("[data-tiddler-title='GettingStarted'] [data-source-pos]").first();
+	return page.locator("[data-tiddler-title='GettingStarted'] .tc-tiddler-body [data-source-pos]").first();
 }
 
 test.beforeEach(async ({ page }) => {
@@ -169,6 +169,7 @@ test("element gets orange outline on hover", async ({ page }) => {
 	const el = tracked(page);
 	await el.hover();
 	await page.waitForTimeout(100);
-	const outline = await el.evaluate(el => getComputedStyle(el).outlineColor);
-	expect(outline).toContain("255");
+	const outline = await el.evaluate(el => getComputedStyle(el).outline);
+	expect(outline).toMatch(/dashed/);
+	expect(outline).toMatch(/255/);
 });
