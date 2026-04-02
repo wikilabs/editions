@@ -1,0 +1,15 @@
+title: GettingStarted
+
+! Overview
+
+This plugin "TW MCP" adds a MCP server to your wiki
+
+{{$:/plugins/wikilabs/tw-mcp/readme}}
+
+! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+! License
+
+See: [[License]]

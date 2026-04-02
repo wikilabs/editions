@@ -1,0 +1,114 @@
+created: 20260320073219027
+modified: 20260328215139170
+tags: MCP Development
+title: MCP Proxy Mode Concept
+type: text/vnd.tiddlywiki
+
+!! MCP Proxy Mode
+
+!! Problem
+
+Multiple MCP clients (Claude CLI, VS Code, Gemini CLI) can spawn separate MCP server processes for the same wiki directory. This creates conflicting `$tw.wiki` stores and competing named pipes. When a `--listen` HTTP server is also running, browser edits are invisible to MCP clients with their own `$tw.wiki`.
+
+!! Solution
+
+On startup, check `.tw-mcp/connect` for an active server (PID alive + pipe reachable). If found, run in ''proxy mode'' — forward all JSON-RPC calls through the named pipe instead of booting a separate wiki. Only one process (the ''primary'') owns the `$tw.wiki` store.
+
+```
+User → Browser   → HTTP Server (--listen)   ─┐
+User → VS Code   → MCP Primary (--mcp)       ├→ $tw.wiki → Tiddler Files
+User → Claude CLI → MCP Proxy  → named pipe ─┘
+```
+
+!! Startup Logic
+
+# Read `.tw-mcp/connect` discovery file (checks canonical wiki path via `includeWikis`)
+# PID alive? Pipe reachable?
+# If yes → connect as proxy client, self-authenticate, relay stdio ↔ pipe
+# If no → delete stale file, start as primary server
+
+!! includeWikis Resolution
+
+Editions that include other wikis (e.g. `tw5.com-server` includes `../tw5.com`) share the same pipe name and discovery file location. The `getCanonicalWikiPath()` function follows the first `includeWikis` entry in `tiddlywiki.info` to find the root edition. This ensures all editions converge on a single `.tw-mcp/connect` file.
+
+!! Proxy Interception
+
+The proxy is mostly transparent but intercepts specific messages:
+
+|!Direction |!Message |!Action |
+|stdin → pipe |`initialize` |Inject `_auth_token`, `_pid`, `_label` for pipe authentication |
+|stdin → pipe |`tools/call` (write tool) |Block locally if proxy is `readonly` |
+|pipe → stdout |`initialize` response |Annotate `serverInfo` with `proxy: true`, `primaryPid`, `primaryLabel` |
+|pipe → stdout |`tools/list` response |Filter out write tools if proxy is `readonly` |
+
+!! Primary Takeover
+
+When a proxy detects `$tw.httpServer` (i.e. it was started with `--mcp listen`), it automatically requests takeover to become primary. This ensures browser edits and MCP tool calls share the same `$tw.wiki` store.
+
+!!! Takeover Sequence
+
+# `--mcp listen` starts HTTP server + proxy, authenticates with current primary
+# Proxy detects `$tw.httpServer` → sends `notifications/takeover-request`
+# Primary broadcasts `notifications/takeover` to all pipe clients
+# Primary destroys all client sockets, closes pipe server, deletes discovery file
+# Proxy detects disconnect → calls `becomePrimary()`: starts pipe server, writes discovery file, swaps stdin to dispatch mode
+# Old primary polls for new discovery file → connects as proxy via `transitionToProxy()`
+# Other proxies detect disconnect → poll discovery file → reconnect to new primary
+
+!!! Example
+
+```
+node tiddlywiki.js +plugins/tiddlywiki/filesystem ./editions/tw5.com --mcp label=claude
+node tiddlywiki.js ./editions/tw5.com-server --mcp listen label=listen
+```
+
+After takeover, stderr logs show:
+
+```
+[tw-mcp] Server started as PRIMARY (PID 1234) @claude
+[tw-mcp] Takeover requested by PID 5678 @listen
+[tw-mcp] Stepping down to PROXY → new primary (PID 5678)
+```
+
+!! Shared State: `$tw.mcp` and `$tw.httpServer`
+
+When `--mcp` and `--listen` run in the same process (after takeover), they communicate via shared objects on `$tw`:
+
+; `$tw.mcp`
+: `pid`, `role` (primary/proxy), `label`, `readonly`, `started`, `heartbeat()`
+; `$tw.httpServer`
+: `server`, `nodeServer`, `heartbeat()` → `{listening, address}`
+
+These are queryable via `inspect_tw` and the heartbeat functions are whitelisted for `call`.
+
+The `get_wiki_info` tool also reports MCP and HTTP server status:
+
+```
+MCP: primary (PID 5678) @listen
+HTTP: 127.0.0.1:8080
+```
+
+!! Change Tracking
+
+When browser and MCP share `$tw.wiki`, `reload_tiddlers` shows 0 disk-vs-memory changes (they're already in sync). To still report what changed, the MCP server listens to `$tw.wiki` change events and accumulates a log between `reload_tiddlers` calls:
+
+```
+Since last reload: 2 added, 0 updated, 1 deleted
+  + new-tiddler
+  + another-tiddler
+  - old-tiddler
+```
+
+!! Log Format
+
+All MCP log messages include PID and `@label` as the last element:
+
+```
+[tw-mcp] Server started as PRIMARY (PID 1234, protocol 2025-03-26, readonly: false) @claude
+[tw-mcp] Client pipe-170912 (PID 5678) authenticated @listen
+[tw-mcp] Pipe client disconnected: pipe-170912 (PID 5678) @listen
+```
+
+!! Diagram
+
+See [[MCP Proxy Mode Data Flow Diagram.svg]] for the full data flow visualization.

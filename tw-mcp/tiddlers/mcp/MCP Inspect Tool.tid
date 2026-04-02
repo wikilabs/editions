@@ -1,0 +1,270 @@
+created: 20260318021144763
+modified: 20260318021746558
+tags: 
+title: MCP Inspect Tool
+type: text/vnd.tiddlywiki
+
+!! Inspecting TiddlyWiki's Internal `$tw` Object
+
+The `inspect_tw` tool lets you explore TiddlyWiki's internal `$tw` object structure — the runtime heart of TiddlyWiki. You can browse properties, read function source code, and even call functions to see their return values.
+
+!! Basic Usage
+
+Tell the AI:
+
+```
+inspect $tw
+```
+
+This shows the top-level keys of `$tw` with their types and sizes.
+
+''Example output:''
+
+```
+$tw 62keys maxDepth=5
+fn Commander(commandTokens,callback,wiki,streams)
+fn Tiddler(/* [fields,] fields */)
+fn Wiki(options)
+boot {25}
+commands {28}
+config {24}
+hooks {4}
+modules {9}
+utils {216}
+version s:16 5.4.0-prerelease
+wiki {29}
+...
+```
+
+!! Reading the Output Format
+
+The output uses a compact notation:
+
+|!Notation |!Meaning |!Example |
+|`{N}` |Object with N keys |`boot {25}` — object with 25 keys |
+|`[N]` |Array with N elements |`plugins [8]` — array with 8 items |
+|`s:N` |String of length N |`version s:16 5.4.0-prerelease` |
+|`=value` |Scalar value (number, boolean, null) |`enabled=false`, `browser null` |
+|`fn name(params)` |Function with parameter list |`fn addTiddler(tiddler)` |
+|`date:` |Date value |`created date:2013-08-22T17:02:00.000Z` |
+|`Nkeys maxDepth=M` |Header showing key count and max useful depth |`$tw 62keys maxDepth=5` |
+|`...N more lines` |Function source truncated |`...34 more lines` |
+
+!! Navigating Deeper
+
+Use dot-separated paths to drill into specific branches:
+
+```
+inspect $tw.wiki
+inspect $tw.boot
+inspect $tw.config
+inspect $tw.utils
+inspect $tw.hooks
+```
+
+''Example — inspecting `$tw.boot`:''
+
+```
+inspect $tw.boot
+```
+
+Returns:
+
+```
+$tw.boot 25keys maxDepth=3
+argv [2]
+fn boot(callback)
+bootPath s:41 E:\git\...\boot
+corePath s:41 E:\git\...\core
+files {2065}
+wikiInfo {6}
+wikiPath s:18 .\editions\tw5.com
+...
+```
+
+You can keep going deeper:
+
+```
+inspect $tw.boot.wikiInfo
+```
+
+Returns:
+
+```
+$tw.boot.wikiInfo 6keys maxDepth=2
+build {9}
+config {1}
+  retain-original-tiddler-path=true
+description s:41 Documentation from https://tiddlywiki.com
+languages [0]
+plugins [8]
+  [0] s:24 tiddlywiki/browser-sniff
+  [1] s:19 tiddlywiki/confetti
+  ...
+themes [9]
+```
+
+!! Controlling Depth
+
+By default, inspect shows depth 1 (one level of keys). You can request more:
+
+```
+inspect $tw.hooks with depth 2
+inspect $tw.rootWidget with max detail
+```
+
+The `maxDepth` value in the output header tells you the deepest useful level. Don't request more depth than `maxDepth` — it won't show additional information.
+
+''Example — depth 1 vs depth 2 for `$tw.hooks`:''
+
+Depth 1:
+
+```
+$tw.hooks 4keys maxDepth=1
+fn addHook(hookName,definition)
+fn invokeHook(hookName /*, value,... */)
+names {0}
+fn removeHook(hookName,definition)
+```
+
+Depth 2 (adds function source previews):
+
+```
+$tw.hooks 4keys maxDepth=1
+fn addHook(hookName,definition)
+  function(hookName,definition) {
+    if($tw.utils.hop($tw.hooks.names,hookName)) {
+      $tw.hooks.names[hookName].push(definition);
+    }
+    else {
+  ...3 more lines
+...
+```
+
+!! Viewing Function Source Code
+
+At depth 2+, functions show the first 5 lines of source code plus a truncated line count.
+
+To see the ''full source code'', ask for `fullSource`:
+
+```
+inspect $tw.wiki.addTiddler full
+```
+
+Returns the complete function body:
+
+```
+fn $tw.wiki.addTiddler(tiddler)
+  function(tiddler) {
+      if(!(tiddler instanceof $tw.Tiddler)) {
+        tiddler = new $tw.Tiddler(tiddler);
+      }
+      // Save the tiddler
+      if(tiddler) {
+        var title = tiddler.fields.title;
+        ...(full source)...
+      }
+    }
+```
+
+!! Calling Functions
+
+You can call functions and inspect their return values:
+
+```
+inspect $tw.wiki.getTiddler("HelloThere")
+```
+
+Returns the tiddler object structure:
+
+```
+$tw.wiki.getTiddler("HelloThere") 2keys maxDepth=2
+cache {0}
+fields {8}
+  created date:2013-08-22T17:02:00.000Z
+  icon s:12 $:/core/icon
+  list [6]
+  modified date:2025-08-07T08:49:52.911Z
+  tags [1]
+  text s:1372 <h2\nstyle="\n\tbackground: red;...
+  title s:10 HelloThere
+  type s:19 text/vnd.tiddlywiki
+```
+
+Add depth to expand nested values:
+
+```
+inspect $tw.wiki.getTiddler("HelloThere") with max detail
+```
+
+Expands arrays and objects fully:
+
+```
+fields {8}
+  ...
+  list [6]
+    [0] s:28 A Gentle Guide to TiddlyWiki
+    [1] s:19 Discover TiddlyWiki
+    ...
+  tags [1]
+    [0] s:7 Welcome
+```
+
+If a function returns `undefined` (e.g. tiddler not found), it shows:
+
+```
+$tw.wiki.getTiddler("NonExistentTiddler")=undefined
+```
+
+''Note:'' Tiddler titles are case-sensitive! `"hellothere"` ≠ `"HelloThere"`.
+
+!! Excluding Keys
+
+Some objects contain large or circular references (e.g. `wiki` appears inside many objects). Use `exclude` to skip them:
+
+```
+inspect $tw.rootWidget with max detail but exclude wiki
+```
+
+This prevents the output from being flooded by the full `wiki` sub-tree.
+
+!! Exploring Module Types
+
+TiddlyWiki's module system is a great place to explore:
+
+```
+inspect $tw.modules.types
+```
+
+Returns all registered module types:
+
+```
+$tw.modules.types 33keys maxDepth=5
+allfilteroperator {6}
+command {28}
+filteroperator {83}
+parser {10}
+startup {16}
+widget {71}
+wikirule {44}
+...
+```
+
+!! Known Limitations
+
+* ''Keys containing dots or slashes'' — Paths like `config.contentTypeInfo.text/vnd.tiddlywiki` fail because `/` is interpreted as a path separator. These keys cannot be navigated directly.
+* ''Action widgets'' — Functions that trigger UI actions don't work server-side.
+* ''String truncation'' — Long string values are truncated with a `~` at the end.
+* ''Circular references'' — Some object branches reference each other. Use `exclude` to avoid loops.
+
+!! Quick Reference
+
+|!What you want |!What to say |
+|Browse top level |`inspect $tw` |
+|Navigate to a branch |`inspect $tw.wiki` or `inspect $tw.boot.wikiInfo` |
+|See more detail |`inspect $tw.config with depth 2` |
+|See maximum detail |`inspect $tw.rootWidget with max detail` |
+|See full function source |`inspect $tw.wiki.addTiddler full` |
+|Call a function |`inspect $tw.wiki.getTiddler("HelloThere")` |
+|Exclude noisy branches |`inspect $tw.rootWidget with max detail but exclude wiki` |
+|Check a simple value |`inspect $tw.version` → `$tw.version=5.4.0-prerelease` |

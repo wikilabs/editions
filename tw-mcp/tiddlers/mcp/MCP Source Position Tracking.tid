@@ -1,0 +1,148 @@
+created: 20260322050000000
+modified: 20260328215130564
+tags: 
+title: MCP Source Position Tracking
+type: text/vnd.tiddlywiki
+
+!! Source Position Tracking
+
+TiddlyWiki's MCP server can trace every rendered HTML element back to the exact source tiddler and line range that produced it. This works across transclusion boundaries — even when macros, procedures, and list widgets assemble content from multiple tiddlers.
+
+!! The Three Inspection Tools
+
+|!Tool |!Purpose |!When to Use |
+|`inspect_pos` |Render HTML with `data-source-pos` attributes |Find out where a rendered element comes from |
+|`inspect_scope` |Show variables in scope at a position |Understand what variables/params are available at a specific point |
+|`inspect_tree` |Analyze widget tree structure |Count links, transclusions, or see how macros expand |
+
+!! How Position Tracking Works
+
+When you render wikitext with `inspect_pos`, the server:
+
+# Parses the wikitext and builds the widget tree
+# Renders to HTML, adding `data-source-pos` attributes to every element and link
+# Converts character positions to ''file-ready line numbers'' — accounting for `.tid` file header offsets and macro body offsets
+
+The resulting `data-source-pos` format is:
+
+```
+L{startLine}-L{endLine} @ tiddlerTitle
+L{line} @ tiddlerTitle
+```
+
+Multi-line elements show a range (e.g. `L81-L84 @ $:/cards/procedures`). Single-line elements show just the line (e.g. `L8 @ Learning`).
+
+The browser plugin also stores `data-source-start` and `data-source-end` attributes with raw character positions for precise editor selection.
+
+!! Workflow Example
+
+''Goal:'' Find out which code renders the "Download" button on the Quick Start page.
+
+!!! Step 1: Render with position tracking
+
+Use `inspect_pos` with the `Quick Start` tiddler's wikitext and `context` set to `Quick Start`.
+
+The button element will have: `data-source-pos="L81-L84@$:/cards/procedures"`
+
+!!! Step 2: Examine the source
+
+The position tells us the button is defined in `$:/cards/procedures` at lines 81–84 — the `flex-card-body` procedure's button section:
+
+```
+<%if [all[current]has[button-text]] %>
+    <div class="tc-card-button" ...>
+        <$text text={{!!button-text}}/>&#32;{{$:/core/images/chevron-right}}
+    </div>
+<%endif%>
+```
+
+!!! Step 3: Inspect variables at that position
+
+Use `inspect_scope` with the caller's wikitext and `match: {"currentTiddler": "Quick Start: Desktop"}` to see the variable scope:
+
+```
+var currentTiddler = Quick Start: Desktop
+var thisTiddler = Quick Start: Desktop
+var captionField = caption
+var descriptionField = text
+var bordercolor =
+```
+
+This shows that `{{!!button-text}}` resolves to the `button-text` field of `Quick Start: Desktop` (which is "Download"), and `{{!!button-color}}` gives `#37753e` (green).
+
+!! The `sourcepos` Browser Plugin
+
+The `tiddlywiki/sourcepos` plugin adds source position tracking directly in the browser. When enabled:
+
+* ''Hover'' — tooltip showing source position, context, and caller chain
+* ''Right-click'' — context menu with copy options, navigation, source viewer, and optional edit features
+* ''Ctrl+click'' — navigate directly to the source tiddler
+* ''Ctrl+right-click'' — native browser context menu (passthrough)
+
+!!! Enabling
+
+Set `$:/config/SourcePositionTracking` to `yes` in your wiki, or use the checkbox in Control Panel → Settings → TiddlyWiki. The plugin is included in the `tw5.com-server` edition.
+
+Save and reload the page for the setting to take effect. The tracking hooks run at startup, so a page reload is required after changing this setting.
+
+!!! Context Menu
+
+The right-click context menu header shows the source position with two icon buttons:
+
+* ''Edit'' (pencil icon) — opens the tiddler in edit mode and selects the source text
+* ''Show source'' (eye icon) — adds the source code to the Source Viewer panel
+
+Below the header: copy tiddler title, copy source position, open source/caller tiddlers.
+
+!!! Source Viewer
+
+A floating panel that accumulates source code entries. Click the eye icon to add entries.
+
+* ''Deduplication'' — viewing the same source from different contexts (e.g. the same macro for different list items) adds a new header above the existing code block instead of duplicating it
+* ''Origin highlighting'' — hovering an entry header blinks the origin element 3 times in red, then shows a steady blue outline. With exactly 1 entry, the origin is always highlighted.
+* ''Full procedure display'' — automatically shows the entire `\procedure`/`\define` definition, not just the selected snippet
+* ''Edit button'' — each entry header has an edit icon to jump to the source in the tiddler editor
+* ''Remove'' — remove individual headers (×) or use "Clear" to remove all entries
+* ''Draggable and resizable'' — layout is stored in `$:/temp/sourcepos/viewer-layout`
+
+!!! How It Works
+
+The plugin uses TiddlyWiki's hook system — zero overhead when disabled:
+
+* `th-dom-rendering-element` hook — adds `data-source-pos` to HTML elements
+* `th-dom-rendering-link` hook — adds `data-source-pos` to link elements
+* `th-dom-rendering-codeblock` hook — adds `data-source-pos` to code blocks
+* Monkey-patches the transclude widget to track source context across transclusion boundaries
+
+The hooks only fire when `$tw.wiki.trackSourcePositions` is `true`.
+
+!! Cross-Transclusion Tracking
+
+The most powerful aspect of position tracking is that it works across transclusion boundaries. When a tiddler transcludes a macro that transcludes another tiddler, each HTML element correctly reports which tiddler defined it:
+
+```
+<p data-source-pos="L10 @ Quick Start">...</p>
+  <div data-source-pos="L47-L86 @ $:/cards/procedures">...</div>
+    <div data-source-pos="L64-L65 @ $:/cards/procedures">Title</div>
+    <p data-source-pos="L10 @ Quick Start: Desktop">Description</p>
+    <svg data-source-pos="L5 @ $:/core/images/globe">...</svg>
+```
+
+This shows that:
+
+* The paragraph comes from `Quick Start` (the top-level tiddler)
+* The card structure comes from `$:/cards/procedures` (the `flex-card-body` procedure)
+* The description comes from `Quick Start: Desktop` (transcluded field)
+* The icon comes from `$:/core/images/globe` (a system tiddler)
+
+!! Disambiguating List Items
+
+When a `$list` widget renders multiple items using the same template, all items share the same `data-source-pos`. In the browser, the `» Quick Start: Desktop` context indicator in the tooltip and source viewer header shows which list item you're looking at.
+
+For the MCP server, use `inspect_scope` with the `match` parameter to select a specific item:
+
+```
+match: {"currentTiddler": "Quick Start: Desktop"}
+```
+
+In the Source Viewer, viewing the same macro from different list items adds stacked headers above a single code block — one per context.

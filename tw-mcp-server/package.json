@@ -1,0 +1,42 @@
+{
+  "name": "tw-mcp-server",
+  "version": "0.0.1",
+  "description": "tiddlywiki edition development helper",
+  "main": "index.js",
+  "scripts": {
+    "start": "tiddlywiki . --mcp listen label=primary",
+    "test": "echo ---- no tests atm ----",
+
+    "server": "npm start",
+
+    "build:github": "tiddlywiki ../tw-mcp --build github",
+    "build": "tiddlywiki ../tw-mcp --build index",
+
+    "prestage": "npm run build",
+    "stage": "npm run build:github",
+
+    "deploy": "echo # deploy is done with wikilabs.github.io repo!"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikilabs/plugins"
+  },
+  "keywords": [
+    "tiddlywiki",
+    "mcp",
+    "llm",
+    "inspect",
+    "debug"
+  ],
+  "author": "Mario Pietsch",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/wikilabs/plugins/issues"
+  },
+  "homepage": "https://wikilabs.github.io/editions/tw-mcp",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "tiddlywiki": "^5.4.0"
+  }
+}

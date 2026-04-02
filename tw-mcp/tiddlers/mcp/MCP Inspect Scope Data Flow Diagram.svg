@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 980" font-family="Consolas, monospace" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#555"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#c44"/>
+    </marker>
+  </defs>
+
+  <!-- global-test-function box -->
+  <rect x="140" y="10" width="440" height="80" rx="6" fill="#f0f4ff" stroke="#668" stroke-width="1.5"/>
+  <text x="360" y="32" text-anchor="middle" font-weight="bold" font-size="13" fill="#336">global-test-function</text>
+  <text x="360" y="48" text-anchor="middle" fill="#666" font-size="11">tags: $:/tags/Global</text>
+  <text x="360" y="72" text-anchor="middle" fill="#333">\function testXXX() [&lt;asdf&gt;!is[blank]else[xx]]</text>
+
+  <!-- arrow down -->
+  <line x1="360" y1="90" x2="360" y2="130" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="370" y="115" fill="#666" font-size="10">imported as global</text>
+
+  <!-- aaa box -->
+  <rect x="30" y="135" width="660" height="340" rx="6" fill="#fffdf0" stroke="#886" stroke-width="1.5"/>
+  <text x="360" y="158" text-anchor="middle" font-weight="bold" font-size="14" fill="#553">aaa</text>
+
+  <!-- $let block -->
+  <rect x="50" y="170" width="620" height="130" rx="4" fill="#eef8ee" stroke="#696" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="65" y="188" fill="#363" font-size="11">&lt;$let asdf=asdf&gt;</text>
+
+  <!-- first link -->
+  <rect x="70" y="198" width="580" height="88" rx="3" fill="#fff" stroke="#aab" stroke-width="1"/>
+  <text x="85" y="216" fill="#333">&lt;$link to=&lt;&lt;testXXX&gt;&gt;/&gt;</text>
+  <text x="350" y="216" fill="#888" font-size="10">◄ charPos=18  widget: link</text>
+  <text x="85" y="236" fill="#666" font-size="11">testXXX reads &lt;asdf&gt; → resolves to "asdf"</text>
+  <text x="85" y="258" fill="#484" font-size="11" font-weight="bold">local:</text>
+  <text x="130" y="258" fill="#333" font-size="11">asdf, currentTiddler</text>
+  <text x="85" y="274" fill="#448" font-size="11" font-weight="bold">used:</text>
+  <text x="130" y="274" fill="#333" font-size="11">testXXX @global-test-function</text>
+
+  <!-- second link -->
+  <rect x="50" y="310" width="620" height="78" rx="3" fill="#fff" stroke="#aab" stroke-width="1"/>
+  <text x="65" y="328" fill="#333">&lt;$link to=&lt;&lt;testXXX&gt;&gt;/&gt;</text>
+  <text x="350" y="328" fill="#888" font-size="10">◄ charPos=51  widget: link</text>
+  <text x="65" y="348" fill="#666" font-size="11">asdf not in scope → resolves to "xx"</text>
+  <text x="65" y="368" fill="#484" font-size="11" font-weight="bold">local:</text>
+  <text x="110" y="368" fill="#333" font-size="11">currentTiddler</text>
+  <text x="250" y="368" fill="#448" font-size="11" font-weight="bold">used:</text>
+  <text x="290" y="368" fill="#333" font-size="11">testXXX @global-test-function</text>
+
+  <!-- transclusion -->
+  <text x="65" y="420" fill="#333">{{note-tiddler}}</text>
+  <text x="250" y="420" fill="#888" font-size="10">◄ tiddler transclusion</text>
+
+  <!-- arrow down to note-tiddler -->
+  <line x1="120" y1="430" x2="120" y2="490" stroke="#c44" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <text x="135" y="465" fill="#c44" font-size="10">transcludes</text>
+
+  <!-- note-tiddler box -->
+  <rect x="30" y="495" width="660" height="250" rx="6" fill="#fff5f0" stroke="#864" stroke-width="1.5"/>
+  <text x="360" y="518" text-anchor="middle" font-weight="bold" font-size="14" fill="#643">note-tiddler</text>
+
+  <!-- .note call -->
+  <rect x="50" y="528" width="620" height="115" rx="3" fill="#fff" stroke="#aab" stroke-width="1"/>
+  <text x="65" y="546" fill="#333">&lt;&lt;.note """This is a test"""&gt;&gt;</text>
+  <text x="400" y="546" fill="#888" font-size="10">◄ charPos=0  widget: text</text>
+  <text x="65" y="568" fill="#484" font-size="11" font-weight="bold">local:</text>
+  <text x="110" y="568" fill="#333" font-size="11">thisTiddler, title, icon, class, iconSize, _, text, currentTiddler</text>
+  <text x="65" y="586" fill="#448" font-size="11" font-weight="bold">used:</text>
+  <text x="110" y="586" fill="#333" font-size="11">.note @$:/editions/tw5.com/doc-macros</text>
+  <text x="65" y="612" fill="#c44" font-size="11">⚠ No transclusion variable (MCP renders in isolation, not via {{}} from aaa)</text>
+  <text x="65" y="628" fill="#888" font-size="10">Browser would show: transclusion = {note-tiddler|note-tiddler|||}</text>
+
+  <!-- .note expansion -->
+  <rect x="50" y="652" width="620" height="78" rx="3" fill="#f8f0ff" stroke="#a8a" stroke-width="1"/>
+  <text x="65" y="672" fill="#636" font-size="11" font-weight="bold">.note procedure expands to:</text>
+  <text x="65" y="692" fill="#333" font-size="11">&lt;strong&gt;Note&lt;/strong&gt;</text>
+  <text x="65" y="708" fill="#333" font-size="11">&lt;svg&gt;info-button&lt;/svg&gt;  "This is a test"</text>
+
+  <!-- MCP Tool Data Flow -->
+  <rect x="140" y="770" width="440" height="200" rx="6" fill="#f4f4f8" stroke="#888" stroke-width="1.5"/>
+  <text x="360" y="795" text-anchor="middle" font-weight="bold" font-size="13" fill="#333">MCP Tool Data Flow</text>
+
+  <!-- Steps -->
+  <circle cx="190" cy="820" r="10" fill="#558" stroke="none"/>
+  <text x="190" y="824" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">1</text>
+  <text x="210" y="824" fill="#333" font-size="11">get_tiddler(title, detailed=true)</text>
+
+  <line x1="190" y1="830" x2="190" y2="845" stroke="#558" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <circle cx="190" cy="855" r="10" fill="#558" stroke="none"/>
+  <text x="190" y="859" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">2</text>
+  <text x="210" y="859" fill="#333" font-size="11">inspect_tree(text, context, depth)</text>
+
+  <line x1="190" y1="865" x2="190" y2="880" stroke="#558" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <circle cx="190" cy="890" r="10" fill="#558" stroke="none"/>
+  <text x="190" y="894" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">3</text>
+  <text x="210" y="894" fill="#333" font-size="11">inspect_pos(text, context) → charPos</text>
+
+  <line x1="190" y1="900" x2="190" y2="915" stroke="#558" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <circle cx="190" cy="925" r="10" fill="#558" stroke="none"/>
+  <text x="190" y="929" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold">4</text>
+  <text x="210" y="929" fill="#333" font-size="11">inspect_scope(tiddler, charPos)</text>
+  <text x="230" y="947" fill="#484" font-size="10">├ local scope  ├ used globals  └ other globals</text>
+</svg>

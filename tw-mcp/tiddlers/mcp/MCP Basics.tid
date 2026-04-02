@@ -1,0 +1,116 @@
+created: 20260311050000000
+modified: 20260328215043916
+tags: 
+title: MCP Basics
+type: text/vnd.tiddlywiki
+
+!! TiddlyWiki MCP Server
+
+The MCP (Model Context Protocol) server lets AI assistants like Claude, Gemini, and others interact with your TiddlyWiki. It exposes wiki operations as tools over stdio and named pipe transports.
+
+!! What It Does
+
+* ''Read'' tiddlers, search with filters, render wikitext content
+* ''Inspect'' TiddlyWiki's internal `$tw` object structure and function source code
+* ''Render'' arbitrary wikitext snippets with full macro/procedure support
+* ''Create'' and ''update'' tiddlers with automatic timestamps
+* ''Delete'' tiddlers and their files on disk
+* ''Upload'' binary files (images, PDFs) via the `tw-upload` helper
+* ''Export'' your wiki as HTML or a wiki folder
+
+!! Quick Start
+
+Register the server with Claude CLI:
+
+```
+claude mcp add --transport stdio tiddlywiki -- node tiddlywiki.js +plugins/tiddlywiki/filesystem ./wiki --mcp
+```
+
+For read-only access (no write operations):
+
+```
+claude mcp add --transport stdio tiddlywiki -- node tiddlywiki.js +plugins/tiddlywiki/filesystem ./wiki --mcp readonly
+```
+
+!! Transports
+
+The MCP server runs ''two transports simultaneously'':
+
+* ''stdio'' — standard input/output, used by Claude CLI and other MCP clients
+* ''Named pipe'' — local IPC for helper tools like `tw-upload`. A `.tw-mcp/connect` discovery file is written to the canonical wiki directory containing the pipe path, auth token, server PID, and label (if set).
+
+!! Proxy Mode and Takeover
+
+When multiple MCP processes target the same wiki, only the first becomes the ''primary'' (owns `$tw.wiki` and the named pipe). Subsequent processes automatically run as ''proxies'', relaying all JSON-RPC calls through the pipe to the primary.
+
+When a proxy also runs an HTTP server (`--mcp listen`), it automatically takes over as primary. This ensures browser edits and MCP tool calls share the same `$tw.wiki` store — changes are visible instantly in both directions without `reload_tiddlers`.
+
+```
+node tiddlywiki.js +plugins/tiddlywiki/filesystem ./editions/tw5.com --mcp label=claude
+node tiddlywiki.js ./editions/tw5.com-server --mcp listen label=listen
+```
+
+After takeover, `label=listen` is the primary and `label=claude` becomes a proxy. See [[MCP Proxy Mode Concept]] for details.
+
+!! Shared State
+
+When `--mcp` and `--listen` run in the same process, they expose shared state on `$tw`:
+
+* `$tw.mcp` — MCP server info: `pid`, `role`, `label`, `readonly`, `heartbeat()`
+* `$tw.httpServer` — HTTP server info: `server`, `nodeServer`, `heartbeat()`
+
+Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also reports their status.
+
+!! Safety Features
+
+* ''Metadata by default'' — tiddler queries return all fields except `text` to save tokens. Use `detailed=true` to include text content.
+* ''Token efficiency'' — tool results are returned as pre-formatted plain text, not JSON. This reduces token usage by ~3× compared to structured JSON responses.
+* ''Namespace summaries'' — large result sets are automatically grouped by prefix with counts, allowing progressive drill-down instead of flooding with thousands of titles.
+* ''System tiddler exclusion'' — system tiddlers (`$:/` prefix) and shadow tiddlers are excluded from results by default. They are only returned when explicitly requested.
+* ''Filter optimization'' — the AI is instructed to always put `!is[system]` first in filter expressions to reduce the working set early.
+* ''Overwrite protection'' — existing tiddlers are not overwritten unless explicitly confirmed. A new unique title is generated instead (like the ~TiddlyWiki ~CreateTiddler widget).
+* ''Readonly mode'' — start with `--mcp readonly` to disable all write operations.
+* ''Path restrictions'' — file operations are restricted to the wiki's `tiddlers/`, `files/`, and `output/` directories.
+* ''Pipe authentication'' — named pipe connections require a cryptographic token (256-bit random hex). The token is stored in the owner-only `.tw-mcp/connect` file.
+* ''Confirmation prompts'' — the AI is instructed to confirm before bulk changes.
+* ''Timestamps'' — `created` and `modified` fields are managed automatically, respecting `$:/config/TimestampDisable`.
+
+!! Available Tools
+
+|!Tool |!Type |!Description |
+|`get_tiddler` |read |Get a tiddler's metadata by title (set `detailed=true` for full text) |
+|`list_tiddlers` |read |List tiddler titles, optionally filtered by tag or browse plugin contents |
+|`run_filter` |read |Run a TiddlyWiki filter expression |
+|`render_tiddler` |read |Render a tiddler to plain text or HTML (with full macro support) |
+|`render_text` |read |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
+|`inspect_tree` |read |Analyze the rendered widget tree: type counts, link targets, transclusion tracking |
+|`inspect_pos` |read |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
+|`inspect_scope` |read |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |
+|`inspect_tw` |read |Inspect TiddlyWiki's internal `$tw` object structure and function source code |
+|`get_wiki_info` |read |Get wiki metadata, tiddler counts, plugins, and basic settings |
+|`reload_tiddlers` |read |Refresh in-memory store from disk + report changes since last call (tracks `$tw.wiki` change events) |
+|`put_tiddler` |write |Create or update a tiddler |
+|`delete_tiddler` |write |Delete a tiddler and its file |
+|`upload_file` |write |Upload a base64-encoded binary file and create a canonical tiddler |
+|`save_wiki_folder` |write |Export wiki as a folder structure |
+|`build_wiki` |write |Render wiki as a single HTML file |
+
+!! Helper Tools
+
+!!! `tw-upload`
+
+A standalone CLI tool for uploading binary files (PNG, JPG, GIF, PDF) to a running MCP server via named pipe:
+
+```
+node tw-upload.js photo.png --wiki ./wiki --title "My Photo" --tags "images"
+```
+
+The MCP server must be running. See [[MCP Instructions]] for details.
+
+For detailed usage of each tool, see [[MCP Instructions]].
+
+For a comprehensive guide to exploring `$tw` internals, see [[MCP Inspect Tool]].
+
+For source position tracking and the `inspect_pos`/`inspect_scope`/`inspect_tree` workflow, see [[MCP Source Position Tracking]].
+
+For proxy mode, takeover, and multi-process architecture, see [[MCP Proxy Mode Concept]].

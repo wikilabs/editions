@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 780" font-family="Consolas, monospace" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#555"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#47a"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#4a4"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#c44"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="430" y="24" text-anchor="middle" font-weight="bold" font-size="15" fill="#333">MCP Proxy Mode Data Flow</text>
+
+  <!-- Legend -->
+  <rect x="640" y="38" width="195" height="56" rx="4" fill="#f8f8fa" stroke="#ccc" stroke-width="1"/>
+  <line x1="652" y1="56" x2="688" y2="56" stroke="#47a" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="696" y="60" fill="#333" font-size="10">request</text>
+  <line x1="652" y1="72" x2="688" y2="72" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="696" y="76" fill="#333" font-size="10">response</text>
+  <line x1="652" y1="88" x2="688" y2="88" stroke="#c44" stroke-width="2" marker-end="url(#arrow-red)"/>
+  <text x="696" y="92" fill="#333" font-size="10">blocked (readonly)</text>
+
+  <!-- ════════ USER ════════ -->
+  <rect x="15" y="168" width="80" height="100" rx="6" fill="#f8f0ff" stroke="#86a" stroke-width="1.5"/>
+  <text x="55" y="210" text-anchor="middle" font-weight="bold" font-size="24" fill="#649">&#x1f9d1;</text>
+  <text x="55" y="252" text-anchor="middle" fill="#86a" font-size="10">User</text>
+
+  <!-- User → VS Code -->
+  <line x1="95" y1="190" x2="130" y2="150" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- User → Claude CLI -->
+  <line x1="95" y1="215" x2="130" y2="240" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- User → Browser -->
+  <line x1="95" y1="245" x2="130" y2="338" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════ VS Code (Client A) ════════ -->
+  <rect x="130" y="120" width="120" height="50" rx="6" fill="#e8eef8" stroke="#668" stroke-width="1.5"/>
+  <text x="190" y="142" text-anchor="middle" font-weight="bold" font-size="12" fill="#336">VS Code</text>
+  <text x="190" y="158" text-anchor="middle" fill="#888" font-size="10">MCP client A</text>
+
+  <!-- Claude CLI (Client B) -->
+  <rect x="130" y="220" width="120" height="50" rx="6" fill="#e8eef8" stroke="#668" stroke-width="1.5"/>
+  <text x="190" y="242" text-anchor="middle" font-weight="bold" font-size="12" fill="#336">Claude CLI</text>
+  <text x="190" y="258" text-anchor="middle" fill="#888" font-size="10">MCP client B</text>
+
+  <!-- Browser -->
+  <rect x="130" y="318" width="120" height="50" rx="6" fill="#fef0e8" stroke="#b84" stroke-width="1.5"/>
+  <text x="190" y="340" text-anchor="middle" font-weight="bold" font-size="12" fill="#743">Browser</text>
+  <text x="190" y="356" text-anchor="middle" fill="#888" font-size="10">HTTP client</text>
+
+  <!-- ════════ PRIMARY MCP SERVER ════════ -->
+  <rect x="370" y="100" width="220" height="90" rx="6" fill="#eef8ee" stroke="#696" stroke-width="1.5"/>
+  <text x="480" y="122" text-anchor="middle" font-weight="bold" font-size="13" fill="#363">MCP Primary</text>
+  <text x="480" y="140" text-anchor="middle" fill="#666" font-size="11">PID 1 — started first</text>
+  <text x="480" y="158" text-anchor="middle" fill="#666" font-size="11">stdio + pipe transport</text>
+  <text x="480" y="176" text-anchor="middle" fill="#484" font-size="11">writes .tw-mcp/connect</text>
+
+  <!-- VS Code → Primary (stdio) -->
+  <line x1="250" y1="138" x2="368" y2="138" stroke="#47a" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="306" y="132" text-anchor="middle" fill="#47a" font-size="10">stdio</text>
+  <line x1="368" y1="152" x2="250" y2="152" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- ════════ PROXY MCP SERVER ════════ -->
+  <rect x="370" y="206" width="220" height="78" rx="6" fill="#fff5ee" stroke="#b84" stroke-width="1.5"/>
+  <text x="480" y="228" text-anchor="middle" font-weight="bold" font-size="13" fill="#743">MCP Proxy</text>
+  <text x="480" y="246" text-anchor="middle" fill="#666" font-size="11">PID 2 — started second</text>
+  <text x="480" y="264" text-anchor="middle" fill="#666" font-size="11">no handlers, just relay</text>
+
+  <!-- Claude CLI → Proxy (stdio) -->
+  <line x1="250" y1="238" x2="368" y2="238" stroke="#47a" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="306" y="232" text-anchor="middle" fill="#47a" font-size="10">stdio</text>
+  <line x1="368" y1="252" x2="250" y2="252" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Readonly block: Proxy rejects write call back to client -->
+  <line x1="370" y1="262" x2="250" y2="262" stroke="#c44" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-red)"/>
+  <text x="306" y="278" text-anchor="middle" fill="#c44" font-size="9">write blocked</text>
+
+  <!-- Proxy → Primary (named pipe) -->
+  <line x1="530" y1="206" x2="530" y2="192" stroke="#47a" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="550" y1="192" x2="550" y2="206" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="578" y="202" fill="#47a" font-size="10">named pipe</text>
+
+  <!-- ════════ TW HTTP SERVER ════════ -->
+  <rect x="370" y="306" width="220" height="78" rx="6" fill="#f0f0ff" stroke="#668" stroke-width="1.5"/>
+  <text x="480" y="328" text-anchor="middle" font-weight="bold" font-size="13" fill="#336">TW Server</text>
+  <text x="480" y="346" text-anchor="middle" fill="#666" font-size="11">--listen on :8080</text>
+  <text x="480" y="364" text-anchor="middle" fill="#666" font-size="11">separate process, own $tw.wiki</text>
+
+  <!-- Browser → TW Server (HTTP) -->
+  <line x1="250" y1="336" x2="368" y2="336" stroke="#47a" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="306" y="330" text-anchor="middle" fill="#47a" font-size="10">HTTP</text>
+  <line x1="368" y1="350" x2="250" y2="350" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- ════════ $tw.wiki STORES ════════ -->
+  <rect x="660" y="100" width="170" height="78" rx="6" fill="#eef8ee" stroke="#696" stroke-width="1.5"/>
+  <text x="745" y="122" text-anchor="middle" font-weight="bold" font-size="12" fill="#363">$tw.wiki (MCP)</text>
+  <text x="745" y="140" text-anchor="middle" fill="#666" font-size="10">owned by MCP primary</text>
+  <text x="745" y="158" text-anchor="middle" fill="#484" font-size="10">proxy shares via pipe</text>
+  <text x="745" y="172" text-anchor="middle" fill="#c44" font-size="10">proxy has none</text>
+
+  <rect x="660" y="306" width="170" height="62" rx="6" fill="#f0f0ff" stroke="#668" stroke-width="1.5"/>
+  <text x="745" y="328" text-anchor="middle" font-weight="bold" font-size="12" fill="#336">$tw.wiki (TW)</text>
+  <text x="745" y="346" text-anchor="middle" fill="#666" font-size="10">owned by TW server</text>
+  <text x="745" y="360" text-anchor="middle" fill="#c44" font-size="10">independent store</text>
+
+  <!-- Primary → $tw.wiki (MCP) -->
+  <line x1="590" y1="135" x2="658" y2="135" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="658" y1="150" x2="590" y2="150" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- TW Server → $tw.wiki (TW) -->
+  <line x1="590" y1="335" x2="658" y2="335" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="658" y1="350" x2="590" y2="350" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════ TIDDLER FILES ON DISK ════════ -->
+  <rect x="700" y="206" width="130" height="72" rx="6" fill="#fffdf0" stroke="#886" stroke-width="1.5"/>
+  <text x="765" y="228" text-anchor="middle" font-weight="bold" font-size="12" fill="#553">Tiddler Files</text>
+  <text x="765" y="246" text-anchor="middle" fill="#666" font-size="10">*.tid on disk</text>
+  <text x="765" y="262" text-anchor="middle" fill="#553" font-size="10">shared filesystem</text>
+
+  <!-- $tw.wiki (MCP) → Tiddler Files -->
+  <line x1="745" y1="178" x2="765" y2="204" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- $tw.wiki (TW) → Tiddler Files -->
+  <line x1="745" y1="306" x2="765" y2="280" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════ INTERCEPTION DETAIL ════════ -->
+  <rect x="20" y="416" width="810" height="340" rx="6" fill="#f8f8fa" stroke="#888" stroke-width="1.5"/>
+  <text x="425" y="441" text-anchor="middle" font-weight="bold" font-size="14" fill="#333">Proxy Interception Points</text>
+
+  <!-- Request path -->
+  <rect x="40" y="456" width="380" height="140" rx="4" fill="#f0f4ff" stroke="#668" stroke-width="1"/>
+  <text x="55" y="476" fill="#47a" font-weight="bold" font-size="12">Request path (stdin → pipe)</text>
+
+  <circle cx="58" cy="500" r="8" fill="#47a" stroke="none"/>
+  <text x="58" y="504" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">A</text>
+  <text x="74" y="504" fill="#333" font-size="11">initialize: inject _auth_token</text>
+
+  <circle cx="58" cy="526" r="8" fill="#47a" stroke="none"/>
+  <text x="58" y="530" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">B</text>
+  <text x="74" y="530" fill="#333" font-size="11">tools/list: track request id</text>
+
+  <circle cx="58" cy="552" r="8" fill="#c44" stroke="none"/>
+  <text x="58" y="556" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">C</text>
+  <text x="74" y="556" fill="#c44" font-size="11">tools/call write → block if readonly</text>
+
+  <circle cx="58" cy="578" r="8" fill="#888" stroke="none"/>
+  <text x="58" y="582" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">*</text>
+  <text x="74" y="582" fill="#666" font-size="11">everything else: pass through</text>
+
+  <!-- Response path -->
+  <rect x="440" y="456" width="370" height="140" rx="4" fill="#eef8ee" stroke="#696" stroke-width="1"/>
+  <text x="455" y="476" fill="#4a4" font-weight="bold" font-size="12">Response path (pipe → stdout)</text>
+
+  <circle cx="458" cy="500" r="8" fill="#4a4" stroke="none"/>
+  <text x="458" y="504" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">D</text>
+  <text x="474" y="504" fill="#333" font-size="11">initialize: add proxy:true</text>
+  <text x="474" y="520" fill="#333" font-size="11">  + primaryPid, primaryLabel</text>
+
+  <circle cx="458" cy="544" r="8" fill="#4a4" stroke="none"/>
+  <text x="458" y="548" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">E</text>
+  <text x="474" y="548" fill="#333" font-size="11">tools/list: strip writeTools</text>
+  <text x="474" y="564" fill="#888" font-size="10">  (only when proxy is readonly)</text>
+
+  <circle cx="458" cy="578" r="8" fill="#888" stroke="none"/>
+  <text x="458" y="582" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">*</text>
+  <text x="474" y="582" fill="#666" font-size="11">everything else: pass through</text>
+
+  <!-- Lifecycle -->
+  <rect x="40" y="610" width="380" height="60" rx="4" fill="#f4f4f8" stroke="#888" stroke-width="1"/>
+  <text x="55" y="630" fill="#555" font-weight="bold" font-size="11">Lifecycle</text>
+  <text x="55" y="646" fill="#333" font-size="10">stdin closes → destroy pipe, exit(0)</text>
+  <text x="55" y="660" fill="#333" font-size="10">pipe error/end → primary gone, exit(1)</text>
+
+  <!-- Readonly blocked detail -->
+  <rect x="440" y="610" width="370" height="60" rx="4" fill="#fff5f0" stroke="#c44" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="455" y="630" fill="#c44" font-weight="bold" font-size="11">Readonly block (C)</text>
+  <text x="455" y="646" fill="#333" font-size="10">put_tiddler, delete_tiddler,</text>
+  <text x="455" y="660" fill="#333" font-size="10">save_wiki_folder, build_wiki, upload_file</text>
+
+  <!-- Startup note -->
+  <rect x="40" y="684" width="770" height="56" rx="4" fill="#fffdf0" stroke="#886" stroke-width="1"/>
+  <text x="55" y="704" fill="#553" font-weight="bold" font-size="11">Startup flow</text>
+  <text x="55" y="722" fill="#333" font-size="10">readDiscoveryFile() → PID alive + pipe reachable? → startProxyMode() : startAsPrimary()</text>
+  <text x="55" y="736" fill="#888" font-size="10">proxy boots $tw.wiki (unavoidable) but never uses it — all tool calls go through primary's store</text>
+</svg>

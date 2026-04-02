@@ -1,0 +1,327 @@
+created: 20260324000000000
+modified: 20260328215121297
+tags: [[MCP Server]] [[Developer Documentation]]
+title: MCP Inspect Scope Data Flow
+type: text/vnd.tiddlywiki
+
+!! Inspecting Widget Scope with MCP Tools
+
+This document describes the step-by-step data flow for determining all variables visible to a specific widget in rendered wikitext, using the TiddlyWiki MCP server tools.
+
+[img width=720 [MCP Inspect Scope Data Flow Diagram.svg]]
+
+!! Overview
+
+The goal is to answer: "What variables does a given widget see at render time?" This requires four tools used in sequence:
+
+# `get_tiddler` — retrieve the tiddler source text
+# `inspect_tree` — understand the widget tree structure
+# `inspect_pos` — map rendered elements to source positions
+# `inspect_scope` — retrieve all variables at a given position
+
+!! Worked Example
+
+The example uses three tiddlers:
+
+''Tiddler `aaa`:''
+
+```
+<$let asdf=asdf>
+
+<$link to=<<testXXX>>/>
+</$let>
+
+<$link to=<<testXXX>>/>
+
+{{note-tiddler}}
+```
+
+''Tiddler `note-tiddler`:''
+
+```
+<<.note """This is a test""">>
+```
+
+''Tiddler `global-test-function`'' (tagged `$:/tags/Global`):
+
+```
+\function testXXX() [<asdf>!is[blank]else[xx]]
+```
+
+This setup demonstrates three important patterns:
+
+* `<<testXXX>>` — a global function referenced via variable attribute
+* `{{note-tiddler}}` — a tiddler transclusion
+* `<<.note>>` — a global procedure call (inside the transcluded tiddler)
+
+The goal is to find all variables visible to the ''first'' `<$link>` widget.
+
+!!! Step 1: Retrieve the Tiddler
+
+''Tool:'' `get_tiddler`<br>
+''Parameters:'' `title="aaa"`, `detailed=true`<br>
+''Purpose:'' Obtain the full source text of the tiddler, including any pragma definitions.
+
+''What we learn:''
+
+* There are two `<$link>` widgets referencing `<<testXXX>>` — one inside a `<$let>` block, one outside
+* The `<$let>` block sets `asdf=asdf`
+* A `{{note-tiddler}}` transclusion at the bottom
+* `testXXX` is not defined locally — it must be a global
+
+!!! Step 2: Inspect the Widget Tree
+
+''Tool:'' `inspect_tree`<br>
+''Parameters:'' `text=<tiddler text>`, `context="aaa"`, `depth=5`<br>
+''Purpose:'' Get a structural overview of the rendered widget tree — how many nodes, what types, and what link targets exist.
+
+''Result:''
+
+```
+Total: 12 nodes (full tree)
+Types: 3 text, 2 let, 2 element, 2 link, 1 widget, 1 importvariables, 1 set
+Links (2): asdf, xx
+```
+
+''What we learn:''
+
+* There are 2 link widgets in the tree
+* The first link resolves to `asdf` (because `<$let asdf=asdf>` is in scope, so `<<testXXX>>` evaluates using `asdf`)
+* The second link resolves to `xx` (the fallback, since `asdf` variable is not in scope outside the `<$let>` block)
+
+!!! Step 3: Get the Position Map
+
+''Tool:'' `inspect_pos`<br>
+''Parameters:'' `text=<tiddler text>`, `context="aaa"`<br>
+''Purpose:'' Render the wikitext to HTML with `data-source-pos` attributes on every element. These positions are file-ready line numbers.
+
+''Result:''
+
+```html
+<p data-source-pos="L9-L10 @ aaa">
+  <a class="tc-tiddlylink tc-tiddlylink-missing"
+     data-source-pos="L9 @ aaa" href="#asdf">asdf</a>
+</p>
+<p data-source-pos="L12 @ aaa">
+  <a class="tc-tiddlylink tc-tiddlylink-missing"
+     data-source-pos="L12 @ aaa" href="#xx">xx</a>
+</p>
+```
+
+''What we learn:''
+
+* The first link is at position `L9 @ aaa` — the `<$link>` inside the `<$let>` block
+* The second link is at position `L12 @ aaa` — the one outside the `<$let>` block
+* The `data-source-pos` values are file-ready line numbers (accounting for the .tid file header)
+* The `charPos` needed for `inspect_scope` is derived from the source position within the text field
+
+!!! Step 4: Inspect the Scope
+
+''Tool:'' `inspect_scope`<br>
+''Parameters:'' `tiddler="aaa"`, `charPos=18`<br>
+''Purpose:'' Find the widget at the given character position and return the variables in its scope.
+
+''Default output'' (local scope + used globals):
+
+```
+Scope at char 18 (widget: link, distance: 0, 244 vars)
+
+— local scope
+var asdf = asdf
+var currentTiddler = aaa
+
+— used globals
+fn testXXX() @global-test-function
+
++241 globals (use all:true to see all, or filter to narrow)
+```
+
+''Key fields in the header:''
+
+|!Field |!Meaning |
+|`widget: link` |The closest widget at this position is a `link` widget |
+|`distance: 0` |Exact match — the charPos landed directly on this widget |
+|`244 vars` |Total number of variables visible at this point in the tree |
+
+!! Output Sections
+
+`inspect_scope` organises its output into three sections:
+
+!!! 1. Local scope
+
+Variables defined without a `sourceTitle` — these are set by widgets in the current tiddler or by the rendering context:
+
+* `<$let>`, `<$set>`, `<$vars>` bindings
+* `\function`, `\define`, `\procedure` pragmas within the tiddler
+* Context variables like `currentTiddler`, `thisTiddler`
+
+!!! 2. Used globals
+
+Imported variables (with a `sourceTitle`) that are ''actually referenced'' somewhere in the tiddler. Detection works by:
+
+# Scanning the entire tiddler's parse tree for variable references — `<<macro>>` calls, `<$widget $variable=.../>` transclude nodes, and `type: "macro"` attributes (`to=<<varname>>`)
+# Recursively following the chain — if a used variable's body contains `<varname>` filter references or `<<macro>>` calls, those are marked as used too
+
+This means a global function like `testXXX` shows up as "used" even when inspecting a widget that doesn't directly reference it, because it's used elsewhere in the same tiddler.
+
+!!! 3. Other globals (all:true only)
+
+The remaining imported variables from core modules and the current edition. Only shown when `all:true` is set.
+
+!! Variable Type Prefixes
+
+The scope output prefixes each variable with its type:
+
+|!Prefix |!Meaning |!Example |
+|`var` |Simple variable (`<$let>`, `<$set>`, `<$vars>`) |`var asdf = asdf` |
+|`fn` |Function (`\function` pragma) |`fn testXXX()` |
+|`proc` |Procedure (`\procedure` pragma) |`proc tag-picker(...)` |
+|`macro` |Macro (`\define` or legacy macro) |`macro tabs(...)` |
+|`def` |Definition (general `\define` with params) |`def timeline(...)` |
+|`widget` |Custom widget definition |`widget $expand.able(...)` |
+
+!! Position Mapping: `data-source-pos` to `charPos`
+
+The `inspect_pos` tool returns line numbers relative to the ''.tid file'' (including the header). The `inspect_scope` tool requires a `charPos` — a character offset within the tiddler's ''text field'' (excluding the header). The `tiddler` parameter on `inspect_scope` handles this conversion when you provide a tiddler title directly.
+
+''Tip:'' For best results, use `charPos` values that land directly on a widget start tag (e.g., the `<` of `<$link`). The `distance: 0` in the output confirms an exact hit. If the distance is large, the scope may belong to a parent or sibling widget.
+
+!! Render Context
+
+By default, `inspect_scope` renders the tiddler in isolation — just the wikitext with `currentTiddler` set. In the browser, tiddlers are rendered inside a deep widget chain (PageTemplate → navigator → story list → ViewTemplate → body) that sets many additional variables.
+
+The `renderContext` parameter lets you simulate these additional layers:
+
+!!! `"isolated"` (default)
+
+Renders only the tiddler text with `currentTiddler` set. This is the fastest and simplest mode.
+
+''Local variables visible:'' only what the tiddler itself defines plus `currentTiddler`.
+
+!!! `"viewtemplate"`
+
+Adds the variables that the ViewTemplate sets when displaying a tiddler in the story river:
+
+|!Variable |!Value |!Set by |
+|`storyTiddler` |the tiddler title |ViewTemplate `<$vars>` |
+|`tiddlerInfoState` |`$:/state/popup/tiddler-info--{title}` |ViewTemplate `<$vars>` |
+|`folded-state` |`$:/state/folded/{title}` |ViewTemplate macro |
+
+!!! `"root"`
+
+Adds everything from `"viewtemplate"` plus the full UI chain variables:
+
+|!Variable |!Value |!Set by |
+|`tv-story-list` |`$:/StoryList` |Navigator widget |
+|`tv-history-list` |`$:/HistoryList` |Navigator widget |
+|`tv-config-toolbar-icons` |from `$:/config/Toolbar/Icons` |PageTemplate `<$vars>` |
+|`tv-config-toolbar-text` |from `$:/config/Toolbar/Text` |PageTemplate `<$vars>` |
+|`tv-config-toolbar-class` |from `$:/config/Toolbar/ButtonClass` |PageTemplate `<$vars>` |
+|`tv-enable-drag-and-drop` |from `$:/config/DragAndDrop/Enable` |PageTemplate `<$vars>` |
+|`tv-show-missing-links` |from `$:/config/MissingLinks` |PageTemplate `<$vars>` |
+|`storyviewTitle` |from `$:/view` |PageTemplate `<$vars>` |
+|`languageTitle` |from `$:/language` |PageTemplate `<$vars>` |
+
+This most closely matches what the browser's variable inspector shows.
+
+!! Scope Inheritance
+
+Variables are inherited through the widget tree:
+
+# ''Widget bindings'' (`<$let>`, `<$set>`, `<$vars>`) — available only within the widget's subtree
+# ''Pragma definitions'' (`\function`, `\define`, `\procedure`) — available throughout the tiddler
+# ''Global imports'' — macros and procedures from core modules and the current edition, available everywhere
+
+This is why the first link sees `asdf` (it is inside `<$let asdf=asdf>`) but the second link does not (it is outside that block).
+
+!! Comparison: First Link vs Second Link
+
+|!Aspect |!First Link (charPos=18) |!Second Link (charPos=51) |
+|Local `asdf` |`asdf` (from `<$let>`) |//not in scope// |
+|`testXXX` |used global @global-test-function |used global @global-test-function |
+|`currentTiddler` |`aaa` |`aaa` |
+
+Both links see the same used globals (tiddler-wide detection), but only the first link has `asdf` in its local scope.
+
+!! Cross-Tiddler Transclusion
+
+The tiddler `aaa` transcludes `note-tiddler` via `{{note-tiddler}}`. To inspect variables inside the transcluded content, use `inspect_scope` with `tiddler="note-tiddler"`:
+
+```
+Scope at char 0 (widget: text, distance: 0, 251 vars)
+
+— local scope
+var thisTiddler = note-tiddler
+var text = This is a test
+var title = Note
+var icon = $:/core/images/info-button
+var class = doc-note
+var iconSize = 22pt
+var _ = This is a test
+var currentTiddler = note-tiddler
+
+— used globals
+proc .note(_, title:Note, ...) @$:/editions/tw5.com/doc-macros
+```
+
+The local scope shows the `.note` procedure's parameters resolved to their values. The `thisTiddler` is set to `note-tiddler` because that's the tiddler being rendered.
+
+!! Browser vs MCP: Key Differences
+
+The browser's variable inspector and the MCP server's `inspect_scope` may show different results for the same widget position. These differences are expected and stem from how each renders the tiddler.
+
+!!! 1. Rendering context
+
+The browser renders tiddlers inside the full UI widget chain (PageTemplate → navigator → story list → ViewTemplate → body). The MCP server renders in isolation by default. Use the `renderContext` parameter (`"viewtemplate"` or `"root"`) to simulate the browser's context.
+
+|!Variable |!Browser |!MCP (isolated) |!MCP (root) |
+|`currentTiddler` |yes |yes |yes |
+|`storyTiddler` |yes |no |yes |
+|`tiddlerInfoState` |yes |no |yes |
+|`tv-story-list` |yes |no |yes |
+|`tv-config-toolbar-icons` |yes |no |yes |
+
+!!! 2. Transclusion context
+
+In the browser, when `aaa` transcludes `note-tiddler` via `{{note-tiddler}}`, the TranscludeWidget wraps the content and sets a `transclusion` variable (e.g. `{note-tiddler|note-tiddler|||}`). The MCP server renders `note-tiddler` directly without this wrapper, so `transclusion` is not set.
+
+This is a fundamental limitation: `inspect_scope` renders a single tiddler — it does not replicate the transclusion chain from a parent tiddler.
+
+!!! 3. Variable count
+
+The browser typically shows more variables (~260+) than the MCP server in isolated mode (~244) because of the UI chain variables. Using `renderContext="root"` brings the count closer (~256).
+
+!! Parameters Reference
+
+|!Parameter |!Type |!Default |!Description |
+|`tiddler` |string | |Tiddler title to render |
+|`charPos` |number |0 |Character position within the text field |
+|`text` |string | |Wikitext to render instead of a tiddler |
+|`context` |string | |Context tiddler (sets `currentTiddler`) |
+|`match` |object | |Match widget by variable values to disambiguate |
+|`filter` |string | |Only show variables matching this substring |
+|`all` |boolean |false |Show all variables including unused globals |
+|`renderContext` |string |`"isolated"` |Widget tree context: `"isolated"`, `"viewtemplate"`, or `"root"` |
+
+!! AI Agent Test Prompt
+
+Use this prompt to test the MCP server inspect_scope data flow in a fresh conversation. It ensures only MCP tool output is used, with no trained knowledge:
+
+```
+I want to test the MCP server tools only. Rules for this conversation:
+
+1. Only show information returned by MCP server tools — no info from training data or conversation context
+2. Show the exact tool calls you make and the data flow between them
+3. Do not augment, interpret, or add context beyond what the tools return
+
+The tiddler `aaa` has some widgets that reference variables. Using only MCP tools:
+
+1. Get the tiddler source
+2. Inspect the widget tree
+3. Get the position map
+4. Run `inspect_scope` at the first widget that references a variable — show default output (local + used globals)
+5. Run `inspect_scope` again with `all:true` at the same position
+6. Compare the two outputs
+
+Any questions before you start?
+```

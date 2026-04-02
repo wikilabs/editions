@@ -1,0 +1,431 @@
+created: 20260311050000000
+modified: 20260328215111076
+tags: 
+title: MCP Instructions
+type: text/vnd.tiddlywiki
+
+!! MCP Server — Detailed Instructions
+
+This tiddler describes how to use each tool provided by the TiddlyWiki MCP server. For a general overview, see [[MCP Basics]].
+
+!! Setup
+
+!!! Starting the Server
+
+```
+tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp
+```
+
+Replace `./mywiki` with the path to your wiki folder. The wiki folder must contain a `tiddlywiki.info` file. The `+plugins/tiddlywiki/filesystem` argument loads the filesystem plugin for disk persistence.
+
+!!! Registering with Claude CLI
+
+```
+claude mcp add --transport stdio tiddlywiki -- node tiddlywiki.js +plugins/tiddlywiki/filesystem ./mywiki --mcp
+```
+
+!!! Readonly Mode
+
+To prevent any modifications to your wiki, add `readonly` after `--mcp`:
+
+```
+tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp readonly
+```
+
+In readonly mode, only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available.
+
+!!! Label
+
+Give your MCP server instance a name to identify it in the `.tw-mcp/connect` discovery file. Useful when running multiple instances for different wikis or from different tools (e.g. VS Code, Claude CLI, terminal):
+
+```
+tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp label=vscode
+```
+
+The label appears in the `.tw-mcp/connect` JSON and helps distinguish which process created the pipe.
+
+!!! Path Restrictions
+
+By default, file operations are restricted to the wiki's `tiddlers/`, `files/`, and `output/` subdirectories. You can override this with:
+
+```
+tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp allowed-paths=/path/one,/path/two
+```
+
+---
+
+!! Transports
+
+The server runs two transports simultaneously:
+
+!!! stdio
+
+Standard input/output — the primary transport used by Claude CLI and other MCP clients. Messages are newline-delimited JSON-RPC 2.0.
+
+!!! Named Pipe
+
+A local named pipe for helper tools (like `tw-upload`). On startup, the server:
+
+# Generates a 256-bit random authentication token
+# Creates a named pipe (`\\.\pipe\tiddlywiki-mcp-<wiki-id>` on Windows, `.mcp.sock` on Unix)
+# Writes a `.tw-mcp/connect` discovery file to the wiki directory:
+
+```json
+{"pipe":"\\\\.\\pipe\\tiddlywiki-mcp-...","token":"<hex>","pid":12345,"label":"vscode","command":"node tiddlywiki.js ..."}
+```
+
+Pipe clients must send the token in the `_auth_token` field of their `initialize` request. The `pid` field lets clients verify the server process is still alive. The `label` field (if present) identifies which instance created the pipe. The `command` field shows the full command line that started the server.
+
+On exit, the server cleans up the pipe and discovery file.
+
+---
+
+!! Reading Tiddlers
+
+!!! `get_tiddler`
+
+Retrieves a single tiddler by title. By default returns ''metadata only'' (all fields except `text`) to save tokens. Set `detailed` to `true` to include the text field.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`format` |no |`tid` (default) — `.tid` format with field headers. `json` — structured fields object |
+|`detailed` |no |Set to `true` to include the `text` field (default: `false`) |
+
+> ''Note:'' System tiddlers (`$:/` prefix) should only be fetched when explicitly requested by the user. The AI is instructed not to fetch system tiddlers for general queries.
+
+''Example prompts:''
+
+* "Show me the tiddler called GettingStarted"
+* "Show me the full contents of MyTiddler" — triggers `detailed=true`
+
+!!! `list_tiddlers`
+
+Lists tiddler titles. By default returns up to 100 ''non-system'' tiddlers.
+
+|!Parameter |!Required |!Description |
+|`tag` |no |Filter results to tiddlers with this tag |
+|`limit` |no |Maximum number of results (default: 100) |
+|`includeSystem` |no |Set to `true` to include `$:/` system tiddlers |
+|`plugin` |no |List tiddlers inside a plugin (e.g. `$:/plugins/tiddlywiki/internals` or `$:/core`) |
+|`overwrittenShadows` |no |List shadow tiddlers that have been overwritten by real tiddlers |
+
+When listing large sets (plugins with thousands of tiddlers), results are grouped into a ''namespace summary'' — showing top-level namespaces with counts in parentheses (e.g. `config/ (252)`). You can then drill into specific namespaces using `run_filter` with a prefix.
+
+''Example prompts:''
+
+* "List all tiddlers tagged Journal"
+* "Show me the first 20 tiddlers"
+* "Show me all core tiddlers" — uses `plugin=$:/core`
+* "Show me the overwritten shadow tiddlers"
+
+!!! `run_filter`
+
+Runs a [[TiddlyWiki filter expression|https://tiddlywiki.com/static/Filters.html]] and returns matching titles.
+
+|!Parameter |!Required |!Description |
+|`filter` |yes |A TiddlyWiki filter expression |
+
+> ''Important:'' Always include `!is[system]` as the ''first'' operator in filters (unless system tiddlers are explicitly requested). This narrows the working set early and avoids unnecessary processing of thousands of system/shadow tiddlers.
+
+When results exceed 100, the output switches to a ''namespace summary'' — grouping titles by common prefix with counts. This lets you progressively drill into large result sets by narrowing the prefix filter.
+
+''Namespace browsing pattern:''
+
+# Start broad: `[all[shadows+tiddlers]prefix[$:/config/]]` → namespace summary with counts
+# Drill in: `[all[shadows+tiddlers]prefix[$:/config/shortcuts/]]` → individual tiddlers
+# Get details: use `get_tiddler` on a specific title
+
+> ''Tip:'' Use `all[shadows+tiddlers]` to include shadow tiddlers (from plugins/core). Many important tiddlers are shadows that won't appear with just `prefix[]`.
+
+''Example prompts:''
+
+* "Find all tiddlers containing the word 'recipe'" — uses `[!is[system]search[recipe]]`
+* "List tiddlers modified today" — uses `[!is[system]days:modified[-1]]`
+* "Show tiddlers tagged 'Project' sorted by title" — uses `[tag[Project]sort[title]]`
+* "Show me config tiddlers including shadows" — uses `[all[shadows+tiddlers]prefix[$:/config/]]`
+* "Show me all core UI tiddlers" — uses `[all[shadows+tiddlers]prefix[$:/core/ui/]]`
+
+!!! `render_tiddler`
+
+Renders a tiddler's wikitext to plain text or HTML. Supports all global macros (including `list-links`, `list-links-draggable`, etc.) through the ~TiddlyWiki page macro import system.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title to render |
+|`type` |no |`text/plain` (default), `text/plain-formatted`, or `text/html` |
+
+> ''Token efficiency:'' Plain text output (`text/plain` or `text/plain-formatted`) is significantly smaller than HTML — roughly 5–6× fewer tokens for the same content. Prefer plain text unless the HTML structure is specifically needed. Dynamic wikitext (macros, filters, transclusions) is fully resolved in all output modes.
+
+''Example prompts:''
+
+* "Render the GettingStarted tiddler"
+* "Render the TableOfContents as HTML"
+* "Render the Filter Operators tiddler" — resolves dynamic tag-based filter tables server-side
+
+!!! `render_text`
+
+Renders arbitrary wikitext with full context — global macros, procedures, and variables are all available. Use `\import` to pull in procedures from other tiddlers. Useful for testing wikitext snippets, executing procedures that gather information, or generating content dynamically.
+
+Also supports `parsetree` output for structural analysis of wikitext before macro expansion.
+
+|!Parameter |!Required |!Description |
+|`text` |yes |The wikitext to render |
+|`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
+|`output` |no |`text/plain` (default), `text/plain-formatted`, `text/html`, or `parsetree` |
+|`context` |no |Tiddler title to use as context (sets `currentTiddler` variable) |
+|`exclude` |no |Keys to omit from `parsetree` output (e.g. `['start','end']`) |
+|`include` |no |Keys to unfold in `parsetree`. `text` is compact by default — use `['text']` to expand. |
+
+> ''Note:'' Action widgets (like `action-setfield`, `action-sendmessage`) do NOT execute server-side. Only rendering/transclusion works.
+
+For widget tree analysis, use [[inspect_tree|MCP Source Position Tracking]]. For source position tracking, use [[inspect_pos|MCP Source Position Tracking]].
+
+''Example prompts:''
+
+* "Render this wikitext: `<<version>>`" — returns the TiddlyWiki version string
+* "Show me the value of `{{$:/palette}}`" — transcludes a system tiddler value
+* "Run this filter inline: `{{{ [tag[Journal]count[]] }}}`" — evaluates a filtered transclusion
+
+''Example — importing procedures from another tiddler:''
+
+You can use `\import` to pull in procedures defined in other tiddlers and then call them:
+
+```
+\import [[$:/some/tiddler-with-procedures]]
+<<my-procedure "argument">>
+```
+
+''Example — gathering wiki settings:''
+
+```
+TiddlyWiki Version: <<version>>
+Current palette: {{$:/palette}}
+Current theme: {{$:/theme}}
+Plugins: {{{ [has[plugin-type]sort[]] :map[{!!version}addprefix[ - ]addprefix<currentTiddler>] +[join[, ]] }}}
+```
+
+!!! `inspect_tree`
+
+Analyzes the rendered widget tree structure. Returns type counts (for the full tree regardless of depth), link targets, transclusion tracking, and a depth-limited JSON representation.
+
+|!Parameter |!Required |!Description |
+|`text` |yes |The wikitext to analyze |
+|`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
+|`context` |no |Context tiddler (sets `currentTiddler`) |
+|`exclude` |no |Attribute names to omit from the tree |
+|`include` |no |Keys to unfold. `text` is compact by default — use `['text']` to expand. |
+|`depth` |no |Max depth for tree JSON output (default: 3) |
+
+''Example prompts:''
+
+* "How many links are in the About tiddler?" — type counts show `12 link`
+* "Show me the widget tree for `<<list-links>>`" — shows macro expansion structure
+* "What transclusions are in GettingStarted?" — shows transclude nodes with targets
+
+!!! `inspect_pos`
+
+Renders wikitext to HTML with `data-source-pos` attributes on every element and link. Each attribute shows `L{start}-L{end}@tiddlerTitle` — file-ready line numbers that include the `.tid` header offset and macro body offset.
+
+|!Parameter |!Required |!Description |
+|`text` |yes |The wikitext to render |
+|`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
+|`context` |no |Context tiddler (sets `currentTiddler`) |
+
+Use the output with `inspect_scope` to examine variables at specific positions.
+
+''Example prompts:''
+
+* "Show me the source positions in the Quick Start tiddler" — renders HTML with `data-source-pos` attributes
+* "Where does the Download button come from?" — trace `L81-L84@$:/cards/procedures` back to the source
+
+!!! `inspect_scope`
+
+Inspects the variable scope at a specific source position in rendered wikitext. Renders the text, finds the widget at the given character position, and returns all variables in scope — ordered innermost first (local variables before globals).
+
+|!Parameter |!Required |!Description |
+|`tiddler` |no |Tiddler title to render (the `@tiddler` from `data-source-pos`) |
+|`text` |no |Wikitext to render instead (for rendering from the caller's perspective) |
+|`charPos` |no |Character position within the text field |
+|`context` |no |Context tiddler (sets `currentTiddler`) |
+|`match` |no |Match widget by variable values to disambiguate repeated positions (e.g. `{"currentTiddler": "Quick Start: Desktop"}`) |
+|`filter` |no |Only show variables matching this substring |
+|`limit` |no |Max variables to show (default: 20) |
+|`all` |no |Set to `true` to show all variables |
+
+> ''Tip:'' When inspecting a position inside a macro/procedure, render from the ''caller's'' wikitext (using the `text` parameter) rather than the definition tiddler. This gives you the full scope including `currentTiddler`, `thisTiddler`, and procedure parameters.
+
+''Example prompts:''
+
+* "Inspect the scope at the flex-card button" — shows procedure params, currentTiddler, etc.
+* "What variables are available at L81@$:/cards/procedures for the Desktop card?" — uses `match` to select the right list iteration
+* "Show me only card-related variables" — uses `filter: "card"`
+
+For a comprehensive guide to the source position tracking workflow, see [[MCP Source Position Tracking]].
+
+!!! `inspect_tw`
+
+Inspects TiddlyWiki's internal `$tw` object structure. Navigate the runtime object tree, view function source code, and call functions to inspect their return values.
+
+|!Parameter |!Required |!Description |
+|`path` |no |Dot-separated path into `$tw` (e.g. `wiki`, `boot.wikiInfo`, `utils`). Empty string = top-level keys |
+|`depth` |no |How many levels deep to inspect (default: 1). Start at 1, go deeper based on `maxDepth` in response |
+|`fullSource` |no |Set to `true` to show full function source code instead of first 5 lines |
+|`call` |no |Array of string arguments to call a function with and inspect the return value |
+|`exclude` |no |Array of key names to skip (use to avoid large or circular branches like `wiki`) |
+
+''Example prompts:''
+
+* "Inspect $tw" — shows top-level keys of the `$tw` object
+* "Inspect $tw.wiki" — shows wiki store methods and properties
+* "Inspect $tw.boot.wikiInfo with depth 2" — shows wiki configuration in detail
+* "Inspect $tw.wiki.addTiddler full" — shows full function source code
+* "Inspect $tw.wiki.getTiddler(\"HelloThere\")" — calls the function and inspects the returned tiddler object
+* "Inspect $tw.rootWidget with max detail but exclude wiki" — deep inspection, skipping the large wiki branch
+
+For a comprehensive guide with output format explanation and more examples, see [[MCP Inspect Tool]].
+
+!!! `get_wiki_info`
+
+Returns pre-formatted wiki metadata including:
+
+* Wiki title and subtitle (with macros rendered)
+* Tiddler counts (standard, system, shadow, overridden shadows, tags)
+* Installed plugins, themes, and languages (one per line)
+* TiddlyWiki version
+* Server status (readonly mode, filesystem adaptor)
+* Basic settings from the ControlPanel/Basics panel (site title, username, default tiddlers, animation duration, journal settings, etc.)
+
+Takes no parameters. The output is pre-formatted plain text — the AI presents it directly without reformatting.
+
+''Example prompts:''
+
+* "What plugins are installed?"
+* "How many tiddlers are in this wiki?"
+* "What are the current wiki settings?"
+
+!!! `reload_tiddlers`
+
+Re-reads all tiddler files from disk into the in-memory store. Use this after editing `.tid` files externally (e.g. with a text editor or git pull). Takes no parameters.
+
+''Safety:''
+
+* ''Diff-based'' — compares each disk tiddler with the in-memory version field-by-field. Only tiddlers that have actually changed are updated in the store, avoiding unnecessary syncer activity.
+* ''Deduplication'' — if the same title appears in multiple files on disk (e.g. a `.tid` and a `.webp.meta`), only the last-loaded version is used, matching TiddlyWiki's boot behavior.
+* ''SyncFilter respected'' — uses the same `$:/config/SyncFilter` as TiddlyWiki's syncer to skip tiddlers that aren't normally synced (e.g. `$:/temp/`, `$:/state/`, `$:/status/`, `$:/boot/`, `$:/HistoryList`, `$:/core`).
+* Reports counts: added, updated, unchanged, and skipped (filtered).
+
+---
+
+!! Writing Tiddlers
+
+> ''Important:'' Write tools are not available in readonly mode.
+
+!!! `put_tiddler`
+
+Creates a new tiddler or updates an existing one. The tiddler is saved to disk as a `.tid` file.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`fields` |yes |Object with tiddler fields: `text`, `tags`, `type`, etc. |
+|`overwrite` |no |Set to `true` to overwrite an existing tiddler (default: `false`) |
+
+''Behaviour:''
+
+* If the tiddler ''does not exist'', it is created with automatic `created` and `modified` timestamps.
+* If the tiddler ''exists'' and `overwrite` is `false` (default), a ''new unique title'' is generated (e.g. "My Tiddler" becomes "My Tiddler 1"). The original tiddler is ''not'' modified.
+* If the tiddler ''exists'' and `overwrite` is `true`, the existing tiddler is updated. The original `created` timestamp is preserved and `modified` is updated.
+* Timestamps respect the `$:/config/TimestampDisable` configuration.
+
+''Example prompts:''
+
+* "Create a tiddler called Meeting Notes with text: Discussed project timeline"
+* "Update the tiddler Daily Log with new text, overwrite it"
+
+!!! `delete_tiddler`
+
+Deletes a tiddler from the store and removes its `.tid` file from disk.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title to delete |
+
+> ''Warning:'' This operation cannot be undone (unless you have a backup or version control). The AI is instructed to confirm before deleting.
+
+''Example prompts:''
+
+* "Delete the tiddler called old-draft"
+
+!!! `upload_file`
+
+Uploads a base64-encoded binary file to the wiki's `files/` directory and creates a canonical tiddler referencing it via `_canonical_uri`.
+
+|!Parameter |!Required |!Description |
+|`filename` |yes |Filename to save (e.g. `photo.png`). No path separators allowed. |
+|`data` |yes |Base64-encoded file content |
+|`type` |yes |MIME type (e.g. `image/png`, `application/pdf`) |
+|`title` |no |Tiddler title (defaults to filename) |
+|`tags` |no |Space-separated tags |
+|`subfolder` |no |Subfolder within `files/` (e.g. `images`) |
+
+!!! `save_wiki_folder`
+
+Exports the entire wiki as a wiki folder structure to a specified directory.
+
+|!Parameter |!Required |!Description |
+|`path` |yes |Output directory path (must be empty or non-existent) |
+|`filter` |no |Filter for tiddlers to include (default: `[all[tiddlers]]`) |
+|`explodePlugins` |no |Set to `no` to keep plugins as single tiddlers (default: `yes`) |
+
+''Example prompts:''
+
+* "Export this wiki to /tmp/my-wiki-backup"
+
+!!! `build_wiki`
+
+Renders the wiki as a single standalone HTML file.
+
+|!Parameter |!Required |!Description |
+|`output` |yes |Output file path for the HTML file |
+|`template` |no |Template tiddler (default: `$:/core/save/all`) |
+
+''Example prompts:''
+
+* "Build the wiki as output.html"
+
+---
+
+!! Helper: `tw-upload`
+
+A standalone CLI tool for uploading binary files to a running MCP server via named pipe. It handles authentication, base64 encoding, and the MCP protocol automatically.
+
+!!! Usage
+
+```
+node tw-upload.js <file> [--wiki <path>] [--title <title>] [--tags <tags>] [--subfolder <dir>]
+```
+
+|!Option |!Description |
+|`<file>` |File to upload (PNG, JPG, GIF, PDF — max 50MB) |
+|`--wiki <path>` |Wiki directory to find `.tw-mcp/connect` (defaults to current dir) |
+|`--title <title>` |Tiddler title (defaults to filename) |
+|`--tags <tags>` |Space-separated tags (use `[[double brackets]]` for multi-word tags) |
+|`--subfolder <dir>` |Subfolder within `files/` to save to |
+
+!!! Examples
+
+```
+node tw-upload.js photo.png --wiki ./editions/tw5.com
+node tw-upload.js doc.pdf --title "My Document" --tags "docs reference"
+node tw-upload.js icon.gif --subfolder images --tags "[[site images]]"
+```
+
+> The MCP server must be running. If the `.tw-mcp/connect` file is missing, `tw-upload` will show a clear error with the command to start the server.
+
+---
+
+!! Tips for Safe Usage
+
+# ''Be specific'' — say "create a tiddler called X" rather than "add X". Vague instructions may be misinterpreted.
+# ''Use readonly mode'' for exploration — if you just want to browse or search, start the server with `--mcp readonly`.
+# ''Back up your wiki'' — use version control (git) or make a copy before letting an AI make bulk changes.
+# ''Review before confirming'' — when the AI lists tiddlers it wants to modify, review the list before agreeing.
+# ''One operation at a time'' — for important changes, ask for one tiddler to be modified at a time rather than bulk operations.
+# ''System tiddlers are protected'' — the AI will not fetch or modify system tiddlers unless you explicitly ask for them by name.
