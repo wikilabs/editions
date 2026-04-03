@@ -1,0 +1,50 @@
+created: 20260403174658225
+modified: 20260403183423860
+tags: Documentation [[Gemini MCP]]
+title: MCP Gemini Configuration
+
+!! Connecting Gemini to TiddlyWiki MCP Server
+
+To connect Gemini with a TiddlyWiki instance using the MCP (Model Context Protocol) server, use the following command structure:
+
+!!! Command Line Interface (CLI)
+
+Run the following command in your terminal, replacing `./test` with the path to your TiddlyWiki folder:
+
+```bash
+gemini mcp add --scope project tiddlywiki-mcp tiddlywiki ./test --mcp
+```
+
+!!! Command Breakdown:
+
+* `--scope project`: Limits the configuration to the current project.
+* `tiddlywiki-mcp`: The name assigned to the MCP server.
+* `tiddlywiki`: The executable command to run.
+* `./test --mcp`: The arguments passed to the command (the wiki path and the `--mcp` flag).
+
+!!! JSON Configuration
+
+The above command generates or updates the `.gemini/settings.json` file with the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "tw-mcp": {
+      "command": "tiddlywiki",
+      "args": [
+        "./test",
+        "--mcp"
+      ]
+    }
+  }
+}
+```
+
+!!! Features
+
+Once connected, Gemini can:
+
+* Read and search tiddlers using filters.
+* Create, update, and delete tiddlers.
+* Render wikitext to HTML or plain text.
+* Inspect the internal $tw state and variable scopes.
