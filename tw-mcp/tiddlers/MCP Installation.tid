@@ -1,0 +1,100 @@
+created: 20260403162850006
+modified: 20260403162850006
+tags: MCP Server
+title: MCP Installation
+
+!! Requirements
+
+# ''Node.js'' (v24 or later)
+# ''TiddlyWiki'' installed globally: `npm install -g tiddlywiki`
+# ''Claude Code'' (CLI, VS Code extension, or desktop app)
+
+!! Plugin Setup
+
+The `wikilabs/tw-mcp` plugin is not part of TiddlyWiki core. TiddlyWiki needs to know where to find it.
+
+!!! 1. Set `TIDDLYWIKI_PLUGIN_PATH`
+
+This environment variable tells TiddlyWiki where to look for third-party plugins.
+
+; Linux / macOS
+: Add to `~/.bashrc` or `~/.zshrc`:
+
+```
+export TIDDLYWIKI_PLUGIN_PATH="/path/to/your/plugins"
+```
+
+; Windows
+: Set via System Environment Variables or in your terminal profile:
+
+```
+set TIDDLYWIKI_PLUGIN_PATH=C:\path\to\your\plugins
+```
+
+The path must point to the directory that ''contains'' the `wikilabs/` folder (not to `wikilabs/` itself).
+
+!!! 2. Add the plugin to your wiki
+
+In your wiki's `tiddlywiki.info` file, add the plugin:
+
+```json
+{
+  "plugins": [
+    "wikilabs/tw-mcp"
+  ]
+}
+```
+
+!!! 3. Verify
+
+Run from your wiki directory:
+
+```
+tiddlywiki . --mcp
+```
+
+If the plugin is not found, you will see:
+
+> ''Warning: Cannot find plugin 'wikilabs/tw-mcp' ''
+> ''Error: Unknown command: mcp''
+
+Double-check that `TIDDLYWIKI_PLUGIN_PATH` is set correctly.
+
+!! Claude Code Configuration
+
+Add a `.mcp.json` file to your wiki directory:
+
+```json
+{
+  "mcpServers": {
+    "tiddlywiki": {
+      "type": "stdio",
+      "command": "tiddlywiki",
+      "args": [".", "--mcp", "label=claude"]
+    }
+  }
+}
+```
+
+Then start Claude Code from that directory. The MCP server will be available automatically.
+
+!!! Alternative: Set the plugin path in `.mcp.json`
+
+Instead of a global environment variable, you can set `TIDDLYWIKI_PLUGIN_PATH` per-server using the `env` field:
+
+```json
+{
+  "mcpServers": {
+    "tiddlywiki": {
+      "type": "stdio",
+      "command": "tiddlywiki",
+      "args": [".", "--mcp", "label=claude"],
+      "env": {
+        "TIDDLYWIKI_PLUGIN_PATH": "/path/to/your/plugins"
+      }
+    }
+  }
+}
+```
+
+This sets the variable only for the MCP server process, without requiring it in your shell profile.

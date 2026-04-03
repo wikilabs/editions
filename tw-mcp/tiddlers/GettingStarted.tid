@@ -5,6 +5,10 @@ title: GettingStarted
 
 The ''TW MCP'' plugin adds a [[Model Context Protocol|https://modelcontextprotocol.io/]] (MCP) server to TiddlyWiki. This lets AI assistants like Claude, Gemini, and others read, search, render, and modify your wiki content through a standardised interface.
 
+!! Prerequisites
+
+You need Node.js (v24+), TiddlyWiki (globally installed), and the `TIDDLYWIKI_PLUGIN_PATH` environment variable pointing to the tw-mcp plugin location. See [[MCP Installation]] for detailed setup instructions.
+
 !! Quick Start
 
 !!! 1. Start the MCP server
