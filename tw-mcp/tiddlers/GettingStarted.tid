@@ -1,15 +1,97 @@
+modified: 20260402232104690
 title: GettingStarted
 
-! Overview
+!! Introduction
 
-This plugin "TW MCP" adds a MCP server to your wiki
+The ''TW MCP'' plugin adds a [[Model Context Protocol|https://modelcontextprotocol.io/]] (MCP) server to TiddlyWiki. This lets AI assistants like Claude, Gemini, and others read, search, render, and modify your wiki content through a standardised interface.
+
+!! Quick Start
+
+!!! 1. Start the MCP server
+
+From your wiki directory run:
+
+```
+tiddlywiki . --mcp
+```
+
+This starts the MCP server in read/write mode using stdio transport.
+
+; Common options
+: `readonly` — disable all write operations
+: `label=<name>` — identify this instance (e.g. `label=claude`)
+: `listen` — also start an HTTP server so browser and MCP share the same wiki store
+
+Examples:
+
+This command starts an MCP server with access to the wiki directory with file access.
+
+```
+tiddlywiki . --mcp readonly
+```
+
+This command starts an MCP server ''and'' at TiddlyWiki server, which have access to the same wiki-store. So changes written to the store will be directly visible in the browser with the next poll (default 60s).
+
+```
+tiddlywiki . --mcp listen label=primary port=8080
+```
+
+!!! 2. Register with Claude CLI
+
+Add a `.mcp.json` file to your wiki directory:
+
+```json
+{
+  "mcpServers": {
+    "tiddlywiki": {
+      "type": "stdio",
+      "command": "tiddlywiki",
+      "args": [".", "--mcp", "label=claude"]
+    }
+  }
+}
+```
+
+Then start Claude Code from that directory. The MCP server will be available automatically.
+
+!! Available Tools
+
+!!! Read tools
+
+|! Tool |! Description |
+|`get_tiddler` |Fetch tiddler metadata or full content |
+|`list_tiddlers` |Browse titles with namespace summaries |
+|`run_filter` |Execute TiddlyWiki filter expressions |
+|`render_tiddler` |Render a tiddler to plain text or HTML |
+|`render_text` |Render arbitrary wikitext |
+|`get_wiki_info` |Wiki metadata, plugins, tiddler counts |
+|`inspect_tree` |Analyse widget tree structure |
+|`inspect_pos` |Render with source position tracking |
+|`inspect_scope` |Inspect variable scope at a position |
+|`inspect_tw` |Navigate the internal `$tw` object |
+
+!!! Write tools (disabled in readonly mode)
+
+|! Tool |! Description |
+|`put_tiddler` |Create or update a tiddler |
+|`delete_tiddler` |Delete a tiddler |
+|`upload_file` |Upload binary files (images, PDFs) |
+|`save_wiki_folder` |Export wiki as folder structure |
+|`build_wiki` |Render wiki as single HTML file |
+
+!! Further Reading
+
+* [[MCP Basics]] — features, transports, safety
+* [[MCP Instructions]] — detailed tool usage and examples
+* [[MCP Proxy Mode Concept]] — multi-client architecture
+* [[MCP Source Position Tracking]] — debugging workflow
 
 {{$:/plugins/wikilabs/tw-mcp/readme}}
 
-! Plugins
+!! Plugins
 
 {{$:/core/ui/ControlPanel/Plugins}}
 
-! License
+!! License
 
 See: [[License]]
