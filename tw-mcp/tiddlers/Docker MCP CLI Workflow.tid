@@ -1,0 +1,100 @@
+created: 20260403180433569
+modified: 20260403182213926
+tags: Documentation [[Gemini MCP]] Docker
+title: Docker MCP CLI Workflow
+
+!! Introduction
+
+The Docker MCP CLI provides a secure, containerized way to manage and run MCP servers. It acts as a bridge (Gateway) between your AI clients and multiple isolated tool environments.
+
+!! Core Concept: The Gateway
+
+Instead of connecting Gemini directly to each individual tool, you connect it to the ''Docker MCP Gateway'', which manages all your containerized tools in one place.
+
+!! Setup and Configuration
+
+!!! 1. Enable a Tool
+
+Choose a tool from the Docker MCP catalog and enable it (e.g., Brave Search or a database connector):
+
+```bash
+docker mcp server enable brave
+```
+
+!!! 2. Start the Gateway
+
+Run the gateway to create the protocol bridge:
+
+```bash
+docker mcp gateway run
+```
+
+!!! 3. Connect Gemini to the Gateway
+
+To connect Gemini to the Docker managed tools, you add the gateway as an MCP server in your configuration:
+
+```bash
+gemini mcp add --scope project docker-gateway docker mcp gateway run
+```
+
+!! JSON Configuration
+
+Your `.gemini/settings.json` will look like this:
+
+```json
+{
+  "mcpServers": {
+    "docker-gateway": {
+      "command": "docker",
+      "args": [
+        "mcp",
+        "gateway",
+        "run"
+      ]
+    }
+  }
+}
+```
+
+!! Secret Management
+
+Docker Desktop handles credentials separately from your code and configuration files, ensuring that your AI agent never sees your actual API keys.
+
+!!! Secure Storage
+
+Use the CLI to store keys in Docker's encrypted store:
+
+```bash
+docker mcp secret set my-service MY_API_KEY
+```
+
+!!! Managed OAuth
+
+For services like ''GitHub, Notion, or Slack'', Docker Desktop handles the OAuth flow via your browser. It manages token refreshes and secure storage automatically, so you don't have to manage long-lived Personal Access Tokens (PATs).
+
+!!! Payload Scanning
+
+The gateway can be configured to scan outbound traffic for sensitive information (like PII or leaked keys) and block it before it reaches the AI agent.
+
+!! Why use this over .env files?
+
+* ''Safety:'' LLMs cannot read encrypted Docker secrets.
+* ''Leak Prevention:'' No risk of accidentally committing secrets to Git.
+* ''Isolation:'' Secrets are only injected into the specific tool's container memory at runtime.
+
+!! Key Benefits
+
+* ''Isolation:'' Tools run in Docker containers, protecting your host system.
+* ''Secret Management:'' API keys are managed centrally by Docker.
+* ''Verified Catalog:'' Access to 120+ pre-configured tools from major providers (Google, GitHub, Slack).
+* ''Multi-Client:'' Connect Claude Code, Gemini CLI, and VS Code to the same gateway simultaneously.
+
+!! Useful Commands
+
+|!Command |!Description |
+|`docker mcp catalog ls` |List available tool collections |
+|`docker mcp server ls` |List currently enabled tool servers |
+|`docker mcp tools call <name>` |Manually test a tool from the CLI |
+|`docker mcp secret set <svc> <key>` |Store an API key securely |
+|`docker mcp secret ls` |List all stored secrets |
+|`docker mcp secret rm <svc>` |Remove a stored secret |
