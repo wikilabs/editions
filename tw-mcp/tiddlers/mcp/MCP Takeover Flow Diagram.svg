@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 920" font-family="Consolas, monospace" font-size="12">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#555"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#47a"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#4a4"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#c44"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#d80"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="24" text-anchor="middle" font-weight="bold" font-size="15" fill="#333">MCP Takeover Flow: --mcp active, then --mcp listen starts</text>
+
+  <!-- Legend -->
+  <rect x="590" y="38" width="210" height="72" rx="4" fill="#f8f8fa" stroke="#ccc" stroke-width="1"/>
+  <line x1="602" y1="56" x2="638" y2="56" stroke="#47a" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="646" y="60" fill="#333" font-size="10">pipe / stdio message</text>
+  <line x1="602" y1="72" x2="638" y2="72" stroke="#d80" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="646" y="76" fill="#333" font-size="10">takeover signal</text>
+  <line x1="602" y1="88" x2="638" y2="88" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="646" y="92" fill="#333" font-size="10">new connection</text>
+  <line x1="602" y1="104" x2="638" y2="104" stroke="#c44" stroke-width="2" marker-end="url(#arrow-red)"/>
+  <text x="646" y="108" fill="#333" font-size="10">disconnect / close</text>
+
+  <!-- ════════ STEP 1: Initial state ════════ -->
+  <rect x="20" y="130" width="780" height="95" rx="8" fill="#f4f8ff" stroke="#aac" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="148" font-weight="bold" font-size="13" fill="#336">Step 1: Initial state</text>
+  <text x="30" y="166" fill="#666" font-size="11">Process A runs --mcp (primary). Owns $tw.wiki, pipe server, .tw-mcp/connect file.</text>
+
+  <rect x="60" y="178" width="180" height="36" rx="5" fill="#eef8ee" stroke="#696" stroke-width="1.5"/>
+  <text x="150" y="200" text-anchor="middle" font-weight="bold" font-size="12" fill="#363">Process A: PRIMARY</text>
+
+  <rect x="340" y="178" width="140" height="36" rx="5" fill="#e8eef8" stroke="#668" stroke-width="1.5"/>
+  <text x="410" y="200" text-anchor="middle" font-size="11" fill="#336">stdio (Client)</text>
+
+  <line x1="240" y1="196" x2="338" y2="196" stroke="#47a" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <rect x="560" y="178" width="140" height="36" rx="5" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+  <text x="630" y="200" text-anchor="middle" font-size="11" fill="#555">.tw-mcp/connect</text>
+
+  <line x1="240" y1="190" x2="558" y2="190" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ════════ STEP 2: Process B starts ════════ -->
+  <rect x="20" y="240" width="780" height="115" rx="8" fill="#fff8f0" stroke="#ca8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="258" font-weight="bold" font-size="13" fill="#743">Step 2: Process B starts with --mcp listen</text>
+  <text x="30" y="276" fill="#666" font-size="11">Detects .tw-mcp/connect, connects to A's pipe as proxy. Starts HTTP server.</text>
+
+  <rect x="60" y="288" width="180" height="36" rx="5" fill="#eef8ee" stroke="#696" stroke-width="1.5"/>
+  <text x="150" y="310" text-anchor="middle" font-weight="bold" font-size="12" fill="#363">Process A: PRIMARY</text>
+
+  <rect x="340" y="288" width="180" height="36" rx="5" fill="#fff5ee" stroke="#b84" stroke-width="1.5"/>
+  <text x="430" y="310" text-anchor="middle" font-weight="bold" font-size="12" fill="#743">Process B: PROXY</text>
+
+  <line x1="338" y1="300" x2="242" y2="300" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="290" y="294" text-anchor="middle" fill="#4a4" font-size="10">pipe connect</text>
+
+  <rect x="580" y="288" width="140" height="36" rx="5" fill="#fef0e8" stroke="#b84" stroke-width="1.5"/>
+  <text x="650" y="310" text-anchor="middle" font-size="11" fill="#743">HTTP :8080</text>
+
+  <line x1="520" y1="306" x2="578" y2="306" stroke="#4a4" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="549" y="300" text-anchor="middle" fill="#4a4" font-size="9">starts</text>
+
+  <text x="430" y="344" text-anchor="middle" fill="#d80" font-size="11" font-weight="bold">B detects $tw.httpServer &#x2192; initiates takeover</text>
+
+  <!-- ════════ STEP 3: Takeover request ════════ -->
+  <rect x="20" y="370" width="780" height="95" rx="8" fill="#fff8f0" stroke="#ca8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="388" font-weight="bold" font-size="13" fill="#743">Step 3: Takeover request</text>
+  <text x="30" y="406" fill="#666" font-size="11">B sends notifications/takeover-request to A via pipe.</text>
+
+  <rect x="60" y="418" width="180" height="36" rx="5" fill="#eef8ee" stroke="#696" stroke-width="1.5"/>
+  <text x="150" y="440" text-anchor="middle" font-weight="bold" font-size="12" fill="#363">Process A: PRIMARY</text>
+
+  <rect x="340" y="418" width="180" height="36" rx="5" fill="#fff5ee" stroke="#b84" stroke-width="1.5"/>
+  <text x="430" y="440" text-anchor="middle" font-weight="bold" font-size="12" fill="#743">Process B: PROXY</text>
+
+  <line x1="338" y1="436" x2="242" y2="436" stroke="#d80" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="290" y="430" text-anchor="middle" fill="#d80" font-size="10">takeover-request</text>
+
+  <!-- ════════ STEP 4: Primary steps down ════════ -->
+  <rect x="20" y="480" width="780" height="120" rx="8" fill="#fff0f0" stroke="#c88" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="498" font-weight="bold" font-size="13" fill="#933">Step 4: Primary A steps down</text>
+  <text x="30" y="516" fill="#666" font-size="11">A broadcasts notifications/takeover to all pipe clients, deletes .tw-mcp/connect,</text>
+  <text x="30" y="530" fill="#666" font-size="11">closes pipe server, destroys client sockets. Then polls for B's new connect file.</text>
+
+  <rect x="60" y="542" width="180" height="36" rx="5" fill="#f0f0f0" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="150" y="564" text-anchor="middle" font-size="12" fill="#999">Process A: stepping down</text>
+
+  <rect x="340" y="542" width="180" height="36" rx="5" fill="#fff5ee" stroke="#b84" stroke-width="1.5"/>
+  <text x="430" y="564" text-anchor="middle" font-weight="bold" font-size="12" fill="#743">Process B: PROXY</text>
+
+  <line x1="242" y1="554" x2="338" y2="554" stroke="#d80" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="290" y="548" text-anchor="middle" fill="#d80" font-size="10">takeover notify</text>
+
+  <line x1="242" y1="568" x2="338" y2="568" stroke="#c44" stroke-width="2" marker-end="url(#arrow-red)"/>
+  <text x="290" y="588" text-anchor="middle" fill="#c44" font-size="10">pipe disconnect</text>
+
+  <rect x="580" y="542" width="140" height="36" rx="5" fill="#f0f0f0" stroke="#c44" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="650" y="556" text-anchor="middle" font-size="10" fill="#c44">.tw-mcp/connect</text>
+  <text x="650" y="570" text-anchor="middle" font-size="10" fill="#c44">deleted</text>
+
+  <!-- ════════ STEP 5: B becomes primary ════════ -->
+  <rect x="20" y="615" width="780" height="115" rx="8" fill="#f0fff0" stroke="#8c8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="633" font-weight="bold" font-size="13" fill="#363">Step 5: B becomes primary</text>
+  <text x="30" y="651" fill="#666" font-size="11">B detects pipe disconnect, generates new auth token, starts pipe server,</text>
+  <text x="30" y="665" fill="#666" font-size="11">writes new .tw-mcp/connect, switches stdin from relay to dispatch mode.</text>
+
+  <rect x="340" y="677" width="180" height="42" rx="5" fill="#eef8ee" stroke="#696" stroke-width="2"/>
+  <text x="430" y="695" text-anchor="middle" font-weight="bold" font-size="12" fill="#363">Process B: PRIMARY</text>
+  <text x="430" y="710" text-anchor="middle" fill="#484" font-size="10">HTTP + MCP + pipe</text>
+
+  <rect x="580" y="680" width="140" height="36" rx="5" fill="#eef8ee" stroke="#696" stroke-width="1.5"/>
+  <text x="650" y="694" text-anchor="middle" font-size="10" fill="#363">.tw-mcp/connect</text>
+  <text x="650" y="708" text-anchor="middle" font-size="10" fill="#363">new (B's token)</text>
+
+  <line x1="520" y1="698" x2="578" y2="698" stroke="#4a4" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="549" y="692" text-anchor="middle" fill="#4a4" font-size="9">writes</text>
+
+  <!-- ════════ STEP 6: A reconnects as proxy ════════ -->
+  <rect x="20" y="745" width="780" height="95" rx="8" fill="#f4f8ff" stroke="#aac" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="763" font-weight="bold" font-size="13" fill="#336">Step 6: A reconnects as proxy</text>
+  <text x="30" y="781" fill="#666" font-size="11">A finds B's new .tw-mcp/connect, connects to B's pipe, authenticates. Roles swapped.</text>
+
+  <rect x="60" y="793" width="180" height="36" rx="5" fill="#fff5ee" stroke="#b84" stroke-width="1.5"/>
+  <text x="150" y="815" text-anchor="middle" font-weight="bold" font-size="12" fill="#743">Process A: PROXY</text>
+
+  <rect x="340" y="793" width="180" height="36" rx="5" fill="#eef8ee" stroke="#696" stroke-width="2"/>
+  <text x="430" y="815" text-anchor="middle" font-weight="bold" font-size="12" fill="#363">Process B: PRIMARY</text>
+
+  <line x1="242" y1="811" x2="338" y2="811" stroke="#4a4" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="290" y="805" text-anchor="middle" fill="#4a4" font-size="10">pipe connect</text>
+
+  <!-- Result summary -->
+  <rect x="120" y="856" width="580" height="50" rx="8" fill="#eef8ee" stroke="#696" stroke-width="2"/>
+  <text x="410" y="876" text-anchor="middle" font-weight="bold" font-size="13" fill="#363">Result: B is primary (HTTP + MCP share $tw.wiki)</text>
+  <text x="410" y="894" text-anchor="middle" fill="#666" font-size="11">Browser edits and MCP tool calls use the same wiki store instantly</text>
+</svg>
