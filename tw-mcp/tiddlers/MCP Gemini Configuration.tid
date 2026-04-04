@@ -1,5 +1,5 @@
 created: 20260403174658225
-modified: 20260403183423860
+modified: 20260403231000260
 tags: Documentation [[Gemini MCP]]
 title: MCP Gemini Configuration
 
@@ -12,13 +12,13 @@ To connect Gemini with a TiddlyWiki instance using the MCP (Model Context Protoc
 Run the following command in your terminal, replacing `./test` with the path to your TiddlyWiki folder:
 
 ```bash
-gemini mcp add --scope project tiddlywiki-mcp tiddlywiki ./test --mcp
+gemini mcp add --scope project tw-mcp tiddlywiki ./test --mcp
 ```
 
 !!! Command Breakdown:
 
 * `--scope project`: Limits the configuration to the current project.
-* `tiddlywiki-mcp`: The name assigned to the MCP server.
+* `tw-mcp`: The name assigned to the MCP server.
 * `tiddlywiki`: The executable command to run.
 * `./test --mcp`: The arguments passed to the command (the wiki path and the `--mcp` flag).
 
