@@ -74,15 +74,14 @@ For critical tiddlers, ask for changes one at a time rather than bulk operations
 
 !! Safety
 
-!!! Use readonly mode for exploration
+!!! Readonly is the default
 
-If you just want to browse, search, or understand your wiki, start with:
+The server starts in readonly mode — all write tools are disabled. This is the safe default for exploration, analysis, and Q&A. To enable writes:
 
 ```
-tiddlywiki . --mcp readonly
+cd /your/wiki/dir
+tiddlywiki . --mcp rw
 ```
-
-All write tools are disabled. You can't accidentally modify anything.
 
 !!! Back up your wiki
 

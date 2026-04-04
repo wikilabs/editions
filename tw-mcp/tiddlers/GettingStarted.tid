@@ -1,5 +1,5 @@
 created: 20260404155758091
-modified: 20260404170245507
+modified: 20260404184915404
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -24,27 +24,27 @@ cd /your/wiki/dir
 tiddlywiki . --mcp
 ```
 
-This starts the MCP server in read/write mode using stdio transport. The `tiddlywiki/filesystem` plugin is auto-loaded for disk persistence.
+This starts the MCP server in ''readonly'' mode using stdio transport. The `tiddlywiki/filesystem` plugin is auto-loaded for disk persistence.
 
 ; Common options
-: `readonly` — disable all write operations
+: `rw` or `readwrite` — enable write operations (readonly is the default)
 : `label=<name>` — identify this instance (e.g. `label=claude`)
 : `listen` — also start an HTTP server so browser and MCP share the same wiki store
 
 Examples:
 
-This command starts an MCP server with access to the wiki directory with file access.
+This command starts an MCP server with read-write access:
 
 ```
 cd /your/wiki/dir
-tiddlywiki . --mcp readonly
+tiddlywiki . --mcp rw
 ```
 
 This command starts an MCP server ''and'' a TiddlyWiki server, which have access to the same wiki-store. So changes written to the store will be directly visible in the browser with the next poll (default 60s).
 
 ```
 cd /your/wiki/dir
-tiddlywiki . --mcp listen label=primary port=8080
+tiddlywiki . --mcp rw listen label=primary port=8080
 ```
 
 !!! 2. Register with an AI client
@@ -58,13 +58,13 @@ The server provides 18 tools for reading, editing, inspecting, and exporting wik
 !! Further Reading
 
 * [[MCP Basics]] — features, transports, safety, tool overview
-* [[MCP Instructions]] — detailed tool usage and examples
 * [[MCP Best Practices]] — prompt tips, token efficiency, safety
 * [[MCP Installation]] — prerequisites, plugin setup, client configuration
 * [[MCP Gemini Configuration]] — Gemini CLI setup
 * [[MCP Proxy Mode Concept]] — multi-client architecture
 * [[MCP Source Position Tracking]] — debugging workflow
 * [[MCP Upload Tool]] — binary file uploads via named pipe
+* [[MCP Instructions]] — detailed tool usage and examples
 
 {{$:/plugins/wikilabs/tw-mcp/readme}}
 

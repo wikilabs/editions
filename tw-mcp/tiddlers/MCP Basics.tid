@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260404180649983
+modified: 20260404184420549
 tags: 
 title: MCP Basics
 type: text/vnd.tiddlywiki
@@ -69,7 +69,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 * ''System tiddler exclusion'' — system tiddlers (`$:/` prefix) and shadow tiddlers are excluded from results by default. They are only returned when explicitly requested.
 * ''Filter optimization'' — the AI is instructed to always put `!is[system]` first in filter expressions to reduce the working set early.
 * ''Overwrite protection'' — existing tiddlers are not overwritten unless explicitly confirmed. A new unique title is generated instead (like the ~TiddlyWiki ~CreateTiddler widget).
-* ''Readonly mode'' — start with `--mcp readonly` to disable all write operations.
+* ''Readonly by default'' — the server starts in readonly mode. Use `--mcp rw` to enable write operations.
 * ''Path restrictions'' — file operations are restricted to the wiki's `tiddlers/`, `files/`, and `output/` directories.
 * ''Pipe authentication'' — named pipe connections require a cryptographic token (256-bit random hex). The token is stored in the owner-only `.tw-mcp/connect` file.
 * ''Confirmation prompts'' — the AI is instructed to confirm before bulk changes.
@@ -80,7 +80,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 !!! Read tools
 
 |!Tool |!Keywords |!Description |
-|`get_tiddler` |show, read, get |Get a tiddler's metadata by title (set `detailed=true` for full text, `format='hashline'` for hash-annotated lines) |
+|`get_tiddler` |show, read, get |Get a tiddler's metadata by title (set `detailed=true` for full text with hashline anchors, `format='tid'` for plain text) |
 |`list_tiddlers` |list, browse, tagged with |List tiddler titles, optionally filtered by tag or browse plugin contents |
 |`run_filter` |find, search, how many |Run a TiddlyWiki filter expression |
 |`render_tiddler` |render, display, preview |Render a tiddler to plain text or HTML (with full macro support) |
@@ -92,7 +92,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 |`get_wiki_info` |wiki info, plugins, settings |Get wiki metadata, tiddler counts, plugins, and basic settings |
 |`reload_tiddlers` |reload, refresh, sync |Refresh in-memory store from disk + report changes since last call |
 
-!!! Write tools (disabled in readonly mode)
+!!! Write tools (require `rw` mode)
 
 |!Tool |!Keywords |!Description |
 |`put_tiddler` |create, new tiddler, write |Create or update a tiddler |
