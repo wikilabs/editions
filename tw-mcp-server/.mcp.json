@@ -6,6 +6,7 @@
       "args": [
         ".",
         "--mcp",
+        "readwrite",
         "label=claude"
       ],
       "alwaysAllow": [
