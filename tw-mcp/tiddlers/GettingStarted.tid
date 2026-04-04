@@ -1,5 +1,5 @@
 created: 20260404155758091
-modified: 20260404155759944
+modified: 20260404170245507
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -20,10 +20,11 @@ You need Node.js (v24+), TiddlyWiki (globally installed), and the `TIDDLYWIKI_PL
 From your wiki directory run:
 
 ```
+cd /your/wiki/dir
 tiddlywiki . --mcp
 ```
 
-This starts the MCP server in read/write mode using stdio transport.
+This starts the MCP server in read/write mode using stdio transport. The `tiddlywiki/filesystem` plugin is auto-loaded for disk persistence.
 
 ; Common options
 : `readonly` — disable all write operations
@@ -35,64 +36,35 @@ Examples:
 This command starts an MCP server with access to the wiki directory with file access.
 
 ```
+cd /your/wiki/dir
 tiddlywiki . --mcp readonly
 ```
 
-This command starts an MCP server ''and'' at TiddlyWiki server, which have access to the same wiki-store. So changes written to the store will be directly visible in the browser with the next poll (default 60s).
+This command starts an MCP server ''and'' a TiddlyWiki server, which have access to the same wiki-store. So changes written to the store will be directly visible in the browser with the next poll (default 60s).
 
 ```
+cd /your/wiki/dir
 tiddlywiki . --mcp listen label=primary port=8080
 ```
 
-!!! 2. Register with Claude CLI
+!!! 2. Register with an AI client
 
-Add a `.mcp.json` file to your wiki directory:
-
-```json
-{
-  "mcpServers": {
-    "tiddlywiki": {
-      "type": "stdio",
-      "command": "tiddlywiki",
-      "args": [".", "--mcp", "label=claude"]
-    }
-  }
-}
-```
-
-Then start Claude Code from that directory. The MCP server will be available automatically.
+See [[MCP Installation]] for `.mcp.json` setup (Claude Code) and [[MCP Gemini Configuration]] for Gemini CLI.
 
 !! Available Tools
 
-!!! Read tools
-
-|! Tool |! Description |
-|`get_tiddler` |Fetch tiddler metadata or full content |
-|`list_tiddlers` |Browse titles with namespace summaries |
-|`run_filter` |Execute TiddlyWiki filter expressions |
-|`render_tiddler` |Render a tiddler to plain text or HTML |
-|`render_text` |Render arbitrary wikitext |
-|`get_wiki_info` |Wiki metadata, plugins, tiddler counts |
-|`inspect_tree` |Analyse widget tree structure |
-|`inspect_pos` |Render with source position tracking |
-|`inspect_scope` |Inspect variable scope at a position |
-|`inspect_tw` |Navigate the internal `$tw` object |
-
-!!! Write tools (disabled in readonly mode)
-
-|! Tool |! Description |
-|`put_tiddler` |Create or update a tiddler |
-|`delete_tiddler` |Delete a tiddler |
-|`upload_file` |Upload binary files (images, PDFs) |
-|`save_wiki_folder` |Export wiki as folder structure |
-|`build_wiki` |Render wiki as single HTML file |
+The server provides 18 tools for reading, editing, inspecting, and exporting wiki content. See [[MCP Basics]] for the full tool table and [[MCP Instructions]] for detailed usage of each tool.
 
 !! Further Reading
 
-* [[MCP Basics]] — features, transports, safety
+* [[MCP Basics]] — features, transports, safety, tool overview
 * [[MCP Instructions]] — detailed tool usage and examples
+* [[MCP Best Practices]] — prompt tips, token efficiency, safety
+* [[MCP Installation]] — prerequisites, plugin setup, client configuration
+* [[MCP Gemini Configuration]] — Gemini CLI setup
 * [[MCP Proxy Mode Concept]] — multi-client architecture
 * [[MCP Source Position Tracking]] — debugging workflow
+* [[MCP Upload Tool]] — binary file uploads via named pipe
 
 {{$:/plugins/wikilabs/tw-mcp/readme}}
 

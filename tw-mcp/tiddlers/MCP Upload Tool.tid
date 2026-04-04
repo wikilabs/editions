@@ -1,0 +1,64 @@
+created: 20260404162346616
+modified: 20260404163322792
+tags: MCP Server
+title: MCP Upload Tool
+type: text/vnd.tiddlywiki
+
+!! Why tw-upload exists
+
+MCP clients like Claude CLI communicate with the MCP server via ''stdio'' (standard input/output). This transport is text-based and not designed for large binary data. Sending a 5MB image as base64 through stdio would consume ~7MB of tokens and likely hit buffer limits.
+
+The `tw-upload` helper solves this by using the MCP server's ''named pipe'' transport instead. It reads the file locally, base64-encodes it, and sends it directly to the server over the pipe — bypassing the AI client entirely. The AI never sees the binary data.
+
+!! How it works
+
+# The MCP server starts a named pipe alongside stdio and writes connection details to `.tw-mcp/connect`
+# `tw-upload` reads the connect file to find the pipe path and auth token
+# It connects to the pipe, authenticates, and calls the `upload_file` tool with the base64-encoded file
+# The server saves the file to the wiki's `files/` directory and creates a tiddler with `_canonical_uri` pointing to it
+
+!! Supported file types
+
+|! Extension |! MIME type |
+|`.png` |`image/png` |
+|`.jpg` / `.jpeg` |`image/jpeg` |
+|`.gif` |`image/gif` |
+|`.pdf` |`application/pdf` |
+
+Maximum file size: ''50 MB''
+
+!! Usage
+
+```
+cd /your/wiki/dir
+node tw-upload.js <file> [--wiki <path>] [--title <title>] [--tags <tags>] [--subfolder <dir>]
+```
+
+|! Option |! Description |
+|`<file>` |File to upload (required) |
+|`--wiki <path>` |Wiki directory to find `.tw-mcp/connect` (defaults to current dir) |
+|`--title <title>` |Tiddler title (defaults to filename) |
+|`--tags <tags>` |Space-separated tags (use `[[double brackets]]` for multi-word tags) |
+|`--subfolder <dir>` |Subfolder within `files/` to save to |
+
+!! Examples
+
+```
+node tw-upload.js photo.png
+node tw-upload.js doc.pdf --title "My Document" --tags "docs reference"
+node tw-upload.js icon.gif --subfolder images --tags "[[site images]]"
+```
+
+!! Requirements
+
+* The MCP server must be running (`tiddlywiki . --mcp`)
+* The `.tw-mcp/connect` file must exist (created automatically by the server)
+* Node.js must be available
+
+If the connect file is missing, `tw-upload` will show a clear error with instructions to start the server.
+
+!! Security
+
+* ''Pipe authentication'' — `tw-upload` reads the 256-bit auth token from `.tw-mcp/connect` and sends it with the initialize request. Unauthenticated connections are rejected.
+* ''Terminal injection protection'' — server responses are sanitised to strip ANSI escape codes before printing to the terminal.
+* ''Path restrictions'' — files are saved to the wiki's `files/` directory, which is within the server's allowed paths.

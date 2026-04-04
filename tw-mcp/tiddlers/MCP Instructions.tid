@@ -13,23 +13,21 @@ This tiddler describes how to use each tool provided by the TiddlyWiki MCP serve
 !!! Starting the Server
 
 ```
-tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp
+tiddlywiki ./mywiki --mcp
 ```
 
-Replace `./mywiki` with the path to your wiki folder. The wiki folder must contain a `tiddlywiki.info` file. The `+plugins/tiddlywiki/filesystem` argument loads the filesystem plugin for disk persistence.
+Replace `./mywiki` with the path to your wiki folder. The wiki folder must contain a `tiddlywiki.info` file. The `--mcp` command auto-loads the `tiddlywiki/filesystem` plugin for disk persistence if not already present.
 
-!!! Registering with Claude CLI
+!!! Registering with an AI client
 
-```
-claude mcp add --transport stdio tiddlywiki -- node tiddlywiki.js +plugins/tiddlywiki/filesystem ./mywiki --mcp
-```
+See [[MCP Installation]] for `.mcp.json` setup (Claude Code) and [[MCP Gemini Configuration]] for Gemini CLI.
 
 !!! Readonly Mode
 
 To prevent any modifications to your wiki, add `readonly` after `--mcp`:
 
 ```
-tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp readonly
+tiddlywiki ./mywiki --mcp readonly
 ```
 
 In readonly mode, only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available.
@@ -39,7 +37,7 @@ In readonly mode, only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`,
 Give your MCP server instance a name to identify it in the `.tw-mcp/connect` discovery file. Useful when running multiple instances for different wikis or from different tools (e.g. VS Code, Claude CLI, terminal):
 
 ```
-tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp label=vscode
+tiddlywiki ./mywiki --mcp label=vscode
 ```
 
 The label appears in the `.tw-mcp/connect` JSON and helps distinguish which process created the pipe.
@@ -49,7 +47,7 @@ The label appears in the `.tw-mcp/connect` JSON and helps distinguish which proc
 By default, file operations are restricted to the wiki's `tiddlers/`, `files/`, and `output/` subdirectories. You can override this with:
 
 ```
-tiddlywiki +plugins/tiddlywiki/filesystem ./mywiki --mcp allowed-paths=/path/one,/path/two
+tiddlywiki ./mywiki --mcp allowed-paths=/path/one,/path/two
 ```
 
 ---
@@ -340,6 +338,47 @@ Creates a new tiddler or updates an existing one. The tiddler is saved to disk a
 * "Create a tiddler called Meeting Notes with text: Discussed project timeline"
 * "Update the tiddler Daily Log with new text, overwrite it"
 
+!!! `edit_tiddler`
+
+Edits specific lines of a tiddler using hashline references. Much cheaper than `put_tiddler` for large tiddlers — only the changed lines are sent. Conflict detection is built-in: if the tiddler was modified since the AI last read it, hashes won't match and the edit is rejected with updated references.
+
+''Workflow:''
+
+# Read the tiddler with `get_tiddler(format="hashline")` — each line gets a 2-character hash anchor (e.g. `1#AB:line text`)
+# Send edits referencing lines by their `LINE#HASH` anchor
+# If hashes match, edits are applied. If not, a mismatch error shows the changed lines with updated hashes.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`edits` |yes |Array of edit operations |
+
+''Edit operations:''
+
+|!Op |!Fields |!Description |
+|`replace_line` |`pos`, `lines` |Replace a single line |
+|`replace_range` |`pos`, `end`, `lines` |Replace an inclusive range of lines |
+|`append_at` |`pos`, `lines` |Insert lines after the anchor |
+|`prepend_at` |`pos`, `lines` |Insert lines before the anchor |
+
+`pos` and `end` are `LINE#HASH` anchors (e.g. `"5#AB"`). `lines` is an array of new line strings.
+
+''Example:''
+
+```json
+{
+  "title": "MyTiddler",
+  "edits": [
+    {"op": "replace_line", "pos": "3#KV", "lines": ["This replaces line 3"]},
+    {"op": "append_at", "pos": "7#MN", "lines": ["Inserted after line 7", "Second new line"]}
+  ]
+}
+```
+
+''Example prompts:''
+
+* "Change line 3 of MyTiddler to say something else"
+* "Add a new section after the introduction"
+
 !!! `delete_tiddler`
 
 Deletes a tiddler from the store and removes its `.tid` file from disk.
@@ -421,11 +460,4 @@ node tw-upload.js icon.gif --subfolder images --tags "[[site images]]"
 
 ---
 
-!! Tips for Safe Usage
-
-# ''Be specific'' — say "create a tiddler called X" rather than "add X". Vague instructions may be misinterpreted.
-# ''Use readonly mode'' for exploration — if you just want to browse or search, start the server with `--mcp readonly`.
-# ''Back up your wiki'' — use version control (git) or make a copy before letting an AI make bulk changes.
-# ''Review before confirming'' — when the AI lists tiddlers it wants to modify, review the list before agreeing.
-# ''One operation at a time'' — for important changes, ask for one tiddler to be modified at a time rather than bulk operations.
-# ''System tiddlers are protected'' — the AI will not fetch or modify system tiddlers unless you explicitly ask for them by name.
+For tips on writing effective prompts, token efficiency, and safety, see [[MCP Best Practices]].

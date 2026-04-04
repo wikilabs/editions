@@ -50,6 +50,7 @@ In your wiki's `tiddlywiki.info` file, add the plugin:
 Run from your wiki directory:
 
 ```
+cd /your/wiki/dir
 tiddlywiki . --mcp
 ```
 

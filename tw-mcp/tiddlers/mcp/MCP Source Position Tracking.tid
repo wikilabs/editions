@@ -1,5 +1,5 @@
 created: 20260322050000000
-modified: 20260328215130564
+modified: 20260404174327763
 tags: 
 title: MCP Source Position Tracking
 type: text/vnd.tiddlywiki
@@ -32,7 +32,7 @@ L{line} @ tiddlerTitle
 
 Multi-line elements show a range (e.g. `L81-L84 @ $:/cards/procedures`). Single-line elements show just the line (e.g. `L8 @ Learning`).
 
-The browser plugin also stores `data-source-start` and `data-source-end` attributes with raw character positions for precise editor selection.
+The devtools browser plugin also stores `data-source-start` and `data-source-end` attributes with raw character positions for precise editor selection.
 
 !! Workflow Example
 
@@ -70,9 +70,11 @@ var bordercolor =
 
 This shows that `{{!!button-text}}` resolves to the `button-text` field of `Quick Start: Desktop` (which is "Download"), and `{{!!button-color}}` gives `#37753e` (green).
 
-!! The `sourcepos` Browser Plugin
+See [[MCP Inspect Scope Data Flow]] for a visual overview of how `inspect_pos`, `inspect_scope`, and `inspect_tree` work together.
 
-The `tiddlywiki/sourcepos` plugin adds source position tracking directly in the browser. When enabled:
+!! The Devtools Browser Plugin
+
+The `wikilabs/devtools` plugin (formerly `sourcepos`) adds source position tracking directly in the browser. When enabled:
 
 * ''Hover'' — tooltip showing source position, context, and caller chain
 * ''Right-click'' — context menu with copy options, navigation, source viewer, and optional edit features
@@ -81,7 +83,7 @@ The `tiddlywiki/sourcepos` plugin adds source position tracking directly in the 
 
 !!! Enabling
 
-Set `$:/config/SourcePositionTracking` to `yes` in your wiki, or use the checkbox in Control Panel → Settings → TiddlyWiki. The plugin is included in the `tw5.com-server` edition.
+Set `$:/config/wikilabs/SourcePositionTracking` to `yes` in your wiki, or use the checkbox in Control Panel → Settings → WikiLabs. The plugin is available from the wikilabs plugin library.
 
 Save and reload the page for the setting to take effect. The tracking hooks run at startup, so a page reload is required after changing this setting.
 

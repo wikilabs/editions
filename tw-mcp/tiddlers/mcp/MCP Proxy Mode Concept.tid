@@ -1,5 +1,5 @@
 created: 20260320073219027
-modified: 20260328215139170
+modified: 20260404173809896
 tags: MCP Development
 title: MCP Proxy Mode Concept
 type: text/vnd.tiddlywiki
@@ -58,8 +58,8 @@ When a proxy detects `$tw.httpServer` (i.e. it was started with `--mcp listen`),
 !!! Example
 
 ```
-node tiddlywiki.js +plugins/tiddlywiki/filesystem ./editions/tw5.com --mcp label=claude
-node tiddlywiki.js ./editions/tw5.com-server --mcp listen label=listen
+tiddlywiki ./editions/tw5.com --mcp label=claude
+tiddlywiki ./editions/tw5.com-server --mcp listen label=listen
 ```
 
 After takeover, stderr logs show:
@@ -109,6 +109,8 @@ All MCP log messages include PID and `@label` as the last element:
 [tw-mcp] Pipe client disconnected: pipe-170912 (PID 5678) @listen
 ```
 
-!! Diagram
+!! Diagrams
 
-See [[MCP Proxy Mode Data Flow Diagram.svg]] for the full data flow visualization.
+[img width=720 [MCP Proxy Mode Data Flow Diagram.svg]]
+
+[img width=720 [MCP Takeover Sequence Diagram.svg]]

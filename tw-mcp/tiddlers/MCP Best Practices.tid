@@ -1,0 +1,85 @@
+created: 20260404170157073
+modified: 20260404171640721
+tags: MCP Server
+title: MCP Best Practices
+type: text/vnd.tiddlywiki
+
+!! Best Practices for Working with AI via MCP
+
+This guide helps you get the most out of the TiddlyWiki MCP server — better results, fewer tokens, fewer surprises.
+
+!! Writing Effective Prompts
+
+!!! Be specific about the operation
+
+Vague prompts lead to unexpected results. The AI interprets your intent, so be explicit:
+
+|! Instead of |! Say |
+|"Add meeting notes" |"Create a tiddler called 'Meeting Notes 2026-04-04' with text: ..." |
+|"Fix the intro" |"In the GettingStarted tiddler, change the first paragraph to: ..." |
+|"Show me stuff about recipes" |"Find all tiddlers containing the word 'recipe'" |
+|"Clean up old tiddlers" |"List all tiddlers modified more than 30 days ago" |
+
+!!! Use read-only words for read-only tasks
+
+The AI is instructed to never write unless you explicitly ask. These words trigger read-only operations:
+
+* ''Read:'' show, list, find, search, render, what, how many, which
+* ''Write:'' create, edit, update, change, delete, rename, tag, untag
+
+!!! One operation at a time for important changes
+
+For critical tiddlers, ask for changes one at a time rather than bulk operations. This lets you review each change before proceeding.
+
+!! Token Efficiency
+
+!!! Reading tiddlers
+
+* ''Don't ask for full text unless you need it'' — `get_tiddler` returns metadata only by default. The AI will request `detailed=true` only when you ask to see the content.
+* ''Use filters to narrow first'' — "find tiddlers tagged 'Project'" is much cheaper than "show me all tiddlers" followed by filtering manually.
+* ''Prefer plain text rendering'' — HTML output is 5–6× more tokens than plain text for the same content.
+
+!!! Editing tiddlers
+
+* ''Small edits to existing tiddlers'' — the AI should use `edit_tiddler` with hashline references. This sends only the changed lines instead of the full tiddler. If you notice the AI using `put_tiddler` for a one-line change, say: "use edit_tiddler for small changes".
+* ''New tiddlers or full rewrites'' — `put_tiddler` is the right tool.
+* ''Skip the type field'' — `text/vnd.tiddlywiki` is the default. The AI is instructed to omit it.
+
+!!! Searching
+
+* ''Start with `!is[system]`'' — always exclude system tiddlers unless you specifically need them. This avoids processing thousands of core tiddlers.
+* ''Use namespace browsing for large results'' — the server groups large result sets by prefix. Drill down progressively instead of requesting everything.
+
+!! Safety
+
+!!! Use readonly mode for exploration
+
+If you just want to browse, search, or understand your wiki, start with:
+
+```
+tiddlywiki . --mcp readonly
+```
+
+All write tools are disabled. You can't accidentally modify anything.
+
+!!! Back up your wiki
+
+Use version control (git) or make a copy before letting an AI make bulk changes. The MCP server writes directly to `.tid` files.
+
+!!! Review before confirming
+
+When the AI lists tiddlers it wants to modify, review the list before agreeing. For bulk operations, the AI is instructed to ask for confirmation first.
+
+!!! System tiddlers are protected
+
+The AI will not fetch or modify `$:/` system tiddlers unless you explicitly ask for them by name. This protects your wiki configuration from accidental changes.
+
+!! Conflict Detection
+
+When using `edit_tiddler`, conflicts are detected automatically via hash validation. If someone (or another AI client) edited the tiddler between your read and write:
+
+* The edit is ''rejected'' (not silently overwritten)
+* The error shows which lines changed with updated hash references
+* You can re-read and retry, or force-save with `put_tiddler`
+
+This is especially valuable when using `--mcp listen` with a browser open — browser edits and AI edits can't silently overwrite each other.
