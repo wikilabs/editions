@@ -1,7 +1,11 @@
-modified: 20260402232104690
+created: 20260404155758091
+modified: 20260404155759944
 title: GettingStarted
+type: text/vnd.tiddlywiki
 
 !! Introduction
+
+''Works with TW >= v5.4.0''
 
 The ''TW MCP'' plugin adds a [[Model Context Protocol|https://modelcontextprotocol.io/]] (MCP) server to TiddlyWiki. This lets AI assistants like Claude, Gemini, and others read, search, render, and modify your wiki content through a standardised interface.
 
