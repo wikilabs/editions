@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260404165607060
+modified: 20260404180649983
 tags: 
 title: MCP Basics
 type: text/vnd.tiddlywiki
@@ -79,28 +79,30 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 
 !!! Read tools
 
-|!Tool |!Description |
-|`get_tiddler` |Get a tiddler's metadata by title (set `detailed=true` for full text, `format='hashline'` for hash-annotated lines) |
-|`list_tiddlers` |List tiddler titles, optionally filtered by tag or browse plugin contents |
-|`run_filter` |Run a TiddlyWiki filter expression |
-|`render_tiddler` |Render a tiddler to plain text or HTML (with full macro support) |
-|`render_text` |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
-|`inspect_tree` |Analyze the rendered widget tree: type counts, link targets, transclusion tracking |
-|`inspect_pos` |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
-|`inspect_scope` |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |
-|`inspect_tw` |Inspect TiddlyWiki's internal `$tw` object structure and function source code |
-|`get_wiki_info` |Get wiki metadata, tiddler counts, plugins, and basic settings |
-|`reload_tiddlers` |Refresh in-memory store from disk + report changes since last call |
+|!Tool |!Keywords |!Description |
+|`get_tiddler` |show, read, get |Get a tiddler's metadata by title (set `detailed=true` for full text, `format='hashline'` for hash-annotated lines) |
+|`list_tiddlers` |list, browse, tagged with |List tiddler titles, optionally filtered by tag or browse plugin contents |
+|`run_filter` |find, search, how many |Run a TiddlyWiki filter expression |
+|`render_tiddler` |render, display, preview |Render a tiddler to plain text or HTML (with full macro support) |
+|`render_text` |render wikitext, test, try |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
+|`inspect_tree` |widget tree, structure |Analyze the rendered widget tree: type counts, link targets, transclusion tracking |
+|`inspect_pos` |where from, source, trace |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
+|`inspect_scope` |variables, scope, params |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |
+|`inspect_tw` |inspect $tw, internal |Inspect TiddlyWiki's internal `$tw` object structure and function source code |
+|`get_wiki_info` |wiki info, plugins, settings |Get wiki metadata, tiddler counts, plugins, and basic settings |
+|`reload_tiddlers` |reload, refresh, sync |Refresh in-memory store from disk + report changes since last call |
 
 !!! Write tools (disabled in readonly mode)
 
-|!Tool |!Description |
-|`put_tiddler` |Create or update a tiddler |
-|`edit_tiddler` |Edit specific lines using hashline references — token-efficient, with automatic conflict detection |
-|`delete_tiddler` |Delete a tiddler and its file |
-|`upload_file` |Upload a base64-encoded binary file and create a canonical tiddler |
-|`save_wiki_folder` |Export wiki as a folder structure |
-|`build_wiki` |Render wiki as a single HTML file |
+|!Tool |!Keywords |!Description |
+|`put_tiddler` |create, new tiddler, write |Create or update a tiddler |
+|`edit_tiddler` |edit, change, update, fix |Edit specific lines using hashline references — token-efficient, with automatic conflict detection |
+|`delete_tiddler` |delete, remove |Delete a tiddler and its file |
+|`upload_file` |upload, attach, add image |Upload a base64-encoded binary file and create a canonical tiddler |
+|`save_wiki_folder` |export, save as folder |Export wiki as a folder structure |
+|`build_wiki` |build, export HTML |Render wiki as a single HTML file |
+
+For the full keyword list and prompt tips, see [[MCP Best Practices]].
 
 !! Helper Tools
 

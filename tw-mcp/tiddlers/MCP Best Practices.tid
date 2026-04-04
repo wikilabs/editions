@@ -1,5 +1,5 @@
 created: 20260404170157073
-modified: 20260404171640721
+modified: 20260404180630965
 tags: MCP Server
 title: MCP Best Practices
 type: text/vnd.tiddlywiki
@@ -20,12 +20,34 @@ Vague prompts lead to unexpected results. The AI interprets your intent, so be e
 |"Show me stuff about recipes" |"Find all tiddlers containing the word 'recipe'" |
 |"Clean up old tiddlers" |"List all tiddlers modified more than 30 days ago" |
 
-!!! Use read-only words for read-only tasks
+!!! Use the right words for the right tool
 
-The AI is instructed to never write unless you explicitly ask. These words trigger read-only operations:
+The AI selects tools based on your wording. These keywords help it choose correctly:
 
-* ''Read:'' show, list, find, search, render, what, how many, which
-* ''Write:'' create, edit, update, change, delete, rename, tag, untag
+!!! Read tools
+
+|! Tool |! Keywords |
+|`get_tiddler` |show, read, get, what's in, contents of, fields of |
+|`list_tiddlers` |list, browse, what tiddlers, show all, tagged with |
+|`run_filter` |find, search, filter, how many, which, count, match |
+|`render_tiddler` |render, display, what does ... look like, preview |
+|`render_text` |render this wikitext, test snippet, evaluate, try this |
+|`inspect_tree` |widget tree, how many links, how does ... expand, structure |
+|`inspect_pos` |where does ... come from, source position, trace, which tiddler produces |
+|`inspect_scope` |what variables, scope, params, what's available at |
+|`inspect_tw` |inspect $tw, internal, boot info, function source |
+|`get_wiki_info` |wiki info, plugins, settings, how many tiddlers, version |
+|`reload_tiddlers` |reload, refresh, sync from disk, pick up changes |
+
+!!! Write tools
+
+|! Tool |! Keywords |
+|`put_tiddler` |create, new tiddler, write, full rewrite |
+|`edit_tiddler` |edit, change, update, fix, replace, modify, add line, insert |
+|`delete_tiddler` |delete, remove |
+|`upload_file` |upload, attach, add image, add PDF |
+|`save_wiki_folder` |export, save as folder, backup |
+|`build_wiki` |build, export HTML, single file |
 
 !!! One operation at a time for important changes
 
