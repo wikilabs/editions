@@ -1,5 +1,5 @@
 created: 20260404170157073
-modified: 20260404180630965
+modified: 20260407080401885
 tags: MCP Server
 title: MCP Best Practices
 type: text/vnd.tiddlywiki
@@ -32,6 +32,7 @@ The AI selects tools based on your wording. These keywords help it choose correc
 |`run_filter` |find, search, filter, how many, which, count, match |
 |`render_tiddler` |render, display, what does ... look like, preview |
 |`render_text` |render this wikitext, test snippet, evaluate, try this |
+|`render_field` |render field, preview field, show body, render index |
 |`inspect_tree` |widget tree, how many links, how does ... expand, structure |
 |`inspect_pos` |where does ... come from, source position, trace, which tiddler produces |
 |`inspect_scope` |what variables, scope, params, what's available at |

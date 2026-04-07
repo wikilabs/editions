@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260404184420549
+modified: 20260407080300028
 tags: 
 title: MCP Basics
 type: text/vnd.tiddlywiki
@@ -85,6 +85,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 |`run_filter` |find, search, how many |Run a TiddlyWiki filter expression |
 |`render_tiddler` |render, display, preview |Render a tiddler to plain text or HTML (with full macro support) |
 |`render_text` |render wikitext, test, try |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
+|`render_field` |render field, preview field |Render a single tiddler field or data index as wikitext |
 |`inspect_tree` |widget tree, structure |Analyze the rendered widget tree: type counts, link targets, transclusion tracking |
 |`inspect_pos` |where from, source, trace |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
 |`inspect_scope` |variables, scope, params |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |

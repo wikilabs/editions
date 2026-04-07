@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260328215111076
+modified: 20260407080351965
 tags: 
 title: MCP Instructions
 type: text/vnd.tiddlywiki
@@ -30,7 +30,7 @@ The server starts in ''readonly mode by default''. To enable write operations, a
 tiddlywiki ./mywiki --mcp rw
 ```
 
-In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available.
+In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available.
 
 !!! Label
 
@@ -150,6 +150,7 @@ Renders a tiddler's wikitext to plain text or HTML. Supports all global macros (
 |!Parameter |!Required |!Description |
 |`title` |yes |The tiddler title to render |
 |`type` |no |`text/plain` (default), `text/plain-formatted`, or `text/html` |
+|`mode` |no |`raw` (default) — render through type parser. `viewtemplate` — render through the ~ViewTemplate body cascade (same as the story river) |
 
 > ''Token efficiency:'' Plain text output (`text/plain` or `text/plain-formatted`) is significantly smaller than HTML — roughly 5–6× fewer tokens for the same content. Prefer plain text unless the HTML structure is specifically needed. Dynamic wikitext (macros, filters, transclusions) is fully resolved in all output modes.
 
@@ -200,6 +201,21 @@ Current palette: {{$:/palette}}
 Current theme: {{$:/theme}}
 Plugins: {{{ [has[plugin-type]sort[]] :map[{!!version}addprefix[ - ]addprefix<currentTiddler>] +[join[, ]] }}}
 ```
+
+!!! `render_field`
+
+Renders a single tiddler field or data index as wikitext. Useful for compound tiddlers where you need to render individual field values without fetching the text first.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`field` |no |Field name to render (default: `text`) |
+|`index` |no |Data tiddler index (alternative to `field`) |
+|`output` |no |`text/html` (default), `text/plain`, or `text/plain-formatted` |
+
+''Example prompts:''
+
+* "Render the body field of TestMF" — uses `field="body"`
+* "Preview the aaa entry of TestMF" — uses `index="aaa"`
 
 !!! `inspect_tree`
 
@@ -261,7 +277,7 @@ For a comprehensive guide to the source position tracking workflow, see [[MCP So
 
 !!! `inspect_tw`
 
-Inspects TiddlyWiki's internal `$tw` object structure. Navigate the runtime object tree, view function source code, and call functions to inspect their return values.
+Inspects TiddlyWiki's internal `$tw` object structure. Navigate the runtime object tree, view function source code, and call functions to inspect their return values. Results are automatically depth-reduced if they exceed 10K characters. All `$tw.utils.*` functions are callable in addition to the wiki read functions.
 
 |!Parameter |!Required |!Description |
 |`path` |no |Dot-separated path into `$tw` (e.g. `wiki`, `boot.wikiInfo`, `utils`). Empty string = top-level keys |
@@ -302,7 +318,12 @@ Takes no parameters. The output is pre-formatted plain text — the AI presents 
 
 !!! `reload_tiddlers`
 
-Re-reads all tiddler files from disk into the in-memory store. Use this after editing `.tid` files externally (e.g. with a text editor or git pull). Takes no parameters.
+Re-reads tiddler files from disk into the in-memory store. Use this after editing `.tid` files externally (e.g. with a text editor or git pull).
+
+|!Parameter |!Required |!Description |
+|`scope` |no |`tiddlers` (default) — reload edition tiddlers. `shadows` — re-read plugins/core shadow tiddlers. `all` — both |
+
+Use `scope="shadows"` to refresh shadow tiddlers from modified plugins without restarting the server.
 
 ''Safety:''
 

@@ -1,5 +1,5 @@
 created: 20260318021144763
-modified: 20260318021746558
+modified: 20260407080433025
 tags: 
 title: MCP Inspect Tool
 type: text/vnd.tiddlywiki
@@ -115,6 +115,14 @@ inspect $tw.rootWidget with max detail
 
 The `maxDepth` value in the output header tells you the deepest useful level. Don't request more depth than `maxDepth` — it won't show additional information.
 
+''Auto-reduction:'' If the result exceeds 10K characters, the depth is automatically reduced until it fits. A warning note is included:
+
+```
+⚠ depth reduced from 2 to 1 (result exceeded 10000 chars)
+```
+
+This prevents token limit errors when inspecting broad objects like `$tw` at high depth.
+
 ''Example — depth 1 vs depth 2 for `$tw.hooks`:''
 
 Depth 1:
@@ -169,7 +177,7 @@ fn $tw.wiki.addTiddler(tiddler)
 
 !! Calling Functions
 
-You can call functions and inspect their return values:
+You can call whitelisted functions and inspect their return values. All `$tw.wiki` read methods (getTiddler, filterTiddlers, tiddlerExists, etc.) and ''all `$tw.utils.*` functions'' are callable.
 
 ```
 inspect $tw.wiki.getTiddler("HelloThere")
@@ -217,6 +225,22 @@ $tw.wiki.getTiddler("NonExistentTiddler")=undefined
 ```
 
 ''Note:'' Tiddler titles are case-sensitive! `"hellothere"` ≠ `"HelloThere"`.
+
+''Auto-resolve:'' If the path resolves to an object (not a function) and `call[0]` is a method on it, the call is auto-resolved. For example, `path="wiki" call=["getTiddler","HelloThere"]` is equivalent to `path="wiki.getTiddler" call=["HelloThere"]`.
+
+''Example — testing utility functions:''
+
+```
+inspect $tw.utils.parseFields("title: Test\ntype: text/plain")
+```
+
+Returns:
+
+```
+$tw.utils.parseFields("title: Test\ntype: text/plain") 2keys maxDepth=0
+title s:4 Test
+type s:10 text/plain
+```
 
 !! Excluding Keys
 
@@ -267,4 +291,5 @@ wikirule {44}
 |See full function source |`inspect $tw.wiki.addTiddler full` |
 |Call a function |`inspect $tw.wiki.getTiddler("HelloThere")` |
 |Exclude noisy branches |`inspect $tw.rootWidget with max detail but exclude wiki` |
+|Call a utility function |`inspect $tw.utils.parseFields("title: Test")` |
 |Check a simple value |`inspect $tw.version` → `$tw.version=5.4.0-prerelease` |
