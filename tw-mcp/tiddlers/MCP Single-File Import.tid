@@ -1,5 +1,5 @@
 created: 20260407134700000
-modified: 20260407120140667
+modified: 20260407203611417
 tags: MCP Server
 title: MCP Single-File Import
 
@@ -73,15 +73,15 @@ For full details see the [[TiddlyWiki documentation|https://tiddlywiki.com/#Cust
 
 !! Reviewing and extracting
 
-After starting with `file=`, the AI assistant will:
+After starting with `file=`:
 
-# Read the import analysis (stored in `$:/temp/mcp/html-import`)
-# Present the proposed folder structure and explain what each rule does
-# Ask if you're happy with it or want changes
+# Open your browser at `http://localhost:9090` -- the tiddler ''Import — Proposed Folder Structure'' opens automatically with the full list of proposed rules
+# Review the rules. If you want to change anything, edit `$:/config/FileSystemPaths` directly in the browser
+# Connect an AI assistant and tell it to proceed with extraction
 
-Once you approve, the AI calls `extract_html_wiki` to write all tiddlers as `.tid` files to disk, organized according to the rules.
+The AI reads the current `$:/config/FileSystemPaths` from the wiki, so any edits you made in the browser are respected.
 
-You can also modify the rules before extracting -- just tell the AI what you'd prefer. For example: "put everything tagged 'Draft' into a drafts folder" or "don't create subfolders, keep it flat".
+You can also tell the AI what you'd prefer in plain language -- for example: "put everything tagged 'Draft' into a drafts folder" or "don't create subfolders, keep it flat".
 
 !! After extraction
 
