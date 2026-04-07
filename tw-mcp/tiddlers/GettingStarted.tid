@@ -1,5 +1,5 @@
 created: 20260404155758091
-modified: 20260404184915404
+modified: 20260407210617134
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -65,6 +65,7 @@ The server provides 18 tools for reading, editing, inspecting, and exporting wik
 * [[MCP Source Position Tracking]] — debugging workflow
 * [[MCP Upload Tool]] — binary file uploads via named pipe
 * [[MCP Instructions]] — detailed tool usage and examples
+* [[MCP Single-File Import]] — import a standalone HTML wiki into a node.js folder
 
 {{$:/plugins/wikilabs/tw-mcp/readme}}
 
