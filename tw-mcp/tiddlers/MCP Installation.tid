@@ -1,5 +1,5 @@
 created: 20260403162850006
-modified: 20260403162850006
+modified: 20260407114103506
 tags: MCP Server
 title: MCP Installation
 
@@ -11,11 +11,25 @@ title: MCP Installation
 
 !! Plugin Setup
 
-The `wikilabs/tw-mcp` plugin is not part of TiddlyWiki core. TiddlyWiki needs to know where to find it.
+The `wikilabs/tw-mcp` plugin is not part of TiddlyWiki core. You need to download it and tell TiddlyWiki where to find it.
 
-!!! 1. Set `TIDDLYWIKI_PLUGIN_PATH`
+!!! 1. Get the plugin
 
-This environment variable tells TiddlyWiki where to look for third-party plugins.
+''Option A — with git:''
+
+```
+git clone https://github.com/wikilabs/plugins.git wikilabs-plugins
+```
+
+''Option B — without git:''
+
+Download and unzip https://github.com/wikilabs/plugins/archive/refs/heads/master.zip
+
+Rename the extracted folder from `plugins-master` to `wikilabs-plugins` (or any name you like).
+
+!!! 2. Set `TIDDLYWIKI_PLUGIN_PATH`
+
+This environment variable tells TiddlyWiki where to look for third-party plugins. Point it at the cloned directory.
 
 ; Linux / macOS
 : Add to `~/.bashrc` or `~/.zshrc`:

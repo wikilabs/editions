@@ -1,0 +1,101 @@
+created: 20260407134700000
+modified: 20260407120140667
+tags: MCP Server
+title: MCP Single-File Import
+
+!! Importing a Single-File Wiki
+
+If you have a TiddlyWiki as a single HTML file and want to use it with the MCP server, the `file=` parameter handles the conversion for you.
+
+!! What you need
+
+# A wiki folder with the tw-mcp plugin installed (see [[MCP Installation]])
+# Your single-file TiddlyWiki HTML file
+
+If you don't have a wiki folder yet:
+
+```
+tiddlywiki ./mywiki --init server
+```
+
+Then edit `./mywiki/tiddlywiki.info` to include the tw-mcp plugin. The file should look like this:
+
+```json
+{
+  "plugins": [
+    "tiddlywiki/tiddlyweb",
+    "tiddlywiki/filesystem",
+    "wikilabs/tw-mcp"
+  ]
+}
+```
+
+See [[MCP Installation]] for how to get the plugin and set up `TIDDLYWIKI_PLUGIN_PATH`.
+
+!! Start the import
+
+```
+tiddlywiki ./mywiki --mcp file=path/to/my-wiki.html
+```
+
+This does several things at once:
+
+# Reads all tiddlers from your HTML file
+# Loads them into memory so your wiki is immediately usable
+# Starts a web server -- you can browse your wiki at `http://localhost:9090`
+# Starts the MCP server so an AI assistant can work with your wiki
+# Analyzes your tiddlers and suggests how to organize them into folders
+
+At this point your tiddlers are ''in memory only'' -- nothing has been written to disk yet. Your original HTML file is untouched.
+
+!! How the folder structure works
+
+When tiddlers are saved as individual `.tid` files, they need to go somewhere on disk. By default everything goes into a single `tiddlers/` folder, which can get messy with hundreds of tiddlers.
+
+TiddlyWiki has a built-in configuration called `$:/config/FileSystemPaths` that controls this. It uses filter expressions to sort tiddlers into subfolders based on their tags, titles, or other properties.
+
+For example, if you have 50 tiddlers tagged "Journal" and 30 tiddlers with titles starting with "Recipes/", the proposed rules might look like:
+
+```
+[is[system]removeprefix[$:/]addprefix[_system/]]
+[tag[Journal]addprefix[journal/]]
+[prefix[Recipes/]]
+```
+
+This means:
+
+* System tiddlers (`$:/...`) go into `_system/`
+* Tiddlers tagged "Journal" go into `journal/`
+* Tiddlers with titles like "Recipes/Pasta" keep their natural folder structure
+* Everything else stays in the `tiddlers/` root
+
+For full details see the [[TiddlyWiki documentation|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]].
+
+!! Reviewing and extracting
+
+After starting with `file=`, the AI assistant will:
+
+# Read the import analysis (stored in `$:/temp/mcp/html-import`)
+# Present the proposed folder structure and explain what each rule does
+# Ask if you're happy with it or want changes
+
+Once you approve, the AI calls `extract_html_wiki` to write all tiddlers as `.tid` files to disk, organized according to the rules.
+
+You can also modify the rules before extracting -- just tell the AI what you'd prefer. For example: "put everything tagged 'Draft' into a drafts folder" or "don't create subfolders, keep it flat".
+
+!! After extraction
+
+Once extracted, your wiki folder is a standard TiddlyWiki node.js edition. You can:
+
+* Edit tiddlers in the browser or through the AI
+* Use version control (git) to track changes
+* Build a single HTML file again at any time by asking the AI to use `build_wiki`
+* Restart the server without `file=` next time -- your tiddlers are already on disk
+
+!! What happens to plugins?
+
+Your single-file wiki likely includes plugins (like the CodeMirror editor or a theme). The import handles them automatically:
+
+* ''Standard plugins'' (ones that ship with TiddlyWiki) are added to `tiddlywiki.info` by name -- they don't need to be extracted
+* ''Custom plugins'' are noted in the analysis so you can decide what to do with them
+* ''Core and boot tiddlers'' are skipped entirely -- they're part of TiddlyWiki itself
