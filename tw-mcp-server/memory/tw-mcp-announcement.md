@@ -62,13 +62,7 @@ Want a browser too? Start with `--mcp rw listen` -- the HTTP server and MCP serv
 
 ## Getting started
 
-### Requirements
-
-- Node.js (v24+)
-- TiddlyWiki (`npm install -g tiddlywiki`)
-- `TIDDLYWIKI_PLUGIN_PATH` pointing to the directory containing the `wikilabs/` plugins folder
-
-### Start the server
+### Quick start
 
 ```bash
 tiddlywiki ./mywiki --mcp
@@ -80,29 +74,15 @@ Or with browser access:
 tiddlywiki ./mywiki --mcp rw listen port=8080
 ```
 
-### Connect Claude Code
-
-Add a `.mcp.json` file to your wiki directory:
-
-```json
-{
-  "mcpServers": {
-    "tiddlywiki": {
-      "type": "stdio",
-      "command": "tiddlywiki",
-      "args": [".", "--mcp", "label=claude"]
-    }
-  }
-}
-```
-
-Start Claude Code from that directory. Done.
-
-### Connect Gemini CLI
+Got a single-file wiki? Import it into a prepared wiki folder:
 
 ```bash
-gemini mcp add --scope project tiddlywiki-mcp tiddlywiki ./mywiki --mcp
+tiddlywiki ./mywiki --mcp file=path/to/wiki.html
 ```
+
+The AI analyzes the tiddler structure and proposes a directory layout before writing anything to disk.
+
+For full setup instructions (plugin installation, client configuration, environment setup), see the [Installation Guide](https://wikilabs.github.io/editions/tw-mcp/#MCP%20Installation).
 
 ## Demo
 
