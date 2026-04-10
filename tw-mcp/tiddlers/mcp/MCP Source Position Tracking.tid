@@ -11,7 +11,7 @@ TiddlyWiki's MCP server can trace every rendered HTML element back to the exact 
 !! The Three Inspection Tools
 
 |!Tool |!Purpose |!When to Use |
-|`inspect_pos` |Render HTML with `data-source-pos` attributes |Find out where a rendered element comes from |
+|`inspect_pos` |Render HTML with `p=` position attributes |Find out where a rendered element comes from |
 |`inspect_scope` |Show variables in scope at a position |Understand what variables/params are available at a specific point |
 |`inspect_tree` |Analyze widget tree structure |Count links, transclusions, or see how macros expand |
 
@@ -20,19 +20,26 @@ TiddlyWiki's MCP server can trace every rendered HTML element back to the exact 
 When you render wikitext with `inspect_pos`, the server:
 
 # Parses the wikitext and builds the widget tree
-# Renders to HTML, adding `data-source-pos` attributes to every element and link
+# Renders to HTML, adding `data-pos` attributes to every element and link
 # Converts character positions to ''file-ready line numbers'' — accounting for `.tid` file header offsets and macro body offsets
+# For MCP output: compacts `data-pos` to `p="idx:lines"` with a title index header; strips SVG noise and devtools-only attributes
 
-The resulting `data-source-pos` format is:
+The browser devtools plugin uses the full `data-pos` format:
 
 ```
 L{startLine}-L{endLine} @ tiddlerTitle
 L{line} @ tiddlerTitle
 ```
 
-Multi-line elements show a range (e.g. `L81-L84 @ $:/cards/procedures`). Single-line elements show just the line (e.g. `L8 @ Learning`).
+The MCP `inspect_pos` output uses a compact format with a title index header:
 
-The devtools browser plugin also stores `data-source-start` and `data-source-end` attributes with raw character positions for precise editor selection.
+```
+[0=GettingStarted 1=$:/cards/procedures]
+<h2 p="0:6">...
+<p p="1:81-84">...
+```
+
+The devtools browser plugin also stores `data-range` (combined start,end char positions) and `data-ctx` (currentTiddler context) for precise editor selection.
 
 !! Workflow Example
 
@@ -42,7 +49,7 @@ The devtools browser plugin also stores `data-source-start` and `data-source-end
 
 Use `inspect_pos` with the `Quick Start` tiddler's wikitext and `context` set to `Quick Start`.
 
-The button element will have: `data-source-pos="L81-L84@$:/cards/procedures"`
+In MCP output, the button will have: `p="1:81-84"` (where `1=$:/cards/procedures` in the title index)
 
 !!! Step 2: Examine the source
 
@@ -111,9 +118,9 @@ A floating panel that accumulates source code entries. Click the eye icon to add
 
 The plugin uses TiddlyWiki's hook system — zero overhead when disabled:
 
-* `th-dom-rendering-element` hook — adds `data-source-pos` to HTML elements
-* `th-dom-rendering-link` hook — adds `data-source-pos` to link elements
-* `th-dom-rendering-codeblock` hook — adds `data-source-pos` to code blocks
+* `th-dom-rendering-element` hook — adds `data-pos` to HTML elements
+* `th-dom-rendering-link` hook — adds `data-pos` to link elements
+* `th-dom-rendering-codeblock` hook — adds `data-pos` to code blocks
 * Monkey-patches the transclude widget to track source context across transclusion boundaries
 
 The hooks only fire when `$tw.wiki.trackSourcePositions` is `true`.
@@ -122,13 +129,26 @@ The hooks only fire when `$tw.wiki.trackSourcePositions` is `true`.
 
 The most powerful aspect of position tracking is that it works across transclusion boundaries. When a tiddler transcludes a macro that transcludes another tiddler, each HTML element correctly reports which tiddler defined it:
 
+Browser DOM (devtools):
+
 ```
-<p data-source-pos="L10 @ Quick Start">...</p>
-  <div data-source-pos="L47-L86 @ $:/cards/procedures">...</div>
-    <div data-source-pos="L64-L65 @ $:/cards/procedures">Title</div>
-    <p data-source-pos="L10 @ Quick Start: Desktop">Description</p>
-    <svg data-source-pos="L5 @ $:/core/images/globe">...</svg>
+<p data-pos="L10 @ Quick Start">...</p>
+  <div data-pos="L47-L86 @ $:/cards/procedures">...</div>
+    <div data-pos="L64-L65 @ $:/cards/procedures">Title</div>
+    <p data-pos="L10 @ Quick Start: Desktop">Description</p>
 ```
+
+MCP output (compact):
+
+```
+[0=Quick Start 1=$:/cards/procedures 2=Quick Start: Desktop]
+<p p="0:10">...</p>
+  <div p="1:47-86">...</div>
+    <div p="1:64-65">Title</div>
+    <p p="2:10">Description</p>
+```
+
+Note: SVG elements are stripped of position data in MCP output.
 
 This shows that:
 
@@ -139,7 +159,7 @@ This shows that:
 
 !! Disambiguating List Items
 
-When a `$list` widget renders multiple items using the same template, all items share the same `data-source-pos`. In the browser, the `» Quick Start: Desktop` context indicator in the tooltip and source viewer header shows which list item you're looking at.
+When a `$list` widget renders multiple items using the same template, all items share the same `data-pos`. In the browser, the `» Quick Start: Desktop` context indicator in the tooltip and source viewer header shows which list item you're looking at.
 
 For the MCP server, use `inspect_scope` with the `match` parameter to select a specific item:
 

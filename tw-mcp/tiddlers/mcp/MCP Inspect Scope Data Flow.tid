@@ -93,26 +93,28 @@ Links (2): asdf, xx
 
 ''Tool:'' `inspect_pos`<br>
 ''Parameters:'' `text=<tiddler text>`, `context="aaa"`<br>
-''Purpose:'' Render the wikitext to HTML with `data-source-pos` attributes on every element. These positions are file-ready line numbers.
+''Purpose:'' Render the wikitext to HTML with compact `p=` position attributes and a title index header. These positions are file-ready line numbers.
 
 ''Result:''
 
 ```html
-<p data-source-pos="L9-L10 @ aaa">
+[0=aaa]
+<p p="0:9-10">
   <a class="tc-tiddlylink tc-tiddlylink-missing"
-     data-source-pos="L9 @ aaa" href="#asdf">asdf</a>
+     p="0:9" href="#asdf">asdf</a>
 </p>
-<p data-source-pos="L12 @ aaa">
+<p p="0:12">
   <a class="tc-tiddlylink tc-tiddlylink-missing"
-     data-source-pos="L12 @ aaa" href="#xx">xx</a>
+     p="0:12" href="#xx">xx</a>
 </p>
 ```
 
 ''What we learn:''
 
-* The first link is at position `L9 @ aaa` — the `<$link>` inside the `<$let>` block
-* The second link is at position `L12 @ aaa` — the one outside the `<$let>` block
-* The `data-source-pos` values are file-ready line numbers (accounting for the .tid file header)
+* The title index `[0=aaa]` maps index 0 to tiddler `aaa`
+* The first link is at position `p="0:9"` — line 9 of `aaa`, inside the `<$let>` block
+* The second link is at position `p="0:12"` — line 12 of `aaa`, outside the `<$let>` block
+* The position values are file-ready line numbers (accounting for the .tid file header)
 * The `charPos` needed for `inspect_scope` is derived from the source position within the text field
 
 !!! Step 4: Inspect the Scope
@@ -180,7 +182,7 @@ The scope output prefixes each variable with its type:
 |`def` |Definition (general `\define` with params) |`def timeline(...)` |
 |`widget` |Custom widget definition |`widget $expand.able(...)` |
 
-!! Position Mapping: `data-source-pos` to `charPos`
+!! Position Mapping: `p=` to `charPos`
 
 The `inspect_pos` tool returns line numbers relative to the ''.tid file'' (including the header). The `inspect_scope` tool requires a `charPos` — a character offset within the tiddler's ''text field'' (excluding the header). The `tiddler` parameter on `inspect_scope` handles this conversion when you provide a tiddler title directly.
 

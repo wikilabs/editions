@@ -237,7 +237,7 @@ Analyzes the rendered widget tree structure. Returns type counts (for the full t
 
 !!! `inspect_pos`
 
-Renders wikitext to HTML with `data-source-pos` attributes on every element and link. Each attribute shows `L{start}-L{end}@tiddlerTitle` — file-ready line numbers that include the `.tid` header offset and macro body offset.
+Renders wikitext to HTML with compact `p=` position attributes and a title index header. Each `p` attribute has the format `idx:start-end` where `idx` references the title index. SVG elements are stripped of position data for token efficiency.
 
 |!Parameter |!Required |!Description |
 |`text` |yes |The wikitext to render |
@@ -248,15 +248,15 @@ Use the output with `inspect_scope` to examine variables at specific positions.
 
 ''Example prompts:''
 
-* "Show me the source positions in the Quick Start tiddler" — renders HTML with `data-source-pos` attributes
-* "Where does the Download button come from?" — trace `L81-L84@$:/cards/procedures` back to the source
+* "Show me the source positions in the Quick Start tiddler" — renders HTML with `p=` position attributes
+* "Where does the Download button come from?" — trace `p="2:81-84"` back to `$:/cards/procedures` via the title index
 
 !!! `inspect_scope`
 
 Inspects the variable scope at a specific source position in rendered wikitext. Renders the text, finds the widget at the given character position, and returns all variables in scope — ordered innermost first (local variables before globals).
 
 |!Parameter |!Required |!Description |
-|`tiddler` |no |Tiddler title to render (the `@tiddler` from `data-source-pos`) |
+|`tiddler` |no |Tiddler title to render (resolve from the title index header) |
 |`text` |no |Wikitext to render instead (for rendering from the caller's perspective) |
 |`charPos` |no |Character position within the text field |
 |`context` |no |Context tiddler (sets `currentTiddler`) |
