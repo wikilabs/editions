@@ -4,7 +4,8 @@
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
-		"wikilabs/advanced-search-plus"
+		"wikilabs/advanced-search-plus",
+		"wikilabs/devtools"
 	],
 	"themes": [
 	],
