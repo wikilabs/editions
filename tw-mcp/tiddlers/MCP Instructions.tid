@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260407080351965
+modified: 20260420143500000
 tags: 
 title: MCP Instructions
 type: text/vnd.tiddlywiki
@@ -86,7 +86,7 @@ Retrieves a single tiddler by title. By default returns ''metadata only'' (all f
 
 |!Parameter |!Required |!Description |
 |`title` |yes |The tiddler title |
-|`format` |no |`tid` (default) — `.tid` format with field headers. `json` — structured fields object |
+|`format` |no |`hashline` (default) — text with hash anchors for editing. `tid` — plain `.tid` text without hashes. `json` — structured fields object |
 |`detailed` |no |Set to `true` to include the `text` field (default: `false`) |
 
 > ''Note:'' System tiddlers (`$:/` prefix) should only be fetched when explicitly requested by the user. The AI is instructed not to fetch system tiddlers for general queries.
@@ -219,7 +219,7 @@ Renders a single tiddler field or data index as wikitext. Useful for compound ti
 
 !!! `inspect_tree`
 
-Analyzes the rendered widget tree structure. Returns type counts (for the full tree regardless of depth), link targets, transclusion tracking, and a depth-limited JSON representation.
+Analyzes the rendered widget tree structure. Returns type counts (for the full tree regardless of depth, including transclusions), link targets, and a depth-limited JSON representation.
 
 |!Parameter |!Required |!Description |
 |`text` |yes |The wikitext to analyze |
@@ -371,7 +371,9 @@ Edits specific lines of a tiddler using hashline references. Much cheaper than `
 
 |!Parameter |!Required |!Description |
 |`title` |yes |The tiddler title |
-|`edits` |yes |Array of edit operations |
+|`edits` |no |Array of text-line edit operations using hashline anchors (omit if only changing fields) |
+|`set_fields` |no |Object of fields to add or update (key: value). Does not affect `text` — use `edits` for text. |
+|`delete_fields` |no |Array of field names to remove |
 
 ''Edit operations:''
 
