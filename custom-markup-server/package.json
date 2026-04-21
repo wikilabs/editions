@@ -1,10 +1,10 @@
 {
   "name": "custom-markup-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+    "start": "tiddlywiki . --mcp readwrite listen port=8888 label=npm-prime-cm",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",

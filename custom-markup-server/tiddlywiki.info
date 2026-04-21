@@ -5,8 +5,8 @@
 		"tiddlywiki/filesystem",
 		"tiddlywiki/internals",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/custom-markup",
-		"wikilabs/space-space-newline"
+		"wikilabs/link-to-tabs",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 	],
