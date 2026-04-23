@@ -1,6 +1,6 @@
 created: 20260311050000000
-modified: 20260420143500000
-tags: 
+modified: 20260423112230000
+tags:
 title: MCP Instructions
 type: text/vnd.tiddlywiki
 
@@ -30,7 +30,7 @@ The server starts in ''readonly mode by default''. To enable write operations, a
 tiddlywiki ./mywiki --mcp rw
 ```
 
-In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available.
+In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available. `resave_tiddler` is a write tool and requires `rw`.
 
 !!! Label
 
@@ -414,6 +414,38 @@ Deletes a tiddler from the store and removes its `.tid` file from disk.
 ''Example prompts:''
 
 * "Delete the tiddler called old-draft"
+
+!!! `resave_tiddler`
+
+Rewrites a single tiddler's `.tid` file using the current `$:/config/FileSystemPaths`. The common use case: you edit `FileSystemPaths` and want a particular tiddler to migrate from its old path to the new rule's target directory ''without'' touching its timestamps or content.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`preserve_timestamps` |no |Keep `modified` and `modifier` unchanged (default: `true`). Set `false` to stamp current time and username. |
+|`strip_redundant` |no |Drop `revision` and drop `type` when it equals `text/vnd.tiddlywiki` (default: `true`) |
+|`dry_run` |no |Report the old path, computed new path, and fields that would be stripped; do not write (default: `false`) |
+
+''Behaviour:''
+
+* The new filepath is computed from the current `FileSystemPaths` against the tiddler's current fields. If it differs from the existing location, the old `.tid` (and `.tid.meta` sidecar, if any) is deleted after the new file is written successfully.
+* If the path does not change, the file is simply rewritten in place — useful for stripping `revision` or a redundant `type` field without touching timestamps.
+* Verification + rollback: the new file is re-read to confirm it contains the title header. On failure, both the store and the new file are rolled back.
+
+''Refusals:''
+
+|!Reason |!Trigger |
+|Not found |no tiddler with that title |
+|Shadow-only |no `$tw.boot.files` entry (tiddler lives only in a plugin/core) |
+|Bundled plugin |`plugin-type` is `plugin`, `theme`, or `language` |
+|Bundled in .multids |filepath ends in `.multids` — would shred the shared file |
+
+''Example prompts:''
+
+* "Resave the tiddler HelloThere" — rewrites in place or relocates if `FileSystemPaths` changed
+* "Dry-run resave on MyTiddler" — shows old → new path without writing
+* "Resave MyTiddler and update the timestamp" — sets `preserve_timestamps=false`
+
+> For bulk relocation after editing `FileSystemPaths`, prefer running the standalone `re-save-tiddlers.js` script rather than looping `resave_tiddler` — a single MCP tool call per tiddler is not the right shape for a wiki-wide sweep.
 
 !!! `upload_file`
 
