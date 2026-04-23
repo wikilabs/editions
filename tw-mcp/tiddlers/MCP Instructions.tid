@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260423112230000
+modified: 20260423143300000
 tags:
 title: MCP Instructions
 type: text/vnd.tiddlywiki
@@ -30,7 +30,7 @@ The server starts in ''readonly mode by default''. To enable write operations, a
 tiddlywiki ./mywiki --mcp rw
 ```
 
-In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available. `resave_tiddler` is a write tool and requires `rw`.
+In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available. `resave_tiddler` and `reload_mcp_modules` are write tools and require `rw`.
 
 !!! Label
 
@@ -446,6 +446,43 @@ Rewrites a single tiddler's `.tid` file using the current `$:/config/FileSystemP
 * "Resave MyTiddler and update the timestamp" — sets `preserve_timestamps=false`
 
 > For bulk relocation after editing `FileSystemPaths`, prefer running the standalone `re-save-tiddlers.js` script rather than looping `resave_tiddler` — a single MCP tool call per tiddler is not the right shape for a wiki-wide sweep.
+
+!!! `reload_mcp_modules`
+
+Hot-reloads the tw-mcp plugin during development — re-reads the plugin folder from disk and refreshes ALL its subtiddlers (JS AND non-JS — doc tiddlers, wikitext, CSS), then re-executes each JS module. Lets you iterate on handler code without restarting the server.
+
+|!Parameter |!Required |!Description |
+|`skip_disk_reload` |no |Set to `true` to skip the `$tw.loadPlugin` step. Use only when the wiki store already has fresh plugin source (e.g., after a manual `reload_tiddlers`). Default: `false`. |
+
+''Behaviour:''
+
+* ''Phase 1'' — `$tw.loadPlugin` re-reads the plugin folder from disk, `$tw.wiki.addTiddler` replaces the plugin JSON tiddler, `readPluginInfo` + `registerPluginTiddlers` + `unpackPluginTiddlers` re-unpack the shadow tiddlers with fresh source.
+* ''Phase 2'' — for every JS subtiddler with a `module-type`, `$tw.modules.titles[title].exports` is cleared and `$tw.modules.execute(title)` runs fresh. The next tool call picks up the new code via late-binding in `mcp-handlers.js`.
+* Two modules (`mcp-tools.js`, `mcp-handlers.js`) get ''identity-preserving'' reload — their new exports are merged onto the existing object so `mcp-lib.js`'s captured references stay live. This is why schema changes in `mcp-tools.js` are visible on the NEXT client connection without restart.
+
+''Excluded modules — still require a full server restart:''
+
+|!Module |!Reason |
+|`mcp.js` |Command module, runs once at boot |
+|`mcp-lib.js` |Holds the dispatcher, pipe server, stdin listener |
+|`shared.js` |Holds `readonlyMode` and `checkPathAllowed` init context |
+|`filesystem.js` |Holds the `reload_tiddlers` change listener |
+
+''When to use what:''
+
+|!Scenario |!Action |
+|Edited an edition tiddler (`.tid` file on disk) |`reload_tiddlers` (scope=`tiddlers`) |
+|Edited a non-JS subtiddler in tw-mcp (doc/wikitext/CSS) |`reload_mcp_modules` |
+|Edited a JS handler in tw-mcp |`reload_mcp_modules` |
+|Edited `mcp-lib.js`, `mcp.js`, `shared.js`, or `filesystem.js` |Full server restart |
+
+''Safety:'' If a reloaded module throws during re-execution, the old `exports` object is restored so a bad edit doesn't brick the server — but you still won't be able to proceed past a syntax error; check the tool response for the error list.
+
+''Example prompts:''
+
+* "Reload the MCP plugin" — user just edited a handler and wants to test
+* "Pick up my changes without restarting" — same intent, informal
+* "Reload with skip_disk_reload" — when the wiki store was already refreshed via `reload_tiddlers`
 
 !!! `upload_file`
 

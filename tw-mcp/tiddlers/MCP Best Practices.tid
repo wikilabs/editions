@@ -1,5 +1,5 @@
 created: 20260404170157073
-modified: 20260423112345000
+modified: 20260423143400000
 tags: MCP Server
 title: MCP Best Practices
 type: text/vnd.tiddlywiki
@@ -47,6 +47,7 @@ The AI selects tools based on your wording. These keywords help it choose correc
 |`edit_tiddler` |edit, change, update, fix, replace, modify, add line, insert |
 |`delete_tiddler` |delete, remove |
 |`resave_tiddler` |resave, relocate, reapply paths, move to new path |
+|`reload_mcp_modules` |hot reload, reload plugin, pick up code changes, re-read plugin from disk |
 |`upload_file` |upload, attach, add image, add PDF |
 |`save_wiki_folder` |export, save as folder, backup |
 |`build_wiki` |build, export HTML, single file |

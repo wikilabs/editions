@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260423112015000
+modified: 20260423143200000
 tags:
 title: MCP Basics
 type: text/vnd.tiddlywiki
@@ -17,6 +17,7 @@ The MCP (Model Context Protocol) server lets AI assistants like Claude, Gemini, 
 * ''Edit'' specific lines using hash-validated references (token-efficient)
 * ''Delete'' tiddlers and their files on disk
 * ''Resave'' a tiddler to relocate its file after `FileSystemPaths` changes
+* ''Hot-reload'' MCP plugin code while the server keeps running
 * ''Upload'' binary files (images, PDFs) via the `tw-upload` helper
 * ''Export'' your wiki as HTML or a wiki folder
 
@@ -101,6 +102,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 |`edit_tiddler` |edit, change, update, fix |Edit specific lines using hashline references — token-efficient, with automatic conflict detection |
 |`delete_tiddler` |delete, remove |Delete a tiddler and its file |
 |`resave_tiddler` |resave, relocate, reapply paths |Rewrite a tiddler's `.tid` file using the current `$:/config/FileSystemPaths`; preserves `modified`/`modifier` by default |
+|`reload_mcp_modules` |hot reload, reload plugin code, pick up edits |Re-read the tw-mcp plugin from disk and re-execute its JS modules without restarting the server (dev iteration tool) |
 |`upload_file` |upload, attach, add image |Upload a base64-encoded binary file and create a canonical tiddler |
 |`save_wiki_folder` |export, save as folder |Export wiki as a folder structure |
 |`build_wiki` |build, export HTML |Render wiki as a single HTML file |
