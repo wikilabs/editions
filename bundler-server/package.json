@@ -4,10 +4,8 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "watch": "nodemon",
-    "net": "tiddlywiki . --listen host=local.lan",
+    "start": "tiddlywiki . --mcp listen host=localhost label=mcp-bundler",
 
-    "start": "tiddlywiki . --listen",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",

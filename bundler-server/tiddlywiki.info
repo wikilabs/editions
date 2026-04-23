@@ -6,7 +6,7 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/bundler",
-		"flibbles/relink"
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
