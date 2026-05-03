@@ -305,7 +305,8 @@ Returns pre-formatted wiki metadata including:
 * Tiddler counts (standard, system, shadow, overridden shadows, tags)
 * Installed plugins, themes, and languages (one per line)
 * TiddlyWiki version
-* Server status (readonly mode, filesystem adaptor)
+* MCP server line: role, ''plugin version'' (e.g. `MCP: primary v0.9.2 (PID …) @label`), readonly mode, filesystem adaptor
+* HTTP server status (when `--listen` is active)
 * Basic settings from the ControlPanel/Basics panel (site title, username, default tiddlers, animation duration, journal settings, etc.)
 
 Takes no parameters. The output is pre-formatted plain text — the AI presents it directly without reformatting.
@@ -315,6 +316,7 @@ Takes no parameters. The output is pre-formatted plain text — the AI presents 
 * "What plugins are installed?"
 * "How many tiddlers are in this wiki?"
 * "What are the current wiki settings?"
+* "What version of tw-mcp is running?"
 
 !!! `reload_tiddlers`
 
@@ -520,6 +522,38 @@ Renders the wiki as a single standalone HTML file.
 ''Example prompts:''
 
 * "Build the wiki as output.html"
+
+!!! `import_html_wiki`
+
+Stages a single-file HTML wiki for import. Loads tiddlers from the file into the in-memory wiki, classifies them, proposes `$:/config/FileSystemPaths` rules, and writes the analysis to `$:/temp/mcp/html-import`. Nothing is written to disk yet — call `extract_html_wiki` to commit.
+
+|!Parameter |!Required |!Description |
+|`path` |yes |Path to the `.html` single-file wiki to import |
+
+''Behaviour:''
+
+* The wiki folder must be empty (no `.tid` files and no `$:/config/FileSystemPaths`); otherwise the call refuses.
+* Only one staged import can be pending at a time; calling again while pending refuses with a pointer to the existing one. To discard a staged import, delete `$:/temp/mcp/html-import`.
+* Library plugins detected in the HTML file are added to `tiddlywiki.info` by name — they don't need to be extracted as tiddlers and will be loaded by the boot process after the next server restart.
+* Sets `Import — Proposed Folder Structure` as the default tiddler so the user sees the proposed rules in the browser.
+
+''Example prompts:''
+
+* "Import the wiki at ~/Downloads/notes.html"
+
+''Workflow:'' see [[MCP Single-File Import]] for the full review-and-commit walkthrough.
+
+!!! `extract_html_wiki`
+
+Commits a previously staged HTML wiki import (see `import_html_wiki`) to disk as `.tid` files. Reads the current `$:/config/FileSystemPaths` from the wiki by default — the user can edit it in the browser before this call. After extraction, restart the server once so any newly-added library plugins activate.
+
+|!Parameter |!Required |!Description |
+|`fileSystemPaths` |no |Override the rules used. One filter per line. If omitted, reads `$:/config/FileSystemPaths` from the wiki. |
+
+''Example prompts:''
+
+* "Extract the staged HTML import to disk"
+* "Proceed with extraction" (after reviewing `Import — Proposed Folder Structure`)
 
 ---
 

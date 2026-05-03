@@ -51,6 +51,8 @@ The AI selects tools based on your wording. These keywords help it choose correc
 |`upload_file` |upload, attach, add image, add PDF |
 |`save_wiki_folder` |export, save as folder, backup |
 |`build_wiki` |build, export HTML, single file |
+|`import_html_wiki` |import, stage import, single-file wiki, html wiki |
+|`extract_html_wiki` |extract, commit import, write staged tiddlers |
 
 !!! One operation at a time for important changes
 

@@ -75,16 +75,16 @@ After takeover, stderr logs show:
 When `--mcp` and `--listen` run in the same process (after takeover), they communicate via shared objects on `$tw`:
 
 ; `$tw.mcp`
-: `pid`, `role` (primary/proxy), `label`, `readonly`, `started`, `heartbeat()`
+: `pid`, `role` (primary/proxy), `label`, `readonly`, `version`, `started`, `heartbeat()` (heartbeat returns the same fields plus `uptime`)
 ; `$tw.httpServer`
 : `server`, `nodeServer`, `heartbeat()` → `{listening, address}`
 
 These are queryable via `inspect_tw` and the heartbeat functions are whitelisted for `call`.
 
-The `get_wiki_info` tool also reports MCP and HTTP server status:
+The `get_wiki_info` tool also reports MCP and HTTP server status, including the running plugin version:
 
 ```
-MCP: primary (PID 5678) @listen
+MCP: primary v0.9.2 (PID 5678) @listen
 HTTP: 127.0.0.1:8080
 ```
 

@@ -58,7 +58,7 @@ After takeover, `label=listen` is the primary and `label=claude` becomes a proxy
 
 When `--mcp` and `--listen` run in the same process, they expose shared state on `$tw`:
 
-* `$tw.mcp` — MCP server info: `pid`, `role`, `label`, `readonly`, `heartbeat()`
+* `$tw.mcp` — MCP server info: `pid`, `role`, `label`, `readonly`, `version`, `heartbeat()` (heartbeat output also includes `version` and `uptime`)
 * `$tw.httpServer` — HTTP server info: `server`, `nodeServer`, `heartbeat()`
 
 Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also reports their status.
@@ -92,7 +92,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 |`inspect_pos` |where from, source, trace |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
 |`inspect_scope` |variables, scope, params |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |
 |`inspect_tw` |inspect $tw, internal |Inspect TiddlyWiki's internal `$tw` object structure and function source code |
-|`get_wiki_info` |wiki info, plugins, settings |Get wiki metadata, tiddler counts, plugins, and basic settings |
+|`get_wiki_info` |wiki info, plugins, settings, mcp version |Get wiki metadata, tiddler counts, plugins, basic settings, and the running MCP server version |
 |`reload_tiddlers` |reload, refresh, sync |Refresh in-memory store from disk + report changes since last call |
 
 !!! Write tools (require `rw` mode)
@@ -106,6 +106,8 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 |`upload_file` |upload, attach, add image |Upload a base64-encoded binary file and create a canonical tiddler |
 |`save_wiki_folder` |export, save as folder |Export wiki as a folder structure |
 |`build_wiki` |build, export HTML |Render wiki as a single HTML file |
+|`import_html_wiki` |import, single-file wiki, stage import |Stage a single-file HTML wiki for review (load to memory, propose `FileSystemPaths`); pairs with `extract_html_wiki` |
+|`extract_html_wiki` |extract, commit import |Commit a staged HTML wiki import to disk as `.tid` files |
 
 For the full keyword list and prompt tips, see [[MCP Best Practices]].
 

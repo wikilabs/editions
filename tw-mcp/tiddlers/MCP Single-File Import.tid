@@ -1,16 +1,17 @@
 created: 20260407134700000
-modified: 20260407203611417
+modified: 20260503143045123
 tags: MCP Server
 title: MCP Single-File Import
 
 !! Importing a Single-File Wiki
 
-If you have a TiddlyWiki as a single HTML file and want to use it with the MCP server, the `file=` parameter handles the conversion for you.
+If you have a TiddlyWiki as a single HTML file and want to migrate it into a node.js folder served by the MCP server, the import is driven by two write tools: `import_html_wiki` and `extract_html_wiki`. There is no special command-line flag — the server runs normally and the AI assistant orchestrates the import at runtime.
 
 !! What you need
 
 # A wiki folder with the tw-mcp plugin installed (see [[MCP Installation]])
 # Your single-file TiddlyWiki HTML file
+# An MCP client (Claude Code, Gemini CLI, etc.) connected to the running server
 
 If you don't have a wiki folder yet:
 
@@ -32,21 +33,35 @@ Then edit `./mywiki/tiddlywiki.info` to include the tw-mcp plugin. The file shou
 
 See [[MCP Installation]] for how to get the plugin and set up `TIDDLYWIKI_PLUGIN_PATH`.
 
-!! Start the import
+The wiki folder must be ''empty'' — no `.tid` files in `tiddlers/` and no `$:/config/FileSystemPaths` yet. The import refuses to run against a populated folder.
+
+!! Step 1 — Start a normal server
 
 ```
-tiddlywiki ./mywiki --mcp file=path/to/my-wiki.html
+tiddlywiki ./mywiki --mcp rw listen port=9090
 ```
 
-This does several things at once:
+This starts a normal MCP server with HTTP listen mode, against an empty wiki. Browse to `http://localhost:9090` to see the empty wiki, and connect your MCP client.
 
-# Reads all tiddlers from your HTML file
-# Loads them into memory so your wiki is immediately usable
-# Starts a web server -- you can browse your wiki at `http://localhost:9090`
-# Starts the MCP server so an AI assistant can work with your wiki
-# Analyzes your tiddlers and suggests how to organize them into folders
+!! Step 2 — Stage the import
 
-At this point your tiddlers are ''in memory only'' -- nothing has been written to disk yet. Your original HTML file is untouched.
+Ask your AI assistant to import the file, e.g. ''"Import the wiki at ~/Downloads/my-wiki.html"''. The assistant calls:
+
+```
+import_html_wiki(path="~/Downloads/my-wiki.html")
+```
+
+This:
+
+# Reads all tiddlers from the HTML file
+# Loads them into memory so your wiki is immediately usable in the browser
+# Classifies tiddlers (content, system, library plugins, custom plugins, ignored boot/core)
+# Adds standard plugins to `tiddlywiki.info` by name (they don't need to be extracted)
+# Analyses tags and title prefixes to propose rules for `$:/config/FileSystemPaths`
+# Writes the analysis to `$:/temp/mcp/html-import` and a human-readable summary to `Import — Proposed Folder Structure`
+# Sets `Import — Proposed Folder Structure` as the default tiddler so it opens in the browser
+
+At this point your tiddlers are ''in memory only'' — nothing has been written to disk yet. Your original HTML file is untouched.
 
 !! How the folder structure works
 
@@ -71,31 +86,44 @@ This means:
 
 For full details see the [[TiddlyWiki documentation|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]].
 
-!! Reviewing and extracting
+!! Step 3 — Review the proposed rules
 
-After starting with `file=`:
-
-# Open your browser at `http://localhost:9090` -- the tiddler ''Import — Proposed Folder Structure'' opens automatically with the full list of proposed rules
+# Refresh `http://localhost:9090` — the tiddler ''Import — Proposed Folder Structure'' opens automatically with the full list of proposed rules
 # Review the rules. If you want to change anything, edit `$:/config/FileSystemPaths` directly in the browser
-# Connect an AI assistant and tell it to proceed with extraction
+# Save the wiki tab so the AI sees your edits
 
-The AI reads the current `$:/config/FileSystemPaths` from the wiki, so any edits you made in the browser are respected.
+You can also tell the AI what you'd prefer in plain language — for example: ''"put everything tagged 'Draft' into a drafts folder"'' or ''"don't create subfolders, keep it flat"''.
 
-You can also tell the AI what you'd prefer in plain language -- for example: "put everything tagged 'Draft' into a drafts folder" or "don't create subfolders, keep it flat".
+!! Step 4 — Commit to disk
+
+Tell the assistant to proceed. It calls:
+
+```
+extract_html_wiki()
+```
+
+The extract tool reads the current `$:/config/FileSystemPaths` from the wiki — so any edits you made in the browser are respected — and writes the staged tiddlers to `.tid` files under `tiddlers/`.
+
+!! Step 5 — Restart once
+
+Restart the server so any newly-added library plugins activate from the updated `tiddlywiki.info`:
+
+```
+tiddlywiki ./mywiki --mcp rw listen port=9090
+```
 
 !! After extraction
 
-Once extracted, your wiki folder is a standard TiddlyWiki node.js edition. You can:
+Your wiki folder is now a standard TiddlyWiki node.js edition. You can:
 
 * Edit tiddlers in the browser or through the AI
 * Use version control (git) to track changes
 * Build a single HTML file again at any time by asking the AI to use `build_wiki`
-* Restart the server without `file=` next time -- your tiddlers are already on disk
 
 !! What happens to plugins?
 
 Your single-file wiki likely includes plugins (like the CodeMirror editor or a theme). The import handles them automatically:
 
-* ''Standard plugins'' (ones that ship with TiddlyWiki) are added to `tiddlywiki.info` by name -- they don't need to be extracted
+* ''Standard plugins'' (ones that ship with TiddlyWiki) are added to `tiddlywiki.info` by name — they don't need to be extracted
 * ''Custom plugins'' are noted in the analysis so you can decide what to do with them
-* ''Core and boot tiddlers'' are skipped entirely -- they're part of TiddlyWiki itself
+* ''Core and boot tiddlers'' are skipped entirely — they're part of TiddlyWiki itself
