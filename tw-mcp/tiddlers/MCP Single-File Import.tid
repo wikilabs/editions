@@ -1,5 +1,5 @@
 created: 20260407134700000
-modified: 20260503143045123
+modified: 20260503223048000
 tags: MCP Server
 title: MCP Single-File Import
 
@@ -84,6 +84,8 @@ This means:
 * Tiddlers with titles like "Recipes/Pasta" keep their natural folder structure
 * Everything else stays in the `tiddlers/` root
 
+Tag names with special characters (spaces, parentheses, dots, etc.) are normalised for folder names: spaces become `-`, runs of other non-alphanumeric characters collapse to a single `_`, and leading/trailing separators are trimmed. For example, the tag `Higher Caloric Value (H.C.V.)` becomes the folder `higher-caloric-value-h_c_v`.
+
 For full details see the [[TiddlyWiki documentation|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]].
 
 !! Step 3 — Review the proposed rules
@@ -124,6 +126,6 @@ Your wiki folder is now a standard TiddlyWiki node.js edition. You can:
 
 Your single-file wiki likely includes plugins (like the CodeMirror editor or a theme). The import handles them automatically:
 
-* ''Standard plugins'' (ones that ship with TiddlyWiki) are added to `tiddlywiki.info` by name — they don't need to be extracted
-* ''Custom plugins'' are noted in the analysis so you can decide what to do with them
+* ''Standard plugins'' (ones that ship with TiddlyWiki) are added to `tiddlywiki.info` by name — they don't need to be extracted as tiddlers; TW loads them from its plugin path on boot
+* ''Custom plugins'' (3rd-party plugins not in your local plugin path) are written to disk as single `.tid` files — one tiddler per plugin, not exploded into separate sub-tiddlers. TW unpacks them automatically on next boot
 * ''Core and boot tiddlers'' are skipped entirely — they're part of TiddlyWiki itself
