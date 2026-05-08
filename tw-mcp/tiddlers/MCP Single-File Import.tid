@@ -51,6 +51,8 @@ Ask your AI assistant to import the file, e.g. ''"Import the wiki at ~/Downloads
 import_html_wiki(path="~/Downloads/my-wiki.html")
 ```
 
+The `path` can point anywhere on disk that the server process can read. As a defence-in-depth, paths whose directory or filename segments start with `.` (e.g. `~/.config/x.html`) are refused — those locations are conventionally home to secrets and have no legitimate role as a single-file wiki source.
+
 This:
 
 # Reads all tiddlers from the HTML file
