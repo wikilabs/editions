@@ -44,6 +44,18 @@ The wiki you serve must have `wikilabs/tw-mcp` in its `tiddlywiki.info` `plugins
 
 To temporarily disable the SSE takeover (and let tiddlyweb's polling adaptor run even with `--mcp sse`), set `$:/config/wikilabs/tw-mcp/sse-enabled` to `no`.
 
+!! Security model — bind to loopback only
+
+The `/events` stream is unauthenticated. Anyone who can open a TCP connection to the server's listen port receives every `tiddler-change` and `tiddler-delete` event the broadcaster emits — including the full inlined fields of each changed tiddler (anything ≤ 4 KiB by default). The same exposure applies to `/recipes/.../tiddlers/<title>` reads.
+
+The plugin is therefore designed for ''localhost-trust'' deployments. ''Do not'' bind `tiddlywiki --mcp sse` to a non-loopback interface (`0.0.0.0`, a LAN address, a public address) without putting the server behind a reverse proxy that enforces authentication and TLS. Concrete checks before exposing the port:
+
+* `host` argument left at the default (`127.0.0.1`) when starting the server.
+* No port-forward, ngrok tunnel, or inbound firewall rule for the listen port.
+* If you need remote access, terminate auth + TLS at nginx/Caddy/Traefik and let only those proxies talk to the wiki on loopback.
+
+The role-call routes (`/presenter/*`, `/main/*`, `/clients`) are bound to live EventSource connections (audit H1 fix in `v0.13.0`), so an attacker who reaches `/events` cannot also impersonate a tab via header. They can still //read// every change broadcast — that part is by design and only safe under loopback trust.
+
 !! How it works
 
 !!! Event format

@@ -6,6 +6,10 @@ type: text/vnd.tiddlywiki
 
 This page documents the SSE broadcast settings exposed by the //MCP SSE// ControlPanel tab. For the underlying transport (events, ring buffer, reconnect), see [[MCP SSE Sync]].
 
+!! Before you expose the port
+
+The `/events` stream is unauthenticated and broadcasts every tiddler change to any connected client. The mode/role machinery below assumes a ''localhost-trust'' deployment — //do not// bind the server to a non-loopback interface without putting it behind an authenticating reverse proxy. See the //Security model// section in [[MCP SSE Sync]] for the deployment checklist.
+
 The settings revolve around //per-tab view-state tiddlers// — `$:/StoryList`, `$:/HistoryList`, and `$:/state/*` by default. Edits to these tiddlers from a browser are normally //not// broadcast to other tabs, so each tab keeps its own story river, sidebar selection, and similar UI state. The mode switch lets one tab //share// its view-state with the others when that's useful (presentations, walkthroughs, paired editing). MCP-tool changes and filesystem-watcher edits always broadcast regardless of mode.
 
 !! Modes
