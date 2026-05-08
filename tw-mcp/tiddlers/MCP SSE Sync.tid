@@ -52,12 +52,12 @@ Every change becomes one of:
 
 * `event: tiddler-change` — `{title, revision, clientId, fields?}`. If the JSON-encoded tiddler is ≤ 4096 bytes, `fields` is inlined; otherwise the client fetches the body via the existing `loadTiddler()` round trip.
 * `event: tiddler-delete` — `{title, clientId}`.
-* `event: hello` — `{serverInstanceId, inlineThreshold}`. Sent on every connect. If `serverInstanceId` differs from the one the client saw last connect, the client triggers a full sync.
+* `event: hello` — `{serverInstanceId, inlineThreshold, assignedClientId, mode, presenterClientId, presenterUsername, mainClientId, mainUsername}`. Sent on every connect. If `serverInstanceId` differs from the one the client saw last connect, the client triggers a full sync. `assignedClientId` is the server-issued per-connection identifier the browser must adopt for any subsequent role-call (see [[MCP SSE Settings]]).
 * `event: cache-miss` — sent when a reconnecting client's `Last-Event-ID` is older than the ring-buffer tail (default 500 entries). The client falls back to a full sync.
 
 !!! Echo suppression
 
-Each browser tab generates a per-session `clientId` (`crypto.randomUUID()`) and sends it on every PUT/DELETE as `X-MCP-Client-Id`. The server records the originator and tags the resulting broadcast event with that `clientId`. The originating tab compares incoming `clientId` against its own and skips matches, so it doesn't echo its own save back into the editor.
+Each EventSource connection gets a server-issued `clientId` (`crypto.randomUUID()` on the server, returned via `hello.assignedClientId`). The browser adopts that id and sends it on every PUT/DELETE as `X-MCP-Client-Id`. The server records the originator and tags the resulting broadcast event with that `clientId`. The originating tab compares incoming `clientId` against its own and skips matches, so it doesn't echo its own save back into the editor.
 
 Filesystem-watcher changes and MCP-tool changes have no `clientId` — those events go to all tabs unconditionally.
 

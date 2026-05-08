@@ -21,7 +21,7 @@ The mode is stored in `$:/config/wikilabs/tw-mcp/mode`. Switch via the radio in 
 
 !!! Presenter
 
-* Each browser tab generates a per-session `clientId` (`crypto.randomUUID()`).
+* Each EventSource connection gets a server-issued `clientId` (returned via `hello.assignedClientId`). Caller-supplied `?clientId=` is ignored — clientId is the connection's identity, not the browser's.
 * In `presentation` (or `main` without admin), //the first tab to connect// auto-claims the role. Other tabs can take over by clicking //Claim presenter// — last-claim-wins.
 * The presenter's per-tab tiddlers (everything matched by the per-tab filter) are pushed to every other tab via direct HTTP PUTs that bypass the regular SyncFilter.
 * The current presenter can release the role via //Release presenter//. Closing the browser also releases.
@@ -75,20 +75,20 @@ The username is sent on `EventSource` connect (as a query parameter) and on ever
 These complement the regular tiddlyweb routes. All are served by the `wikilabs/tw-mcp` plugin when `--mcp sse` is active.
 
 |! Method |! Path |! Headers |! Body |! Effect |
-|GET |`/events` |(EventSource only) |— |Open the SSE stream. The query string carries `clientId=<uuid>` and optional `username=<name>` (EventSource can't set custom headers). |
-|GET |`/clients` |— |— |`200`. Returns `[{clientId, username}]` for every currently-connected EventSource (only those with a `clientId` query param — server-side probes without one are excluded). `Cache-Control: no-store`. |
-|POST |`/presenter/claim` |`X-MCP-Client-Id`, `X-MCP-Username` (optional) |— |`204` on success. `403` in `main` mode when admin is set and caller is not the admin. |
-|POST |`/presenter/release` |`X-MCP-Client-Id` |— |`204` on success. `403` in `main` mode if caller is neither the admin nor the current presenter. Admin's release force-clears regardless of who holds it. |
-|POST |`/presenter/grant` |`X-MCP-Client-Id` (admin's), `Content-Type: application/json` |`{"clientId": "<target>"}` |`204` on success. `403` if caller is not the current main. Delegates to `claimPresenter` for the target. |
-|POST |`/main/claim` |`X-MCP-Client-Id`, `X-MCP-Username` (optional) |— |`204` on success. `409` if a different tab already holds main. Initial claim (when no admin held the role) also auto-takes presenter for the same `clientId`. |
-|POST |`/main/release` |`X-MCP-Client-Id` |— |`204`. Only the current admin can release. |
+|GET |`/events` |(EventSource only) |— |Open the SSE stream. The query string carries optional `username=<name>` (EventSource can't set custom headers). The `clientId` is server-issued and returned via `hello.assignedClientId`; any caller-supplied `?clientId=` is ignored. |
+|GET |`/clients` |`X-MCP-Client-Id` (admin's) |— |`200` with `[{clientId, username}]` for every connected EventSource. `400` if header missing/malformed; `401` if not bound to a live connection; `403` if caller is not the current main. `Cache-Control: no-store`. |
+|POST |`/presenter/claim` |`X-MCP-Client-Id`, `X-MCP-Username` (optional) |— |`204` on success. `400` if header missing/malformed; `401` if not bound to a live connection; `403` in `main` mode when admin is set and caller is not the admin. |
+|POST |`/presenter/release` |`X-MCP-Client-Id` |— |`204` on success. `400`/`401` as above; `403` in `main` mode if caller is neither the admin nor the current presenter. Admin's release force-clears regardless of who holds it. |
+|POST |`/presenter/grant` |`X-MCP-Client-Id` (admin's), `Content-Type: application/json` |`{"clientId": "<target>"}` |`204` on success. `400`/`401` as above; `413` if body > 1KB; `403` if caller is not the current main or the target is not currently connected. Delegates to `claimPresenter` for the target. |
+|POST |`/main/claim` |`X-MCP-Client-Id`, `X-MCP-Username` (optional) |— |`204` on success. `400`/`401` as above; `409` if a different tab already holds main. Initial claim (when no admin held the role) also auto-takes presenter for the same `clientId`. |
+|POST |`/main/release` |`X-MCP-Client-Id` |— |`204`. `400`/`401` as above. Only the current admin can release. |
 
 The PUT/DELETE handlers under `/recipes/default/tiddlers/...` and `/bags/default/tiddlers/...` (the regular tiddlyweb routes) gain an additional check: in main mode with admin set, mutations to `$:/config/wikilabs/tw-mcp/*` from other clients return `403`.
 
 !! SSE events specific to settings
 
 |! Event |! Payload |! When |
-|`hello` |adds `mainClientId`, `mainUsername` |Every connect (alongside `serverInstanceId`, `inlineThreshold`, `mode`, `presenterClientId`, `presenterUsername`). |
+|`hello` |adds `mainClientId`, `mainUsername`, `assignedClientId` |Every connect (alongside `serverInstanceId`, `inlineThreshold`, `mode`, `presenterClientId`, `presenterUsername`). The browser adopts `assignedClientId` as its own clientId for any subsequent role-call. |
 |`presenter-changed` |`{clientId, username}` |After every `claimPresenter` / `releasePresenter` / `grantPresenter` that actually changes state. `clientId: null` indicates "no presenter". |
 |`main-changed` |`{clientId, username}` |After every `claimMain` / `releaseMain` that actually changes state. `clientId: null` indicates "no admin". Disconnecting the admin tab also fires this. |
 
@@ -97,7 +97,7 @@ The browser-side adaptor mirrors these into `$:/state/wikilabs/tw-mcp/*` tiddler
 !! State tiddlers (browser-side mirrors)
 
 |! Tiddler |! Field |! Source |
-|`$:/state/wikilabs/tw-mcp/my-clientId` |`text` |Set by the adaptor on construction. Used by the UI to detect "this tab is the admin / presenter". |
+|`$:/state/wikilabs/tw-mcp/my-clientId` |`text` |Set by the adaptor from `hello.assignedClientId` once the EventSource connects. Used by the UI to detect "this tab is the admin / presenter". |
 |`$:/state/wikilabs/tw-mcp/presenter-clientId` |`text` |From `hello` and `presenter-changed`. |
 |`$:/state/wikilabs/tw-mcp/presenter-username` |`text` |From `hello` and `presenter-changed`. |
 |`$:/state/wikilabs/tw-mcp/main-clientId` |`text` |From `hello` and `main-changed`. |
