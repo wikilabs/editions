@@ -4,7 +4,10 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp readwrite listen port=8888 label=primary",
+    "start": "tiddlywiki . --mcp readwrite sse port=8888 label=sse-primary",
+
+    "listen": "tiddlywiki . --mcp readwrite sse port=8888 label=listen-primary",
+
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
