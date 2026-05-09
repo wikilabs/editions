@@ -1,5 +1,5 @@
 created: 20260320073219027
-modified: 20260404173809896
+modified: 20260509040417345
 tags: MCP Development
 title: MCP Proxy Mode Concept
 type: text/vnd.tiddlywiki
@@ -90,7 +90,7 @@ HTTP: 127.0.0.1:8080
 
 !! Change Tracking
 
-When browser and MCP share `$tw.wiki`, `reload_tiddlers` shows 0 disk-vs-memory changes (they're already in sync). To still report what changed, the MCP server listens to `$tw.wiki` change events and accumulates a log between `reload_tiddlers` calls:
+When browser and MCP share `$tw.wiki`, `reload_tiddlers` shows 0 disk-vs-memory changes (they're already in sync). To push those shared-store changes to all browser tabs in real time, add the `sse` keyword to the takeover process — see [[MCP SSE Sync]]. To still report what changed via the `reload_tiddlers` tool, the MCP server listens to `$tw.wiki` change events and accumulates a log between calls:
 
 ```
 Since last reload: 2 added, 0 updated, 1 deleted

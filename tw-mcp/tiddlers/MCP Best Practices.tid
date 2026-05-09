@@ -1,5 +1,5 @@
 created: 20260404170157073
-modified: 20260423123400000
+modified: 20260509040408234
 tags: MCP Server
 title: MCP Best Practices
 type: text/vnd.tiddlywiki
@@ -108,4 +108,4 @@ When using `edit_tiddler`, conflicts are detected automatically via hash validat
 * The error shows which lines changed with updated hash references
 * You can re-read and retry, or force-save with `put_tiddler`
 
-This is especially valuable when using `--mcp listen` with a browser open — browser edits and AI edits can't silently overwrite each other.
+This is especially valuable when using `--mcp sse` (or `listen`) with a browser open — browser edits and AI edits can't silently overwrite each other. See [[MCP SSE Sync]] for the live push transport that makes this near-instant.

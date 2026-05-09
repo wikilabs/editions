@@ -1,5 +1,5 @@
 created: 20260508110000000
-modified: 20260508110000000
+modified: 20260509041705972
 tags: MCP Server
 title: MCP SSE Sync
 type: text/vnd.tiddlywiki
@@ -87,7 +87,7 @@ EventSource auto-reconnects on connection drops. The browser sends `Last-Event-I
 |`$:/config/SyncPollingInterval` | `600000` (set by the plugin) |Fallback poll interval in ms. Set to a small value to stress-test polling, or leave at 10 minutes as a safety net. |
 |`$:/config/wikilabs/tw-mcp/sse-enabled` | `yes` |Set to `no` to disable the SSE takeover and run plain tiddlyweb polling. |
 |`$:/status/wikilabs/tw-mcp/sse-server-active` | (set by `--mcp sse`) |Server-written marker. `$:/status/` prefix keeps it out of the default SyncFilter so it stays in memory only — both the server's filesystem syncer and the browser ignore it for persistence. Absent unless the server was started with `--mcp sse`. Without it, the bootstrap stays dormant. |
-|`$:/config/wikilabs/tw-mcp/sse-inline-threshold` | `4096` |Server-side: inline tiddler fields when the JSON body is ≤ this many bytes. Above the threshold the event carries only `title` + `revision` and the client fetches the body. |
+|`$:/config/wikilabs/tw-mcp/sse-inline-threshold` | `32768` |Server-side: inline tiddler fields when the JSON body is ≤ this many bytes. Above the threshold the event carries only `title` + `revision` and the client fetches the body via the syncer (~250 ms wake-up cycle vs sub-ms for inlined content). |
 
 !! Limits
 

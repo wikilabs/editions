@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260423123200000
+modified: 20260509040405123
 tags: 
 title: MCP Basics
 type: text/vnd.tiddlywiki
@@ -62,6 +62,16 @@ When `--mcp` and `--listen` run in the same process, they expose shared state on
 * `$tw.httpServer` — HTTP server info: `server`, `nodeServer`, `heartbeat()`
 
 Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also reports their status.
+
+!! Live Browser Sync
+
+When the HTTP server is running, tiddler changes can be pushed to the browser in real time via Server-Sent Events instead of the default 60s poll. Add the `sse` keyword (which implies `listen`) to enable:
+
+```
+tiddlywiki ./mywiki --mcp rw sse port=8080
+```
+
+Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel native rather than batched. Substitute `sse` wherever you'd otherwise write `listen`. See [[MCP SSE Sync]] for the transport details and [[MCP SSE Settings]] for the broadcast modes (default / presentation / main).
 
 !! Safety Features
 

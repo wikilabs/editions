@@ -1,5 +1,5 @@
 created: 20260407134700000
-modified: 20260503223048000
+modified: 20260509040414890
 tags: MCP Server
 title: MCP Single-File Import
 
@@ -38,10 +38,10 @@ The wiki folder must be ''empty'' — no `.tid` files in `tiddlers/` and no `$:/
 !! Step 1 — Start a normal server
 
 ```
-tiddlywiki ./mywiki --mcp rw listen port=9090
+tiddlywiki ./mywiki --mcp rw sse port=9090
 ```
 
-This starts a normal MCP server with HTTP listen mode, against an empty wiki. Browse to `http://localhost:9090` to see the empty wiki, and connect your MCP client.
+This starts a normal MCP server with HTTP + Server-Sent Events push (`sse` implies `listen`), against an empty wiki. Browse to `http://localhost:9090` to see the empty wiki, and connect your MCP client. SSE makes the proposed-structure tiddler appear in your browser within ~1s of the import call without a manual refresh — see [[MCP SSE Sync]].
 
 !! Step 2 — Stage the import
 
@@ -113,7 +113,7 @@ The extract tool reads the current `$:/config/FileSystemPaths` from the wiki —
 Restart the server so any newly-added library plugins activate from the updated `tiddlywiki.info`:
 
 ```
-tiddlywiki ./mywiki --mcp rw listen port=9090
+tiddlywiki ./mywiki --mcp rw sse port=9090
 ```
 
 !! After extraction

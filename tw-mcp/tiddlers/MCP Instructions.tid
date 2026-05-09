@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260423123300000
+modified: 20260509040411567
 tags: 
 title: MCP Instructions
 type: text/vnd.tiddlywiki
@@ -17,6 +17,16 @@ tiddlywiki ./mywiki --mcp
 ```
 
 Replace `./mywiki` with the path to your wiki folder. The wiki folder must contain a `tiddlywiki.info` file. The `--mcp` command auto-loads the `tiddlywiki/filesystem` plugin for disk persistence if not already present.
+
+!!! Browser access
+
+To also access the wiki in a browser while the MCP server is running, add the `sse` keyword:
+
+```
+tiddlywiki ./mywiki --mcp sse port=8080
+```
+
+`sse` implies HTTP listen, plus pushes tiddler changes to the browser in real time via Server-Sent Events (~1s latency). Use `listen` instead for polling-only behaviour (60s refresh). See [[MCP SSE Sync]] for transport details.
 
 !!! Registering with an AI client
 
