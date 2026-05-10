@@ -5,7 +5,7 @@ type: text/vnd.tiddlywiki
 
 [prefix[$:/config]removeprefix[$:/config/]addprefix[_config/]]
 [prefix[$:/]] -[[$:/StoryList]] -[[$:/Import]] +[removeprefix[$:/]addprefix[_system/]]
-[regexp[\.(svg|png|jpe?g|gif|webp)$]addprefix[images/]]
+[regexp:type[^image/]addprefix[images/]]
 [tag[Basics]addprefix[Basics/]]
 [tag[Inspect Docs]addprefix[Inspect Docs/]]
 [tag[Installation]addprefix[Installation/]]
