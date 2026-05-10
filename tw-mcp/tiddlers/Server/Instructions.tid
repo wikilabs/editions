@@ -304,7 +304,7 @@ Inspects TiddlyWiki's internal `$tw` object structure. Navigate the runtime obje
 * "Inspect $tw.wiki.getTiddler(\"HelloThere\")" — calls the function and inspects the returned tiddler object
 * "Inspect $tw.rootWidget with max detail but exclude wiki" — deep inspection, skipping the large wiki branch
 
-For a comprehensive guide with output format explanation and more examples, see [[Inspect Tool]].
+For a comprehensive guide with output format explanation and more examples, see [[inspect_tw Walkthrough]].
 
 !!! `get_wiki_info`
 

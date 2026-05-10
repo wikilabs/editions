@@ -1,7 +1,7 @@
 created: 20260318021144763
 modified: 20260510163342238
 tags: Documentation Server
-title: Inspect Tool
+title: inspect_tw Walkthrough
 
 !! Inspecting TiddlyWiki's Internal `$tw` Object
 

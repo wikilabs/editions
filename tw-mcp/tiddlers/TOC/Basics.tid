@@ -134,7 +134,7 @@ The MCP server must be running. See [[Upload Tool]] for details.
 
 For detailed usage of each tool, see [[Instructions]].
 
-For a comprehensive guide to exploring `$tw` internals, see [[Inspect Tool]].
+For a comprehensive guide to exploring `$tw` internals, see [[inspect_tw Walkthrough]].
 
 For source position tracking and the `inspect_pos`/`inspect_scope`/`inspect_tree` workflow, see [[Source Position Tracking]].
 
