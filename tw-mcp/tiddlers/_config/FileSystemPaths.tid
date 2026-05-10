@@ -1,0 +1,16 @@
+created: 20260510184611212
+modified: 
+title: $:/config/FileSystemPaths
+type: text/vnd.tiddlywiki
+
+[prefix[$:/config]removeprefix[$:/config/]addprefix[_config/]]
+[prefix[$:/]] -[[$:/StoryList]] -[[$:/Import]] +[removeprefix[$:/]addprefix[_system/]]
+[regexp[\.(svg|png|jpe?g|gif|webp)$]addprefix[images/]]
+[tag[Basics]addprefix[Basics/]]
+[tag[Inspect Docs]addprefix[Inspect Docs/]]
+[tag[Installation]addprefix[Installation/]]
+[tag[Server]addprefix[Server/]]
+[tag[SSE]addprefix[SSE/]]
+[tag[TOC]addprefix[TOC/]]
+[tag[Developer Documentation]addprefix[Developer Documentation/]]
+[tag[Documentation]addprefix[Documentation/]]

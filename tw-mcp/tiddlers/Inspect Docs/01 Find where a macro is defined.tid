@@ -1,0 +1,32 @@
+created: 20260510153100000
+modified: 20260510153100000
+tags: [[Inspect Docs]]
+title: 01 Find where a macro is defined
+
+!! Scenario
+
+You're looking at one of your tiddlers and it contains a macro call like `<<some-macro>>`. The macro produces some output, but you don't know which tiddler defines it.
+
+!! Try this prompt
+
+> ''"In the tiddler `MyTiddler` I have the call `<<some-macro>>`. Where is `some-macro` defined and on which line?"''
+
+Tip: replace `MyTiddler` and `some-macro` with the real names from your wiki.
+
+!! Response you'll see
+
+The AI will reply something like:
+
+<<<
+The `some-macro` procedure is defined in the tiddler ''Tools/Buttons'' on line 4. It's automatically available everywhere because `Tools/Buttons` is tagged `$:/tags/Global`. Inside `MyTiddler`, the `<<some-macro>>` call expands to a button widget produced by that procedure.
+<<<
+
+!! Behind the scenes
+
+The AI calls `inspect_pos` with the wikitext containing the macro call and your tiddler title as `context`. The tool annotates each rendered node with attributes that trace it back to its source:
+
+* `v="some-macro"`: names the procedure that produced the node
+* `p="1:4"`: line 4 of the tiddler at index `1` in the title-map
+* the title-map header `[0=MyTiddler 1=Tools/Buttons]` maps the index to the tiddler name
+
+For the full attribute reference, see [[Inspect Tools]].

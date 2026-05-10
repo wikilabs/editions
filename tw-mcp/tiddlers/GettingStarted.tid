@@ -1,5 +1,6 @@
 created: 20260404155758091
 modified: 20260509040402861
+tags: TOC
 title: GettingStarted
 type: text/vnd.tiddlywiki
 
@@ -11,7 +12,7 @@ The ''TW MCP'' plugin adds a [[Model Context Protocol|https://modelcontextprotoc
 
 !! Prerequisites
 
-You need Node.js (v24+), TiddlyWiki (globally installed), and the `TIDDLYWIKI_PLUGIN_PATH` environment variable pointing to the tw-mcp plugin location. See [[MCP Installation]] for detailed setup instructions.
+You need Node.js (v24+), TiddlyWiki (globally installed), and the `TIDDLYWIKI_PLUGIN_PATH` environment variable pointing to the tw-mcp plugin location. See [[Installation]] for detailed setup instructions.
 
 !! Quick Start
 
@@ -29,7 +30,7 @@ This starts the MCP server in ''readonly'' mode using stdio transport. The `tidd
 ; Common options
 : `rw` or `readwrite` — enable write operations (readonly is the default)
 : `label=<name>` — identify this instance (e.g. `label=claude`)
-: `sse` — also start an HTTP server with live Server-Sent Events push so browser tabs see tiddler changes within ~1s (recommended for browser use; see [[MCP SSE Sync]])
+: `sse` — also start an HTTP server with live Server-Sent Events push so browser tabs see tiddler changes within ~1s (recommended for browser use; see [[SSE Sync]])
 : `listen` — like `sse` but without the SSE push channel; browsers fall back to a 60s poll
 
 Examples:
@@ -52,25 +53,25 @@ Substitute `listen` for `sse` if you want polling-only behaviour (legacy 60s ref
 
 !!! 2. Register with an AI client
 
-See [[MCP Installation]] for `.mcp.json` setup (Claude Code) and [[MCP Gemini Configuration]] for Gemini CLI.
+See [[Installation]] for `.mcp.json` setup (Claude Code) and [[Gemini Configuration]] for Gemini CLI.
 
 !! Available Tools
 
-The server provides 18 tools for reading, editing, inspecting, and exporting wiki content. See [[MCP Basics]] for the full tool table and [[MCP Instructions]] for detailed usage of each tool.
+The server provides 18 tools for reading, editing, inspecting, and exporting wiki content. See [[Basics]] for the full tool table and [[Instructions]] for detailed usage of each tool.
 
 !! Further Reading
 
-* [[MCP Basics]] — features, transports, safety, tool overview
-* [[MCP Best Practices]] — prompt tips, token efficiency, safety
-* [[MCP Installation]] — prerequisites, plugin setup, client configuration
-* [[MCP Gemini Configuration]] — Gemini CLI setup
-* [[MCP Proxy Mode Concept]] — multi-client architecture
-* [[MCP Source Position Tracking]] — debugging workflow
-* [[MCP Upload Tool]] — binary file uploads via named pipe
-* [[MCP Instructions]] — detailed tool usage and examples
-* [[MCP Single-File Import]] — import a standalone HTML wiki into a node.js folder
-* [[MCP SSE Sync]] — Server-Sent Events transport: how the live push channel works
-* [[MCP SSE Settings]] — broadcast modes (default / presentation / main) and ControlPanel UI
+* [[Basics]] — features, transports, safety, tool overview
+* [[Best Practices]] — prompt tips, token efficiency, safety
+* [[Installation]] — prerequisites, plugin setup, client configuration
+* [[Gemini Configuration]] — Gemini CLI setup
+* [[Proxy Mode Concept]] — multi-client architecture
+* [[Source Position Tracking]] — debugging workflow
+* [[Upload Tool]] — binary file uploads via named pipe
+* [[Instructions]] — detailed tool usage and examples
+* [[Single-File Import]] — import a standalone HTML wiki into a node.js folder
+* [[SSE Sync]] — Server-Sent Events transport: how the live push channel works
+* [[SSE Settings]] — broadcast modes (default / presentation / main) and ControlPanel UI
 
 {{$:/plugins/wikilabs/tw-mcp/readme}}
 

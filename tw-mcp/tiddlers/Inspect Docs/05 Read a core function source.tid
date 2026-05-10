@@ -1,0 +1,48 @@
+created: 20260510153500000
+modified: 20260510153500000
+tags: [[Inspect Docs]]
+title: 05 Read a core function source
+
+!! Scenario
+
+You're curious about how a TiddlyWiki core function actually works. For instance, you've seen `$tw.utils.formatDateString` mentioned in docs and want to read the implementation, or you want to confirm something about the runtime (version, current tiddler count, whether a tiddler exists in memory).
+
+!! Try this prompt
+
+> ''"Show me how the function `$tw.utils.formatDateString` works. Just the source code is fine."''
+
+or:
+
+> ''"What version of TiddlyWiki is running, and how many tiddlers are currently in the wiki store?"''
+
+!! Response you'll see
+
+For the source-code prompt:
+
+<<<
+`$tw.utils.formatDateString(date, template)` formats a JavaScript `Date` using a TiddlyWiki-style template string (`DD MMM YYYY`, `0hh:0mm`, etc.). The full source is:
+
+```js
+exports.formatDateString = function(date, template) {
+    // ... ~30 lines of switch-style replacements ...
+};
+```
+
+The function walks `template` left-to-right, replacing each token (`YYYY`, `0DD`, `aa`, etc.) with the matching part of `date`. Tokens not recognised are kept verbatim, which is why something like `[[YYYY]]` works for literal text inside a date format.
+<<<
+
+For the version + count prompt:
+
+<<<
+TiddlyWiki version: ''5.4.1-prerelease''. The wiki currently has 4,872 tiddlers in memory (`$tw.wiki.allTitles().length`). The on-disk wiki path is `e:/git/.../my-wiki`.
+<<<
+
+!! Behind the scenes
+
+The AI calls `inspect_tw` with a `path` into the live `$tw` runtime:
+
+* `path="utils.formatDateString"` lands on a function. With no `call` argument, the tool returns the function signature plus its source. Pass `fullSource=true` if the body gets truncated.
+* `path="version"` returns the value of `$tw.version`.
+* `path="wiki"` lists the methods on the wiki object. With `call=["allTitles"]` the AI invokes `$tw.wiki.allTitles()` (which is on the read-only safe-list) and gets back the array of titles to count.
+
+Function calls via `inspect_tw` are restricted to a hardcoded read-only safe-list, so no mutations are possible. For writes, the AI uses `put_tiddler`, `edit_tiddler`, or `delete_tiddler` instead. See [[Inspect Tools]] for the safe-list and the auto-resolve behavior.

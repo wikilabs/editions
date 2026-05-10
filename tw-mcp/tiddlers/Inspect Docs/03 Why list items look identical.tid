@@ -1,0 +1,31 @@
+created: 20260510153300000
+modified: 20260510153300000
+tags: [[Inspect Docs]]
+title: 03 Why list items look identical
+
+!! Scenario
+
+You have a `<$list>` widget that iterates over several tiddlers and renders the same template for each. Looking at the result, two iterations look the same, or you're not sure which iteration produced which DOM node, and you want to confirm what `currentTiddler` was set to for each one.
+
+!! Try this prompt
+
+> ''"In tiddler `MyList`, the list shows two entries that look almost identical. For each rendered link, tell me which tiddler `currentTiddler` was set to, so I can confirm I'm comparing the right two items."''
+
+!! Response you'll see
+
+<<<
+The two links in `MyList` were rendered with these `currentTiddler` values:
+
+* the first link with `currentTiddler = "Project Alpha"`
+* the second link with `currentTiddler = "Project Beta"`
+
+So although the link text and styling look identical, they point to different tiddlers. The difference is only in the iteration context, not the source. If you click them they'll open different tiddlers.
+<<<
+
+!! Behind the scenes
+
+`inspect_pos` puts a `ctx="..."` attribute on each rendered node when `currentTiddler` differs from the source-context tiddler. Inside a `<$list>` iteration, every iteration gets its own `currentTiddler`. Even if all iterations share the same source position (`p=`), they end up with different `ctx=` values.
+
+So nodes can share `p="0:4"` (same template line) but have `ctx="Project Alpha"` vs `ctx="Project Beta"`. That's how repeating list items are distinguished.
+
+See [[Inspect Tools]] for `ctx=` and the rest of the attributes.

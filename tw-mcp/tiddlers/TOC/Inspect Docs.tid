@@ -1,0 +1,24 @@
+created: 20260510153000000
+modified: 20260510165058124
+tags: TOC
+title: Inspect Docs
+
+!! Asking the AI about your wiki
+
+The TiddlyWiki MCP server gives an AI assistant four ''inspect'' tools that let it answer questions about your wiki: where things come from, what's defined where, and what the runtime sees. You don't call the tools yourself. You ask the AI a plain-English question, and it picks the right tool.
+
+The examples below progress from simple to complex. Each one shows:
+
+* a realistic ''scenario'' you might run into
+* a ''prompt'' you can copy and adapt
+* what the AI's ''response'' will look like
+* a brief ''behind the scenes'' note pointing at the tool used
+
+!! Examples
+
+<<list-links filter:"[tag[Inspect Docs]sort[title]] -[[Inspect Docs]]">>
+
+!! See also
+
+* [[Inspect Tools]]: full technical reference for the four `inspect_*` tools (attributes, output format, parameters)
+* [[Instructions]]: full server / tool reference

@@ -1,0 +1,6 @@
+created: 20260510184812302
+modified: 20260510184812302
+title: $:/config/EmptyStoryMessage
+type: text/vnd.tiddlywiki
+
+{{GettingStarted||$:/core/ui/ViewTemplate}}

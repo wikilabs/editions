@@ -1,0 +1,41 @@
+created: 20260510153400000
+modified: 20260510153400000
+tags: [[Inspect Docs]]
+title: 04 What variables are in scope
+
+!! Scenario
+
+You're editing a procedure or a piece of wikitext and want to know which variables, procedures, macros and functions you can use at that exact spot, not the whole long list of every global. Just what's actually visible at the point you're working on.
+
+!! Try this prompt
+
+> ''"In tiddler `Templates/Card`, on line 8, what variables and macros are in scope? I'd like to see what I can call from there without importing anything else."''
+
+!! Response you'll see
+
+<<<
+At line 8 of `Templates/Card`, the following are in scope:
+
+''Local''
+
+* `var currentTiddler`: set to the tiddler being rendered
+* `proc card-header(title, icon)`: the procedure you're inside
+
+''Used globals'' (referenced from this position, transitively through macro bodies)
+
+* `proc tag-pill(tag, …)`: defined in `$:/core/ui/...`
+* `macro lingo(title)`: defined in `$:/core/macros/lingo`
+* `var tv-show-missing-links`: a configuration variable
+
+There are about 90 more globals available but unused at this position. Ask "show me all globals" or filter by name (e.g. "globals starting with `toc-`") if you want to widen the search.
+<<<
+
+!! Behind the scenes
+
+The AI calls `inspect_scope` with the wikitext (or tiddler) and a character offset. The tool walks the widget tree to find the closest widget at that position, then reports:
+
+* a ''local scope'' section: variables defined in the enclosing widget chain
+* a ''used globals'' section: imported globals that are actually referenced at this position (with transitive expansion through macro bodies)
+* an optional ''other globals'' section (with `all=true`): everything else available but unused
+
+Each entry has a ''kind prefix'' (`var`, `def`, `proc`, `fn`, `macro`, `widget`) and shows parameters when applicable. See [[Inspect Tools]] for the prefix table and the `match` / `renderContext` parameters.

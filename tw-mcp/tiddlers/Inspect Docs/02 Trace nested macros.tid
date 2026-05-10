@@ -1,0 +1,34 @@
+created: 20260510153200000
+modified: 20260510153200000
+tags: [[Inspect Docs]]
+title: 02 Trace nested macros
+
+!! Scenario
+
+A tiddler renders some content, but the path to figure out where it came from is not obvious. There are macros that call other macros, possibly across several tiddlers. You want the full call chain from your tiddler all the way down to the source line that produced the visible output.
+
+!! Try this prompt
+
+> ''"In tiddler `Dashboard`, the table at the top is rendered by some procedure I can't find. Trace the full chain of macros that produced it, from `Dashboard` down to the procedure that wrote the actual content."''
+
+!! Response you'll see
+
+<<<
+The table comes from the procedure `render-stats-table`, defined in tiddler ''Templates/Stats'' on line 12. The chain is:
+
+# `Dashboard` (your starting tiddler) calls `<<show-dashboard>>`
+# `show-dashboard` (in ''Templates/Dashboard'', line 3) calls `<<render-stats-table>>`
+# `render-stats-table` (in ''Templates/Stats'', line 12) emits the actual `<table>` element
+
+So if you want to change the table layout, edit `Templates/Stats`. If you want to change which data feeds into it, look at the arguments passed by `show-dashboard`.
+<<<
+
+!! Behind the scenes
+
+`inspect_pos` annotates each rendered node with a ''caller chain'' attribute `c="A|B|C"`, listing the enclosing transcludes from closest to outermost. Combined with `v="..."` (the procedure that produced the node) and the title-map header, the AI can reconstruct the exact path:
+
+* `c="show-dashboard|Dashboard"` on the `<table>` element
+* `v="render-stats-table"` on the same node
+* title-map maps the indices in `p=` back to tiddler names
+
+For the chain syntax in detail, see [[Inspect Tools]].

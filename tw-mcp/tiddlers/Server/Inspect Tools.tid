@@ -1,0 +1,392 @@
+created: 20260510142317000
+modified: 20260510142317000
+tags: Server
+title: Inspect Tools
+
+!! MCP Inspect Tools (Reference)
+
+The TiddlyWiki MCP server provides four ''inspection'' tools, each answering a different question:
+
+|! Tool |! Question |
+|`inspect_pos` |Where in the source did this rendered node come from? |
+|`inspect_scope` |What variables are visible at a given source position? |
+|`inspect_tree` |What does the widget tree look like for this wikitext? |
+|`inspect_tw` |What's currently in the `$tw` runtime? |
+
+These tools are read-only and operate on either inline wikitext or existing tiddlers. The examples below progress from simple to complex; you can paste each one directly into the matching MCP tool call.
+
+For a quick lookup of output symbols, jump to [[#Output reference]] at the end.
+
+!! `inspect_pos` (Source-Position Map)
+
+Renders wikitext to HTML and annotates each DOM node with attributes that trace the node back to its source.
+
+The output starts with a ''title-map header'' (`[0=TiddlerA 1=TiddlerB ...]`), followed by the rendered HTML. Only tiddlers that have attributed nodes appear in the header. Each rendered node may carry:
+
+|! Attr |! Meaning |
+|`p="idx:line"` |source line(s); `idx` indexes the title-map header |
+|`v="name"` |this node was produced by transcluding the procedure/macro/variable `name` |
+|`c="A\|B\|..."` |caller chain. Closest enclosing transclude first, outermost last |
+|`ctx="Title"` |`currentTiddler` at render time, when it differs from the source-context tiddler |
+
+!!! 1. Plain text
+
+```
+inspect_pos(text="Hello, world!")
+```
+
+Output:
+
+```
+[0=(inline)]
+<p p="0:1">Hello, world!</p>
+```
+
+`(inline)` is the placeholder source name when no `context` argument is passed. `p="0:1"` means "title-index 0, line 1".
+
+!!! 2. Source positions in real tiddlers
+
+Pass `context` to label the source:
+
+```
+inspect_pos(text="[[X]]", context="MyTiddler")
+```
+
+Output:
+
+```
+[0=MyTiddler]
+<p p="0:1"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#X" p="0:1">X</a></p>
+```
+
+Both the wrapping `<p>` and the link map to `MyTiddler:1`.
+
+!!! 3. Macro attribution (`v=`)
+
+When a procedure or macro produces a node, the title-map shows the //defining// tiddler and the node carries `v="<name>"`:
+
+```
+inspect_pos(
+  text="\\procedure greet() Hello!\n<<greet>>",
+  context="caller"
+)
+```
+
+Output:
+
+```
+[0=greet]
+<p c="caller" ctx="caller" p="0:1" v="greet">Hello!</p>
+```
+
+The paragraph carries:
+
+* `p="0:1"`: line 1 of the `greet` procedure body
+* `v="greet"`: produced by the `greet` procedure
+* `c="caller"`: reached from the `caller` context
+* `ctx="caller"`: `currentTiddler` was `caller` at render time
+
+When a procedure is defined inline (rather than in a separate tiddler), the title-map uses the procedure's name as the source label.
+
+!!! 4. Caller chain (`c=`)
+
+When one procedure calls another, the chain accumulates. Read it as ''closest first, outermost last'':
+
+```
+inspect_pos(
+  text="\\procedure outer() <<inner>>\n\\procedure inner() Inner content.\n<<outer>>",
+  context="caller"
+)
+```
+
+Output:
+
+```
+[0=inner]
+<p c="outer|caller" ctx="caller" p="0:1" v="inner">Inner content.</p>
+```
+
+`c="outer|caller"` reads as: `inner` was called by `outer`, called from `caller`.
+
+!!! 5. List context (`ctx=`)
+
+Inside a `<$list>` widget, each iteration sets `currentTiddler` to a different value. Nodes inside the iteration get a `ctx=` reflecting that:
+
+```
+inspect_pos(
+  text="<$list filter=\"[[a]] [[b]]\"><$link/> </$list>",
+  context="caller"
+)
+```
+
+Output (abridged):
+
+```
+[0=caller]
+<p p="0:1"><a ctx="a" ... p="0:1">a</a> <a ctx="b" ... p="0:1">b</a> </p>
+```
+
+Both links share the source position (`p="0:1"`) but have different `ctx` values. That's how you distinguish repeated list items.
+
+!! `inspect_scope` (Variables in Scope)
+
+Reports the variables visible at a given character position. Useful when you have a position from `inspect_pos` and want to know what's defined there.
+
+''Important:'' `charPos` is a ''character offset'' into the wikitext text field, NOT a line number. The `p=` values from `inspect_pos` are line numbers including the `.tid` header offset and cannot be passed directly. Convert via the source text first.
+
+!!! 1. Local scope at a position
+
+```
+inspect_scope(
+  text="\\procedure greet(who) Hi <<who>>!\n<<greet \"Bob\">>",
+  charPos=40
+)
+```
+
+Output (abridged):
+
+```
+Scope at char 40 (widget: transclude, distance: 6, 101 vars)
+
+— local scope
+var thisTiddler
+def greet(who)
+... globals follow ...
+```
+
+Each variable is shown with a ''kind prefix'':
+
+|! Prefix |! Meaning |
+|`widget` |a `\widget` definition |
+|`fn` |a `\function` |
+|`proc` |a `\procedure` |
+|`macro` |a (legacy) `\define` macro |
+|`def` |a parameterised `setvariable`/`set` |
+|`var` |a plain variable (no params) |
+
+!!! 2. Used vs unused globals
+
+By default, only ''used'' globals are listed: those referenced at the position, transitively expanding macro/procedure bodies. To see all imported globals:
+
+```
+inspect_scope(
+  text="<<greet \"Bob\">>",
+  charPos=0,
+  all=true
+)
+```
+
+Sections in the output: `— local scope`, then `— used globals`, then (with `all=true`) `— other globals`.
+
+!!! 3. Filter and limit
+
+For long lists, narrow with `filter` (substring match on variable names) and `limit`:
+
+```
+inspect_scope(text="...", charPos=0, filter="toc", limit=10)
+```
+
+!!! 4. Disambiguating siblings (`match`)
+
+In repeated list contexts, multiple sibling widgets share the same `parseTreeNode.start`. To pin to one specific iteration, require named variables to have given values:
+
+```
+inspect_scope(
+  text="<$list filter=\"[[a]] [[b]]\"><$link/></$list>",
+  charPos=29,
+  match={"currentTiddler": "b"}
+)
+```
+
+This narrows the search to the `b`-iteration's link widget.
+
+!!! 5. `renderContext` modes
+
+The render context controls which framework variables are pre-loaded:
+
+* `isolated` (default): minimal context.
+* `viewtemplate`: adds `storyTiddler`, `tiddlerInfoState`, `folded-state`. Use when you want scope as a tiddler render would see it.
+* `root`: additionally adds `tv-story-list`, `tv-history-list`, `tv-config-toolbar-*`, `languageTitle`, `storyviewTitle`. Use when you want scope as the full PageTemplate would see it.
+
+```
+inspect_scope(text="...", charPos=0, renderContext="root")
+```
+
+!! `inspect_tree` (Widget Tree Analysis)
+
+Renders wikitext to a depth-limited JSON tree, plus type-count and link-target summaries.
+
+!!! 1. Basic call
+
+```
+inspect_tree(text="! Title\nSome [[link]] in a paragraph.")
+```
+
+Output (abridged):
+
+```
+Total: 9 nodes (full tree). Types: 4 text, 2 element, 1 widget, 1 importvariables, 1 link
+Links (1): link
+(showing depth=3)
+{
+  "type": "widget",
+  "children": [
+    { "type": "importvariables", ...,
+      "children": [
+        { "type": "element", "tag": "h1", "children": [
+            { "type": "text", "text": "Title" } ] },
+        { "type": "element", "tag": "p", "children": [
+            { "type": "text", "text": "Some " },
+            { "type": "link", "attributes": { "to": "link" }, "children": "{1 nodes}" },
+            { "type": "text", "text": "…16" } ] } ] } ] }
+```
+
+Notable points:
+
+* Type counts and link list at the top.
+* Text nodes ≤10 chars (`"Title"`, `"Some "`) are shown verbatim. Longer text is shown as `…N` where N is the length.
+* Children below the depth limit are summarised as `"{N nodes}"`. Children beyond the per-parent cap (10) become `"+N more"`.
+
+!!! 2. See full text content
+
+To inline the actual text content for nodes >10 chars, pass `include`:
+
+```
+inspect_tree(text="...", include=["text"])
+```
+
+Individual text nodes are still capped at 2000 chars to prevent runaway output; beyond that they're shown as `…N:<first 100>…<last 100>` (head+tail sample with full length N).
+
+!!! 3. Increase depth
+
+The `depth` parameter (default 3) controls ''structural recursion only''. It does not affect text-content abbreviation. To unfold a deeply nested tree:
+
+```
+inspect_tree(text="...", depth=99)
+```
+
+`depth` and `include` are independent. Combine them when you want everything:
+
+```
+inspect_tree(text="...", depth=99, include=["text"])
+```
+
+!!! 4. Exclude noisy attributes
+
+Attribute names listed in `exclude` are dropped from the output:
+
+```
+inspect_tree(text="<$list filter='[[a]]'></$list>", exclude=["filter"])
+```
+
+!! `inspect_tw` (Runtime Navigation)
+
+Read-only navigation of the live `$tw` runtime. The `path` argument is a dot-path; `__proto__`, `constructor`, and `prototype` segments are blocked.
+
+!!! 1. Top of `$tw`
+
+```
+inspect_tw()
+```
+
+Lists keys at the top level with types and (truncated) values, depth 1.
+
+!!! 2. Drill into a specific path
+
+```
+inspect_tw(path="version")
+```
+
+Output:
+
+```
+$tw.version=5.4.1-prerelease
+```
+
+```
+inspect_tw(path="boot.wikiPath")
+```
+
+Returns the path string the running wiki was booted from.
+
+!!! 3. Function source
+
+When the path lands on a function and no `call` is given, the signature and (truncated) source are returned:
+
+```
+inspect_tw(path="utils.formatDateString")
+```
+
+For the full body without truncation:
+
+```
+inspect_tw(path="utils.formatDateString", fullSource=true)
+```
+
+!!! 4. Invoking a function (the safe-list)
+
+To actually run a function, pass `call=[arg1, arg2, ...]`. This is restricted to a hardcoded read-only safe-list:
+
+* `$tw.wiki.{getTiddler, getTiddlerText, tiddlerExists, isShadowTiddler, getShadowSource, filterTiddlers, allTitles, allShadowTitles, getPluginInfo, getPluginTypes, getIndexer}`
+* `$tw.mcp.heartbeat`, `$tw.httpServer.heartbeat`
+* Any `$tw.utils.*`
+
+```
+inspect_tw(path="wiki.tiddlerExists", call=["MyTiddler"])
+```
+
+Output:
+
+```
+$tw.wiki.tiddlerExists("MyTiddler")=false
+```
+
+For mutations (writing tiddlers), use `put_tiddler` / `edit_tiddler` / `delete_tiddler`. ''Do not'' attempt `wiki.addTiddler` here. The safe-list rejects it, and even if it didn't, it would bypass disk persistence and read-only-mode checks.
+
+!!! 5. Auto-resolved method calls
+
+If `path` lands on an object and `call[0]` is the name of a method on that object, the call is automatically rewritten as `path.method(...rest)`:
+
+```
+inspect_tw(path="wiki", call=["tiddlerExists", "MyTiddler"])
+```
+
+is equivalent to:
+
+```
+inspect_tw(path="wiki.tiddlerExists", call=["MyTiddler"])
+```
+
+The auto-resolved form then goes through the same safe-list check.
+
+!!! 6. Depth control and excludes
+
+* `depth` controls how many levels of object navigation are returned. Auto-reduces if the result would exceed 10 KB.
+* `exclude=["key1", "key2"]` skips named keys in the output.
+
+```
+inspect_tw(path="wiki", depth=2, exclude=["tiddlers"])
+```
+
+!! Output reference
+
+Quick lookup for the symbols that show up in inspect output:
+
+|! Symbol |! Tool |! Meaning |
+|`[0=Title 1=...]` |`inspect_pos` |title-map header |
+|`p="idx:line"` |`inspect_pos` |source position; idx → header |
+|`p="idx:start-end"` |`inspect_pos` |source range across lines |
+|`v="name"` |`inspect_pos` |produced by transclude of `name` |
+|`c="A\|B\|..."` |`inspect_pos` |caller chain (closest first) |
+|`ctx="Title"` |`inspect_pos` |currentTiddler when ≠ source tiddler |
+|`widget`/`fn`/`proc`/`macro`/`def`/`var` |`inspect_scope` |variable kind prefix |
+|`— local scope`/`— used globals`/`— other globals` |`inspect_scope` |scope sections |
+|`…N` |`inspect_tree` |text node, length only (≤10 chars are inlined) |
+|`…N:<first100>…<last100>` |`inspect_tree` |text node capped (only with `include:["text"]`) |
+|`"{N nodes}"` |`inspect_tree` |children below depth limit |
+|`+N more` |`inspect_tree` |children beyond per-parent cap (10) |
+
+!! See also
+
+* [[Instructions]]: full tool reference and setup.
+* [[Best Practices]]: when to reach for which tool.
