@@ -25,7 +25,7 @@ Tighten the `--test-coverage-include` glob to focus on a single category, e.g. `
 - `test/setup.js` — boots TiddlyWiki once per test file, exposes the booted `$tw` and a `loadHandler` helper. Includes coverage workarounds (see below).
 - `test/_smoke.test.js` — verifies the bootstrap itself.
 - `test/_probe.js` — manual diagnostic script (not run by `--test` thanks to the `_` prefix). Boots TW and prints handler output for ad-hoc investigation; useful when an assertion fails and you want to see whether the code or the test is wrong.
-- `test/<category>/<tool>.test.js` — one file per MCP handler tool, grouped by category. Currently covered: `render/`, `query/`. Still to land: `inspect/`, `crud/`.
+- `test/<category>/<tool>.test.js` — one file per MCP handler tool, grouped by category. Currently covered: `render/`, `query/`, `inspect/`, `crud/`. All four batch-1 categories landed.
 
 Tests that document a known code finding (where the assertion encodes the *desired* behaviour, not the current one) are marked `test.todo(...)` with an inline comment referencing the bead. They appear in the run output as `# TODO` but do not fail the suite — they self-resolve once the underlying code is fixed.
 
@@ -35,6 +35,10 @@ Tests that document a known code finding (where the assertion encodes the *desir
 
 - **TW core**: tries `process.env.TW_CORE_PATH` (full path to `boot.js` or a TW5 root). Falls back to `<node-dir>/node_modules/tiddlywiki/boot/boot.js`, which works for a `npm install -g tiddlywiki` layout (including a symlinked global install).
 - **tw-mcp plugin folder**: looked up at runtime via `$tw.findLibraryItem("wikilabs/tw-mcp", ...)` using `$tw.config.pluginsEnvVar` (i.e. `TIDDLYWIKI_PLUGIN_PATH`), which is what the production server already uses.
+
+## Handler init for write tests
+
+`handlers/shared.js` holds module-level state (`readonlyMode`, `checkPathAllowed`) that production wires up from `mcp-handlers.js` at MCP startup. The boot helper invokes `shared.init(...)` after boot with a permissive context (`readonlyMode: false`, `checkPathAllowed` always allows) so write handlers (`put_tiddler`, `edit_tiddler`, `delete_tiddler`, etc.) don't fail with "checkPathAllowed is not a function". Write tests use a `cleanupTiddler(...)` helper in a try/finally to remove probe tiddlers from the wiki store and on-disk `.tid` file after each test.
 
 ## Coverage workarounds
 

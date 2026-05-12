@@ -34,6 +34,18 @@ test("fixture tiddlers loaded (query category)", () => {
 	assert.ok($tw.wiki.getTiddler("search_lines_caption"));
 });
 
+test("fixture tiddlers loaded (inspect category)", () => {
+	assert.ok($tw.wiki.getTiddler("inspect_pos_macro"));
+});
+
+test("fixture tiddlers loaded (crud category)", () => {
+	assert.ok($tw.wiki.getTiddler("get_tiddler_simple"));
+	assert.ok($tw.wiki.getTiddler("get_tiddler_data"));
+	assert.ok($tw.wiki.getTiddler("get_tiddlers_a"));
+	assert.ok($tw.wiki.getTiddler("get_tiddlers_b"));
+	assert.ok($tw.wiki.getTiddler("resave_tiddler_target"));
+});
+
 test("loadHandler returns render_text export", () => {
 	const mod = loadHandler($tw, "$:/core/modules/commands/inspect/handlers/render/render_text.js");
 	assert.equal(typeof mod.render_text, "function");

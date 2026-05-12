@@ -68,6 +68,17 @@ function bootTw() {
 					return reject(new Error("Could not locate plugin folder for " + PLUGIN_NAME));
 				}
 				installCoveragePatches($tw, path.join(pluginFolder, "tiddlers"));
+				// Initialise the handlers/shared.js module-level state. Production
+				// wires this through mcp-handlers.js at MCP startup; tests need to
+				// supply a permissive context so writes (which call checkPathAllowed)
+				// don't fail with "checkPathAllowed is not a function".
+				const shared = $tw.modules.execute(
+					"$:/core/modules/commands/inspect/handlers/shared.js"
+				);
+				shared.init({
+					readonlyMode: false,
+					checkPathAllowed: function() { return null; }
+				});
 				resolve($tw);
 			});
 		} catch(e) {
@@ -106,4 +117,17 @@ function loadHandler($tw, title) {
 	return mod;
 }
 
-module.exports = { bootTw, loadHandler };
+// Test helper: remove a tiddler from both the wiki store and the on-disk
+// .tid file (if any). Used by write-tests to clean up probe tiddlers in a
+// try/finally so test failures do not leave junk for the next run.
+function cleanupTiddler($tw, title) {
+	const fi = $tw.boot.files && $tw.boot.files[title];
+	if(fi && fi.filepath) {
+		try { require("fs").unlinkSync(fi.filepath); } catch(e) {}
+		try { require("fs").unlinkSync(fi.filepath + ".meta"); } catch(e) {}
+	}
+	if($tw.boot.files) delete $tw.boot.files[title];
+	$tw.wiki.deleteTiddler(title);
+}
+
+module.exports = { bootTw, loadHandler, cleanupTiddler };

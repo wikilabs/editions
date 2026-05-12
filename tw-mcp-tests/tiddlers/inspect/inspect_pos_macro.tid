@@ -1,0 +1,7 @@
+title: inspect_pos_macro
+
+\procedure greet(name)
+Hello, <<name>>!
+\end
+
+<<greet "world">>

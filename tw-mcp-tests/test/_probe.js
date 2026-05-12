@@ -49,5 +49,38 @@ const { bootTw, loadHandler } = require("./setup");
 	const sys = listTiddlers({ includeSystem: true });
 	console.log(sys.content[0].text);
 	console.log("  Contains '$:/plugins/wikilabs/tw-mcp' directly? " +
-		sys.content[0].text.indexOf("$:/plugins/wikilabs/tw-mcp") !== -1);
+		(sys.content[0].text.indexOf("$:/plugins/wikilabs/tw-mcp") !== -1));
+
+	console.log("\n" + "=".repeat(60));
+	console.log("inspect_pos: how does it report a transcluded tiddler?");
+	console.log("=".repeat(60));
+	const inspectPos = loadHandler($tw, "$:/core/modules/commands/inspect/handlers/inspect/inspect_pos.js").inspect_pos;
+	for(const probe of [
+		"{{||inspect_pos_macro}}",
+		"<$transclude $tiddler=\"inspect_pos_macro\"/>",
+		"<$tiddler tiddler=\"inspect_pos_macro\"><$transclude/></$tiddler>"
+	]) {
+		const r = inspectPos({ text: probe, context: "Host" });
+		console.log("  text=" + JSON.stringify(probe));
+		console.log("    " + r.content[0].text.split("\n")[0]);
+	}
+
+	console.log("\n" + "=".repeat(60));
+	console.log("inspect_scope: what's at char 100 in inspect_scope_vars?");
+	console.log("=".repeat(60));
+	const fullText = $tw.wiki.getTiddlerText("inspect_scope_vars", "");
+	console.log("  full text length: " + fullText.length);
+	console.log("  char 100 context: ..." + JSON.stringify(fullText.slice(95, 130)) + "...");
+	const inspectScope = loadHandler($tw, "$:/core/modules/commands/inspect/handlers/inspect/inspect_scope.js").inspect_scope;
+	for(const cp of [60, 100, 130, 150]) {
+		const r = inspectScope({ tiddler: "inspect_scope_vars", charPos: cp, filter: "outer|inner|greet" });
+		console.log("  charPos=" + cp + ":");
+		console.log("    " + r.content[0].text.split("\n").slice(0, 6).join("\n    "));
+	}
+
+	console.log("\n" + "=".repeat(60));
+	console.log("inspect_scope: how is the fixture's \\procedure classified?");
+	console.log("=".repeat(60));
+	const r = inspectScope({ tiddler: "inspect_scope_vars", charPos: 200, filter: "greet" });
+	console.log(r.content[0].text);
 })();
