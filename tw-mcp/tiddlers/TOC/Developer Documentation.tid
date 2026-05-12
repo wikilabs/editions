@@ -1,5 +1,17 @@
 created: 20260510200358348
-modified: 20260510200404650
+modified: 20260512083215028
 tags: TOC
 title: Developer Documentation
 type: text/vnd.tiddlywiki
+
+!! Internals and design notes
+
+Deep-dive technical content for developers and contributors: the internal data flows, design decisions, and implementation details behind the MCP server tools. Read these when you want to understand //how// a tool works under the hood, not just what it does.
+
+<<list-links filter:"[tag[Developer Documentation]sort[title]]">>
+
+!! See also
+
+* [[Server]]: entry point for MCP server tools (user-facing reference)
+* [[Inspect Docs]]: tutorials for the four `inspect_*` tools
+* [[Bulk Docs]]: tutorials for batch read and bulk find/replace

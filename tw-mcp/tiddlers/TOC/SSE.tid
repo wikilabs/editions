@@ -1,4 +1,15 @@
 created: 20260510165248454
-modified: 20260510165513421
+modified: 20260512082936704
 tags: TOC
 title: SSE
+
+!! Server-Sent Events (live sync)
+
+The MCP server can broadcast tiddler changes to connected browsers via SSE so the browser stays in sync without polling. Useful when an AI is editing tiddlers in the background and you want to see the result update live, and when multiple clients (browser, AI, CLI) need a consistent view.
+
+<<list-links filter:"[tag[SSE]sort[title]]">>
+
+!! See also
+
+* [[Server]]: entry point for MCP server tools
+* [[Instructions]]: full server / tool reference

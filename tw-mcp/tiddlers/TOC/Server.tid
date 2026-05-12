@@ -1,4 +1,16 @@
 created: 20260510164534310
-modified: 20260510164534310
+modified: 20260512082935042
 tags: TOC
 title: Server
+
+!! MCP Server entry points
+
+The TiddlyWiki MCP server connects a language model to your wiki: it can read, write, search, and inspect tiddlers via a small set of tools. The pages below cover ''how'' to use it well, the tool reference, and the inspection + bulk tool families.
+
+<<list-links filter:"[tag[Server]sort[title]]">>
+
+!! See also
+
+* [[Bulk Docs]]: tutorials for batch read and bulk find/replace tools
+* [[Inspect Docs]]: tutorials for the four `inspect_*` tools
+* [[SSE]]: live browser sync (Server-Sent Events) details
