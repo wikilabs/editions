@@ -1,0 +1,40 @@
+created: 20260512075602709
+modified: 20260512075602709
+tags: [[Bulk Docs]]
+title: Read several tiddlers at once
+
+!! Scenario
+
+You ran a filter (`run_filter` or `list_tiddlers`) and have several titles you'd like to read together. Calling `get_tiddler` once per title costs N round-trips and you lose the side-by-side view.
+
+!! Try this prompt
+
+> ''"Show me the contents of `Best Practices`, `Inspect Tools` and `Instructions` in one fetch."''
+
+!! Response you'll see
+
+The AI calls `get_tiddlers(titles=["Best Practices","Inspect Tools","Instructions"])`. The response is a stream of `.tid` blocks separated by single `+` lines:
+
+```
+title: Best Practices
+tags: Server
+
+1#XK: !! Best Practices for Working with AI via MCP
+2#MV: 
+3#JY: This guide helps you get the most out of the TiddlyWiki MCP server ...
+
++
+title: Inspect Tools
+tags: Server
+
+1#MN: !! MCP Inspect Tools (Reference)
+...
+```
+
+You can now ask for a summary of all three, or have the AI find the line where each mentions SSE, without another fetch.
+
+!! Behind the scenes
+
+`get_tiddlers` returns the CompoundTiddlers format (`text/vnd.tiddlywiki-multiple`), a TW core format that any TW parser can re-split on `\n+\n`. Defaults: `detailed=true` (text body included), `format=hashline` (line anchors paste-ready for `edit_tiddler`). Bookkeeping fields (`created`, `modified`, etc.) are dropped unless `verbose=true`.
+
+See [[Bulk Tools]] for the full parameter list.

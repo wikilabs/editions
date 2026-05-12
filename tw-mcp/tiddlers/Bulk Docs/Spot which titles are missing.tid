@@ -1,0 +1,38 @@
+created: 20260512075630550
+modified: 20260512075630550
+tags: [[Bulk Docs]]
+title: Spot which titles are missing
+
+!! Scenario
+
+You ran `get_tiddlers` with a list of titles. Some no longer exist (renamed, deleted, mistyped). You want to know which ones without re-checking each manually.
+
+!! Try this prompt
+
+> ''"Read `Best Practices`, `Old Notes` and `NonexistentTiddler`. Tell me which ones you couldn't find."''
+
+!! Response you'll see
+
+The AI's `get_tiddlers` call puts found tiddlers in the main body, then surfaces missing titles in a trailing `Missing:` line:
+
+```
+title: Best Practices
+tags: Server
+
+1#XK: !! Best Practices ...
++
+title: Old Notes
+...
+
+Missing: NonexistentTiddler
+```
+
+The AI then reports: "Best Practices and Old Notes are present. NonexistentTiddler doesn't exist, perhaps it was renamed?"
+
+!! Behind the scenes
+
+Missing titles never enter the CompoundTiddlers stream (they would otherwise look like real `.tid` blocks and confuse a TW parser). They surface in a single trailing `Missing: a, b, c` line (text format) or `missing: [...]` array (JSON format).
+
+If every title is found, no `Missing:` trailer is emitted.
+
+See [[Bulk Tools]] for all output shapes.

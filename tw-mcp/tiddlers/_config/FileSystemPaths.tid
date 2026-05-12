@@ -1,5 +1,5 @@
 created: 20260510184611212
-modified: 
+modified: 20260512075501980
 title: $:/config/FileSystemPaths
 type: text/vnd.tiddlywiki
 
@@ -7,6 +7,7 @@ type: text/vnd.tiddlywiki
 [prefix[$:/]] -[[$:/StoryList]] -[[$:/Import]] +[removeprefix[$:/]addprefix[_system/]]
 [regexp:type[^image/]addprefix[images/]]
 [tag[Basics]addprefix[Basics/]]
+[tag[Bulk Docs]addprefix[Bulk Docs/]]
 [tag[Inspect Docs]addprefix[Inspect Docs/]]
 [tag[Installation]addprefix[Installation/]]
 [tag[Server]addprefix[Server/]]

@@ -1,0 +1,56 @@
+created: 20260512075810214
+modified: 20260512075810214
+tags: [[Bulk Docs]]
+title: Update tags in bulk
+
+!! Scenario
+
+You've been tagging tiddlers with `Project Alpha`. The project gets renamed to `Project Beta`. Every tiddler currently tagged `Project Alpha` needs to be retagged. The tags field is an array at runtime, but `replace_in_tiddlers` handles arrays for you.
+
+!! Try this prompt
+
+> ''"Retag every tiddler tagged `Project Alpha` to be `Project Beta` instead. Dry run first."''
+
+!! Response you'll see
+
+The AI scopes the replace to tiddlers tagged `Project Alpha` and replaces the on-disk tag string:
+
+```
+replace_in_tiddlers(
+  filter="[tag[Project Alpha]]",
+  fields=["tags"],
+  rules=[
+    {pattern: "[[Project Alpha]]", replacement: "[[Project Beta]]"}
+  ]
+)
+```
+
+Note the literal `[[Project Alpha]]` brackets in the pattern. When the `tags` array is serialised for matching, multi-word tag names get wrapped in `[[...]]`. The pattern matches that form.
+
+Dry-run output:
+
+```
+2026-04-meeting
+  - tags:L1: [[Project Alpha]] urgent
+  + tags:L1: [[Project Beta]] urgent
+
+Backlog
+  - tags:L1: [[Project Alpha]]
+  + tags:L1: [[Project Beta]]
+
+DRY RUN: 2 replacements across 2 tiddlers
+Call again with dry_run=false to apply.
+```
+
+After you confirm, the AI re-runs with `dry_run=false`. The modified string `[[Project Beta]] urgent` is parsed back into the array `["Project Beta", "urgent"]` before the tiddler is written.
+
+!! Behind the scenes
+
+Two helpers bridge runtime arrays and the on-disk string form:
+
+* On scan, `$tw.utils.stringifyList()` turns the tags array into the `.tid` on-disk string. Multi-word tag names wrap in `[[...]]`; single-word tags stay bare.
+* On write, `$tw.utils.parseStringArray()` parses the modified string back into an array before the new tiddler is persisted.
+
+The `list` field works the same way (it's also an array). The default `fields=['text','caption','list','tags']` already covers both, so a wholesale rename via `replace_in_tiddlers` without specifying `fields` catches `[[Project Alpha]]` in body text, captions, list memberships, AND tag memberships in one pass.
+
+For patterns that have to match against the `.tid` on-disk form, see [[Bulk Tools]] for the full surface.

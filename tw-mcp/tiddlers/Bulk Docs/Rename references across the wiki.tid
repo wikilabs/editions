@@ -1,0 +1,54 @@
+created: 20260512075653377
+modified: 20260512075653377
+tags: [[Bulk Docs]]
+title: Rename references across the wiki
+
+!! Scenario
+
+You just renamed a tiddler from `OldName` to `NewName` using `rename_tiddler`. But `OldName` is referenced throughout the wiki in many shapes: `[[OldName]]` wiki links, `[[OldName|alias]]` aliased links, `[tag[OldName]]` filter operators in text, `{{OldName}}` transclusions. Updating each by hand is tedious and error-prone.
+
+!! Try this prompt
+
+> ''"I renamed `OldName` to `NewName`. Update all references throughout the wiki: wiki links, aliased links, tag filters and transclusions. Show me the dry run first."''
+
+!! Response you'll see
+
+The AI calls `replace_in_tiddlers` once with multiple rules in a single array:
+
+```
+replace_in_tiddlers(
+  rules=[
+    {pattern: "[[OldName]]",       replacement: "[[NewName]]"},
+    {pattern: "[[OldName|",        replacement: "[[NewName|"},
+    {pattern: "[tag[OldName]]",    replacement: "[tag[NewName]]"},
+    {pattern: "{{OldName}}",       replacement: "{{NewName}}"}
+  ]
+)
+```
+
+By default `dry_run=true`, so the response is a preview grouped by tiddler with before / after lines:
+
+```
+ProjectIndex
+  - 5#KP: See [[OldName]] for the spec.
+  + 5#KP: See [[NewName]] for the spec.
+  - 12#WJ: filter `[tag[OldName]]` returns 3 items.
+  + 12#WJ: filter `[tag[NewName]]` returns 3 items.
+
+Notes
+  - 8#RV: Quoted from [[OldName|the original]].
+  + 8#RV: Quoted from [[NewName|the original]].
+
+DRY RUN: 3 replacements across 2 tiddlers
+Call again with dry_run=false to apply.
+```
+
+If the preview looks correct, you say ''"yes apply it"''. The AI calls `replace_in_tiddlers(..., dry_run=false)` and reports `2 tiddlers modified, 3 replacements`.
+
+!! Behind the scenes
+
+Each rule in the `rules` array is applied to every matching line, in order. So a single line containing both `[[OldName]]` and `[tag[OldName]]` gets both replacements. The `g` regex flag is added automatically so multiple matches on the same line are all replaced.
+
+Default scoped to non-system tiddlers (`[all[tiddlers]!is[system]]`). Pass `include_system=true` or your own `filter` argument to narrow or widen. Default field list is `['text','caption','list','tags']`, so cross-references in tags or caption fields are picked up automatically. Bookkeeping fields are not touched.
+
+For regex-style patterns with capture groups (eg renaming everything matching `[[Foo (\d+)]]` to `[[Bar $1]]`), see [[Regex find and replace with backrefs]]. For tag-only renames, see [[Update tags in bulk]]. For the full surface, see [[Bulk Tools]].

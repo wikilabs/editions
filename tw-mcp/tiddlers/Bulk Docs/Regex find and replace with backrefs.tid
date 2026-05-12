@@ -1,0 +1,64 @@
+created: 20260512075742539
+modified: 20260512075742539
+tags: [[Bulk Docs]]
+title: Regex find and replace with backrefs
+
+!! Scenario
+
+You have a numbered series of references like `[[Test Case 1]]`, `[[Test Case 2]]`, ... `[[Test Case 47]]` scattered across the wiki, and you want to rename them to `[[Spec 1]]`, `[[Spec 2]]`, ... `[[Spec 47]]`. Writing 47 literal rules is tedious. A single regex rule with a capture group handles all of them.
+
+!! Try this prompt
+
+> ''"Rename every `[[Test Case N]]` link to `[[Spec N]]`. Use one regex rule. Dry run first."''
+
+!! Response you'll see
+
+The AI calls `replace_in_tiddlers` with one regex rule:
+
+```
+replace_in_tiddlers(
+  rules=[
+    {
+      pattern: "\\[\\[Test Case (\\d+)\\]\\]",
+      replacement: "[[Spec $1]]",
+      regexp: true
+    }
+  ]
+)
+```
+
+The `(\d+)` captures the digits. The `$1` in the replacement plays them back in place.
+
+Dry-run output:
+
+```
+Index
+  - 5#KP: See [[Test Case 1]] and [[Test Case 2]] for details.
+  + 5#KP: See [[Spec 1]] and [[Spec 2]] for details.
+  - 9#TJ: [[Test Case 47]] supersedes the older approach.
+  + 9#TJ: [[Spec 47]] supersedes the older approach.
+
+Release Notes
+  - 14#WV: Fixed in [[Test Case 23]].
+  + 14#WV: Fixed in [[Spec 23]].
+
+DRY RUN: 4 replacements across 2 tiddlers
+Call again with dry_run=false to apply.
+```
+
+After you confirm, the AI re-runs with `dry_run=false`.
+
+!! Behind the scenes
+
+Regex features at play:
+* `regexp: true` per rule unlocks JavaScript regex syntax for the `pattern`.
+* Capture groups `(...)` collect parts of the match.
+* `$1` (and `$2`, `$3`, ...) reference those captures in the `replacement` field. `$&` is the full match, `$$` is a literal `$`.
+* The `g` flag is added automatically, so multiple matches on the same line are all replaced.
+
+Two gotchas:
+
+* ''Backslashes need double-escaping in JSON.'' To match a literal `[` in JS regex you write `\[`, but inside a JSON string that becomes `\\[`. Most MCP clients handle the escaping for you; if you write the pattern directly, watch the count.
+* ''The bracket-clash in TW filters.'' When you call the underlying `search-lines` filter operator from a filter expression, an operand containing `]` (eg the `]` inside `[A-Z]`) terminates the operand early. The MCP wrapper sidesteps this by invoking the operator function directly. So `replace_in_tiddlers` with a `]`-bearing regex works fine; calling `[search-lines:regexp[...]]` from wikitext does not.
+
+For the full parameter list and other patterns, see [[Bulk Tools]].

@@ -1,0 +1,25 @@
+created: 20260512081827366
+modified: 20260512081827366
+tags: TOC
+title: Bulk Docs
+
+!! Working on many tiddlers at once
+
+The TiddlyWiki MCP server gives an AI assistant two ''bulk'' tools that operate on multiple tiddlers in one call: `get_tiddlers` (batch read) and `replace_in_tiddlers` (bulk find+replace with dry-run preview). You don't call them yourself. You describe what you want done across N tiddlers, and the AI picks the right tool.
+
+The examples below progress from simple to advanced. Each one shows:
+
+* a realistic ''scenario'' you might run into
+* a ''prompt'' you can copy and adapt
+* what the AI's ''response'' will look like
+* a brief ''behind the scenes'' note pointing at the tool used
+
+!! Examples
+
+<<list-links filter:"[tag[Bulk Docs]sort[title]] -[[Bulk Docs]]">>
+
+!! See also
+
+* [[Bulk Tools]]: full technical reference for `get_tiddlers` and `replace_in_tiddlers` (parameters, output formats, caps, gotchas)
+* [[Inspect Docs]]: companion tutorial series for the four `inspect_*` tools
+* [[Instructions]]: full server / tool reference

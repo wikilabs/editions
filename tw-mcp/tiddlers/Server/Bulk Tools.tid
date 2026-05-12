@@ -1,0 +1,118 @@
+created: 20260512075856505
+modified: 20260512075856505
+tags: Server
+title: Bulk Tools
+
+!! Bulk MCP Tools (Reference)
+
+The TiddlyWiki MCP server provides two ''bulk'' tools that operate on many tiddlers in one call:
+
+|! Tool |! Purpose |
+|`get_tiddlers` |Batch-read multiple tiddlers' fields and text in one MCP call |
+|`replace_in_tiddlers` |Bulk find+replace across multiple tiddlers, with dry-run preview |
+
+Both share three design principles: dry-run-or-cap-by-default (no surprise writes, no runaway output), filter-scoped (a TW filter expression selects the working set), and LLM-friendly output (CompoundTiddlers blocks for reads, before/after hashline diffs for writes).
+
+For tutorials, see the [[Bulk Docs]] series.
+
+!! `get_tiddlers` (Batch Read)
+
+Fetch several tiddlers' contents in one MCP call. Use it when you already have a list of titles (from `run_filter`, `list_tiddlers`, or any prior context) and want their content together.
+
+!!! Parameters
+
+|! Param |! Default |! Meaning |
+|`titles` |required |array of tiddler titles to fetch; input order preserved |
+|`detailed` |`true` |include the text field. Ignored for plugin tiddlers (always fields-only). |
+|`verbose` |`false` |include bookkeeping fields (`created`/`modified`/`creator`/`modifier`/`revision`); default drops them |
+|`format` |`hashline` |`hashline` (text with line anchors), `tid` (plain text), `json` (parseable document) |
+|`max_tiddlers` |`50` |hard cap on tiddler count |
+|`max_bytes` |`50000` |hard cap on total output size; first-to-hit wins |
+
+!!! Output (text formats)
+
+CompoundTiddlers stream (`text/vnd.tiddlywiki-multiple`): each block is a `.tid` with `title:` first, other fields alphabetical, then blank line and text (when `detailed`). Blocks separated by `\n+\n`:
+
+```
+title: Best Practices
+tags: Server
+
+1#XK: !! Best Practices for Working with AI via MCP
+...
++
+title: Inspect Tools
+tags: Server
+
+1#MN: !! MCP Inspect Tools (Reference)
+...
+```
+
+Trailers:
+* `Missing: a, b, c` line: titles the wiki couldn't find.
+* `(N entries truncated; raise max_tiddlers or max_bytes)`: caps hit.
+
+!!! Output (JSON)
+
+Unified document: `{tiddlers: [{...}], missing?: [...], truncated?: N}`. Parseable with a single `JSON.parse`.
+
+!! `replace_in_tiddlers` (Bulk Find+Replace)
+
+Apply one or more find+replace rules across many tiddlers in one MCP call. Default is dry-run (no writes). Use it for cross-reference renames, tag renames, regex cleanups.
+
+!!! Parameters
+
+|! Param |! Default |! Meaning |
+|`rules` |required |array of `{pattern, replacement, regexp?, case_sensitive?, words?}` objects |
+|`filter` |`[all[tiddlers]!is[system]]` |TW filter scope. Pass your own to widen or narrow. |
+|`include_system` |`false` |convenience flag for `$:/` tiddlers; ignored if `filter` is set |
+|`fields` |`['text','caption','list','tags']` |which fields to scan and rewrite |
+|`dry_run` |`true` |preview only; nothing written. Set false to apply. |
+|`max_tiddlers` |`100` |cap on modified tiddlers |
+|`max_replacements_total` |`1000` |cap on total replacements |
+
+!!! Rule object
+
+|! Field |! Default |! Meaning |
+|`pattern` |required |find pattern (literal by default; regex when `regexp=true`) |
+|`replacement` |required |replacement string. Supports JS backrefs `$1..$9`, `$&`, `$$` when `regexp=true`. |
+|`regexp` |`false` |treat pattern as regex |
+|`case_sensitive` |`false` |case-sensitive match (default is case-insensitive) |
+|`words` |`false` |wrap pattern with `\b` word boundaries |
+
+Rules within a line are applied sequentially: rule 2 sees rule 1's output. Regex patterns get the `g` flag automatically so multiple matches per line are all replaced.
+
+!!! Output (dry-run)
+
+Grouped by title; before/after pairs with hashline anchors (text field) or `field:L<n>` (other fields):
+
+```
+ProjectIndex
+  - 5#KP: See [[OldName]] for the spec.
+  + 5#KP: See [[NewName]] for the spec.
+
+DRY RUN: 1 replacements across 1 tiddlers
+Call again with dry_run=false to apply.
+```
+
+!!! Output (apply)
+
+Compact summary:
+
+```
+2 tiddlers modified, 3 replacements
+```
+
+Failures per tiddler are listed below the summary if any persist fails.
+
+!!! Array fields (tags, list)
+
+Both `tags` and `list` are arrays at runtime but strings in the `.tid` file. `replace_in_tiddlers` serialises them via `$tw.utils.stringifyList()` for matching (multi-word entries wrap in `[[...]]`) and parses the result back via `$tw.utils.parseStringArray()` on write. See [[Update tags in bulk]] for a worked example.
+
+!! See also
+
+* [[Bulk Docs]]: tutorial walkthroughs for common use cases.
+* [[Read several tiddlers at once]]: `get_tiddlers` basics.
+* [[Rename references across the wiki]]: `replace_in_tiddlers` with literal rules.
+* [[Regex find and replace with backrefs]]: `replace_in_tiddlers` regex + `$1` capture groups.
+* [[Update tags in bulk]]: `replace_in_tiddlers` on array fields.
+* [[Inspect Tools]]: read-only inspection tools.
