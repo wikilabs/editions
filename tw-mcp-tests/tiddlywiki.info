@@ -1,0 +1,13 @@
+{
+	"description": "Headless test edition for the tw-mcp plugin. Loaded by test/setup.js; not intended to be served.",
+	"plugins": [
+		"wikilabs/tw-mcp"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+	],
+	"config": {
+		"retain-original-tiddler-path": true
+	}
+}
