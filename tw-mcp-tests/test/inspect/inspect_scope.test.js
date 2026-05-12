@@ -105,14 +105,7 @@ test.todo("inspect_scope: all=true should show '— other globals' section", () 
 	assert.match(result.content[0].text, /— other globals/);
 });
 
-// Documented contract from the inspect_scope MCP description: procedures
-// surface with a "proc <name>" prefix. Probe shows that built-in procedures
-// (e.g. `copy-to-clipboard`) do classify as "proc", but a fixture-defined
-// `\procedure greet(who:"world")` ends up as "def greet(who:world)". The
-// isProcedure heuristic (`!!v.isProcedure || v.configTrimWhiteSpace === true`)
-// isn't matching the parsed-from-text procedure. Worth investigating: TW
-// version drift, or the heuristic missing a case.
-test.todo("inspect_scope: \\procedure pragma should classify as 'proc'", () => {
+test("inspect_scope: \\procedure pragma classifies as 'proc'", () => {
 	const result = inspectScope({
 		text: "\\procedure greet() Hello!\n\\end\n\n<<greet>>",
 		charPos: 35,

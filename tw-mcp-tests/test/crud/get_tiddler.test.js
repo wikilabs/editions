@@ -57,13 +57,7 @@ test("get_tiddler: plugin tiddler returns fields + buildTree summary", () => {
 	assert.match(text, /\$:\/[A-Za-z]+\/\s*\(\d+\)/);
 });
 
-// Asserts the documented intent: the handler calls
-// `formatTitleTree(shadowTitles, "shadow tiddlers")` passing "shadow tiddlers"
-// as a label — but formatTitleTree only emits the label header when buildTree
-// returns a non-empty common prefix, which it doesn't for typical $:/-rooted
-// plugin subtiddlers. Same root cause as tw-mcp-server-nl1; self-resolves
-// when that fix lands.
-test.todo("get_tiddler: plugin tiddler shadow tree should carry a 'shadow tiddlers' label", () => {
+test("get_tiddler: plugin tiddler shadow tree carries a 'shadow tiddlers' label", () => {
 	const result = getTiddler({ title: "$:/plugins/wikilabs/tw-mcp", detailed: true });
 	assert.match(result.content[0].text, /shadow tiddlers/);
 });

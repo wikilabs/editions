@@ -101,17 +101,34 @@ test("render_text: text over MAX_TEXT_LENGTH -> error", () => {
 	assert.match(result.content[0].text, /too long/i);
 });
 
-// Asserts the contract suggested by the handler's own `if(!rendered) return
-// errorResult("No parser for type:")` guard. Probe shows TW's parseText falls
-// back to WikiParser for any unrecognised MIME, so a caller passing
-// type="application/json" silently gets wikitext parsing. Either the guard is
-// dead code or the silent fallback should be surfaced. Filed bead pending.
-test.todo("render_text: unknown MIME type should be surfaced (not silently parsed as wikitext)", () => {
+test("render_text: unrecognised type is surfaced as a fallback note above the rendered output", () => {
 	const result = renderText({
-		text: "{\"hello\": \"world\"}",
-		type: "application/json",
+		text: "anything",
+		type: "application/x-no-such-parser",
 		output: "text/plain"
 	});
-	assert.equal(result.isError, true,
-		"expected unrecognised type to be flagged, got silent fallback");
+	assert.equal(result.isError, undefined);
+	// Output succeeds (TW falls back to wikitext) but the caller is told that
+	// their type arg was not honoured.
+	assert.match(result.content[0].text, /^Note: type 'application\/x-no-such-parser' is not registered/);
+});
+
+test("render_text: registered type renders without a fallback note", () => {
+	const result = renderText({
+		text: "! Heading",
+		type: "text/vnd.tiddlywiki",
+		output: "text/plain"
+	});
+	assert.equal(result.isError, undefined);
+	assert.doesNotMatch(result.content[0].text, /^Note: type/);
+});
+
+test("render_text: parsetree output also carries the fallback note in its header", () => {
+	const result = renderText({
+		text: "anything",
+		type: "application/x-no-such-parser",
+		output: "parsetree"
+	});
+	assert.equal(result.isError, undefined);
+	assert.match(result.content[0].text, /^Note: type 'application\/x-no-such-parser' is not registered/);
 });

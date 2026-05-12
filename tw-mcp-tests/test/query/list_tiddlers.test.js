@@ -67,16 +67,10 @@ test("list_tiddlers: large unbounded result uses buildTree summary", () => {
 	assert.doesNotMatch(text, /showing first/, "no truncation footer when unbounded");
 });
 
-// The handler passes `total` to formatTitleTree on the >100 branch intending
-// the count to be shown, but formatTitleTree only emits the count header when
-// buildTree returns a non-empty prefix. For typical $:/-rooted titles the
-// prefix is empty, so the user sees per-group counts (e.g. "$:/core/ (865)")
-// but no grand total. The truncation branch DOES emit "(N total, showing
-// first M)" — same UX expectation should hold here. Filed bead pending.
-test.todo("list_tiddlers: count-summary branch should surface a grand total", () => {
+test("list_tiddlers: count-summary branch surfaces a grand total", () => {
 	const result = listTiddlers({ plugin: "$:/core" });
-	assert.match(result.content[0].text, /\b\d{3,}\s+(tiddlers?|total)/,
-		"expected grand-total count visible to the user");
+	assert.match(result.content[0].text, /\b\d{3,}\s+tiddlers?\b/,
+		"grand-total count visible to the user");
 });
 
 test("list_tiddlers: overwrittenShadows lists shadow overrides", () => {
