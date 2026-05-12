@@ -29,6 +29,10 @@ Tighten the `--test-coverage-include` glob to focus on a single category, e.g. `
 
 Tests that document a known code finding (where the assertion encodes the *desired* behaviour, not the current one) are marked `test.todo(...)` with an inline comment referencing the bead. They appear in the run output as `# TODO` but do not fail the suite — they self-resolve once the underlying code is fixed.
 
+## Fixture naming
+
+Fixture `.tid` filenames carry the owning test file as a prefix: `<tool>_<purpose>.tid` (e.g. `render_field_caption.tid` is owned by `render_field.test.js`). The internal `title:` field matches the filename, so test assertions are self-documenting. When two tests need byte-identical fixtures (e.g. `render_field_caption` and `render_tiddler_caption`), the duplication is accepted as the cost of unambiguous ownership — a five-line fixture is cheaper than the navigation friction of a shared neutral name.
+
 ## Path resolution
 
 `test/setup.js` resolves both the TiddlyWiki core and the tw-mcp plugin folder dynamically — no hardcoded paths in test code:
