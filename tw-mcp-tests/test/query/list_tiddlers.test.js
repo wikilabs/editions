@@ -73,6 +73,37 @@ test("list_tiddlers: count-summary branch surfaces a grand total", () => {
 		"grand-total count visible to the user");
 });
 
+test("list_tiddlers: flat:true returns newline-separated titles, no tree summary", () => {
+	const result = listTiddlers({ tag: "query_list_tag", flat: true });
+	assert.equal(result.isError, undefined);
+	const text = result.content[0].text;
+	// Each fixture title appears as its own line, with no group-count parenthetical.
+	assert.match(text, /^list_tiddlers_a$/m);
+	assert.match(text, /^list_tiddlers_b$/m);
+	assert.doesNotMatch(text, /\(\d+\)/);
+});
+
+test("list_tiddlers: flat:true with limit emits truncation footer", () => {
+	const result = listTiddlers({ plugin: "$:/core", flat: true, limit: 3 });
+	assert.equal(result.isError, undefined);
+	const text = result.content[0].text;
+	assert.match(text, /\(\d+ total, showing first 3\)/);
+	// 3 title lines + blank + footer
+	const titleLines = text.split("\n\n")[0].split("\n");
+	assert.equal(titleLines.length, 3);
+});
+
+test("list_tiddlers: flat:true on >100 result truncates to default 100 with footer", () => {
+	// $:/core has hundreds of subtiddlers; in flat mode the >100 branch should
+	// NOT fall through to the tree-summary path (the whole point of flat).
+	const result = listTiddlers({ plugin: "$:/core", flat: true });
+	assert.equal(result.isError, undefined);
+	const text = result.content[0].text;
+	assert.match(text, /\(\d+ total, showing first 100\)/);
+	assert.doesNotMatch(text, /\$:\/[A-Za-z]+\/\s*\(\d+\)/,
+		"flat mode must not emit tree-summary group counts");
+});
+
 test("list_tiddlers: overwrittenShadows lists shadow overrides", () => {
 	const result = listTiddlers({ overwrittenShadows: true });
 	assert.equal(result.isError, undefined);
