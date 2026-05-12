@@ -89,20 +89,24 @@ test("inspect_scope: no widget found near charPos -> error", () => {
 // ---- Documenting findings: tests below assert desired behaviour the
 // handler does not currently meet. Probed with test/_probe.js.
 
-// Documented contract: when args.all=true the output gains an "— other
-// globals" section listing imported-but-unused vars. Probe shows that
-// inspect_scope standalone never populates `importedVars` because the
-// `sourceTitle` property on var instances is only set by inspect_pos's
-// widget patches (and those are restored in inspect_pos's finally block).
-// Result: every var lands in "local scope", "— used globals" and "— other
-// globals" sections never appear. Real finding for a downstream improvement.
-test.todo("inspect_scope: all=true should show '— other globals' section", () => {
+test("inspect_scope: all=true shows '— other globals' section for imported vars", () => {
 	const result = inspectScope({
 		text: "<$let x=\"1\">{{!!title}}</$let>",
 		charPos: 13,
 		all: true
 	});
 	assert.match(result.content[0].text, /— other globals/);
+});
+
+test("inspect_scope: imported variables (e.g. core macros) classify with @sourceTitle", () => {
+	// A macro imported via TW core's PageMacros importvariables should
+	// surface with its source tiddler in the output (e.g. "@$:/core/macros/...").
+	const result = inspectScope({
+		text: "<$let x=\"1\">{{!!title}}</$let>",
+		charPos: 13,
+		all: true
+	});
+	assert.match(result.content[0].text, /@\$:\/core\/macros\//);
 });
 
 test("inspect_scope: \\procedure pragma classifies as 'proc'", () => {
