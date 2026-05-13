@@ -1,5 +1,5 @@
 {
-	"description": "Server configuration of the wikilabs edition",
+	"description": "Advanced Search for the wikilabs edition",
 	"plugins": [
 		"wikilabs/advanced-search-plus"
 	],
@@ -8,6 +8,7 @@
 		"tiddlywiki/snowwhite"
 	],
 	"includeWikis": [
+		"../aaa"
 	],
 	"build": {
 		"index": [

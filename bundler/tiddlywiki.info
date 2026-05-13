@@ -5,9 +5,11 @@
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
-		"tiddlywiki/snowwhite"
+		"tiddlywiki/snowwhite",
+		"wikilabs/slant-01"
 	],
 	"includeWikis": [
+		"../aaa"
 	],
 	"build": {
 		"index": [
