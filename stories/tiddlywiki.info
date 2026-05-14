@@ -12,6 +12,7 @@
 		"tiddlywiki/snowwhite"
 	],
 	"includeWikis": [
+		"../aaa"
 	],
 	"build": {
 		"index": [

@@ -12,6 +12,7 @@
 		"wikilabs/slant-01"
 	],
 	"includeWikis": [
+		"../aaa"
 	],
 	"build": {
 		"index": [

@@ -7,6 +7,9 @@
 		"tiddlywiki/vanilla",
 		"tiddlywiki/snowwhite"
 	],
+	"includeWikis": [
+		"../aaa"
+	],
 	"build": {
 		"index": [
 			"--rendertiddler", "$:/core/save/all", "index.html", "text/plain"
