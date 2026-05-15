@@ -1,0 +1,8 @@
+created: 20260514232713802
+modified: 20260515002305107
+tags: color shape animal place food wikilabs
+title: TagMap Test
+
+This tiddler is tagged with all five categories so the Tag Map tab shows five columns.
+
+Open the info panel and switch to the //Tag Map// tab. Items with `list-before` show a ↑ badge; items with `list-after` show a ↓ badge. Hover the badge to see the field value (or the field name if the value is empty).
