@@ -4,7 +4,7 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+    "start": "tiddlywiki . --mcp listen readwrite sse label=devtools-primary",
     "test": "playwright test",
     "test:update": "playwright test --update-snapshots",
     "server": "npm start",

@@ -7,7 +7,7 @@
 		"watch": "nodemon",
 		"net": "tiddlywiki . --listen host=local.lan",
 
-		"start": "tiddlywiki . --listen",
+		"start": "tiddlywiki . --mcp listen readwrite sse label=advanced-search-plus-primary",
 		"test": "npm run watch",
 
 		"server": "npm start",

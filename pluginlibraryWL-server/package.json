@@ -4,7 +4,7 @@
   "description": "tiddlywiki edition development helper",
   "main": "",
   "scripts": {
-    "start": "tiddlywiki . --listen",
+    "start": "tiddlywiki . --mcp listen readwrite sse label=pluginlibraryWL-primary",
 
     "pretest": "npm run build:test:library",
     "test": "npm run build && npm start",

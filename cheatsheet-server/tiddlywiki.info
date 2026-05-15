@@ -3,7 +3,8 @@
 	"plugins": [
 		"tiddlywiki/tiddlyweb",
 		"tiddlywiki/filesystem",
-		"wikilabs/advanced-search-plus"
+		"wikilabs/advanced-search-plus",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 	],

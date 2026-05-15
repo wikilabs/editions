@@ -12,7 +12,8 @@
 		"tiddlywiki/codemirror-search-replace",
 		"tiddlywiki/codemirror-fullscreen-editing",
 		"tiddlywiki/codemirror-mode-css",
-		"tiddlywiki/codemirror-keymap-sublime-text"
+		"tiddlywiki/codemirror-keymap-sublime-text",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 	],

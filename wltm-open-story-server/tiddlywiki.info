@@ -6,7 +6,8 @@
 		"tiddlywiki/internals",
 		"wikilabs/link-to-tabs",
 		"wikilabs/wltm-open-story",
-		"wikilabs/advanced-search-plus"
+		"wikilabs/advanced-search-plus",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",

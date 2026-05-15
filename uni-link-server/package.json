@@ -6,7 +6,7 @@
   "scripts": {
     "net": "tiddlywiki . --listen host=local.lan",
 
-    "start": "tiddlywiki . --listen",
+    "start": "tiddlywiki . --mcp listen readwrite sse label=uni-link-primary",
     "test": "npm run watch",
 
     "server": "npm start",

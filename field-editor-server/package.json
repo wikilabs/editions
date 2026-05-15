@@ -7,7 +7,7 @@
     "watch": "nodemon",
 		"net": "tiddlywiki . --listen host=local.lan",
 
-    "start": "tiddlywiki . --server 8080 $:/core/save/all text/plain text/html",
+    "start": "tiddlywiki . --mcp listen readwrite sse label=field-editor-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",

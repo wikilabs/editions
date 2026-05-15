@@ -7,7 +7,7 @@
     "watch": "nodemon",
     "net": "tiddlywiki . --listen host=local.lan",
 
-    "start": "tiddlywiki . --listen",
+    "start": "tiddlywiki . --mcp listen readwrite sse label=saver-timestamps-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",

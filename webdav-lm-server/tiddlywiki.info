@@ -5,7 +5,8 @@
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/webdav-lm"
+		"wikilabs/webdav-lm",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 	],

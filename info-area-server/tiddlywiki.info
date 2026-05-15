@@ -5,7 +5,8 @@
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/info-area"
+		"wikilabs/info-area",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",

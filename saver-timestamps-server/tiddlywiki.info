@@ -5,7 +5,8 @@
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
-		"wikilabs/saver-timestamps"
+		"wikilabs/saver-timestamps",
+		"wikilabs/tw-mcp"
 	],
 	"themes": [
 		"tiddlywiki/vanilla",
