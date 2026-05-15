@@ -12,7 +12,8 @@
 		"wikilabs/slant-01"
 	],
 	"includeWikis": [
-		"../aaa"
+		"../aaa",
+		"../info-tagmap"
 	],
 	"build": {
 		"index": [
