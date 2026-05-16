@@ -1,0 +1,23 @@
+created: 20260516020352844
+modified: 20260516020449237
+tags: cm-smoke
+title: cm-smoke - legacy \custom bridge
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+
+\custom tick=stress _element=em _classes=stress
+\custom tick="d" _element=details _classes=".notop" _endString="------" _mode=block open
+
+!! Legacy `\custom` pragma bridges to Vocab/Legacy-Glyphs
+
+The pragma path keeps working: `\custom tick=foo …` registers `foo` as a symbol on the `´` marker via the registry bridge. The marker tiddler's `legacy-kind: tick` plus `findByOpenOrLegacyKind` in the registry resolve the kind name to the marker.
+
+!!! Symbol with element + class override
+
+´stress watch your tone
+
+!!! Bare-attribute pass-through (`open`) + custom end-string
+
+´d test details
+body content here
+more body
+------

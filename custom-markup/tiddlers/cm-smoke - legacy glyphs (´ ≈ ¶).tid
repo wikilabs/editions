@@ -1,0 +1,33 @@
+created: 20260516020349174
+modified: 20260516020349174
+tags: cm-smoke
+title: cm-smoke - legacy glyphs (´ ≈ ¶)
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+
+!! Legacy-Glyphs vocabulary
+
+This tiddler's type is `text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs`. The three glyphs `´` `≈` `¶` were removed from Default in the cm-redesign and now live in the opt-in `Vocab/Legacy-Glyphs`.
+
+!!! Tick (´) — inline mode, single-newline terminated
+
+´foo legacy tick paragraph (the word `foo` is consumed as the symbol).
+
+´.bigger A welcome line with class chain.
+
+!!! Pilcrow (¶) — block, multi-level
+
+¶pilcrow level 1.
+
+¶¶pilcrow level 2.
+
+¶¶¶pilcrow level 3.
+
+!!! Approx (≈) — block, multi-level
+
+≈approx level 1.
+
+≈≈approx level 2.
+
+!!! Gating check
+
+When the same wiki text appears in a tiddler with plain `text/vnd.tiddlywiki`, none of these markers fire (the raw glyphs survive as text).
