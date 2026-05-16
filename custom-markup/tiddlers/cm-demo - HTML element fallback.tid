@@ -1,0 +1,21 @@
+created: 20260515235351459
+modified: 20260515235513829
+tags: cm-demo
+title: cm-demo - HTML element fallback
+type: text/vnd.tiddlywiki
+
+!! HTML element fallback
+
+When the symbol after a glyph marker matches a known HTML element name, the marker emits that element instead of the default.
+
+!!! Block (§ + element name)
+
+§aside.b This becomes an `<aside>` because `aside` is a known block element
+
+!!! Inline-pair (`{!em ...!}`)
+
+This sentence has {!em emphasized text!} mid-stream, which becomes an `<em>` element.
+
+!!! Default (no fallback when symbol is not an HTML name)
+
+§whatever Just the default `<div>` from the SECTION marker, since `whatever` is not an HTML element.

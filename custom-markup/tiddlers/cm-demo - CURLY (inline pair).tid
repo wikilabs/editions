@@ -1,0 +1,23 @@
+created: 20260515235345439
+modified: 20260515235507265
+tags: cm-demo
+title: cm-demo - CURLY (inline pair)
+type: text/vnd.tiddlywiki
+
+!! Inline-pair marker (`{! ... !}`)
+
+Marker tiddler: [[vocab/test/CURLY]]
+
+!!! With leading space (content is the body)
+
+This sentence has {! body content here !} mid-stream.
+
+!!! Class chain
+
+Notice the styling: {!.indent.b classed inline span!} continues.
+
+!!! Bare letters after open are interpreted as a symbol
+
+Because `{!body!}` has no space after the open, `body` is consumed as a symbol-name. With nothing registered for it, the span is empty: a {!body!} b
+
+''Workaround:'' put a space, like {! body !}.

@@ -1,0 +1,23 @@
+created: 20260515235358580
+modified: 20260515235522354
+tags: cm-demo
+title: cm-demo - legacy markers
+type: text/vnd.tiddlywiki
+
+!! Legacy markers (still handled by the OLD rules)
+
+The original glyphs (`°`, `»`, `≈`, `¶`, `´`, `›`, `❮❯`, `⠒⠶`, `/°°/`) keep working until Phase 1D retires `glyph-text.js` / `glyph-inline.js`.
+
+!!! Block degree
+
+°.cap.j Drop-cap + justify, classic plugin behaviour.
+
+!!! Multi-level angle
+
+»» Level 2 paragraph.
+
+»»» Level 3 paragraph.
+
+!!! Cross-marker inline nesting (different open/close pairs)
+
+Text with ❮ outer /° inner °/ outer ❯ mid-sentence.

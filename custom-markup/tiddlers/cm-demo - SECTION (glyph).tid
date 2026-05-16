@@ -1,0 +1,21 @@
+created: 20260515235339332
+modified: 20260515235459769
+tags: cm-demo
+title: cm-demo - SECTION (glyph)
+type: text/vnd.tiddlywiki
+
+!! Glyph marker (§)
+
+Marker tiddler: [[vocab/test/SECTION]]
+
+!!! Bare glyph
+
+§ Just the marker, no extras (only the `.wltc-section` default class)
+
+!!! Class chain
+
+§.indent.j Indent + justify, applied via `.indent.j` after the glyph
+
+!!! Multi-class continues
+
+§.indent.j.b Indent, justify, AND bold.

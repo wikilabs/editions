@@ -1,0 +1,21 @@
+created: 20260515235335329
+modified: 20260515235454683
+tags: cm-demo
+title: cm-demo - TESTMARK (word)
+type: text/vnd.tiddlywiki
+
+!! Word marker (TESTMARK)
+
+Marker tiddler: [[vocab/test/TESTMARK]]
+
+!!! Bare
+
+TESTMARK Hello from a word marker. Body parses as wikitext: ''bold'' works, //italic// too.
+
+!!! With more lines until blank-line termination
+
+TESTMARK This continues
+on the next line
+and the next.
+
+Following paragraph (outside the marker).
