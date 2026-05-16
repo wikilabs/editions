@@ -2,7 +2,7 @@ created: 20200906091431254
 modified: 20200918142847405
 tags: 
 title: test-table-tick-final
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=table     _element=table _mode=block _endString="------" 
 \custom tick=caption _element=caption

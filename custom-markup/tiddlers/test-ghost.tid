@@ -2,7 +2,7 @@ created: 20200926114212633
 modified: 20200926115939906
 tags: 
 title: test-ghost
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=ghost _element="$set" name=ghost filter="""[all[current]addprefix[$:/ghost/]]""" _endString="/ghost"
 

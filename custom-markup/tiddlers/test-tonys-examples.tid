@@ -2,7 +2,7 @@ created: 20201028003006636
 modified: 20210218181415695
 tags: 
 title: test-tonys-examples
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="/d" _mode=block
 \custom tick="s" _element="summary" _classes=".margin-init"  _endString="/s"

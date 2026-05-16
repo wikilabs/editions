@@ -2,7 +2,7 @@ created: 20201225123841675
 modified: 20211010155146770
 tags: 
 title: test-aside-without-pragma-but-class
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 ».j {{lorem-ipsum-1-para}}
 

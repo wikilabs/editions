@@ -2,7 +2,7 @@ created: 20200910192820932
 modified: 20200914114042820
 tags: 
 title: test-importcustom-listwidget
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \importcustom [[presentation-list-widget-config]]
 

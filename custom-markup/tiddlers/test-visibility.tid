@@ -3,7 +3,7 @@ debug:
 modified: 20210218181204758
 tags: 
 title: test-visibility
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=debug _element="$list" filter="[all[current]has:field[debug]]"
 \custom tick=design _element="$list" filter="[{$:/config/design-mode}match[yes]]"

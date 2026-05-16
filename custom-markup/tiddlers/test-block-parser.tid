@@ -2,7 +2,7 @@ created: 20201004164039889
 modified: 20201015140615419
 tags: 
 title: test-block-parser
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \importcustom [[Keyboard Shortcuts]]38
 

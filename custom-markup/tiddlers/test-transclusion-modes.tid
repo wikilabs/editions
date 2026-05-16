@@ -1,7 +1,7 @@
 created: 20200902142529740
 modified: 20210329181548734
 title: test-transclusion-modes
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick="inline" _element="div" _classes=".c.cs.hl" 
 \custom tick="block" _element="div" _classes=".c.cs.hl" _mode=block

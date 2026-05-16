@@ -2,7 +2,7 @@ created: 20201002141757091
 modified: 20210218181301898
 tags: 
 title: test-use-pragma-error-message
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom degree=☐ _use=☐ _debug=both
 

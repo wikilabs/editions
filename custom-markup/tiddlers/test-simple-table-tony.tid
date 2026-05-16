@@ -2,7 +2,7 @@ created: 20201030215026611
 modified: 20201101142844809
 tags: 
 title: test-simple-table-tony
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=table _element=table _endString="/table" _mode=block
 \custom tick=caption _element=caption

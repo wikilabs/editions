@@ -2,7 +2,7 @@ created: 20201002103129518
 modified: 20210916220044600
 tags: 
 title: test-global-pragma
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 yy: yyyyyy
 
 \debugcustom no global degree  

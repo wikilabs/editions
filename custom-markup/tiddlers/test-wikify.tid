@@ -2,7 +2,7 @@ created: 20200926113809794
 modified: 20200926120457017
 tags: 
 title: test-wikify
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=wikify _element="$wikify" _srcName=text name=result
 \custom tick=text _element="$text" _srcName=text

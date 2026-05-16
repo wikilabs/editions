@@ -5,7 +5,7 @@ created: 20200929140706728
 modified: 20210916163640521
 tags: 
 title: test-checkbox-widget-transclusion-text-with-spaces
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 x: text x
 yy: text from field: yy
 

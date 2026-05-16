@@ -2,7 +2,7 @@ created: 20200906133708774
 modified: 20211012174708816
 tags: 
 title: test-table-multiline-cells
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=table _element=table _endString="---" _mode=block
 \custom tick=caption _element=caption

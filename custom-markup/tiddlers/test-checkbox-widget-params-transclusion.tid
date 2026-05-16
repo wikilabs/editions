@@ -2,7 +2,7 @@ created: 20200928114224104
 modified: 20210917072514377
 tags: 
 title: test-checkbox-widget-params-transclusion
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 yy: text from field: yy
 
 \custom tick=vars _element="$vars" tid=a yyy=test UID=<<qualify>> _endString="---" _mode=block

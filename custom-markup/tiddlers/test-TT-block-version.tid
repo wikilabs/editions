@@ -2,7 +2,7 @@ created: 20201004052227294
 modified: 20210916155049444
 tags: 
 title: test-TT-block-version
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom angle="¶"  _endString="⁋"   _element="p"          _mode="block" _classes=".phrase-group"
 \custom single="¶"                  _element="p"                        _classes=".phrase-group"

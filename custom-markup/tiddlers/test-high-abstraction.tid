@@ -2,7 +2,7 @@ created: 20200910200019270
 modified: 20200916113034939
 tags: 
 title: test-high-abstraction
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom degree _element="$presentation" _mode=block _endString="----"
 \custom angle _element="$list" _mode=block _endString="---" filter="[tag[slide]sort[title]]"

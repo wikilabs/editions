@@ -2,7 +2,7 @@ created: 20201030150517714
 modified: 20201108185850917
 tags: 
 title: test-table-vertical-alignment-debug
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=table _element=table _endString="/endTable" _mode=block 
 \custom tick=caption _element=caption

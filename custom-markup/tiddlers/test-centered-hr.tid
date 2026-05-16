@@ -2,7 +2,7 @@ created: 20210203171607543
 modified: 20210205125957754
 tags: 
 title: test-centered-hr
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=hr-center _element=hr
 

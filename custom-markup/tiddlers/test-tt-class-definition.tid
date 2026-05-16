@@ -2,7 +2,7 @@ created: 20210218182432802
 modified: 20210218192841713
 tags: 
 title: test-tt-class-definition
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom slash=TEST _classes=""
 \custom tick=TEST _classes=""

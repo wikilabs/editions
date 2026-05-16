@@ -2,7 +2,7 @@ created: 20200908103842958
 modified: 20200908145723272
 tags: 
 title: test-table-use-degree-as-ID
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom degree=table _element=table _endString="---" _mode=block
 \custom degree=caption _element=caption

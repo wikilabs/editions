@@ -2,7 +2,7 @@ created: 20200928083440150
 modified: 20210917072614544
 tags: 
 title: test-checkbox-widget-params-variable
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=vars _element="$vars" yyy="value from variable" UID=<<qualify>> _endString="---" _mode=block
 

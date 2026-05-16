@@ -3,7 +3,7 @@ debug: both
 modified: 20210917083732684
 tags: 
 title: test-global-pragma-local-debug-mode
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 yy: local-field yy
 
 \custom degree=☐ _useGlobal=☐ _debug="both"

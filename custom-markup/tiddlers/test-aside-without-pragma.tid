@@ -2,7 +2,7 @@ created: 20200910213411607
 modified: 20211013155559375
 tags: 
 title: test-aside-without-pragma
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 ».j.i {{lorem-ipsum-1-para}}
 
