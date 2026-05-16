@@ -1,12 +1,12 @@
 created: 20260515235345439
-modified: 20260515235507265
+modified: 20260516011105221
 tags: cm-demo
 title: cm-demo - CURLY (inline pair)
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Test
 
 !! Inline-pair marker (`{! ... !}`)
 
-Marker tiddler: [[vocab/test/CURLY]]
+Marker tiddler: [[vocab/test/CURLY]]. Vocab/Test is loaded via the type field: `text/vnd.tiddlywiki;vocab=Default,Test`.
 
 !!! With leading space (content is the body)
 

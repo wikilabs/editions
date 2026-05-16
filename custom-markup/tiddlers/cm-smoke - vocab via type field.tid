@@ -1,0 +1,21 @@
+created: 20260516011955202
+modified: 20260516011955202
+tags: cm-smoke
+title: cm-smoke - vocab via type field
+type: text/vnd.tiddlywiki;vocab=Default,Test
+
+!! Type-field vocabulary activation
+
+This tiddler's type field is `text/vnd.tiddlywiki;vocab=Default,Test`. The plugin's startup-module patch keeps it saving as a single .tid file (no .meta split).
+
+!!! Default markers fire (° from Vocab/Default)
+
+°.indent A degree paragraph from Vocab/Default.
+
+!!! Test markers fire too (TESTMARK from Vocab/Test)
+
+TESTMARK Loaded via the `;vocab=Test` parameter on the type field.
+
+!!! Inline-pair from Vocab/Test
+
+Mid-stream inline: {! body content here !} continues.
