@@ -1,0 +1,60 @@
+created: 20260516050000000
+modified: 20260516050000000
+tags: docs
+title: Migration to V1.0
+type: text/vnd.tiddlywiki
+
+!! Breaking changes from v0.x
+
+v1.0.0-beta-1 moves from a hardcoded 9-glyph alphabet to a data-driven [[Vocabulary Engine]] of marker tiddlers. Existing pragma usage keeps working via a bridge, but a few defaults have changed.
+
+!! Removed glyphs
+
+`´` (tick), `≈` (approx) and `¶` (pilcrow) are no longer in Vocab/Default. Opt back in by adding `;vocab=Default,Legacy-Glyphs` to the tiddler's type field:
+
+''Before''
+
+```
+title: my-tiddler
+type: text/vnd.tiddlywiki
+
+´.bigger Welcome
+```
+
+''After''
+
+```
+title: my-tiddler
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+
+´.bigger Welcome
+```
+
+!! Block-marker termination
+
+`°` (degree) and `›` (single) now default to ''blank-line'' termination. Back-to-back `°foo` `°bar` lines join into one block.
+
+To restore the v0.x single-newline behaviour, use `_mode=inline`:
+
+```
+\custom degree=foo _mode=inline
+```
+
+Or set `mode: inline` directly on the marker tiddler. Note: `_endString="\n"` does ''not'' work; TW's pragma parser keeps `\n` as two literal characters.
+
+!! `\custom <kind>=<symbol>` still works
+
+The legacy pragma path bridges through each marker's `legacy-kind` field. `\custom tick=foo _element=em` still registers `foo` as a symbol on the `´` marker. v0.x pragma-driven tiddlers continue to work once their vocab is activated.
+
+!! Dropped plugin dependency
+
+`pragma-comment` is no longer a dependency. HTML comments live in TW core.
+
+!! Editor toolbar dropdowns
+
+From v1.0.0-beta-2, the prefix and inline-glyph dropdowns filter their radios by the active vocabulary for the tiddler being edited. New vocabularies appear automatically in the dropdown without code changes.
+
+!! Related
+
+* [[Vocabulary Engine]]
+* [[Custom Markup Definition]] (legacy pragma reference, still in force)

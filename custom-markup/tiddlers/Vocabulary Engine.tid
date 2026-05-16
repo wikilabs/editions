@@ -1,0 +1,56 @@
+created: 20260516050000000
+modified: 20260516155310754
+tags: Reference docs
+title: Vocabulary Engine
+type: text/vnd.tiddlywiki
+
+!! Markers, vocabularies, activation
+
+Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged `$:/tags/CustomMarkup/Marker`. Markers group into vocabularies via a `Vocab/<Name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> that names the marker-tag and supplies a caption.
+
+!! Marker fields
+
+|! Field |! Required |! Notes |
+|`open` |yes |The literal opening characters: `°`, `»`, `/°`, `CUT TO:`. |
+|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`. |
+|`close` |inline-pair |The literal closing characters. |
+|`mode` |no |`block` (default for non-inline-pair) or `inline`. |
+|`element` |no |HTML element name or `$widget` reference. |
+|`end-string` |no |Custom terminator. Without it, block markers terminate at a blank line; inline at a newline. |
+|`classes` |no |Dot-prefixed CSS class chain, e.g. `.wltc-degree`. |
+|`attributes` |no |JSON object of extra HTML attributes. |
+|`allow-symbol` |glyph |Default `yes`. Set to `no` to lock the prose-safe form (e.g. the `.` marker). |
+|`legacy-kind` |no |Friendly name (`tick`, `degree`, ...) so the v0.x `\custom <kind>=<symbol>` pragma still resolves. |
+|`order` |no |Sort hint for editor-toolbar dropdowns. |
+
+!! Activating a vocabulary
+
+Two ways to opt in:
+
+# ''Type field'': `type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs`. A startup-module patch keeps the tiddler as a single `.tid` file on disk.
+# ''Pragma'': `\importcustom [tag[Vocab/Legacy-Glyphs]]` at the top of a tiddler.
+
+Vocab/Default is always active. With no `;vocab=` parameter, only Default markers fire.
+
+!! Shipped vocabularies
+
+* ''Vocab/Default'' (plugin): `°` `.` `»` `›` (block) and `/° °/`, `❮ ❯`, `⠒ ⠶` (inline-pair).
+* ''Vocab/Legacy-Glyphs'' (plugin, opt-in): restores `´` `≈` `¶` removed from Default in v1.0.0-beta-1.
+* ''Vocab/Presentation'' (editions): Fountain-flavoured Reveal.js DSL with `PRESENTATION`, `CUT TO:`, `ANIMATE TO:`, `FADE IN:`, terminator `FADE OUT.`.
+
+!! Listing active markers
+
+The `cm-active-markers` filter operator returns marker titles active for a given tiddler.
+
+```
+[<currentTiddler>cm-active-markers[block]]
+[<currentTiddler>cm-active-markers[inline]]
+[<currentTiddler>cm-active-markers[word]]
+```
+
+Empty source falls back to Vocab/Default so a dropdown without an edit context still renders a usable list.
+
+!! Related
+
+* [[Migration to V1.0]]
+* [[Custom Markup Definition]] (legacy pragma reference, still in force)
