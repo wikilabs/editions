@@ -1,0 +1,29 @@
+created: 20260516002247819
+modified: 20260516002247819
+tags: cm-smoke
+title: cm-smoke - HTML element fallback
+type: text/vnd.tiddlywiki
+
+!! HTML element fallback
+
+When the symbol after a glyph (with `allow-symbol: yes`) is a known HTML element name, the marker emits that element instead of the marker's default.
+
+!!! Block aside
+
+°aside.warn This becomes an `<aside>` element.
+
+!!! Block section
+
+°section.box This becomes a `<section>` element.
+
+!!! Block summary inside details (note: standalone here, not nested)
+
+°summary.bold Becomes a `<summary>` element.
+
+!!! Inline em
+
+This sentence has /°em emphasized text°/ which becomes an `<em>` element.
+
+!!! Default when symbol is not an HTML name
+
+°whatever Just the marker's default `<div>`, since `whatever` is not an HTML element.

@@ -1,0 +1,25 @@
+created: 20260516002256380
+modified: 20260516002507964
+tags: cm-smoke
+title: cm-smoke - pragma and chained
+type: text/vnd.tiddlywiki
+
+\custom angle=det _element=details _classes=.cbox _endString=------ open
+\custom angle=sum _mode=inline _element=summary _classes=.margin-init
+
+!! `\custom` pragma + chained markers
+
+''Important:'' the two `\custom` pragmas are at the very top of this tiddler (before any block content). Pragmas don't fire mid-tiddler.
+
+The pragmas register two symbols on the » marker:
+* `»det` -> details element with classes `.cbox`, opens by default, ends at `------`
+* `»sum` -> summary element with class `.margin-init`, inline mode
+
+!!! Demo (chained on one line)
+
+»det »sum Title here
+body line 1
+body line 2
+------
+
+Trailing paragraph below the marker.

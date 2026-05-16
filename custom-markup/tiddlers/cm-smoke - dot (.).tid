@@ -1,0 +1,21 @@
+created: 20260516002223682
+modified: 20260516002223682
+tags: cm-smoke
+title: cm-smoke - dot (.)
+type: text/vnd.tiddlywiki
+
+!! Dot marker (.)
+
+''Strict mode:'' `allow-symbol: no` plus lowercase-only class names. This protects ordinary prose like `.NET` and `.com` from being misread as marker syntax.
+
+!!! Bare dot with content
+
+. A paragraph started by a bare dot.
+
+!!! Class chain (`..cls`)
+
+..indent.j Indent and justify, applied via `..indent.j` (first dot = marker, second + name = class).
+
+!!! Single class
+
+..center A centered paragraph.

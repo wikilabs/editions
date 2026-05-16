@@ -1,0 +1,23 @@
+created: 20260516002228748
+modified: 20260516002742111
+tags: cm-smoke
+title: cm-smoke - dot prose safety
+type: text/vnd.tiddlywiki
+
+!! Dot prose-collision safety
+
+Each line below should render as a plain paragraph (no marker firing).
+
+.NET framework starts the line
+
+.com domain at line start
+
+.text without space or class chain
+
+.. text with two dots and space
+
+... continued ellipsis
+
+.aside text dot+HTML-element-name still does NOT match (allow-symbol off prevents the HTML fallback)
+
+''Why:'' the dot marker requires either `. ` (dot + immediate whitespace) or `..<lowercase-name>` for class chain. Anything else is plain prose.

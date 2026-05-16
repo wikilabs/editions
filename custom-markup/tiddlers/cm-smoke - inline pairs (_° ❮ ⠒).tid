@@ -1,0 +1,27 @@
+created: 20260516002240316
+modified: 20260516002240316
+tags: cm-smoke
+title: cm-smoke - inline pairs (/° ❮ ⠒)
+type: text/vnd.tiddlywiki
+
+!! Default inline-pair markers
+
+!!! Slash (/° °/)
+
+This sentence has /° body content °/ wrapped mid-stream.
+
+!!! Corner (❮ ❯)
+
+This sentence has ❮ body content ❯ wrapped mid-stream.
+
+!!! Braille (⠒ ⠶)
+
+This sentence has ⠒ body content ⠶ wrapped mid-stream.
+
+!!! Class chain on inline-pair
+
+Class chain: /°.indent.b classed inline span°/ continues.
+
+!!! Cross-marker nesting
+
+Text with ❮ outer /° inner °/ outer ❯ in the middle.

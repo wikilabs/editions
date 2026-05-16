@@ -1,0 +1,35 @@
+created: 20260516003224729
+modified: 20260516003959242
+tags: cm-smoke
+title: cm-smoke - inline-pair self-nesting
+type: text/vnd.tiddlywiki
+
+\custom slash=My _element=mark _classes=.b-y
+\custom slash=Mg _element=mark _classes=.b-lg
+\custom slash=Mp _element=mark _classes=.b-p
+
+<style>
+.b-y {background-color:yellow;}
+.b-lg {background-color:lightgreen;}
+.b-p{background-color:pink;}
+</style>
+
+!! Self-nesting works (regression of v0.x test-inline-nesting-mark)
+
+We initially marked same-marker self-nesting as out-of-scope. Empirically it works after the symbol-greediness fix in `registry.js` excluded the close marker's first char from the symbol regex.
+
+!!! Bare nest (no symbols)
+
+a /° outer /° inner °/ outer °/ z
+
+!!! Three-deep, three different symbols on the same marker
+
+The pragmas at the top register `My`, `Mg`, `Mp` as `<mark>` elements with different background classes. Same source as the v0.x [[test-inline-nesting-mark]]:
+
+Highlight using mark in /°My yellow°/ or /°Mg light green°/ or /°Mp pink°/.
+
+Nested: Highlight in /°My yellow°/ or /°Mg light /°My yel/°Mp pink°/low°/ green°/ or /°Mp pink°/.
+
+!!! Cross-marker for comparison
+
+Three different markers nested: ❮ A /° B ⠒ C ⠶ B °/ A ❯ end.

@@ -1,0 +1,23 @@
+created: 20260516002750660
+modified: 20260516002750660
+tags: cm-smoke
+title: cm-smoke - inline-pair with block content
+type: text/vnd.tiddlywiki
+
+\custom corner=cb _element=div _mode=block _classes=.cb-block
+
+!! Inline-pair fired inline, body parsed as blocks
+
+The `❮` corner marker is invoked mid-paragraph, but its body is parsed as multiple blocks (heading, list, paragraph, nested inline).
+
+!!! Demo
+
+Intro text. ❮cb
+!! Inline H2 inside the corner block
+* item 1
+* item 2
+
+A paragraph with /° nested inline °/ in it.
+❯ Trailing text after the close.
+
+''Setup:'' the pragma at the top of this tiddler registers symbol `cb` on the corner marker with `_mode=block`. So `❮cb ... ❯` opens an inline-invoked block container.

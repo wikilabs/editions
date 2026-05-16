@@ -1,0 +1,21 @@
+created: 20260516002217680
+modified: 20260516002344548
+tags: cm-smoke
+title: cm-smoke - degree (°)
+type: text/vnd.tiddlywiki
+
+!! Degree marker (°)
+
+!!! Bare with text
+
+° A bare degree paragraph.
+
+!!! With class chain
+
+°.cap.j Drop cap + justify (no symbol consumed because next char is a dot).
+
+!!! Symbol consumed (no space)
+
+°hello world
+
+''Result note:'' `hello` is consumed as a symbol-name. Content is `world` only. To keep `hello world` intact, write `° hello world` with a leading space.

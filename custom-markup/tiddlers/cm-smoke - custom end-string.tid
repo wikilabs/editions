@@ -1,0 +1,38 @@
+created: 20260516002303942
+modified: 20260516002538911
+tags: cm-smoke
+title: cm-smoke - custom end-string
+type: text/vnd.tiddlywiki
+
+\custom degree=note _element=div _classes=.note _endString=END
+\custom angle=poem _element=div _classes=.poem _endString=«POEM
+\custom single=tab _element=div _classes=.table _endString=------
+
+!! Custom `_endString` per pragma
+
+Three pragmas at the top register three symbols, each with a different `_endString` literal.
+
+!!! Word terminator `END`
+
+°note Some note
+that spans
+multiple lines
+END
+
+Trailing paragraph below.
+
+!!! Symbol terminator `«POEM`
+
+»poem A poem,
+two short lines.
+«POEM
+
+Trailing paragraph below.
+
+!!! Dash terminator `------`
+
+›tab table body line 1
+table body line 2
+------
+
+Trailing paragraph below.

@@ -1,0 +1,31 @@
+created: 20260516002234813
+modified: 20260516002234813
+tags: cm-smoke
+title: cm-smoke - angle and single (» ›)
+type: text/vnd.tiddlywiki
+
+!! Multi-level glyphs (» and ›)
+
+Both markers repeat (1-4 times) to encode a level. The level becomes a `wltc-l<N>` class on the emitted element.
+
+!!! Level 1
+
+» An angle paragraph at level 1.
+
+!!! Level 2
+
+»» Angle level 2.
+
+!!! Level 3
+
+»»» Angle level 3.
+
+!!! Single, levels 1 and 2
+
+› Single level 1.
+
+›› Single level 2.
+
+!!! Class chain on a leveled marker
+
+»».indent.b Angle level 2 with indent + bold.
