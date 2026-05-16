@@ -19,7 +19,3 @@ The pragma works thanks to the dynamic regex refresh on the parse rules: vocabul
 !!! Test markers fire too (TESTMARK from pragma-loaded Vocab/Test)
 
 TESTMARK Loaded via the `\importcustom` pragma above.
-
-!!! Inline-pair from Vocab/Test
-
-Mid-stream inline: {! body content here !} continues.

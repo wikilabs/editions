@@ -15,7 +15,3 @@ This tiddler's type field is `text/vnd.tiddlywiki;vocab=Default,Test`. The plugi
 !!! Test markers fire too (TESTMARK from Vocab/Test)
 
 TESTMARK Loaded via the `;vocab=Test` parameter on the type field.
-
-!!! Inline-pair from Vocab/Test
-
-Mid-stream inline: {! body content here !} continues.

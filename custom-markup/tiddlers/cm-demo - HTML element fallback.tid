@@ -12,9 +12,9 @@ When the symbol after a glyph marker matches a known HTML element name, the mark
 
 §aside.b This becomes an `<aside>` because `aside` is a known block element
 
-!!! Inline-pair (`{!em ...!}`)
+!!! Inline-pair (`/°em ...°/`)
 
-This sentence has {!em emphasized text!} mid-stream, which becomes an `<em>` element.
+This sentence has /°em emphasized text°/ mid-stream, which becomes an `<em>` element.
 
 !!! Default (no fallback when symbol is not an HTML name)
 
