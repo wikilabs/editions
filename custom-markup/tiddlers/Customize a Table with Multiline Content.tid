@@ -1,8 +1,8 @@
 created: 20200918141625063
-modified: 20211014115628909
+modified: 20260516163402198
 tags: Advanced docs
 title: Customize a Table with Multiline Content
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick=table _element=table _endString="---" _mode=block
 \custom tick=caption _element=caption
@@ -14,6 +14,8 @@ type: text/vnd.tiddlywiki
 \custom tick _element=td _classes=".hl"
 
 \custom angle _element=td _classes=".hl"
+
+''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. Tick (`´`) lives in Vocab/Legacy-Glyphs in v1.0, activated by this tiddler's type field. See [[Migration to V1.0]].
 
 
 ´table ´caption Some caption text

@@ -1,8 +1,10 @@
 created: 20201004150950125
-modified: 20210320143156686
+modified: 20260516160000000
 tags: docs Advanced
 title: Global Pragma Definitions
 type: text/vnd.tiddlywiki
+
+''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. See [[Migration to V1.0]] for breaking changes.
 
 ! Global Pragma Definitions
 

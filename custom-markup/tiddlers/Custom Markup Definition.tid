@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20211012173918937
+modified: 20260516160000000
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -7,6 +7,8 @@ type: text/vnd.tiddlywiki
 \custom angle="§" _element="div" _classes=".hard-linebreaks" _debug=both
 
 \custom angle="example" _element="div" _classes=".hl" _endString="---" _mode=block _debug=pragmaOnly
+
+''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. See [[Migration to V1.0]] for breaking changes.
 
 ! Pragma Example
 

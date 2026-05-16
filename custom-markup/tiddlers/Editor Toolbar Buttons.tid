@@ -1,8 +1,10 @@
 created: 20200915111228377
-modified: 20200917172043663
+modified: 20260516160000000
 tags: Reference docs
 title: Editor Toolbar Buttons
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+
+''V1.0:'' Block and inline dropdowns now iterate marker tiddlers tagged `$:/tags/CustomMarkup/Marker` and filter by the active vocabulary for the tiddler being edited. New vocabularies appear in the menu without a code change. See [[Vocabulary Engine]] and [[Migration to V1.0]].
 
 ! New Toolbar Buttons
 
@@ -15,3 +17,11 @@ type: text/vnd.tiddlywiki
 ! New Toolbar Icons
 
 <<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/custom-markup/icons]]">>
+
+! Marker tiddlers powering the dropdowns
+
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Marker]sort[caption]]">
+
+* <$link><$view field="caption"><$text text=<<currentTiddler>>/></$view></$link> ({{!!kind}}, open <code><$text text={{!!open}}/></code>)
+
+</$list>

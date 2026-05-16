@@ -1,13 +1,14 @@
 created: 20200917105803339
-modified: 20211014115359290
+modified: 20260516160000000
 tags: Advanced docs
 title: Customize an HTML Element
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open  _mode=block _debug=text
 
 \custom tick="s" _element="summary" _classes=".margin-init"
 
+''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. Tick (`´`) lives in Vocab/Legacy-Glyphs in v1.0, activated by this tiddler's type field. See [[Migration to V1.0]].
 
 ! Details Html Element
 

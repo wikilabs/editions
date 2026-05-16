@@ -1,14 +1,16 @@
 created: 20200915132600098
-modified: 20200917132128465
+modified: 20260516160000000
 tags: Advanced docs
 title: Introducing Custom Markers for Advanced Users
 type: text/vnd.tiddlywiki
 
-\custom angle=myBox _classes=".indent.right-dedent.justify.cbox.cbox-primary" 
+\custom angle=myBox _classes=".indent.right-dedent.justify.cbox.cbox-primary"
 
 \custom angle=success _classes=".indent.right-dedent.justify.cbox.cbox-success" _debug
 
 \custom angle=warning _classes=".indent.right-dedent.justify.cbox.cbox-warning" _debug
+
+''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. See [[Migration to V1.0]] for breaking changes.
 
 ! Increase the level of abstraction
 
