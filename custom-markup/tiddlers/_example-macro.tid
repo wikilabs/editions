@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 \custom degree="example" _element="$macrocall" $name=".example" _srcName="eg" _mode=block _params="n" _endString="---"
 
 \custom degree="clip" _element="$macrocall" $name=".clip" _srcName="code" _mode=block _endString="---"
-\custom degree="clip-1" _element="$macrocall" $name=".clip" _srcName="code" _mode=block 
+\custom degree="clip-1" _element="$macrocall" $name=".clip" _srcName="code" _mode=inline
 
 \define .state-prefix() $:/state/custom-markup/
 

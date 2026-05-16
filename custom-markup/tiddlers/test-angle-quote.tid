@@ -2,7 +2,7 @@ created: 20200906114326359
 modified: 20200910210908371
 tags: 
 title: test-angle-quote
-type: text/vnd.tiddlywiki
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 \custom tick="d" _element="details" _classes=".notop.c.cl.hl" open  _mode=block _endString="---"
 
