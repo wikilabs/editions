@@ -1,0 +1,10 @@
+title: vocab/presentation/ANIMATE-TO
+tags: $:/tags/CustomMarkup/Marker [[Vocab/Presentation]]
+caption: Animate to
+open: ANIMATE TO:
+kind: word
+mode: block
+element: $slide
+classes: .wltc-slide
+attributes: {"autoAnimate":"true"}
+description: Auto-animated slide. Use consecutive ANIMATE TO: blocks to step through bullet states.

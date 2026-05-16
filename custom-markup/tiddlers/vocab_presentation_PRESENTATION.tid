@@ -1,0 +1,10 @@
+title: vocab/presentation/PRESENTATION
+tags: $:/tags/CustomMarkup/Marker [[Vocab/Presentation]]
+caption: Presentation
+open: PRESENTATION
+kind: word
+mode: block
+element: $presentation
+end-string: FADE OUT.
+classes: .wltc-presentation
+description: Opens a Reveal.js deck. Slides go between PRESENTATION and FADE OUT.; each is introduced by CUT TO:, ANIMATE TO:, or FADE IN:.

@@ -1,0 +1,8 @@
+caption: Presentation
+created: 20260516021339785
+description: Fountain-flavoured DSL for Reveal.js slide decks. Opt in via type=`text/vnd.tiddlywiki;vocab=Presentation` or `\importcustom [tag[Vocab/Presentation]]`. Markers: PRESENTATION (open), CUT TO: / ANIMATE TO: / FADE IN: (slide starters), FADE OUT. (close).
+marker-tag: Vocab/Presentation
+modified: 20260516021339785
+tags: $:/tags/CustomMarkup/Vocabulary
+title: $:/vocab/presentation
+version: 0.1.0
