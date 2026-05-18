@@ -16,7 +16,7 @@ Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every mark
 |`close` |inline-pair |The literal closing characters. |
 |`mode` |no |`block` (default for non-inline-pair) or `inline`. |
 |`element` |no |HTML element name or `$widget` reference. |
-|`paragraph-marker` |no |`yes` if this marker has paragraph semantics (blank-line terminator without `end-string`, paragraph-safe inline body). `no` to opt out. When unset, the parser falls back to checking `element === p`. |
+|`paragraph-marker` |no |`yes` if this marker has paragraph semantics (blank-line terminator without `end-string`, paragraph-safe inline body). Required to get paragraph behavior on any wrapper element, including `p`. |
 |`end-string` |no |Custom terminator. Without it, paragraph markers terminate at a blank line; non-paragraph block markers at a single newline; inline at a newline. |
 |`classes` |no |Dot-prefixed CSS class chain, e.g. `.wltc-degree`. |
 |`attributes` |no |JSON object of extra HTML attributes. |
