@@ -1,8 +1,9 @@
 created: 20201030140531147
-modified: 20201030151531079
+modified: 20260518131512454
 tags: 
 title: test-table-text-alignment
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+used-by: [[docs for multi-line table definition]]
 
 \custom tick=table _element=table _endString="/endTable" _mode=block 
 \custom tick=caption _element=caption
@@ -16,7 +17,7 @@ type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 \custom angle=cmulti _element=td _classes=".hl" _mode=block _classes="hl"
 \custom angle=| _use=cmulti
 
-! Table Text Alignment
+!! Table Text Alignment
 
 ´table ´caption Table text alignment
 »===row

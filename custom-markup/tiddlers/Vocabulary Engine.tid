@@ -1,5 +1,5 @@
 created: 20260516050000000
-modified: 20260518075147449
+modified: 20260518143000000
 tags: Reference docs
 title: Vocabulary Engine
 type: text/vnd.tiddlywiki
@@ -21,7 +21,8 @@ Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every mark
 |`attributes` |no |JSON object of extra HTML attributes. |
 |`allow-symbol` |glyph |Default `yes`. Set to `no` to lock the prose-safe form (e.g. the `.` marker). |
 |`legacy-kind` |no |Friendly name (`tick`, `degree`, ...) so the v0.x `\custom <kind>=<symbol>` pragma still resolves. |
-|`order` |no |Sort hint for editor-toolbar dropdowns. |
+|`marker-icon` |no |Title of the icon tiddler the editor toolbar writes to its active-glyph config when this marker is selected. Points at a `$:/plugins/wikilabs/custom-markup/icons/glyphs/...` or `.../inline/...` tiddler. |
+|`order` |no |Sort hint for editor-toolbar dropdowns. Higher number sorts earlier within the active set; unset markers fall back to caption order. |
 
 !! Activating a vocabulary
 
@@ -49,6 +50,14 @@ The `cm-active-markers` filter operator returns marker titles active for a given
 ```
 
 Empty source falls back to Vocab/Default so a dropdown without an edit context still renders a usable list.
+
+!! Summary views (ViewTemplate)
+
+Opening a marker tiddler, a vocabulary tiddler, or a marker-tag tiddler shows a summary instead of an empty body. The ViewTemplate cascade entry `$:/plugins/wikilabs/custom-markup/ViewTemplateBodyFilters` (tagged <<tag $:/tags/ViewTemplateBodyFilter>>, `list-before: $:/config/ViewTemplateBodyFilters/default`) routes:
+
+* tag <<tag $:/tags/CustomMarkup/Marker>> on the tiddler being viewed: per-marker fields summary.
+* the tiddler title itself is a marker-tag (e.g. `Vocab/Default`): catalog of every marker carrying that tag.
+* tag <<tag $:/tags/CustomMarkup/Vocabulary>>: caption, description, marker-tag, version, plus the marker listing.
 
 !! Related
 

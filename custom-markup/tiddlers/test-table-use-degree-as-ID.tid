@@ -1,8 +1,9 @@
 created: 20200908103842958
-modified: 20200908145723272
+modified: 20260518131010501
 tags: 
 title: test-table-use-degree-as-ID
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+used-by: [[docs for multi-line table definition]]
 
 \custom degree=table _element=table _endString="---" _mode=block
 \custom degree=caption _element=caption

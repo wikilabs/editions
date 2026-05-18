@@ -1,7 +1,7 @@
 created: 20210216125412478
-modified: 20210916151402722
-tags: 
-title: test-_new_-params-with-spaces
+modified: 20260518131003982
+tags: Advanced docs
+title: Example - _params with spaces
 type: text/vnd.tiddlywiki
 
 \custom degree=blockquote _element="$macrocall" $name="test" _mode=block _endString="---" _params="""citeText="external link" url="https://example.com" """

@@ -1,8 +1,9 @@
 created: 20200906091431254
-modified: 20200918142847405
+modified: 20260518131009483
 tags: 
 title: test-table-tick-final
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+used-by: [[docs for multi-line table definition]]
 
 \custom tick=table     _element=table _mode=block _endString="------" 
 \custom tick=caption _element=caption

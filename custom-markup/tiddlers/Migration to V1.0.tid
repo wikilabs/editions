@@ -1,5 +1,5 @@
 created: 20260516050000000
-modified: 20260516050000000
+modified: 20260518143000000
 tags: docs
 title: Migration to V1.0
 type: text/vnd.tiddlywiki
@@ -52,7 +52,9 @@ The legacy pragma path bridges through each marker's `legacy-kind` field. `\cust
 
 !! Editor toolbar dropdowns
 
-From v1.0.0-beta-2, the prefix and inline-glyph dropdowns filter their radios by the active vocabulary for the tiddler being edited. New vocabularies appear automatically in the dropdown without code changes.
+From v1.0.0-beta-2, the prefix and inline-glyph dropdowns filter their options by the active vocabulary for the tiddler being edited. New vocabularies appear automatically in the dropdown without code changes.
+
+From v1.0.0-beta-13, the dropdown is a native `<$select>` widget. Selecting an option writes the chosen marker's `marker-icon` field into `$:/config/wikilabs/custom-markup/icons/glyphs/active` (block) or `.../icons/inline/active` (inline). The `add-glyph` and `remove-glyph` toolbar buttons are enabled only for markers with `max-level > 1`; `toggle-glyph` is enabled for any marker that is not `kind: inline-pair`.
 
 !! Related
 

@@ -1,8 +1,9 @@
 created: 20200908145256155
-modified: 20200916112811575
+modified: 20260518131011542
 tags: 
 title: test-table-use-single-as-ID
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+used-by: [[docs for multi-line table definition]]
 
 \custom single=table _element=table _endString="---" _mode=block
 \custom single=caption _element=caption

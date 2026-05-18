@@ -1,8 +1,9 @@
 created: 20201030150517714
-modified: 20201108185850917
+modified: 20260518131436953
 tags: 
 title: test-table-vertical-alignment-debug
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+used-by: [[docs for multi-line table definition]]
 
 \custom tick=table _element=table _endString="/endTable" _mode=block 
 \custom tick=caption _element=caption
@@ -22,7 +23,7 @@ type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 \custom angle=cmulti _element=td _classes=".hl" _mode=block _classes="hl"
 \custom angle=| _use=cmulti
 
-! Table Vertical Alignment
+!! Table Vertical Alignment
 
 ´table ´caption Vertical alignment classes
 »===row

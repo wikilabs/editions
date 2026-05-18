@@ -1,8 +1,9 @@
 created: 20200906133708774
-modified: 20211012174708816
+modified: 20260518131007493
 tags: 
 title: test-table-multiline-cells
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+used-by: [[docs for multi-line table definition]]
 
 \custom tick=table _element=table _endString="---" _mode=block
 \custom tick=caption _element=caption

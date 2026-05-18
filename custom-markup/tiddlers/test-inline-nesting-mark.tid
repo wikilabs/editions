@@ -1,8 +1,9 @@
 created: 20210218182838356
-modified: 20210218182927365
+modified: 20260518131004926
 tags: 
 title: test-inline-nesting-mark
 type: text/vnd.tiddlywiki
+used-by: [[cm-smoke - inline-pair self-nesting]]
 
 <!-- HTML MARK: 3 color variants -->
 \custom slash=My _element=mark _classes="b-y"

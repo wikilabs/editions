@@ -1,5 +1,5 @@
 created: 20200908152739520
-modified: 20260516160000000
+modified: 20260518131527054
 tags: Reference docs
 title: Custom Markup Definition
 type: text/vnd.tiddlywiki
@@ -10,7 +10,7 @@ type: text/vnd.tiddlywiki
 
 ''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. See [[Migration to V1.0]] for breaking changes.
 
-! Pragma Example
+!! Pragma Example
 
 »example ---
 
@@ -32,7 +32,7 @@ type: text/vnd.tiddlywiki
 ; Important:
 : All pragma parameters are prefixed with an ''underscore `_`'' character. This way we avoid naming conflicts with the TW core. TW core uses a `$` prefix for special parameters for some widgets. 
 
-: If parameters are not listed here they will be sent 1:1 to widgets as "default" parameters. eg: The `open` parameter in [[test-details-open]]
+: If parameters are not listed here they will be sent 1:1 to widgets as "default" parameters. eg: The `open` parameter in [[Example - HTML details element]]
 
 ---
 
@@ -77,7 +77,7 @@ type: text/vnd.tiddlywiki
 : ''Important'': 
 :* No spaces are allowed, between classes and params
 :* `°.a.b:"c c":"d d"` _classes have to be used before _params. Mixing is ''not possible!''
-:* Example: [[test-_new_-params-with-spaces]]
+:* Example: [[Example - _params with spaces]]
 
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`

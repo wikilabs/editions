@@ -1,5 +1,5 @@
 created: 20200915152147177
-modified: 20201004154343083
+modified: 20260518131539173
 tags: Debugging docs
 title: debugcustom pragma
 type: text/vnd.tiddlywiki
@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 \custom tick="d" _element="details" _classes=".notop.c.cl.hl" _endString="------" open  _mode=block
 \custom tick="s" _element="summary" _classes=".-m"
 
-! Debugging Pragmas
+!! Debugging Pragmas
 
 It's possible to show the internal variables, that are used to store pragma definitions. It will only show the definitions. NO content will be rendered.
 
@@ -44,8 +44,14 @@ Default is ''all''
 : eg: `\debugcustom global list`
 
 ; global `<ID>`
-: Only lists this globally defined ID. 
+: Only lists this globally defined ID.
 :eg: `\debugcustom global tick`
+
+; `<open>` (v1.0.0-beta-14)
+: Looks up any marker by its `open` literal: a single glyph, a word marker, or a multi-token word marker.
+: eg: `\debugcustom .`, `\debugcustom »`, `\debugcustom PRESENTATION`, `\debugcustom global CUT TO:`
+
+''v1.0.0-beta-14:'' `\debugcustom list` and `\debugcustom global list` now print two sub-sections: ''legacy kinds'' (the v0.x-style buckets that have bridged symbols) and ''markers'' (every v1 marker tiddler the parser knows about, with its kind, legacy-kind if any, and symbol count). `\debugcustom all` and `\debugcustom global` dump the marker registry alongside the legacy config map.
 
 ---
 

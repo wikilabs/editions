@@ -1,12 +1,14 @@
 created: 20200915111228377
-modified: 20260516160000000
+modified: 20260518131417094
 tags: Reference docs
 title: Editor Toolbar Buttons
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 ''V1.0:'' Block and inline dropdowns now iterate marker tiddlers tagged `$:/tags/CustomMarkup/Marker` and filter by the active vocabulary for the tiddler being edited. New vocabularies appear in the menu without a code change. See [[Vocabulary Engine]] and [[Migration to V1.0]].
 
-! New Toolbar Buttons
+''v1.0.0-beta-13:'' The block and inline dropdowns are native `<$select>` widgets. Selecting an option writes the chosen marker's `marker-icon` field into `$:/config/wikilabs/custom-markup/icons/glyphs/active` (block) or `.../icons/inline/active` (inline). The `add-glyph` and `remove-glyph` buttons enable only for markers with `max-level > 1` (e.g. `»` and `›`); `toggle-glyph` enables for any marker that is not `kind: inline-pair`.
+
+!! New Toolbar Buttons
 
 <$list filter="[all[shadows+tiddlers]tag[$:/tags/EditorToolbar]prefix[$:/plugins/wikilabs]]">
 
@@ -14,11 +16,11 @@ type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 </$list>
 
-! New Toolbar Icons
+!! New Toolbar Icons
 
 <<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/custom-markup/icons]]">>
 
-! Marker tiddlers powering the dropdowns
+!! Marker tiddlers powering the dropdowns
 
 <$list filter="[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Marker]sort[caption]]">
 
