@@ -1,5 +1,6 @@
+code-body: yes
 created: 20211010134726116
-modified: 20211014132652178
+modified: 20260518124815524
 tags: $:/tags/Macro $:/tags/Pragma
 title: .example-macro
 type: text/vnd.tiddlywiki
@@ -24,7 +25,7 @@ type: text/vnd.tiddlywiki
 	<$button class="indent" set=<<.state>> setTo=""><<__btn-txt-2__>></$button>
 	<blockquote class="doc-example-result">
 
-      <<__eg__>>
+    	<<__eg__>>
 
 	</blockquote>
 </$reveal>
@@ -37,5 +38,3 @@ type: text/vnd.tiddlywiki
 	<$macrocall $name="copy-to-clipboard-above-right" src=<<__code__>>/>
 	<pre><code><$text text=<<__code__>>/></code></pre>
 \end
-
-<pre><code><$view /></code></pre>
