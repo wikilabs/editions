@@ -1,5 +1,5 @@
 created: 20201004150950125
-modified: 20260518153000000
+modified: 20260518233305493
 tags: docs Advanced
 title: Global Pragma Definitions
 type: text/vnd.tiddlywiki
@@ -43,6 +43,10 @@ Tiddlers tagged this way are evaluated in TW core's [[$:/core/ui/PageTemplate]].
 !!! Tag - <<tag "$:/tags/Pragma">>
 
 The tag <<tag "$:/tags/Pragma">> is defined by the custom-markup plugin. The sort order of tiddlers tagged this way decides who wins on key collisions: ''the last definition wins.''
+
+!! Cache invalidation
+
+The plugin caches the parsed output of [[$:/config/custom-markup/pragma/PageTemplate]] per wiki. The cache is invalidated when ''PageTemplate itself'' changes. Editing a `\custom` pragma inside a `$:/tags/Pragma`-tagged tiddler does ''not'' invalidate the cache. Workaround until you reload: open PageTemplate and save it (no edit needed) to force a re-parse.
 
 !! When to use which
 

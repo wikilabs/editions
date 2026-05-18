@@ -23,7 +23,7 @@ Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every mark
 |`allow-symbol` |glyph |Default `yes`. Set to `no` to lock the prose-safe form (e.g. the `.` marker). |
 |`legacy-kind` |no |Friendly name (`tick`, `degree`, ...) so the v0.x `\custom <kind>=<symbol>` pragma still resolves. |
 |`marker-icon` |no |Title of the icon tiddler the editor toolbar writes to its active-glyph config when this marker is selected. Points at a `$:/plugins/wikilabs/custom-markup/icons/glyphs/...` or `.../inline/...` tiddler. |
-|`order` |no |Sort hint for editor-toolbar dropdowns. Higher number sorts earlier within the active set; unset markers fall back to caption order. |
+|`order` |no |Sort hint for editor-toolbar dropdowns. ''Higher'' number sorts earlier (more prominent); unset markers fall back to caption order. Vocab/Default uses `ANGLE=4`, `SINGLE=3`, `DOT=2`, `DEGREE=1`. |
 
 !! Activating a vocabulary
 

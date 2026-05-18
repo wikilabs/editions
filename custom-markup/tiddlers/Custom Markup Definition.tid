@@ -52,6 +52,7 @@ type: text/vnd.tiddlywiki
 
 ; _endString
 : Can be used to define a custom "end string" eg: `--xx--`.<br/>By default:<br/>`tick (´), single (›), degree (°)` use `\n` and<br/>`angle (»), approx (≈), pilcrow (¶)` use `\n\n`
+: ''Supported escapes:'' `\n`, `\r`, `\t`, `\\`, `\'`, `\"`. Unicode escapes (`¶` etc.) are ''not'' unescaped. Type the literal character if you need a rare terminator.
 
 ; _mode
 : Can be ''block'' or ''inline''. Inline is the default value, if the parameter is missing.
