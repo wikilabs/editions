@@ -1,12 +1,12 @@
 created: 20260516050000000
-modified: 20260516155310754
+modified: 20260518075147449
 tags: Reference docs
 title: Vocabulary Engine
 type: text/vnd.tiddlywiki
 
 !! Markers, vocabularies, activation
 
-Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged `$:/tags/CustomMarkup/Marker`. Markers group into vocabularies via a `Vocab/<Name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> that names the marker-tag and supplies a caption.
+Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged <<tag $:/tags/CustomMarkup/Marker>>. Markers group into vocabularies via a `Vocab/<Name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> that names the marker-tag and supplies a caption.
 
 !! Marker fields
 
