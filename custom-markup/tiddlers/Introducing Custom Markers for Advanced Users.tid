@@ -1,53 +1,72 @@
 created: 20200915132600098
-modified: 20260516160000000
+modified: 20260518153000000
 tags: Advanced docs
 title: Introducing Custom Markers for Advanced Users
 type: text/vnd.tiddlywiki
 
-\custom angle=myBox _classes=".indent.right-dedent.justify.cbox.cbox-primary"
+Custom-markup lets you raise the level of abstraction. Instead of repeating a long class chain like `».indent.right-dedent.justify.cbox.cbox-primary` on every paragraph, give that combination a name and use the name everywhere.
 
-\custom angle=success _classes=".indent.right-dedent.justify.cbox.cbox-success" _debug
+In v1.0 there are two ways to give a class chain a name: a ''marker tiddler'' (canonical, wiki-wide) or an inline ''pragma'' (escape hatch, scoped to one tiddler).
 
-\custom angle=warning _classes=".indent.right-dedent.justify.cbox.cbox-warning" _debug
+!! Without abstraction
 
-''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. See [[Migration to V1.0]] for breaking changes.
-
-! Increase the level of abstraction
-
-The tiddler: [[Basics for advanced users]] shows an example, that contains a very long string to define a "custom" color box for a paragraph. 
-
-`».indent.right-dedent.justify.cbox.cbox-primary Some text comes here...."`
-
-Strings like these are hard to remember and error prone to type. So there is a possibility to simplify the "writers experience"
-
-! Custom pragmas for the help
-
-You should be familiar with the [[TW pragma|https://tiddlywiki.com/#Pragma]] concept. 
-
-Pragmas are used to define eg: macros and rules. They can only be defined at the start of a tiddler text, like macros. 
-
-To make the above example easier to use we will need the following pragma
+This works but is long, error-prone, and obscures the prose:
 
 ```
-\custom angle=myBox _classes=".indent.right-dedent.justify.cbox.cbox-primary"
+».indent.right-dedent.justify.cbox.cbox-primary Some primary box text.
+».indent.right-dedent.justify.cbox.cbox-success Some success box text.
+».indent.right-dedent.justify.cbox.cbox-warning Some warning box text.
 ```
 
-''Then we can use the above example like so:''
+See [[Basics for advanced users]] for the underlying class chain.
+
+!! Option 1: marker tiddlers (canonical, vocabulary-engine)
+
+Define one marker tiddler per named style, tagged <<tag $:/tags/CustomMarkup/Marker>>:
+
+|! Field |! `PRIMARY` marker |! `SUCCESS` marker |! `WARNING` marker |
+|`open` |`PRIMARY` |`SUCCESS` |`WARNING` |
+|`kind` |`word` |`word` |`word` |
+|`mode` |`block` |`block` |`block` |
+|`element` |`p` |`p` |`p` |
+|`classes` |`.indent.right-dedent.justify.cbox.cbox-primary` |`.indent.right-dedent.justify.cbox.cbox-success` |`.indent.right-dedent.justify.cbox.cbox-warning` |
+
+Group them under a vocabulary tag (e.g. `Vocab/Color-Boxes`) and add a meta tiddler `$:/vocab/color-boxes` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Color-Boxes`.
+
+Activate where needed:
 
 ```
-»myBox The new "custom marker" is `»myBox` now. Be aware, that there is _no_ dot between the quote and the symbol name. `myBox` is called the ''symbol name'' ...
+type: text/vnd.tiddlywiki;vocab=Default,Color-Boxes
 ```
 
-»myBox The new "custom marker" is `»myBox` now. Be aware, that there is _no_ dot between the quote and the symbol name. `myBox` is called the ''symbol name''
-<hr>
-Ullum labore sensibus no vix. Id pro solum molestiae, ea mea omittam postulant eseruisse, sonet putent propriae et pri.
+Then write the prose plainly:
 
-''This mechanism allows us to define several different `symbol` names with different customizations.'' 
+```
+PRIMARY Some primary box text.
 
-»success  This box is defined using: `»success` at the start of the line.
+SUCCESS Some success box text.
 
-»warning  This box is defined using: `»warning` at the start of the line. --- Again: Be aware, that there is no "dot" between the bracket and the symbol.
+WARNING Some warning box text.
+```
 
-!! All possible parameters
+The blank line between each block is the default block terminator.
 
-.. can be found at: [[Custom Markup Definition]]
+!! Option 2: inline pragma (escape hatch)
+
+If you only need the abstraction in a single tiddler, the legacy `\custom` pragma binds a name to a class chain right at the top of the text:
+
+```
+\custom angle=primary _classes=".indent.right-dedent.justify.cbox.cbox-primary"
+\custom angle=success _classes=".indent.right-dedent.justify.cbox.cbox-success"
+\custom angle=warning _classes=".indent.right-dedent.justify.cbox.cbox-warning"
+
+»primary Some primary box text.
+»success Some success box text.
+»warning Some warning box text.
+```
+
+The pragma form only affects the current tiddler. The marker-tiddler form makes the abstraction available wiki-wide, opt-in per type field.
+
+A worked example lives at [[Example - Color-box word markers]].
+
+See [[Custom Markup Definition]] for the full pragma parameter list and [[Vocabulary Engine]] for the marker-field schema. Pre-built reusable pragmas live in [[Import Predefined Pragmas]].

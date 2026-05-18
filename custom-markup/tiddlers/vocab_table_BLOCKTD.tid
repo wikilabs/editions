@@ -1,0 +1,11 @@
+caption: Block-Td
+created: 20260518181022872
+description: Wraps a block of content in a <td>. Terminated by `||`. Use for multi-paragraph data cells where blank lines need to fit inside.
+element: td
+end-string: ||
+kind: word
+mode: block
+modified: 20260518181259056
+open: BLOCKTD
+tags: $:/tags/CustomMarkup/Marker Vocab/Table
+title: vocab/table/BLOCKTD

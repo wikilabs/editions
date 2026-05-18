@@ -1,0 +1,11 @@
+caption: Primary
+classes: .indent.right-dedent.justify.cbox.cbox-primary
+created: 20260518180949853
+description: Wraps a paragraph in the primary colour box style.
+element: p
+kind: word
+mode: block
+modified: 20260518180949853
+open: PRIMARY
+tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
+title: vocab/color-boxes/PRIMARY

@@ -1,0 +1,11 @@
+caption: Summary
+classes: .margin-init
+created: 20260518180729992
+description: Wraps inline content in a <summary> element. Used inside a DETAILS block. Terminates at end of line.
+element: summary
+kind: word
+mode: inline
+modified: 20260518180729992
+open: SUMMARY
+tags: $:/tags/CustomMarkup/Marker Vocab/Html-Elements
+title: vocab/html-elements/SUMMARY

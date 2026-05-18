@@ -1,0 +1,11 @@
+caption: Block-Th
+created: 20260518181020924
+description: Wraps a block of content in a <th>. Terminated by `||`. Use for multi-paragraph header cells where blank lines need to fit inside.
+element: th
+end-string: ||
+kind: word
+mode: block
+modified: 20260518181258074
+open: BLOCKTH
+tags: $:/tags/CustomMarkup/Marker Vocab/Table
+title: vocab/table/BLOCKTH

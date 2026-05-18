@@ -37,7 +37,7 @@ Vocab/Default is always active. With no `;vocab=` parameter, only Default marker
 
 * ''Vocab/Default'' (plugin): `°` `.` `»` `›` (block) and `/° °/`, `❮ ❯`, `⠒ ⠶` (inline-pair).
 * ''Vocab/Legacy-Glyphs'' (plugin, opt-in): restores `´` `≈` `¶` removed from Default in v1.0.0-beta-1.
-* ''Vocab/Presentation'' (editions): Fountain-flavoured Reveal.js DSL with `PRESENTATION`, `CUT TO:`, `ANIMATE TO:`, `FADE IN:`, terminator `FADE OUT.`.
+* ''Vocab/Presentation'' (editions): Fountain-flavoured Reveal.js DSL with `PRESENTATION`, `CUT TO:`, `ANIMATE TO:`, `FADE IN:`, terminator `FADE OUT.`. Worked example: [[Example - revealjs presentation (Vocab/Presentation)]].
 
 !! Listing active markers
 

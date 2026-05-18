@@ -1,41 +1,52 @@
 created: 20201004150950125
-modified: 20260516160000000
+modified: 20260518153000000
 tags: docs Advanced
 title: Global Pragma Definitions
 type: text/vnd.tiddlywiki
 
-''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. See [[Migration to V1.0]] for breaking changes.
+Both customisation styles (marker tiddlers and `\custom` pragmas) have a wiki-wide form. With the vocabulary engine in v1.0, the wiki-wide path is just "a vocabulary you activate". The pre-v1 global-pragma mechanism is preserved as an escape hatch.
 
-! Global Pragma Definitions
+!! Option 1: vocabularies (canonical, wiki-wide markers)
 
-!! Important
+A marker tiddler tagged with a vocabulary tag (e.g. `Vocab/Default`, `Vocab/Color-Boxes`) plus a vocabulary meta tiddler is automatically wiki-wide. Any tiddler that activates the vocabulary via its type field gets the markers:
 
-''If you have macros in your pragma tiddler tagged: `$:/tags/Pragma` you also _have to_ tag this tiddler with `$:/tags/Macro`.'' Otherwise the macros won't be global!
+```
+type: text/vnd.tiddlywiki;vocab=Default,Color-Boxes
+```
 
-!! Overview 
+No `\importcustom`, no PageTemplate edit. See [[Vocabulary Engine]] for the field schema.
 
-The "custom-markup" plugin contains a system configuration tiddler named: $:/config/custom-markup/pragma/PageTemplate
+!! Option 2: global pragmas (escape hatch, pragma-based)
 
-This tiddler is tagged: <<tag $:/tags/Macro>>-
-It contains the following text:
+If you prefer to express your wiki-wide rules as `\custom` pragmas instead of marker tiddlers, the plugin keeps a system tiddler that's loaded into every parser as a pragma source:
 
-».cl <$view tiddler="$:/config/custom-markup/pragma/PageTemplate" />
+''$:/config/custom-markup/pragma/PageTemplate''
 
-`\importcustom [tag[$:/tags/Pragma]]` makes sure, that the [[global pragma config tiddler|$:/config/custom-markup/pragma/PageTemplate]] contains every pragma defined with the tag `$:/tags/Pragma`
+This tiddler is tagged <<tag $:/tags/Macro>>. It contains:
 
-!! Special Tags
+```
+\importcustom [tag[$:/tags/Pragma]]
+```
 
-!!! Tag - ~$:/tags/Macro
+That means: every tiddler tagged <<tag $:/tags/Pragma>> has its `\custom` pragmas imported into every parser. Define one tiddler per topic, tag it `$:/tags/Pragma`, and its pragmas become wiki-wide.
 
-All tiddlers tagged that way are evaluated in the core [[$:/core/ui/PageTemplate]].  This gurantees, that pragmas ''and'' macros defined in the [[config tiddler|$:/config/custom-markup/pragma/PageTemplate]] are always available
+''Important.'' If your pragma tiddler also defines `\procedure` or `\define` macros, you ''have to'' tag it with both <<tag $:/tags/Pragma>> and <<tag $:/tags/Macro>>. Otherwise the macros are not visible at render time.
 
-!!! Tag - ~$:/tags/Pragma
-
-The tag: <<tag "$:/tags/Pragma">> is defined by the custom-markup plugin. 
+!!! Existing global pragma tiddlers
 
 <<list-links "[tag[$:/tags/Pragma]]">>
 
-''Important''
+!!! Tag - <<tag "$:/tags/Macro">>
 
-The sort order of the tiddlers tagged: `$:/tags/Pragma` can be used to define, which definition will win, if there are conflicts.  
-''The last definition wins!''
+Tiddlers tagged this way are evaluated in TW core's [[$:/core/ui/PageTemplate]]. This is what makes pragmas defined in [[$:/config/custom-markup/pragma/PageTemplate]] available everywhere.
+
+!!! Tag - <<tag "$:/tags/Pragma">>
+
+The tag <<tag "$:/tags/Pragma">> is defined by the custom-markup plugin. The sort order of tiddlers tagged this way decides who wins on key collisions: ''the last definition wins.''
+
+!! When to use which
+
+* Vocabulary: structured, schema-driven, easy to opt in per tiddler. Best for new code.
+* Global pragma: useful when you want to keep a body of v0.x-style `\custom` definitions wiki-wide without converting them to marker tiddlers. Also useful when the customization is tied to a TW macro defined in the same tiddler.
+
+See [[Pragma - importcustom]] for the `\importcustom` pragma itself.

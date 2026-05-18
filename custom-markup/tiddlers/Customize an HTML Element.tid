@@ -1,71 +1,73 @@
 created: 20200917105803339
-modified: 20260516160000000
+modified: 20260518153000000
 tags: Advanced docs
 title: Customize an HTML Element
-type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+type: text/vnd.tiddlywiki
 
-\custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open  _mode=block _debug=text
+There is no wikitext rule in TiddlyWiki core to produce an HTML `<details>` block, so this is a good showcase for custom-markup. With v1.0 there are two ways to do it: a ''marker tiddler'' (canonical) or an inline ''pragma'' (escape hatch).
 
-\custom tick="s" _element="summary" _classes=".margin-init"
-
-''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. Tick (`´`) lives in Vocab/Legacy-Glyphs in v1.0, activated by this tiddler's type field. See [[Migration to V1.0]].
-
-! Details Html Element
-
-At the moment there is no wikitext rule, in the ~TiddlyWiki core, to create an element like this, so we can customize one. 
-
-!! The DETAILS element looks like this: 
+!! What the output should look like
 
 ```
-<details class="xxx">
-    <summary class="yyy">Details</summary>
-    Something small enough to escape casual notice.
+<details class="notop cbox cbox-primary hard-linebreaks" open>
+	<summary class="margin-init">Details - Summary</summary>
+	line 1
+	line 2
 </details>
 ```
 
-You need to use HTML syntax in wikitext or you need to create a macro with several parameters, that need to cover the whole text. Similar to:
+The classes `notop`, `cbox`, `cbox-primary`, `hard-linebreaks` and `margin-init` come from this edition's stylesheet.
+
+!! Option 1: marker tiddlers (canonical, vocabulary-engine)
+
+Add two marker tiddlers tagged <<tag $:/tags/CustomMarkup/Marker>>:
+
+|! Field |! `DETAILS` marker |! `SUMMARY` marker |
+|`open` |`DETAILS` |`SUMMARY` |
+|`kind` |`word` |`word` |
+|`mode` |`block` |`block` |
+|`element` |`details` |`summary` |
+|`classes` |`.notop.cbox.cbox-primary.hard-linebreaks` |`.margin-init` |
+|`end-string` |`------` |(default end-of-line) |
+|`attributes` |`{"open":""}` |(none) |
+
+Group them into a vocabulary by tagging both with `Vocab/Html-Elements`, then add a meta tiddler `$:/vocab/html-elements` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Html-Elements` and a `caption: Html-Elements`.
+
+Activate the vocabulary on any tiddler that needs it:
 
 ```
-<<details summary:"Details" status:"open" class:"xxx" src:"""
-Your text comes here
-""" >>
+type: text/vnd.tiddlywiki;vocab=Default,Html-Elements
 ```
 
-As you can see, it's almost the same amount to type and the "plain text" readability is similarly "bad!"
-
-With custom markup, it should be possible to improve the "plain text" readability, while still having the same output.
-
-!! The Pragma Definitions
+Use the markers like any other word marker:
 
 ```
-\custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" _mode=block open  
-
-\custom tick="s" _element="summary" _classes=".margin-init"
-```
-
-!! Usage and Rendered
-
-´d ´s Details - Summay
+DETAILS SUMMARY Details - Summary
 ---
 line 1
 line 2
 ------
-
-!!! The HTML Code
-
-```
-<details class="notop c cl hl wltc-l1" open="">
-  <summary class="-m wltc-l1 wltc">Details - Summay</summary>
-  <hr>
-  <p>
-    line 1<br>line 2<br>adsf
-  </p>
-</details>
 ```
 
-! Conclusion
+`------` terminates the `DETAILS` block; `SUMMARY` consumes the rest of its line by default.
 
-You may say: OK ... but typing the pragma is the same amount of work. 
+A worked example lives at [[Example - DETAILS word marker]].
 
-I'll say: You only have to write it once and use it several times. So there is an advantage to write less if you want to use it. AND  
-Have a closer look at: [[Import Predefined Pragmas]]
+!! Option 2: inline pragma (escape hatch)
+
+For a one-off, the legacy `\custom` pragma still works. Add `;vocab=Default,Legacy-Glyphs` to the type field so the tick marker is active, then:
+
+```
+\custom tick="d" _element="details" _classes=".notop.cbox.cbox-primary.hard-linebreaks" _endString="------" open _mode=block
+\custom tick="s" _element="summary" _classes=".margin-init"
+
+´d ´s Details - Summary
+---
+line 1
+line 2
+------
+```
+
+The pragma form binds the configuration to the current tiddler only. The marker-tiddler form is wiki-wide once the vocabulary is active.
+
+See [[Vocabulary Engine]] for the full marker-field schema and [[Migration to V1.0]] for the v0.x to v1.0 transition.

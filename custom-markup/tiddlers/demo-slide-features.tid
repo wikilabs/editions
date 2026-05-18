@@ -1,0 +1,11 @@
+color: lightyellow
+created: 20260518200632062
+modified: 20260518203000000
+tags: demo-slide
+title: demo-slide-features
+
+Why this is useful
+
+* Edit slides as ordinary tiddlers
+* Reorder by tag or by `sort` filter
+* Background colour lives on the tiddler's `color` field

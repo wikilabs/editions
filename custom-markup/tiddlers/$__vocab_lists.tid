@@ -1,0 +1,8 @@
+caption: Lists
+created: 20260518180959870
+description: A catalogue of named list views. LIST wraps content in a <ul>; the inline $list-widget markers (SHORTCUTS, MARKERS, VOCABS) each bake a useful filter so the same view can be reused across tiddlers. Add more markers per use case (e.g. RECENT-EDITS, TASKS). Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Lists`.
+marker-tag: Vocab/Lists
+modified: 20260518182849049
+tags: $:/tags/CustomMarkup/Vocabulary
+title: $:/vocab/lists
+version: 0.1.0

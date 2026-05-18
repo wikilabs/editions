@@ -1,44 +1,96 @@
 created: 20200918141625063
-modified: 20260516163402198
+modified: 20260518153000000
 tags: Advanced docs
 title: Customize a Table with Multiline Content
+type: text/vnd.tiddlywiki
+
+Building on [[Customize a Table]]: if your cells contain a paragraph (or multiple paragraphs) instead of a single line, the cell markers need `mode: block` and the row/table terminators need to be distinct so they nest cleanly.
+
+!! The nesting problem
+
+`TH`/`TD` markers in inline mode terminate at end-of-line, which is fine for one-line cells. For multi-line content you need ''block''-mode cell markers that terminate at the row terminator, while the row marker terminates at the table terminator. Three nesting levels need three distinct terminators.
+
+!! Option 1: marker tiddlers (canonical, vocabulary-engine)
+
+Re-use TABLE / ROW / CAPTION from [[Customize a Table]], and add two block-mode cell markers in the same `Vocab/Table` vocabulary:
+
+|! Marker |! `open` |! `kind` |! `mode` |! `element` |! `end-string` |
+|TABLE |`TABLE` |`word` |`block` |`table` |`---` |
+|CAPTION |`CAPTION` |`word` |`inline` |`caption` | |
+|ROW |`ROW` |`word` |`block` |`tr` |`--` |
+|BLOCKTH |`BLOCKTH` |`word` |`block` |`th` |`||` |
+|BLOCKTD |`BLOCKTD` |`word` |`block` |`td` |`||` |
+
+The terminator pyramid is `---` for the table > `--` for rows > `||` for block cells. The block-cell terminator must be non-blank so blank lines can appear inside multi-paragraph cells.
+
+```
+type: text/vnd.tiddlywiki;vocab=Default,Table
+```
+
+Usage. Mix inline `TH`/`TD` with `BLOCKTH`/`BLOCKTD` per cell, using inline for one-line cells and block only where blank-line paragraph breaks are needed:
+
+```
+TABLE
+CAPTION Superheros at a glance
+ROW
+TH Power
+TH Batman
+TH Flash
+--
+ROW
+TH Skill
+BLOCKTD Smarts. Plays chess. Reads books.
+
+Has read the entire Library of Congress allegedly.
+||
+BLOCKTD Super speed. Vibrates through walls.
+
+Time travel as a side effect.
+||
+--
+---
+```
+
+Block-mode cells always wrap their body in a `<p>`, even when it's one line, which is wrong for short headers. Keep `BLOCKTH`/`BLOCKTD` for cells that genuinely need paragraph breaks. Each `BLOCKTD`/`BLOCKTH` consumes content up to its `||` terminator. `--` ends the row. `---` ends the table.
+
+!! Option 2: inline pragma (escape hatch)
+
+The same scheme with pragmas, scoped to a single tiddler. Activate Vocab/Legacy-Glyphs:
+
+```
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+```
 
-\custom tick=table _element=table _endString="---" _mode=block
+Pragmas:
+
+```
+\custom tick=table   _element=table _mode=block _endString="---"
 \custom tick=caption _element=caption
-
-\custom tick=th _element=th 
-
-\custom tick=row _element=tr _mode=block _endString="--"
-
-\custom tick _element=td _classes=".hl"
-
-\custom angle _element=td _classes=".hl"
-
-''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. Tick (`´`) lives in Vocab/Legacy-Glyphs in v1.0, activated by this tiddler's type field. See [[Migration to V1.0]].
-
+\custom tick=row     _element=tr    _mode=block _endString="--"
+\custom tick=th      _element=th    _mode=block _classes=".hl"
+\custom tick         _element=td    _mode=block _classes=".hl"
+\custom angle        _element=td    _mode=block _classes=".hl"
 
 ´table ´caption Some caption text
 ´row
-´th  header 1
+´th header 1
 ´th header 2
 ´th header 3
 --
 ´row
 » 1 text
 
-» 12 text
+» cell 12 text
 
 » cell 13 text
-line 2 alksjdfösdajf
-as döfjsadöfkjösadjf
-
---
-´row
-´ 2 text
-´ 22 text
-´ 23 text
+line 2
+line 3
 --
 ---
+```
 
-Some more text
+Note the two different cell markers (`´` for short, `»` for long). They are separate registrations of the same `td` element. Use whichever reads cleanest in a given row.
+
+A worked example lives at [[Example - TABLE with multiline cells]].
+
+See [[Vocabulary Engine]] for the marker-field schema and [[Custom Markup Definition]] for the full pragma parameter list.

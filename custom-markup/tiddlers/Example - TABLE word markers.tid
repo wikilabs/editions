@@ -1,0 +1,50 @@
+created: 20260518181027349
+modified: 20260518181318558
+tags: Advanced docs
+title: Example - TABLE word markers
+type: text/vnd.tiddlywiki;vocab=Default,Table
+
+Live demo of the inline `TH` / `TD` markers from Vocab/Table. This tiddler's type field activates the vocabulary.
+
+!! Rendered
+
+TABLE
+CAPTION Superheros and sidekicks
+ROW
+TH Power
+TH Batman
+TH Flash
+--
+ROW
+TH Skill
+TD Smarts
+TD Super speed
+--
+ROW
+TH Origin
+TD Wayne Manor
+TD Lab accident
+--
+---
+
+!! Source
+
+```
+TABLE
+CAPTION Superheros and sidekicks
+ROW
+TH Power
+TH Batman
+TH Flash
+--
+ROW
+TH Skill
+TD Smarts
+TD Super speed
+--
+---
+```
+
+Each `TH`/`TD` (inline mode) consumes the rest of its line as the cell content, so one cell per line. `ROW` ends at `--`; `TABLE` ends at `---`.
+
+See [[Customize a Table]] for the marker schema and the pragma-form alternative. For multi-paragraph cells use the block-mode variants in [[Example - TABLE with multiline cells]].

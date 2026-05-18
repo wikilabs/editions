@@ -1,0 +1,11 @@
+caption: Warning
+classes: .indent.right-dedent.justify.cbox.cbox-warning
+created: 20260518180953858
+description: Wraps a paragraph in the warning colour box style.
+element: p
+kind: word
+mode: block
+modified: 20260518180953858
+open: WARNING
+tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
+title: vocab/color-boxes/WARNING

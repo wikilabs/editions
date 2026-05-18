@@ -1,0 +1,233 @@
+created: 20200910092000359
+modified: 20260518202340442
+tags: Advanced docs
+title: Example - revealjs presentation (Vocab/Presentation)
+type: text/vnd.tiddlywiki;vocab=Presentation
+
+<style>
+.gray {
+	color: #ccc;
+}
+[data-class~="big"],
+.big {
+	font-size: 2em;
+}
+[data-class~="bigger"],
+.bigger {
+	font-size: 3em;
+}
+</style>
+
+The Vocab/Presentation DSL wraps the [[Reveal.js plugin|$:/plugins/sukima/reveal-js]] in a Fountain-flavoured screenplay vocabulary. Activate via `type: text/vnd.tiddlywiki;vocab=Presentation`. Each deck opens with a `PRESENTATION` marker and closes with `FADE OUT.`; slides start with `CUT TO:`, `ANIMATE TO:`, or `FADE IN:`.
+
+For slide-level features that need per-slide configuration (backgrounds, vertical sub-slides, code blocks), drop down to the raw `<$slide>` / `<$slidecodeblock>` widgets inside the deck. The markers handle the rhythm, the widgets handle the details.
+
+!! 1. Basic deck
+
+PRESENTATION
+
+FADE IN:
+* Welcome to ''Reveal.js''
+* Embedded in TiddlyWiki
+
+CUT TO:
+* The second slide
+
+CUT TO:
+* The third slide
+* Have fun!
+
+FADE OUT.
+
+!! 2. Slide-starter variants
+
+The three slide markers all emit `<section>` and are stylistically interchangeable. Pick whichever fits the rhythm of your deck.
+
+|! Marker |! Intended feel |
+|`FADE IN:` |Opening / soft entrance |
+|`CUT TO:` |Sharp transition to next topic |
+|`ANIMATE TO:` |Build up bullets one at a time |
+
+!! 3. Bullet animations
+
+Reveal.js animates bullet points by re-rendering the same slide with different `.gray` classes. Use `ANIMATE TO:` for each step.
+
+PRESENTATION
+
+ANIMATE TO:
+* First Bullet Point
+*.gray Second Bullet Point
+
+ANIMATE TO:
+* First Bullet Point
+* Second Bullet Point
+
+ANIMATE TO:
+*.gray First Bullet Point
+*.gray Second Bullet Point
+* Third Bullet Point
+
+FADE OUT.
+
+!! 4. Vertical sub-slides
+
+Reveal.js lets a horizontal slide own a column of vertical sub-slides (press Down to descend). The DSL doesn't have a marker for this — `CUT TO:` ends at the first blank line, so a body cannot contain further `<$slide>` widgets cleanly. Use a raw `<$slide>` widget for both the outer slide and its inner sub-slides:
+
+PRESENTATION
+
+CUT TO:
+* The slide before the vertical column
+
+<$slide>
+
+This horizontal slide has two vertical sub-slides.
+
+<$slide>Sub-slide one (press Down)</$slide>
+
+<$slide>Sub-slide two</$slide>
+
+</$slide>
+
+CUT TO:
+* Back on the main horizontal track
+
+FADE OUT.
+
+The outer `<$slide>` contains the two inner `<$slide>` widgets in its body. Reveal.js renders this as a vertical column reachable by pressing Down from the first slide.
+
+!! 5. Slide backgrounds
+
+Per-slide background uses Reveal.js's `data-background-*` attributes. The widget converts camelCase to `data-*`, so `backgroundColor="aquamarine"` becomes `data-background-color="aquamarine"`:
+
+PRESENTATION
+
+<$slide backgroundColor="aquamarine">
+
+* Aquamarine background
+
+</$slide>
+
+<$slide backgroundColor="#222">
+
+* Dark background
+
+</$slide>
+
+<$slide backgroundImage="https://picsum.photos/seed/picsum/800/600">
+
+* Background image
+
+</$slide>
+
+FADE OUT.
+
+!! 6. Code blocks
+
+A slide can hold a code block via a plain wikitext fence. Reveal.js auto-highlights the contents based on the fence language tag. The slide containing the fence must be a raw `<$slide>` (a `CUT TO:` marker ends at the first blank line, so it can't hold a multi-line code fence cleanly).
+
+PRESENTATION
+
+FADE IN:
+* Code blocks in Reveal.js
+* Press right arrow to step through
+
+<$slide>
+
+JavaScript example:
+
+```js
+const greet = function (name) {
+	console.log('Hello, ' + name);
+};
+greet('TiddlyWiki');
+```
+
+</$slide>
+
+<$slide>
+
+Same code, Python flavour:
+
+```python
+def greet(name):
+	print(f'Hello, {name}')
+
+greet('TiddlyWiki')
+```
+
+</$slide>
+
+CUT TO:
+* That's all
+* Press left arrow to step back
+
+FADE OUT.
+
+For deeper Reveal.js features (line-number animation between slides, fragment-by-fragment reveal of code), use the plugin's own `<$slidecodeblock>` widget. See the [[Reveal.js plugin readme|$:/plugins/sukima/reveal-js/readme]] for its attributes.
+
+!! 7. Continuous loop with auto-advance
+
+`PRESENTATION LOOP` is a preset variant that bakes `autoSlide="5000"` and `loop="yes"` into the deck. Useful for kiosks or background displays.
+
+PRESENTATION LOOP
+
+CUT TO:
+Slide A advances automatically after 5 seconds...
+
+CUT TO:
+...slide B follows...
+
+CUT TO:
+...then the deck loops back to A.
+
+FADE OUT.
+
+!! 8. Built from a filter
+
+For decks where the slide content lives in its own tiddlers, mix `PRESENTATION` with a `<$list>` widget inside. Each iteration emits one `<$slide>`. The three tiddlers `demo-slide-welcome`, `demo-slide-features`, `demo-slide-end` (tagged `demo-slide` with a `color` field) drive the deck below.
+
+PRESENTATION
+
+<$list filter="[tag[demo-slide]sort[title]]">
+
+<$slide tiddlerTitle={{!!title}} backgroundColor={{!!color}}>
+
+<$transclude mode="block" />
+
+</$slide>
+
+</$list>
+
+FADE OUT.
+
+`tiddlerTitle` is special: it becomes `data-tiddler-title` on the section element so your CSS can target individual slides. Replace the filter to drive the deck from any tag, sort order, or computed list.
+
+!! 9. Custom deck height
+
+The DSL does not bake a height variant. Default is 400px. For taller decks, use a raw `<$presentation>` widget with `$height` set to any CSS length (no unit = px):
+
+```
+<$presentation $height="600">
+<$slide>This deck is 600px tall.</$slide>
+<$slide>Useful for slides with more vertical content.</$slide>
+</$presentation>
+```
+
+Inside the raw widget you can still mix `<$slide>`, `<$slidecodeblock>`, and any other Reveal.js construct. The DSL markers (CUT TO: etc.) only work inside a marker-driven deck (`PRESENTATION` or `PRESENTATION LOOP`).
+
+!! Markers in this vocabulary
+
+|! Marker |! Open literal |! Notes |
+|Presentation |`PRESENTATION` |Opens a deck. Terminator: `FADE OUT.` |
+|Presentation Loop |`PRESENTATION LOOP` |Same shape as `PRESENTATION` plus `autoSlide=5000`, `loop=yes` |
+|Cut to |`CUT TO:` |A plain slide |
+|Animate to |`ANIMATE TO:` |Same shape as `CUT TO:`; use to imply bullet build-up |
+|Fade in |`FADE IN:` |Same shape as `CUT TO:`; use as the opening slide |
+
+The full marker tiddlers live under `vocab/presentation/*` and can be opened from this list to inspect every field. See <<tag $:/tags/CustomMarkup/Marker>> for the registry tag.
+
+!! Known caveats
+
+The Reveal.js library initialises once per tiddler. Slides added or removed from a deck via the wiki tools won't appear until the tiddler is closed and reopened (the README on the [[Reveal.js plugin|$:/plugins/sukima/reveal-js]] covers this in detail).
+
+Custom Markup by PMario.

@@ -1,0 +1,13 @@
+attributes: {"autoSlide":"5000","loop":"yes"}
+caption: Presentation Loop
+classes: .wltc-presentation
+created: 20260518195641407
+description: Opens a continuously looping deck (autoSlide=5s, loop=yes). Use when the deck should cycle on its own, e.g. a kiosk or background display.
+element: $presentation
+end-string: FADE OUT.
+kind: word
+mode: block
+modified: 20260518195641407
+open: PRESENTATION LOOP
+tags: $:/tags/CustomMarkup/Marker Vocab/Presentation
+title: vocab/presentation/PRESENTATION-LOOP

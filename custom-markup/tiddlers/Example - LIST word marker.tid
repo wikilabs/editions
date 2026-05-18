@@ -1,0 +1,35 @@
+created: 20260518181007366
+modified: 20260518181007366
+tags: Advanced docs
+title: Example - LIST word marker
+type: text/vnd.tiddlywiki;vocab=Default,Lists
+
+Live demo of Vocab/Lists. `LIST` is the `<ul>` wrapper; `SHORTCUTS`, `MARKERS`, `VOCABS` are named inline `<$list>` views, each baking a useful filter. Reuse any of them across tiddlers.
+
+!! Shortcuts
+
+LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
+
+!! Custom-markup markers
+
+LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
+
+!! Custom-markup vocabularies
+
+LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
+
+!! Source
+
+```
+LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
+
+LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
+
+LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
+```
+
+Each named view marker (`SHORTCUTS`, `MARKERS`, `VOCABS`) is inline-mode so its body's `<li>...</li>` stays inline and renders as one `<li>` per iteration. The filter on each marker decides what gets iterated. Add your own named views by creating new markers tagged `Vocab/Lists` with their own filter.
+
+See [[Customized Wikitext Lists]] for the marker schema and the pragma-form alternative.
+
+See [[Customized Wikitext Lists]] for the marker schema and the pragma-form alternative.

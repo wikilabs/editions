@@ -1,0 +1,8 @@
+caption: Table
+created: 20260518181010334
+description: Word markers for building HTML tables. Inline markers (TH, TD) for single-line cells; block markers (BLOCKTH, BLOCKTD) for multi-paragraph cells. Terminator pyramid: `---` table > `--` row > blank line for block cells. Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Table`.
+marker-tag: Vocab/Table
+modified: 20260518181010334
+tags: $:/tags/CustomMarkup/Vocabulary
+title: $:/vocab/table
+version: 0.1.0

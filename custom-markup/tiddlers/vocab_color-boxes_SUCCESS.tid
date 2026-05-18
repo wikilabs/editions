@@ -1,0 +1,11 @@
+caption: Success
+classes: .indent.right-dedent.justify.cbox.cbox-success
+created: 20260518180951866
+description: Wraps a paragraph in the success colour box style.
+element: p
+kind: word
+mode: block
+modified: 20260518180951866
+open: SUCCESS
+tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
+title: vocab/color-boxes/SUCCESS

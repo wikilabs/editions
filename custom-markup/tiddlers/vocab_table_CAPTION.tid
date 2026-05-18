@@ -1,0 +1,10 @@
+caption: Caption
+created: 20260518181017759
+description: Wraps inline content in a <caption>. Used at the top of a TABLE.
+element: caption
+kind: word
+mode: inline
+modified: 20260518181017759
+open: CAPTION
+tags: $:/tags/CustomMarkup/Marker Vocab/Table
+title: vocab/table/CAPTION

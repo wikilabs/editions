@@ -1,44 +1,78 @@
-_debug: \debugcustom global tick
 created: 20200915195838828
-modified: 20260516160000000
+modified: 20260518153000000
 tags: Advanced docs
 title: Customized Wikitext Lists
-type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+type: text/vnd.tiddlywiki
 
+Wrapping a `<$list>` widget in a `<ul>` so it renders as a real HTML list is a recurring pattern. Custom-markup makes it readable. As elsewhere, you have two ways: ''marker tiddlers'' (canonical) or an inline ''pragma'' (escape hatch).
+
+!! Goal
+
+Take a filter and a list-item template, and render an actual HTML `<ul>` from them:
+
+```
+<ul>
+  <li> Title A - Body A </li>
+  <li> Title B - Body B </li>
+</ul>
+```
+
+!! Option 1: marker tiddlers (canonical, vocabulary-engine)
+
+Vocab/Lists is a ''catalogue of named list views''. The outer wrapper is one marker; each named view is its own inline `<$list>` marker baking a useful filter. Add more markers per use case (recent edits, by-tag-task, etc.).
+
+|! Field |! `LIST` (wrapper) |! `SHORTCUTS` (view) |! `MARKERS` (view) |! `VOCABS` (view) |
+|`open` |`LIST` |`SHORTCUTS` |`MARKERS` |`VOCABS` |
+|`kind` |`word` |`word` |`word` |`word` |
+|`mode` |`block` |`inline` |`inline` |`inline` |
+|`element` |`ul` |`$list` |`$list` |`$list` |
+|`attributes` |(none) |filter for `$:/config/shortcuts/*` |filter for `$:/tags/CustomMarkup/Marker` |filter for `$:/tags/CustomMarkup/Vocabulary` |
+
+Tag each marker with `Vocab/Lists`, add a meta tiddler `$:/vocab/lists` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Lists`, and activate:
+
+```
+type: text/vnd.tiddlywiki;vocab=Default,Lists
+```
+
+Then use any named view inside `LIST`. The inline `$list` marker's body is the per-item template (a literal `<li>...</li>` works because inline-mode keeps the body inline):
+
+```
+LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> </li>
+```
+
+Why split wrapper from view? `LIST` is the reusable container. Each named view bakes a specific filter into its marker so it can be reused unchanged across many tiddlers. The set grows organically as new useful views are added. For one-off filters that don't deserve a permanent view, use the pragma form below.
+
+!! Option 2: inline pragma (escape hatch)
+
+The pragma form binds the same configuration to one tiddler. It also supports `_use` to alias one pragma to another, which is convenient when iterating:
+
+```
+\custom tick="list" _element="ul" _mode=block
+\custom tick="shortcuts" _element="$list" filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]"
+
+´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
+```
+
+Or, pull the pragma definitions in from another tiddler with `\importcustom`:
+
+```
 \importcustom [[Keyboard Shortcuts]]
-
 \custom tick=list-pragma _use=list _debug="pragma"
 \custom tick=shortcut-pragma _use=shortcuts _debug="pragmaOnly"
 
-''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. Tick (`´`) lives in Vocab/Legacy-Glyphs in v1.0, activated by this tiddler's type field. See [[Migration to V1.0]].
-
-! Info
-
-This tiddler uses pragma definitions, that are defined in an other tiddler. They are imported with:
-
-```
-\importcustom [[Keyboard Shortcuts]]
-```
-
-! Custom List Widget
-
-It's possible to customize a list widget into 2 commands. 
-
-* The wrapper named: eg: `´list` ... that creates the HTML ''UL'' element
-* The list widget `´shortcuts` ... that tells the author & user what to expect, if they read the plain text.
-
-!! Pragma
-
-´list-pragma ´shortcut-pragma 
+´list-pragma ´shortcut-pragma
 ---
 
-The definitions can be found at: [[Keyboard Shortcuts]]
-
-!! Usage
-
-```
 ´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
 ```
- 
-´list ´shortcuts <li> {{!!title}} - {{!!text}} </li>
----
+
+See [[Pragma - importcustom]] and the definitions in [[Keyboard Shortcuts]] for the imported source.
+
+A worked example lives at [[Example - LIST word marker]].
+
+!! When to use which
+
+* Marker tiddlers: the wrapper is something you want available wiki-wide, opt-in per tiddler via the type field.
+* Pragmas: one-off in a single tiddler, or while prototyping a class chain before promoting it to a marker tiddler.
+
+See [[Vocabulary Engine]] for the marker-field schema and [[Custom Markup Definition]] for the full pragma parameter list.

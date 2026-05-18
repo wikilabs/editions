@@ -1,0 +1,11 @@
+attributes: {"filter":"[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Vocabulary]sort[caption]]"}
+caption: Vocabs
+created: 20260518182846652
+description: Named list view: every custom-markup vocabulary tiddler, sorted by caption. Inline-mode $list widget. Use inside LIST with an <li>...</li> body.
+element: $list
+kind: word
+mode: inline
+modified: 20260518182846652
+open: VOCABS
+tags: $:/tags/CustomMarkup/Marker Vocab/Lists
+title: vocab/lists/VOCABS

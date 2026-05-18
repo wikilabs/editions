@@ -1,74 +1,94 @@
 created: 20200918142853132
-modified: 20260516160000000
+modified: 20260518153000000
 tags: Advanced docs
 title: Customize a Table
-type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+type: text/vnd.tiddlywiki
 
-\custom tick=table     _element=table _mode=block _endString="------"
-\custom tick=caption _element=caption
-\custom tick=row       _element=tr      _mode=block _endString="---"
+TiddlyWiki's table syntax is great for short, regular tables. For complex tables with `colgroup`, scope attributes, or multi-line cells, you need full HTML. Custom-markup gives you a more readable middle path. The recipe is to define a set of markers, one per HTML table tag, then write the table with them.
 
-\custom tick=th   _element=th
+!! Goal
 
-\custom tick _element=td
-
-''V1.0:'' [[Vocabulary Engine]] is the modern marker mechanism. The pragma form below remains supported as an escape hatch. Tick (`´`) lives in Vocab/Legacy-Glyphs in v1.0, activated by this tiddler's type field. See [[Migration to V1.0]].
-
-! TODO
-
-This info is a ''placeholder only''
-
-! A HTML Table 
+Produce something like:
 
 ```
 <table>
-    <caption>Superheros and sidekicks</caption>
-    <colgroup>
-        <col>
-        <col span="2" class="batman">
-        <col span="2" class="flash">
-    </colgroup>
-    <tr>
-        <td> </td>
-        <th scope="col">Batman</th>
-        <th scope="col">Robin</th>
-        <th scope="col">The Flash</th>
-        <th scope="col">Kid Flash</th>
-    </tr>
-    <tr>
-        <th scope="row">Skill</th>
-        <td>Smarts</td>
-        <td>Dex, acrobat</td>
-        <td>Super speed</td>
-        <td>Super speed</td>
-    </tr>
+	<caption>Superheros and sidekicks</caption>
+	<tr>
+		<th>Power</th>
+		<th>Batman</th>
+		<th>Flash</th>
+	</tr>
+	<tr>
+		<th scope="row">Skill</th>
+		<td>Smarts</td>
+		<td>Super speed</td>
+	</tr>
 </table>
 ```
 
-[[Detailed info|https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup]] can be found at: Mozilla MDN sites about tables.
+!! Option 1: marker tiddlers (canonical, vocabulary-engine)
 
-A second example table: [[Alien Football Stars|https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th#attr-scope]]
+Add five marker tiddlers tagged <<tag $:/tags/CustomMarkup/Marker>>:
 
-! Customized Table
+|! Marker |! `open` |! `kind` |! `mode` |! `element` |! `end-string` |
+|TABLE |`TABLE` |`word` |`block` |`table` |`---` |
+|CAPTION |`CAPTION` |`word` |`inline` |`caption` | |
+|ROW |`ROW` |`word` |`block` |`tr` |`--` |
+|TH |`TH` |`word` |`inline` |`th` | |
+|TD |`TD` |`word` |`inline` |`td` | |
 
+Group all five under `Vocab/Table` and add `$:/vocab/table` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Table`. Activate per tiddler:
 
-´table ´caption Some ´caption´ text
-´row
-´th header 1
-´th header 2
-´th header 3
+```
+type: text/vnd.tiddlywiki;vocab=Default,Table
+```
+
+Then write the table:
+
+```
+TABLE
+CAPTION Superheros and sidekicks
+ROW
+TH Power
+TH Batman
+TH Flash
+--
+ROW
+TH Skill
+TD Smarts
+TD Super speed
+--
 ---
-´row
-´ 1 text
-´ cell 12 text
-´ cell 13 text
----
-´row
-´ 2 text
-´ cell 22 text
-´ cell 23 text
----
-------
+```
 
-Some more text
+`TABLE` terminates at `---`, each `ROW` at `--`, `CAPTION`/`TH`/`TD` at end-of-line. Each `TH`/`TD` consumes the rest of its line as the cell content, so one cell per line.
 
+A worked example lives at [[Example - TABLE word markers]].
+
+!! Option 2: inline pragma (escape hatch)
+
+The same configuration via `\custom` pragmas, scoped to one tiddler. Activate Vocab/Legacy-Glyphs so the tick is available:
+
+```
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+```
+
+Pragmas at the top:
+
+```
+\custom tick=table _element=table _mode=block _endString="---"
+\custom tick=caption _element=caption
+\custom tick=row _element=tr _mode=block
+\custom tick=th _element=th
+\custom tick _element=td
+
+´table ´caption Superheros and sidekicks
+´row ´th Power ´th Batman ´th Flash
+
+´row ´th Skill ´ Smarts ´ Super speed
+---
+```
+
+The bare `\custom tick _element=td` registers the default (empty-symbol) tick form as the `td` cell.
+
+See [[Customize a Table with Multiline Content]] for the variant where each cell holds a block of text, and [[Vocabulary Engine]] for the marker-field schema.

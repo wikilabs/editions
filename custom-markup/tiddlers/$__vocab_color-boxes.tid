@@ -1,0 +1,8 @@
+caption: Color-Boxes
+created: 20260518180947856
+description: Word markers that wrap a paragraph in a coloured box. Each marker is one paragraph element with a different .cbox-* class. Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Color-Boxes`.
+marker-tag: Vocab/Color-Boxes
+modified: 20260518180947856
+tags: $:/tags/CustomMarkup/Vocabulary
+title: $:/vocab/color-boxes
+version: 0.1.0

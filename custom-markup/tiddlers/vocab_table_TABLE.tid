@@ -1,0 +1,11 @@
+caption: Table
+created: 20260518181011914
+description: Wraps content in a <table>. Terminated by `---`.
+element: table
+end-string: ---
+kind: word
+mode: block
+modified: 20260518181011914
+open: TABLE
+tags: $:/tags/CustomMarkup/Marker Vocab/Table
+title: vocab/table/TABLE

@@ -1,0 +1,10 @@
+caption: Th
+created: 20260518181018511
+description: Wraps inline content in a <th>. Used inside a ROW for one-line header cells.
+element: th
+kind: word
+mode: inline
+modified: 20260518181018511
+open: TH
+tags: $:/tags/CustomMarkup/Marker Vocab/Table
+title: vocab/table/TH

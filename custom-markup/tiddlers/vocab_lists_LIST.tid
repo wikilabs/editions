@@ -1,0 +1,10 @@
+caption: List
+created: 20260518181001473
+description: Wraps content in a <ul> element. Typically contains a SHORTCUTS or other list-widget child.
+element: ul
+kind: word
+mode: block
+modified: 20260518181001473
+open: LIST
+tags: $:/tags/CustomMarkup/Marker Vocab/Lists
+title: vocab/lists/LIST

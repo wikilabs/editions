@@ -1,0 +1,11 @@
+caption: Row
+created: 20260518181018163
+description: Wraps content in a <tr>. Terminated by `--`.
+element: tr
+end-string: --
+kind: word
+mode: block
+modified: 20260518181018163
+open: ROW
+tags: $:/tags/CustomMarkup/Marker Vocab/Table
+title: vocab/table/ROW
