@@ -7,5 +7,6 @@ kind: word
 mode: block
 modified: 20260518180953858
 open: WARNING
+paragraph-marker: yes
 tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
 title: vocab/color-boxes/WARNING

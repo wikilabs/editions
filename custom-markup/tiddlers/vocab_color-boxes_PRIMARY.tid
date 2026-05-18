@@ -7,5 +7,6 @@ kind: word
 mode: block
 modified: 20260518180949853
 open: PRIMARY
+paragraph-marker: yes
 tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
 title: vocab/color-boxes/PRIMARY
