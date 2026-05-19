@@ -44,7 +44,7 @@ The meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> carries:
 Two ways to opt in:
 
 # ''Type field'': `type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs`. A startup-module patch keeps the tiddler as a single `.tid` file on disk.
-# ''Pragma'': `\importcustom [tag[Vocab/Legacy-Glyphs]]` at the top of a tiddler.
+# ''Pragma'': `\importcustom [tag[Vocab/Legacy-Glyphs]]` at the top of a tiddler. The filter runs over `[all[shadows+tiddlers]]` automatically, so you don't need to spell the shadow-inclusion prefix yourself — marker tiddlers are almost always shipped as plugin shadows.
 
 Vocab/Default is always active. With no `;vocab=` parameter, only Default markers fire.
 
