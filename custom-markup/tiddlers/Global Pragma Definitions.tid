@@ -48,6 +48,10 @@ The tag <<tag "$:/tags/Pragma">> is defined by the custom-markup plugin. The sor
 
 The plugin caches the parsed output of [[$:/config/custom-markup/pragma/PageTemplate]] per wiki. The cache is invalidated when ''PageTemplate itself'' changes. Editing a `\custom` pragma inside a `$:/tags/Pragma`-tagged tiddler does ''not'' invalidate the cache. Workaround until you reload: open PageTemplate and save it (no edit needed) to force a re-parse.
 
+!! Required entry point
+
+The title [[$:/config/custom-markup/pragma/PageTemplate]] is hardcoded in the plugin as the global-pragma entry point. ''Do not rename or delete this tiddler.'' If it is missing, global pragmas stop loading silently (no error, no warning) and any `\custom` pragmas defined in `$:/tags/Pragma`-tagged tiddlers stop applying. To restore: re-add a tiddler with that exact title, tag it <<tag $:/tags/Macro>>, and put `\importcustom [tag[$:/tags/Pragma]]` in its body.
+
 !! When to use which
 
 * Vocabulary: structured, schema-driven, easy to opt in per tiddler. Best for new code.
