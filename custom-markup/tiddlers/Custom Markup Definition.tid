@@ -83,6 +83,9 @@ type: text/vnd.tiddlywiki
 ; _activate
 : Default: pragma fires AND activates the marker in this tiddler (author intent: defining custom behaviour implies usage). Set `_activate=no` to suppress activation; useful for pragmas that only exist to be referenced via `_useGlobal` from other tiddlers.
 
+; _allow_unsafe
+: Default secure-by-default: `_element=iframe` gets `sandbox=""` injected, `object`/`embed`/`frame`/`frameset` are denied, `javascript:` URL values are stripped. Set `_allow_unsafe=yes` to bypass all three. See [[Custom Markup Security]] for the full model.
+
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`
 : See: [[Pragma Debug Options]]

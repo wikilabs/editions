@@ -1,0 +1,109 @@
+tags: Reference docs
+title: Custom Markup Security
+type: text/vnd.tiddlywiki
+
+! Threat model
+
+Marker tiddlers (tagged <<tag $:/tags/CustomMarkup/Marker>>) and `\custom` pragmas are author content. Anyone who can save tiddlers in your wiki can author markers. In a single-user wiki this is self-attack territory; in a shared wiki it is a real attack surface. Custom Markup applies a small set of secure-by-default rules so authoring a marker tiddler does not bypass TW's normal sanitization.
+
+! What TW core already enforces
+
+These protections are in TW core (`$:/core/modules/widgets/element.js`) and apply to every element rendered through the parse tree, including Custom Markup markers:
+
+|! Vector |! Mitigation |
+|`<script>` tag |Renamed to `<safe-script>`. Browser does not execute. |
+|Inline event handler attributes (`onclick`, `onerror`, ...) |Stripped via `excludeEventAttributes: true` when attributes are assigned to the DOM node. |
+|Non-alphanumeric characters in tag name |Stripped before element creation. |
+
+These cover the most obvious XSS vectors but do not reach attribute values that the browser later parses as HTML (most notably the iframe `srcdoc` attribute).
+
+! What Custom Markup adds (v1.0.0-beta-23)
+
+The plugin applies three secure-by-default rules during marker registration in `registry.js`. They apply to both marker tiddlers (the `element` and `attributes` fields) and to `\custom` pragmas (the `_element` and other parameters).
+
+!! 1. Iframe gets a sandbox
+
+A marker with `element: iframe` is allowed to render, but the plugin injects `sandbox=""` into its attributes if the marker author has not set a sandbox value. The empty-string sandbox is the most restrictive setting and blocks:
+
+* Script execution (including scripts inside `srcdoc`)
+* Form submission
+* Top-level navigation
+* Same-origin access for the iframe's document
+* Plugin loading, modal dialogs, pointer lock, popups
+
+If the marker explicitly sets a sandbox value, the plugin respects it. For example, `attributes: {"sandbox": "allow-scripts"}` lets scripts run inside the iframe but in a unique origin. This lets you embed a sandboxed widget that does need scripts.
+
+!! 2. Some elements are denied
+
+Markers cannot set `element` to any of:
+
+* `object`
+* `embed`
+* `frame`
+* `frameset`
+
+These do not have a useful sandbox semantic, and their normal use cases (legacy plugins, frameset layouts) are obsolete. If a marker sets `element` to one of these, the field is cleared and the marker falls back to its default wrapper (`<div>` for block, `<span>` for inline).
+
+!! 3. `javascript:` URLs are stripped
+
+For URL-bearing attributes (`src`, `href`, `xlink:href`, `data`, `action`, `formaction`), a value that starts with `javascript:` is removed. This applies to every element, not just iframe, because anchors and forms can also carry `javascript:` URIs.
+
+! Opt out: `allow-unsafe`
+
+A marker tiddler can opt out of all three rules with the field `allow-unsafe: yes`. The pragma equivalent on a `\custom` line is `_allow_unsafe=yes`.
+
+Opt-out skips:
+
+* The element deny list (the marker can use `object`, `frame`, etc.)
+* The iframe sandbox injection (iframe renders with whatever sandbox value the marker sets, or none)
+* The `javascript:` URL strip
+
+Opt out only when you understand exactly what the marker does and trust every author who can save tiddlers with this marker tag. The opt-out is per-marker, not per-tiddler.
+
+! Examples
+
+!! Safe iframe with external content
+
+```
+title: vocab/my-vocab/EMBED-EXAMPLE
+tags: $:/tags/CustomMarkup/Marker [[Vocab/MyVocab]]
+caption: Embed example
+open: EMBED
+kind: word
+mode: block
+element: iframe
+attributes: {"src": "https://example.com/widget"}
+```
+
+The plugin injects `sandbox=""`. The iframe loads the external URL but cannot run scripts. Good for visual embeds.
+
+!! Iframe that needs scripts
+
+```
+attributes: {"src": "https://trusted.example/calculator", "sandbox": "allow-scripts"}
+```
+
+The plugin respects the explicit sandbox value. Scripts run inside the iframe, in a unique origin (no access to your wiki's DOM or cookies).
+
+!! Opt out for legacy embed
+
+```
+allow-unsafe: yes
+element: object
+attributes: {"data": "media/legacy.swf", "type": "application/x-shockwave-flash"}
+```
+
+The plugin skips all checks. Use only when you trust the data source and the marker tag.
+
+! Recommendations
+
+* Default to the secure-by-default behaviour. Most embeds work fine with `sandbox=""`.
+* If you need scripts in an iframe, set `sandbox` explicitly to the minimum required permissions. Avoid `allow-scripts allow-same-origin` together (that combination is equivalent to no sandbox).
+* Do not set `allow-unsafe: yes` to "make the marker work" without understanding what it is doing. The default is the safer choice.
+* Markers can be reviewed by listing all `allow-unsafe`-flagged markers in your wiki: filter `[tag[$:/tags/CustomMarkup/Marker]field:allow-unsafe[yes]]`.
+
+! Related
+
+* [[Vocabulary Engine]] (marker field schema, including `allow-unsafe`)
+* [[Custom Markup Definition]] (pragma reference, including `_allow_unsafe`)
+* MDN: iframe `sandbox` attribute reference for the full list of `allow-*` tokens.
