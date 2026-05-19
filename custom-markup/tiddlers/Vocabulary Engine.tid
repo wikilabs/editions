@@ -54,7 +54,7 @@ Empty source falls back to Vocab/Default so a dropdown without an edit context s
 
 !! Summary views (ViewTemplate)
 
-Opening a marker tiddler, a vocabulary tiddler, or a marker-tag tiddler shows a summary instead of an empty body. The ViewTemplate cascade entry `$:/plugins/wikilabs/custom-markup/ViewTemplateBodyFilters` (tagged <<tag $:/tags/ViewTemplateBodyFilter>>, `list-before: $:/config/ViewTemplateBodyFilters/default`) routes:
+Opening a marker tiddler, a vocabulary tiddler, or a marker-tag tiddler shows a summary instead of an empty body. Three cascade tiddlers under `$:/plugins/wikilabs/custom-markup/ViewTemplateBodyFilters/` (each tagged <<tag $:/tags/ViewTemplateBodyFilter>> and ordered with `list-before: $:/config/ViewTemplateBodyFilters/default`) route:
 
 * tag <<tag $:/tags/CustomMarkup/Marker>> on the tiddler being viewed: per-marker fields summary.
 * the tiddler title itself is a marker-tag (e.g. `Vocab/Default`): catalog of every marker carrying that tag.
