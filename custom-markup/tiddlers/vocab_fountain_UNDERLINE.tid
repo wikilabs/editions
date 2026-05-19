@@ -1,0 +1,12 @@
+caption: Underline
+created: 20260519161000000
+modified: 20260519161000000
+description: Inline underline. Open and close both `_` (single underscore; TW's `__double__` underline is unaffected).
+element: span
+kind: inline-pair
+open: _
+close: _
+allow-symbol: no
+classes: .wltc-fountain-underline
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/UNDERLINE

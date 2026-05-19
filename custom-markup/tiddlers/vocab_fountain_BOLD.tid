@@ -1,0 +1,11 @@
+caption: Bold
+created: 20260519161000000
+modified: 20260519161000000
+description: Inline bold emphasis. Open and close both `**`.
+element: strong
+kind: inline-pair
+open: **
+close: **
+allow-symbol: no
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/BOLD

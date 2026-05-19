@@ -1,4 +1,6 @@
 caption: Synopsis
+created: 20260519092954802
+modified: 20260519092954802
 description: Synopsis line. A short author note describing a section or scene. Rendered italic, indented; typically hidden in final output but useful while drafting.
 element: p
 kind: glyph

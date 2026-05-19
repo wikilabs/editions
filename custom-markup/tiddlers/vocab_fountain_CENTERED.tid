@@ -1,0 +1,12 @@
+caption: Centered text
+created: 20260519161000000
+modified: 20260519161000000
+description: Centered line per Fountain spec (`> Hello <`). Renders the wrapped content as a centered block. Note: `>` and `<` are common characters in non-prose text; in a screenplay context this is usually safe, but tiddlers mixing math/comparisons can hit false matches.
+element: span
+kind: inline-pair
+open: >
+close: <
+allow-symbol: no
+classes: .wltc-fountain-centered
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/CENTERED

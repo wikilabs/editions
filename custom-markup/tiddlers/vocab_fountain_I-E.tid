@@ -1,10 +1,13 @@
 caption: Interior/exterior scene
+created: 20260519092954802
+modified: 20260519092954802
 description: Scene heading: location with both interior and exterior in one shot. Same shape as INT.
 element: p
 kind: word
 mode: block
 open: I/E.
 classes: .wltc-fountain-scene-heading
+emit-open: yes
 order: 7
 tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
 title: vocab/fountain/I-E

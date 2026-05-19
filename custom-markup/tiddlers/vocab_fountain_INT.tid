@@ -1,10 +1,13 @@
 caption: Interior scene
+created: 20260519092954802
+modified: 20260519092954802
 description: Scene heading: interior location. Followed by `LOCATION - TIME OF DAY` (free text to end of line). Renders as bold uppercase paragraph.
 element: p
 kind: word
 mode: block
 open: INT.
 classes: .wltc-fountain-scene-heading
+emit-open: yes
 order: 9
 tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
 title: vocab/fountain/INT

@@ -1,0 +1,11 @@
+caption: Italic
+created: 20260519161000000
+modified: 20260519161000000
+description: Inline italic emphasis. Open and close both `*`. Spec deviation note: `***bold italic***` is matched first by the engine (longest open wins), so `**bold**` and `*italic*` mid-text resolve correctly.
+element: em
+kind: inline-pair
+open: *
+close: *
+allow-symbol: no
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/ITALIC

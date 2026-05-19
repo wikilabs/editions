@@ -1,9 +1,12 @@
 caption: Cut to
+created: 20260519092954802
+modified: 20260519152503418
 description: Transition: hard cut between scenes.
 element: p
 kind: word
 mode: block
 open: CUT TO:
 classes: .wltc-fountain-transition
+emit-open: yes
 tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
 title: vocab/fountain/CUT-TO

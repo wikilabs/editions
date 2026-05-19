@@ -1,5 +1,5 @@
 created: 20260516050000000
-modified: 20260518143000000
+modified: 20260519152030000
 tags: Reference docs
 title: Vocabulary Engine
 type: text/vnd.tiddlywiki
@@ -17,14 +17,27 @@ Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every mark
 |`mode` |no |`block` (default for non-inline-pair) or `inline`. |
 |`element` |no |HTML element name or `$widget` reference. |
 |`paragraph-marker` |no |`yes` if this marker has paragraph semantics (blank-line terminator without `end-string`, paragraph-safe inline body). Required to get paragraph behavior on any wrapper element, including `p`. |
+|`emit-open` |no |`yes` prepends the marker's open literal to the rendered body content. Useful for word markers whose keyword IS the content (Fountain transitions: `CUT TO:` renders as `<p class="...">CUT TO:</p>` instead of an empty `<p>`; scene headings: `INT. KITCHEN` renders with the `INT.` prefix intact). A trailing space is added automatically when the body is non-empty so prefix and body don't run together. Default consumes the open literal. |
 |`end-string` |no |Custom terminator. Without it, paragraph markers terminate at a blank line; non-paragraph block markers at a single newline; inline at a newline. |
 |`classes` |no |Dot-prefixed CSS class chain, e.g. `.wltc-degree`. |
 |`attributes` |no |JSON object of extra HTML attributes. |
-|`allow-symbol` |glyph |Default `yes`. Set to `no` to lock the prose-safe form (e.g. the `.` marker). |
+|`allow-symbol` |glyph, inline-pair |Default `yes`. Set to `no` to lock the prose-safe form. On `glyph` markers this prevents matches like `.NET` from firing a `.`-prefixed marker. On `inline-pair` markers it disables the symbol-capture between open and body, required for body-only markers like Fountain `*italic*` (without `no`, the engine eats `italic` as the symbol and leaves body empty). |
 |`legacy-kind` |no |Friendly name (`tick`, `degree`, ...) so the v0.x `\custom <kind>=<symbol>` pragma still resolves. |
 |`allow-unsafe` |no |Default secure-by-default: iframe gets `sandbox=""` injected, `object`/`embed`/`frame`/`frameset` are denied, `javascript:` URL values are stripped. Set to `yes` to opt out. See [[Custom Markup Security]] for the full model. |
 |`marker-icon` |no |Title of the icon tiddler the editor toolbar writes to its active-glyph config when this marker is selected. Points at a `$:/plugins/wikilabs/custom-markup/icons/glyphs/...` or `.../inline/...` tiddler. |
 |`order` |no |Sort hint for editor-toolbar dropdowns. ''Higher'' number sorts earlier (more prominent); unset markers fall back to caption order. Vocab/Default uses `ANGLE=4`, `SINGLE=3`, `DOT=2`, `DEGREE=1`. |
+
+!! Vocabulary meta fields
+
+The meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> carries:
+
+|! Field |! Required |! Notes |
+|`caption` |yes |Human-friendly name used in `;vocab=<Caption>` activation and the marker-summary header. |
+|`marker-tag` |yes |Tag that this vocabulary's marker tiddlers carry, e.g. `Vocab/Fountain`. |
+|`description` |no |One-sentence summary. Surfaced in the vocab-summary ViewTemplate. |
+|`version` |no |Free-form. Convention: SemVer. |
+|`disable-core-rules` |no |Space-separated TW core wikirule names (e.g. `heading list`). Suppressed when this vocab is activated for a tiddler. Lets the vocab own the syntax that would otherwise collide with core. See [[$:/core/ui/ControlPanel/Parsing]] for the rule catalogue (filter `[wikiparserrules[block]]`, `[...inline]`, `[...pragma]`). |
+|`front-matter` |no |`yes` opts into a simple `Key: Value` block at the very top of any tiddler that activates the vocab. The block ends at the first blank line or a `===` separator. Renders as `<div class="wltc-front-matter">` with one row per pair. Keys must start with an uppercase letter (`Title:`, `Author:`, `Credit:`). Intended for Fountain-style title pages and similar metadata-at-the-top conventions; not a YAML replacement (no list values, no continuation lines). |
 
 !! Activating a vocabulary
 
@@ -35,11 +48,14 @@ Two ways to opt in:
 
 Vocab/Default is always active. With no `;vocab=` parameter, only Default markers fire.
 
+When a vocab declaring `disable-core-rules` activates, the listed TW core rules are removed from the parser's rule set ''for that tiddler only'' (via `parser.amendRules("except", ...)`). The amendment runs before pragma parsing, so a user `\rules only ...` / `\rules except ...` pragma can still amend further.
+
 !! Shipped vocabularies
 
 * ''Vocab/Default'' (plugin): `°` `.` `»` `›` (block) and `/° °/`, `❮ ❯`, `⠒ ⠶` (inline-pair).
 * ''Vocab/Legacy-Glyphs'' (plugin, opt-in): restores `´` `≈` `¶` removed from Default in v1.0.0-beta-1.
 * ''Vocab/Presentation'' (editions): Fountain-flavoured Reveal.js DSL with `PRESENTATION`, `CUT TO:`, `ANIMATE TO:`, `FADE IN:`, terminator `FADE OUT.`. Worked example: [[Example - revealjs presentation (Vocab/Presentation)]].
+* ''Vocab/Fountain'' (editions): screenplay markers (scene headings, transitions, character cues, synopses, boneyard) in the spirit of https://fountain.io/syntax/. Declares `disable-core-rules: heading list` so `! action`, `*x` line-starts, `# section`, and `> centered` line-starts belong to Fountain (or the author) instead of TW core. Reference: [[Vocabulary - Fountain]]. Worked example: [[Example - Fountain screenplay]].
 
 !! Listing active markers
 

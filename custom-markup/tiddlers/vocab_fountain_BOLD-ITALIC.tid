@@ -1,0 +1,12 @@
+caption: Bold italic
+created: 20260519161000000
+modified: 20260519161000000
+description: Inline bold + italic emphasis. Open and close both `***`. Element is `<strong>` with the `wltc-fountain-bold-italic` class adding `font-style: italic` so both effects apply without nested elements.
+element: strong
+kind: inline-pair
+open: ***
+close: ***
+allow-symbol: no
+classes: .wltc-fountain-bold-italic
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/BOLD-ITALIC

@@ -1,0 +1,70 @@
+title: Vocabulary - Fountain
+tags: [[Advanced docs]]
+type: text/vnd.tiddlywiki
+
+Reference for [[$:/vocab/fountain]], a Custom-Markup vocabulary for screenplay-style content in the spirit of https://fountain.io/syntax/. Worked example: [[Example - Fountain screenplay]].
+
+!! Activation
+
+`type: text/vnd.tiddlywiki;vocab=Fountain` on a tiddler. Activate WITHOUT Default if you want the forced-scene `.<text>` marker to fire (it collides with Vocab/Default's DOT).
+
+When activated, the vocab declares:
+
+* `disable-core-rules: heading list` so `!action`, `*` / `**` / `#` / `;` / `:` / `>` line-starts belong to Fountain instead of TW core.
+* `front-matter: yes` so a `Key: Value` block at the very top of the tiddler renders as a title page (terminated by a blank line or `===`).
+
+Other TW rules stay active: `[[Other tiddler]]` prettylinks, `<<macros>>`, tables, `''bold''` / `//italic//` / `__underline__` TW emphasis still work. See [[Vocabulary Engine]] for the `disable-core-rules`, `front-matter`, and per-marker mechanisms used here.
+
+!! Marker map
+
+|! Element |! Fountain |! Marker |
+|''Title page'' | `Key: Value` lines at top | (handled by the `frontmatter` wikirule, not a marker) |
+|Fade in (opener) |`FADE IN:` |[[vocab/fountain/FADE-IN]] |
+|Fade out |`FADE OUT.` |[[vocab/fountain/FADE-OUT]] |
+|Cut to |`CUT TO:` |[[vocab/fountain/CUT-TO]] |
+|Dissolve to |`DISSOLVE TO:` |[[vocab/fountain/DISSOLVE-TO]] |
+|Smash cut to |`SMASH CUT TO:` |[[vocab/fountain/SMASH-CUT-TO]] |
+|Match cut to |`MATCH CUT TO:` |[[vocab/fountain/MATCH-CUT-TO]] |
+|Wipe to |`WIPE TO:` |[[vocab/fountain/WIPE-TO]] |
+|Iris in |`IRIS IN:` |[[vocab/fountain/IRIS-IN]] |
+|Iris out |`IRIS OUT:` |[[vocab/fountain/IRIS-OUT]] |
+|Interior scene |`INT. LOCATION - TIME` |[[vocab/fountain/INT]] |
+|Exterior scene |`EXT. LOCATION - TIME` |[[vocab/fountain/EXT]] |
+|Interior/exterior |`I/E. LOCATION` |[[vocab/fountain/I-E]] |
+|Establishing |`EST. LOCATION` |[[vocab/fountain/EST]] |
+|Forced character |`@ NAME` (one line) |[[vocab/fountain/CHARACTER]] |
+|Forced action |`! action` |[[vocab/fountain/ACTION]] |
+|Forced scene |`. scene` |[[vocab/fountain/SCENE]] |
+|Synopsis |`= text` |[[vocab/fountain/SYNOPSIS]] |
+|Section header |`# Section`, `## Sub`, ...  |[[vocab/fountain/SECTION]] |
+|Centered text |`> centered <` |[[vocab/fountain/CENTERED]] |
+|Italic |`*italic*` |[[vocab/fountain/ITALIC]] |
+|Bold |`**bold**` |[[vocab/fountain/BOLD]] |
+|Bold italic |`***bold italic***` |[[vocab/fountain/BOLD-ITALIC]] |
+|Underline |`_underline_` |[[vocab/fountain/UNDERLINE]] |
+|Boneyard |`/* ... */` |[[vocab/fountain/BONEYARD]] |
+
+!! What works
+
+* Title page: `Title:`, `Credit:`, `Author:` etc. at the top of the tiddler, terminated by a blank line or `===`.
+* Scene headings: `INT.` / `EXT.` / `I/E.` / `EST.` keep their prefix visible in the rendered output.
+* Transitions: keyword stays visible (`CUT TO:`, `FADE IN:`, ...). `FADE IN:` is left-aligned (opener convention); other transitions are right-aligned.
+* Character cues: `@ NAME` on its own line renders as a centered uppercase paragraph. Dialogue lines that follow render as regular paragraphs.
+* Synopsis (`= text`), Boneyard (`/* ... */`), Action (`! ...`), Section (`# heading`), Centered (`> text <`), inline emphasis (`*italic*`, `**bold**`, `***bold italic***`, `_underline_`).
+
+!! Known limitations
+
+* ''Dialogue auto-styling.'' Fountain renders dialogue paragraphs (the lines following a character cue) with a narrower indent. The marker engine has no lookahead, so dialogue after `@ NAME` renders as a regular paragraph rather than dialogue-styled. Tracked in beads; no current workaround beyond styling specific paragraphs by hand.
+* ''Parentheticals.'' Fountain's `(closer)` between a character cue and a dialogue line gets its own indent in real screenplays. Same lookahead constraint as dialogue; not supported.
+* ''Whitespace after the glyph.'' Glyph markers (`@`, `!`, `=`, `.`) require a whitespace after the literal. Fountain's spec-style `@NAME` does not fire; use `@ NAME` instead.
+* ''Source-bolded transitions.'' Some Fountain authors write `**FADE IN:**` (with bold delimiters) in source to make the opener stand out in plain-text editors. In Vocab/Fountain the inline `**...**` bold marker fires first and wraps the line as `<strong>`, so the block-level FADE-IN word marker never matches. Write the bare form `FADE IN:` (without surrounding `**`) to get the transition styling. Same for any other transition wrapped in source emphasis.
+* ''Multi-line title page values.'' The front-matter parser is intentionally simple and only understands one-line `Key: Value` pairs. Fountain's spec also allows multi-line values via leading-whitespace continuation (e.g. `Notes:\n\tfirst line\n\tsecond line`); ours doesn't. Restructure as one-line values or accept that continuation lines fall out of the title-page block.
+* ''Auto character detection.'' Fountain detects "ALL-CAPS line followed by dialogue" as an implicit character cue; we require the explicit `@ NAME` form.
+* ''The `.` forced-scene marker'' collides with Vocab/Default's `DOT`. Activate Fountain ''without'' Default if you need it.
+* ''The `>` / `<` centered marker'' uses Fountain's literal characters; tiddlers that mix inequality-style text (`if a > b then`) can hit false matches. Screenplay contexts are usually safe.
+
+!! Related
+
+* [[Vocabulary Engine]]
+* [[Custom Markup Security]]
+* [[Example - Fountain screenplay]]

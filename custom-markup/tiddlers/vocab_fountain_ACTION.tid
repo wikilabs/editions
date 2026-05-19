@@ -1,4 +1,6 @@
 caption: Action (forced)
+created: 20260519092954802
+modified: 20260519092954802
 description: Forced action line. Use when the action text starts with a word that would otherwise be parsed as a scene heading or transition. The `!` prefix tells the parser to render as action regardless.
 element: p
 kind: glyph

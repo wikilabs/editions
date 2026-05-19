@@ -1,0 +1,13 @@
+caption: Section
+created: 20260519161000000
+modified: 20260519161000000
+description: Outline section header (Fountain `#`, `##`, `###`, ...). Author-side organization; conventionally hidden from final production output, but rendered here for visibility while drafting. TW core's `list` rule (which handles `#`-ordered lists) must be disabled for the active vocab; Vocab/Fountain already does that via `disable-core-rules: heading list`.
+element: div
+kind: glyph-level
+max-level: 6
+mode: block
+open: #
+allow-symbol: no
+classes: .wltc-fountain-section
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/SECTION
