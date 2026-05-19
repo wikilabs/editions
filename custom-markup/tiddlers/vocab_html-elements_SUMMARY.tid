@@ -1,7 +1,7 @@
 caption: Summary
 classes: .margin-init
 created: 20260518180729992
-description: Wraps inline content in a <summary> element. Used inside a DETAILS block. Terminates at end of line.
+description: Wraps inline content in a `<summary>` element. Used inside a DETAILS block. Terminates at end of line.
 element: summary
 kind: word
 mode: inline

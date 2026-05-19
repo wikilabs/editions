@@ -1,6 +1,6 @@
 caption: Td
 created: 20260518181019310
-description: Wraps inline content in a <td>. Used inside a ROW for one-line data cells.
+description: Wraps inline content in a `<td>`. Used inside a ROW for one-line data cells.
 element: td
 kind: word
 mode: inline

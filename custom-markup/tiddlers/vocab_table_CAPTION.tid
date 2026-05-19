@@ -1,6 +1,6 @@
 caption: Caption
 created: 20260518181017759
-description: Wraps inline content in a <caption>. Used at the top of a TABLE.
+description: Wraps inline content in a `<caption>`. Used at the top of a TABLE.
 element: caption
 kind: word
 mode: inline

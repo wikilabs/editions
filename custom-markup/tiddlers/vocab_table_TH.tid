@@ -1,6 +1,6 @@
 caption: Th
 created: 20260518181018511
-description: Wraps inline content in a <th>. Used inside a ROW for one-line header cells.
+description: Wraps inline content in a `<th>`. Used inside a ROW for one-line header cells.
 element: th
 kind: word
 mode: inline

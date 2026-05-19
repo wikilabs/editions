@@ -1,6 +1,6 @@
 caption: Table
 created: 20260518181011914
-description: Wraps content in a <table>. Terminated by `---`.
+description: Wraps content in a `<table>`. Terminated by `---`.
 element: table
 end-string: ---
 kind: word

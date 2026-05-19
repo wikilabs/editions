@@ -2,7 +2,7 @@ attributes: {"open":""}
 caption: Details
 classes: .notop.cbox.cbox-primary.hard-linebreaks
 created: 20260518180727593
-description: Wraps content in a <details> element. The first line typically contains a SUMMARY marker. Terminated by `------`.
+description: Wraps content in a `<details>` element. The first line typically contains a SUMMARY marker. Terminated by `------`.
 element: details
 end-string: ------
 kind: word

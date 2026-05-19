@@ -1,7 +1,7 @@
 attributes: {"filter":"[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Marker]sort[caption]]"}
 caption: Markers
 created: 20260518182844155
-description: Named list view: every custom-markup marker tiddler, sorted by caption. Inline-mode $list widget. Use inside LIST with an <li>...</li> body.
+description: Named list view: every custom-markup marker tiddler, sorted by caption. Inline-mode `$list` widget. Use inside LIST with an `<li>...</li>` body.
 element: $list
 kind: word
 mode: inline

@@ -1,7 +1,7 @@
 attributes: {"filter":"[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]"}
 caption: Shortcuts
 created: 20260518182841610
-description: Named list view: keyboard shortcut configs. Inline-mode $list widget filtered to $:/config/shortcuts/* tiddlers that have a tags field. Use inside LIST with an <li>...</li> body.
+description: Named list view: keyboard shortcut configs. Inline-mode `$list` widget filtered to `$:/config/shortcuts/*` tiddlers that have a tags field. Use inside LIST with an `<li>...</li>` body.
 element: $list
 kind: word
 mode: inline

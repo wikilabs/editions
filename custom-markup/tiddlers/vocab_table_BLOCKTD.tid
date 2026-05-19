@@ -1,6 +1,6 @@
 caption: Block-Td
 created: 20260518181022872
-description: Wraps a block of content in a <td>. Terminated by `||`. Use for multi-paragraph data cells where blank lines need to fit inside.
+description: Wraps a block of content in a `<td>`. Terminated by `||`. Use for multi-paragraph data cells where blank lines need to fit inside.
 element: td
 end-string: ||
 kind: word
