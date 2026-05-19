@@ -1,0 +1,10 @@
+caption: Character (forced)
+description: Forced character cue. The body is the character name (free text to end of line); subsequent lines are dialogue or parentheticals. Renders centered uppercase. Fountain auto-detects ALL-CAPS-line as character cue; that detection needs parser lookahead not available here, so use the forced `@` form.
+element: p
+kind: glyph
+mode: block
+open: @
+allow-symbol: no
+classes: .wltc-fountain-character
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/CHARACTER

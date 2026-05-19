@@ -1,0 +1,9 @@
+caption: Iris in
+description: Transition: iris-in (a circular open).
+element: p
+kind: word
+mode: block
+open: IRIS IN:
+classes: .wltc-fountain-transition
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/IRIS-IN

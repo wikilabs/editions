@@ -1,0 +1,9 @@
+caption: Synopsis
+description: Synopsis line. A short author note describing a section or scene. Rendered italic, indented; typically hidden in final output but useful while drafting.
+element: p
+kind: glyph
+mode: block
+open: =
+classes: .wltc-fountain-synopsis
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/SYNOPSIS

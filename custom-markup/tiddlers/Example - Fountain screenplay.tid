@@ -1,0 +1,115 @@
+title: Example - Fountain screenplay
+tags: [[Advanced docs]]
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Worked example for [[$:/vocab/fountain]]. Activates Vocab/Fountain via the type field (no Default; the forced-scene `.` would otherwise collide with DOT). Demonstrates the marker set the engine can express; auto-detected character/dialogue is not supported, so character cues use the forced `@` form.
+
+! Rendered
+
+FADE IN:
+
+INT. KITCHEN MORNING
+
+Sunlight slants across the tiled floor. JANE pours coffee, watching the steam curl up.
+
+@ JANE
+I should have stayed in bed.
+
+EST. STREET
+
+A delivery truck idles. The driver checks his clipboard.
+
+= Synopsis: Jane begins her day, unaware that the parcel will change everything.
+
+EXT. FRONT DOOR DAY
+
+The truck door slams. Footsteps on gravel. A doorbell.
+
+@ JANE
+Already?
+
+CUT TO:
+
+I/E. CAR DUSK
+
+The interior is dim. Jane drives one-handed, the parcel on the passenger seat.
+
+! NOTE: Jane checks the mirror but doesn't see the car behind her. This is a forced action line; the `!` prefix prevents the engine from treating "NOTE:" as a label. Note: with TW's `!` heading rule active, this line may render as a heading instead of action.
+
+@ JANE
+Just a few more miles.
+
+DISSOLVE TO:
+
+EXT. WAREHOUSE NIGHT
+
+A single bulb above a steel door. Jane approaches, parcel held tight.
+
+/* The original ending dropped here was too dark for the test screening; reinstate if the studio asks. */
+
+SMASH CUT TO:
+
+EXT. WAREHOUSE NIGHT
+
+Empty. Jane is gone. The parcel sits on the doorstep.
+
+FADE OUT.
+
+! Source
+
+```
+FADE IN:
+
+INT. KITCHEN MORNING
+
+@ JANE
+I should have stayed in bed.
+
+= Synopsis: Jane begins her day.
+
+EXT. FRONT DOOR DAY
+
+CUT TO:
+
+I/E. CAR DUSK
+
+! NOTE: a forced action line
+
+DISSOLVE TO:
+
+/* boneyard text removed from output */
+
+SMASH CUT TO:
+
+FADE OUT.
+```
+
+! Marker map
+
+|! Element |! Fountain |! Marker |
+|Fade in |`FADE IN:` |[[vocab/fountain/FADE-IN]] |
+|Fade out |`FADE OUT.` |[[vocab/fountain/FADE-OUT]] |
+|Interior scene |`INT.` |[[vocab/fountain/INT]] |
+|Exterior scene |`EXT.` |[[vocab/fountain/EXT]] |
+|Interior/exterior |`I/E.` |[[vocab/fountain/I-E]] |
+|Establishing |`EST.` |[[vocab/fountain/EST]] |
+|Cut to |`CUT TO:` |[[vocab/fountain/CUT-TO]] |
+|Dissolve to |`DISSOLVE TO:` |[[vocab/fountain/DISSOLVE-TO]] |
+|Smash cut to |`SMASH CUT TO:` |[[vocab/fountain/SMASH-CUT-TO]] |
+|Forced character |`@NAME` |[[vocab/fountain/CHARACTER]] |
+|Forced action |`!action` |[[vocab/fountain/ACTION]] |
+|Synopsis |`= text` |[[vocab/fountain/SYNOPSIS]] |
+|Boneyard |`/* ... */` |[[vocab/fountain/BONEYARD]] |
+
+! Caveats
+
+* Character cues use the forced `@ NAME` form (the marker engine requires whitespace after the glyph; Fountain's `@NAME` without a space won't fire). The same applies to `! action`, `= synopsis`, `. scene` (space required after the glyph).
+* Fountain auto-detects "ALL-CAPS line followed by dialogue" as a character cue; the marker engine has no lookahead, so the auto form is not supported.
+* Dialogue lines (after a character cue) render as regular paragraphs. The visual indent / centering convention is not applied automatically.
+* Parentheticals (`(whispered)`) render as regular paragraphs. No special styling.
+* `!` at line start collides with TiddlyWiki's heading syntax. The TW heading rule wins; the Fountain forced-action marker will not fire for `! text`. Use the explicit transition/scene markers, or write the action as a regular paragraph and prefix with a marker the Fountain `!action` covers.
+* Fountain's `*italic*`, `**bold**`, `_underline_` collide with TiddlyWiki's built-in inline rules. Use TW's `//italic//`, `''bold''`, `__underline__` instead.
+* The forced scene-heading marker (`.<text>`) collides with the DOT marker in Vocab/Default; activate Fountain ''without'' Default if you need it, or use the explicit `INT.`/`EXT.`/`EST.`/`I/E.` markers.
+* Centered text (`> ... <`), notes (`[[ ... ]]`), and sections (`#`) are not provided because each collides with TW core wikitext.
+
+See [[Custom Markup Security]] for the secure-by-default rules that apply to all marker rendering.

@@ -1,0 +1,9 @@
+caption: Iris out
+description: Transition: iris-out (a circular close).
+element: p
+kind: word
+mode: block
+open: IRIS OUT:
+classes: .wltc-fountain-transition
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/IRIS-OUT

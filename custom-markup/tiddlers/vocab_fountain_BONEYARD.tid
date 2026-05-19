@@ -1,0 +1,9 @@
+caption: Boneyard
+description: Commented-out section. The body between `/*` and `*/` is hidden from the rendered output (typically used to park scenes the author may revive).
+close: */
+element: span
+kind: inline-pair
+open: /*
+classes: .wltc-fountain-boneyard
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/BONEYARD

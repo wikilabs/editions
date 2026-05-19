@@ -1,0 +1,9 @@
+caption: Fade in
+description: Transition: fade in at the start of the screenplay or after a scene break. Body is the transition label (free text, end of line). Renders right-aligned uppercase.
+element: p
+kind: word
+mode: block
+open: FADE IN:
+classes: .wltc-fountain-transition
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/FADE-IN

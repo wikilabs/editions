@@ -1,0 +1,10 @@
+caption: Action (forced)
+description: Forced action line. Use when the action text starts with a word that would otherwise be parsed as a scene heading or transition. The `!` prefix tells the parser to render as action regardless.
+element: p
+kind: glyph
+mode: block
+open: !
+allow-symbol: no
+classes: .wltc-fountain-action
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/ACTION

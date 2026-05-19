@@ -1,0 +1,10 @@
+caption: Exterior scene
+description: Scene heading: exterior location. Same shape as INT.
+element: p
+kind: word
+mode: block
+open: EXT.
+classes: .wltc-fountain-scene-heading
+order: 8
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/EXT

@@ -1,0 +1,9 @@
+caption: Match cut to
+description: Transition: match cut (visual similarity bridges scenes).
+element: p
+kind: word
+mode: block
+open: MATCH CUT TO:
+classes: .wltc-fountain-transition
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/MATCH-CUT-TO

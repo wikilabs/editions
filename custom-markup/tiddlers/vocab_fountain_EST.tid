@@ -1,0 +1,10 @@
+caption: Establishing shot
+description: Scene heading: establishing shot. Same shape as INT.
+element: p
+kind: word
+mode: block
+open: EST.
+classes: .wltc-fountain-scene-heading
+order: 6
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/EST

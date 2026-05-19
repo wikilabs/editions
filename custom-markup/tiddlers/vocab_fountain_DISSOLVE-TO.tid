@@ -1,0 +1,9 @@
+caption: Dissolve to
+description: Transition: dissolve between scenes (typically time passage).
+element: p
+kind: word
+mode: block
+open: DISSOLVE TO:
+classes: .wltc-fountain-transition
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/DISSOLVE-TO

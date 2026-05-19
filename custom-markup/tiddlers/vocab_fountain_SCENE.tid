@@ -1,0 +1,10 @@
+caption: Scene heading (forced)
+description: Forced scene heading. Use when the line does not start with `INT.`, `EXT.`, `EST.`, or `I/E.` but should be treated as a scene heading. CAVEAT: the open `.` literal collides with the DOT marker in Vocab/Default; activate Fountain WITHOUT Default if you need forced scene headings, or use one of the explicit scene-heading markers instead.
+element: p
+kind: glyph
+mode: block
+open: .
+allow-symbol: no
+classes: .wltc-fountain-scene-heading
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/SCENE

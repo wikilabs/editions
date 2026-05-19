@@ -1,0 +1,44 @@
+created: 20260519092959557
+modified: 20260519092959557
+tags: $:/tags/Stylesheet
+title: $:/vocab/fountain/styles
+type: text/vnd.tiddlywiki
+
+\rules only filteredtranscludeinline transcludeinline macrodef macrocallinline html
+
+.wltc-fountain-scene-heading {
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+.wltc-fountain-transition {
+	text-transform: uppercase;
+	text-align: right;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.wltc-fountain-character {
+	text-transform: uppercase;
+	text-align: center;
+	margin: 1em auto 0;
+	max-width: 60%;
+}
+
+.wltc-fountain-action {
+	margin: 1em 0;
+}
+
+.wltc-fountain-synopsis {
+	font-style: italic;
+	color: #888;
+	margin-left: 2em;
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+
+.wltc-fountain-boneyard {
+	display: none;
+}

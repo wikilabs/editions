@@ -1,0 +1,9 @@
+caption: Smash cut to
+description: Transition: abrupt cut, jarring effect.
+element: p
+kind: word
+mode: block
+open: SMASH CUT TO:
+classes: .wltc-fountain-transition
+tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+title: vocab/fountain/SMASH-CUT-TO
