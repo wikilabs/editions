@@ -80,6 +80,9 @@ type: text/vnd.tiddlywiki
 :* `°.a.b:"c c":"d d"` _classes have to be used before _params. Mixing is ''not possible!''
 :* Example: [[Example - _params with spaces]]
 
+; _activate
+: Default: pragma fires AND activates the marker in this tiddler (author intent: defining custom behaviour implies usage). Set `_activate=no` to suppress activation; useful for pragmas that only exist to be referenced via `_useGlobal` from other tiddlers.
+
 ; _debug options
 : `pragma, pragmaOnly, text, textOnly, both`
 : See: [[Pragma Debug Options]]
