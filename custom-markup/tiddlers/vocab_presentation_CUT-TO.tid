@@ -1,9 +1,10 @@
-title: vocab/presentation/CUT-TO
-tags: $:/tags/CustomMarkup/Marker [[Vocab/Presentation]]
 caption: Cut to
-open: CUT TO:
-kind: word
-mode: block
-element: $slide
 classes: .wltc-slide
 description: A plain slide. Single-block body (paragraph, list, heading) terminated by blank line.
+element: $slide
+kind: word
+mode: block
+modified: 20260519220613726
+open: CUT TO:
+tags: $:/tags/CustomMarkup/Marker vocab/presentation
+title: vocab/presentation/CUT-TO

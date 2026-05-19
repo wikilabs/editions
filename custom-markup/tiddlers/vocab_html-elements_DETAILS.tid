@@ -7,7 +7,7 @@ element: details
 end-string: ------
 kind: word
 mode: block
-modified: 20260518180727593
+modified: 20260519220613726
 open: DETAILS
-tags: $:/tags/CustomMarkup/Marker Vocab/Html-Elements
+tags: $:/tags/CustomMarkup/Marker vocab/html-elements
 title: vocab/html-elements/DETAILS

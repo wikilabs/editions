@@ -4,7 +4,7 @@ description: Wraps inline content in a `<th>`. Used inside a ROW for one-line he
 element: th
 kind: word
 mode: inline
-modified: 20260518181018511
+modified: 20260519220613726
 open: TH
-tags: $:/tags/CustomMarkup/Marker Vocab/Table
+tags: $:/tags/CustomMarkup/Marker vocab/table
 title: vocab/table/TH

@@ -1,12 +1,12 @@
 caption: Fade out
+classes: .wltc-fountain-transition
 created: 20260519092954802
-modified: 20260519152503418
 description: Transition: fade out, typically the final line.
 element: p
+emit-open: yes
 kind: word
 mode: block
+modified: 20260519220613726
 open: FADE OUT.
-classes: .wltc-fountain-transition
-emit-open: yes
-tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/FADE-OUT

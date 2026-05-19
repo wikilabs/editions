@@ -4,7 +4,7 @@ description: Wraps inline content in a `<td>`. Used inside a ROW for one-line da
 element: td
 kind: word
 mode: inline
-modified: 20260518181019310
+modified: 20260519220613726
 open: TD
-tags: $:/tags/CustomMarkup/Marker Vocab/Table
+tags: $:/tags/CustomMarkup/Marker vocab/table
 title: vocab/table/TD

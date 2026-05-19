@@ -4,7 +4,7 @@ description: Wraps inline content in a `<caption>`. Used at the top of a TABLE.
 element: caption
 kind: word
 mode: inline
-modified: 20260518181017759
+modified: 20260519220613726
 open: CAPTION
-tags: $:/tags/CustomMarkup/Marker Vocab/Table
+tags: $:/tags/CustomMarkup/Marker vocab/table
 title: vocab/table/CAPTION

@@ -7,7 +7,7 @@ element: $presentation
 end-string: FADE OUT.
 kind: word
 mode: block
-modified: 20260518195641407
+modified: 20260519220613726
 open: PRESENTATION LOOP
-tags: $:/tags/CustomMarkup/Marker Vocab/Presentation
+tags: $:/tags/CustomMarkup/Marker vocab/presentation
 title: vocab/presentation/PRESENTATION-LOOP

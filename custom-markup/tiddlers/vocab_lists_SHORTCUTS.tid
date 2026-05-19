@@ -5,7 +5,7 @@ description: Named list view: keyboard shortcut configs. Inline-mode `$list` wid
 element: $list
 kind: word
 mode: inline
-modified: 20260518182841610
+modified: 20260519220613726
 open: SHORTCUTS
-tags: $:/tags/CustomMarkup/Marker Vocab/Lists
+tags: $:/tags/CustomMarkup/Marker vocab/lists
 title: vocab/lists/SHORTCUTS

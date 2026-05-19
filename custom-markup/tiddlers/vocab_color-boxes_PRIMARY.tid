@@ -5,8 +5,8 @@ description: Wraps a paragraph in the primary colour box style.
 element: p
 kind: word
 mode: block
-modified: 20260518180949853
+modified: 20260519220613726
 open: PRIMARY
 paragraph-marker: yes
-tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
+tags: $:/tags/CustomMarkup/Marker vocab/color-boxes
 title: vocab/color-boxes/PRIMARY

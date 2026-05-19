@@ -5,7 +5,7 @@ element: td
 end-string: ||
 kind: word
 mode: block
-modified: 20260518181259056
+modified: 20260519220613726
 open: BLOCKTD
-tags: $:/tags/CustomMarkup/Marker Vocab/Table
+tags: $:/tags/CustomMarkup/Marker vocab/table
 title: vocab/table/BLOCKTD

@@ -2,9 +2,10 @@ caption: Fountain
 created: 20260519092954802
 description: Screenplay markers in the spirit of the Fountain syntax (https://fountain.io/syntax/). Scene headings, transitions, forced elements, synopses, boneyards, inline emphasis, centered lines, section headers, and a simple `Key: Value` title-page block. Auto-detection of character/dialogue is not supported (the marker engine has no lookahead); use the forced `@ NAME` form instead. Activate with `;vocab=Fountain` in the type field.
 disable-core-rules: heading list
+filter: [[vocab/fountain]] [all[shadows+tiddlers]tag[vocab/fountain]]
 front-matter: yes
-marker-tag: Vocab/Fountain
-modified: 20260519161000000
-tags: $:/tags/CustomMarkup/Vocabulary
-title: $:/vocab/fountain
+marker-tag: vocab/fountain
+modified: 20260519221053142
+tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
+title: vocab/fountain
 version: 0.3.0

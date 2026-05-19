@@ -1,12 +1,12 @@
+allow-symbol: no
 caption: Action (forced)
+classes: .wltc-fountain-action
 created: 20260519092954802
-modified: 20260519092954802
 description: Forced action line. Use when the action text starts with a word that would otherwise be parsed as a scene heading or transition. The `!` prefix tells the parser to render as action regardless.
 element: p
 kind: glyph
 mode: block
+modified: 20260519220613726
 open: !
-allow-symbol: no
-classes: .wltc-fountain-action
-tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/ACTION

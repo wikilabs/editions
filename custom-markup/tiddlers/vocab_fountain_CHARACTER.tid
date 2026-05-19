@@ -1,12 +1,12 @@
+allow-symbol: no
 caption: Character (forced)
+classes: .wltc-fountain-character
 created: 20260519092954802
-modified: 20260519092954802
 description: Forced character cue. The body is the character name (free text to end of line); subsequent lines are dialogue or parentheticals. Renders centered uppercase. Fountain auto-detects ALL-CAPS-line as character cue; that detection needs parser lookahead not available here, so use the forced `@` form.
 element: p
 kind: glyph
 mode: inline
+modified: 20260519220613726
 open: @
-allow-symbol: no
-classes: .wltc-fountain-character
-tags: $:/tags/CustomMarkup/Marker Vocab/Fountain
+tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/CHARACTER

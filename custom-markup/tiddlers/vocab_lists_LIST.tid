@@ -4,7 +4,7 @@ description: Wraps content in a `<ul>` element. Typically contains a SHORTCUTS o
 element: ul
 kind: word
 mode: block
-modified: 20260518181001473
+modified: 20260519220613726
 open: LIST
-tags: $:/tags/CustomMarkup/Marker Vocab/Lists
+tags: $:/tags/CustomMarkup/Marker vocab/lists
 title: vocab/lists/LIST

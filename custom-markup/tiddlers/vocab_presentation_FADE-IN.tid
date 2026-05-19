@@ -1,10 +1,11 @@
-title: vocab/presentation/FADE-IN
-tags: $:/tags/CustomMarkup/Marker [[Vocab/Presentation]]
+attributes: {"data-transition":"fade"}
 caption: Fade in
-open: FADE IN:
+classes: .wltc-slide
+description: Slide that fades in. Useful as the opening slide of a deck.
+element: $slide
 kind: word
 mode: block
-element: $slide
-classes: .wltc-slide
-attributes: {"data-transition":"fade"}
-description: Slide that fades in. Useful as the opening slide of a deck.
+modified: 20260519220613726
+open: FADE IN:
+tags: $:/tags/CustomMarkup/Marker vocab/presentation
+title: vocab/presentation/FADE-IN

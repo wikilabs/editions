@@ -5,7 +5,7 @@ description: Wraps inline content in a `<summary>` element. Used inside a DETAIL
 element: summary
 kind: word
 mode: inline
-modified: 20260518180729992
+modified: 20260519220613726
 open: SUMMARY
-tags: $:/tags/CustomMarkup/Marker Vocab/Html-Elements
+tags: $:/tags/CustomMarkup/Marker vocab/html-elements
 title: vocab/html-elements/SUMMARY

@@ -5,8 +5,8 @@ description: Wraps a paragraph in the warning colour box style.
 element: p
 kind: word
 mode: block
-modified: 20260518180953858
+modified: 20260519220613726
 open: WARNING
 paragraph-marker: yes
-tags: $:/tags/CustomMarkup/Marker Vocab/Color-Boxes
+tags: $:/tags/CustomMarkup/Marker vocab/color-boxes
 title: vocab/color-boxes/WARNING

@@ -5,7 +5,7 @@ element: th
 end-string: ||
 kind: word
 mode: block
-modified: 20260518181258074
+modified: 20260519220613726
 open: BLOCKTH
-tags: $:/tags/CustomMarkup/Marker Vocab/Table
+tags: $:/tags/CustomMarkup/Marker vocab/table
 title: vocab/table/BLOCKTH
