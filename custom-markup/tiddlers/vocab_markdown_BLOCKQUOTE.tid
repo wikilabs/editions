@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Blockquote
+classes: .wltc-md-blockquote
+created: 20260520010000000
+description: Markdown blockquote. `> quoted text` becomes `<blockquote>...</blockquote>` wrapping the body. Vocab's `disable-core-rules` removes TW's `list` rule (which also claims `>`) so this marker fires.
+element: blockquote
+kind: glyph
+mode: block
+modified: 20260519230312059
+open: >
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/BLOCKQUOTE

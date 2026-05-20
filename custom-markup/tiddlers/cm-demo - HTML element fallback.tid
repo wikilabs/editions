@@ -1,12 +1,12 @@
 created: 20260515235351459
-modified: 20260516011112281
+modified: 20260520004816892
 tags: cm-demo
 title: cm-demo - HTML element fallback
 type: text/vnd.tiddlywiki;vocab=Default,Test
 
 !! HTML element fallback
 
-When the symbol after a glyph marker matches a known HTML element name, the marker emits that element instead of the default. Vocab/Test is loaded via the type field: `text/vnd.tiddlywiki;vocab=Default,Test`.
+When the symbol after a glyph marker matches a known HTML element name, the marker emits that element instead of the default. vocab/test is loaded via the type field: `text/vnd.tiddlywiki;vocab=Default,Test`.
 
 !!! Block (§ + element name)
 

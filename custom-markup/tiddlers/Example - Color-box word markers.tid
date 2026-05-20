@@ -1,10 +1,10 @@
 created: 20260518180958116
-modified: 20260518180958116
+modified: 20260520004816892
 tags: Advanced docs
 title: Example - Color-box word markers
 type: text/vnd.tiddlywiki;vocab=Default,Color-Boxes
 
-Live demo of `PRIMARY` / `SUCCESS` / `WARNING` word markers from Vocab/Color-Boxes. This tiddler's type field activates the vocabulary.
+Live demo of `PRIMARY` / `SUCCESS` / `WARNING` word markers from vocab/color-boxes. This tiddler's type field activates the vocabulary.
 
 !! Rendered
 

@@ -1,5 +1,5 @@
 created: 20200917105803339
-modified: 20260518153000000
+modified: 20260520004816892
 tags: Advanced docs
 title: Customize an HTML Element
 type: text/vnd.tiddlywiki
@@ -31,7 +31,7 @@ Add two marker tiddlers tagged <<tag $:/tags/CustomMarkup/Marker>>:
 |`end-string` |`------` |(default end-of-line) |
 |`attributes` |`{"open":""}` |(none) |
 
-Group them into a vocabulary by tagging both with `Vocab/Html-Elements`, then add a meta tiddler `$:/vocab/html-elements` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Html-Elements` and a `caption: Html-Elements`.
+Group them into a vocabulary by tagging both with `vocab/html-elements`, then add a meta tiddler `vocab/html-elements` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/html-elements` and a `caption: Html-Elements`.
 
 Activate the vocabulary on any tiddler that needs it:
 

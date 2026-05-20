@@ -1,5 +1,5 @@
 created: 20201004150950125
-modified: 20260518233305493
+modified: 20260520004816892
 tags: docs Advanced
 title: Global Pragma Definitions
 type: text/vnd.tiddlywiki
@@ -8,7 +8,7 @@ Both customisation styles (marker tiddlers and `\custom` pragmas) have a wiki-wi
 
 !! Option 1: vocabularies (canonical, wiki-wide markers)
 
-A marker tiddler tagged with a vocabulary tag (e.g. `Vocab/Default`, `Vocab/Color-Boxes`) plus a vocabulary meta tiddler is automatically wiki-wide. Any tiddler that activates the vocabulary via its type field gets the markers:
+A marker tiddler tagged with a vocabulary tag (e.g. `vocab/default`, `vocab/color-boxes`) plus a vocabulary meta tiddler is automatically wiki-wide. Any tiddler that activates the vocabulary via its type field gets the markers:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Color-Boxes

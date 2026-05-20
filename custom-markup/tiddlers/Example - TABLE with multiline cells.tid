@@ -1,5 +1,5 @@
 created: 20260518181032942
-modified: 20260518185000000
+modified: 20260520001155089
 tags: Advanced docs
 title: Example - TABLE with multiline cells
 type: text/vnd.tiddlywiki;vocab=Default,Table
@@ -8,8 +8,7 @@ Live demo for cells that hold multiple paragraphs. The trick: use the inline `TH
 
 !! Rendered
 
-TABLE
-ROW
+TABLE ROW
 TH Power
 TH Batman
 TH Flash

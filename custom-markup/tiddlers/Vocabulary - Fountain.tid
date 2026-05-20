@@ -1,12 +1,13 @@
-title: Vocabulary - Fountain
+modified: 20260520004816892
 tags: [[Advanced docs]]
+title: Vocabulary - Fountain
 type: text/vnd.tiddlywiki
 
-Reference for [[$:/vocab/fountain]], a Custom-Markup vocabulary for screenplay-style content in the spirit of https://fountain.io/syntax/. Worked example: [[Example - Fountain screenplay]].
+Reference for [[vocab/fountain]], a Custom-Markup vocabulary for screenplay-style content in the spirit of https://fountain.io/syntax/. Worked example: [[Example - Fountain screenplay]].
 
 !! Activation
 
-`type: text/vnd.tiddlywiki;vocab=Fountain` on a tiddler. Activate WITHOUT Default if you want the forced-scene `.<text>` marker to fire (it collides with Vocab/Default's DOT).
+`type: text/vnd.tiddlywiki;vocab=Fountain` on a tiddler. Activate WITHOUT Default if you want the forced-scene `.<text>` marker to fire (it collides with vocab/default's DOT).
 
 When activated, the vocab declares:
 
@@ -57,10 +58,10 @@ Other TW rules stay active: `[[Other tiddler]]` prettylinks, `<<macros>>`, table
 * ''Dialogue auto-styling.'' Fountain renders dialogue paragraphs (the lines following a character cue) with a narrower indent. The marker engine has no lookahead, so dialogue after `@ NAME` renders as a regular paragraph rather than dialogue-styled. Tracked in beads; no current workaround beyond styling specific paragraphs by hand.
 * ''Parentheticals.'' Fountain's `(closer)` between a character cue and a dialogue line gets its own indent in real screenplays. Same lookahead constraint as dialogue; not supported.
 * ''Whitespace after the glyph.'' Glyph markers (`@`, `!`, `=`, `.`) require a whitespace after the literal. Fountain's spec-style `@NAME` does not fire; use `@ NAME` instead.
-* ''Source-bolded transitions.'' Some Fountain authors write `**FADE IN:**` (with bold delimiters) in source to make the opener stand out in plain-text editors. In Vocab/Fountain the inline `**...**` bold marker fires first and wraps the line as `<strong>`, so the block-level FADE-IN word marker never matches. Write the bare form `FADE IN:` (without surrounding `**`) to get the transition styling. Same for any other transition wrapped in source emphasis.
+* ''Source-bolded transitions.'' Some Fountain authors write `**FADE IN:**` (with bold delimiters) in source to make the opener stand out in plain-text editors. In vocab/fountain the inline `**...**` bold marker fires first and wraps the line as `<strong>`, so the block-level FADE-IN word marker never matches. Write the bare form `FADE IN:` (without surrounding `**`) to get the transition styling. Same for any other transition wrapped in source emphasis.
 * ''Multi-line title page values.'' The front-matter parser is intentionally simple and only understands one-line `Key: Value` pairs. Fountain's spec also allows multi-line values via leading-whitespace continuation (e.g. `Notes:\n\tfirst line\n\tsecond line`); ours doesn't. Restructure as one-line values or accept that continuation lines fall out of the title-page block.
 * ''Auto character detection.'' Fountain detects "ALL-CAPS line followed by dialogue" as an implicit character cue; we require the explicit `@ NAME` form.
-* ''The `.` forced-scene marker'' collides with Vocab/Default's `DOT`. Activate Fountain ''without'' Default if you need it.
+* ''The `.` forced-scene marker'' collides with vocab/default's `DOT`. Activate Fountain ''without'' Default if you need it.
 * ''The `>` / `<` centered marker'' uses Fountain's literal characters; tiddlers that mix inequality-style text (`if a > b then`) can hit false matches. Screenplay contexts are usually safe.
 
 !! Related

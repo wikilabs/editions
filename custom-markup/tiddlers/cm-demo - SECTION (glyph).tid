@@ -1,12 +1,12 @@
 created: 20260515235339332
-modified: 20260516011057206
+modified: 20260520004816892
 tags: cm-demo
 title: cm-demo - SECTION (glyph)
 type: text/vnd.tiddlywiki;vocab=Default,Test
 
 !! Glyph marker (§)
 
-Marker tiddler: [[vocab/test/SECTION]]. Vocab/Test is loaded via the type field: `text/vnd.tiddlywiki;vocab=Default,Test`.
+Marker tiddler: [[vocab/test/SECTION]]. vocab/test is loaded via the type field: `text/vnd.tiddlywiki;vocab=Default,Test`.
 
 !!! Bare glyph
 

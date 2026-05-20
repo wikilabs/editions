@@ -1,21 +1,21 @@
 created: 20260516012001204
-modified: 20260516012001204
+modified: 20260520004816892
 tags: cm-smoke
 title: cm-smoke - vocab via pragma
 type: text/vnd.tiddlywiki
 
-\importcustom [all[shadows+tiddlers]tag[Vocab/Test]]
+\importcustom [all[shadows+tiddlers]tag[vocab/test]]
 
 !! Pragma vocabulary activation
 
-This tiddler's type is plain `text/vnd.tiddlywiki`. Vocab/Test is loaded by the `\importcustom` pragma at the top.
+This tiddler's type is plain `text/vnd.tiddlywiki`. vocab/test is loaded by the `\importcustom` pragma at the top.
 
 The pragma works thanks to the dynamic regex refresh on the parse rules: vocabularies registered after init are picked up on the next match scan.
 
-!!! Default markers fire (° from Vocab/Default, auto-loaded)
+!!! Default markers fire (° from vocab/default, auto-loaded)
 
-°.indent A degree paragraph from Vocab/Default.
+°.indent A degree paragraph from vocab/default.
 
-!!! Test markers fire too (TESTMARK from pragma-loaded Vocab/Test)
+!!! Test markers fire too (TESTMARK from pragma-loaded vocab/test)
 
 TESTMARK Loaded via the `\importcustom` pragma above.

@@ -1,5 +1,5 @@
 created: 20200915195838828
-modified: 20260518153000000
+modified: 20260520004816892
 tags: Advanced docs
 title: Customized Wikitext Lists
 type: text/vnd.tiddlywiki
@@ -19,7 +19,7 @@ Take a filter and a list-item template, and render an actual HTML `<ul>` from th
 
 !! Option 1: marker tiddlers (canonical, vocabulary-engine)
 
-Vocab/Lists is a ''catalogue of named list views''. The outer wrapper is one marker; each named view is its own inline `<$list>` marker baking a useful filter. Add more markers per use case (recent edits, by-tag-task, etc.).
+vocab/lists is a ''catalogue of named list views''. The outer wrapper is one marker; each named view is its own inline `<$list>` marker baking a useful filter. Add more markers per use case (recent edits, by-tag-task, etc.).
 
 |! Field |! `LIST` (wrapper) |! `SHORTCUTS` (view) |! `MARKERS` (view) |! `VOCABS` (view) |
 |`open` |`LIST` |`SHORTCUTS` |`MARKERS` |`VOCABS` |
@@ -28,7 +28,7 @@ Vocab/Lists is a ''catalogue of named list views''. The outer wrapper is one mar
 |`element` |`ul` |`$list` |`$list` |`$list` |
 |`attributes` |(none) |filter for `$:/config/shortcuts/*` |filter for `$:/tags/CustomMarkup/Marker` |filter for `$:/tags/CustomMarkup/Vocabulary` |
 
-Tag each marker with `Vocab/Lists`, add a meta tiddler `$:/vocab/lists` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Lists`, and activate:
+Tag each marker with `vocab/lists`, add a meta tiddler `vocab/lists` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/lists`, and activate:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Lists

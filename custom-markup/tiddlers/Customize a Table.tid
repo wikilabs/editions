@@ -1,5 +1,5 @@
 created: 20200918142853132
-modified: 20260518153000000
+modified: 20260520004816892
 tags: Advanced docs
 title: Customize a Table
 type: text/vnd.tiddlywiki
@@ -37,7 +37,7 @@ Add five marker tiddlers tagged <<tag $:/tags/CustomMarkup/Marker>>:
 |TH |`TH` |`word` |`inline` |`th` | |
 |TD |`TD` |`word` |`inline` |`td` | |
 
-Group all five under `Vocab/Table` and add `$:/vocab/table` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: Vocab/Table`. Activate per tiddler:
+Group all five under `vocab/table` and add `vocab/table` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/table`. Activate per tiddler:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Table
@@ -67,7 +67,7 @@ A worked example lives at [[Example - TABLE word markers]].
 
 !! Option 2: inline pragma (escape hatch)
 
-The same configuration via `\custom` pragmas, scoped to one tiddler. Activate Vocab/Legacy-Glyphs so the tick is available:
+The same configuration via `\custom` pragmas, scoped to one tiddler. Activate vocab/legacy-glyphs so the tick is available:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs

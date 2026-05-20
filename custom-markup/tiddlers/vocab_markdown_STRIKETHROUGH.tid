@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Strikethrough
+classes: .wltc-md-strikethrough
+close: ~~
+created: 20260520010000000
+description: Inline strikethrough. Open and close both `~~`. Element is `<s>`. Vocab's `disable-core-rules` removes TW's own `strikethrough` rule so this marker fires unambiguously.
+element: s
+kind: inline-pair
+modified: 20260519225214786
+open: ~~
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/STRIKETHROUGH

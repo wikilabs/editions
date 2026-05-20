@@ -1,7 +1,7 @@
 created: 20200910092000359
-modified: 20260519064400297
+modified: 20260520004816892
 tags: Advanced docs Test-rendering-requires-browser
-title: Example - revealjs presentation (Vocab/Presentation)
+title: Example - revealjs presentation (vocab/presentation)
 type: text/vnd.tiddlywiki;vocab=Presentation
 
 <style>
@@ -18,7 +18,7 @@ type: text/vnd.tiddlywiki;vocab=Presentation
 }
 </style>
 
-The Vocab/Presentation DSL wraps the [[Reveal.js plugin|$:/plugins/sukima/reveal-js]] in a Fountain-flavoured screenplay vocabulary. Activate via `type: text/vnd.tiddlywiki;vocab=Presentation`. Each deck opens with a `PRESENTATION` marker and closes with `FADE OUT.`; slides start with `CUT TO:`, `ANIMATE TO:`, or `FADE IN:`.
+The vocab/presentation DSL wraps the [[Reveal.js plugin|$:/plugins/sukima/reveal-js]] in a Fountain-flavoured screenplay vocabulary. Activate via `type: text/vnd.tiddlywiki;vocab=Presentation`. Each deck opens with a `PRESENTATION` marker and closes with `FADE OUT.`; slides start with `CUT TO:`, `ANIMATE TO:`, or `FADE IN:`.
 
 For slide-level features that need per-slide configuration (backgrounds, vertical sub-slides, code blocks), drop down to the raw `<$slide>` / `<$slidecodeblock>` widgets inside the deck. The markers handle the rhythm, the widgets handle the details.
 

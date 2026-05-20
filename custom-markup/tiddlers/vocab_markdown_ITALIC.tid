@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Italic
+classes: .wltc-md-italic
+close: *
+created: 20260520010000000
+description: Inline italic. Open and close both `*`. Element is `<em>`. Markdown also allows `_italic_`; not supported in v0.1 to avoid colliding with TW's `__underscore__` rule.
+element: em
+kind: inline-pair
+modified: 20260519225207532
+open: *
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/ITALIC

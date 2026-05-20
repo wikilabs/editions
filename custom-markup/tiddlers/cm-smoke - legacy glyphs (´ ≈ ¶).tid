@@ -1,12 +1,12 @@
 created: 20260516020349174
-modified: 20260516020349174
+modified: 20260520004816892
 tags: cm-smoke
 title: cm-smoke - legacy glyphs (´ ≈ ¶)
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
 
 !! Legacy-Glyphs vocabulary
 
-This tiddler's type is `text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs`. The three glyphs `´` `≈` `¶` were removed from Default in the cm-redesign and now live in the opt-in `Vocab/Legacy-Glyphs`.
+This tiddler's type is `text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs`. The three glyphs `´` `≈` `¶` were removed from Default in the cm-redesign and now live in the opt-in `vocab/legacy-glyphs`.
 
 !!! Tick (´) — inline mode, single-newline terminated
 

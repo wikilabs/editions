@@ -1,9 +1,10 @@
 caption: Html-Elements
 created: 20260518180727190
-description: Word markers wrapping HTML elements that have no native wikitext syntax (e.g. <details>). Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Html-Elements`.
+description: Word markers wrapping HTML elements that have no native wikitext syntax (e.g. `<details>`). Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Html-Elements`.
 filter: [[vocab/html-elements]] [all[shadows+tiddlers]tag[vocab/html-elements]]
 marker-tag: vocab/html-elements
-modified: 20260519221057883
+modified: 20260520000110460
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/html-elements
+type: text/vnd.tiddlywiki
 version: 0.1.0

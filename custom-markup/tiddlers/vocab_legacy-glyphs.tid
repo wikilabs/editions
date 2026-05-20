@@ -1,8 +1,8 @@
 caption: Legacy-Glyphs
-description: Backward-compat for ´, ≈, ¶ removed from Vocab/Default in cm-redesign. Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs` or `\importcustom [tag[Vocab/Legacy-Glyphs]]`.
+description: Backward-compat for ´, ≈, ¶ removed from vocab/default in cm-redesign. Opt in via type=`text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs` or `\importcustom [tag[vocab/legacy-glyphs]]`.
 filter: [[vocab/legacy-glyphs]] [all[shadows+tiddlers]tag[vocab/legacy-glyphs]]
 marker-tag: vocab/legacy-glyphs
-modified: 20260519221054730
+modified: 20260520004816892
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/legacy-glyphs
 version: 0.1.0

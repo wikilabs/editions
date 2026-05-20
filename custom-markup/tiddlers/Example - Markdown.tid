@@ -1,0 +1,58 @@
+created: 20260520020000000
+modified: 20260520002202099
+title: Example - Markdown
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+# Markdown Vocab Showcase
+
+This tiddler activates the **Markdown** custom-markup vocabulary via its type field (`text/vnd.tiddlywiki;vocab=Markdown`). Every marker shipped in the current v0.2 set is demonstrated below.
+
+## Inline emphasis
+
+Run-of-the-mill text can carry *italic*, **bold**, ***both at once***, ~~strikethrough~~, and `inline code` mid-sentence. The underscore alternates also work: _italic_ and __bold__.
+
+## Headings
+
+Six levels available, `#` through `######`, mapping to semantic `<h1>` through `<h6>`.
+
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+
+## Blockquote
+
+> A blockquote captures a single line of quoted text.
+
+## Lists
+
+Unordered list with the dash bullet:
+
+- First item
+- Second item
+- Third item
+
+Asterisk and plus are also accepted as bullets:
+
+* asterisk item
++ plus item
+
+Ordered list:
+
+1. One
+2. Two
+3. Three
+
+Nested mix-and-match via 2-space indent per level:
+
+- Top level
+  - Nested under top
+  - Sibling at the nested level
+    1. Deeper, ordered
+    2. Same ordered list
+  - Back to unordered at the nested level
+- Back to top level
+
+## Combining markers
+
+A paragraph can carry several markers at once: **bold** and _italic_ on the same line, plus ~~strikethrough~~ and `code` for good measure.

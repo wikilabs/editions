@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Italic (underscore)
+classes: .wltc-md-italic
+close: _
+created: 20260520010000000
+description: Markdown's underscore italic alternative. `_x_` becomes `<em>x</em>`. The companion to `*x*`.
+element: em
+kind: inline-pair
+modified: 20260519230314146
+open: _
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/ITALIC-ALT

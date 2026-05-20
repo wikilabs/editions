@@ -1,5 +1,5 @@
 created: 20260516050000000
-modified: 20260518143000000
+modified: 20260520004816892
 tags: docs
 title: Migration to V1.0
 type: text/vnd.tiddlywiki
@@ -10,7 +10,7 @@ v1.0.0-beta-1 moves from a hardcoded 9-glyph alphabet to a data-driven [[Vocabul
 
 !! Removed glyphs
 
-`´` (tick), `≈` (approx) and `¶` (pilcrow) are no longer in Vocab/Default. Opt back in by adding `;vocab=Default,Legacy-Glyphs` to the tiddler's type field:
+`´` (tick), `≈` (approx) and `¶` (pilcrow) are no longer in vocab/default. Opt back in by adding `;vocab=Default,Legacy-Glyphs` to the tiddler's type field:
 
 ''Before''
 

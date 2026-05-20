@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Bold
+classes: .wltc-md-bold
+close: **
+created: 20260520010000000
+description: Inline bold. Open and close both `**`. Element is `<strong>`. Markdown also allows `__bold__`; not supported in v0.1 to avoid colliding with TW's underscore rule.
+element: strong
+kind: inline-pair
+modified: 20260519225210134
+open: **
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/BOLD

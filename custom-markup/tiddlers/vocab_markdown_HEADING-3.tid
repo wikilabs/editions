@@ -1,0 +1,11 @@
+caption: Heading 3
+classes: .wltc-md-heading
+created: 20260520010000000
+description: Markdown level-3 heading. `### Heading text` becomes `<h3>Heading text</h3>`.
+element: h3
+kind: word
+mode: inline
+modified: 20260519232026347
+open: ###
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/HEADING-3

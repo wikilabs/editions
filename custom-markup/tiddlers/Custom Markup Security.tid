@@ -1,3 +1,4 @@
+modified: 20260520004816892
 tags: Reference docs
 title: Custom Markup Security
 type: text/vnd.tiddlywiki
@@ -66,7 +67,7 @@ Opt out only when you understand exactly what the marker does and trust every au
 
 ```
 title: vocab/my-vocab/EMBED-EXAMPLE
-tags: $:/tags/CustomMarkup/Marker [[Vocab/MyVocab]]
+tags: $:/tags/CustomMarkup/Marker [[vocab/myvocab]]
 caption: Embed example
 open: EMBED
 kind: word

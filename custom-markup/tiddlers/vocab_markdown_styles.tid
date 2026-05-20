@@ -1,0 +1,7 @@
+created: 20260520030000000
+modified: 20260520003050071
+tags: $:/tags/Stylesheet
+title: vocab/markdown/styles
+type: text/vnd.tiddlywiki
+
+.wltc-md-bold-italic { font-style: italic; }

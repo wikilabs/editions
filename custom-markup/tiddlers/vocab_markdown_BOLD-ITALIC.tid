@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Bold italic
+classes: .wltc-md-bold-italic
+close: ***
+created: 20260520010000000
+description: Inline bold + italic. Open and close both `***`. Element is `<strong>` with the `wltc-md-bold-italic` class so both effects apply without nested elements.
+element: strong
+kind: inline-pair
+modified: 20260519225212184
+open: ***
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/BOLD-ITALIC

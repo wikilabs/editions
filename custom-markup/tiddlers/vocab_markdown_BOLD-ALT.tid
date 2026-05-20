@@ -1,0 +1,12 @@
+allow-symbol: no
+caption: Bold (underscore)
+classes: .wltc-md-bold
+close: __
+created: 20260520010000000
+description: Markdown's underscore bold alternative. `__x__` becomes `<strong>x</strong>`. The companion to `**x**`. Vocab's `disable-core-rules` removes TW's `underscore` rule (which renders `__x__` as `<u>`) so this marker fires.
+element: strong
+kind: inline-pair
+modified: 20260519230316487
+open: __
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/BOLD-ALT

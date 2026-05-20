@@ -1,5 +1,5 @@
 created: 20260519104702731
-modified: 20260519170000000
+modified: 20260520004816892
 tags: [[Advanced docs]]
 title: Example - Fountain screenplay
 type: text/vnd.tiddlywiki;vocab=Fountain
@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki;vocab=Fountain
 Title: The Parcel
 Credit: written by
 Author: Custom-Markup Demo
-Source: Original example for Vocab/Fountain
+Source: Original example for vocab/fountain
 Draft date: 2026-05-19
 
 <style>
@@ -18,7 +18,7 @@ Draft date: 2026-05-19
 }
 </style>
 
-''Worked example for [[$:/vocab/fountain]].'' Reference: [[Vocabulary - Fountain]].
+''Worked example for [[vocab/fountain]].'' Reference: [[Vocabulary - Fountain]].
 
 > THE PARCEL <
 
@@ -30,7 +30,7 @@ INT. KITCHEN MORNING
 
 Sunlight slants across the tiled floor. JANE pours coffee, watching the steam curl up.
 
-@ JANE
+@ [[JANE]]
 I should have stayed in bed.
 
 EST. STREET

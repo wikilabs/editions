@@ -1,0 +1,13 @@
+allow-symbol: no
+body-raw: yes
+caption: Code
+classes: .wltc-md-code
+close: `
+created: 20260520010000000
+description: Inline code span. Open and close both `` ` ``. Element is `<code>`. Body is captured literally via `body-raw: yes` — wikitext inside (HTML tags, link syntax, other markers) is preserved as text.
+element: code
+kind: inline-pair
+modified: 20260520003019914
+open: `
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/CODE

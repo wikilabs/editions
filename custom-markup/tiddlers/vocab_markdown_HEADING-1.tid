@@ -1,0 +1,11 @@
+caption: Heading 1
+classes: .wltc-md-heading
+created: 20260520010000000
+description: Markdown level-1 heading. `# Heading text` becomes `<h1>Heading text</h1>`. Engine sorts word markers longest-first so `######` wins over `#`.
+element: h1
+kind: word
+mode: inline
+modified: 20260519232024810
+open: #
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/HEADING-1

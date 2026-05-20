@@ -1,5 +1,5 @@
 created: 20200918141625063
-modified: 20260518153000000
+modified: 20260520004816892
 tags: Advanced docs
 title: Customize a Table with Multiline Content
 type: text/vnd.tiddlywiki
@@ -12,7 +12,7 @@ Building on [[Customize a Table]]: if your cells contain a paragraph (or multipl
 
 !! Option 1: marker tiddlers (canonical, vocabulary-engine)
 
-Re-use TABLE / ROW / CAPTION from [[Customize a Table]], and add two block-mode cell markers in the same `Vocab/Table` vocabulary:
+Re-use TABLE / ROW / CAPTION from [[Customize a Table]], and add two block-mode cell markers in the same `vocab/table` vocabulary:
 
 |! Marker |! `open` |! `kind` |! `mode` |! `element` |! `end-string` |
 |TABLE |`TABLE` |`word` |`block` |`table` |`---` |
@@ -55,7 +55,7 @@ Block-mode cells always wrap their body in a `<p>`, even when it's one line, whi
 
 !! Option 2: inline pragma (escape hatch)
 
-The same scheme with pragmas, scoped to a single tiddler. Activate Vocab/Legacy-Glyphs:
+The same scheme with pragmas, scoped to a single tiddler. Activate vocab/legacy-glyphs:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
