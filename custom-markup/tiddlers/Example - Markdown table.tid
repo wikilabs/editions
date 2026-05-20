@@ -1,0 +1,32 @@
+created: 20260520030000000
+modified: 20260520025719936
+title: Example - Markdown table
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+## Markdown tables
+
+Markdown tables use pipe syntax. A separator row (with `-` characters between pipes) immediately under the header row is required; colons on the separator drive column alignment.
+
+```
+| Syntax | Effect |
+|:-------|:-------|
+| `:---` | left-aligned (default) |
+| `:---:` | centre-aligned |
+| `---:` | right-aligned |
+```
+
+| Syntax | Effect |
+|:-------|:-------|
+| `:---` | left-aligned (default) |
+| `:---:` | centre-aligned |
+| `---:` | right-aligned |
+
+Example with mixed alignment and inline emphasis inside cells:
+
+| Left-aligned | Centred | Right-aligned |
+|:-------------|:-------:|--------------:|
+| *italic*     | **bold** | `code`       |
+| ~~struck~~   | one      | two          |
+| seven        | eight    | nine         |
+
+Blank lines or any line not starting with `|` end the table. Cell content is parsed as an inline run, so emphasis markers (`*italic*`, `**bold**`, `` `code` `` etc.) fire inside cells.
