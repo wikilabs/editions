@@ -1,0 +1,27 @@
+created: 20260520050000000
+modified: 20260520035407021
+tags: [[Vocabulary Engine]]
+title: Engine Filters and Templates
+type: text/vnd.tiddlywiki
+
+!! Listing active markers
+
+The `cm-active-markers` filter operator returns marker titles active for a given tiddler.
+
+```
+[<currentTiddler>cm-active-markers[block]]
+[<currentTiddler>cm-active-markers[inline]]
+[<currentTiddler>cm-active-markers[word]]
+```
+
+Empty source falls back to vocab/default so a dropdown without an edit context still renders a usable list.
+
+!! Summary views (ViewTemplate)
+
+Opening a marker tiddler, a vocabulary tiddler, or a marker-tag tiddler shows a summary instead of an empty body. Three cascade tiddlers under `$:/plugins/wikilabs/custom-markup/ViewTemplateBodyFilters/` (each tagged <<tag $:/tags/ViewTemplateBodyFilter>>) route:
+
+* tag <<tag $:/tags/CustomMarkup/Marker>> on the tiddler being viewed: per-marker fields summary.
+* the tiddler title itself is a marker-tag (e.g. `vocab/default`): catalog of every marker carrying that tag.
+* tag <<tag $:/tags/CustomMarkup/Vocabulary>>: caption, description, marker-tag, version, plus the marker listing.
+
+All three templates list fields dynamically via `[<currentTiddler>fields[]sort[]]` so new marker / vocab fields surface automatically. Each links back to [[Marker Fields]] / [[Vocabulary Meta Fields]] for the canonical reference.

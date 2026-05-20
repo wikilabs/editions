@@ -1,0 +1,164 @@
+created: 20260520050000000
+modified: 20260520035333258
+tags: [[Vocabulary Engine]]
+title: Marker Fields
+type: text/vnd.tiddlywiki
+
+Marker tiddlers carry a handful of fields. They cluster into four jobs: ''what triggers the match'', ''what HTML comes out'', ''how the body is consumed'', and ''how the marker shows up in the editor''. Most markers only need fields from the first two clusters; the others are opt-in for specific behaviour.
+
+!! Identity and matching
+
+How the engine recognises an occurrence of this marker in source text.
+
+|! Field |! Required |! Notes |
+|`kind` |yes |`glyph`, `glyph-level`, `word`, `inline-pair`, or `list-item`. |
+|`open` |yes |Literal characters that trigger the marker. Always required as a stable identity key, even when `open-pattern` is set. |
+|`close` |inline-pair |Literal characters that terminate the body of an inline-pair marker. |
+|`open-pattern` |list-item |Regex source string. When set, overrides `open` for matching. Lets a single marker handle a bullet family (e.g. `\d+\.` for ordered lists). |
+|`max-level` |glyph-level |Maximum repetitions of `open` that count as deeper levels. `»` `»»` `»»»` becomes `wltc-l1` `wltc-l2` `wltc-l3`. |
+|`allow-symbol` |glyph, inline-pair |Default `yes`. Set `no` for body-only markers (where there's no symbol between open and content). Required for prose-safe `.` and emphasis-style inline pairs. |
+
+''Worked example:'' [[vocab/default/DOT]]. A glyph marker that doesn't take a symbol.
+
+```
+title: vocab/default/DOT
+kind: glyph
+open: .
+allow-symbol: no
+```
+
+Why each field is set:
+
+* `kind: glyph` because the marker fires once per line, not in pairs and not repeating for levels.
+* `open: .` is the single character users type at the start of a line.
+* `allow-symbol: no` because `.` is everywhere in prose (`.NET`, `e.g.`). With it on, the engine would treat the first non-whitespace run after the dot as a symbol name and eat real content. Off, the marker only fires when `.` is immediately followed by whitespace, ruling out the prose collisions.
+
+''Worked example:'' [[vocab/default/ANGLE]]. A multi-level glyph.
+
+```
+title: vocab/default/ANGLE
+kind: glyph-level
+open: »
+max-level: 4
+classes: .wltc-angle
+```
+
+`»text` renders with class `wltc-l1 wltc-angle`, `»»text` with `wltc-l2 wltc-angle`, up to four levels. The engine reads repeats of `open` from the source and emits the matching level class so CSS can indent each level.
+
+''Worked example:'' [[vocab/markdown/ITEM-OL]]. An ordered-list bullet using a regex.
+
+```
+title: vocab/markdown/ITEM-OL
+kind: list-item
+open: 1.
+open-pattern: \d+\.
+container: ol
+```
+
+`open: 1.` exists so the engine has a stable identity for active-set tracking; the actual matching uses `open-pattern: \d+\.`, which accepts any number of digits followed by a dot. Without `open-pattern`, you'd need a separate marker for every starting number.
+
+!! Output structure
+
+What HTML comes out when the marker fires.
+
+|! Field |! Required |! Notes |
+|`element` |no |HTML element name (e.g. `p`, `h2`, `code`, `blockquote`). Defaults to `div` for block markers, `span` for inline-pair. |
+|`classes` |no |Dot-prefixed CSS class chain (e.g. `.wltc-fountain-transition`). Multiple classes via `.cls-a.cls-b`. |
+|`attributes` |no |JSON object of extra HTML attributes, e.g. `{"role":"note"}`. |
+|`container` |list-item |The wrapping element for consecutive same-level items (`ul`, `ol`, `dl`, `blockquote`). |
+|`item-element` |list-item |Element for each item inside the container (default `li`; use `dt`/`dd` for definition lists). |
+
+''Worked example:'' [[vocab/fountain/INT]]. A Fountain scene heading.
+
+```
+title: vocab/fountain/INT
+kind: word
+open: INT.
+element: p
+classes: .wltc-fountain-scene-heading
+emit-open: yes
+```
+
+* `element: p` makes the output an HTML paragraph the screenplay CSS can style.
+* `classes: .wltc-fountain-scene-heading` is the CSS hook for the screenplay layout (left-aligned, uppercase, etc.).
+* `emit-open: yes` keeps `INT.` in the rendered output. Without it the keyword would be consumed and only `KITCHEN MORNING` would render. Authors expect `INT. KITCHEN MORNING` to read back as written.
+
+''Worked example:'' [[vocab/markdown/ITEM-DASH]]. A markdown list-item.
+
+```
+title: vocab/markdown/ITEM-DASH
+kind: list-item
+open: -
+container: ul
+item-element: li
+classes: .wltc-md-list-item
+```
+
+`-` triggers a list item. The engine builds `<ul><li>...</li></ul>` around consecutive matches. Deeper-indented matches nest under the previous item; same-indent siblings extend the current `<ul>`. The `container` and `item-element` fields tell the engine which wrapper tags to emit.
+
+!! Parsing behaviour
+
+How the engine consumes content between the opening marker and the next block break.
+
+|! Field |! Required |! Notes |
+|`mode` |no |`block` (default for non-inline-pair) parses body as multi-block content; `inline` parses as a single inline run. Use `inline` for headings, scene-heading-style markers, anything where the body is one line. |
+|`paragraph-marker` |no |`yes` opts into blank-line terminator (instead of the default single-newline). Required when wrapping multi-paragraph content. |
+|`end-string` |no |Custom terminator string. Overrides the kind-driven default. Use for explicit close keywords (e.g. Fountain's `FADE OUT.`). |
+|`emit-open` |no |`yes` prepends the open literal to the rendered body so the keyword IS the content (Fountain transitions render `CUT TO:` literally, not as an empty `<p>`). |
+|`body-raw` |inline-pair |`yes` captures the body as a single literal text node, no recursive parsing. Required for code-span markers where inside-content must stay literal. |
+|`indent-unit` |list-item |Spaces of leading indent that count as one nesting level (default `2`). Tabs are expanded to this many spaces before the level is computed. |
+
+''Worked example:'' [[vocab/markdown/HEADING-2]]. A markdown heading.
+
+```
+title: vocab/markdown/HEADING-2
+kind: word
+open: ##
+mode: inline
+element: h2
+```
+
+`mode: inline` is the critical line. Without it, `## My heading` renders as `<h2><p>My heading</p></h2>` because the engine defaults block-kind bodies to a paragraph parse. With `mode: inline`, the body parses as a single inline run, giving `<h2>My heading</h2>`. Headings are always single-line content, never multi-paragraph.
+
+''Worked example:'' [[vocab/markdown/CODE]]. An inline code span with literal body.
+
+```
+title: vocab/markdown/CODE
+kind: inline-pair
+open: `
+close: `
+allow-symbol: no
+element: code
+body-raw: yes
+```
+
+Without `body-raw: yes`, the engine would parse the body recursively and `` `<h1>foo</h1>` `` would emit an actual `<h1>` element instead of literal text. With it, the body becomes a single text node, exactly what a code span needs.
+
+''Worked example:'' [[vocab/default/ANGLE]]. A paragraph-style marker.
+
+```
+title: vocab/default/ANGLE
+kind: glyph-level
+open: »
+element: p
+paragraph-marker: yes
+```
+
+`paragraph-marker: yes` switches the terminator from single newline to blank line, so a `»` paragraph can wrap multiple lines without each line becoming its own `<p>`. Required whenever the marker represents prose that flows across line breaks.
+
+!! Editor integration and back-compat
+
+Optional fields that affect the editor toolbar and legacy pragma resolution.
+
+|! Field |! Required |! Notes |
+|`marker-icon` |no |Title of the SVG icon tiddler shown in the toolbar dropdown. Conventionally under `$:/plugins/wikilabs/custom-markup/icons/glyphs/...` or `.../inline/...`. |
+|`order` |no |Sort hint for editor-toolbar dropdowns. ''Higher'' number sorts earlier (more prominent); unset markers fall back to caption order. vocab/default uses `ANGLE=4`, `SINGLE=3`, `DOT=2`, `DEGREE=1`. |
+|`legacy-kind` |no |Friendly name (`tick`, `degree`, ...) that the v0.x `\custom <kind>=<symbol>` pragma can still resolve to this marker. |
+|`allow-classes` |no |Word-kind only. `yes` lets users append a class chain after the keyword: `CUT TO:.urgent`. Default off. |
+|`caption` |yes |Display name in marker-summary headers and editor dropdowns. |
+|`description` |no |One-sentence summary surfaced in the marker-summary view. |
+
+!! Security
+
+|! Field |! Required |! Notes |
+|`allow-unsafe` |no |Default secure-by-default: iframe gets `sandbox=""` injected, `object`/`embed`/`frame`/`frameset` are denied, `javascript:` URL values are stripped. Set `yes` to opt out. See [[Custom Markup Security]] for the threat model and the full sanitiser rules. |

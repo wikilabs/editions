@@ -1,86 +1,20 @@
 created: 20260516050000000
-modified: 20260520033000968
-tags: Reference docs
+modified: 20260520035525736
+tags: Reference
 title: Vocabulary Engine
 type: text/vnd.tiddlywiki
 
-!! Markers, vocabularies, activation
+Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged <<tag $:/tags/CustomMarkup/Marker>>. Markers group into vocabularies via a `vocab/<name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> that names the marker-tag and supplies a caption.
 
-Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged <<tag $:/tags/CustomMarkup/Marker>>. Markers group into vocabularies via a `Vocab/<Name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> that names the marker-tag and supplies a caption.
+This page is the entry point. Each detail topic below is its own tiddler tagged `Vocabulary Engine` so it can be linked, transcluded, or surfaced in any TOC built from that tag.
 
-!! Marker fields
+!! Detail topics
 
-|! Field |! Required |! Notes |
-|`open` |yes |The literal opening characters: `°`, `»`, `/°`, `CUT TO:`. |
-|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`, `list-item`. |
-|`close` |inline-pair |The literal closing characters. |
-|`mode` |no |`block` (default for non-inline-pair) or `inline`. |
-|`element` |no |HTML element name or `$widget` reference. |
-|`paragraph-marker` |no |`yes` if this marker has paragraph semantics (blank-line terminator without `end-string`, paragraph-safe inline body). Required to get paragraph behavior on any wrapper element, including `p`. |
-|`emit-open` |no |`yes` prepends the marker's open literal to the rendered body content. Useful for word markers whose keyword IS the content (Fountain transitions: `CUT TO:` renders as `<p class="...">CUT TO:</p>` instead of an empty `<p>`; scene headings: `INT. KITCHEN` renders with the `INT.` prefix intact). A trailing space is added automatically when the body is non-empty so prefix and body don't run together. Default consumes the open literal. |
-|`body-raw` |inline-pair |`yes` captures the body between open and close as a single literal text node, no recursive parsing. Required for code-span-style markers where wikitext inside (e.g. `<h1>`, `[[link]]`, `*italic*`) must stay literal. |
-|`container` |list-item |The wrapping element for consecutive items at the same level. Typically `ul` or `ol`. |
-|`item-element` |list-item |Element name for each item (default `li`). Use `dt`/`dd` for definition lists, `div` for plain wrappers. |
-|`indent-unit` |list-item |Spaces of leading indent that count as one nesting level (default `2`). Tabs are expanded to this many spaces before the level is computed. |
-|`open-pattern` |list-item |Optional regex source string. When present, overrides `open` for matching. Lets one marker handle a family of bullets, e.g. `\d+\.` for ordered-list items. |
-|`end-string` |no |Custom terminator. Without it, paragraph markers terminate at a blank line; non-paragraph block markers at a single newline; inline at a newline. |
-|`classes` |no |Dot-prefixed CSS class chain, e.g. `.wltc-degree`. |
-|`attributes` |no |JSON object of extra HTML attributes. |
-|`allow-symbol` |glyph, inline-pair |Default `yes`. Set to `no` to lock the prose-safe form. On `glyph` markers this prevents matches like `.NET` from firing a `.`-prefixed marker. On `inline-pair` markers it disables the symbol-capture between open and body, required for body-only markers like Fountain `*italic*` (without `no`, the engine eats `italic` as the symbol and leaves body empty). |
-|`legacy-kind` |no |Friendly name (`tick`, `degree`, ...) so the v0.x `\custom <kind>=<symbol>` pragma still resolves. |
-|`allow-unsafe` |no |Default secure-by-default: iframe gets `sandbox=""` injected, `object`/`embed`/`frame`/`frameset` are denied, `javascript:` URL values are stripped. Set to `yes` to opt out. See [[Custom Markup Security]] for the full model. |
-|`marker-icon` |no |Title of the icon tiddler the editor toolbar writes to its active-glyph config when this marker is selected. Points at a `$:/plugins/wikilabs/custom-markup/icons/glyphs/...` or `.../inline/...` tiddler. |
-|`order` |no |Sort hint for editor-toolbar dropdowns. ''Higher'' number sorts earlier (more prominent); unset markers fall back to caption order. vocab/default uses `ANGLE=4`, `SINGLE=3`, `DOT=2`, `DEGREE=1`. |
-
-!! Vocabulary meta fields
-
-The meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> carries:
-
-|! Field |! Required |! Notes |
-|`caption` |yes |Human-friendly name used in `;vocab=<Caption>` activation and the marker-summary header. |
-|`marker-tag` |yes |Tag that this vocabulary's marker tiddlers carry, e.g. `vocab/fountain`. |
-|`description` |no |One-sentence summary. Surfaced in the vocab-summary ViewTemplate. |
-|`version` |no |Free-form. Convention: SemVer. |
-|`disable-core-rules` |no |Space-separated TW core wikirule names (e.g. `heading list`). Suppressed when this vocab is activated for a tiddler. Lets the vocab own the syntax that would otherwise collide with core. See [[$:/core/ui/ControlPanel/Parsing]] for the rule catalogue (filter `[wikiparserrules[block]]`, `[...inline]`, `[...pragma]`). |
-|`front-matter` |no |`yes` opts into a simple `Key: Value` block at the very top of any tiddler that activates the vocab. The block ends at the first blank line or a `===` separator. Renders as `<div class="wltc-front-matter">` with one row per pair. Keys must start with an uppercase letter (`Title:`, `Author:`, `Credit:`). Intended for Fountain-style title pages and similar metadata-at-the-top conventions; not a YAML replacement (no list values, no continuation lines). |
-
-!! Activating a vocabulary
-
-Two ways to opt in:
-
-# ''Type field'': `type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs`. A startup-module patch keeps the tiddler as a single `.tid` file on disk.
-# ''Pragma'': `\importcustom [tag[vocab/legacy-glyphs]]` at the top of a tiddler. The filter runs over `[all[shadows+tiddlers]]` automatically, so you don't need to spell the shadow-inclusion prefix yourself — marker tiddlers are almost always shipped as plugin shadows.
-
-vocab/default is always active. With no `;vocab=` parameter, only Default markers fire.
-
-When a vocab declaring `disable-core-rules` activates, the listed TW core rules are removed from the parser's rule set ''for that tiddler only'' (via `parser.amendRules("except", ...)`). The amendment runs before pragma parsing, so a user `\rules only ...` / `\rules except ...` pragma can still amend further.
-
-!! Shipped vocabularies
-
-* ''vocab/default'' (plugin): `°` `.` `»` `›` (block) and `/° °/`, `❮ ❯`, `⠒ ⠶` (inline-pair).
-* ''vocab/legacy-glyphs'' (plugin, opt-in): restores `´` `≈` `¶` removed from Default in v1.0.0-beta-1.
-* ''vocab/presentation'' (editions): Fountain-flavoured Reveal.js DSL with `PRESENTATION`, `CUT TO:`, `ANIMATE TO:`, `FADE IN:`, terminator `FADE OUT.`. Worked example: [[Example - revealjs presentation (vocab/presentation)]].
-* ''vocab/fountain'' (editions): screenplay markers (scene headings, transitions, character cues, synopses, boneyard) in the spirit of https://fountain.io/syntax/. Declares `disable-core-rules: heading list` so `! action`, `*x` line-starts, `# section`, and `> centered` line-starts belong to Fountain (or the author) instead of TW core. Reference: [[Vocabulary - Fountain]]. Worked example: [[Example - Fountain screenplay]].
-
-!! Listing active markers
-
-The `cm-active-markers` filter operator returns marker titles active for a given tiddler.
-
-```
-[<currentTiddler>cm-active-markers[block]]
-[<currentTiddler>cm-active-markers[inline]]
-[<currentTiddler>cm-active-markers[word]]
-```
-
-Empty source falls back to vocab/default so a dropdown without an edit context still renders a usable list.
-
-!! Summary views (ViewTemplate)
-
-Opening a marker tiddler, a vocabulary tiddler, or a marker-tag tiddler shows a summary instead of an empty body. Three cascade tiddlers under `$:/plugins/wikilabs/custom-markup/ViewTemplateBodyFilters/` (each tagged <<tag $:/tags/ViewTemplateBodyFilter>> and ordered with `list-before: $:/config/ViewTemplateBodyFilters/default`) route:
-
-* tag <<tag $:/tags/CustomMarkup/Marker>> on the tiddler being viewed: per-marker fields summary.
-* the tiddler title itself is a marker-tag (e.g. `vocab/default`): catalog of every marker carrying that tag.
-* tag <<tag $:/tags/CustomMarkup/Vocabulary>>: caption, description, marker-tag, version, plus the marker listing.
+* [[Marker Fields]]: every field on a marker tiddler, grouped by job (identity, output, parsing, editor, security) with worked examples that link to real markers.
+* [[Vocabulary Meta Fields]]: fields on the vocab meta tiddler (caption, marker-tag, disable-core-rules, front-matter, filter).
+* [[Activating a Vocabulary]]: type-field syntax, `\importcustom` pragma, and how `disable-core-rules` claims TW core syntax.
+* [[Shipped Vocabularies]]: current vocabs in the plugin and editions, with links to worked examples for each.
+* [[Engine Filters and Templates]]: the `cm-active-markers` filter operator and the ViewTemplate cascade that drives the per-marker / per-vocab summary views.
 
 !! Related
 

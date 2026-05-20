@@ -1,0 +1,62 @@
+created: 20260520050000000
+modified: 20260520041040130
+tags: [[Vocabulary Engine]]
+title: Vocabulary Meta Fields
+type: text/vnd.tiddlywiki
+
+The meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> carries:
+
+|! Field |! Required |! Notes |! Example |
+|`caption` |yes |Human-friendly name used in `;vocab=<Caption>` activation and the marker-summary header. |[[vocab/markdown]] |
+|`marker-tag` |yes |Tag that this vocabulary's marker tiddlers carry, e.g. `vocab/fountain`. |[[vocab/fountain]] |
+|`description` |no |One-sentence summary. Surfaced in the vocab-summary ViewTemplate. |[[vocab/fountain]] |
+|`version` |no |Free-form. Convention: SemVer. |[[vocab/markdown]] |
+|`disable-core-rules` |no |Space-separated TW core wikirule names. Suppressed when this vocab is activated for a tiddler. |[[vocab/markdown]] |
+|`front-matter` |no |`yes` opts into a `Key: Value` block at the top of any tiddler of that type. |[[vocab/fountain]] |
+|`filter` |no |When set together with the `$:/tags/Filter` tag, the vocab meta also acts as a self-export bundle. |[[vocab/markdown]] |
+
+The ''Example'' column links to a real vocab tiddler where the field is populated. Open it to see the field in context.
+
+!! Worked example: `disable-core-rules`
+
+[[vocab/markdown]] claims several TW core syntaxes for itself:
+
+```
+title: vocab/markdown
+caption: Markdown
+marker-tag: vocab/markdown
+version: 0.4.0
+disable-core-rules: strikethrough codeinline list underscore table
+```
+
+When a tiddler activates the Markdown vocab (via `;vocab=Markdown`), the listed TW core rules are removed from the parser for that tiddler only. So `~~strike~~` fires the markdown STRIKETHROUGH marker instead of TW's strikethrough; `` `x` `` fires the markdown CODE marker instead of TW's `codeinline`; `# h1` fires the markdown HEADING-1 marker instead of TW's `list` (which would otherwise treat `#` as ordered list); `__bold__` fires markdown BOLD-ALT instead of TW's underscore underline; `|a|b|` fires markdown-table instead of TW's table.
+
+See [[$:/core/ui/ControlPanel/Parsing]] for the rule catalogue (filters: `[wikiparserrules[block]]`, `[wikiparserrules[inline]]`, `[wikiparserrules[pragma]]`).
+
+!! Worked example: `front-matter`
+
+''Vocab meta:'' [[vocab/fountain]] (declares `front-matter: yes`).
+
+''Consumer tiddler:'' [[Example - Fountain screenplay]] (opens with a real `Title: / Credit: / Author:` block at the top of its source).
+
+```
+title: vocab/fountain
+caption: Fountain
+marker-tag: vocab/fountain
+front-matter: yes
+disable-core-rules: heading list
+```
+
+In any tiddler that activates Fountain, the engine consumes a `Key: Value` block at the top of the source (terminating at the first blank line or `===` separator) and renders it as `<div class="wltc-front-matter">` with one row per pair. Keys must start with an uppercase letter (`Title:`, `Author:`, `Credit:`). Intended for screenplay title pages and similar metadata-at-the-top conventions; not a YAML replacement (no list values, no continuation lines).
+
+!! Worked example: `filter` (bundle self-export)
+
+Every shipped vocab meta also carries a `filter` field and the `$:/tags/Filter` tag, so the vocab tiddler itself doubles as an export bundle:
+
+```
+title: vocab/markdown
+tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
+filter: [[vocab/markdown]] [all[shadows+tiddlers]tag[vocab/markdown]]
+```
+
+Click the export button on the vocab tiddler and you get a JSON file containing the vocab meta plus every marker tagged with its `marker-tag`. Lets a vocab travel as one self-contained file.
