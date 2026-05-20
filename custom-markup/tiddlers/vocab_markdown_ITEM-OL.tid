@@ -1,0 +1,13 @@
+caption: List item (ordered)
+classes: .wltc-md-list-item
+container: ol
+created: 20260520040000000
+description: Markdown ordered-list item with `<digits>.` prefix. `open-pattern` captures any positive integer followed by `.`; the literal `open: 1.` field exists so the active-set tracker has a stable key, but matching uses the regex.
+indent-unit: 2
+item-element: li
+kind: list-item
+modified: 20260520032110550
+open: 1.
+open-pattern: \d+\.
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/ITEM-OL

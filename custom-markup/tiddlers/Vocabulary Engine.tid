@@ -1,5 +1,5 @@
 created: 20260516050000000
-modified: 20260520004816892
+modified: 20260520033000968
 tags: Reference docs
 title: Vocabulary Engine
 type: text/vnd.tiddlywiki
@@ -12,12 +12,17 @@ Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every mark
 
 |! Field |! Required |! Notes |
 |`open` |yes |The literal opening characters: `°`, `»`, `/°`, `CUT TO:`. |
-|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`. |
+|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`, `list-item`. |
 |`close` |inline-pair |The literal closing characters. |
 |`mode` |no |`block` (default for non-inline-pair) or `inline`. |
 |`element` |no |HTML element name or `$widget` reference. |
 |`paragraph-marker` |no |`yes` if this marker has paragraph semantics (blank-line terminator without `end-string`, paragraph-safe inline body). Required to get paragraph behavior on any wrapper element, including `p`. |
 |`emit-open` |no |`yes` prepends the marker's open literal to the rendered body content. Useful for word markers whose keyword IS the content (Fountain transitions: `CUT TO:` renders as `<p class="...">CUT TO:</p>` instead of an empty `<p>`; scene headings: `INT. KITCHEN` renders with the `INT.` prefix intact). A trailing space is added automatically when the body is non-empty so prefix and body don't run together. Default consumes the open literal. |
+|`body-raw` |inline-pair |`yes` captures the body between open and close as a single literal text node, no recursive parsing. Required for code-span-style markers where wikitext inside (e.g. `<h1>`, `[[link]]`, `*italic*`) must stay literal. |
+|`container` |list-item |The wrapping element for consecutive items at the same level. Typically `ul` or `ol`. |
+|`item-element` |list-item |Element name for each item (default `li`). Use `dt`/`dd` for definition lists, `div` for plain wrappers. |
+|`indent-unit` |list-item |Spaces of leading indent that count as one nesting level (default `2`). Tabs are expanded to this many spaces before the level is computed. |
+|`open-pattern` |list-item |Optional regex source string. When present, overrides `open` for matching. Lets one marker handle a family of bullets, e.g. `\d+\.` for ordered-list items. |
 |`end-string` |no |Custom terminator. Without it, paragraph markers terminate at a blank line; non-paragraph block markers at a single newline; inline at a newline. |
 |`classes` |no |Dot-prefixed CSS class chain, e.g. `.wltc-degree`. |
 |`attributes` |no |JSON object of extra HTML attributes. |

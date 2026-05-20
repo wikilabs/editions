@@ -1,0 +1,12 @@
+caption: List item (plus)
+classes: .wltc-md-list-item
+container: ul
+created: 20260520040000000
+description: Markdown unordered-list item with `+` bullet.
+indent-unit: 2
+item-element: li
+kind: list-item
+modified: 20260520032107686
+open: +
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/ITEM-PLUS

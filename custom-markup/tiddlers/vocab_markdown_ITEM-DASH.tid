@@ -1,0 +1,12 @@
+caption: List item (dash)
+classes: .wltc-md-list-item
+container: ul
+created: 20260520040000000
+description: Markdown unordered-list item with `-` bullet. Consecutive items at the same indent level coalesce into a single `<ul>`; deeper indent (2 spaces per level) nests under the previous item.
+indent-unit: 2
+item-element: li
+kind: list-item
+modified: 20260520032103486
+open: -
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/ITEM-DASH
