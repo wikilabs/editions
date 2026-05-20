@@ -4,7 +4,7 @@ tags: Prequel
 title: why
 type: text/vnd.tiddlywiki
 
-! Why does this project exist
+!! Why does this project exist
 
 * We (Tony, TT and me) wanted a way to modify paragraph behaviour using ~TiddlyWiki syntax
 

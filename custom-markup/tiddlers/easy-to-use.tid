@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 \custom angle="hard-linebreak" _classes=".hl"
 \custom angle _use="hard-linebreak"
 
-! Basic Usage pattern
+!! Basic Usage pattern
 
 ~TiddlyWiki paragraphs are automatically detected, if plain text is followed by 2 linebreaks: `\n\n`.
 This paragraph is such an example. ...

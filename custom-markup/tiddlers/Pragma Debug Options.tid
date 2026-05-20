@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 \importcustom [[pragma-details]]
 \custom degree=XXX _use=d _debug=both
 
-! Lokal Debugging
+!! Lokal Debugging
 
 A `\custom` pragma can have a debugging option. First seen in: [[Import and Re-define a Pragma]]. It helps the user to "find problems" and it helps me "creating the documentation"
 

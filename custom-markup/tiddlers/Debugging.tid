@@ -1,10 +1,10 @@
 created: 20200916130023030
 list: [[debugcustom pragma]] [[Pragma Debug Options]]
-modified: 20201004150151289
+modified: 20260520045942412
 tags: Reference
 title: Debugging
 type: text/vnd.tiddlywiki
 
-! Debugging
+!! Debugging
 
 <<list-links "[tag{!!title}]">>

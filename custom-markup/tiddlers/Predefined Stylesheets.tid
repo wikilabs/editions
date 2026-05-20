@@ -4,6 +4,6 @@ tags: Reference docs
 title: Predefined Stylesheets
 type: text/vnd.tiddlywiki
 
-! Predefined Stylesheets
+!! Predefined Stylesheets
 
 <<list-links "[[$:/plugins/wikilabs/custom-markup/styles]] [[$:/plugins/wikilabs/custom-markup/styles/dropdown]] [tag[$:/tags/Stylesheet]]">>

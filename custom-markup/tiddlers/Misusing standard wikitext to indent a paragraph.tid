@@ -1,10 +1,10 @@
 created: 20200915091508527
-modified: 20200917172130247
+modified: 20260520051130670
 tags: Basics docs
 title: Misusing standard wikitext to indent a paragraph
 type: text/vnd.tiddlywiki
 
-! Misusing standard wikitext to indent a paragraph
+!! Misusing standard wikitext to indent a paragraph
 
 As shown in: [[How to style a Paragraph]] there is some overhead in properly styling a paragraph in wikitext.
 

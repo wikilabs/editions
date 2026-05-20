@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 \importcustom [[pragma-details]]
 
-! Import Predefined Pragmas
+!! Import Predefined Pragmas
 
 The import pragma is named: `\importcustom <filter expression>`. The reference description can be found at: [[Pragma - importcustom]]. 
 

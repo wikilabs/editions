@@ -1,10 +1,10 @@
 created: 20200915075533228
-modified: 20200917172337816
+modified: 20260520051142011
 tags: Basics docs
 title: How to style a Paragraph
 type: text/vnd.tiddlywiki
 
-! How to style a Paragraph
+!! How to style a Paragraph
 
 With TW there is no easy way to style a pagraph in wikitext. If you want to do it, you need to cover some wikitext within a html DIV element. eg: 
 

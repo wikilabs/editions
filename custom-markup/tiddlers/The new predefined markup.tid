@@ -14,7 +14,7 @@ text="» My text comes here. Some more text: {{lorem-ipsum-1-para}}
 "/>
 \end
 
-! The new predefined markup 
+!! The new predefined markup
 
 .. looks like this: 
 

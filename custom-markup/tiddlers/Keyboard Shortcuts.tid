@@ -11,7 +11,7 @@ type: text/vnd.tiddlywiki
 \custom angle="list" _element="ul" _mode=block _endStringX=---
 \custom angle="shortcuts" _element="$list"  filter="[all[shadows+tiddlers]prefix[$:/config/shortcuts]has:field[tags]]" 
 
-! Keyborad Shortcuts
+!! Keyborad Shortcuts
 
 The keyboard shortcuts can be defined in the $:/ControlPanel : Keyboard Shortcuts tab. The shortcuts that come with the plugin are: 
 

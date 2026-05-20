@@ -1,10 +1,10 @@
 created: 20200915091726829
-modified: 20210917074126305
+modified: 20260520051114067
 tags: Basics docs
 title: Custom Wikitext Markers
 type: text/vnd.tiddlywiki
 
-! Custom Wikitext Markers
+!! Custom Wikitext Markers
 
 ... are a possibility to use ''new'' markers: 
 

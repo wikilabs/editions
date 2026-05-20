@@ -5,6 +5,6 @@ tags: toc
 title: Advanced
 type: text/vnd.tiddlywiki
 
-! Documentation for advanced users
+!! Documentation for advanced users
 
 <<list-links "[tag{!!title}]">>

@@ -4,9 +4,7 @@ tags:
 title: EXPERIMENTAL
 type: text/vnd.tiddlywiki
 
-\define tv-adjust-heading-level() 1
-
-! Public Beta
+!! Public Beta
 
 ''BACKUP -- BACKUP -- BACKUP -- BACKUP''
 
@@ -16,11 +14,11 @@ Start reading at: Basics : [[How to style a Paragraph]] -- or see the ''Contents
 
 <$transclude tiddler="$:/plugins/wikilabs/custom-markup" subtiddler="$:/plugins/wikilabs/custom-markup/history" mode=block/>
 
-! Videos
+!! Videos
 
 TODO
 
-! Forum
+!! Forum
 
 There is a forum sub-category in the Plugins section: [[Custom Markup at Talk-TiddlyWiki |https://talk.tiddlywiki.org/c/plugins/custom-markup/14]] -> Will be active soon! -- Is locked atm
 

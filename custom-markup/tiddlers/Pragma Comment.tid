@@ -1,10 +1,10 @@
 created: 20201015142531191
-modified: 20201215165606154
+modified: 20260520050621336
 tags: docs Reference
 title: Pragma Comment
 type: text/vnd.tiddlywiki
 
-! Pragma Comment
+!! Pragma Comment
 
 The following line will not create a parse-tree element and it will not interrupt the "pragma parser". So comments can be placed outside of macro definitions, which is much faster during macro execution.
 

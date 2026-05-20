@@ -5,6 +5,6 @@ tags: toc
 title: Prequel
 type: text/vnd.tiddlywiki
 
-! Prequel
+!! Prequel
 
 <<list-links "[tag{!!title}]">>
