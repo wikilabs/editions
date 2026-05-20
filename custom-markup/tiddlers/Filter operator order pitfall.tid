@@ -1,0 +1,9 @@
+created: 20260520210000000
+modified: 20260520210000000
+tags: [[Reference (v1.0)]] docs
+title: Filter operator order pitfall
+type: text/vnd.tiddlywiki
+
+The button-enable filters in [[Editor Toolbar Buttons]] use `compare:integer:gt[1]` (TYPE first, then OPERATOR). The reverse order `compare:gt:integer[1]` returns no matches silently and falls to the `else` clause of any surrounding `then[X]else[Y]`, so a wrong-order filter looks like a wrong default rather than a syntax error.
+
+This is a TW-core `compare:` operator quirk, not a Custom Markup behaviour. Worth a quick check whenever a `compare:` filter produces unexpectedly few results.

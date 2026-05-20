@@ -1,0 +1,12 @@
+created: 20260520063000000
+list: [[Basics (Legacy)]] [[Reference (Legacy)]] [[Advanced (Legacy)]]
+modified: 20260520070000000
+tags: toc
+title: Legacy
+type: text/vnd.tiddlywiki
+
+Documentation for the v0.x `\custom` pragma syntax. Still in force for back-compat; new work should prefer V1.0 vocabulary markers (see [[Migration to V1.0]]).
+
+* [[Basics (Legacy)]]
+* [[Reference (Legacy)]]
+* [[Advanced (Legacy)]]

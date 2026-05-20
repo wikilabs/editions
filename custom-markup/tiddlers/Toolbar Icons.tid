@@ -1,0 +1,9 @@
+created: 20260520210000000
+modified: 20260520210000000
+tags: [[Editor Toolbar Buttons]] docs
+title: Toolbar Icons
+type: text/vnd.tiddlywiki
+
+Icons shipped under `$:/plugins/wikilabs/custom-markup/icons` for use on toolbar buttons and as the `marker-icon` field of marker tiddlers.
+
+<<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/custom-markup/icons]]">>

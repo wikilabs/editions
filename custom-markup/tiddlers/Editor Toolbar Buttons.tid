@@ -1,33 +1,19 @@
 created: 20200915111228377
-modified: 20260518233106478
-tags: Reference docs
+modified: 20260520210000000
+tags: [[Reference (v1.0)]] docs
 title: Editor Toolbar Buttons
-type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+type: text/vnd.tiddlywiki
 
-''V1.0:'' Block and inline dropdowns now iterate marker tiddlers tagged `$:/tags/CustomMarkup/Marker` and filter by the active vocabulary for the tiddler being edited. New vocabularies appear in the menu without a code change. See [[Vocabulary Engine]] and [[Migration to V1.0]].
+The custom-markup plugin ships a set of editor-toolbar buttons and inline / block dropdowns for inserting markers. The dropdowns iterate marker tiddlers tagged `$:/tags/CustomMarkup/Marker`, filtered by the active vocabulary for the tiddler being edited; new vocabularies appear in the menu without any code change.
 
-''v1.0.0-beta-13:'' The block and inline dropdowns are native `<$select>` widgets. Selecting an option writes the chosen marker's `marker-icon` field into `$:/config/wikilabs/custom-markup/icons/glyphs/active` (block) or `.../icons/inline/active` (inline). The `add-glyph` and `remove-glyph` buttons enable only for markers with `max-level > 1` (e.g. `»` and `›`); `toggle-glyph` enables for any marker that is not `kind: inline-pair`.
+From v1.0.0-beta-13, the dropdowns are native `<$select>` widgets. Selecting an option writes the chosen marker's `marker-icon` field into `$:/config/wikilabs/custom-markup/icons/glyphs/active` (block) or `.../icons/inline/active` (inline). The `add-glyph` and `remove-glyph` buttons enable only for markers with `max-level > 1` (e.g. `»` and `›`); `toggle-glyph` enables for any marker that is not `kind: inline-pair`.
 
-!! Filter syntax note
+!! Details
 
-The button-enable filters use `compare:integer:gt[1]` (TYPE first, then OPERATOR). The reverse order `compare:gt:integer[1]` returns no matches silently and falls to the `else` clause of the surrounding `then[X]else[Y]`, so a wrong-order filter looks like a wrong default rather than a syntax error.
+* [[Toolbar Buttons]]. The full list of buttons shipped, with icon, caption, and description.
+* [[Toolbar Icons]]. The icon tiddlers shipped under `$:/plugins/wikilabs/custom-markup/icons`.
+* [[Marker Integration]]. How marker tiddlers drive the inline / block dropdowns and per-button enable filters.
 
-!! New Toolbar Buttons
+!! Related
 
-<$list filter="[all[shadows+tiddlers]tag[$:/tags/EditorToolbar]prefix[$:/plugins/wikilabs]]">
-
-´.i <$transclude tiddler={{!!icon}}/> <$link>{{!!caption}}</$link> - {{!!description}}
-
-</$list>
-
-!! New Toolbar Icons
-
-<<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/custom-markup/icons]]">>
-
-!! Marker tiddlers powering the dropdowns
-
-<ul>
-<$list filter="[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Marker]sort[caption]]">
-<li><$link><$view field="caption"><$text text=<<currentTiddler>>/></$view></$link> ({{!!kind}}, open <code><$text text={{!!open}}/></code>)</li>
-</$list>
-</ul>
+* [[Filter operator order pitfall]]. TW-core `compare:` operator gotcha that bit us writing the button-enable filters.

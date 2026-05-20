@@ -1,0 +1,13 @@
+created: 20260520210000000
+modified: 20260520210000000
+tags: [[Editor Toolbar Buttons]] docs
+title: Toolbar Buttons
+type: text/vnd.tiddlywiki;vocab=Default,Legacy-Glyphs
+
+Live list of every editor-toolbar button shipped by the plugin: icon, caption, description.
+
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/EditorToolbar]prefix[$:/plugins/wikilabs]]">
+
+´.i <$transclude tiddler={{!!icon}}/> <$link>{{!!caption}}</$link> - {{!!description}}
+
+</$list>

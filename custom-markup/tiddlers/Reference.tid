@@ -1,10 +1,23 @@
 created: 20200915110131659
 list: [[Vocabulary Engine]] [[Migration to V1.0]] [[Custom Markup Definition]] [[Pragma - importcustom]] [[Editor Toolbar Buttons]] [[Keyboard Shortcuts]] [[Predefined Stylesheets]] [[Pragma Comment]] Debugging
 modified: 20260518143000000
-tags: toc
+tags:
 title: Reference
 type: text/vnd.tiddlywiki
 
 !! Reference Docs
 
-<<list-links "[tag{!!title}]">>
+<%if [tag{!!title}tag[v1.0]] %>
+
+!!! v1.0 vocabularies
+
+<<list-links "[tag{!!title}tag[v1.0]]">>
+
+<%endif%>
+<%if [tag{!!title}tag[Legacy]] %>
+
+!!! Legacy `\custom` pragmas
+
+<<list-links "[tag{!!title}tag[Legacy]]">>
+
+<%endif%>

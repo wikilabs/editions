@@ -1,0 +1,17 @@
+created: 20260520210000000
+modified: 20260520210000000
+tags: [[Editor Toolbar Buttons]] docs
+title: Marker Integration
+type: text/vnd.tiddlywiki
+
+The inline and block dropdowns are populated from marker tiddlers tagged `$:/tags/CustomMarkup/Marker`. The filter intersects that tag with the vocabularies active for the tiddler being edited, so a new vocabulary's markers appear in the dropdown without any code change.
+
+The `add-glyph` and `remove-glyph` buttons are enabled only for markers with `max-level > 1` (multi-level glyphs like `»` and `›`). `toggle-glyph` is enabled for any marker that is not `kind: inline-pair`.
+
+!! All marker tiddlers in the wiki
+
+<ul>
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Marker]sort[caption]]">
+<li><$link><$view field="caption"><$text text=<<currentTiddler>>/></$view></$link> ({{!!kind}}, open <code><$text field="open"/></code>)</li>
+</$list>
+</ul>
