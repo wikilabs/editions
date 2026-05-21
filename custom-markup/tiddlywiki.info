@@ -4,6 +4,7 @@
 		"tiddlywiki/internals",
 		"/relink",
 		"wikilabs/bundler",
+		"wikilabs/trails",
 		"wikilabs/space-space-newline",
 		"wikilabs/custom-markup"
 	],
