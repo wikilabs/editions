@@ -6,25 +6,12 @@ type: text/vnd.tiddlywiki;vocab=Default,Html-Elements
 
 Live demo of the `DETAILS` / `SUMMARY` word markers from vocab/html-elements. This tiddler's type field activates the vocabulary.
 
-!! Source
-
-```
-DETAILS SUMMARY Click to expand
+<<.tid-source text:"""DETAILS SUMMARY Click to expand
 ---
 This paragraph is inside the details block.
 
 A second paragraph still inside the same block.
-------
-```
-
-!! Rendered
-
-DETAILS SUMMARY Click to expand
----
-This paragraph is inside the details block.
-
-A second paragraph still inside the same block.
-------
+------""">>
 
 See [[Customize an HTML Element]] for the marker schema and the pragma-form alternative.
 

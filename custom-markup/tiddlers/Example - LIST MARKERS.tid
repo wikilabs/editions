@@ -6,15 +6,7 @@ type: text/vnd.tiddlywiki;vocab=Default,Lists
 
 Named-view `MARKERS` from vocab/lists iterates every tiddler tagged `$:/tags/CustomMarkup/Marker`.
 
-!! Source
-
-```
-LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
-```
-
-!! Rendered
-
-LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
+<<.tid-source text:"""LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>""">>
 
 !! Configuration
 

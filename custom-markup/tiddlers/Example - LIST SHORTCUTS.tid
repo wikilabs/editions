@@ -6,15 +6,7 @@ type: text/vnd.tiddlywiki;vocab=Default,Lists
 
 Named-view `SHORTCUTS` from vocab/lists iterates the keyboard-shortcut config tiddlers under `$:/config/shortcuts/`.
 
-!! Source
-
-```
-LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
-```
-
-!! Rendered
-
-LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
+<<.tid-source text:"""LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>""">>
 
 !! Configuration
 

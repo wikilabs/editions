@@ -6,15 +6,7 @@ type: text/vnd.tiddlywiki;vocab=Default,Lists
 
 Named-view `VOCABS` from vocab/lists iterates every tiddler tagged `$:/tags/CustomMarkup/Vocabulary`.
 
-!! Source
-
-```
-LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
-```
-
-!! Rendered
-
-LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
+<<.tid-source text:"""LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>""">>
 
 !! Configuration
 

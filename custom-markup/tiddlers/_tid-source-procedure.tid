@@ -1,13 +1,26 @@
 code-body: yes
 created: 20260521081612954
-modified: 20260521082202191
+modified: 20260521084636578
 tags: $:/tags/Macro
 title: .tid-source-procedure
 type: text/vnd.tiddlywiki
 
-\procedure .tid-source(title)
-<pre class="cm-tid-source">title: <$text text=<<title>>/>
+\procedure .tid-source(title:"", text:"")
+<%if [<title>!is[blank]] %><pre class="cm-tid-source">title: <$text text=<<title>>/>
 <$list filter="[<title>fields[]sort[]] -title -text -bag -revision -created -modified" variable="fld"><$text text=<<fld>>/>: <$view tiddler=<<title>> field=<<fld>>/>
-</$list><$list filter="[<title>has[text]]">
-<$view tiddler=<<title>> field="text"/></$list></pre>
+</$list><$list filter="[<title>has[text]]" variable="_">
+<$view tiddler=<<title>> field="text"/></$list></pre><%endif%>
+<%if [<text>!is[blank]] %>
+<div class="cm-tid-example">
+
+!! Source
+
+<$codeblock code=<<text>>/>
+
+!! Rendered
+
+<$transclude $variable="text" $mode="block" $type={{!!type}}/>
+
+</div>
+<%endif%>
 \end

@@ -8,23 +8,11 @@ A v1.0 marker can call a `\procedure` and bake several static parameters into th
 
 Both markers below share the same `.greet` procedure but bake different parameters. They use the modern `<$transclude $variable="..." $mode="block" ...>` widget (TW 5.3+, see [[TranscludeWidget|https://tiddlywiki.com/#TranscludeWidget]]).
 
-!! Source
-
-```
-HELLO This is the body for HELLO.
+<<.tid-source text:"""HELLO This is the body for HELLO.
 ---
 
 GREETING This is the body for GREETING.
----
-```
-
-!! Rendered
-
-HELLO This is the body for HELLO.
----
-
-GREETING This is the body for GREETING.
----
+---""">>
 
 !! The two markers
 
