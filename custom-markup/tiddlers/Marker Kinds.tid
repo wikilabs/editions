@@ -1,0 +1,62 @@
+created: 20260520222000000
+modified: 20260520222000000
+tags: [[Vocabulary Engine]]
+title: Marker Kinds
+type: text/vnd.tiddlywiki
+
+The `kind` field of a marker tiddler picks one of five matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
+
+!! glyph
+
+Single-fire block marker. The open literal appears at the start of a line; the rest of the line, and possibly the following block, becomes the body.
+
+* Position: block.
+* Fires on: open literal followed by whitespace.
+* Typical use: paragraph wrappers, line-styled containers.
+* Notable fields: `paragraph-marker`, `allow-symbol`, `classes`.
+* Worked example: [[vocab/default/DOT]].
+
+!! glyph-level
+
+Multi-fire block marker. Repeating the open literal sets the nesting level (1..maxLevel). The engine emits a `wltc-lN` class corresponding to the level.
+
+* Position: block.
+* Fires on: 1..N repetitions of the open literal followed by whitespace.
+* Typical use: nested-indent paragraph wrappers.
+* Notable fields: `max-level` (default 4), `allow-symbol`.
+* Worked example: [[vocab/default/ANGLE]].
+
+!! word
+
+Keyword block marker. The open literal is the keyword itself; whatever follows (single line in inline mode, multiple blocks in block mode) is the body.
+
+* Position: block.
+* Fires on: open literal at the start of a line.
+* Typical use: section markers, keyword commands (Fountain transitions, markdown headings).
+* Notable fields: `mode` (inline vs block), `emit-open`, `end-string`, `paragraph-marker`, `allow-classes`.
+* Worked example: [[vocab/fountain/INT]].
+
+!! inline-pair
+
+Bracketed inline marker. Open literal starts the body; matching close literal ends it.
+
+* Position: inline.
+* Fires on: open literal at any inline position.
+* Typical use: emphasis (italic, bold), code spans, inline brackets.
+* Notable fields: `close` (required), `body-raw`, `allow-symbol`.
+* Worked example: [[vocab/markdown/CODE]].
+
+!! list-item
+
+List bullet marker. Consecutive matches collapse into a single container (ul/ol/dl/blockquote), nesting via indent.
+
+* Position: block.
+* Fires on: optional indent + open literal (or `open-pattern` regex) + whitespace, at line start.
+* Typical use: markdown list bullets, definition lists, checkbox lists.
+* Notable fields: `container`, `item-element`, `indent-unit`, `open-pattern`.
+* Worked example: [[vocab/markdown/ITEM-DASH]].
+
+!! Related
+
+* [[Marker Fields]]. Every field on a marker tiddler, grouped by job.
+* [[Your first marker tiddler]]. A walkthrough creating one marker.

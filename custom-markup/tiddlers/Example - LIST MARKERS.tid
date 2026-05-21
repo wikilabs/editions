@@ -1,0 +1,22 @@
+created: 20260520230000000
+modified: 20260520230000000
+tags: [[Example - LIST word marker]] docs
+title: Example - LIST MARKERS
+type: text/vnd.tiddlywiki;vocab=Default,Lists
+
+Named-view `MARKERS` from vocab/lists iterates every tiddler tagged `$:/tags/CustomMarkup/Marker`.
+
+!! Source
+
+```
+LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
+```
+
+!! Rendered
+
+LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
+
+!! Configuration
+
+* [[vocab/lists/LIST]]
+* [[vocab/lists/MARKERS]]

@@ -1,0 +1,13 @@
+attributes: {"$variable": ".greet", "$mode": "block", "name": "Friend", "mood": "thoughtful"}
+caption: Greeting demo
+created: 20260521073800290
+description: Same `.greet` procedure as HELLO, but calls it via the MODERN `<$transclude $variable=".greet" ... $mode="block"/>` syntax instead of legacy `<$macrocall $name=".greet" .../>`. `$mode=block` forces block parsing of the procedure body so each call renders as its own block without needing a `<p>` wrapper inside the procedure.
+element: $transclude
+end-string: ---
+kind: word
+mode: block
+modified: 20260521075221594
+open: GREETING
+src-name: body
+tags: $:/tags/CustomMarkup/Marker vocab/demo
+title: vocab/demo/GREETING

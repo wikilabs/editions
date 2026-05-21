@@ -1,0 +1,77 @@
+created: 20260521073807608
+modified: 20260521081630364
+tags: [[Advanced (v1.0)]] docs
+title: Example - Marker as procedure call
+type: text/vnd.tiddlywiki;vocab=Default,demo
+
+A v1.0 marker can call a `\procedure` and bake several static parameters into the call. The marker body fills the one dynamic parameter named by `src-name`.
+
+Both markers below share the same `.greet` procedure but bake different parameters. They use the modern `<$transclude $variable="..." $mode="block" ...>` widget (TW 5.3+, see [[TranscludeWidget|https://tiddlywiki.com/#TranscludeWidget]]).
+
+!! Source
+
+```
+HELLO This is the body for HELLO.
+---
+
+GREETING This is the body for GREETING.
+---
+```
+
+!! Rendered
+
+HELLO This is the body for HELLO.
+---
+
+GREETING This is the body for GREETING.
+---
+
+!! The two markers
+
+Fields shown live via [[.tid-source-procedure]] (no copy/paste, no drift).
+
+''[[vocab/demo/HELLO]]''
+
+<<.tid-source "vocab/demo/HELLO">>
+
+''[[vocab/demo/GREETING]]''
+
+<<.tid-source "vocab/demo/GREETING">>
+
+At parse time each marker emits:
+
+```
+<$transclude $variable=".greet" $mode="block" name="..." mood="..." body="..."/>
+```
+
+The `attributes` JSON IS the procedure call. `$variable` picks the procedure; the other JSON keys become procedure parameters; `src-name` says which parameter receives the marker body; `$mode="block"` forces block-mode parsing so each call renders as its own paragraph.
+
+!! The procedure
+
+[[.greet-procedure]] (tagged `$:/tags/Macro` so it loads globally):
+
+<<.tid-source ".greet-procedure">>
+
+Note the procedure body is pure inline content. No `<p>` wrapper. The `<p>` comes from `$transclude $mode="block"` re-parsing the body in block mode at render time, where TW's paragraph rule wraps inline runs in `<p>`.
+
+!! Why `$mode="block"` matters
+
+`$transclude $variable=X` re-parses X's source text at render time, in the mode given by `$mode`. Block mode hits TW's paragraph rule, wrapping inline runs in `<p>`. Without `$mode="block"` the procedure body would render as inline content and two consecutive markers would stack side-by-side.
+
+''Pitfall:'' do NOT also wrap the procedure body in `<p>`. Combined with `$mode="block"` you get nested `<p><p>...</p></p>` which browsers normalise by closing the outer `<p>` early. Pick one: either the procedure ships its own block wrapper (and the marker omits `$mode`), or the procedure stays inline (and the marker uses `$mode="block"`). The second path is recommended.
+
+!! Legacy alternative: `$macrocall`
+
+The older `<$macrocall $name=".greet" .../>` widget still works, but it renders the procedure's pre-parsed tree verbatim with no re-parse, so `$mode` does not apply. To get block output via `$macrocall`, the procedure body itself must contain a block-level element. The modern `$transclude` form is preferred for new markers.
+
+!! Limitation
+
+Only ONE parameter can be dynamic per marker (the body, named by `src-name`). All other parameters are static, set in the marker's `attributes` field. To pass a different dynamic value per invocation you currently need the legacy `\custom ... _params="..."` syntax (see [[Example - _params with spaces]]).
+
+!! Configuration
+
+* [[vocab/demo]]
+* [[vocab/demo/HELLO]]
+* [[vocab/demo/GREETING]]
+* [[.greet-procedure]]
+* [[.tid-source-procedure]]

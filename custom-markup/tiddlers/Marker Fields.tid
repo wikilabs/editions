@@ -11,7 +11,7 @@ Marker tiddlers carry a handful of fields. They cluster into four jobs: ''what t
 How the engine recognises an occurrence of this marker in source text.
 
 |! Field |! Required |! Notes |
-|`kind` |yes |`glyph`, `glyph-level`, `word`, `inline-pair`, or `list-item`. |
+|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`, `list-item`. See [[Marker Kinds]]. |
 |`open` |yes |Literal characters that trigger the marker. Always required as a stable identity key, even when `open-pattern` is set. |
 |`close` |inline-pair |Literal characters that terminate the body of an inline-pair marker. |
 |`open-pattern` |list-item |Regex source string. When set, overrides `open` for matching. Lets a single marker handle a bullet family (e.g. `\d+\.` for ordered lists). |
@@ -107,6 +107,7 @@ How the engine consumes content between the opening marker and the next block br
 |`emit-open` |no |`yes` prepends the open literal to the rendered body so the keyword IS the content (Fountain transitions render `CUT TO:` literally, not as an empty `<p>`). |
 |`body-raw` |inline-pair |`yes` captures the body as a single literal text node, no recursive parsing. Required for code-span markers where inside-content must stay literal. |
 |`indent-unit` |list-item |Spaces of leading indent that count as one nesting level (default `2`). Tabs are expanded to this many spaces before the level is computed. |
+|`src-name` |widget elements |Widget-element markers only (`element` starts with `$`). Name of the attribute that receives the marker body. Defaults to `src`. Common values: `code` for `$macrocall` of a procedure that takes a code body, `filter` for `$list`, `body` for any custom procedure body parameter. |
 
 ''Worked example:'' [[vocab/markdown/HEADING-2]]. A markdown heading.
 
@@ -145,6 +146,21 @@ paragraph-marker: yes
 ```
 
 `paragraph-marker: yes` switches the terminator from single newline to blank line, so a `»` paragraph can wrap multiple lines without each line becoming its own `<p>`. Required whenever the marker represents prose that flows across line breaks.
+
+''Worked example:'' [[vocab/demo/HELLO]]. A marker that calls a procedure with a renamed body parameter.
+
+```
+title: vocab/demo/HELLO
+kind: word
+open: HELLO
+mode: block
+end-string: ---
+element: $transclude
+src-name: body
+attributes: {"$variable": ".greet", "$mode": "block", "name": "World", "mood": "happy"}
+```
+
+`src-name: body` means the marker body lands in the `body` parameter of the called procedure (rather than the default `src`). See [[Example - Marker as procedure call]] for the full pattern.
 
 !! Editor integration and back-compat
 

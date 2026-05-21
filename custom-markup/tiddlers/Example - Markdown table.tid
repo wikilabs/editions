@@ -1,6 +1,6 @@
 created: 20260520030000000
-modified: 20260520025719936
-tags: [[Advanced (v1.0)]] docs
+modified: 20260520211403697
+tags: docs [[Example - Markdown]]
 title: Example - Markdown table
 type: text/vnd.tiddlywiki;vocab=Markdown
 
@@ -31,3 +31,7 @@ Example with mixed alignment and inline emphasis inside cells:
 | seven        | eight    | nine         |
 
 Blank lines or any line not starting with `|` end the table. Cell content is parsed as an inline run, so emphasis markers (`*italic*`, `**bold**`, `` `code` `` etc.) fire inside cells.
+
+## Configuration
+
+[[vocab/markdown]] (the `markdown-table` wikirule, gated on vocab/markdown active).

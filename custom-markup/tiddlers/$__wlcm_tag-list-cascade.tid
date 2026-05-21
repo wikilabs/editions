@@ -1,0 +1,7 @@
+created: 20260520212204001
+list-before: $:/config/ViewTemplateBodyFilters/default
+modified: 20260520212204001
+tags: $:/tags/ViewTemplateBodyFilter
+title: $:/wlcm/tag-list-cascade
+
+[prefix[$:/tags/]is[missing]then[$:/wlcm/tag-list-template]]

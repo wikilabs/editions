@@ -1,0 +1,10 @@
+code-body: yes
+created: 20260521073751989
+modified: 20260521081248972
+tags: $:/tags/Macro
+title: .greet-procedure
+type: text/vnd.tiddlywiki
+
+\procedure .greet(name, mood, body)
+''Hello <<name>>!'' You seem <<mood>> today. The body of the marker was: <<body>>
+\end

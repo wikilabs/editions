@@ -2,7 +2,15 @@ caption: Default
 description: v1 default Custom-Markup vocabulary (4 block markers, 3 inline-pair markers).
 filter: [[vocab/default]] [all[shadows+tiddlers]tag[vocab/default]]
 marker-tag: vocab/default
-modified: 20260519221052081
+modified: 20260520221235889
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/default
 version: 0.1.0
+
+Always active in `text/vnd.tiddlywiki` tiddlers; no `;vocab=` parameter needed.
+
+!! Combine with other vocabs
+
+Pair Default with any of the other shipped vocabs via `;vocab=Default,X,Y`. Each name below opens that vocab's summary (its meta fields plus all its markers):
+
+<<list-links "[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Vocabulary]] -[<currentTiddler>]" class:"multi-columns">>

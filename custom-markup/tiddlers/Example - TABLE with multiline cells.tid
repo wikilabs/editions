@@ -6,26 +6,6 @@ type: text/vnd.tiddlywiki;vocab=Default,Table
 
 Live demo for cells that hold multiple paragraphs. The trick: use the inline `TH`/`TD` markers for one-line cells (no `<p>` wrap), and the block `BLOCKTH`/`BLOCKTD` markers only where you actually need paragraph breaks. Block cells terminate at `||` so blank lines can live inside them.
 
-!! Rendered
-
-TABLE ROW
-TH Power
-TH Batman
-TH Flash
---
-ROW
-TH Skill
-BLOCKTD Plays chess. Reads books.
-
-Practices martial arts.
-||
-BLOCKTD Super speed. Vibrates through walls.
-
-Time travel as a side effect.
-||
---
----
-
 !! Source
 
 ```
@@ -49,8 +29,36 @@ Time travel as a side effect.
 ---
 ```
 
+!! Rendered
+
+TABLE ROW
+TH Power
+TH Batman
+TH Flash
+--
+ROW
+TH Skill
+BLOCKTD Plays chess. Reads books.
+
+Practices martial arts.
+||
+BLOCKTD Super speed. Vibrates through walls.
+
+Time travel as a side effect.
+||
+--
+---
+
 Header row uses inline `TH` (one line each, no `<p>` wrap). The data row mixes an inline `TH` row-label with two block-mode `BLOCKTD` cells, each holding two paragraphs separated by a blank line and terminated by `||`.
 
 Terminator pyramid: `||` ends each `BLOCKTH`/`BLOCKTD`; `--` ends each `ROW`; `---` ends the `TABLE`.
 
 See [[Customize a Table with Multiline Content]] for the marker schema and the pragma-form alternative.
+
+!! Configuration
+
+* [[vocab/table/TABLE]]
+* [[vocab/table/ROW]]
+* [[vocab/table/TH]]
+* [[vocab/table/BLOCKTH]]
+* [[vocab/table/BLOCKTD]]

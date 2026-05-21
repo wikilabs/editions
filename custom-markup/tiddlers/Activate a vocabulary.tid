@@ -1,0 +1,35 @@
+created: 20260520220000000
+modified: 20260520220000000
+tags: [[Basics (v1.0)]] docs
+title: Activate a vocabulary
+type: text/vnd.tiddlywiki
+
+A vocabulary is a set of markers grouped together. Markers only fire in tiddlers where their vocabulary is active. Two ways to activate:
+
+!! Type field
+
+Set the tiddler's `type` to include a `;vocab=` parameter listing one or more vocabulary names:
+
+```
+type: text/vnd.tiddlywiki;vocab=Default,Markdown
+```
+
+Default is implicit when no `;vocab=` parameter is present, so a plain `text/vnd.tiddlywiki` tiddler already has [[vocab/default]] active. Add other vocabularies by name (the name is the vocab meta's caption, e.g. `Markdown` resolves to `vocab/markdown`).
+
+[[Example - Markdown]] uses `type: text/vnd.tiddlywiki;vocab=Markdown` to activate just the Markdown vocab without Default.
+
+!! `\importcustom` pragma
+
+Activate by filter at the top of a tiddler:
+
+```
+\importcustom [tag[vocab/color-boxes]]
+```
+
+Whatever the filter returns is activated for that tiddler only. The pragma works for both marker tiddlers (modern) and `\custom` pragma tiddlers (legacy bridge).
+
+!! Related
+
+* [[Activating a Vocabulary]]. Reference details: multi-vocab activation, collision resolution, disable-core-rules.
+* [[Shipped Vocabularies]]. Catalog of the vocabs that ship with the plugin.
+* [[Combining vocabularies]]. How multiple vocabs interact.

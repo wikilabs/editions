@@ -1,18 +1,10 @@
 created: 20260518180958116
 modified: 20260520075829411
-tags: docs [[Advanced (v1.0)]]
+tags: docs [[Basics (v1.0)]]
 title: Example - Color-box word markers
 type: text/vnd.tiddlywiki;vocab=Default,Color-Boxes
 
 Live demo of `PRIMARY` / `SUCCESS` / `WARNING` word markers from vocab/color-boxes. This tiddler's type field activates the vocabulary.
-
-!! Rendered
-
-PRIMARY This is a primary box. It uses the `.cbox.cbox-primary` class chain.
-
-SUCCESS This is a success box. It uses the `.cbox.cbox-success` class chain.
-
-WARNING This is a warning box. It uses the `.cbox.cbox-warning` class chain.
 
 !! Source
 
@@ -24,4 +16,18 @@ SUCCESS This is a success box.
 WARNING This is a warning box.
 ```
 
+!! Rendered
+
+PRIMARY This is a primary box. It uses the `.cbox.cbox-primary` class chain.
+
+SUCCESS This is a success box. It uses the `.cbox.cbox-success` class chain.
+
+WARNING This is a warning box. It uses the `.cbox.cbox-warning` class chain.
+
 See [[Introducing Custom Markers for Advanced Users]] for the marker schema and the pragma-form alternative.
+
+!! Configuration
+
+* [[vocab/color-boxes/PRIMARY]]
+* [[vocab/color-boxes/SUCCESS]]
+* [[vocab/color-boxes/WARNING]]

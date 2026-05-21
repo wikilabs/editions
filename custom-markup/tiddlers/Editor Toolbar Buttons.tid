@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 The custom-markup plugin ships a set of editor-toolbar buttons and inline / block dropdowns for inserting markers. The dropdowns iterate marker tiddlers tagged `$:/tags/CustomMarkup/Marker`, filtered by the active vocabulary for the tiddler being edited; new vocabularies appear in the menu without any code change.
 
-From v1.0.0-beta-13, the dropdowns are native `<$select>` widgets. Selecting an option writes the chosen marker's `marker-icon` field into `$:/config/wikilabs/custom-markup/icons/glyphs/active` (block) or `.../icons/inline/active` (inline). The `add-glyph` and `remove-glyph` buttons enable only for markers with `max-level > 1` (e.g. `»` and `›`); `toggle-glyph` enables for any marker that is not `kind: inline-pair`.
+From v1.0.0-beta-13, the dropdowns are native `<$select>` widgets. Selecting an option writes the chosen marker's `marker-icon` field into `$:/config/wikilabs/custom-markup/icons/glyphs/active` (block) or `.../icons/inline/active` (inline). The `add-glyph` and `remove-glyph` buttons enable only for markers with `max-level > 1` (e.g. `»` and `›`); `toggle-glyph` enables for any marker that is not `kind: inline-pair`. See [[Marker Kinds]] for the kind reference.
 
 !! Details
 

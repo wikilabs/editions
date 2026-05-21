@@ -6,4 +6,4 @@ type: text/vnd.tiddlywiki
 
 Icons shipped under `$:/plugins/wikilabs/custom-markup/icons` for use on toolbar buttons and as the `marker-icon` field of marker tiddlers.
 
-<<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/custom-markup/icons]]">>
+<<list-links "[all[shadows+tiddlers]prefix[$:/plugins/wikilabs/custom-markup/icons]]" class:"multi-columns">>

@@ -1,0 +1,23 @@
+created: 20260520230000000
+modified: 20260520210824158
+tags: [[Example - LIST word marker]] docs
+title: Example - LIST VOCABS
+type: text/vnd.tiddlywiki;vocab=Default,Lists
+
+Named-view `VOCABS` from vocab/lists iterates every tiddler tagged `$:/tags/CustomMarkup/Vocabulary`.
+
+!! Source
+
+```
+LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
+```
+
+!! Rendered
+
+LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
+
+!! Configuration
+
+* [[vocab/lists/LIST]]
+* [[vocab/lists/VOCABS]]
+

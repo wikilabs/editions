@@ -10,6 +10,7 @@ This page is the entry point. Each detail topic below is its own tiddler tagged 
 
 !! Detail topics
 
+* [[Marker Kinds]]: the five `kind` values (glyph, glyph-level, word, inline-pair, list-item) explained.
 * [[Marker Fields]]: every field on a marker tiddler, grouped by job (identity, output, parsing, editor, security) with worked examples that link to real markers.
 * [[Vocabulary Meta Fields]]: fields on the vocab meta tiddler (caption, marker-tag, disable-core-rules, front-matter, filter).
 * [[Activating a Vocabulary]]: type-field syntax, `\importcustom` pragma, and how `disable-core-rules` claims TW core syntax.

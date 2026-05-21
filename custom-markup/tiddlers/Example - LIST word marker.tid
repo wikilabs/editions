@@ -1,35 +1,24 @@
 created: 20260518181007366
-modified: 20260520004816892
-tags: [[Advanced (v1.0)]] docs
+modified: 20260520230000000
+tags: [[Basics (v1.0)]] docs
 title: Example - LIST word marker
 type: text/vnd.tiddlywiki;vocab=Default,Lists
 
 Live demo of vocab/lists. `LIST` is the `<ul>` wrapper; `SHORTCUTS`, `MARKERS`, `VOCABS` are named inline `<$list>` views, each baking a useful filter. Reuse any of them across tiddlers.
 
-!! Shortcuts
+Each named-view marker (`SHORTCUTS`, `MARKERS`, `VOCABS`) is inline-mode so its body's `<li>...</li>` stays inline and renders as one `<li>` per iteration. The filter on each marker decides what gets iterated. Add your own named views by creating new markers tagged `vocab/lists` with their own filter.
 
-LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
+!! Demos
 
-!! Custom-markup markers
+* [[Example - LIST SHORTCUTS]]. Iterates configured keyboard shortcuts.
+* [[Example - LIST MARKERS]]. Iterates every custom-markup marker.
+* [[Example - LIST VOCABS]]. Iterates every shipped vocabulary.
 
-LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
+!! Related
 
-!! Custom-markup vocabularies
+* [[Customized Wikitext Lists]]. The marker schema and pragma-form alternative.
 
-LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
+!! Configuration
 
-!! Source
-
-```
-LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
-
-LIST MARKERS <li> {{!!caption}} - <code>{{!!open}}</code> ({{!!kind}}) </li>
-
-LIST VOCABS <li> {{!!caption}} - {{!!description}} </li>
-```
-
-Each named view marker (`SHORTCUTS`, `MARKERS`, `VOCABS`) is inline-mode so its body's `<li>...</li>` stays inline and renders as one `<li>` per iteration. The filter on each marker decides what gets iterated. Add your own named views by creating new markers tagged `vocab/lists` with their own filter.
-
-See [[Customized Wikitext Lists]] for the marker schema and the pragma-form alternative.
-
-See [[Customized Wikitext Lists]] for the marker schema and the pragma-form alternative.
+* [[vocab/lists]]
+* [[vocab/lists/LIST]]

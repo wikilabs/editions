@@ -1,0 +1,8 @@
+created: 20260520212205363
+modified: 20260520221149504
+title: $:/wlcm/tag-list-template
+type: text/vnd.tiddlywiki
+
+This tag has no dedicated tiddler. Tiddlers that carry it:
+
+<<list-links "[all[shadows+tiddlers]tag<currentTiddler>]" class:"multi-columns">>

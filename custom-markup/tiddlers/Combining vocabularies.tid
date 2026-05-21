@@ -1,0 +1,35 @@
+created: 20260520220000000
+modified: 20260520220000000
+tags: [[Basics (v1.0)]] docs
+title: Combining vocabularies
+type: text/vnd.tiddlywiki
+
+A tiddler can activate multiple vocabularies at once. List them comma-separated in the type field:
+
+```
+type: text/vnd.tiddlywiki;vocab=Default,Markdown,Color-Boxes
+```
+
+All markers from all listed vocabs become available in that tiddler.
+
+!! Default is the implicit fallback
+
+A plain `text/vnd.tiddlywiki` tiddler (no `;vocab=` parameter) activates `vocab/default` automatically. When you DO list vocabs, Default is no longer implicit. Add it explicitly if you want its markers (`»` paragraph, `.` glyph, `°` degree, ...) alongside the others:
+
+```
+type: text/vnd.tiddlywiki;vocab=Default,Markdown
+```
+
+Vs. just `;vocab=Markdown`, which deactivates Default's markers for that tiddler. [[Example - Markdown]] does the latter to keep the markdown demo focused.
+
+!! Collision resolution
+
+When two vocabularies ship a marker with the same `open` literal, the LAST one in the type field wins. `;vocab=A,B` lets B's marker take over the shared `open`; `;vocab=B,A` lets A's win.
+
+This is also how [[Vocabulary - Fountain]] documents itself: it recommends activating WITHOUT Default so its `.` scene-marker can fire (otherwise Default's `.` DOT marker would intercept).
+
+!! Related
+
+* [[Activate a vocabulary]]. The basic activation methods.
+* [[Shipped Vocabularies]]. The catalog of vocabs that ship with the plugin.
+* [[Activating a Vocabulary]]. Full reference for activation semantics.

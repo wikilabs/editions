@@ -1,0 +1,13 @@
+attributes: {"$variable": ".greet", "$mode": "block", "name": "World", "mood": "happy"}
+caption: Hello demo
+created: 20260521073757709
+description: Calls the `.greet` procedure via the modern `<$transclude $variable=".greet" $mode="block" .../>` form. Bakes `name=World` and `mood=happy`; the marker body fills `body` via `src-name`.
+element: $transclude
+end-string: ---
+kind: word
+mode: block
+modified: 20260521081252113
+open: HELLO
+src-name: body
+tags: $:/tags/CustomMarkup/Marker vocab/demo
+title: vocab/demo/HELLO

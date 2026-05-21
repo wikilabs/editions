@@ -1,0 +1,29 @@
+created: 20260520220400365
+modified: 20260520220400365
+tags: $:/tags/Stylesheet
+title: $:/wlcm/styles/multi-columns
+type: text/vnd.tiddlywiki
+
+.multi-columns,
+.fourcolumns {
+	display: block;
+	column-count: 4;
+	column-gap: 1em;
+	-moz-column-count: 4;
+	-moz-column-gap: 1em;
+	-webkit-column-count: 4;
+	-webkit-column-gap: 1em;
+}
+
+/* Switch to 2 columns for narrower viewports */
+@media (max-width: 1279px) {
+	.multi-columns {
+		column-count: 2;
+	}
+}
+
+@media (max-width: {{$:/themes/tiddlywiki/vanilla/metrics/sidebarbreakpoint}}) {
+	.multi-columns {
+		column-count: 1;
+	}
+}

@@ -1,6 +1,6 @@
 created: 20260520020000000
 modified: 20260520030718084
-tags: [[Advanced (v1.0)]] docs
+tags: [[Basics (v1.0)]] docs
 title: Example - Markdown
 type: text/vnd.tiddlywiki;vocab=Markdown
 
@@ -66,3 +66,7 @@ of code
 ## Combining markers
 
 A paragraph can carry several markers at once: **bold** and _italic_ on the same line, plus ~~strikethrough~~ and `code` for good measure.
+
+## Configuration
+
+[[vocab/markdown]] (vocab meta with all 18 markers).

@@ -231,3 +231,11 @@ The full marker tiddlers live under `vocab/presentation/*` and can be opened fro
 The Reveal.js library initialises once per tiddler. Slides added or removed from a deck via the wiki tools won't appear until the tiddler is closed and reopened (the README on the [[Reveal.js plugin|$:/plugins/sukima/reveal-js]] covers this in detail).
 
 Custom Markup by PMario.
+
+!! Configuration
+
+* [[vocab/presentation/PRESENTATION]]
+* [[vocab/presentation/PRESENTATION-LOOP]]
+* [[vocab/presentation/CUT-TO]]
+* [[vocab/presentation/ANIMATE-TO]]
+* [[vocab/presentation/FADE-IN]]

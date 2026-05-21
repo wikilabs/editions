@@ -1,0 +1,22 @@
+created: 20260520230000000
+modified: 20260520230000000
+tags: [[Example - LIST word marker]] docs
+title: Example - LIST SHORTCUTS
+type: text/vnd.tiddlywiki;vocab=Default,Lists
+
+Named-view `SHORTCUTS` from vocab/lists iterates the keyboard-shortcut config tiddlers under `$:/config/shortcuts/`.
+
+!! Source
+
+```
+LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
+```
+
+!! Rendered
+
+LIST SHORTCUTS <li> {{!!title}} - {{!!text}} </li>
+
+!! Configuration
+
+* [[vocab/lists/LIST]]
+* [[vocab/lists/SHORTCUTS]]
