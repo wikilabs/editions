@@ -178,3 +178,11 @@ Optional fields that affect the editor toolbar and legacy pragma resolution.
 
 |! Field |! Required |! Notes |
 |`allow-unsafe` |no |Default secure-by-default: iframe gets `sandbox=""` injected, `object`/`embed`/`frame`/`frameset` are denied, `javascript:` URL values are stripped. Set `yes` to opt out. See [[Custom Markup Security]] for the threat model and the full sanitiser rules. |
+
+!! Debugging
+
+Optional fields that emit a render-time codeblock alongside (or instead of) the normal output. Useful for diagnosing why a marker isn't rendering as expected. See [[Debugging markers]] for the per-tiddler `\debugmarker` override and worked examples.
+
+|! Field |! Required |! Notes |
+|`debug` |no |One of `pragma` (default if truthy), `pragmaOnly`, `text`, `textOnly`, `both`, `no`. `*Only` modes suppress the normal render. |
+|`debug-string` |no |Custom codeblock content for `pragma` / `pragmaOnly` / `both` modes. When empty, auto-generated from the marker's metadata. |

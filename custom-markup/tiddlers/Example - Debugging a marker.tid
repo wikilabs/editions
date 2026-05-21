@@ -1,0 +1,81 @@
+created: 20260521130000000
+modified: 20260521141934704
+tags: [[Advanced (v1.0)]] docs
+title: Example - Debugging a marker
+type: text/vnd.tiddlywiki;vocab=Default,demo
+
+This tiddler uses [[vocab/demo/HELLO]] as the test marker. Each section below uses the [[\debugmarker pragma|Debugging markers]] inside the demo source to flip its mode without editing the marker tiddler. See [[Debugging markers]] for the field-based layer and the full mode reference.
+
+!! No debug (baseline)
+
+A normal HELLO call. No codeblock, just the rendered output.
+
+><<.tid-source text:"""HELLO World!
+---""">>
+
+!! `pragma` — show the marker's `debug-string`
+
+Default when debug is truthy. The codeblock shows the auto-generated pseudo-pragma line (since [[vocab/demo/HELLO]] has no `debug-string` field set), followed by the normal rendered output.
+
+><<.tid-source text:"""\debugmarker HELLO=pragma
+
+HELLO World!
+---""">>
+
+!! `text` — show the source slice
+
+Source-text codeblock first, then the normal rendered output. Useful when you want to see exactly what the engine consumed for this fire (including any whitespace and the terminator behaviour).
+
+><<.tid-source text:"""\debugmarker HELLO=text
+
+HELLO World!
+---""">>
+
+!! `both` — pragma string AND source slice
+
+Both codeblocks alongside the normal rendered output. The fullest view: ''what'' the marker is configured to do, and ''what'' it received as input.
+
+><<.tid-source text:"""\debugmarker HELLO=both
+
+HELLO World!
+---""">>
+
+!! `pragmaOnly` — suppress the render
+
+Only the pragma codeblock; no rendered output. Useful when the marker fails to render and you just want to confirm the config without the broken output cluttering the page.
+
+><<.tid-source text:"""\debugmarker HELLO=pragmaOnly
+
+HELLO World!
+---""">>
+
+!! `textOnly` — show only the source slice
+
+Only the source-text codeblock; no rendered output. Useful when you suspect the parser is consuming the wrong slice (terminator off, body capturing too much / too little).
+
+><<.tid-source text:"""\debugmarker HELLO=textOnly
+
+HELLO World!
+---""">>
+
+!! `no` and the global off-switch
+
+`\debugmarker HELLO=no` cancels an on-by-field debug for the current tiddler. `\debugmarker no` (no arguments) silences debug output for every marker in the current tiddler. Both useful when a vocab ships with a marker that has `debug` set during development; the consumer can opt out per-tiddler without editing the marker.
+
+!! Field-based debug (always on)
+
+The `\debugmarker` pragma is per-tiddler. To make a marker debug always (every wiki, every tiddler that activates the vocab), set the `debug` field on the marker tiddler directly:
+
+```
+title: vocab/demo/HELLO
+debug: both
+```
+
+You can also set a custom `debug-string` to override the auto-generated pseudo-pragma line. Try it: edit [[vocab/demo/HELLO]] in TW, add `debug: both`, save, and reload this tiddler. Every HELLO call across the wiki now shows the codeblock. Remove the field when you're done — vocab-tiddler-scoped debug is too wide for production.
+
+!! Configuration
+
+* [[vocab/demo]]
+* [[vocab/demo/HELLO]]
+* [[.greet-procedure]]
+* [[Debugging markers]]

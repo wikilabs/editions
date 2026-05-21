@@ -1,5 +1,5 @@
 created: 20260521073807608
-modified: 20260521081630364
+modified: 20260521142824662
 tags: [[Advanced (v1.0)]] docs
 title: Example - Marker as procedure call
 type: text/vnd.tiddlywiki;vocab=Default,demo
@@ -8,7 +8,7 @@ A v1.0 marker can call a `\procedure` and bake several static parameters into th
 
 Both markers below share the same `.greet` procedure but bake different parameters. They use the modern `<$transclude $variable="..." $mode="block" ...>` widget (TW 5.3+, see [[TranscludeWidget|https://tiddlywiki.com/#TranscludeWidget]]).
 
-<<.tid-source text:"""HELLO This is the body for HELLO.
+><<.tid-source text:"""HELLO This is the body for HELLO.
 ---
 
 GREETING This is the body for GREETING.
@@ -38,7 +38,7 @@ The `attributes` JSON IS the procedure call. `$variable` picks the procedure; th
 
 [[.greet-procedure]] (tagged `$:/tags/Macro` so it loads globally):
 
-<<.tid-source ".greet-procedure">>
+><<.tid-source ".greet-procedure">>
 
 Note the procedure body is pure inline content. No `<p>` wrapper. The `<p>` comes from `$transclude $mode="block"` re-parsing the body in block mode at render time, where TW's paragraph rule wraps inline runs in `<p>`.
 

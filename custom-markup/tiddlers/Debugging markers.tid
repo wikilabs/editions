@@ -1,0 +1,76 @@
+created: 20260521120000000
+modified: 20260521120000000
+tags: [[Reference (v1.0)]] docs
+title: Debugging markers
+type: text/vnd.tiddlywiki
+
+When a marker doesn't render the way you expect, the engine can emit a codeblock alongside (or instead of) the normal output. This is the v1.0 successor to v0.x's `_debug` pragma attribute.
+
+!! How to turn it on
+
+Two layers. The static layer is a field on the marker tiddler; the per-tiddler layer is the `\debugmarker` pragma.
+
+!!! Marker-tiddler field (always on)
+
+Set `debug` on the marker. While that field is set, every occurrence of the marker emits a codeblock. Useful while developing the marker itself.
+
+```
+title: vocab/demo/HELLO
+kind: word
+open: HELLO
+debug: both
+```
+
+Use this for a marker you're actively iterating on. Remove the field once the marker is shipped — the field is vocab-tiddler-scoped, so leaving it on means every wiki that activates the vocab sees the debug output.
+
+!!! `\debugmarker` pragma (per-tiddler override)
+
+To turn on debug for an already-shipped marker without editing it, add a `\debugmarker` pragma at the top of the tiddler:
+
+```
+\debugmarker HELLO=both
+
+HELLO World!
+---
+```
+
+The override is scoped to the tiddler that contains the pragma; other tiddlers using the same marker render normally.
+
+!! Modes
+
+|! Mode |! Effect |
+|`pragma` |Show the `debug-string` codeblock. Default when `debug` is truthy. |
+|`pragmaOnly` |Show only the `debug-string` codeblock; suppress the normal render. |
+|`text` |Show the source-text codeblock alongside the normal render. |
+|`textOnly` |Show only the source-text codeblock; suppress the normal render. |
+|`both` |Show both codeblocks alongside the normal render. |
+|`no` |Off. Also the value to use in `\debugmarker <open>=no` to override an on-by-field marker. |
+
+!! Resolution order
+
+Highest wins:
+
+# `\debugmarker no` (the global off-switch for the current tiddler).
+# `\debugmarker <open>=<mode>` (per-marker override in the current tiddler).
+# Symbol-level `_debug` from a `_use` / `_useGlobal` resolution (legacy bridge).
+# Marker-tiddler `debug` field.
+# Off.
+
+!! `debug-string` content
+
+For `pragma`, `pragmaOnly`, and `both` modes, the codeblock content comes from the marker's `debug-string` field if set, or is auto-generated from the marker's metadata when empty. The auto-generated form looks like:
+
+```
+marker vocab/demo/HELLO open='HELLO' close='' kind='word' mode='block' element='$transclude' endString='---' srcName='body'
+```
+
+Override it by setting `debug-string` on the marker.
+
+!! Worked example
+
+See [[Example - Debugging a marker]]. It walks the six modes side-by-side using the demo HELLO marker, with each mode visible as both Source and Rendered.
+
+!! Related
+
+* [[Marker Fields]]. The full field reference (the `debug` / `debug-string` rows live under the Debugging section).
+* [[debugcustom pragma]]. The legacy `\debugcustom` pragma. Dumps registry state as a codeblock; complementary to `\debugmarker` which controls render-time output.
