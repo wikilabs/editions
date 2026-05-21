@@ -1,10 +1,12 @@
 caption: List
+classes: multi-columns
 created: 20260518181001473
 description: Wraps content in a `<ul>` element. Typically contains a SHORTCUTS or other list-widget child.
 element: ul
 kind: word
 mode: block
-modified: 20260519220613726
+modified: 20260521163749936
 open: LIST
 tags: $:/tags/CustomMarkup/Marker vocab/lists
 title: vocab/lists/LIST
+type: text/vnd.tiddlywiki
