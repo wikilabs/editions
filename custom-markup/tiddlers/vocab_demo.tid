@@ -2,7 +2,6 @@ caption: Demo
 created: 20260521073755088
 description: Demo vocabulary for the `Marker as procedure call` worked example. Two markers (HELLO, GREETING) both call the `.greet` procedure with different baked parameters.
 filter: [[vocab/demo]] [all[shadows+tiddlers]tag[vocab/demo]]
-marker-tag: vocab/demo
 modified: 20260521073755088
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/demo

@@ -4,13 +4,13 @@ tags: [[Basics (v1.0)]] docs
 title: Your first marker tiddler
 type: text/vnd.tiddlywiki
 
-A marker tiddler is one tiddler that defines one syntax mapping: a literal trigger (`open`) plus what to do when it fires (an HTML element, a TW widget call, a wrapping list container, ...). Every marker in the plugin is a tiddler tagged <<tag "$:/tags/CustomMarkup/Marker">> plus a vocabulary marker-tag.
+A marker tiddler is one tiddler that defines one syntax mapping: a literal trigger (`open`) plus what to do when it fires (an HTML element, a TW widget call, a wrapping list container, ...). Every marker in the plugin is a tiddler tagged <<tag "$:/tags/CustomMarkup/Marker">> plus its vocabulary tag (the vocab tiddler's title, e.g. `vocab/markdown`).
 
 !! Required fields
 
 * `kind`. One of `glyph`, `glyph-level`, `word`, `inline-pair`, `list-item`. See [[Marker Kinds]] for what each one does.
 * `open`. The literal text that fires the marker.
-* `tags`. `$:/tags/CustomMarkup/Marker` plus the vocab's marker-tag (e.g. `vocab/markdown`).
+* `tags`. `$:/tags/CustomMarkup/Marker` plus the vocab tag (the vocab tiddler's title, e.g. `vocab/markdown`).
 
 Optional fields cover the output (element, classes, attributes), parsing (mode, end-string, body-raw), editor integration (marker-icon, caption), and security (allow-unsafe). The full list lives in [[Marker Fields]].
 
@@ -41,7 +41,7 @@ renders as
 <div class="my-note">Read the docs first.</div>
 ```
 
-You also need a vocab meta tiddler titled `vocab/myvocab` tagged `$:/tags/CustomMarkup/Vocabulary` with a `marker-tag: vocab/myvocab` field. See [[Vocabulary Meta Fields]] for the meta schema and [[Activate a vocabulary]] for how readers turn the vocab on.
+You also need a vocab meta tiddler titled `vocab/myvocab` tagged `$:/tags/CustomMarkup/Vocabulary` (the title itself is what each marker carries in its `tags`). See [[Vocabulary Meta Fields]] for the meta schema and [[Activate a vocabulary]] for how readers turn the vocab on.
 
 !! Worked examples
 

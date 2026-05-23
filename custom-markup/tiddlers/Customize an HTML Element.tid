@@ -31,7 +31,7 @@ Add two marker tiddlers tagged <<tag $:/tags/CustomMarkup/Marker>>:
 |`end-string` |`------` |(default end-of-line) |
 |`attributes` |`{"open":""}` |(none) |
 
-Group them into a vocabulary by tagging both with `vocab/html-elements`, then add a meta tiddler `vocab/html-elements` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/html-elements` and a `caption: Html-Elements`.
+Group them into a vocabulary by tagging both with `vocab/html-elements`, then add a meta tiddler titled `vocab/html-elements` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with a `caption: Html-Elements`.
 
 Activate the vocabulary on any tiddler that needs it:
 

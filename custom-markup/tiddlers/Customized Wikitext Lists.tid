@@ -30,7 +30,7 @@ vocab/lists is a ''catalogue of named list views''. The outer wrapper is one mar
 
 All four markers use `kind: word`; see [[Marker Kinds]] for what `word` and the other kinds do.
 
-Tag each marker with `vocab/lists`, add a meta tiddler `vocab/lists` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/lists`, and activate:
+Tag each marker with `vocab/lists`, add a meta tiddler titled `vocab/lists` tagged <<tag $:/tags/CustomMarkup/Vocabulary>>, and activate:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Lists

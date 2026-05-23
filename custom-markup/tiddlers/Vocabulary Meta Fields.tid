@@ -4,11 +4,12 @@ tags: [[Vocabulary Engine]]
 title: Vocabulary Meta Fields
 type: text/vnd.tiddlywiki
 
+The meta tiddler is itself the vocabulary's marker tag: its title (e.g. `vocab/markdown`) is what each marker tiddler in the vocabulary carries in its `tags` field. So no separate field declares the tag — the title is the tag.
+
 The meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> carries:
 
 |! Field |! Required |! Notes |! Example |
 |`caption` |yes |Human-friendly name used in `;vocab=<Caption>` activation and the marker-summary header. |[[vocab/markdown]] |
-|`marker-tag` |yes |Tag that this vocabulary's marker tiddlers carry, e.g. `vocab/fountain`. |[[vocab/fountain]] |
 |`description` |no |One-sentence summary. Surfaced in the vocab-summary ViewTemplate. |[[vocab/fountain]] |
 |`version` |no |Free-form. Convention: SemVer. |[[vocab/markdown]] |
 |`disable-core-rules` |no |Space-separated TW core wikirule names. Suppressed when this vocab is activated for a tiddler. |[[vocab/markdown]] |
@@ -24,7 +25,6 @@ The ''Example'' column links to a real vocab tiddler where the field is populate
 ```
 title: vocab/markdown
 caption: Markdown
-marker-tag: vocab/markdown
 version: 0.4.0
 disable-core-rules: strikethrough codeinline list underscore table
 ```
@@ -42,7 +42,6 @@ See [[$:/core/ui/ControlPanel/Parsing]] for the rule catalogue (filters: `[wikip
 ```
 title: vocab/fountain
 caption: Fountain
-marker-tag: vocab/fountain
 front-matter: yes
 disable-core-rules: heading list
 ```
@@ -59,4 +58,4 @@ tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 filter: [[vocab/markdown]] [all[shadows+tiddlers]tag[vocab/markdown]]
 ```
 
-Click the export button on the vocab tiddler and you get a JSON file containing the vocab meta plus every marker tagged with its `marker-tag`. Lets a vocab travel as one self-contained file.
+Click the export button on the vocab tiddler and you get a JSON file containing the vocab meta plus every marker tagged with the vocab title. Lets a vocab travel as one self-contained file.

@@ -4,7 +4,6 @@ description: Screenplay markers in the spirit of the Fountain syntax (https://fo
 disable-core-rules: heading list
 filter: [[vocab/fountain]] [all[shadows+tiddlers]tag[vocab/fountain]]
 front-matter: yes
-marker-tag: vocab/fountain
 modified: 20260519221053142
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/fountain

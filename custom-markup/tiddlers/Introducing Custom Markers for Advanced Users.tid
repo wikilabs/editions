@@ -31,7 +31,7 @@ Define one marker tiddler per named style, tagged <<tag $:/tags/CustomMarkup/Mar
 |`element` |`p` |`p` |`p` |
 |`classes` |`.indent.right-dedent.justify.cbox.cbox-primary` |`.indent.right-dedent.justify.cbox.cbox-success` |`.indent.right-dedent.justify.cbox.cbox-warning` |
 
-Group them under a vocabulary tag (e.g. `vocab/color-boxes`) and add a meta tiddler `vocab/color-boxes` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/color-boxes`.
+Group them under a vocabulary tag (e.g. `vocab/color-boxes`) and add a meta tiddler titled `vocab/color-boxes` tagged <<tag $:/tags/CustomMarkup/Vocabulary>>.
 
 Activate where needed:
 

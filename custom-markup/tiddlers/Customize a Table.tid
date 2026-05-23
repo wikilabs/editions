@@ -37,7 +37,7 @@ Add five marker tiddlers tagged <<tag $:/tags/CustomMarkup/Marker>>:
 |TH |`TH` |`word` |`inline` |`th` | |
 |TD |`TD` |`word` |`inline` |`td` | |
 
-Group all five under `vocab/table` and add `vocab/table` tagged <<tag $:/tags/CustomMarkup/Vocabulary>> with `marker-tag: vocab/table`. Activate per tiddler:
+Group all five under the `vocab/table` tag and add a meta tiddler titled `vocab/table` tagged <<tag $:/tags/CustomMarkup/Vocabulary>>. Activate per tiddler:
 
 ```
 type: text/vnd.tiddlywiki;vocab=Default,Table

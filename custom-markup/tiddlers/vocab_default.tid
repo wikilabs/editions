@@ -1,7 +1,6 @@
 caption: Default
 description: v1 default Custom-Markup vocabulary (4 block markers, 3 inline-pair markers).
 filter: [[vocab/default]] [all[shadows+tiddlers]tag[vocab/default]]
-marker-tag: vocab/default
 modified: 20260520221235889
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/default

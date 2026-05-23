@@ -22,6 +22,6 @@ Opening a marker tiddler, a vocabulary tiddler, or a marker-tag tiddler shows a 
 
 * tag <<tag $:/tags/CustomMarkup/Marker>> on the tiddler being viewed: per-marker fields summary.
 * the tiddler title itself is a marker-tag (e.g. `vocab/default`): catalog of every marker carrying that tag.
-* tag <<tag $:/tags/CustomMarkup/Vocabulary>>: caption, description, marker-tag, version, plus the marker listing.
+* tag <<tag $:/tags/CustomMarkup/Vocabulary>>: caption, description, version, plus the marker listing.
 
 All three templates list fields dynamically via `[<currentTiddler>fields[]sort[]]` so new marker / vocab fields surface automatically. Each links back to [[Marker Fields]] / [[Vocabulary Meta Fields]] for the canonical reference.

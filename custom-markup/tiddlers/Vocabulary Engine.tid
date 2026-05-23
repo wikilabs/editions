@@ -4,7 +4,7 @@ tags: [[Reference (v1.0)]]
 title: Vocabulary Engine
 type: text/vnd.tiddlywiki
 
-Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged <<tag $:/tags/CustomMarkup/Marker>>. Markers group into vocabularies via a `vocab/<name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> that names the marker-tag and supplies a caption.
+Starting with v1.0.0-beta-1, Custom-Markup ships a vocabulary engine. Every marker is a tiddler tagged <<tag $:/tags/CustomMarkup/Marker>>. Markers group into vocabularies via a `vocab/<name>` tag. Each vocabulary has a meta tiddler tagged <<tag $:/tags/CustomMarkup/Vocabulary>> whose title is exactly that `vocab/<name>` tag, and which supplies a caption and other vocab-level fields.
 
 This page is the entry point. Each detail topic below is its own tiddler tagged `Vocabulary Engine` so it can be linked, transcluded, or surfaced in any TOC built from that tag.
 
@@ -12,7 +12,7 @@ This page is the entry point. Each detail topic below is its own tiddler tagged 
 
 * [[Marker Kinds]]: the five `kind` values (glyph, glyph-level, word, inline-pair, list-item) explained.
 * [[Marker Fields]]: every field on a marker tiddler, grouped by job (identity, output, parsing, editor, security) with worked examples that link to real markers.
-* [[Vocabulary Meta Fields]]: fields on the vocab meta tiddler (caption, marker-tag, disable-core-rules, front-matter, filter).
+* [[Vocabulary Meta Fields]]: fields on the vocab meta tiddler (caption, disable-core-rules, front-matter, filter).
 * [[Activating a Vocabulary]]: type-field syntax, `\importcustom` pragma, and how `disable-core-rules` claims TW core syntax.
 * [[Shipped Vocabularies]]: current vocabs in the plugin and editions, with links to worked examples for each.
 * [[Engine Filters and Templates]]: the `cm-active-markers` filter operator and the ViewTemplate cascade that drives the per-marker / per-vocab summary views.

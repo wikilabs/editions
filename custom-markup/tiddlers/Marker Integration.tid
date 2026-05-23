@@ -14,7 +14,7 @@ Each active vocabulary contributes its marker set to the dropdowns. The full shi
 
 <$list filter="[all[shadows+tiddlers]tag[$:/tags/CustomMarkup/Vocabulary]sort[caption]]">
 
-;<$link>{{!!caption}}</$link> (<$count filter="[all[shadows+tiddlers]tag{!!marker-tag}]"/> markers)
-:<$list filter="[all[shadows+tiddlers]tag{!!marker-tag}sort[caption]]" join=", "><$link>{{!!caption}}</$link></$list>
+;<$link>{{!!caption}}</$link> (<$count filter="[all[shadows+tiddlers]tag<currentTiddler>]"/> markers)
+:<$list filter="[all[shadows+tiddlers]tag<currentTiddler>sort[caption]]" join=", "><$link>{{!!caption}}</$link></$list>
 
 </$list>
