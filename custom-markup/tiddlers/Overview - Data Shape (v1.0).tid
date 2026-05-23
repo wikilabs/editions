@@ -1,26 +1,37 @@
 created: 20260523151001351
-modified: 20260523151910519
-tags: docs [[Vocabulary Engine]]
+modified: 20260523160702483
+tags: docs Developers
 title: Overview - Data Shape (v1.0)
 
-A conceptual map of the v1.0 engine's data model. Four entities, three relationships. Everything is a tiddler; activation is materialised by a tag and a name — there is no separate registration table.
+''Reference for the data shape — look up entity fields here.'' For the narrative intro see [[Overview - Vocabularies & Markers (v1.0)]].
+
+Four entities, three relationships. Everything is a tiddler; activation is materialised by a tag and a name — there is no separate registration table.
 
 [img[cm-v1-data-shape.svg]]
 
 !! The three relationships
 
 ; ''Source Tiddler'' → ''Vocabulary''  (activates)
-: The author opts into a vocab's markers via the ''type field'' (`type: text/vnd.tiddlywiki;vocab=A,B`) or an in-source ''pragma'' (`\importcustom [tag[vocab/X]]`). Both paths reach the same `registry.activate()`. With no `;vocab=`, `vocab/default` is implicit. With any `;vocab=`, Default is no longer implicit — list it explicitly to keep it. Overlap rule: when two activated vocabs ship the same `open`, the ''last'' listed wins.
+: The author opts into a vocab's markers via the ''type field'' (`type: text/vnd.tiddlywiki;vocab=A,B`) or an in-source ''pragma'' (`\importcustom [tag[vocab/X]]`). Both paths reach the same `registry.activate()`. With no `;vocab=`, `vocab/default` is implicit. Collision rule for shared `open` literals: last activated wins (see [[Overview - Vocabularies & Markers (v1.0)]] § Vocabulary collisions).
 
 ; ''Vocabulary'' → ''Marker''  (groups)
-: A marker belongs to a vocabulary by carrying that vocabulary's title in its `tags`. There is no `marker-tag` field on the vocabulary (dropped in beta-35) — the relationship is pure tag-membership. ''Title convention:'' `vocab/<lowercase-caption>` lets `registry.activate(name)` do a direct `getTiddler` instead of a filter walk (~33× faster).
+: A marker belongs to a vocabulary by carrying that vocabulary's title in its `tags`. There is no `marker-tag` field on the vocabulary (dropped in beta-35) — the relationship is pure tag-membership. ''Title convention:'' `vocab/<lowercase-caption>` lets `registry.activate(name)` do a direct `getTiddler` instead of a filter walk (~33× faster than the pre-beta-29 path).
 
 ; ''Marker'' → ''MarkerKind''  (kind)
-: The `kind` field is the discriminator that decides which other fields are honoured. `close` only matters for `inline-pair`; `max-level` only for `glyph-level`; `container` / `item-element` / `indent-unit` only for `list-item`; `paragraph-marker` / `emit-open` / `end-string` for the block kinds.
+: The `kind` field is the discriminator that decides which other fields are honoured. `close` only matters for `inline-pair`; `max-level` only for `glyph-level`; `container` / `item-element` / `indent-unit` only for `list-item`; `paragraph-marker` / `emit-open` / `end-string` for the block kinds. See [[Overview - Vocabularies & Markers (v1.0)]] § The five marker kinds for narrative + worked examples.
 
-!! Field clusters on the Marker tiddler
+!! Vocabulary fields
 
-Most markers only need a few fields from the first two clusters.
+|! Field |! Notes |
+|`title` |Must be `vocab/<lowercase-caption>` for fast activation. |
+|`tags` |Must include `$:/tags/CustomMarkup/Vocabulary`. |
+|`caption` · `description` |Human-readable. |
+|`disable-core-rules`? |Whitespace-separated TW core wikirule names to remove when this vocab activates. Applied via `parser.amendRules("except", ...)` for the active tiddler only. Lets Markdown claim `_`, `~~`, `|`; lets Fountain claim `!`, `#`. |
+|`front-matter`? |`yes` → consume a YAML block at parser position 0. |
+
+!! Marker fields
+
+Clustered by job. Most markers only need a few fields from the first two clusters.
 
 ; identity
 : `title` (convention `vocab/<v>/<NAME>`)  ·  `tags` (`$:/tags/CustomMarkup/Marker` + `vocab/<v>`)  ·  `caption`  ·  `description`
@@ -38,7 +49,7 @@ Most markers only need a few fields from the first two clusters.
 : `marker-icon`  ·  `order` (toolbar sort)  ·  `legacy-kind` (v0.x pragma bridge)  ·  `allow-classes` (word: append `.cls` after keyword)  ·  `debug` / `debug-string`
 
 ; security
-: `allow-unsafe` (default `no`: iframe gets `sandbox=""`, `object`/`embed`/`frame` denied, `javascript:` URLs stripped). See [[Custom Markup Security]].
+: `allow-unsafe` (default `no`: iframe gets `sandbox=""`, `object`/`embed`/`frame` denied, `javascript:` URLs stripped). See [[Custom Markup Security]] for the full threat model.
 
 !! Two side channels not on the diagram
 
@@ -64,6 +75,7 @@ paragraph-marker: yes
 
 !! Related
 
-* [[Overview - Vocabularies & Markers (v1.0)]] — the same model told as three columns with worked HTML.
-* [[Overview - Phase Timeline (v1.0)]] — when each of these entities is touched at parse time.
-* [[Marker Fields]] · [[Marker Kinds]] · [[Activating a Vocabulary]] · [[Global Pragma Definitions]]
+* [[Overview - Vocabularies & Markers (v1.0)]] — narrative intro to the v1.0 concept
+* [[Overview - Parse Pipeline (v1.0)]] — narrative walkthrough of what happens at parse time
+* [[Overview - Phase Timeline (v1.0)]] — Gantt-style timeline of state changes during a parse
+* [[Marker Fields]] · [[Marker Kinds]] · [[Activating a Vocabulary]] · [[Global Pragma Definitions]] · [[Custom Markup Security]]

@@ -1,159 +1,117 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 880" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 600" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
   <defs>
-    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="#555"/>
-    </marker>
     <style>
-      .title { font-size: 22px; font-weight: 700; fill: #1a1a1a; }
+      .title    { font-size: 22px; font-weight: 700; fill: #1a1a1a; }
       .subtitle { font-size: 13px; fill: #555; }
-      .h { font-size: 15px; font-weight: 700; fill: #1a1a1a; }
-      .sub { font-size: 12px; fill: #555; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; fill: #111; }
-      .small { font-size: 11px; fill: #444; }
-      .kind { font-size: 12px; font-weight: 700; fill: #1a1a1a; }
-      .pill-text { font-size: 12px; font-weight: 700; fill: #fff; }
+      .card-num   { font-size: 30px; font-weight: 700; }
+      .card-h     { font-size: 16px; font-weight: 700; fill: #1a1a1a; }
+      .card-sub   { font-size: 11.5px; fill: #555; font-style: italic; }
+      .code       { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; fill: #111; }
+      .code-key   { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; fill: #b30000; font-weight: 700; }
+      .hint       { font-size: 11px; fill: #444; font-style: italic; }
+      .pill-text  { font-size: 13px; font-weight: 700; fill: #ffffff; }
+      .pill-sub   { font-size: 11px; fill: #ffffff; opacity: 0.95; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .gallery-h  { font-size: 13px; font-weight: 700; fill: #1a1a1a; }
+      .card-m     { stroke: #1f883d; stroke-width: 1.6; fill: #f3fbf5; }
+      .card-v     { stroke: #0969da; stroke-width: 1.6; fill: #f4faff; }
+      .card-a     { stroke: #c79100; stroke-width: 1.6; fill: #fffdf3; }
+      .code-bg    { fill: #ffffff; stroke: #d0d7de; stroke-width: 0.8; }
     </style>
   </defs>
 
-  <text x="640" y="34" text-anchor="middle" class="title">Custom Markup v1.0 — Vocabularies, Markers, Activation</text>
-  <text x="640" y="56" text-anchor="middle" class="subtitle">Markers are tiddlers. Vocabularies are tag sets. A tiddler opts in via its type field or a pragma.</text>
+  <text x="570" y="36" text-anchor="middle" class="title">Custom Markup v1.0 — How it composes</text>
+  <text x="570" y="58" text-anchor="middle" class="subtitle">A marker is a tiddler. A vocabulary is a tag set. Two ways to opt in.</text>
 
-  <rect x="40" y="90" width="420" height="380" rx="10" fill="#fff8e1" stroke="#c79100" stroke-width="1.4"/>
-  <text x="60" y="118" class="h">① A marker is a tiddler</text>
-  <text x="60" y="138" class="sub">tagged $:/tags/CustomMarkup/Marker + [[vocab/&lt;name&gt;]]</text>
+  <rect x="40" y="90" width="340" height="240" rx="10" class="card-m"/>
+  <text x="62" y="124" class="card-num" fill="#1f883d">①</text>
+  <text x="108" y="118" class="card-h">A marker is a tiddler</text>
+  <text x="108" y="138" class="card-sub">tagged with $:/tags/CustomMarkup/Marker</text>
+  <text x="108" y="152" class="card-sub">+ the vocabulary's title</text>
 
-  <rect x="60" y="155" width="380" height="295" rx="6" fill="#fffdf3" stroke="#bf9000"/>
-  <text x="76" y="178" class="mono" font-weight="700">title:    vocab/fountain/INT</text>
-  <text x="76" y="196" class="mono">tags:     $:/tags/CustomMarkup/Marker  [[vocab/fountain]]</text>
-  <text x="76" y="214" class="mono">caption:  Int.</text>
-  <text x="76" y="236" class="mono" fill="#b30000">kind:     word</text>
-  <text x="76" y="254" class="mono" fill="#b30000">open:     INT.</text>
-  <text x="76" y="272" class="mono">close:    —              (inline-pair only)</text>
-  <text x="76" y="290" class="mono">element:  p              (default: div / span)</text>
-  <text x="76" y="308" class="mono">classes:  .wltc-fountain-scene-heading</text>
-  <text x="76" y="326" class="mono">mode:     inline         (or `block`)</text>
-  <text x="76" y="344" class="mono">paragraph-marker: yes    (blank-line terminator)</text>
-  <text x="76" y="362" class="mono">emit-open: yes           (keep `INT.` in output)</text>
-  <text x="76" y="380" class="mono">end-string: ---          (custom close keyword)</text>
-  <text x="76" y="398" class="mono">body-raw:   yes          (inline-pair: literal text)</text>
-  <text x="76" y="416" class="mono">allow-symbol / allow-classes / allow-unsafe</text>
-  <text x="76" y="434" class="mono">marker-icon / order / legacy-kind / debug</text>
+  <rect x="60" y="170" width="300" height="120" rx="6" class="code-bg"/>
+  <text x="74" y="192" class="code-key">title:</text>
+  <text x="120" y="192" class="code">vocab/fountain/INT</text>
+  <text x="74" y="208" class="code-key">tags:</text>
+  <text x="120" y="208" class="code">$:/tags/CustomMarkup/Marker</text>
+  <text x="120" y="224" class="code">[[vocab/fountain]]</text>
+  <text x="74" y="244" class="code-key">kind:</text>
+  <text x="120" y="244" class="code">word</text>
+  <text x="74" y="260" class="code-key">open:</text>
+  <text x="120" y="260" class="code">INT.</text>
+  <text x="74" y="278" class="code">element: p   classes: .wltc-...</text>
 
-  <text x="60" y="490" class="h">5 marker kinds</text>
+  <text x="60" y="312" class="hint">→ field reference: [[Overview - Data Shape (v1.0)]]</text>
+
+  <rect x="400" y="90" width="340" height="240" rx="10" class="card-v"/>
+  <text x="422" y="124" class="card-num" fill="#0969da">②</text>
+  <text x="468" y="118" class="card-h">Vocabularies group markers</text>
+  <text x="468" y="138" class="card-sub">one meta tiddler per vocab,</text>
+  <text x="468" y="152" class="card-sub">titled `vocab/&lt;lowercase-caption&gt;`</text>
+
+  <rect x="420" y="170" width="300" height="120" rx="6" class="code-bg"/>
+  <text x="434" y="192" class="code-key">title:</text>
+  <text x="480" y="192" class="code">vocab/fountain</text>
+  <text x="434" y="208" class="code-key">tags:</text>
+  <text x="480" y="208" class="code">$:/tags/CustomMarkup/Vocabulary</text>
+  <text x="434" y="228" class="code">caption: Fountain</text>
+  <text x="434" y="246" class="code">description: Screenplay markers</text>
+  <text x="434" y="266" class="code">disable-core-rules: heading list</text>
+  <text x="434" y="282" class="code">front-matter: yes</text>
+
+  <text x="420" y="312" class="hint">grouping is implicit: marker.tags ∈ vocab.title</text>
+
+  <rect x="760" y="90" width="340" height="240" rx="10" class="card-a"/>
+  <text x="782" y="124" class="card-num" fill="#c79100">③</text>
+  <text x="828" y="118" class="card-h">Two activation paths</text>
+  <text x="828" y="138" class="card-sub">in the tiddler that wants the markers</text>
+  <text x="828" y="152" class="card-sub">to fire</text>
+
+  <text x="780" y="180" class="card-sub" font-weight="700" fill="#1a1a1a">A. Type field (persisted)</text>
+  <rect x="780" y="186" width="300" height="40" rx="5" class="code-bg"/>
+  <text x="794" y="208" class="code-key">type:</text>
+  <text x="836" y="208" class="code">text/vnd.tiddlywiki</text>
+  <text x="794" y="222" class="code">      ;vocab=Default,Markdown</text>
+
+  <text x="780" y="252" class="card-sub" font-weight="700" fill="#1a1a1a">B. Pragma (per-tiddler)</text>
+  <rect x="780" y="258" width="300" height="40" rx="5" class="code-bg"/>
+  <text x="794" y="280" class="code">\importcustom [tag[vocab/fountain]]</text>
+  <text x="794" y="294" class="code">\custom &lt;kind&gt;=&lt;sym&gt; ...</text>
+
+  <text x="760" y="318" class="hint">no `;vocab=` → vocab/default is implicit</text>
+
+  <text x="40" y="368" class="gallery-h">The five marker kinds</text>
+  <text x="220" y="368" class="card-sub">— what `kind` can be on a marker tiddler</text>
+
   <g>
-    <rect x="60" y="500" width="76" height="46" rx="6" fill="#1f6feb"/>
-    <text x="98" y="520" text-anchor="middle" class="pill-text">glyph</text>
-    <text x="98" y="538" text-anchor="middle" class="pill-text" font-size="10">.  ›  °</text>
+    <rect x="40"  y="384" width="208" height="96" rx="8" fill="#1f6feb"/>
+    <text x="144" y="412" text-anchor="middle" class="pill-text">glyph</text>
+    <text x="144" y="436" text-anchor="middle" class="pill-sub">.   ›   °</text>
+    <text x="144" y="460" text-anchor="middle" class="pill-sub" font-style="italic" font-family="-apple-system">single-fire block</text>
   </g>
   <g>
-    <rect x="142" y="500" width="86" height="46" rx="6" fill="#2da44e"/>
-    <text x="185" y="520" text-anchor="middle" class="pill-text">glyph-level</text>
-    <text x="185" y="538" text-anchor="middle" class="pill-text" font-size="10">»  »»  »»»</text>
+    <rect x="258" y="384" width="208" height="96" rx="8" fill="#2da44e"/>
+    <text x="362" y="412" text-anchor="middle" class="pill-text">glyph-level</text>
+    <text x="362" y="436" text-anchor="middle" class="pill-sub">»  »»  »»»</text>
+    <text x="362" y="460" text-anchor="middle" class="pill-sub" font-style="italic" font-family="-apple-system">N reps → wltc-lN</text>
   </g>
   <g>
-    <rect x="234" y="500" width="68" height="46" rx="6" fill="#8250df"/>
-    <text x="268" y="520" text-anchor="middle" class="pill-text">word</text>
-    <text x="268" y="538" text-anchor="middle" class="pill-text" font-size="10">INT.  ##</text>
+    <rect x="476" y="384" width="208" height="96" rx="8" fill="#8250df"/>
+    <text x="580" y="412" text-anchor="middle" class="pill-text">word</text>
+    <text x="580" y="436" text-anchor="middle" class="pill-sub">INT.   ##   CUT TO:</text>
+    <text x="580" y="460" text-anchor="middle" class="pill-sub" font-style="italic" font-family="-apple-system">keyword block</text>
   </g>
   <g>
-    <rect x="308" y="500" width="84" height="46" rx="6" fill="#cf222e"/>
-    <text x="350" y="520" text-anchor="middle" class="pill-text">inline-pair</text>
-    <text x="350" y="538" text-anchor="middle" class="pill-text" font-size="10">/° °/  ❮ ❯</text>
+    <rect x="694" y="384" width="208" height="96" rx="8" fill="#cf222e"/>
+    <text x="798" y="412" text-anchor="middle" class="pill-text">inline-pair</text>
+    <text x="798" y="436" text-anchor="middle" class="pill-sub">/° °/   ❮ ❯</text>
+    <text x="798" y="460" text-anchor="middle" class="pill-sub" font-style="italic" font-family="-apple-system">open … close inline</text>
   </g>
   <g>
-    <rect x="398" y="500" width="74" height="46" rx="6" fill="#bf8700"/>
-    <text x="435" y="520" text-anchor="middle" class="pill-text">list-item</text>
-    <text x="435" y="538" text-anchor="middle" class="pill-text" font-size="10">- · *  1.</text>
+    <rect x="912" y="384" width="188" height="96" rx="8" fill="#bf8700"/>
+    <text x="1006" y="412" text-anchor="middle" class="pill-text">list-item</text>
+    <text x="1006" y="436" text-anchor="middle" class="pill-sub">-   *   1.</text>
+    <text x="1006" y="460" text-anchor="middle" class="pill-sub" font-style="italic" font-family="-apple-system">ul / ol / dl / blockquote</text>
   </g>
 
-  <text x="60" y="572" class="small">glyph         single fire at line start; whole line is body</text>
-  <text x="60" y="588" class="small">glyph-level   N repeats → emits class `wltc-lN` (default max 4)</text>
-  <text x="60" y="604" class="small">word          keyword block; single line (inline) or multi-block</text>
-  <text x="60" y="620" class="small">inline-pair   open … close anywhere on a line</text>
-  <text x="60" y="636" class="small">list-item     consecutive items collapse to one ul / ol / dl / blockquote</text>
-
-  <rect x="490" y="90" width="380" height="380" rx="10" fill="#e6f4ff" stroke="#0969da" stroke-width="1.4"/>
-  <text x="510" y="118" class="h">② Vocabularies group markers</text>
-  <text x="510" y="138" class="sub">A vocab is one meta tiddler tagged $:/tags/CustomMarkup/Vocabulary.</text>
-  <text x="510" y="154" class="sub">Title convention: vocab/&lt;lowercase-caption&gt;.</text>
-
-  <rect x="510" y="170" width="340" height="120" rx="6" fill="#f6fbff" stroke="#0969da"/>
-  <text x="526" y="192" class="mono" font-weight="700">title:    vocab/fountain</text>
-  <text x="526" y="210" class="mono">tags:     $:/tags/CustomMarkup/Vocabulary</text>
-  <text x="526" y="228" class="mono">caption:  Fountain</text>
-  <text x="526" y="246" class="mono">description: Screenplay markers à la fountain.io</text>
-  <text x="526" y="264" class="mono" fill="#b30000">disable-core-rules: heading list</text>
-  <text x="526" y="282" class="mono">front-matter: yes        (consume YAML at pos 0)</text>
-
-  <text x="510" y="318" class="sub">A marker belongs to the vocab whose title is in its tags.</text>
-  <text x="510" y="334" class="sub">No marker-tag field needed (since beta-35).</text>
-
-  <text x="510" y="362" class="h">Shipped vocabularies</text>
-  <text x="510" y="382" class="small">vocab/default        — always implicit (° . » ›, /° °/, ❮ ❯, ⠒ ⠶)</text>
-  <text x="510" y="398" class="small">vocab/legacy-glyphs  — opt-in (´ ≈ ¶)</text>
-  <text x="510" y="414" class="small">vocab/fountain       — screenplay</text>
-  <text x="510" y="430" class="small">vocab/markdown       — emphasis · headings · lists · table</text>
-  <text x="510" y="446" class="small">vocab/presentation   — Reveal.js DSL</text>
-  <text x="510" y="462" class="small">vocab/color-boxes · html-elements · lists · table · demo</text>
-
-  <rect x="890" y="90" width="350" height="380" rx="10" fill="#f0eaff" stroke="#8250df" stroke-width="1.4"/>
-  <text x="908" y="118" class="h">③ Two ways to activate</text>
-  <text x="908" y="138" class="sub">In the tiddler that wants the markers to fire.</text>
-
-  <text x="908" y="170" class="h" font-size="13">A. Type field (persisted)</text>
-  <rect x="908" y="180" width="316" height="60" rx="6" fill="#faf8ff" stroke="#8250df"/>
-  <text x="922" y="200" class="mono">type: text/vnd.tiddlywiki;vocab=Default,Markdown</text>
-  <text x="922" y="220" class="mono"># LAST listed wins on overlapping `open`</text>
-  <text x="922" y="234" class="small" fill="#555">— startup patch keeps .tid single-file on disk</text>
-
-  <text x="908" y="270" class="h" font-size="13">B. Pragma (per-tiddler)</text>
-  <rect x="908" y="280" width="316" height="60" rx="6" fill="#faf8ff" stroke="#8250df"/>
-  <text x="922" y="300" class="mono">\importcustom [tag[vocab/fountain]]</text>
-  <text x="922" y="318" class="mono">\custom angle=§ _element=div _classes=.hl</text>
-  <text x="922" y="334" class="small" fill="#555">— filter runs over [all[shadows+tiddlers]]</text>
-
-  <text x="908" y="370" class="h" font-size="13">Implicit default</text>
-  <text x="908" y="388" class="small">No `;vocab=` parameter → vocab/default is activated alone.</text>
-  <text x="908" y="404" class="small">Listing any `;vocab=` makes Default no longer implicit; add it</text>
-  <text x="908" y="420" class="small">explicitly if you still want its markers.</text>
-
-  <text x="908" y="450" class="h" font-size="13">Global pragmas</text>
-  <text x="908" y="468" class="small">$:/config/custom-markup/pragma/PageTemplate bridges</text>
-
-  <line x1="462" y1="280" x2="488" y2="280" stroke="#555" stroke-width="2" marker-end="url(#arr2)"/>
-  <text x="475" y="272" text-anchor="middle" class="small">tagged</text>
-  <line x1="872" y1="280" x2="888" y2="280" stroke="#555" stroke-width="2" marker-end="url(#arr2)"/>
-  <text x="880" y="272" text-anchor="middle" class="small">named</text>
-
-  <rect x="490" y="490" width="750" height="370" rx="10" fill="#f6f8fa" stroke="#57606a" stroke-width="1.4"/>
-  <text x="510" y="518" class="h">A worked example</text>
-
-  <text x="510" y="544" class="h" font-size="13" fill="#0969da">Source tiddler</text>
-  <rect x="510" y="554" width="710" height="120" rx="6" fill="#ffffff" stroke="#0969da"/>
-  <text x="524" y="574" class="mono">title: My Scene</text>
-  <text x="524" y="590" class="mono">type:  text/vnd.tiddlywiki;vocab=Fountain</text>
-  <text x="524" y="622" class="mono">INT. KITCHEN — MORNING</text>
-  <text x="524" y="654" class="mono">Anna pours coffee.  /°softly°/  She turns toward the window.</text>
-  <text x="524" y="670" class="mono">CUT TO:</text>
-
-  <text x="510" y="700" class="h" font-size="13" fill="#2da44e">Rendered HTML (paraphrased)</text>
-  <rect x="510" y="710" width="710" height="140" rx="6" fill="#ffffff" stroke="#2da44e"/>
-  <text x="524" y="732" class="mono">&lt;p class="wltc wltc-fountain-scene-heading"&gt;INT. KITCHEN — MORNING&lt;/p&gt;</text>
-  <text x="524" y="750" class="mono">&lt;p class="wltc-l1 wltc"&gt;Anna pours coffee.</text>
-  <text x="524" y="766" class="mono">  &lt;span class="wltc wltc-slash"&gt;softly&lt;/span&gt;</text>
-  <text x="524" y="782" class="mono">  She turns toward the window.&lt;/p&gt;</text>
-  <text x="524" y="800" class="mono">&lt;p class="wltc wltc-fountain-transition"&gt;CUT TO:&lt;/p&gt;</text>
-  <text x="524" y="820" class="small" fill="#555">— `INT.` fires Fountain's `word` marker (emit-open keeps the keyword);</text>
-  <text x="524" y="836" class="small" fill="#555">  `/° °/` fires Default's inline-pair `slash`; `CUT TO:` is another word marker.</text>
-
-  <rect x="40" y="680" width="420" height="180" rx="10" fill="#e8f7e8" stroke="#1f883d" stroke-width="1.4"/>
-  <text x="60" y="708" class="h">Composition rules</text>
-  <text x="60" y="730" class="small">• Same `open` in two active vocabs → LAST activated wins.</text>
-  <text x="60" y="748" class="small">• `disable-core-rules` removes the listed TW core wikirules</text>
-  <text x="60" y="764" class="small">  for that tiddler only (e.g. `heading list`, `strikethrough table`).</text>
-  <text x="60" y="782" class="small">• Inactive marker matches fall through to plain text — they do</text>
-  <text x="60" y="798" class="small">  NOT shadow competing core rules in unrelated tiddlers.</text>
-  <text x="60" y="816" class="small">• `allow-unsafe: no` (default): iframe gets sandbox="";</text>
-  <text x="60" y="832" class="small">  object / embed / frame denied; `javascript:` URLs stripped.</text>
-  <text x="60" y="852" class="small">• `\debugmarker &lt;open&gt;=&lt;mode&gt;` overrides a marker's debug field.</text>
+  <text x="570" y="540" text-anchor="middle" class="subtitle">Collision rule: when two activated vocabs share an `open`, the <tspan font-weight="700" fill="#1a1a1a">last listed</tspan> wins. See [[Overview - Vocabularies &amp; Markers (v1.0)]] for the narrative.</text>
 </svg>

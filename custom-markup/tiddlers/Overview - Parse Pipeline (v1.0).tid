@@ -1,7 +1,9 @@
 created: 20260523145550235
-modified: 20260523153952565
-tags: docs [[Vocabulary Engine]]
+modified: 20260523160706739
+tags: docs Developers
 title: Overview - Parse Pipeline (v1.0)
+
+''Narrative walkthrough of the parse pipeline.'' For the same flow as a Gantt-style state timeline see [[Overview - Phase Timeline (v1.0)]].
 
 What happens when a tiddler with custom markup is parsed: the registry boots, vocabs activate, core rules get amended, and the master regex starts matching — with the active-set filter switched on only after pragmas have had their chance.
 
@@ -21,7 +23,7 @@ What happens when a tiddler with custom markup is parsed: the registry boots, vo
 
 ; 3. `parsePragmas` (wrapped)
 : Inside the one-shot wrap:
-:* `parser.amendRules("except", disabledCoreRules)` removes the union of all activated vocabs' `disable-core-rules` (Fountain: `heading list`; Markdown: `strikethrough codeinline list underscore table`; ...).
+:* `parser.amendRules("except", disabledCoreRules)` removes the union of all activated vocabs' `disable-core-rules` (see [[Overview - Data Shape (v1.0)]] § Vocabulary fields).
 :* The original `parsePragmas` runs. User pragmas in source can amend further:
 :** `\custom <kind>=<sym> ...` adds / overrides a marker locally (auto-activates).
 :** `\importcustom [filter]` activates additional vocabs (or imports v0.x `\custom` pragmas).
@@ -29,7 +31,7 @@ What happens when a tiddler with custom markup is parsed: the registry boots, vo
 :* On completion, `parser._cmPragmasDone = true` is set and the cached `matchIndex` for `cmblock` / `cminline` / `markdown-table` / `markdown-newline` is refreshed (TW caches `matchIndex` from before pragmas — stale otherwise).
 
 ; 4. `parseBlocks` / `parseInlineRun` — match, filter, render
-: `findNextMatch(pos)` scans the source with the master regex. ''After'' `_cmPragmasDone`, a match whose marker isn't in the `active` set is skipped (regex position advances by 1 and the scan continues). Without this filter, an inactive marker whose `open` collides with a TW core rule (e.g. Fountain's `#` SECTION vs core `list`) would silently consume the position via the text-fallback in `parse()`, suppressing the core rule for every tiddler in the wiki. Active matches are claimed; `parse()` consumes the body per `kind` (newline / blank-line / close literal / `end-string`), emits the configured element with `wltc` + `wltc-l<N>` + marker `classes`, and scrubs attributes (sandbox iframe, deny `object`/`embed`/`frame`, strip `javascript:` URLs).
+: `findNextMatch(pos)` scans the source with the master regex. ''After'' `_cmPragmasDone`, a match whose marker isn't in the `active` set is skipped (regex position advances by 1 and the scan continues). Without this filter, an inactive marker whose `open` collides with a TW core rule (e.g. Fountain's `#` SECTION vs core `list`) would silently consume the position via the text-fallback in `parse()`, suppressing the core rule for every tiddler in the wiki. Active matches are claimed; `parse()` consumes the body per `kind` (newline / blank-line / close literal / `end-string`), emits the configured element with `wltc` + `wltc-l<N>` + marker `classes`, and scrubs attributes (see [[Custom Markup Security]]).
 
 ; 5. Parse tree → widget tree → DOM
 : TW takes over. Markers with `debug` (or a `\debugmarker` override) emit a code block alongside (or instead of) the normal render.
@@ -38,13 +40,16 @@ What happens when a tiddler with custom markup is parsed: the registry boots, vo
 
 TW's `WikiParser` prunes block / inline rules whose `findNextMatch` returns `undefined` at instantiation. `amendRules()` can only run after all rule arrays exist. So:
 
-* The registry loads ''every'' marker up-front, so `cmblock` and `cminline` always have a usable regex and survive pruning.
-* Cross-rule cooperation (amending TW core rules) is deferred via a one-shot `parsePragmas` wrap.
-* The active-set filter in `findNextMatch` is gated on `_cmPragmasDone` so pragma-activated vocabs still take effect for body parsing.
+# The registry loads ''every'' marker up-front, so `cmblock` and `cminline` always have a usable regex and survive pruning.
+# Cross-rule cooperation (amending TW core rules) is deferred via a one-shot `parsePragmas` wrap.
+# The active-set filter in `findNextMatch` is gated on `_cmPragmasDone` so pragma-activated vocabs still take effect for body parsing.
+# `matchIndex` must be refreshed after the flag flip, because TW caches the pre-pragma `findNextMatch` result and re-runs the rule only when `matchIndex < startPos`.
 
 This is what lets `\importcustom`, in-source `\custom` overrides, type-field `;vocab=...`, and global PageTemplate pragmas all compose without stomping on TW's core wikitext rules outside the tiddlers that opt in.
 
 !! Related
 
-* [[Overview - Vocabularies & Markers (v1.0)]] · [[Overview - Phase Timeline (v1.0)]]
+* [[Overview - Phase Timeline (v1.0)]] — same flow as a Gantt-style state timeline
+* [[Overview - Vocabularies & Markers (v1.0)]] — narrative intro to the v1.0 concept
+* [[Overview - Data Shape (v1.0)]] — entity / field reference for vocab and marker tiddlers
 * [[Activating a Vocabulary]] · [[Marker Kinds]] · [[Debugging markers]] · [[Custom Markup Security]]

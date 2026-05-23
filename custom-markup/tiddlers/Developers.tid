@@ -1,0 +1,14 @@
+created: 20260523160647291
+list: [[Overview - Vocabularies & Markers (v1.0)]] [[Overview - Data Shape (v1.0)]] [[Overview - Parse Pipeline (v1.0)]] [[Overview - Phase Timeline (v1.0)]]
+modified: 20260523160728674
+tags: v1.0
+title: Developers
+type: text/vnd.tiddlywiki
+
+Conceptual overviews of the v1.0 engine — paired narrative + reference for each side.
+
+|! Concept |! Flow |
+|[[Overview - Vocabularies & Markers (v1.0)]] — narrative intro |[[Overview - Parse Pipeline (v1.0)]] — step-by-step walkthrough |
+|[[Overview - Data Shape (v1.0)]] — entity / field reference |[[Overview - Phase Timeline (v1.0)]] — Gantt-style state timeline |
+
+<<list-links "[tag{!!title}]">>

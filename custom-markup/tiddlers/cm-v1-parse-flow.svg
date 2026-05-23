@@ -1,124 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 880" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
   <defs>
     <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#444"/>
     </marker>
     <style>
-      .title { font-size: 22px; font-weight: 700; fill: #1a1a1a; }
+      .title    { font-size: 22px; font-weight: 700; fill: #1a1a1a; }
       .subtitle { font-size: 13px; fill: #555; }
-      .h { font-size: 14px; font-weight: 700; fill: #1a1a1a; }
-      .sub { font-size: 12px; fill: #555; }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; fill: #111; }
-      .small { font-size: 11px; fill: #444; }
-      .step-num { font-size: 18px; font-weight: 700; fill: #fff; }
-      .step-title { font-size: 14px; font-weight: 700; fill: #1a1a1a; }
+      .h        { font-size: 14px; font-weight: 700; fill: #1a1a1a; }
+      .sub      { font-size: 12px; fill: #555; }
+      .mono     { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; fill: #111; }
+      .small    { font-size: 11px; fill: #444; }
+      .step-num   { font-size: 16px; font-weight: 700; fill: #fff; }
+      .step-title { font-size: 13px; font-weight: 700; fill: #1a1a1a; }
+      .step-tag   { font-size: 11.5px; fill: #444; }
+      .state-key  { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; fill: #1a1a1a; font-weight: 700; }
+      .state-val  { font-size: 11px; fill: #555; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     </style>
   </defs>
 
-  <text x="640" y="34" text-anchor="middle" class="title">Custom Markup v1.0 — Parse Pipeline</text>
-  <text x="640" y="56" text-anchor="middle" class="subtitle">How TiddlyWiki's WikiParser, the cmRegistry, and the cmblock / cminline rules cooperate per tiddler</text>
+  <text x="590" y="32" text-anchor="middle" class="title">Custom Markup v1.0 — Parse Pipeline</text>
+  <text x="590" y="54" text-anchor="middle" class="subtitle">Five steps, one per parse. For step-by-step detail see the tiddler text.</text>
 
-  <rect x="40" y="90" width="300" height="120" rx="10" fill="#fff8e1" stroke="#c79100" stroke-width="1.4"/>
-  <text x="56" y="116" class="h">Input: a single tiddler</text>
-  <text x="56" y="138" class="mono">type: text/vnd.tiddlywiki;vocab=Default,Markdown</text>
-  <text x="56" y="174" class="mono">\importcustom [tag[vocab/color-boxes]]</text>
-  <text x="56" y="202" class="mono"># Heading   ** bold **   /° foo °/</text>
+  <rect x="40" y="80" width="280" height="120" rx="10" fill="#fff8e1" stroke="#c79100" stroke-width="1.4"/>
+  <text x="56" y="104" class="h">Input — a single tiddler</text>
+  <text x="56" y="126" class="mono">type: text/vnd.tiddlywiki</text>
+  <text x="56" y="142" class="mono">       ;vocab=Default,Markdown</text>
+  <text x="56" y="166" class="mono">\importcustom [tag[vocab/X]]</text>
+  <text x="56" y="188" class="mono"># body  ** bold **  /° foo °/</text>
 
-  <rect x="380" y="90" width="860" height="700" rx="12" fill="#f6f8fa" stroke="#57606a" stroke-width="1.6"/>
-  <text x="400" y="116" class="h">TiddlyWiki WikiParser  (one per parse)</text>
-  <text x="400" y="134" class="sub">instantiateRules → parsePragmas → parseBlocks</text>
+  <line x1="320" y1="140" x2="346" y2="140" stroke="#444" stroke-width="2" marker-end="url(#arr3)"/>
 
-  <rect x="400" y="156" width="820" height="120" rx="10" fill="#e6f4ff" stroke="#0969da" stroke-width="1.3"/>
-  <circle cx="424" cy="180" r="14" fill="#0969da"/>
-  <text x="424" y="186" text-anchor="middle" class="step-num">1</text>
-  <text x="448" y="186" class="step-title">cmblock.init() — bootstrap the registry</text>
-  <text x="448" y="208" class="mono">parser.cmRegistry = new CmRegistry(wiki)</text>
-  <text x="448" y="224" class="mono">  .loadAllMarkers()             ← every $:/tags/CustomMarkup/Marker (shadows + tiddlers)</text>
-  <text x="448" y="240" class="mono">  .loadGlobalPragmas()          ← bridge $:/tags/Pragma via PageTemplate `\importcustom`</text>
-  <text x="448" y="256" class="mono">  .activateFromTypeField(type)  ← parse `;vocab=A,B`, fall back to Default</text>
-  <text x="448" y="272" class="mono">  .applyAmendRules(parser)      ← schedule core-rule removal (runs in parsePragmas wrap)</text>
+  <rect x="350" y="80" width="800" height="520" rx="12" fill="#f6f8fa" stroke="#57606a" stroke-width="1.4"/>
+  <text x="370" y="104" class="h">TiddlyWiki WikiParser  (one per parse)</text>
+  <text x="370" y="122" class="sub">instantiateRules → parsePragmas (wrapped) → parseBlocks → render</text>
 
-  <rect x="400" y="290" width="820" height="100" rx="10" fill="#e6f4ff" stroke="#0969da" stroke-width="1.3"/>
-  <circle cx="424" cy="314" r="14" fill="#0969da"/>
-  <text x="424" y="320" text-anchor="middle" class="step-num">2</text>
-  <text x="448" y="320" class="step-title">Build the master regex (covers ALL known markers, not just active ones)</text>
-  <text x="448" y="342" class="mono">cmblock.matchRegExp ← registry.getBlockRegex()</text>
-  <text x="448" y="358" class="mono">cminline.matchRegExp ← registry.getInlineRegex()</text>
-  <text x="448" y="374" class="small">— Comprehensive regex avoids TW's rule-pruning, so pragma-activated vocabs still fire later.</text>
+  <rect x="370" y="140" width="760" height="58" rx="10" fill="#e6f4ff" stroke="#0969da" stroke-width="1.2"/>
+  <circle cx="394" cy="170" r="14" fill="#0969da"/>
+  <text x="394" y="176" text-anchor="middle" class="step-num">1</text>
+  <text x="418" y="166" class="step-title">cmblock.init() — bootstrap the registry</text>
+  <text x="418" y="187" class="step-tag">build cmRegistry · load all markers + global pragmas · activate from type field · schedule core-rule amendment</text>
 
-  <rect x="400" y="404" width="820" height="140" rx="10" fill="#f0eaff" stroke="#8250df" stroke-width="1.3"/>
-  <circle cx="424" cy="428" r="14" fill="#8250df"/>
-  <text x="424" y="434" text-anchor="middle" class="step-num">3</text>
-  <text x="448" y="434" class="step-title">parsePragmas (wrapped) — amend rules, then run user pragmas</text>
-  <text x="448" y="456" class="mono">parser.amendRules("except", disabledCoreRules)   ← Fountain removes `heading list`</text>
-  <text x="448" y="472" class="mono">                                                  ← Markdown removes `strikethrough codeinline list underscore table`</text>
-  <text x="448" y="492" class="mono">→ \custom        adds / overrides a marker locally</text>
-  <text x="448" y="508" class="mono">→ \importcustom  activates more vocabularies (runs filter over shadows + tiddlers)</text>
-  <text x="448" y="524" class="mono">→ \debugmarker   per-tiddler override of a marker's debug field</text>
-  <text x="448" y="540" class="mono">finally: parser._cmPragmasDone = true   ← unlocks the active-set filter in step 4</text>
+  <rect x="370" y="206" width="760" height="58" rx="10" fill="#e6f4ff" stroke="#0969da" stroke-width="1.2"/>
+  <circle cx="394" cy="236" r="14" fill="#0969da"/>
+  <text x="394" y="242" text-anchor="middle" class="step-num">2</text>
+  <text x="418" y="232" class="step-title">Build the master regex</text>
+  <text x="418" y="253" class="step-tag">covers EVERY known marker — survives TW's rule-pruning so pragma-activated vocabs still fire</text>
 
-  <rect x="400" y="558" width="820" height="160" rx="10" fill="#e8f7e8" stroke="#1f883d" stroke-width="1.3"/>
-  <circle cx="424" cy="582" r="14" fill="#1f883d"/>
-  <text x="424" y="588" text-anchor="middle" class="step-num">4</text>
-  <text x="448" y="588" class="step-title">parseBlocks  /  parseInlineRun  — match, filter, render</text>
-  <text x="448" y="610" class="mono">findNextMatch(pos):</text>
-  <text x="448" y="626" class="mono">  scan source with master regex</text>
-  <text x="448" y="642" class="mono">  if (_cmPragmasDone &amp;&amp; !registry.isActive(marker.open)) → skip, try next</text>
-  <text x="448" y="658" class="mono">  else → claim the position, call parse()</text>
-  <text x="448" y="678" class="mono">parse(): consume body per `kind` (newline / blank-line / close literal / end-string),</text>
-  <text x="448" y="694" class="mono">         emit element with classes (`wltc`, `wltc-l&lt;N&gt;`, marker `classes`),</text>
-  <text x="448" y="710" class="mono">         scrub attributes (sandbox iframe; deny object/embed/frame; strip javascript:)</text>
+  <rect x="370" y="272" width="760" height="80" rx="10" fill="#f0eaff" stroke="#8250df" stroke-width="1.2"/>
+  <circle cx="394" cy="302" r="14" fill="#8250df"/>
+  <text x="394" y="308" text-anchor="middle" class="step-num">3</text>
+  <text x="418" y="298" class="step-title">parsePragmas (wrapped) — amend rules + run user pragmas</text>
+  <text x="418" y="319" class="step-tag">amendRules removes vocab-declared core rules  ·  \custom / \importcustom / \debugmarker fire</text>
+  <text x="418" y="338" class="step-tag">then  _cmPragmasDone = true  ·  refresh matchIndex cache for affected rules</text>
 
-  <rect x="400" y="732" width="820" height="46" rx="10" fill="#fff4d6" stroke="#bf8700" stroke-width="1.3"/>
-  <circle cx="424" cy="756" r="14" fill="#bf8700"/>
-  <text x="424" y="762" text-anchor="middle" class="step-num">5</text>
-  <text x="448" y="762" class="step-title">Parse tree → widget tree → DOM    (debug fields can emit a codeblock alongside)</text>
+  <rect x="370" y="360" width="760" height="76" rx="10" fill="#e8f7e8" stroke="#1f883d" stroke-width="1.2"/>
+  <circle cx="394" cy="390" r="14" fill="#1f883d"/>
+  <text x="394" y="396" text-anchor="middle" class="step-num">4</text>
+  <text x="418" y="386" class="step-title">parseBlocks / parseInlineRun — match, filter, render</text>
+  <text x="418" y="407" class="step-tag">active-set filter skips inactive matches  ·  parse body per `kind`</text>
+  <text x="418" y="424" class="step-tag">emit element with `wltc` + `wltc-l&lt;N&gt;` + marker classes  ·  scrub attrs (see Custom Markup Security)</text>
 
-  <rect x="40" y="240" width="300" height="540" rx="10" fill="#f0eaff" stroke="#8250df" stroke-width="1.4"/>
-  <text x="56" y="266" class="h">cmRegistry state</text>
-  <text x="56" y="282" class="sub">(one per parser instance)</text>
+  <rect x="370" y="444" width="760" height="58" rx="10" fill="#fff4d6" stroke="#bf8700" stroke-width="1.2"/>
+  <circle cx="394" cy="474" r="14" fill="#bf8700"/>
+  <text x="394" y="480" text-anchor="middle" class="step-num">5</text>
+  <text x="418" y="470" class="step-title">Parse tree → widget tree → DOM</text>
+  <text x="418" y="491" class="step-tag">TW takes over.  Markers with `debug` emit a codeblock alongside the normal render.</text>
 
-  <text x="56" y="308" class="h" font-size="12">markers : { open → config }</text>
-  <text x="56" y="324" class="mono">every known marker by `open`</text>
-  <text x="56" y="338" class="mono">— globalSymbols preserved on overwrite</text>
+  <text x="1110" y="160" text-anchor="end" class="small" font-style="italic" fill="#666">init</text>
+  <text x="1110" y="226" text-anchor="end" class="small" font-style="italic" fill="#666">regex</text>
+  <text x="1110" y="296" text-anchor="end" class="small" font-style="italic" fill="#666">pragmas</text>
+  <text x="1110" y="384" text-anchor="end" class="small" font-style="italic" fill="#666">parse</text>
+  <text x="1110" y="464" text-anchor="end" class="small" font-style="italic" fill="#666">render</text>
 
-  <text x="56" y="364" class="h" font-size="12">active : Set&lt;open&gt;</text>
-  <text x="56" y="380" class="mono">opens enabled for THIS parser</text>
-  <text x="56" y="394" class="mono">— gates emission AND findNextMatch</text>
+  <text x="750" y="535" text-anchor="middle" class="sub">↓ DOM in the browser</text>
 
-  <text x="56" y="420" class="h" font-size="12">activeVocabs : Set&lt;title&gt;</text>
-  <text x="56" y="436" class="mono">e.g. {vocab/default, vocab/markdown}</text>
-  <text x="56" y="450" class="mono">— other rules gate on this</text>
+  <rect x="40" y="220" width="280" height="380" rx="10" fill="#f0eaff" stroke="#8250df" stroke-width="1.4"/>
+  <text x="56" y="244" class="h">cmRegistry state</text>
+  <text x="56" y="262" class="sub">(one per parser instance)</text>
 
-  <text x="56" y="476" class="h" font-size="12">disabledCoreRules : Set</text>
-  <text x="56" y="492" class="mono">union of all activated vocabs'</text>
-  <text x="56" y="506" class="mono">`disable-core-rules` field</text>
+  <line x1="56" y1="276" x2="304" y2="276" stroke="#8250df" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <text x="56" y="296" class="state-key">markers</text>
+  <text x="56" y="312" class="state-val">open → config (every known marker)</text>
 
-  <text x="56" y="532" class="h" font-size="12">frontMatter : bool</text>
-  <text x="56" y="548" class="mono">true if any active vocab declares</text>
-  <text x="56" y="562" class="mono">`front-matter: yes` → YAML rule fires</text>
+  <text x="56" y="338" class="state-key">active</text>
+  <text x="56" y="354" class="state-val">Set&lt;open&gt; — gates emission AND</text>
+  <text x="56" y="368" class="state-val">findNextMatch (after step 3)</text>
 
-  <text x="56" y="588" class="h" font-size="12">blockRegex / inlineRegex</text>
-  <text x="56" y="604" class="mono">lazily rebuilt from markers</text>
-  <text x="56" y="618" class="mono">longest-open first (so `***` wins over `**`)</text>
+  <text x="56" y="392" class="state-key">activeVocabs</text>
+  <text x="56" y="408" class="state-val">Set&lt;title&gt; — other rules gate on this</text>
 
-  <text x="56" y="650" class="h" font-size="12">Per-parser flags on `parser`</text>
-  <text x="56" y="666" class="mono">_cmAmendScheduled</text>
-  <text x="56" y="680" class="mono">_cmPragmasDone</text>
-  <text x="56" y="694" class="small">— set after pragmas; enables the active-set</text>
-  <text x="56" y="708" class="small">  filter so inactive marker positions are</text>
-  <text x="56" y="722" class="small">  ignored instead of consuming them and</text>
-  <text x="56" y="736" class="small">  shadowing competing TW core rules.</text>
+  <text x="56" y="432" class="state-key">disabledCoreRules</text>
+  <text x="56" y="448" class="state-val">Set — union of vocabs'</text>
+  <text x="56" y="462" class="state-val">disable-core-rules</text>
 
-  <text x="56" y="762" class="small" fill="#555">Caching: parsed PageTemplate global pragmas</text>
-  <text x="56" y="776" class="small" fill="#555">are cached per wiki (~3× speedup).</text>
+  <text x="56" y="486" class="state-key">frontMatter</text>
+  <text x="56" y="502" class="state-val">bool — YAML at pos 0</text>
 
-  <line x1="340" y1="150" x2="396" y2="200" stroke="#444" stroke-width="2" marker-end="url(#arr3)"/>
+  <text x="56" y="526" class="state-key">blockRegex · inlineRegex</text>
+  <text x="56" y="542" class="state-val">longest-open first</text>
 
-  <line x1="400" y1="240" x2="340" y2="270" stroke="#8250df" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr3)"/>
-  <text x="360" y="232" class="small" fill="#8250df">populates →</text>
+  <text x="56" y="566" class="state-key">parser._cmPragmasDone</text>
+  <text x="56" y="582" class="state-val">flips at end of step 3</text>
 
-  <rect x="40" y="800" width="1200" height="60" rx="8" fill="#ffffff" stroke="#ccc"/>
-  <text x="56" y="822" class="small" fill="#333"><tspan font-weight="700">Why the multi-stage dance?</tspan>  TW's WikiParser prunes block/inline rules whose findNextMatch returns undefined at instantiation time, and amendRules() can only run after all rule arrays exist. The registry loads EVERY marker so the rule survives pruning; cross-rule cooperation is deferred via a one-shot parser.parsePragmas wrap; the active-set filter is gated on _cmPragmasDone so pragma-activated vocabs still take effect for body parsing.</text>
-  <text x="56" y="846" class="small" fill="#333">This is what lets `\importcustom`, in-source `\custom` overrides, type-field `;vocab=…`, and global PageTemplate pragmas all compose without stomping on TW's core wikitext rules outside the tiddlers that opt in.</text>
 </svg>

@@ -1,61 +1,40 @@
 created: 20260523151031138
-modified: 20260523151031138
-tags: docs [[Vocabulary Engine]]
+modified: 20260523160711644
+tags: docs Developers
 title: Overview - Phase Timeline (v1.0)
 
-A Gantt-style view of the parse pipeline: the four TW parser phases run left-to-right across the top, and ten tracks show ''what happens to each piece of state'' along the way. Sibling to [[Overview - Parse Pipeline (v1.0)]] — same engine, time as the x-axis instead of as numbered steps.
+''Reference timeline of state changes during a parse.'' For the step-by-step narrative see [[Overview - Parse Pipeline (v1.0)]].
+
+A Gantt-style view: the four TW parser phases run left-to-right across the top, and ten tracks show ''what happens to each piece of state'' along the way.
 
 [img[cm-v1-phase-timeline.svg]]
 
 !! How to read the chart
 
 * The top bar shows the four parser phases (A) `instantiateRules`, (B) `parsePragmas` (wrapped), (C) `parseBlocks` / `parseInlineRun`, (D) Render. Phase widths are illustrative, not real-time.
-* Each row is a ''track'' — one piece of state or one activity. A solid bar means the track is actively being mutated; a dashed bar means it's in effect but read-only.
+* Each row is a ''track'' — one piece of state or one activity. Solid bars are active mutation; dashed bars mean "in effect but read-only".
 * Diamond markers (◇) are ''instantaneous events'' — flag flips, single function calls.
 
-!! What the tracks show
+!! Cross-track glue worth flagging
 
-; Row 1 — Rule init()
-: Every TW wikirule's `init()` runs once during `instantiateRules`. For Custom Markup, this is where `cmblock`, `cminline`, `markdown-table`, `markdown-newline`, and `front-matter` each get a chance to set up.
+Most rows are self-explanatory from the bar geometry. These are the non-obvious dependencies between tracks:
 
-; Row 2 — cmRegistry
-: `cmblock.init()` constructs the registry, runs `loadAllMarkers` + `loadGlobalPragmas`, parses the type field, and schedules the amendment. After that the registry is alive (but mostly read) until parse ends.
+; Row 4 (registry.disabledCoreRules) → Row 5 (TW core wikirules)
+: The set is accumulated in phase A but ''applied'' at the start of phase B (the red diamond on row 5). That's why row 4's bar is solid in A then dashed in B; the *removal* itself happens on row 5.
 
-; Row 3 — registry.active
-: The set of `open` literals enabled for this parser. Grows in two waves: type-field vocabs in phase A, then more vocabs from `\importcustom` in phase B. After phase B the set is frozen and every match consults it.
+; Row 6 (parser flags) → Row 8 (findNextMatch)
+: The green `_cmPragmasDone = true` diamond on row 6 is what flips row 8's behaviour from "accept anything" to "filter by active set". Without that gate, the active-set filter would also reject vocabs that `\importcustom` only activated moments earlier in phase B.
 
-; Row 4 — registry.disabledCoreRules
-: Union of `disable-core-rules` from every activated vocab. Populated in A, applied in B (see row 5).
+; Row 7 (User pragmas) → Row 3 (registry.active)
+: `\importcustom` is the only user pragma that mutates registry state — it pushes new opens into row 3's `active` set, which is why row 3's bar continues into phase B before freezing.
 
-; Row 5 — TW core wikirules
-: At the start of phase B the wrapped `parsePragmas` calls `parser.amendRules("except", disabledCoreRules)` (◇ red diamond). From then on the reduced set is in effect — e.g. Fountain has removed `heading list`, Markdown has removed `strikethrough codeinline list underscore table`.
+!! Why this exact ordering?
 
-; Row 6 — parser flags
-: Two booleans: `_cmAmendScheduled` flips in phase A (so the wrap is set up once), `_cmPragmasDone` flips at the end of phase B (so the active-set filter kicks in for the body parse, and `matchIndex` is refreshed for the four affected rules).
-
-; Row 7 — User pragmas
-: `\custom`, `\importcustom`, `\debugmarker` parse in the middle of phase B — after the core-rule amendment, before `_cmPragmasDone` flips. `\importcustom` writes back to row 3.
-
-; Row 8 — findNextMatch
-: Behaves differently across phases. Before `_cmPragmasDone`, accepts any marker match so the rule survives TW's pruning; after, the active-set filter skips inactive marker positions instead of consuming them.
-
-; Row 9 — parse()
-: In phase C, body consumption per kind, element emission with `wltc` + `wltc-l<N>` + `marker.classes`, and attribute scrubbing (sandbox iframe; deny object/embed/frame/frameset; strip `javascript:` URLs).
-
-; Row 10 — Render
-: TW turns the parse tree into a widget tree into DOM. If the marker has a `debug` field (or a `\debugmarker` override), a codeblock is emitted alongside the normal render.
-
-!! The four "why"s
-
-See the footer in the diagram for the full list. In short:
-
-# `init()` can't call `amendRules` (rule arrays not yet assigned), so it's deferred via a one-shot wrap of `parser.parsePragmas`.
-# The master regex must cover ''every'' marker, or TW prunes the rule before pragmas activate new vocabs.
-# `_cmPragmasDone` gates the active-set filter so the rule survives pruning AND filters cleanly post-pragmas.
-# `matchIndex` must be refreshed after the flag flip because TW caches the pre-pragma find result.
+See [[Overview - Parse Pipeline (v1.0)]] § Why the multi-stage dance.
 
 !! Related
 
-* [[Overview - Parse Pipeline (v1.0)]] — the same flow as numbered steps.
-* [[Overview - Data Shape (v1.0)]] — what the entities being mutated here actually look like.
-* [[Vocabulary Engine]] · [[Activating a Vocabulary]] · [[Combining vocabularies]]
+* [[Overview - Parse Pipeline (v1.0)]] — same flow as numbered steps
+* [[Overview - Vocabularies & Markers (v1.0)]] — narrative intro to the v1.0 concept
+* [[Overview - Data Shape (v1.0)]] — entity / field reference for vocab and marker tiddlers
+* [[Activating a Vocabulary]] · [[Combining vocabularies]] · [[Custom Markup Security]]
