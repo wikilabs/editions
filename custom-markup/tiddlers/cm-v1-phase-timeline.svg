@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 920" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ev-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#333"/>
+    </marker>
+    <style>
+      .title { font-size: 22px; font-weight: 700; fill: #1a1a1a; }
+      .subtitle { font-size: 13px; fill: #555; }
+      .phase-label { font-size: 13px; font-weight: 700; fill: #ffffff; }
+      .phase-sub { font-size: 11px; fill: #ffffff; opacity: 0.92; }
+      .row-label { font-size: 12.5px; font-weight: 600; fill: #1a1a1a; }
+      .row-sub { font-size: 10.5px; fill: #666; font-style: italic; }
+      .bar-text { font-size: 11px; fill: #ffffff; font-weight: 600; }
+      .bar-text-dark { font-size: 11px; fill: #1a1a1a; font-weight: 600; }
+      .ev-text { font-size: 10.5px; fill: #1a1a1a; }
+      .gridline { stroke: #d0d7de; stroke-width: 0.6; }
+      .gridline-major { stroke: #57606a; stroke-width: 1; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; fill: #111; }
+      .annot { font-size: 11px; fill: #444; font-style: italic; }
+      .footer-h { font-size: 12px; font-weight: 700; fill: #1a1a1a; }
+      .footer-t { font-size: 11px; fill: #444; }
+    </style>
+  </defs>
+
+  <text x="640" y="32" text-anchor="middle" class="title">Custom Markup v1.0 — Phase Timeline</text>
+  <text x="640" y="54" text-anchor="middle" class="subtitle">Who mutates what, and when, during a single tiddler parse</text>
+
+  <rect x="260" y="80" width="230" height="50" fill="#0969da"/>
+  <text x="375" y="103" text-anchor="middle" class="phase-label">A. instantiateRules</text>
+  <text x="375" y="120" text-anchor="middle" class="phase-sub">parser ctor; each rule's init() runs</text>
+
+  <rect x="490" y="80" width="320" height="50" fill="#8250df"/>
+  <text x="650" y="103" text-anchor="middle" class="phase-label">B. parsePragmas (wrapped)</text>
+  <text x="650" y="120" text-anchor="middle" class="phase-sub">one-shot wrap: amend rules → user pragmas → flag flip</text>
+
+  <rect x="810" y="80" width="300" height="50" fill="#1f883d"/>
+  <text x="960" y="103" text-anchor="middle" class="phase-label">C. parseBlocks / parseInlineRun</text>
+  <text x="960" y="120" text-anchor="middle" class="phase-sub">scan, filter, claim, emit</text>
+
+  <rect x="1110" y="80" width="140" height="50" fill="#bf8700"/>
+  <text x="1180" y="103" text-anchor="middle" class="phase-label">D. Render</text>
+  <text x="1180" y="120" text-anchor="middle" class="phase-sub">tree → DOM</text>
+
+  <rect x="0" y="80" width="260" height="50" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="20" y="103" class="row-label">Track</text>
+  <text x="20" y="120" class="row-sub">— what is happening on this row</text>
+
+  <line x1="260" y1="80" x2="260" y2="720" class="gridline-major"/>
+  <line x1="490" y1="80" x2="490" y2="720" class="gridline-major"/>
+  <line x1="810" y1="80" x2="810" y2="720" class="gridline-major"/>
+  <line x1="1110" y1="80" x2="1110" y2="720" class="gridline-major"/>
+  <line x1="1250" y1="80" x2="1250" y2="720" class="gridline-major"/>
+
+  <line x1="0" y1="140" x2="1250" y2="140" class="gridline-major"/>
+  <line x1="0" y1="198" x2="1250" y2="198" class="gridline"/>
+  <line x1="0" y1="256" x2="1250" y2="256" class="gridline"/>
+  <line x1="0" y1="314" x2="1250" y2="314" class="gridline"/>
+  <line x1="0" y1="372" x2="1250" y2="372" class="gridline"/>
+  <line x1="0" y1="430" x2="1250" y2="430" class="gridline"/>
+  <line x1="0" y1="488" x2="1250" y2="488" class="gridline"/>
+  <line x1="0" y1="546" x2="1250" y2="546" class="gridline"/>
+  <line x1="0" y1="604" x2="1250" y2="604" class="gridline"/>
+  <line x1="0" y1="662" x2="1250" y2="662" class="gridline"/>
+  <line x1="0" y1="720" x2="1250" y2="720" class="gridline-major"/>
+
+  <text x="20" y="168" class="row-label">1. Rule init()</text>
+  <text x="20" y="184" class="row-sub">cmblock, cminline, markdown-table, etc.</text>
+  <rect x="270" y="155" width="210" height="28" rx="4" fill="#0969da"/>
+  <text x="375" y="174" text-anchor="middle" class="bar-text">init() runs once</text>
+
+  <text x="20" y="226" class="row-label">2. cmRegistry — built &amp; loaded</text>
+  <text x="20" y="242" class="row-sub">new CmRegistry; loadAllMarkers; loadGlobalPragmas</text>
+  <rect x="270" y="213" width="210" height="28" rx="4" fill="#cfe8ff" stroke="#0969da"/>
+  <text x="375" y="232" text-anchor="middle" class="bar-text-dark">3 calls fire in init()</text>
+  <rect x="490" y="220" width="760" height="14" rx="3" fill="#cfe8ff" stroke="#0969da" stroke-dasharray="3,2"/>
+  <text x="870" y="231" text-anchor="middle" class="bar-text-dark" font-size="9.5">registry lives until parse ends</text>
+
+  <text x="20" y="284" class="row-label">3. registry.active</text>
+  <text x="20" y="300" class="row-sub">opens enabled for THIS parser</text>
+  <rect x="395" y="271" width="85" height="28" rx="4" fill="#0969da"/>
+  <text x="438" y="290" text-anchor="middle" class="bar-text">+= type-field</text>
+  <rect x="490" y="271" width="170" height="28" rx="4" fill="#8250df"/>
+  <text x="575" y="290" text-anchor="middle" class="bar-text">+= \importcustom vocabs</text>
+  <rect x="660" y="278" width="590" height="14" rx="3" fill="#e8dcff" stroke="#8250df" stroke-dasharray="3,2"/>
+  <text x="955" y="289" text-anchor="middle" class="bar-text-dark" font-size="9.5">frozen — referenced by every match</text>
+
+  <text x="20" y="342" class="row-label">4. registry.disabledCoreRules</text>
+  <text x="20" y="358" class="row-sub">union of vocabs' `disable-core-rules`</text>
+  <rect x="395" y="329" width="85" height="28" rx="4" fill="#0969da"/>
+  <text x="438" y="348" text-anchor="middle" class="bar-text">accumulated</text>
+  <rect x="490" y="336" width="760" height="14" rx="3" fill="#cfe8ff" stroke="#0969da" stroke-dasharray="3,2"/>
+  <text x="870" y="347" text-anchor="middle" class="bar-text-dark" font-size="9.5">read-only after activation</text>
+
+  <text x="20" y="400" class="row-label">5. TW core wikirules</text>
+  <text x="20" y="416" class="row-sub">heading, list, table, strikethrough, …</text>
+  <rect x="270" y="387" width="220" height="28" rx="4" fill="#dbeefc" stroke="#0969da"/>
+  <text x="380" y="406" text-anchor="middle" class="bar-text-dark">full set in effect</text>
+  <polygon points="490,401 502,389 514,401 502,413" fill="#cf222e" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="498" y="383" class="ev-text" fill="#cf222e">◇ amendRules("except", …)</text>
+  <rect x="515" y="387" width="735" height="28" rx="4" fill="#ffd9dd" stroke="#cf222e"/>
+  <text x="880" y="406" text-anchor="middle" class="bar-text-dark">reduced set (vocab-specific removals)</text>
+
+  <text x="20" y="458" class="row-label">6. parser flags</text>
+  <text x="20" y="474" class="row-sub">_cmAmendScheduled, _cmPragmasDone</text>
+  <polygon points="460,452 472,440 484,452 472,464" fill="#bf8700" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="395" y="445" class="ev-text" fill="#bf8700">◇ _cmAmendScheduled = true</text>
+  <polygon points="800,452 812,440 824,452 812,464" fill="#1f883d" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="700" y="445" class="ev-text" fill="#1f883d">◇ _cmPragmasDone = true</text>
+  <text x="700" y="481" class="ev-text" fill="#666">  + refresh matchIndex cache</text>
+
+  <text x="20" y="516" class="row-label">7. User pragmas</text>
+  <text x="20" y="532" class="row-sub">\custom · \importcustom · \debugmarker</text>
+  <rect x="540" y="503" width="260" height="28" rx="4" fill="#8250df"/>
+  <text x="670" y="522" text-anchor="middle" class="bar-text">parse &amp; apply</text>
+  <text x="540" y="540" class="mono">\importcustom → activate more vocabs (← see row 3)</text>
+
+  <text x="20" y="574" class="row-label">8. findNextMatch</text>
+  <text x="20" y="590" class="row-sub">scans source with master regex</text>
+  <rect x="270" y="561" width="540" height="28" rx="4" fill="#dbeefc" stroke="#0969da" stroke-dasharray="3,2"/>
+  <text x="540" y="580" text-anchor="middle" class="bar-text-dark">rule retained (regex covers ALL markers)</text>
+  <rect x="815" y="561" width="295" height="28" rx="4" fill="#1f883d"/>
+  <text x="962" y="580" text-anchor="middle" class="bar-text">filter: skip if not registry.isActive(open)</text>
+
+  <text x="20" y="632" class="row-label">9. parse() — body &amp; emit</text>
+  <text x="20" y="648" class="row-sub">consume per `kind`, emit element + classes</text>
+  <rect x="815" y="619" width="295" height="28" rx="4" fill="#1f883d"/>
+  <text x="962" y="638" text-anchor="middle" class="bar-text">element + .wltc + .wltc-l&lt;N&gt; + .classes</text>
+  <text x="815" y="656" class="mono">scrub attrs: sandbox=""; deny object/embed; strip javascript:</text>
+
+  <text x="20" y="690" class="row-label">10. Render</text>
+  <text x="20" y="706" class="row-sub">parse tree → widget tree → DOM</text>
+  <rect x="1115" y="677" width="130" height="28" rx="4" fill="#bf8700"/>
+  <text x="1180" y="696" text-anchor="middle" class="bar-text">DOM</text>
+  <text x="1115" y="714" class="mono" font-size="9.5">(+ debug codeblock if marker.debug)</text>
+
+  <rect x="20" y="745" width="1230" height="160" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+
+  <text x="40" y="770" class="footer-h">Why this exact ordering?</text>
+  <text x="40" y="788" class="footer-t">• <tspan font-weight="700">init() can't call amendRules.</tspan>  During the WikiParser constructor, instantiateRules is mid-flight assigning blockRules / inlineRules / pragmaRules.</text>
+  <text x="40" y="804" class="footer-t">  amendRules walks all three arrays and crashes on the not-yet-assigned ones (TypeError → RSOD). Solution: schedule via a one-shot parser.parsePragmas wrap.</text>
+  <text x="40" y="822" class="footer-t">• <tspan font-weight="700">The regex must cover ALL markers.</tspan>  TW prunes block/inline rules whose findNextMatch returns undefined at init time. If only active markers were in the</text>
+  <text x="40" y="838" class="footer-t">  regex, a pragma like `\importcustom` activating a new vocab in phase B would have nothing to match — the rule would already be gone.</text>
+  <text x="40" y="856" class="footer-t">• <tspan font-weight="700">_cmPragmasDone gates the filter.</tspan>  Before pragmas run, findNextMatch behaves like the default (accept any marker match) so the rule survives.</text>
+  <text x="40" y="872" class="footer-t">  After pragmas, the active-set filter switches on, so inactive marker positions are skipped instead of suppressing competing TW core rules in unrelated tiddlers.</text>
+  <text x="40" y="892" class="footer-t">• <tspan font-weight="700">matchIndex must be refreshed</tspan> after the flag flip, because TW caches the pre-pragma findNextMatch result and re-runs the rule only when matchIndex &lt; startPos.</text>
+
+</svg>

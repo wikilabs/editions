@@ -1,0 +1,46 @@
+created: 20260523145519106
+modified: 20260523145519106
+tags: docs [[Vocabulary Engine]]
+title: Overview - Vocabularies & Markers (v1.0)
+
+The v1.0 conceptual model in one picture: a ''marker'' is a tiddler, a ''vocabulary'' is a tag set, and a tiddler ''activates'' a vocabulary via its type field or a pragma.
+
+[img[cm-v1-concept.svg]]
+
+!! The three pieces
+
+; ① A marker is a tiddler
+: Tagged `$:/tags/CustomMarkup/Marker` plus the vocab tiddler's title (e.g. `[[vocab/fountain]]`). The `kind` field picks one of five matching modes; `open` is the literal that triggers the match. Output is controlled by `element`, `classes`, `attributes`. Body parsing is controlled by `mode`, `paragraph-marker`, `end-string`, `emit-open`, `body-raw`.
+
+; ② Vocabularies group markers
+: One meta tiddler per vocab, tagged `$:/tags/CustomMarkup/Vocabulary`. ''Title convention:'' `vocab/<lowercase-caption>` — the registry's `activate()` resolves a name by direct lookup, no filter walk (about 33× faster than the pre-beta-29 path). Optional fields: `disable-core-rules` (whitespace-separated TW core wikirule names to remove), `front-matter: yes` (consume YAML at parser pos 0).
+
+; ③ Two activation paths
+:* ''Type field:'' `type: text/vnd.tiddlywiki;vocab=Default,Markdown`. Persisted, single `.tid` on disk (thanks to `startup/fix-vocab-type.js`).
+:* ''Pragma:'' `\importcustom [tag[vocab/fountain]]` at the top of a tiddler. The filter runs over `[all[shadows+tiddlers]]` automatically.
+: A bare `text/vnd.tiddlywiki` (no `;vocab=`) implicitly activates `vocab/default`. Listing any `;vocab=` makes Default no longer implicit — add it explicitly if you want its markers.
+
+!! The five marker kinds
+
+; glyph
+: Single fire at line start; whole line is body. Example: [[vocab/default/DOT]] (`. text` → `<div class="wltc wltc-dot">text</div>`).
+; glyph-level
+: N repetitions of `open` → emits class `wltc-lN` (default `max-level: 4`). Example: [[vocab/default/ANGLE]] (`»`, `»»`, ...).
+; word
+: Keyword block; single line (`mode: inline`) or multi-block. Example: [[vocab/fountain/INT]] (`INT. KITCHEN — MORNING`).
+; inline-pair
+: `open` ... `close` anywhere on a line. Example: [[vocab/default/SLASH]] (`/° ... °/`).
+; list-item
+: Consecutive items collapse into one container (`ul` / `ol` / `dl` / `blockquote`); nesting via indent. Example: [[vocab/markdown/ITEM-DASH]] (`- ...`).
+
+!! Composition rules
+
+* Same `open` in two active vocabs → ''LAST listed wins''. `;vocab=A,B` lets B's marker take over a shared `open`.
+* `disable-core-rules` removes the listed TW core wikirules ''for that tiddler only'' (via `parser.amendRules`). Lets Markdown claim `_`, `~~`, `|`; lets Fountain claim `!` and `#`.
+* Inactive marker matches fall through to plain text. They do NOT shadow competing core rules in unrelated tiddlers (`findNextMatch` filter, gated on `_cmPragmasDone`).
+* Secure-by-default: `iframe` gets `sandbox=""`, `object`/`embed`/`frame`/`frameset` are denied, `javascript:` URLs are stripped. Opt out with `allow-unsafe: yes`. See [[Custom Markup Security]].
+
+!! Related
+
+* [[Overview - The Three Repositories (v1.0)]] · [[Overview - Parse Pipeline (v1.0)]]
+* [[Marker Kinds]] · [[Marker Fields]] · [[Activating a Vocabulary]] · [[Combining vocabularies]] · [[Shipped Vocabularies]]

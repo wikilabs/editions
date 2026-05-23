@@ -1,0 +1,35 @@
+created: 20260523151001351
+modified: 20260523151001352
+tags: docs [[Vocabulary Engine]]
+title: Overview - Data Shape (v1.0)
+
+A UML-flavoured class / ERD view of the v1.0 engine's data model. Sibling to [[Overview - Vocabularies & Markers (v1.0)]] — same story, different framing.
+
+[img[cm-v1-data-shape.svg]]
+
+!! The takeaway
+
+Everything is a tiddler, and the relationships are just tags + naming conventions:
+
+; ''Source Tiddler'' → ''Vocabulary''
+: "activates" — the relationship is materialised by either the `type` field's `;vocab=` parameter or an in-source `\importcustom` pragma. ''No registration table.'' The registry resolves the relationship at parse time by reading the type field and walking the pragma.
+
+; ''Vocabulary'' → ''Marker''
+: "groups" — a marker belongs to a vocabulary by carrying the vocabulary's title in its `tags`. There is no `marker-tag` field on the vocabulary; the convention is purely tag-membership. (`marker-tag` was dropped in beta-35.)
+
+; ''Marker'' → ''MarkerKind''
+: "has" — the `kind` field is the discriminator that decides which extra fields are honoured (e.g. `close` only meaningful for `inline-pair`, `max-level` only for `glyph-level`, `container` / `item-element` only for `list-item`).
+
+!! Why the title convention matters
+
+Vocabulary titles follow `vocab/<lowercase-caption>`. That convention is what lets `registry.activate(name)` do a direct `getTiddler("vocab/" + name.toLowerCase())` instead of a filter walk over all shadows + tiddlers. The beta-29 changelog measured ''~33× speedup'' (3.46 → 0.10 µs/op for one vocab, 6.80 → 0.18 µs/op for a typical two-vocab activation).
+
+!! Global pragma side-channel
+
+`Global Pragma` tiddlers (tagged `$:/tags/Pragma`) carry `\custom ...` directives. They reach every parser through the bridge tiddler `$:/config/custom-markup/pragma/PageTemplate`, which itself just contains `\importcustom [tag[$:/tags/Pragma]]`. Parsed pragmas are cached per wiki (~3× speedup since beta-10).
+
+!! Related
+
+* [[Overview - Vocabularies & Markers (v1.0)]] — the activation story told as three columns.
+* [[Overview - Phase Timeline (v1.0)]] — when each of these entities is touched at parse time.
+* [[Marker Fields]] · [[Marker Kinds]] · [[Activating a Vocabulary]] · [[Global Pragma Definitions]]
