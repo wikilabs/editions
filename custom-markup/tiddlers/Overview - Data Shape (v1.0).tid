@@ -1,35 +1,69 @@
 created: 20260523151001351
-modified: 20260523151001352
+modified: 20260523151910519
 tags: docs [[Vocabulary Engine]]
 title: Overview - Data Shape (v1.0)
 
-A UML-flavoured class / ERD view of the v1.0 engine's data model. Sibling to [[Overview - Vocabularies & Markers (v1.0)]] — same story, different framing.
+A conceptual map of the v1.0 engine's data model. Four entities, three relationships. Everything is a tiddler; activation is materialised by a tag and a name — there is no separate registration table.
 
 [img[cm-v1-data-shape.svg]]
 
-!! The takeaway
+!! The three relationships
 
-Everything is a tiddler, and the relationships are just tags + naming conventions:
+; ''Source Tiddler'' → ''Vocabulary''  (activates)
+: The author opts into a vocab's markers via the ''type field'' (`type: text/vnd.tiddlywiki;vocab=A,B`) or an in-source ''pragma'' (`\importcustom [tag[vocab/X]]`). Both paths reach the same `registry.activate()`. With no `;vocab=`, `vocab/default` is implicit. With any `;vocab=`, Default is no longer implicit — list it explicitly to keep it. Overlap rule: when two activated vocabs ship the same `open`, the ''last'' listed wins.
 
-; ''Source Tiddler'' → ''Vocabulary''
-: "activates" — the relationship is materialised by either the `type` field's `;vocab=` parameter or an in-source `\importcustom` pragma. ''No registration table.'' The registry resolves the relationship at parse time by reading the type field and walking the pragma.
+; ''Vocabulary'' → ''Marker''  (groups)
+: A marker belongs to a vocabulary by carrying that vocabulary's title in its `tags`. There is no `marker-tag` field on the vocabulary (dropped in beta-35) — the relationship is pure tag-membership. ''Title convention:'' `vocab/<lowercase-caption>` lets `registry.activate(name)` do a direct `getTiddler` instead of a filter walk (~33× faster).
 
-; ''Vocabulary'' → ''Marker''
-: "groups" — a marker belongs to a vocabulary by carrying the vocabulary's title in its `tags`. There is no `marker-tag` field on the vocabulary; the convention is purely tag-membership. (`marker-tag` was dropped in beta-35.)
+; ''Marker'' → ''MarkerKind''  (kind)
+: The `kind` field is the discriminator that decides which other fields are honoured. `close` only matters for `inline-pair`; `max-level` only for `glyph-level`; `container` / `item-element` / `indent-unit` only for `list-item`; `paragraph-marker` / `emit-open` / `end-string` for the block kinds.
 
-; ''Marker'' → ''MarkerKind''
-: "has" — the `kind` field is the discriminator that decides which extra fields are honoured (e.g. `close` only meaningful for `inline-pair`, `max-level` only for `glyph-level`, `container` / `item-element` only for `list-item`).
+!! Field clusters on the Marker tiddler
 
-!! Why the title convention matters
+Most markers only need a few fields from the first two clusters.
 
-Vocabulary titles follow `vocab/<lowercase-caption>`. That convention is what lets `registry.activate(name)` do a direct `getTiddler("vocab/" + name.toLowerCase())` instead of a filter walk over all shadows + tiddlers. The beta-29 changelog measured ''~33× speedup'' (3.46 → 0.10 µs/op for one vocab, 6.80 → 0.18 µs/op for a typical two-vocab activation).
+; identity
+: `title` (convention `vocab/<v>/<NAME>`)  ·  `tags` (`$:/tags/CustomMarkup/Marker` + `vocab/<v>`)  ·  `caption`  ·  `description`
 
-!! Global pragma side-channel
+; matching
+: `kind`  ·  `open`  ·  `close` (inline-pair)  ·  `open-pattern` (list-item, overrides `open`)  ·  `max-level` (glyph-level, default 4)  ·  `allow-symbol` (glyph, inline-pair)
 
-`Global Pragma` tiddlers (tagged `$:/tags/Pragma`) carry `\custom ...` directives. They reach every parser through the bridge tiddler `$:/config/custom-markup/pragma/PageTemplate`, which itself just contains `\importcustom [tag[$:/tags/Pragma]]`. Parsed pragmas are cached per wiki (~3× speedup since beta-10).
+; output
+: `element` (html-tag or `$widget`; default `div` for block / `span` for inline-pair)  ·  `classes` (dot-prefixed chain, e.g. `.a.b.c`)  ·  `attributes` (JSON)  ·  `container` / `item-element` / `indent-unit` (list-item)
+
+; body parsing
+: `mode` (`block` or `inline`)  ·  `paragraph-marker` (blank-line terminator)  ·  `end-string` (custom close)  ·  `emit-open` (keep the keyword in output)  ·  `body-raw` (inline-pair: literal text node)  ·  `src-name` (widget elements: rename the body attribute)
+
+; editor &amp; back-compat
+: `marker-icon`  ·  `order` (toolbar sort)  ·  `legacy-kind` (v0.x pragma bridge)  ·  `allow-classes` (word: append `.cls` after keyword)  ·  `debug` / `debug-string`
+
+; security
+: `allow-unsafe` (default `no`: iframe gets `sandbox=""`, `object`/`embed`/`frame` denied, `javascript:` URLs stripped). See [[Custom Markup Security]].
+
+!! Two side channels not on the diagram
+
+* ''Global Pragma tiddlers'' (tagged `$:/tags/Pragma`) reach every parser through `$:/config/custom-markup/pragma/PageTemplate`, which simply contains `\importcustom [tag[$:/tags/Pragma]]`. Parsed pragmas are cached per wiki (~3× speedup).
+* ''HTML output'' from a fired marker: `element` (from marker) + classes `wltc` + `wltc-l<N>` (glyph-level only) + `marker.classes`, with attributes scrubbed per the security rules above.
+
+!! Example marker tiddler
+
+Fountain's scene-heading marker. Three required fields plus three opt-ins:
+
+```
+title:   vocab/fountain/INT
+tags:    $:/tags/CustomMarkup/Marker  [[vocab/fountain]]
+caption: Int.
+kind:    word
+open:    INT.
+element: p
+classes: .wltc-fountain-scene-heading
+mode:    inline
+emit-open: yes
+paragraph-marker: yes
+```
 
 !! Related
 
-* [[Overview - Vocabularies & Markers (v1.0)]] — the activation story told as three columns.
+* [[Overview - Vocabularies & Markers (v1.0)]] — the same model told as three columns with worked HTML.
 * [[Overview - Phase Timeline (v1.0)]] — when each of these entities is touched at parse time.
 * [[Marker Fields]] · [[Marker Kinds]] · [[Activating a Vocabulary]] · [[Global Pragma Definitions]]
