@@ -6,7 +6,8 @@ element: p
 emit-open: yes
 kind: word
 mode: block
-modified: 20260519220613726
+modified: 20260524062747909
 open: MATCH CUT TO:
 tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/MATCH-CUT-TO
+trailing-blank: yes

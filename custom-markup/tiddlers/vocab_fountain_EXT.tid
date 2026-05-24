@@ -1,4 +1,5 @@
 caption: Exterior scene
+case-insensitive: yes
 classes: .wltc-fountain-scene-heading
 created: 20260519092954802
 description: Scene heading: exterior location. Same shape as INT.
@@ -6,8 +7,9 @@ element: p
 emit-open: yes
 kind: word
 mode: block
-modified: 20260519220613726
+modified: 20260524093751242
 open: EXT.
 order: 8
 tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/EXT
+trailing-blank: yes

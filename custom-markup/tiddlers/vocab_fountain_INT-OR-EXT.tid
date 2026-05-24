@@ -1,0 +1,14 @@
+caption: Interior/exterior (INT./EXT.)
+case-insensitive: yes
+classes: .wltc-fountain-scene-heading
+created: 20260524093820232
+description: Scene heading combining interior and exterior, written `INT./EXT. LOCATION - TIME`. Case-insensitive.
+element: p
+emit-open: yes
+kind: word
+mode: block
+modified: 20260524093820232
+open: INT./EXT.
+tags: $:/tags/CustomMarkup/Marker vocab/fountain
+title: vocab/fountain/INT-OR-EXT
+trailing-blank: yes

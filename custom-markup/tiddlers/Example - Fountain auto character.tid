@@ -1,0 +1,16 @@
+created: 20260524063135139
+modified: 20260524090456761
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain auto character
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+An uppercase line preceded by a blank line and followed immediately by a non-blank line auto-detects as a Fountain character cue. Same-line parentheticals like `(O. S.)` or `(on the radio)` are kept.
+
+STEEL
+The man's a myth!
+
+MOM (O. S.)
+Luke! Come down for supper!
+
+HANS (on the radio)
+What was it you said?

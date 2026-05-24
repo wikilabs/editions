@@ -1,0 +1,13 @@
+allow-symbol: no
+caption: Lyrics
+classes: .wltc-fountain-lyrics
+created: 20260524085543129
+description: Song lyrics. Each lyric line is prefixed with `~`. The `~` is stripped from the rendered output; the line typically renders in italic. Added in Fountain 1.1.
+element: p
+kind: glyph
+mode: inline
+modified: 20260524090107872
+no-space-bound: yes
+open: ~
+tags: $:/tags/CustomMarkup/Marker vocab/fountain
+title: vocab/fountain/LYRICS

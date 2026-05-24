@@ -7,6 +7,7 @@ element: p
 kind: glyph
 mode: inline
 modified: 20260519220613726
+no-space-bound: yes
 open: @
 tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/CHARACTER

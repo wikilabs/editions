@@ -1,5 +1,5 @@
 created: 20260519104702731
-modified: 20260520004816892
+modified: 20260524095610888
 tags: [[Advanced (v1.0)]]
 title: Example - Fountain screenplay
 type: text/vnd.tiddlywiki;vocab=Fountain
@@ -9,14 +9,6 @@ Credit: written by
 Author: Custom-Markup Demo
 Source: Original example for vocab/fountain
 Draft date: 2026-05-19
-
-<style>
-[data-tiddler-title="<<currentTiddler>>"] .tc-tiddler-body {
-	margin-left: auto;
-	margin-right: auto;
-	max-width: 80ch;
-}
-</style>
 
 ''Worked example for [[vocab/fountain]].'' Reference: [[Vocabulary - Fountain]].
 

@@ -1,0 +1,20 @@
+created: 20260524085730438
+modified: 20260524095559530
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain lyrics
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Lines prefixed with `~` render as song lyrics (italic). Marker: [[vocab/fountain/LYRICS]]. Added in Fountain 1.1.
+
+INT. BAR LATE NIGHT
+
+The jukebox glows in the corner. SAM nurses a whiskey.
+
+SAM
+This song. It always gets me.
+
+~Don't stop believing
+~Hold on to that feeling
+~Streetlight people
+
+Sam stares into the glass, miles away.

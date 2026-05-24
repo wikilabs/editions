@@ -1,10 +1,15 @@
+auto-character: yes
+auto-transition: yes
+body-class: wltc-fountain
 caption: Fountain
 created: 20260519092954802
-description: Screenplay markers in the spirit of the Fountain syntax (https://fountain.io/syntax/). Scene headings, transitions, forced elements, synopses, boneyards, inline emphasis, centered lines, section headers, and a simple `Key: Value` title-page block. Auto-detection of character/dialogue is not supported (the marker engine has no lookahead); use the forced `@ NAME` form instead. Activate with `;vocab=Fountain` in the type field.
+description: Screenplay markers in the spirit of the Fountain syntax (https://fountain.io/syntax/). Scene headings, transitions, forced elements, synopses, boneyards, inline emphasis, centered lines, section headers, a simple `Key: Value` title-page block, and auto-detection of character cues (uppercase line followed by dialogue). The `@ NAME` forced form is still available for lower-case or non-Roman character names. Activate with `;vocab=Fountain` in the type field.
 disable-core-rules: heading list
 filter: [[vocab/fountain]] [all[shadows+tiddlers]tag[vocab/fountain]]
+forced-transition: yes
 front-matter: yes
-modified: 20260519221053142
+modified: 20260524095741202
+preserve-newlines: yes
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/fountain
 version: 0.3.0

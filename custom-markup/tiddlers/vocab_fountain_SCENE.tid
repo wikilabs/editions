@@ -7,6 +7,7 @@ element: p
 kind: glyph
 mode: block
 modified: 20260520004816892
+no-space-bound: yes
 open: .
 tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/SCENE

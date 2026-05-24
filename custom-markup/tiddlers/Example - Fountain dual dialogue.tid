@@ -1,0 +1,13 @@
+created: 20260524092450422
+modified: 20260524095515674
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain dual dialogue
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+A character cue ending with `^` marks dual (simultaneous) dialogue — it renders side-by-side with the previous cue. Any spaces before the `^` are ignored. Added in Fountain 1.1.
+
+BRICK
+Screw retirement.
+
+STEEL ^
+Screw retirement.

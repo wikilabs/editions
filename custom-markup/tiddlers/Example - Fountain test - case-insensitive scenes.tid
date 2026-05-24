@@ -1,0 +1,23 @@
+created: 20260524093805584
+modified: 20260524093805584
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain test - case-insensitive scenes
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Test (Batch 1a): scene-heading word markers should fire regardless of case.
+
+int. kitchen morning
+
+Sunlight slants across the floor.
+
+Ext. street day
+
+A delivery truck idles.
+
+EST. PARK SUNSET
+
+Golden hour on the lawn.
+
+i/e. car dusk
+
+The interior is dim.

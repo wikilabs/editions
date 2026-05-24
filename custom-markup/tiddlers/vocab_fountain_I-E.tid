@@ -1,4 +1,5 @@
 caption: Interior/exterior scene
+case-insensitive: yes
 classes: .wltc-fountain-scene-heading
 created: 20260519092954802
 description: Scene heading: location with both interior and exterior in one shot. Same shape as INT.
@@ -6,8 +7,9 @@ element: p
 emit-open: yes
 kind: word
 mode: block
-modified: 20260519220613726
+modified: 20260524093759543
 open: I/E.
 order: 7
 tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/I-E
+trailing-blank: yes

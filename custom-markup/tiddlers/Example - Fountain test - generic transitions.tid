@@ -1,0 +1,25 @@
+created: 20260524094007442
+modified: 20260524094007442
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain test - generic transitions
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Test (Batch 1c): any uppercase line ending with `TO:` (preceded and followed by blank line) should render as a transition. Specific markers like `CUT TO:` continue to fire via the marker engine; the generic rule only catches the rest.
+
+Jane drops the key on the table.
+
+JUMP TO:
+
+INT. ROOFTOP NIGHT
+
+Wind tears at the laundry line.
+
+ROLL TO:
+
+INT. EDITING BAY NIGHT
+
+The monitor flickers.
+
+CUT TO:
+
+A street at dawn. (CUT TO: still fires via its specific marker.)

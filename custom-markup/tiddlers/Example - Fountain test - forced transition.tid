@@ -1,0 +1,23 @@
+created: 20260524094209761
+modified: 20260524094209761
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain test - forced transition
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Test (Batch 1d): a line starting with `>` (and not ending with `<`) is a forced transition. The `>` is stripped.
+
+Jane drops the key.
+
+>Burn to White.
+
+INT. DREAMSCAPE
+
+Gauzy light.
+
+>Slow dissolve into red.
+
+EXT. CITY DAWN
+
+For contrast, `>centered<` still works:
+
+>THE END<

@@ -6,7 +6,8 @@ element: p
 emit-open: yes
 kind: word
 mode: block
-modified: 20260519220613726
+modified: 20260524062736987
 open: FADE OUT.
 tags: $:/tags/CustomMarkup/Marker vocab/fountain
 title: vocab/fountain/FADE-OUT
+trailing-blank: yes

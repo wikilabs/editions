@@ -1,0 +1,11 @@
+created: 20260524061320680
+modified: 20260524061320680
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain forced action
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Any line starting with `!` becomes action prose, overriding scene-heading or transition word markers on the same line. Marker: [[vocab/fountain/ACTION]].
+
+INT. KITCHEN MORNING
+
+!INT. KITCHEN MORNING

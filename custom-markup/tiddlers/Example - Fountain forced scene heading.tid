@@ -1,0 +1,13 @@
+created: 20260524054530361
+modified: 20260524061225509
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain forced scene heading
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Any line starting with `. ` becomes a scene heading. Marker: [[vocab/fountain/SCENE]].
+
+.MIRROR POV
+
+The reflection holds a beat too long.
+Jane doesn't notice.
+The parcel sees everything.

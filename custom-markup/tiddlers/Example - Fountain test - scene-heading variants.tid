@@ -1,0 +1,19 @@
+created: 20260524093832713
+modified: 20260524093832713
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain test - scene-heading variants
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+Test (Batch 1b): scene headings should fire for `INT./EXT.` and `INT/EXT.` combinations.
+
+INT./EXT. CAR DAWN
+
+The driver shifts gears.
+
+INT/EXT. PORCH NIGHT
+
+A half-open door.
+
+int./ext. boat morning
+
+Waves slap the hull (case-insensitive variant).
