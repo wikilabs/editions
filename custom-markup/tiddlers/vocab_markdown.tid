@@ -4,6 +4,7 @@ description: Markdown markers for inline emphasis (italic, bold, bold-italic, st
 disable-core-rules: strikethrough codeinline list underscore table
 filter: [[vocab/markdown]] [all[shadows+tiddlers]tag[vocab/markdown]] [[$:/language/Docs/Types/text/vnd.tiddlywiki;vocab=Markdown]]
 preserve-newlines: yes
+tables: yes
 modified: 20260520024836798
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/markdown
