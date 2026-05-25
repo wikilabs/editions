@@ -1,4 +1,4 @@
-modified: 20260524092520548
+modified: 20260525053656129
 tags: [[Advanced (v1.0)]]
 title: Vocabulary - Fountain
 type: text/vnd.tiddlywiki
@@ -46,6 +46,7 @@ Other TW rules stay active: `[[Other tiddler]]` prettylinks, `<<macros>>`, table
 |Boneyard |`/* ... */` |[[vocab/fountain/BONEYARD]] |
 |Lyrics |`~ lyric line` |[[vocab/fountain/LYRICS]] |
 |Dual dialogue |`CHARACTER ^` (cue ending with caret) |(auto-detection, no marker tiddler) |
+|Page break |`===` (3+ `=` on a blank-flanked line) |(handled by the `fountain-page-break` wikirule, not a marker) |
 
 !! What works
 
@@ -54,6 +55,7 @@ Other TW rules stay active: `[[Other tiddler]]` prettylinks, `<<macros>>`, table
 * Transitions: keyword stays visible (`CUT TO:`, `FADE IN:`, ...). `FADE IN:` is left-aligned (opener convention); other transitions are right-aligned.
 * Character cues: an uppercase line preceded by a blank line and followed immediately by a non-blank line renders as a centered cue. The cue + dialogue pair is wrapped in `<div class="wltc-fountain-cue-block">`; appending `^` to the cue (e.g. `STEEL ^`) marks the wrapper as dual so it lays out side-by-side with the previous pair. Source case is preserved (so `@McCLANE` stays mixed-case).
 * Synopsis (`= text`), Boneyard (`/* ... */`), Action (`! ...`), Section (`# heading`), Centered (`> text <`), inline emphasis (`*italic*`, `**bold**`, `***bold italic***`, `_underline_`).
+* Page break: `===` on a line by itself (blank-before, blank-after) emits a page break. On screen it shows as a faint dashed rule with a "page break" label; in print it triggers `page-break-after: always`.
 
 !! Known limitations
 
@@ -70,3 +72,4 @@ Other TW rules stay active: `[[Other tiddler]]` prettylinks, `<<macros>>`, table
 * [[Vocabulary Engine]]
 * [[Custom Markup Security]]
 * [[Example - Fountain screenplay]]
+* [[Fountain Print - Industry Layout]] — opt-in `@media print` stylesheet that switches to A4 / Courier 10pt / 15cm column with character / dialogue / transition at industry cm positions. Tag with `$:/tags/Stylesheet` to activate.

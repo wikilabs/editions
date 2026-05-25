@@ -1,5 +1,5 @@
 created: 20260520050000000
-modified: 20260520035359125
+modified: 20260525053742317
 tags: [[Vocabulary Engine]]
 title: Shipped Vocabularies
 type: text/vnd.tiddlywiki
@@ -9,6 +9,6 @@ Current vocabularies that ship with the Custom-Markup plugin or its editions:
 * ''vocab/default'' (plugin): `°` `.` `»` `›` (block) and `/° °/`, `❮ ❯`, `⠒ ⠶` (inline-pair). Always active.
 * ''vocab/legacy-glyphs'' (plugin, opt-in): restores `´` `≈` `¶` removed from Default in v1.0.0-beta-1.
 * ''vocab/presentation'' (editions): Fountain-flavoured Reveal.js DSL with `PRESENTATION`, `CUT TO:`, `ANIMATE TO:`, `FADE IN:`, terminator `FADE OUT.`. Worked example: [[Example - revealjs presentation (vocab/presentation)]].
-* ''vocab/fountain'' (editions): screenplay markers (scene headings, transitions, character cues, synopses, boneyard) in the spirit of https://fountain.io/syntax/. Declares `disable-core-rules: heading list`. Reference: [[Vocabulary - Fountain]]. Worked example: [[Example - Fountain screenplay]].
+* ''vocab/fountain'' (editions): screenplay markers (scene headings, transitions, character cues, synopses, boneyard, lyrics, page breaks) in the spirit of https://fountain.io/syntax/. Declares `disable-core-rules: heading list`. Reference: [[Vocabulary - Fountain]]. Worked example: [[Example - Fountain screenplay]]. Opt-in print stylesheet: [[Fountain Print - Industry Layout]].
 * ''vocab/markdown'' (editions): markdown emphasis (italic / bold / strike / code), headings (`#` to `######`), blockquote, lists (UL / OL with indent nesting), and tables. Declares `disable-core-rules: strikethrough codeinline list underscore table`. Examples: [[Example - Markdown]], [[Example - Markdown table]].
 * ''vocab/color-boxes'', ''vocab/html-elements'', ''vocab/lists'', ''vocab/table'', ''vocab/test'' (editions): smaller demo vocabularies.
