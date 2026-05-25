@@ -1,11 +1,11 @@
 attr-alt-from: alt-text
 attr-tooltip-from: alt-text
-body-attribute: tooltip
+body-attribute: alt
 caption: Image
 classes: .wltc-md-image
 close: ]
 created: 20260525120000000
-description: Inline image `![alt](source)`. Emits `<$image source="source" alt="..." tooltip="...">` — TW's image widget renders BOTH internal image tiddlers AND external URLs through the same syntax. TW-markdown-plugin compat: `#`-prefix (`![alt](#Image.jpg)`) forces internal routing, `<...>` brackets wrap names with whitespace, trailing `"..."` becomes the tooltip. When `source` resolves to a tiddler with an `alt-text` field, that field still populates the rendered `alt` and `tooltip`; an explicit `"..."` tooltip overrides for tooltip while alt stays from the field.
+description: Inline image `![alt](source "tooltip")`. Emits `<$image source="source" alt="..." tooltip="...">`. TW-markdown-plugin compat: `#`-prefix (`![alt](#Image.jpg)`) forces internal routing, `<...>` brackets wrap names with whitespace, trailing `"..."` becomes the tooltip. Priority: user-supplied body becomes `alt`, user-supplied tooltip becomes `tooltip`; when either is absent, the source tiddler's `alt-text` field fills in. Special accessibility rule for `alt`: when the user's body is 1–2 words and the source's `alt-text` is 3+ words, the source wins (richer is better for screen readers).
 element: $image
 kind: linked-pair
 link-angle-brackets: yes

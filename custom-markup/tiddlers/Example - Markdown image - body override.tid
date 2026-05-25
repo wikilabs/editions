@@ -1,52 +1,79 @@
 created: 20260525140000000
-modified: 20260525150000000
+modified: 20260525230000000
 tags: docs [[Markdown links and images]]
 title: Example - Markdown image - body override
 type: text/vnd.tiddlywiki;vocab=Markdown
 
-**Pattern:** `![Custom tooltip](image.jpg)` — the user supplies a non-empty body, which becomes the rendered `tooltip` attribute.
+The [IMAGE marker](#vocab/markdown/IMAGE) follows CommonMark mapping: `![alt](src "tooltip")` — body becomes `alt`, the trailing `"..."` parameter becomes `tooltip`. When either is absent, the source tiddler's `alt-text` field fills in. Plus a smart accessibility rule: short user-alt (1–2 words) yields to a 3+ word source `alt-text`.
 
-[IMAGE marker tiddler](#vocab/markdown/IMAGE) declares `body-attribute: tooltip` AND `attr-tooltip-from: alt-text`. The two interact:
+## Priority resolution
 
-- When source IS a tiddler that has the `alt-text` field set, `attr-tooltip-from` wins — semantic data on the image is authoritative.
-- When source is a URL OR the field is empty/absent, `body-attribute` takes over and the user-supplied body becomes the tooltip.
+For each of `alt` and `tooltip`, the engine walks this decision:
 
-So body-override only takes effect when there's no source-tiddler field to default from. DOM `alt` always comes from `attr-alt-from` when available, regardless of body — alt is for accessibility, not for tooltips, and it should describe the image, not the callsite.
+1. Did the user supply a value at the callsite? (body for `alt`, `"..."` parameter for `tooltip`)
+2. If yes → use the user's value (default).
+3. If no → does the source tiddler exist AND have the `alt-text` field set? Use that.
+4. ''Special, alt only:'' if the user supplied an alt of 1–2 words AND the source `alt-text` is 3+ words, the source wins regardless of step 2. Descriptive accessibility text beats a brief callsite label.
+5. Nothing on either side → attribute not emitted.
 
-**Live example — external URL, body becomes tooltip:**
+## Pattern 1 — user body becomes alt
 
-![A favicon belonging to TiddlyWiki](https://tiddlywiki.com/favicon.ico)
-
-Hover the image; you should see the body text as the tooltip.
-
-**Live example — source tiddler has alt-text, body is ignored for tooltip:**
-
-![Decorative caption that won't show](#Motovun Jack.jpg)
-
-Hover the image; the tooltip is the source tiddler's `alt-text` field value, not the body.
-
-**Source:**
+![Motovun Jack on a stone wall](https://tiddlywiki.com/favicon.ico)
 
 ```
-![A favicon belonging to TiddlyWiki](https://tiddlywiki.com/favicon.ico)
-
-![Decorative caption that won't show](#Motovun Jack.jpg)
+![Motovun Jack on a stone wall](https://tiddlywiki.com/favicon.ico)
 ```
 
-**Why:** priority resolution at parse time:
+URL source, no source-tiddler lookup. User's body (6 words) becomes the rendered `alt`. No tooltip supplied → tooltip empty.
 
-1. Apply `body-attribute` if body is non-empty → tooltip = body.
-2. Check `attr-tooltip-from`: does the source resolve to a tiddler with the named field?
-   - Yes → override tooltip with indirect reference to the field. Body discarded.
-   - No → leave the body-attribute value in place.
+## Pattern 2 — explicit tooltip parameter
 
-For **external-URL targets** the source-tiddler lookup misses, so body wins.
+![Favicon](https://tiddlywiki.com/favicon.ico "Hover text from the user")
 
-For **tiddler-title targets without the field**, body also wins (fallback path).
+```
+![Favicon](https://tiddlywiki.com/favicon.ico "Hover text from the user")
+```
 
-For **tiddler-title targets with the field**, the field wins.
+Body → `alt`, `"..."` → `tooltip`. Hover the image; the tooltip shows.
 
-**Related:**
+## Pattern 3 — empty body, source field fills both alt and tooltip
 
-- [Empty body, source has alt-text → both alt and tooltip from field](#Example - Markdown image - base64 data)
-- [Same external-URL pattern as the first example here, illustrated as a basic case](#Example - Markdown image - external URL)
+![](#Motovun Jack.jpg)
+
+```
+![](#Motovun Jack.jpg)
+```
+
+Empty body, no `"..."`. Source tiddler [Motovun Jack.jpg](#Motovun Jack.jpg) has an `alt-text` field → both `alt` and `tooltip` come from that field via the fallback rule.
+
+## Pattern 4 — short user-alt loses to richer source `alt-text`
+
+![Pic](#Motovun Jack.jpg)
+
+```
+![Pic](#Motovun Jack.jpg)
+```
+
+User wrote `Pic` (1 word) as body. Source tiddler's `alt-text` is several words long. The smart-alt rule kicks in: the rendered `alt` becomes the source's `alt-text`, not `Pic`. Tooltip also comes from the source field (no `"..."` supplied). Hover to see.
+
+## Pattern 5 — descriptive user-alt wins over source
+
+![A photograph of Motovun Jack sleeping on a stone wall in Croatia](#Motovun Jack.jpg)
+
+```
+![A photograph of Motovun Jack sleeping on a stone wall in Croatia](#Motovun Jack.jpg)
+```
+
+User's alt is 12 words — well above the 2-word threshold. Smart-alt rule doesn't fire. The rendered `alt` is the user's body. Tooltip falls back to source `alt-text` (no `"..."` parameter).
+
+## Why this priority order
+
+- Authors should be able to override at the callsite when the context demands a different label (Pattern 1, 2, 5).
+- Source-tiddler fields are an authoritative default (Pattern 3) — write the description ONCE per image, reuse it at every callsite.
+- The smart-alt rule (Pattern 4) catches the easy mistake: a one-word "Pic" or "Image" label that's worthless for screen readers gets replaced by the proper description from the image's own metadata.
+
+## Related
+
+- [Internal image with bytes in text field](#Example - Markdown image - base64 data) — basic patterns.
+- [Internal image with `_canonical_uri`](#Example - Markdown image - canonical URI) — lazy-loaded external image.
+- [Marker Fields](#Marker Fields) — `attr-<name>-from` row.

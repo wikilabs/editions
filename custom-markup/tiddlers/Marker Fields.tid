@@ -68,7 +68,7 @@ What HTML comes out when the marker fires.
 |`classes` |no |Dot-prefixed CSS class chain (e.g. `.wltc-fountain-transition`). Multiple classes via `.cls-a.cls-b`. |
 |`attributes` |no |JSON object of extra HTML attributes, e.g. `{"role":"note"}`. |
 |`link-attribute` |no |linked-pair only. Name of the attribute that receives the LINK capture text. Default `href` (so the second `(...)` of a markdown link becomes `<a href="...">`). Set `to` for `$link` widget (tiddler title), `source` for `$image`. |
-|`attr-<name>-from` |no |linked-pair only. Wire the rendered element's `<name>` attribute to a field on the source tiddler — at parse time the engine checks whether the LINK capture resolves to a tiddler that has the given field; if so, the attribute is emitted as an indirect reference (`<linkText>!!<field>`) that stays reactive at render time. Multiple of these can coexist (one per attribute). Falls back to body-attribute when source isn't a tiddler or the field is missing. |
+|`attr-<name>-from` |no |linked-pair only. Wire the rendered element's `<name>` attribute to a field on the source tiddler — as a ''fallback'' for when the user didn't supply the attribute via body / tooltip. At parse time the engine checks whether the LINK capture resolves to a tiddler that has the given field; if so AND `attrs[<name>]` is unset, the attribute is emitted as an indirect reference (`<linkText>!!<field>`) that stays reactive at render time. ''Special accessibility rule for `alt`:'' even when the user supplied an alt, if it's 1–2 words AND the source field is 3+ words, the source wins (richer is better for screen readers). Multiple `attr-<name>-from` fields can coexist (one per attribute). |
 |`auto-external` |no |linked-pair only. `yes` enables TW prettylink-style routing: when the LINK capture matches an external URL pattern (`http://`, `https://`, `mailto:`, `ftp://`, ...) the configured `element` is swapped for a plain `<a href target="_blank" rel="noopener noreferrer">`. Lets a single marker handle both internal tiddler titles AND external URLs cleanly. |
 |`link-hash-prefix` |no |linked-pair only. Two values:<br>• `yes` — a leading `#` on the captured LINK is recognised as "force internal": the `#` is stripped, the rest is percent-decoded for the tiddler-title lookup, and `auto-external` is bypassed. Targets without `#` still fall through to the configured element (flexible / backward-compatible mode).<br>• `required` — same `#` recognition, AND targets without `#` are routed through `<a href target="_blank">` instead of falling through. Matches the TW markdown plugin's strict semantics ("everything is a URL unless explicitly marked internal"). |
 |`link-tooltip-attribute` |no |linked-pair only. When set, an optional trailing `"..."` on the captured LINK (separated by whitespace) is peeled off and emitted on this attribute (`tooltip` for `<$link>` / `<$image>`, `title` for plain `<a>`). Matches the TW markdown plugin's `[text](target "tooltip")` syntax. |
@@ -209,7 +209,7 @@ link-open: (
 link-close: )
 element: $image
 link-attribute: source
-body-attribute: tooltip
+body-attribute: alt
 attr-alt-from: alt-text
 attr-tooltip-from: alt-text
 link-hash-prefix: yes
@@ -220,8 +220,9 @@ classes: .wltc-md-image
 
 * `open: ![` shadows the LINK marker because `![` is longer — the combined inline regex sorts longest-open-first, so IMAGE matches before LINK at any position they could both fire.
 * `element: $image` + `link-attribute: source` makes the LINK capture land in the image widget's `source` parameter (which handles BOTH tiddler titles AND external URLs natively).
-* `body-attribute: tooltip` means the bracketed body text becomes the `tooltip` attribute (not the rendered element's children — `<img>` has no children).
-* `attr-alt-from: alt-text` / `attr-tooltip-from: alt-text` wire `alt` and `tooltip` to the source tiddler's `alt-text` field. When source resolves to a tiddler that has the field, these override the body-attribute default — semantic data on the image wins over the markdown callsite.
+* `body-attribute: alt` means the bracketed body text becomes the `alt` attribute. Mirrors CommonMark: `![alt](src "title")` — body is alt, `"title"` is tooltip.
+* `link-tooltip-attribute: tooltip` peels off the trailing `"..."` parameter and emits it on `tooltip`.
+* `attr-alt-from: alt-text` / `attr-tooltip-from: alt-text` provide ''fallbacks'' from the source tiddler's `alt-text` field for both attributes. User-supplied values win; the source fills in when absent. ''Plus the smart-alt rule:'' a 1–2 word user-alt yields to a 3+ word source `alt-text` (richer is better for screen readers).
 * `link-hash-prefix` / `link-angle-brackets` / `link-tooltip-attribute` are the same TW-md-plugin compat triple as on LINK, so `![alt](#Image.jpg "tooltip")` and `![alt](<#Image with spaces>)` work in parity.
 
 !! Editor integration and back-compat

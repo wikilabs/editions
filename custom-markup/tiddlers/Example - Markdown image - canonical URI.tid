@@ -10,17 +10,17 @@ This is the lazy-loading pattern: the wiki only stores metadata + a URL; the ima
 
 **Live example:**
 
-![](Wikipedia Logo.svg)
+![](Motovun Jack.svg)
 
 **Source:**
 
 ```
-![](Wikipedia Logo.svg)
+![](Motovun Jack.svg)
 ```
 
-**Why this works:** the source tiddler [Wikipedia Logo.svg](#Wikipedia Logo.svg) has `type: image/svg+xml`, no `text` field, and `_canonical_uri: https://upload.wikimedia.org/...`. TW's image widget chain:
+**Why this works:** the source tiddler [Motovun Jack.svg](#Motovun Jack.svg) has `type: image/svg+xml`, no `text` field, and `_canonical_uri: https://upload.wikimedia.org/...`. TW's image widget chain:
 
-1. Source is a known tiddler? Yes (`Wikipedia Logo.svg`).
+1. Source is a known tiddler? Yes (`Motovun Jack.svg`).
 2. Is it an image tiddler? Yes (the `type` is in the image family).
 3. Does it have body text? No.
 4. Does it have `_canonical_uri`? Yes — use that as the `<img src>` directly.
@@ -30,4 +30,4 @@ The browser then fetches the URL. The widget still honours the marker's `alt` an
 **Related:**
 
 - [Same syntax, image bytes live in the tiddler's text field](#Example - Markdown image - base64 data)
-- [The source tiddler — see its fields](#Wikipedia Logo.svg)
+- [The source tiddler — see its fields](#Motovun Jack.svg)
