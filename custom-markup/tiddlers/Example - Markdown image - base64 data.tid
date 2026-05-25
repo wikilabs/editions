@@ -1,0 +1,63 @@
+created: 20260525140000000
+modified: 20260525230000000
+tags: docs [[Markdown links and images]]
+title: Example - Markdown image - base64 data
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+`![alt](#image-tiddler.jpg)` — TW markdown plugin syntax for an image whose source tiddler has its bytes in the `text` field (the most common case for self-contained TW wikis). The [IMAGE marker](#vocab/markdown/IMAGE) emits a `<$image source="...">` widget; TW's image widget detects the source is a tiddler with image-content type and inlines the data as a `data:image/jpeg;base64,...` URL — no network request, the image is part of the wiki.
+
+The IMAGE marker has `link-hash-prefix: yes` (not `required` — the `<$image>` widget already routes URL-vs-tiddler natively, so the strict mode isn't needed). The `#` prefix is the recommended TW-md-plugin convention; bare-title also works.
+
+## 1 — `#` prefix with URL-encoded spaces
+
+![Motovun Jack on a stone wall](#Motovun%20Jack.jpg)
+
+```
+![Motovun Jack on a stone wall](#Motovun%20Jack.jpg)
+```
+
+`%20` is the URL encoding for a space. After `#`-strip the engine `decodeURIComponent`s the rest so the lookup matches the `Motovun Jack.jpg` tiddler.
+
+## 2 — Angle-bracket wrap for literal spaces
+
+![Motovun Jack](<#Motovun Jack.jpg>)
+
+```
+![Motovun Jack](<#Motovun Jack.jpg>)
+```
+
+`<...>` accepts literal whitespace, no encoding needed. Inside the wrap, `\<` / `\>` unescape to literal angle brackets if the title needs them.
+
+## 3 — Trailing `"tooltip"` parameter
+
+![Motovun Jack](#Motovun Jack.jpg "A photo of Motovun Jack on a stone wall")
+
+```
+![Motovun Jack](#Motovun Jack.jpg "A photo of Motovun Jack on a stone wall")
+```
+
+The trailing `"..."` becomes the `tooltip` attribute, which `<$image>` emits as the `<img title>` attribute. Hover the image to see it.
+
+When the source tiddler also carries an `alt-text` field, the explicit `"..."` tooltip overrides the field-derived default for hover-text. The DOM `alt` (used by screen readers) still comes from the field, regardless of body or tooltip — see [the body-override example](#Example - Markdown image - body override) for the priority resolution.
+
+## 4 — Empty body (decorative image)
+
+![](<#Motovun Jack.jpg>)
+
+```
+![](<#Motovun Jack.jpg>)
+```
+
+Empty body + source tiddler with an `alt-text` field → DOM `alt` and `tooltip` both come from the field via `attr-alt-from` / `attr-tooltip-from`. Nothing for the user to write at the callsite; the source tiddler's semantic data is authoritative.
+
+## How the widget renders
+
+The source tiddler [Motovun Jack.jpg](#Motovun Jack.jpg) has `type: image/jpeg` and a `text` field carrying base64-encoded JPEG bytes. TW's image widget builds `src="data:image/jpeg;base64," + text` and assigns the result to `<img src>`. The browser decodes the data URL and renders the image inline. No network round-trip.
+
+The body of the marker is empty in patterns 1, 2, 4 above, so `body-attribute: tooltip` doesn't set a value and `attr-tooltip-from: alt-text` populates the rendered tooltip from [Motovun Jack.jpg](#Motovun Jack.jpg)'s `alt-text` field. Pattern 3 is the exception: an explicit `"..."` overrides the field-derived tooltip.
+
+## Related
+
+- [Source tiddler has `_canonical_uri` instead of base64](#Example - Markdown image - canonical URI) — lazy-loaded external bytes.
+- [Source is a plain URL, no tiddler involved](#Example - Markdown image - external URL).
+- [Body vs source-field priority for the tooltip](#Example - Markdown image - body override).

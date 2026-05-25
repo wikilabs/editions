@@ -1,0 +1,78 @@
+created: 20260525140000000
+modified: 20260525230000000
+tags: docs [[Markdown links and images]]
+title: Example - Markdown link - internal tiddler
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+The [LINK marker](#vocab/markdown/LINK) implements the TW markdown plugin's link syntax. `#` prefix is required for internal tiddler references (the marker has `link-hash-prefix: required`); targets without `#` (and not URL-shaped) are routed through `<a href>` as external/relative URLs. All five forms below render as working internal links via the `<$link>` widget.
+
+## 1 — `#` prefix, no spaces in the target
+
+[link text](#vocab/markdown/LINK)
+
+```
+[link text](#vocab/markdown/LINK)
+```
+
+The `#` is stripped at parse time and the rest is `decodeURIComponent`-ed (so `%20` becomes a space, `%29` a `)`, etc.). The clean tiddler title is then handed to `<$link to>`.
+
+## 2 — URL-encoded spaces
+
+[link text](#Vocabulary%20Engine)
+
+```
+[link text](#Vocabulary%20Engine)
+```
+
+`%20` is the standard URL encoding for a space. After `#`-strip and decode the target resolves to the `Vocabulary Engine` tiddler.
+
+## 3 — Angle-bracket wrap for literal spaces and `<`/`>`
+
+[link text](<#Vocabulary Engine>)
+
+```
+[link text](<#Vocabulary Engine>)
+```
+
+`<...>` accepts literal whitespace, no encoding needed. Inside the wrap, `\<` and `\>` unescape to literal angle brackets — so titles like `<$list>` can be referenced as `<#How to use \<$list\>>`.
+
+## 4 — Trailing `"tooltip"` parameter
+
+[link text](#Vocabulary Engine "Click to open the engine docs")
+
+[link text](<#Vocabulary Engine> "Click to open the engine docs")
+
+```
+[link text](#Vocabulary Engine "Click to open the engine docs")
+
+[link text](<#Vocabulary Engine> "Click to open the engine docs")
+```
+
+A whitespace-separated `"..."` after the target becomes the `tooltip` attribute on the rendered `<$link>` widget (which TW emits as the `<a title>` attribute). Hover the link to see it. Works with or without the `<...>` wrap.
+
+## 5 — Empty body
+
+[](<#vocab/markdown/LINK> "Empty body, the link still works")
+
+```
+[](<#vocab/markdown/LINK> "Empty body, the link still works")
+```
+
+Empty body produces a zero-width anchor — mostly useful for HTML-level anchor targets, less so for prose.
+
+## How the engine assembles all this
+
+[vocab/markdown/LINK](#vocab/markdown/LINK) sets four marker fields that, together, implement TW-md-plugin compatibility:
+
+- `link-hash-prefix: required` — `#` triggers the internal route; bare targets fall through to external.
+- `link-angle-brackets: yes` — accepts `<...>` wrapping with `\<` / `\>` escapes inside.
+- `link-tooltip-attribute: tooltip` — peels off the trailing `"..."` and emits its content on this attribute.
+- `auto-external: yes` — URL-shaped non-`#`-prefixed targets route through `<a href target="_blank">`.
+
+The parser strips each affordance in turn (tooltip → angle-bracket → `#`-strip + decode) before applying `auto-external` and `link-attribute`. The final value handed to `<$link to>` is a clean tiddler title.
+
+## Related
+
+- [External URL routing](#Example - Markdown link - external URL) — non-`#` URL-shaped targets.
+- [Emphasis inside link text](#Example - Markdown link - inline formatting) — `**bold**`, `*italic*`, `` `code` `` inside the body.
+- [Marker Fields](#Marker Fields) — `link-hash-prefix`, `link-tooltip-attribute`, `link-angle-brackets`, `auto-external`.

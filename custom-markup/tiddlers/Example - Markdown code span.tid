@@ -1,0 +1,145 @@
+created: 20260525210000000
+modified: 20260525152301144
+tags: docs [[Example - Markdown]]
+title: Example - Markdown code span
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+The [CODE marker tiddler](#vocab/markdown/CODE) uses `open-variable: yes` so the backtick delimiter can be any length the author chooses. The opening run sets `N`; the FIRST closing run of EXACTLY `N` backticks (not flanked by another backtick on either side) ends the span. Body is captured verbatim — no inline parsing inside. Single-leading/trailing-space stripping kicks in when both flanks have a space AND the body has any non-whitespace.
+
+## Pattern 1 — single backtick
+
+The basic case: one backtick opens, one backtick closes.
+
+Live: `code`
+
+Source:
+
+```
+`code`
+```
+
+## Pattern 2 — double backticks WITH a literal single backtick inside
+
+This is the point of variable-length runs. The inner single `` ` `` doesn't match the 2-run closing delimiter, so it stays as literal content. With only single-backtick code spans, the inner `` ` `` would have to be escaped or worked around; with a longer delimiter, it just stays as itself.
+
+Live: ``contains ` tick``
+
+Source:
+
+````
+``contains ` tick``
+````
+
+## Pattern 3 — triple backticks with a literal double backtick inside
+
+Same idea, one level up. The 3-run delimiter only closes on a same-length 3-run; inner `` `` `` runs are content.
+
+Live: ```contains `` two```
+Live: `contains `` two`
+
+Source:
+
+````
+```contains `` two```
+or 
+`contains `` two`
+````
+
+## Pattern 4 — leading/trailing space stripping
+
+When the captured body has both a leading and trailing space AND any non-whitespace content, ONE leading and ONE trailing space are stripped. That lets you wrap content that starts or ends with `` ` ``:
+
+Live: `` ` not a closing tick ` ``
+
+Source:
+
+````
+`` ` not a closing tick ` ``
+````
+
+The leading/trailing single spaces are consumed by the strip, so the rendered body starts and ends with a literal backtick.
+
+## Pattern 5 — no matching close: backtick stays literal
+
+If the opening run has no same-length partner within the same paragraph, the backticks fall through to plain text. The parser advances past the run without claiming it as a span. (Same-paragraph scope means an unmatched backtick can't accidentally swallow a later paragraph or a fenced source block.)
+
+Live: a `lonely backtick has no partner
+
+Source:
+
+```
+a `lonely backtick has no partner
+```
+
+## How the matching works
+
+At parse time the engine:
+
+1. Finds a maximal run of backticks flanked by non-backticks (or string boundaries) — call its length `N`.
+2. Walks forward looking for the FIRST same-length run with the same flanking property — but only until the next blank line. Runs of length ≠ N are skipped (they're content).
+3. If no such close exists within the current paragraph, falls back to emitting the opening backticks as plain text.
+4. If found, captures the body verbatim, applies the single-space strip when applicable, and emits a `<code>` element (or whatever the marker's `element` field declares).
+
+## DSL flexibility
+
+`open-variable: yes` is a marker field, not a hardcoded engine behaviour. Any inline-pair marker can opt into variable-length delimiter runs. A DSL that wants its own variable-length wrappers can ship a marker with `open: ~`, `open: ^`, or any other single character — same matching semantics, different delimiter. See [Marker Fields](#Marker Fields) for the field reference.
+
+The semantic this configuration captures is **"literal verbatim text that markdown shouldn't parse, with a delimiter that can grow to escape itself"**. Any HTML element whose body fits that description is a candidate. The patterns below are **illustrative** — none of them are shipped in this wiki — but each shows a coherent marker tiddler that could be added.
+
+### `<kbd>` — keyboard input
+
+```
+title: vocab/markdown/KBD
+kind: inline-pair
+allow-symbol: no
+body-raw: yes
+open: ~
+close: ~
+open-variable: yes
+element: kbd
+classes: .wltc-md-kbd
+```
+
+Usage: `~Ctrl+C~` → `<kbd>Ctrl+C</kbd>`. The variable-length matters when the keystroke description itself contains `~`: `~~press the literal ~ key~~`.
+
+### Inline math (LaTeX content)
+
+```
+title: vocab/markdown/MATH
+kind: inline-pair
+allow-symbol: no
+body-raw: yes
+open: $
+close: $
+open-variable: yes
+element: span
+classes: .wltc-md-math
+```
+
+Usage: `$E = mc^2$` → `<span class="wltc-md-math wltc">E = mc^2</span>`. With KaTeX or MathJax wired up client-side, the span gets typeset as a real equation. Variable-length lets authors quote LaTeX that uses `$` inside (`$$\sum_i a_i$$`) without escaping.
+
+### `<samp>` — sample / program output
+
+```
+title: vocab/markdown/SAMP
+kind: inline-pair
+allow-symbol: no
+body-raw: yes
+open: =
+close: =
+open-variable: yes
+element: samp
+classes: .wltc-md-samp
+```
+
+Usage: `=Permission denied=` → `<samp>Permission denied</samp>`. Semantically distinct from `<code>` (output rather than source); a docs tiddler can style them differently. The delimiter `=` is unused elsewhere in vocab/markdown, but a DSL author should always check for collisions before picking one.
+
+### When NOT to set `open-variable`
+
+For markers whose body is prose, not literal — emphasis (`*italic*`, `**bold**`), strikethrough (`~~struck~~`), even superscript / subscript — variable-length is overkill and may cause confusing matches. Authors won't typically write `*` or `~` inside emphasized prose, and the body-parsing semantics (inline children vs verbatim) differ anyway. Reserve `open-variable: yes` for the verbatim-body, escaping-needed use cases above.
+
+## Related
+
+- [The CODE marker tiddler](#vocab/markdown/CODE) — see the full marker fields.
+- [Marker Fields](#Marker Fields) — `open-variable` row in the Parsing-behaviour cluster, plus the CODE worked example.
+- [Marker Kinds](#Marker Kinds) — `inline-pair` is the kind that `open-variable` extends.

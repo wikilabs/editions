@@ -4,10 +4,11 @@ caption: Code
 classes: .wltc-md-code
 close: `
 created: 20260520010000000
-description: Inline code span. Open and close both `` ` ``. Element is `<code>`. Body is captured literally via `body-raw: yes` — wikitext inside (HTML tags, link syntax, other markers) is preserved as text.
+description: Inline code span. Open and close are runs of one or more backticks (`open-variable: yes`); the closing run must contain the SAME number of backticks as the opening run, not flanked by another backtick on either side. Body is captured verbatim via `body-raw: yes` — wikitext inside (HTML tags, link syntax, other markers) is preserved as text. Matches CommonMark code-span semantics, including leading/trailing single-space stripping when both flanks have a space.
 element: code
 kind: inline-pair
-modified: 20260520003019914
+modified: 20260525200000000
 open: `
+open-variable: yes
 tags: $:/tags/CustomMarkup/Marker vocab/markdown
 title: vocab/markdown/CODE

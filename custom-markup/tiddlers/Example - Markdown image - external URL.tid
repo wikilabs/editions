@@ -1,0 +1,28 @@
+created: 20260525140000000
+modified: 20260525150000000
+tags: docs [[Markdown links and images]]
+title: Example - Markdown image - external URL
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+**Pattern:** `![tooltip](https://...)` — the source is a plain URL, no tiddler involved.
+
+The [IMAGE marker tiddler](#vocab/markdown/IMAGE) emits a `<$image source="https://...">` widget. TW's image widget detects that the source isn't a known tiddler title and treats it as a URL, generating `<img src="https://...">` directly.
+
+**Live example:**
+
+![TiddlyWiki favicon](https://tiddlywiki.com/favicon.ico)
+
+**Source:**
+
+```
+![TiddlyWiki favicon](https://tiddlywiki.com/favicon.ico)
+```
+
+**Why this works:** TW's image widget first calls `wiki.getTiddler(source)`. For `https://tiddlywiki.com/favicon.ico` no such tiddler exists, so the widget falls through to the "URL" branch and uses the source string verbatim as the `<img src>`.
+
+**Accessibility fallback:** since the URL isn't a tiddler, `attr-alt-from` / `attr-tooltip-from` find nothing to read and leave their attributes unset. The body-attribute `tooltip` then takes effect: the bracketed `TiddlyWiki favicon` text becomes the `tooltip` (rendered as the DOM `title` attribute). The DOM `alt` ends up unset — for external URLs that you want screen-reader-accessible, write a meaningful body. (A future enhancement could mirror body to `alt` automatically for the external-URL case.)
+
+**Related:**
+
+- [Source is a tiddler whose _canonical_uri is the URL — same external fetch, plus alt-text field for accessibility](#Example - Markdown image - canonical URI)
+- [Body-vs-field priority for tooltip](#Example - Markdown image - body override)

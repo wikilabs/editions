@@ -1,0 +1,33 @@
+created: 20260525120000000
+modified: 20260525170000000
+tags: docs [[Example - Markdown]]
+title: Markdown links and images
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+Markdown ships two `linked-pair` markers (see [Marker Kinds](#Marker Kinds)): [vocab/markdown/LINK](#vocab/markdown/LINK) for `[text](target)` and [vocab/markdown/IMAGE](#vocab/markdown/IMAGE) for `![tooltip](source)`. Both go through TW widgets (`<$link>` / `<$image>`). Following the TW markdown plugin convention, `#` prefix is the explicit marker for internal tiddler references; targets without `#` are routed as external URLs.
+
+## Link patterns
+
+- [Example - Markdown link - internal tiddler](#Example - Markdown link - internal tiddler). `[text](#TiddlerTitle)` and all four TW-md-plugin variants — URL-encoded, angle-bracket, tooltip, empty body.
+- [Example - Markdown link - external URL](#Example - Markdown link - external URL). `[text](https://...)` → opens in a new tab. With or without `"tooltip"`.
+- [Example - Markdown link - inline formatting](#Example - Markdown link - inline formatting). Emphasis inside link text.
+
+## Image patterns
+
+- [Example - Markdown image - base64 data](#Example - Markdown image - base64 data). Internal image with bytes in the `text` field, plus the TW-md-plugin syntax variants.
+- [Example - Markdown image - canonical URI](#Example - Markdown image - canonical URI). Source tiddler has a `_canonical_uri` pointing to an external URL.
+- [Example - Markdown image - external URL](#Example - Markdown image - external URL). Source IS a URL, no tiddler involved.
+- [Example - Markdown image - body override](#Example - Markdown image - body override). How body-vs-source-field priority works for the tooltip.
+
+## Limits (v1)
+
+- URL/target must not contain a literal `)` — the first `)` ends the capture. Pre-encode with TW's [String Operators](https://tiddlywiki.com/#String%20Operators) (`encodeuri[]` / `encodeuricomponent[]`). CommonMark's balanced-paren extension isn't supported.
+- No `\[` / `\(` escape sequences — planned as part of the escape-sequences feature.
+- Link text containing a literal `]` is cut off at that `]`.
+- Reference-style links (`[x][ref]` + `[ref]: target`) aren't implemented yet — needs a new block rule for the ref-definitions and per-parser ref store.
+
+## Reference
+
+- [Marker Kinds](#Marker Kinds) — `linked-pair` is the 6th kind.
+- [Marker Fields](#Marker Fields) — `link-open`, `link-close`, `link-attribute`, `body-attribute`, `auto-external`, `attr-<name>-from`, `link-hash-prefix`, `link-tooltip-attribute`, `link-angle-brackets` are all documented there with the IMAGE and LINK worked examples.
+- [vocab/markdown/LINK](#vocab/markdown/LINK) / [vocab/markdown/IMAGE](#vocab/markdown/IMAGE) — the marker tiddlers themselves.

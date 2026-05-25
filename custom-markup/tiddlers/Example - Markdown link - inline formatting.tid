@@ -1,0 +1,38 @@
+created: 20260525140000000
+modified: 20260525170000000
+tags: docs [[Markdown links and images]]
+title: Example - Markdown link - inline formatting
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+**Pattern:** `` [**bold** *italic* `code`](#target) `` — emphasis and other inline markers fire inside the link text.
+
+The bracketed body of a link parses as an inline run (because [LINK marker tiddler](#vocab/markdown/LINK) doesn't set `body-attribute`), so any inline marker that's active in the current vocab fires inside it. The captured target still becomes the link destination.
+
+**Live example:**
+
+[A **bold** link with *italic* and `code`](#Example - Markdown)
+
+[Visit **TiddlyWiki** today!](https://tiddlywiki.com)
+
+And the inverse — a link can sit inside other emphasis:
+
+**Visit the [home page](#Example - Markdown) any time.**
+
+**Source:**
+
+```
+[A **bold** link with *italic* and `code`](#Example - Markdown)
+
+[Visit **TiddlyWiki** today!](https://tiddlywiki.com)
+
+**Visit the [home page](#Example - Markdown) any time.**
+```
+
+**Why this works:** the LINK marker has no `body-attribute` set, so the engine treats the body as inline content. `parseInlineRun` runs the full inline-rules set on the captured body text, which includes the markdown vocab's BOLD, ITALIC, CODE, etc. Result: rich inline content as the rendered link's children.
+
+**Caveat:** a nested LINK inside link text (`[[outer](u1)](u2)` or `[outer [inner](u1)](u2)`) is matched greedily by the regex — the first `]` terminates the outer body. CommonMark forbids nested links anyway; if you need one, restructure the text.
+
+**Related:**
+
+- [Internal-link patterns + TW-md-plugin variants](#Example - Markdown link - internal tiddler)
+- [External-URL routing](#Example - Markdown link - external URL)

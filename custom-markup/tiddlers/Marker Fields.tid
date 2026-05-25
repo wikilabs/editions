@@ -11,9 +11,11 @@ Marker tiddlers carry a handful of fields. They cluster into four jobs: ''what t
 How the engine recognises an occurrence of this marker in source text.
 
 |! Field |! Required |! Notes |
-|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`, `list-item`. See [[Marker Kinds]]. |
+|`kind` |yes |One of `glyph`, `glyph-level`, `word`, `inline-pair`, `linked-pair`, `list-item`. See [[Marker Kinds]]. |
 |`open` |yes |Literal characters that trigger the marker. Always required as a stable identity key, even when `open-pattern` is set. |
-|`close` |inline-pair |Literal characters that terminate the body of an inline-pair marker. |
+|`close` |inline-pair, linked-pair |Literal characters that terminate the body. For linked-pair, this is the close of the first capture (e.g. `]` in `[text](url)`). |
+|`link-open` |no |linked-pair only. Literal opening the second bracketed capture. Default `(`. |
+|`link-close` |no |linked-pair only. Literal closing the second bracketed capture. Default `)`. |
 |`open-pattern` |list-item |Regex source string. When set, overrides `open` for matching. Lets a single marker handle a bullet family (e.g. `\d+\.` for ordered lists). |
 |`max-level` |glyph-level |Maximum repetitions of `open` that count as deeper levels. `»` `»»` `»»»` becomes `wltc-l1` `wltc-l2` `wltc-l3`. |
 |`allow-symbol` |glyph, inline-pair |Default `yes`. Set `no` for body-only markers (where there's no symbol between open and content). Required for prose-safe `.` and emphasis-style inline pairs. |
@@ -62,9 +64,15 @@ container: ol
 What HTML comes out when the marker fires.
 
 |! Field |! Required |! Notes |
-|`element` |no |HTML element name (e.g. `p`, `h2`, `code`, `blockquote`). Defaults to `div` for block markers, `span` for inline-pair. |
+|`element` |no |HTML element name (e.g. `p`, `h2`, `code`, `blockquote`). Defaults to `div` for block markers, `span` for inline-pair, `a` for linked-pair. Prefix with `$` (e.g. `$link`, `$image`, `$transclude`) to emit a TW widget node instead of a plain element. |
 |`classes` |no |Dot-prefixed CSS class chain (e.g. `.wltc-fountain-transition`). Multiple classes via `.cls-a.cls-b`. |
 |`attributes` |no |JSON object of extra HTML attributes, e.g. `{"role":"note"}`. |
+|`link-attribute` |no |linked-pair only. Name of the attribute that receives the LINK capture text. Default `href` (so the second `(...)` of a markdown link becomes `<a href="...">`). Set `to` for `$link` widget (tiddler title), `source` for `$image`. |
+|`attr-<name>-from` |no |linked-pair only. Wire the rendered element's `<name>` attribute to a field on the source tiddler — at parse time the engine checks whether the LINK capture resolves to a tiddler that has the given field; if so, the attribute is emitted as an indirect reference (`<linkText>!!<field>`) that stays reactive at render time. Multiple of these can coexist (one per attribute). Falls back to body-attribute when source isn't a tiddler or the field is missing. |
+|`auto-external` |no |linked-pair only. `yes` enables TW prettylink-style routing: when the LINK capture matches an external URL pattern (`http://`, `https://`, `mailto:`, `ftp://`, ...) the configured `element` is swapped for a plain `<a href target="_blank" rel="noopener noreferrer">`. Lets a single marker handle both internal tiddler titles AND external URLs cleanly. |
+|`link-hash-prefix` |no |linked-pair only. Two values:<br>• `yes` — a leading `#` on the captured LINK is recognised as "force internal": the `#` is stripped, the rest is percent-decoded for the tiddler-title lookup, and `auto-external` is bypassed. Targets without `#` still fall through to the configured element (flexible / backward-compatible mode).<br>• `required` — same `#` recognition, AND targets without `#` are routed through `<a href target="_blank">` instead of falling through. Matches the TW markdown plugin's strict semantics ("everything is a URL unless explicitly marked internal"). |
+|`link-tooltip-attribute` |no |linked-pair only. When set, an optional trailing `"..."` on the captured LINK (separated by whitespace) is peeled off and emitted on this attribute (`tooltip` for `<$link>` / `<$image>`, `title` for plain `<a>`). Matches the TW markdown plugin's `[text](target "tooltip")` syntax. |
+|`link-angle-brackets` |no |linked-pair only. `yes` accepts `<...>` wrapping around the captured LINK so titles containing whitespace, `<`, `>`, or other awkward characters can be written. Inside the wrap, `\<` and `\>` unescape to literal angle brackets. Matches the TW markdown plugin's `[text](<#Title with spaces>)` syntax. |
 |`container` |list-item |The wrapping element for consecutive same-level items (`ul`, `ol`, `dl`, `blockquote`). |
 |`item-element` |list-item |Element for each item inside the container (default `li`; use `dt`/`dd` for definition lists). |
 
@@ -106,6 +114,8 @@ How the engine consumes content between the opening marker and the next block br
 |`end-string` |no |Custom terminator string. Overrides the kind-driven default. Use for explicit close keywords (e.g. Fountain's `FADE OUT.`). |
 |`emit-open` |no |`yes` prepends the open literal to the rendered body so the keyword IS the content (Fountain transitions render `CUT TO:` literally, not as an empty `<p>`). |
 |`body-raw` |inline-pair |`yes` captures the body as a single literal text node, no recursive parsing. Required for code-span markers where inside-content must stay literal. |
+|`open-variable` |inline-pair |`yes` turns the marker into a variable-length delimiter run: the `open` field is treated as a SINGLE character that can repeat 1..N times at parse time, and the close must match the SAME N. Both ends are flanked by non-open characters (or string boundaries) so the run is unambiguously maximal. Body is captured verbatim (implies `body-raw`). CommonMark single-leading/trailing-space stripping is applied when the body has both flanks AND non-whitespace content. Canonical use: CommonMark inline code spans (`` ` ``, ``` `` ```, ``` ``` ``` …) — see [[vocab/markdown/CODE]]. |
+|`body-attribute` |no |linked-pair only. When set, the body between `open` and `close` is captured verbatim and emitted as a string attribute of this name on the rendered element (no inline parsing, no children). Used by markdown's IMAGE marker with `body-attribute: tooltip` so `![text](src)` puts `text` into the `tooltip` attribute of `<$image>`. When the user-supplied body is empty, the attribute is skipped so an `attr-X-from` default can take over. Without `body-attribute`, the body parses as an inline run and becomes the rendered element's children (link-text case). |
 |`indent-unit` |list-item |Spaces of leading indent that count as one nesting level (default `2`). Tabs are expanded to this many spaces before the level is computed. |
 |`src-name` |widget elements |Widget-element markers only (`element` starts with `$`). Name of the attribute that receives the marker body. Defaults to `src`. Common values: `code` for `$macrocall` of a procedure that takes a code body, `filter` for `$list`, `body` for any custom procedure body parameter. |
 
@@ -121,7 +131,7 @@ element: h2
 
 `mode: inline` is the critical line. Without it, `## My heading` renders as `<h2><p>My heading</p></h2>` because the engine defaults block-kind bodies to a paragraph parse. With `mode: inline`, the body parses as a single inline run, giving `<h2>My heading</h2>`. Headings are always single-line content, never multi-paragraph.
 
-''Worked example:'' [[vocab/markdown/CODE]]. An inline code span with literal body.
+''Worked example:'' [[vocab/markdown/CODE]]. An inline code span with literal body and variable-length delimiter run.
 
 ```
 title: vocab/markdown/CODE
@@ -131,9 +141,10 @@ close: `
 allow-symbol: no
 element: code
 body-raw: yes
+open-variable: yes
 ```
 
-Without `body-raw: yes`, the engine would parse the body recursively and `` `<h1>foo</h1>` `` would emit an actual `<h1>` element instead of literal text. With it, the body becomes a single text node, exactly what a code span needs.
+`body-raw: yes` keeps the body verbatim — without it, `` `<h1>foo</h1>` `` would emit an actual `<h1>` element instead of literal text. `open-variable: yes` lets the delimiter run grow: ``` `` ` `` ``` (a double-backtick span containing a literal single backtick), ``` ``` `` ``` ``` (a triple-backtick span containing literal double backticks), and so on. The closing run must have the SAME number of backticks as the opening run and must not be flanked by another backtick — that's how the parser knows where the span ends without needing the author to escape inner backticks.
 
 ''Worked example:'' [[vocab/default/ANGLE]]. A paragraph-style marker.
 
@@ -161,6 +172,57 @@ attributes: {"$variable": ".greet", "$mode": "block", "name": "World", "mood": "
 ```
 
 `src-name: body` means the marker body lands in the `body` parameter of the called procedure (rather than the default `src`). See [[Example - Marker as procedure call]] for the full pattern.
+
+''Worked example:'' [[vocab/markdown/LINK]]. A markdown link routed through TW's link widget, with prettylink-style internal/external split and TW-markdown-plugin syntax compatibility.
+
+```
+title: vocab/markdown/LINK
+kind: linked-pair
+open: [
+close: ]
+link-open: (
+link-close: )
+element: $link
+link-attribute: to
+auto-external: yes
+link-hash-prefix: required
+link-angle-brackets: yes
+link-tooltip-attribute: tooltip
+classes: .wltc-md-link
+```
+
+* `kind: linked-pair` picks the back-to-back-brackets matching mode.
+* `open: [` / `close: ]` / `link-open: (` / `link-close: )` are the four bracket literals — the engine assembles the regex `\[BODY\]\(LINK\)` from these.
+* `element: $link` makes the engine emit a `<$link>` widget instead of a plain element. TW's link widget treats `to` as a tiddler title (opens in the story river).
+* `link-attribute: to` wires the LINK capture into the widget's `to` parameter (rather than the default `href`).
+* `auto-external: yes` swaps `<$link>` for `<a href target=_blank>` whenever the LINK capture looks like an external URL. Same prettylink routing TW core's `[[Caption|target]]` does.
+* `link-hash-prefix: required`, `link-angle-brackets: yes`, `link-tooltip-attribute: tooltip` together implement the TW markdown plugin's full strict syntax: `[x](#Title)`, `[x](<#Title with spaces>)`, `[x](#Title "tooltip")`, and the most general `[x](<#Title with \<escapes\>> "tooltip")`. The `required` value means a bare `[x](Title)` (no `#`, not URL-shaped) gets routed as external `<a href="Title">` — same behaviour as the TW md plugin. Use `link-hash-prefix: yes` instead to keep the legacy "bare title → internal" fall-through.
+
+''Worked example:'' [[vocab/markdown/IMAGE]]. A markdown image routed through TW's image widget, with source-tiddler-field wiring and TW-markdown-plugin syntax compatibility.
+
+```
+title: vocab/markdown/IMAGE
+kind: linked-pair
+open: ![
+close: ]
+link-open: (
+link-close: )
+element: $image
+link-attribute: source
+body-attribute: tooltip
+attr-alt-from: alt-text
+attr-tooltip-from: alt-text
+link-hash-prefix: yes
+link-angle-brackets: yes
+link-tooltip-attribute: tooltip
+classes: .wltc-md-image
+```
+
+* `open: ![` shadows the LINK marker because `![` is longer — the combined inline regex sorts longest-open-first, so IMAGE matches before LINK at any position they could both fire.
+* `element: $image` + `link-attribute: source` makes the LINK capture land in the image widget's `source` parameter (which handles BOTH tiddler titles AND external URLs natively).
+* `body-attribute: tooltip` means the bracketed body text becomes the `tooltip` attribute (not the rendered element's children — `<img>` has no children).
+* `attr-alt-from: alt-text` / `attr-tooltip-from: alt-text` wire `alt` and `tooltip` to the source tiddler's `alt-text` field. When source resolves to a tiddler that has the field, these override the body-attribute default — semantic data on the image wins over the markdown callsite.
+* `link-hash-prefix` / `link-angle-brackets` / `link-tooltip-attribute` are the same TW-md-plugin compat triple as on LINK, so `![alt](#Image.jpg "tooltip")` and `![alt](<#Image with spaces>)` work in parity.
 
 !! Editor integration and back-compat
 

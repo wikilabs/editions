@@ -1,0 +1,18 @@
+auto-external: yes
+caption: Link
+classes: .wltc-md-link
+close: ]
+created: 20260525120000000
+description: Inline link `[text](target)` — TW-markdown-plugin strict syntax. `#`-prefix (`[x](#Title)`) is REQUIRED for internal tiddler references (emits `<$link to="...">` open in story river). Anything else — URLs and bare strings — emits `<a href="..." target="_blank">` (external / browser-handled). `<...>` brackets wrap targets with whitespace or angle brackets (`\<` / `\>` to escape); `%20` etc. are percent-decoded after `#`-strip. Trailing `"..."` becomes the link's `tooltip` attribute (rendered as `title` on hover).
+element: $link
+kind: linked-pair
+link-angle-brackets: yes
+link-attribute: to
+link-close: )
+link-hash-prefix: required
+link-open: (
+link-tooltip-attribute: tooltip
+modified: 20260525150000000
+open: [
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/LINK

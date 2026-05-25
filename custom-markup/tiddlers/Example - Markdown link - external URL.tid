@@ -1,0 +1,40 @@
+created: 20260525140000000
+modified: 20260525150000000
+tags: docs [[Markdown links and images]]
+title: Example - Markdown link - external URL
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+**Pattern:** `[text](https://...)` where the target is an external URL.
+
+The [LINK marker tiddler](#vocab/markdown/LINK) has `auto-external: yes` set. When the LINK capture matches an external-URL pattern (`http://`, `https://`, `mailto:`, `ftp://`, ...), the engine swaps the configured `$link` widget for a plain `<a href="..." target="_blank" rel="noopener noreferrer">`. So the link opens in a new browser tab — the story river is left alone.
+
+**Live example:**
+
+[TiddlyWiki](https://tiddlywiki.com)
+
+[Send an email](mailto:hello@example.com)
+
+**Source:**
+
+```
+[TiddlyWiki](https://tiddlywiki.com)
+
+[Send an email](mailto:hello@example.com)
+```
+
+**Tooltip variant:** the same `"..."` parameter that internal links accept works on external URLs too.
+
+[TiddlyWiki home](https://tiddlywiki.com "Opens in a new tab")
+
+```
+[TiddlyWiki home](https://tiddlywiki.com "Opens in a new tab")
+```
+
+**Why this works:** [vocab/markdown/LINK](#vocab/markdown/LINK) has `auto-external: yes` and (relevant when no URL pattern matches but no `#` is present) `link-hash-prefix: required`. At parse time the engine runs `isLinkExternal(target)` (same regex TW core uses) and, for URL-shaped targets, emits an `<a href target="_blank" rel="noopener noreferrer">` element directly instead of the `$link` widget. Single markdown syntax, two render paths.
+
+URLs containing `)` cut off at the first `)` — pre-encode with TW's `encodeuricomponent[]` filter operator if needed. Balanced-parens (CommonMark extension) isn't implemented.
+
+**Related:**
+
+- [Internal-tiddler target via `#` prefix](#Example - Markdown link - internal tiddler)
+- [The LINK marker tiddler](#vocab/markdown/LINK)

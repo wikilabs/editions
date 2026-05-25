@@ -4,7 +4,7 @@ tags: [[Vocabulary Engine]]
 title: Marker Kinds
 type: text/vnd.tiddlywiki
 
-The `kind` field of a marker tiddler picks one of five matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
+The `kind` field of a marker tiddler picks one of six matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
 
 !! glyph
 
@@ -43,8 +43,19 @@ Bracketed inline marker. Open literal starts the body; matching close literal en
 * Position: inline.
 * Fires on: open literal at any inline position.
 * Typical use: emphasis (italic, bold), code spans, inline brackets.
-* Notable fields: `close` (required), `body-raw`, `allow-symbol`.
+* Notable fields: `close` (required), `body-raw`, `allow-symbol`, `open-variable` (variable-length delimiter runs — CommonMark-style code spans).
 * Worked example: [[vocab/markdown/CODE]].
+* Walkthrough: [[Example - Markdown code span]] shows the variable-length backtick-run behaviour with five concrete patterns.
+
+!! linked-pair
+
+Bracketed inline marker with a second bracketed capture immediately after. Source text shape: `open BODY close link-open LINK link-close`. The body becomes either the inline content of the rendered element OR a plain-text attribute on it (when `body-attribute` is set); the LINK capture becomes another attribute (defaulting to `href`). Markdown links `[text](url)` and images `![tooltip](url)` are the canonical use; any DSL can repurpose by picking different bracket literals.
+
+* Position: inline.
+* Fires on: full `open BODY close link-open LINK link-close` shape at any inline position. A bare `open` without the trailing brackets falls through to plain text — no fallback needed in parse.
+* Typical use: hyperlinks, image references, footnote references, glossary cross-refs, anywhere two bracketed captures sit back-to-back.
+* Notable fields: `close` (required), `link-open` / `link-close` (defaults `(` / `)`), `link-attribute` (default `href`), `body-attribute`, `auto-external`, `attr-<name>-from`.
+* Worked example: [[vocab/markdown/LINK]] and [[vocab/markdown/IMAGE]].
 
 !! list-item
 

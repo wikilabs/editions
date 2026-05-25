@@ -1,0 +1,33 @@
+created: 20260525140000000
+modified: 20260525150000000
+tags: docs [[Markdown links and images]]
+title: Example - Markdown image - canonical URI
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+**Pattern:** `![](image-tiddler.svg)` referencing an image tiddler whose `_canonical_uri` field points to the external image URL (no base64 data in the text field).
+
+This is the lazy-loading pattern: the wiki only stores metadata + a URL; the image itself is fetched from the network when the widget renders. Useful for large images or for keeping the wiki file small.
+
+**Live example:**
+
+![](Wikipedia Logo.svg)
+
+**Source:**
+
+```
+![](Wikipedia Logo.svg)
+```
+
+**Why this works:** the source tiddler [Wikipedia Logo.svg](#Wikipedia Logo.svg) has `type: image/svg+xml`, no `text` field, and `_canonical_uri: https://upload.wikimedia.org/...`. TW's image widget chain:
+
+1. Source is a known tiddler? Yes (`Wikipedia Logo.svg`).
+2. Is it an image tiddler? Yes (the `type` is in the image family).
+3. Does it have body text? No.
+4. Does it have `_canonical_uri`? Yes — use that as the `<img src>` directly.
+
+The browser then fetches the URL. The widget still honours the marker's `alt` and `tooltip` attributes from the same `attr-alt-from` / `attr-tooltip-from` wiring as the base64 case, so accessibility text stays correct regardless of where the bytes live.
+
+**Related:**
+
+- [Same syntax, image bytes live in the tiddler's text field](#Example - Markdown image - base64 data)
+- [The source tiddler — see its fields](#Wikipedia Logo.svg)

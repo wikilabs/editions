@@ -1,11 +1,11 @@
 caption: Markdown
 created: 20260520010000000
-description: Markdown markers for inline emphasis (italic, bold, bold-italic, strikethrough, code, underscore alts), block headings (`#` through `######`), blockquote, and lists (UL/OL with indent nesting). Activate with `;vocab=Markdown` in the type field. The CODE marker uses `body-raw: yes` so backtick spans preserve their content verbatim.
-disable-core-rules: strikethrough codeinline list underscore table
+description: Markdown markers for inline emphasis (italic, bold, bold-italic, strikethrough, underscore alts), inline code spans (single-or-multi backtick runs, CommonMark-style — the CODE marker uses `open-variable: yes`), block headings (`#` through `######`), blockquote, lists (UL/OL with indent nesting), and TW-md-plugin links + images. Activate with `;vocab=Markdown` in the type field.
+disable-core-rules: strikethrough codeinline list underscore table heading
 filter: [[vocab/markdown]] [all[shadows+tiddlers]tag[vocab/markdown]] [[$:/language/Docs/Types/text/vnd.tiddlywiki;vocab=Markdown]]
 preserve-newlines: yes
 tables: yes
-modified: 20260520024836798
+modified: 20260525180000000
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter
 title: vocab/markdown
 type: text/vnd.tiddlywiki
