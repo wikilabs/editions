@@ -737,5 +737,5 @@ cat /home/mario/.claude/projects/-home-mario-git-tiddly-wikilabs-editions/memory
 
 ## Session Closed
 **Closed at:** 2026-05-25 19:49
-**Commit:** (filled in below)
+**Commit:** 8a81ad8 (editions repo — handoff record)
 **Session status:** Handed off to next session
