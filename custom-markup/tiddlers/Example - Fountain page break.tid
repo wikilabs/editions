@@ -1,0 +1,17 @@
+created: 20260524192103751
+modified: 20260524192103751
+tags: [[Advanced (v1.0)]]
+title: Example - Fountain page break
+type: text/vnd.tiddlywiki;vocab=Fountain
+
+A line of three or more `=`, blank-before and blank-after, forces a page break on print. On screen it shows as a faint dashed rule with a "page break" label.
+
+INT. KITCHEN MORNING
+
+Jane sets the kettle on the stove.
+
+===
+
+INT. ATTIC NIGHT
+
+Something moves in the dark.

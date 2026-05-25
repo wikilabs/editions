@@ -1,0 +1,90 @@
+caption: Industry print layout
+created: 20260524192038274
+description: Opt-in stylesheet — A4 / 15cm text column, Courier 10pt, scene / character / dialogue at standard cm positions, all transitions right-aligned. Tag with $:/tags/Stylesheet to activate.
+modified: 20260524213935784
+tags: $:/tags/Stylesheet
+title: Fountain Print - Industry Layout
+type: text/vnd.tiddlywiki
+
+\rules only filteredtranscludeinline transcludeinline macrodef macrocallinline html commentinline commentblock
+
+@media print {
+
+	@page { size: A4; margin: 2.5cm 2.5cm 2.5cm 4cm; }
+	html, html body,
+	html body .tc-page-container,
+	html body .tc-page-container-wrapper,
+	html body .tc-story-river,
+	html body .tc-tiddler-frame,
+	html body .tc-tiddler-body {
+		width: auto; max-width: none;
+		margin: 0; padding: 0;
+		background: #fff;
+	}
+
+	html body .tc-titlebar,
+	html body .tc-subtitle,
+	html body .tc-tags-wrapper,
+	html body .wltc-trail { display: none; }
+
+	html body .wltc-fountain {
+		font-family: "Courier New", Courier, monospace;
+		font-size: 10pt;
+		line-height: 1;
+		color: #000;
+		max-width: 15cm;
+		margin: 0 auto;
+	}
+
+	.wltc-fountain a.tc-tiddlylink,
+	.wltc-fountain a.tc-tiddlylink:link,
+	.wltc-fountain a.tc-tiddlylink:visited,
+	.wltc-fountain a.tc-tiddlylink-missing {
+		color: inherit;
+		text-decoration: none;
+		font-weight: inherit;
+		font-style: inherit;
+		background: transparent;
+	}
+
+	.wltc-fountain p,
+	.wltc-fountain .wltc-fountain-action {
+		margin: 1em 0;
+		max-width: 15cm;
+	}
+
+	.wltc-fountain .wltc-fountain-scene-heading {
+		margin: 1em 0 0;
+		max-width: 15cm;
+		font-weight: normal;
+		text-transform: uppercase;
+	}
+
+	.wltc-fountain .wltc-fountain-character {
+		margin: 1em 0 0 5cm;
+		max-width: none;
+		text-align: left;
+		text-transform: uppercase;
+	}
+
+	.wltc-fountain .wltc-fountain-character + p {
+		margin: 0 0 0 2.5cm;
+		max-width: 9cm;
+		font-family: inherit;
+	}
+
+	.wltc-fountain .wltc-fountain-transition,
+	.wltc-fountain .wltc-fountain-fade-in {
+		margin: 1em 0;
+		max-width: 15cm;
+		text-align: right;
+		text-transform: uppercase;
+	}
+
+	.wltc-fountain .wltc-front-matter {
+		page-break-after: always;
+		break-after: page;
+		margin: 10cm auto 0;
+		max-width: 15cm;
+	}
+}
