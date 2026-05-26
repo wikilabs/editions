@@ -1,0 +1,60 @@
+created: 20260526030000000
+modified: 20260526030000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown autolink
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+[vocab/markdown/AUTOLINK](#vocab/markdown/AUTOLINK) is `kind: autolink` — a URL or email wrapped in `<` and `>` becomes an `<a href>`. The body inside the brackets is BOTH the link target AND the rendered link text; email bodies get `mailto:` prepended to the `href`. If the body matches neither the URL pattern (scheme:rest) nor the email pattern, the marker doesn't fire and the raw `<text>` renders as literal characters.
+
+## URL autolink
+
+Live: <https://tiddlywiki.com>
+
+Source:
+
+```
+<https://tiddlywiki.com>
+```
+
+Rendered: `<a href="https://tiddlywiki.com">https://tiddlywiki.com</a>`. The URL scheme can be any `letter + letter/digit/+./-` sequence up to 32 chars — `http`, `https`, `ftp`, `irc`, `news`, `data`, `mailto`, custom schemes (`obsidian:`, `vscode:`, ...) all work.
+
+## Email autolink
+
+Live: <pmariojo@gmail.com>
+
+Source:
+
+```
+<pmariojo@gmail.com>
+```
+
+Rendered: `<a href="mailto:pmariojo@gmail.com">pmariojo@gmail.com</a>`. The visible text stays the bare email; only the `href` gets `mailto:` prepended.
+
+## Falls through to literal for non-matching content
+
+Live: <not-a-link> and <div>
+
+Source:
+
+```
+<not-a-link> and <div>
+```
+
+Neither `not-a-link` nor `div` matches the URL or email patterns. The autolink marker steps aside; `<not-a-link>` renders as literal characters. (For `<div>`, TW core's `html` rule fires first because `div` is a valid HTML tag name — that's expected: real HTML tags should still work alongside autolinks.)
+
+## DSL flexibility
+
+The two pattern slots (`url-pattern` / `email-pattern`) are configurable regexes. A DSL can repurpose either slot:
+
+- Phone numbers: `email-pattern: ^\+?[0-9\s-]+$` + `email-prefix: tel:` → `<+1-555-1234>` becomes `<a href="tel:+1-555-1234">`.
+- Internal tiddler refs: `url-pattern: ^@[^\s]+$` and a parse-time strip of the `@` would let `<@MyTiddler>` route to TW's `<$link>`.
+- Vocab IDs in a glossary: `url-pattern: ^[A-Z]+-[0-9]+$` (no scheme) for `<JIRA-1234>` style references.
+
+Same wrap (`<` / `>`), different semantics — pick the patterns that fit your DSL.
+
+## Related
+
+- [vocab/markdown/AUTOLINK](#vocab/markdown/AUTOLINK) — the marker tiddler.
+- [Marker Kinds](#Marker Kinds) — `autolink` is the 8th kind.
+- [Marker Fields](#Marker Fields) — `url-pattern`, `email-pattern`, `email-prefix` rows.
+- [vocab/markdown/LINK](#vocab/markdown/LINK) — the explicit-text variant: `[text](url)`. Autolinks are the no-text variant when the URL itself is the visible text.

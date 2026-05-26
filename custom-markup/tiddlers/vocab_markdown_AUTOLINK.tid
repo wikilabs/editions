@@ -1,0 +1,15 @@
+caption: Autolink
+classes: .wltc-md-autolink
+close: >
+created: 20260526030000000
+description: CommonMark autolink — a URL or email address wrapped in `<` and `>` becomes an `<a href>` whose link text IS the URL/email. URL form `<https://example.com>` matches the `url-pattern` (scheme:rest); email form `<user@example.com>` matches the `email-pattern` and gets `mailto:` prepended to the rendered `href`. If neither pattern matches the body, the marker doesn't fire — the raw `<text>` renders as literal characters (so HTML tags and other angle-bracket content still work).
+element: a
+email-pattern: ^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$
+email-prefix: mailto:
+kind: autolink
+link-attribute: href
+modified: 20260526030000000
+open: <
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/AUTOLINK
+url-pattern: ^[a-zA-Z][a-zA-Z0-9+.-]{0,31}:[^\s<>]+$

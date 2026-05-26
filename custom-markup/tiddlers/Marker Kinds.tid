@@ -4,7 +4,7 @@ tags: [[Vocabulary Engine]]
 title: Marker Kinds
 type: text/vnd.tiddlywiki
 
-The `kind` field of a marker tiddler picks one of seven matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
+The `kind` field of a marker tiddler picks one of eight matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
 
 !! glyph
 
@@ -66,6 +66,16 @@ List bullet marker. Consecutive matches collapse into a single container (ul/ol/
 * Typical use: markdown list bullets, definition lists, checkbox lists.
 * Notable fields: `container`, `item-element`, `indent-unit`, `open-pattern`.
 * Worked example: [[vocab/markdown/ITEM-DASH]].
+
+!! autolink
+
+URL or email autolink. Body wrapped in `open` / `close` (typically `<` / `>`) is captured raw and validated against the marker's `url-pattern` / `email-pattern` regexes; first match wins. URL-matched bodies are used verbatim as the link target; email-matched bodies get `email-prefix` (default `mailto:`) prepended. Body also becomes the rendered link text. If neither pattern matches, the marker doesn't fire — the raw `<text>` renders as literal characters so HTML tags and other angle-bracket content still work.
+
+* Position: inline.
+* Fires on: `open BODY close` where body matches one of the configured patterns.
+* Typical use: CommonMark autolinks (`<https://x.com>`, `<user@x.com>`). DSL flexibility: phone numbers (`<+1-555-1234>` + `tel:` prefix), internal tiddler refs, arbitrary token-shaped link targets.
+* Notable fields: `close` (default `>`), `link-attribute` (default `href`), `url-pattern`, `email-pattern`, `email-prefix`.
+* Worked example: [[vocab/markdown/AUTOLINK]].
 
 !! fenced
 
