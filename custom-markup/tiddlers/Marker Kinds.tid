@@ -4,7 +4,7 @@ tags: [[Vocabulary Engine]]
 title: Marker Kinds
 type: text/vnd.tiddlywiki
 
-The `kind` field of a marker tiddler picks one of eight matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
+The `kind` field of a marker tiddler picks one of nine matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
 
 !! glyph
 
@@ -87,6 +87,16 @@ Fenced block marker. A run of `N >= open.length` fence characters at line start 
 * Notable fields: `wrapper-element` (outer wrapper, e.g. `pre` for `<pre><code>` shape), `info-attribute`, `info-prefix`, `info-words` (default `1` — CommonMark first-word-only).
 * Worked example: [[vocab/markdown/CODE-BLOCK]].
 * Walkthrough: [[Example - Markdown code block]] shows five patterns plus DSL-flexibility configs for callouts and diagram fences.
+
+!! hr
+
+Thematic break (`<hr>`). A line of 0-3 leading spaces + the marker's literal `open` (typically `---`, `***`, or `___`) + any number of additional repetitions of the first char with optional inner whitespace + optional trailing whitespace + EOL. No body, no children — the marker emits a single childless element. Each character variant ships as its own marker (HR-DASH, HR-STAR, HR-UNDER) using the full 3-char literal as `open` so the marker doesn't collide with single-char list-item markers (`-` for ITEM-DASH, `*` for ITEM-STAR).
+
+* Position: block.
+* Fires on: 0-3 leading spaces + 3+ same chars (more allowed, optional spaces between additional chars) + EOL.
+* Typical use: CommonMark thematic break.
+* Notable fields: `open` (literal 3-char string), `element` (default `hr`), `classes`.
+* Worked example: [[vocab/markdown/HR-DASH]].
 
 !! Related
 

@@ -1,0 +1,66 @@
+created: 20260526050000000
+modified: 20260526050000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown horizontal rule
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+A line consisting of 3 or more matching `-`, `*`, or `_` characters (additional characters may have whitespace between them, trailing whitespace OK) renders as `<hr>`. Up to 3 leading spaces is allowed; 4 or more is treated as indented code in CommonMark. Shipped as three `kind: hr` markers: [vocab/markdown/HR-DASH](#vocab/markdown/HR-DASH), [vocab/markdown/HR-STAR](#vocab/markdown/HR-STAR), [vocab/markdown/HR-UNDER](#vocab/markdown/HR-UNDER).
+
+## All three characters
+
+Live:
+
+---
+
+***
+
+___
+
+Source:
+
+```
+---
+
+***
+
+___
+```
+
+## Additional same chars with spaces (after the first 3)
+
+Live: a thematic break with spaces between the EXTRA markers (the first 3 must be consecutive in this design) —
+
+--- - -
+
+Source:
+
+```
+--- - -
+```
+
+## More than three
+
+Live:
+
+------
+
+Source:
+
+```
+------
+```
+
+## Doesn't fire
+
+These don't render as `<hr>`:
+
+- `--` (fewer than 3) — falls through to plain text.
+- `---x` (other characters on the line) — falls through to plain text.
+- `- * -` (mixed marker characters) — falls through to plain text.
+- `- - -` (whitespace BEFORE the first 3) — the literal-3-char `open` design requires the first 3 chars to be consecutive; the spaces-from-start case isn't supported.
+- `    ---` (4+ leading spaces) — CommonMark indented-code position.
+
+## Related
+
+- [Marker Kinds](#Marker Kinds) — `hr` is the 9th kind.
+- [vocab/markdown/HR-DASH](#vocab/markdown/HR-DASH), [vocab/markdown/HR-STAR](#vocab/markdown/HR-STAR), [vocab/markdown/HR-UNDER](#vocab/markdown/HR-UNDER) — the three marker tiddlers.

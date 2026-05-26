@@ -1,0 +1,63 @@
+created: 20260526050000000
+modified: 20260526050000000
+tags:
+title: test-markdown-hr
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+Smoke test for `markdown-hr`. Lines marked HR-EXPECTED should render as `<hr>`. Lines marked NOT-HR should pass through as plain text (and the source character should appear literally).
+
+## Should render as `<hr>`
+
+HR-EXPECTED (3 dashes):
+
+---
+
+HR-EXPECTED (3 asterisks):
+
+***
+
+HR-EXPECTED (3 underscores):
+
+___
+
+HR-EXPECTED (more than 3):
+
+------
+
+HR-EXPECTED (3-space indent):
+
+   ---
+
+HR-EXPECTED (3 consecutive + extras with spaces):
+
+--- - -
+
+## Should NOT render as `<hr>` (falls through)
+
+NOT-HR (only 2 dashes — falls through as plain text, then the next blank line ends the paragraph):
+
+--
+
+NOT-HR (trailing non-marker char):
+
+---x
+
+NOT-HR (mixed marker chars):
+
+- * -
+
+NOT-HR (4-space indent — CommonMark indented-code position):
+
+    ---
+
+NOT-HR (whitespace BEFORE the first 3 — not supported by literal-3-char open design):
+
+- - -
+
+NOT-HR (5 stars with spaces from the start):
+
+* * * * *
+
+NOT-HR (mid-paragraph dashes):
+
+text --- more text on the same line

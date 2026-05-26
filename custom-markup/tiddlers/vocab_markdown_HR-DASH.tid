@@ -1,0 +1,10 @@
+caption: HR (dash)
+classes: .wltc-md-hr
+created: 20260526060000000
+description: CommonMark thematic break with dashes. A line of 3 or more dashes (with optional whitespace between additional repetitions, and up to 3 leading spaces) renders as `<hr>`. The literal 3-char `open` value avoids the same-`open` collision with the list-item ITEM-DASH marker.
+element: hr
+kind: hr
+modified: 20260526060000000
+open: ---
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/HR-DASH

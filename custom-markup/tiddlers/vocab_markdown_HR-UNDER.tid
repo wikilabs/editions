@@ -1,0 +1,10 @@
+caption: HR (underscore)
+classes: .wltc-md-hr
+created: 20260526060000000
+description: CommonMark thematic break with underscores. `___` and longer runs render as `<hr>`.
+element: hr
+kind: hr
+modified: 20260526060000000
+open: ___
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/HR-UNDER
