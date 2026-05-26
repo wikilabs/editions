@@ -1,0 +1,84 @@
+created: 20260526040000000
+modified: 20260526040000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown escape sequences
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+A backslash before an ASCII punctuation character renders the character literally — the backslash is consumed, the punctuation is emitted as text. CommonMark Section 6.1. Lets authors write `*literal asterisks*` without triggering italic, `` ` `` without a code span, `[` without a link, etc.
+
+## Common cases
+
+Live: \*not italic\* and \_not underscore\_ and \`not code\`
+
+Source:
+
+```
+\*not italic\* and \_not underscore\_ and \`not code\`
+```
+
+Each backslash + punctuation pair renders as just the punctuation. The italic / underscore / code-span markers never see their open characters because the backslash escape consumes them first.
+
+## Bracket escapes
+
+Live: \[not a link\] and \!\[not an image\](url)
+
+Source:
+
+```
+\[not a link\] and \!\[not an image\](url)
+```
+
+The brackets and bang stay literal — the LINK and IMAGE markers don't fire.
+
+## Backslash itself
+
+Live: a \\ literal backslash
+
+Source:
+
+```
+a \\ literal backslash
+```
+
+`\\` → `\` (backslash is itself in the escapable set).
+
+## Non-punctuation: backslash stays
+
+Live: \A \word \123 — backslashes stay literal when the next char isn't ASCII punctuation.
+
+Source:
+
+```
+\A \word \123 — backslashes stay literal when the next char isn't ASCII punctuation.
+```
+
+CommonMark spec: `\A`, `\word`, `\1` render as `\A`, `\word`, `\1` (backslash NOT consumed).
+
+## Inside code spans and code blocks
+
+Backslash escapes don't fire inside `body-raw` content. A code span keeps backslashes verbatim:
+
+Live: `\*literal in code\*`
+
+Source:
+
+````
+`\*literal in code\*`
+````
+
+Same inside fenced code blocks — body is captured raw, no inline parsing, so backslashes survive.
+
+## The full escapable set
+
+CommonMark allows the backslash to escape these 30 ASCII punctuation chars:
+
+```
+! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
+```
+
+Any other character following a `\` leaves both chars literal.
+
+## Related
+
+- [Marker Kinds](#Marker Kinds) — escape sequences are a wikirule (not a marker), gated on `vocab/markdown`'s `backslash-escapes: yes` flag.
+- [vocab/markdown](#vocab/markdown) — the vocab meta with the flag.

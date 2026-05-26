@@ -1,0 +1,67 @@
+created: 20260526040000000
+modified: 20260526212113607
+tags: 
+title: test-markdown-backslash-escapes
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+Smoke test for `markdown-backslash-escapes`. Each row's "Live" column should render to match the "Expected" column. If they diverge, the rule is broken or the regex char-class is missing a CommonMark punctuation char.
+
+| Source | Expected | Live |
+|---|---|---|
+| `\*` | `*` | \* |
+| `\_` | `_` | \_ |
+| `` \` `` | `` ` `` | \` |
+| `\[` | `[` | \[ |
+| `\]` | `]` | \] |
+| `\(` | `(` | \( |
+| `\)` | `)` | \) |
+| `\{` | `{` | \{ |
+| `\}` | `}` | \} |
+| `\<` | `<` | \< |
+| `\>` | `>` | \> |
+| `\!` | `!` | \! |
+| `\#` | `#` | \# |
+| `\\` | `\` | \\ |
+| `\~` | `~` | \~ |
+| `\|` | `\|` | \| |
+| `\"` | `"` | \" |
+| `\'` | `'` | \' |
+| `\$` | `$` | \$ |
+| `\%` | `%` | \% |
+| `\&` | `&` | \& |
+| `\+` | `+` | \+ |
+| `\,` | `,` | \, |
+| `\-` | `-` | \- |
+| `\.` | `.` | \. |
+| `\/` | `/` | \/ |
+| `\:` | `:` | \: |
+| `\;` | `;` | \; |
+| `\=` | `=` | \= |
+| `\?` | `?` | \? |
+| `\@` | `@` | \@ |
+| `\^` | `^` | \^ |
+
+## Non-matching: backslash stays
+
+| Source | Expected (literal both chars) | Live |
+|---|---|---|
+| `\A` | `\A` | \A |
+| `\a` | `\a` | \a |
+| `\1` | `\1` | \1 |
+| `\ ` (backslash space) | `\ ` | \ |
+
+## Interaction: marker doesn't fire
+
+| Source | Expected | Live |
+|---|---|---|
+| `\*not italic\*` | `*not italic*` (no `<em>` wrap) | \*not italic\* |
+| `\_not underscore\_` | `_not underscore_` | \_not underscore\_ |
+| `` \`not code\` `` | `` `not code` `` (no `<code>`) | \`not code\` |
+| `\[not a link\](url)` | `[not a link](url)` (no `<a>`) | \[not a link\](url) |
+
+## Inside code span: escapes inert (body-raw)
+
+| Source | Expected | Live |
+|---|---|---|
+| `` `\*literal\*` `` | `` `\*literal\*` `` (backslashes survive) | `\*literal\*` |
+| `` `\\` `` | `` `\\` `` | `\\` |
