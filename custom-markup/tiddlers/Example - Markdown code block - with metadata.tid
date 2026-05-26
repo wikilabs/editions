@@ -1,0 +1,65 @@
+created: 20260526020000000
+modified: 20260526020000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown code block - with metadata
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+The CODE-BLOCK marker has `info-attrs: yes`, so the info string past the first word (language) is parsed as TW macro-parameter attributes. Each parsed `name=value` (or `name:value`) becomes a `data-{name}="value"` attribute on the outer `<pre>` — MkDocs / Hugo / VuePress style. CSS hooks like `attr(data-title)` surface the metadata visibly.
+
+Live:
+
+```python title="src/auth/login.py" highlight="2,5"
+def login(email, password):
+    return api.post('/login', {'email': email, 'password': password})
+```
+
+Source:
+
+````
+```python title="src/auth/login.py" highlight="2,5"
+def login(email, password):
+    return api.post('/login', {'email': email, 'password': password})
+```
+````
+
+Rendered shape: `<pre class="wltc-md-codeblock wltc" data-title="src/auth/login.py" data-highlight="2,5"><code class="language-python">…</code></pre>`. The title surfaces via CSS in [vocab/markdown/styles](#vocab/markdown/styles):
+
+```css
+.wltc-md-codeblock[data-title]::before {
+  content: attr(data-title);
+  display: block;
+  font-size: 0.85em;
+  color: #888;
+  font-style: italic;
+}
+```
+
+## Accepted separators and value syntaxes
+
+The parser is TW's `parseMacroParameterAsAttribute`, so all the canonical attribute syntaxes work — `=` and `:` separators, quoted and unquoted values, indirect / filtered / macro values for advanced cases.
+
+Live:
+
+```js author:Alice version=1.2 tags="auth security"
+const x = 1;
+```
+
+Source:
+
+````
+```js author:Alice version=1.2 tags="auth security"
+const x = 1;
+```
+````
+
+Renders with `data-author="Alice" data-version="1.2" data-tags="auth security"` on the outer `<pre>`.
+
+## Security
+
+The `data-` prefix is hardcoded and non-overridable. Anything a user puts in the info string lands as a data-* attribute regardless of name — `onclick="alert(1)"` becomes the inert `data-onclick="alert(1)"`, not a real event handler. URL-bearing attributes like `href`/`src` get the same treatment: `data-href="javascript:..."` doesn't trigger navigation. Future CSS / JS that consumes the data-* attributes still needs to treat the values as untrusted input.
+
+## Related
+
+- [vocab/markdown/CODE-BLOCK](#vocab/markdown/CODE-BLOCK) — the marker tiddler.
+- [Markdown code blocks](#Markdown code blocks) — back to the index.
+- [Marker Fields](#Marker Fields) — `info-attrs` row.

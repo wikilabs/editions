@@ -1,0 +1,30 @@
+created: 20260526010000000
+modified: 20260526010000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown code block - basic
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+The conventional case: triple-backtick fence, info string is a language identifier, body is source code.
+
+Live:
+
+```js
+const sum = (a, b) => a + b;
+console.log(sum(2, 3));
+```
+
+Source:
+
+````
+```js
+const sum = (a, b) => a + b;
+console.log(sum(2, 3));
+```
+````
+
+The rendered shape is `<pre class="wltc-md-codeblock wltc"><code class="language-js">…</code></pre>` — marker identity on the outer `<pre>` (so the universal `.wltc` margin lands outside the visible block), the language class on the inner `<code>` (where CSS and syntax highlighters like Prism / highlight.js / Shiki look for it).
+
+## Related
+
+- [Markdown code blocks](#Markdown code blocks) — back to the index.
+- [vocab/markdown/CODE-BLOCK](#vocab/markdown/CODE-BLOCK) — the marker tiddler.

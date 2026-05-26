@@ -1,0 +1,55 @@
+created: 20260526010000000
+modified: 20260526010000000
+tags: docs [[Example - Markdown]]
+title: Markdown code blocks
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+Markdown's [vocab/markdown/CODE-BLOCK](#vocab/markdown/CODE-BLOCK) marker uses `kind: fenced` (see [Marker Kinds](#Marker Kinds)). Open is a run of three or more backticks at line start; close is a same-or-longer run on its own line. First word of the info string becomes the `language-X` class on the inner `<code>` (CommonMark / GFM convention). The rest of the info string — when present — is parsed by TW's macro-parameter attribute parser and emitted as `data-*` attributes on the outer `<pre>` (MkDocs / Hugo style metadata: `title="..."`, `highlight="..."`, etc.). See [Example - Markdown code block - with metadata](#Example - Markdown code block - with metadata).
+
+The marker wraps the inner element in a `<pre>` and puts the marker identity classes (`.wltc-md-codeblock wltc`) on the OUTER `<pre>` — so the universal `.wltc` vertical margin lands outside the visible block, not as whitespace inside it.
+
+## Patterns
+
+- [Example - Markdown code block - basic](#Example - Markdown code block - basic). The conventional ` ```lang ` shape with a language identifier.
+- [Example - Markdown code block - bare fence](#Example - Markdown code block - bare fence). No info string — block renders without a language class.
+- [Example - Markdown code block - longer fences](#Example - Markdown code block - longer fences). 4+ backticks so the body can contain shorter backtick runs (useful when the code block itself documents other code blocks).
+- [Example - Markdown code block - multi-paragraph](#Example - Markdown code block - multi-paragraph). Blank lines inside the fenced body don't terminate the block.
+- [Example - Markdown code block - with metadata](#Example - Markdown code block - with metadata). MkDocs / Hugo style — `title="src/foo.py"`, `highlight="2,5"`, etc. after the language identifier; each lands as a `data-*` attribute on the outer `<pre>`.
+
+## How the matching works
+
+At parse time the engine:
+
+1. At line start, looks for a maximal run of three or more fence chars (backtick or tilde) — call its length `N`. The rest of the open line (no further fence chars allowed) is the info string.
+2. Scans forward, line by line, for the FIRST line whose only content is a run of `N` or more fence chars. That's the close.
+3. If no such close exists in the source, the block is implicitly closed at EOF (CommonMark behaviour).
+4. Body is the text between the open line's newline and the close line. Emitted verbatim as a single text node.
+5. The info string's first word gets the `info-prefix` prepended and is emitted on the configured `info-attribute` on the INNER `<code>` (giving the CommonMark `language-X` class). When `info-attrs: yes`, the AFTER-first-word remainder is parsed via TW's macro-parameter attribute parser and each `name=value` (or `name:value`) emits as `data-{name}` on the OUTER `<pre>`. Marker identity classes (`.wltc-md-codeblock wltc`) stay on the OUTER `<pre>` so the universal `.wltc` margin lands outside the block.
+
+## DSL flexibility (illustrative)
+
+`kind: fenced` is generic — any vocab can pick its own fence character, minimum run length, and inner/outer element shape. One pattern the framework supports but doesn't ship:
+
+### Pandoc-style admonitions / callouts
+
+```
+title: vocab/docs/CALLOUT
+kind: fenced
+open: ::::
+element: div
+info-attribute: class
+info-prefix: callout-
+classes: .wltc-callout
+```
+
+Usage `::::warning … ::::` → `<div class="wltc-callout wltc callout-warning">…</div>`. CSS colours by `.callout-warning` / `.callout-info` / `.callout-tip`. No `wrapper-element` since `<div>` is the natural container for block content.
+
+## When NOT to use `fenced`
+
+If the body needs inline parsing — wikitext, other markers, recursive structure — `kind: fenced` is the wrong choice (body is always verbatim text). Use a `word`-kind block marker with `mode: block` + an `end-string` or `paragraph-marker` instead. Reserve `fenced` for verbatim, raw-body content where the open-and-matching-close shape genuinely fits.
+
+## Reference
+
+- [Marker Kinds](#Marker Kinds) — `fenced` is the seventh kind.
+- [Marker Fields](#Marker Fields) — `wrapper-element` / `info-attribute` / `info-prefix` / `info-words` rows in the Output cluster, plus the CODE-BLOCK worked example.
+- [Example - Markdown code span](#Example - Markdown code span) — inline counterpart (`open-variable` on `inline-pair`).

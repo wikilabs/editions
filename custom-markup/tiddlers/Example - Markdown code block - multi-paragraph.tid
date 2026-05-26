@@ -1,0 +1,36 @@
+created: 20260526010000000
+modified: 20260526010000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown code block - multi-paragraph
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+Blank lines inside the fenced body DO NOT terminate the block (fenced blocks ignore the usual paragraph-break terminator — only a matching close fence ends them).
+
+Live:
+
+```
+first paragraph
+
+second paragraph after a blank line
+
+third paragraph
+```
+
+Source:
+
+````
+```
+first paragraph
+
+second paragraph after a blank line
+
+third paragraph
+```
+````
+
+The rendered `<pre>` preserves the blank lines as text content.
+
+## Related
+
+- [Markdown code blocks](#Markdown code blocks) — back to the index.
+- [vocab/markdown/CODE-BLOCK](#vocab/markdown/CODE-BLOCK) — the marker tiddler.

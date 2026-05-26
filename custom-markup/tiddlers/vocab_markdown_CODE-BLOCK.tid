@@ -1,0 +1,15 @@
+caption: Code block
+classes: .wltc-md-codeblock
+created: 20260525210000000
+description: Fenced code block. Open is a run of three or more backticks at line start; close is the same character with run length ≥ the open's, on its own line. Body is captured verbatim. First whitespace-delimited token of the info string becomes the `language-X` class on the inner `<code>` (CommonMark / GFM convention). The rest of the info string (when present) is parsed via TW's macro-parameter attribute parser and emitted as `data-*` attributes on the outer `<pre>` — MkDocs / Hugo / VuePress style: ` ```python title="src/auth.py" highlight=2,5 ` → `<pre data-title="src/auth.py" data-highlight="2,5">`. The `data-` prefix is the security boundary; any user-supplied attribute lands as an inert data attribute regardless of its name. Implicit close at EOF.
+element: code
+info-attribute: class
+info-attrs: yes
+info-prefix: language-
+info-words: 1
+kind: fenced
+modified: 20260526020000000
+open: ```
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/CODE-BLOCK
+wrapper-element: pre

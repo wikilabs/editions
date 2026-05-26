@@ -1,0 +1,28 @@
+created: 20260526010000000
+modified: 20260526010000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown code block - bare fence
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+When the info string is empty, no `language-X` class is added. The block still renders inside `<pre><code>` for monospace + preserved whitespace.
+
+Live:
+
+```
+plain text in a code block
+no language hint
+```
+
+Source:
+
+````
+```
+plain text in a code block
+no language hint
+```
+````
+
+## Related
+
+- [Markdown code blocks](#Markdown code blocks) — back to the index.
+- [vocab/markdown/CODE-BLOCK](#vocab/markdown/CODE-BLOCK) — the marker tiddler.

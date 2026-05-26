@@ -4,7 +4,7 @@ tags: [[Vocabulary Engine]]
 title: Marker Kinds
 type: text/vnd.tiddlywiki
 
-The `kind` field of a marker tiddler picks one of six matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
+The `kind` field of a marker tiddler picks one of seven matching modes. The kind determines what source text fires the marker, where the marker can fire (block-position vs inline), and which additional fields are honoured.
 
 !! glyph
 
@@ -66,6 +66,17 @@ List bullet marker. Consecutive matches collapse into a single container (ul/ol/
 * Typical use: markdown list bullets, definition lists, checkbox lists.
 * Notable fields: `container`, `item-element`, `indent-unit`, `open-pattern`.
 * Worked example: [[vocab/markdown/ITEM-DASH]].
+
+!! fenced
+
+Fenced block marker. A run of `N >= open.length` fence characters at line start opens the block; an optional info-string on the same line gets wired to a configured attribute (CommonMark code blocks use it for the language class). The body is captured verbatim — no inline parsing — until a matching close run (same character, length `>= N`) on its own line. Implicit close at EOF.
+
+* Position: block.
+* Fires on: line-leading run of at least `open.length` repetitions of `open.charAt(0)`, with no further fence chars on the same line.
+* Typical use: code blocks, callout / admonition containers, raw-content wrappers, mermaid / graphviz fences.
+* Notable fields: `wrapper-element` (outer wrapper, e.g. `pre` for `<pre><code>` shape), `info-attribute`, `info-prefix`, `info-words` (default `1` — CommonMark first-word-only).
+* Worked example: [[vocab/markdown/CODE-BLOCK]].
+* Walkthrough: [[Example - Markdown code block]] shows five patterns plus DSL-flexibility configs for callouts and diagram fences.
 
 !! Related
 

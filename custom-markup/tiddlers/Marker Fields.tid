@@ -75,6 +75,11 @@ What HTML comes out when the marker fires.
 |`link-angle-brackets` |no |linked-pair only. `yes` accepts `<...>` wrapping around the captured LINK so titles containing whitespace, `<`, `>`, or other awkward characters can be written. Inside the wrap, `\<` and `\>` unescape to literal angle brackets. Matches the TW markdown plugin's `[text](<#Title with spaces>)` syntax. |
 |`container` |list-item |The wrapping element for consecutive same-level items (`ul`, `ol`, `dl`, `blockquote`). |
 |`item-element` |list-item |Element for each item inside the container (default `li`; use `dt`/`dd` for definition lists). |
+|`wrapper-element` |no |fenced only. Optional outer element wrapping the inner `element` (e.g. `pre` so a code-block marker emits `<pre><code class="language-X">…</code></pre>`). When set, the marker's identity classes (the `.classes` chain plus the universal `wltc`) land on the WRAPPER — so a CSS rule like `.wltc { margin: 1em 0 }` adds breathing room outside the block, not inside it. When unset, only `element` is emitted and it carries the identity classes itself. |
+|`info-attribute` |no |fenced only. Name of the attribute that receives the captured info-string first word (or all of it, when `info-words: all`). Placement depends on the attribute name:<br>• `class` — info value goes on the INNER element alone (CommonMark `<code class="language-X">` convention; syntax highlighters look there).<br>• anything else — info value goes on the OUTER wrapper element alongside the marker identity classes, so a CSS rule like `.wltc-md-codeblock[data-title]::before { content: attr(data-title); }` can match on a single element. (For markers without a `wrapper-element`, "outer" and "inner" are the same single element — placement is unambiguous.) When unset, the first-word info value is dropped — but `info-attrs: yes` can still consume the rest of the info string. |
+|`info-prefix` |no |fenced only. String prepended to the info value before emission. CommonMark code blocks use `language-` so ` ```js ` produces `class="… language-js"`. Has no effect when `info-attribute` is unset. |
+|`info-words` |no |fenced only. Default `1` — only the first whitespace-delimited token of the info string goes into the info-attribute (CommonMark convention). Set `all` to emit the whole info string verbatim. With `info-attrs: yes`, the AFTER-first-word remainder is parsed separately (see the next row). |
+|`info-attrs` |no |fenced only. `yes` parses the info string remainder (after the first word, when `info-attribute` is set) via TW's `parseMacroParameterAsAttribute` — same syntax as `<<macro arg=val arg:val>>` parameters. Each parsed attribute name is prepended with `data-` and emitted as an additional attribute on the same element that carries the non-class info-attribute (outer wrapper if present, else the single element). All canonical TW value syntaxes work: `name="quoted"`, `name=unquoted`, `name:value`, `name={{!!field}}`, `name={{{filter}}}`, `name=<<macro>>`, `name=` ``` `subst` ```. The `data-` prefix is hardcoded and non-overridable — it's the security boundary, so a user-supplied `onclick="alert(1)"` lands as the inert `data-onclick="alert(1)"`. |
 
 ''Worked example:'' [[vocab/fountain/INT]]. A Fountain scene heading.
 
@@ -115,7 +120,7 @@ How the engine consumes content between the opening marker and the next block br
 |`emit-open` |no |`yes` prepends the open literal to the rendered body so the keyword IS the content (Fountain transitions render `CUT TO:` literally, not as an empty `<p>`). |
 |`body-raw` |inline-pair |`yes` captures the body as a single literal text node, no recursive parsing. Required for code-span markers where inside-content must stay literal. |
 |`open-variable` |inline-pair |`yes` turns the marker into a variable-length delimiter run: the `open` field is treated as a SINGLE character that can repeat 1..N times at parse time, and the close must match the SAME N. Both ends are flanked by non-open characters (or string boundaries) so the run is unambiguously maximal. Body is captured verbatim (implies `body-raw`). CommonMark single-leading/trailing-space stripping is applied when the body has both flanks AND non-whitespace content. Canonical use: CommonMark inline code spans (`` ` ``, ``` `` ```, ``` ``` ``` …) — see [[vocab/markdown/CODE]]. |
-|`body-attribute` |no |linked-pair only. When set, the body between `open` and `close` is captured verbatim and emitted as a string attribute of this name on the rendered element (no inline parsing, no children). Used by markdown's IMAGE marker with `body-attribute: tooltip` so `![text](src)` puts `text` into the `tooltip` attribute of `<$image>`. When the user-supplied body is empty, the attribute is skipped so an `attr-X-from` default can take over. Without `body-attribute`, the body parses as an inline run and becomes the rendered element's children (link-text case). |
+|`body-attribute` |no |linked-pair only. When set, the body between `open` and `close` is captured verbatim and emitted as a string attribute of this name on the rendered element (no inline parsing, no children). Used by markdown's IMAGE marker with `body-attribute: alt` so `![alt](src "tooltip")` puts the body into `alt` and the trailing `"…"` into `tooltip` — mirroring CommonMark's `![alt](src "title")` mapping. When the user-supplied body is empty, the attribute is skipped so an `attr-X-from` default can take over. Without `body-attribute`, the body parses as an inline run and becomes the rendered element's children (link-text case). |
 |`indent-unit` |list-item |Spaces of leading indent that count as one nesting level (default `2`). Tabs are expanded to this many spaces before the level is computed. |
 |`src-name` |widget elements |Widget-element markers only (`element` starts with `$`). Name of the attribute that receives the marker body. Defaults to `src`. Common values: `code` for `$macrocall` of a procedure that takes a code body, `filter` for `$list`, `body` for any custom procedure body parameter. |
 
@@ -224,6 +229,27 @@ classes: .wltc-md-image
 * `link-tooltip-attribute: tooltip` peels off the trailing `"..."` parameter and emits it on `tooltip`.
 * `attr-alt-from: alt-text` / `attr-tooltip-from: alt-text` provide ''fallbacks'' from the source tiddler's `alt-text` field for both attributes. User-supplied values win; the source fills in when absent. ''Plus the smart-alt rule:'' a 1–2 word user-alt yields to a 3+ word source `alt-text` (richer is better for screen readers).
 * `link-hash-prefix` / `link-angle-brackets` / `link-tooltip-attribute` are the same TW-md-plugin compat triple as on LINK, so `![alt](#Image.jpg "tooltip")` and `![alt](<#Image with spaces>)` work in parity.
+
+''Worked example:'' [[vocab/markdown/CODE-BLOCK]]. A fenced code block emitting CommonMark's `<pre><code class="language-X">...</code></pre>` shape, with MkDocs / Hugo style attribute metadata.
+
+```
+title: vocab/markdown/CODE-BLOCK
+kind: fenced
+open: ```
+element: code
+wrapper-element: pre
+info-attribute: class
+info-prefix: language-
+info-words: 1
+info-attrs: yes
+classes: .wltc-md-codeblock
+```
+
+* `kind: fenced` picks the block-level fenced matching mode: a line-leading run of `>= open.length` fence chars opens; the same character with run `>= N` on its own line closes.
+* `open: ` ``` `` pins the fence character (backtick) and the minimum run length (3). Authors can use longer runs (4, 5, 6 ...) so the body can contain shorter backtick runs without terminating early.
+* `element: code` + `wrapper-element: pre` together produce the `<pre><code>...</code></pre>` shape conventional for code blocks. The OUTER `<pre>` carries the marker identity classes (`.wltc-md-codeblock wltc`) plus any `data-*` from `info-attrs`; the INNER `<code>` carries only the language class.
+* `info-attribute: class` + `info-prefix: language-` + `info-words: 1` together implement CommonMark's `language-X` class convention: only the first whitespace-delimited token of the info string is used, it gets `language-` prepended, and the result lands on the inner `<code>` as `class="language-X"` — exactly where Prism / highlight.js / Shiki look for it.
+* `info-attrs: yes` parses the AFTER-first-word remainder of the info string via TW's macro-parameter attribute parser and emits each `name=value` (or `name:value`) as `data-{name}` on the outer `<pre>`. ` ```python title="src/auth.py" highlight=2,5 ` becomes `<pre data-title="src/auth.py" data-highlight="2,5">`. The hardcoded `data-` prefix is the security boundary — see the `info-attrs` field row for the threat model.
 
 !! Editor integration and back-compat
 

@@ -1,0 +1,36 @@
+created: 20260526010000000
+modified: 20260526010000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown code block - longer fences
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+The opening run's length pins the minimum close. With a 4-backtick open, the body can contain 3-backtick runs without terminating early — useful when the code block is itself markdown documenting other code blocks.
+
+Live:
+
+````md
+Markdown fenced block syntax:
+
+```js
+const x = 1;
+```
+````
+
+Source (5-tick to enclose):
+
+`````
+````md
+Markdown fenced block syntax:
+
+```js
+const x = 1;
+```
+````
+`````
+
+The 4-tick open looks for a 4-or-more-tick close on its own line; the inner 3-tick runs are body text.
+
+## Related
+
+- [Markdown code blocks](#Markdown code blocks) — back to the index.
+- [vocab/markdown/CODE-BLOCK](#vocab/markdown/CODE-BLOCK) — the marker tiddler.

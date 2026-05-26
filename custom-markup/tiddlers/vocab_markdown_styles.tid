@@ -5,3 +5,12 @@ title: vocab/markdown/styles
 type: text/vnd.tiddlywiki
 
 .wltc-md-bold-italic { font-style: italic; }
+
+.wltc-md-codeblock[data-title]::before {
+	content: attr(data-title);
+	display: block;
+	font-size: 0.85em;
+	color: #888;
+	font-style: italic;
+	margin-bottom: 0.25em;
+}
