@@ -5,6 +5,7 @@ disable-core-rules: strikethrough codeinline codeblock list underscore table hea
 filter: [[vocab/markdown]] [all[shadows+tiddlers]tag[vocab/markdown]] [[$:/language/Docs/Types/text/vnd.tiddlywiki;vocab=Markdown]]
 backslash-escapes: yes
 preserve-newlines: yes
+reference-links: yes
 tables: yes
 modified: 20260525180000000
 tags: $:/tags/CustomMarkup/Vocabulary $:/tags/Filter

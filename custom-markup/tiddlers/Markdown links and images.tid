@@ -11,6 +11,7 @@ Markdown ships two `linked-pair` markers (see [Marker Kinds](#Marker Kinds)): [v
 - [Example - Markdown link - internal tiddler](#Example - Markdown link - internal tiddler). `[text](#TiddlerTitle)` and all four TW-md-plugin variants — URL-encoded, angle-bracket, tooltip, empty body.
 - [Example - Markdown link - external URL](#Example - Markdown link - external URL). `[text](https://...)` → opens in a new tab. With or without `"tooltip"`.
 - [Example - Markdown link - inline formatting](#Example - Markdown link - inline formatting). Emphasis inside link text.
+- [Example - Markdown link - reference style](#Example - Markdown link - reference style). `[text][label]` + `[label]: target` — define a URL once, reference it many times. Definitions must appear before usages (single-pass).
 
 ## Image patterns
 
@@ -24,7 +25,7 @@ Markdown ships two `linked-pair` markers (see [Marker Kinds](#Marker Kinds)): [v
 - URL/target must not contain a literal `)` — the first `)` ends the capture. Pre-encode with TW's [String Operators](https://tiddlywiki.com/#String%20Operators) (`encodeuri[]` / `encodeuricomponent[]`). CommonMark's balanced-paren extension isn't supported.
 - No `\[` / `\(` escape sequences — planned as part of the escape-sequences feature.
 - Link text containing a literal `]` is cut off at that `]`.
-- Reference-style links (`[x][ref]` + `[ref]: target`) aren't implemented yet — needs a new block rule for the ref-definitions and per-parser ref store.
+- Reference-style links work, but DEFS must appear before USAGES in the source (single-pass; CommonMark's two-pass parse where defs can appear anywhere is deferred).
 
 ## Reference
 

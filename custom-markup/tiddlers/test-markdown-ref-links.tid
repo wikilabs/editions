@@ -1,0 +1,48 @@
+created: 20260527010000000
+modified: 20260527010000000
+tags:
+title: test-markdown-ref-links
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+Smoke test for reference-style links and ref-defs.
+
+[doc]: <Marker Fields>
+[ext]: https://example.com "External title"
+[Case Test]: <Marker Kinds>
+
+## Basic resolution
+
+| Source | Expected | Live |
+|---|---|---|
+| `[click here][doc]` | link to Marker Fields | [click here][doc] |
+| `[external][ext]` | link to example.com with tooltip "External title" | [external][ext] |
+
+## Case insensitive + whitespace normalized
+
+| Source | Expected | Live |
+|---|---|---|
+| `[X][CASE TEST]` | link to Marker Kinds | [X][CASE TEST] |
+| `[X][case test]` | link to Marker Kinds | [X][case test] |
+| `[X][  case   test  ]` | link to Marker Kinds | [X][  case   test  ] |
+
+## Unresolved → literal
+
+| Source | Expected | Live |
+|---|---|---|
+| `[foo][nosuch]` | literal characters `[foo][nosuch]` | [foo][nosuch] |
+
+## Coexistence with inline links
+
+| Source | Expected | Live |
+|---|---|---|
+| `[inline](#Marker Fields) and [ref][doc]` | both links resolve | [inline](#Marker Fields) and [ref][doc] |
+
+## Ref-def appears AFTER usage (single-pass limitation)
+
+| Source | Expected | Live |
+|---|---|---|
+| `[before-def][late]` then later `[late]: target` | literal — def comes too late | [before-def][late] |
+
+[late]: <Some Tiddler>
+
+The `[late]: <Some Tiddler>` def above appears AFTER its usage in source. The usage above already rendered as literal text. This is the documented single-pass limitation.

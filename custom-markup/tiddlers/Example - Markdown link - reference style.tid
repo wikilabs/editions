@@ -1,0 +1,77 @@
+created: 20260527010000000
+modified: 20260527010000000
+tags: docs [[Example - Markdown]]
+title: Example - Markdown link - reference style
+type: text/vnd.tiddlywiki;vocab=Markdown
+
+CommonMark reference-style links separate the link TEXT from the link TARGET. A `[text][label]` usage refers to a `[label]: target "optional title"` definition. Lets you define a URL once at the top and reference it many times — clearer prose, easier maintenance.
+
+''Single-pass limitation:'' definitions must appear BEFORE their usages in the source. Unresolved labels render as literal `[text][label]` characters. (CommonMark's full two-pass parse — where defs can appear anywhere — is deferred to a future revision.)
+
+## Basic usage
+
+[docs]: <Marker Fields>
+[home]: https://tiddlywiki.com "TiddlyWiki home"
+
+Live: see the [Marker Fields tiddler][docs] for full marker config, or visit [TiddlyWiki's homepage][home].
+
+Source:
+
+```
+[docs]: <Marker Fields>
+[home]: https://tiddlywiki.com "TiddlyWiki home"
+
+see the [Marker Fields tiddler][docs] for full marker config, or visit [TiddlyWiki's homepage][home].
+```
+
+The definitions sit on their own lines (invisible in the rendered output). Each `[...][label]` usage looks the label up in the per-parser ref store and substitutes the def's target. The `home` def's `"TiddlyWiki home"` title becomes the link's `tooltip` attribute.
+
+## Same label, different text
+
+[mfields]: <Marker Fields>
+
+Live: read [the field reference][mfields], or [the same place again][mfields], or [yet another link to it][mfields].
+
+Source:
+
+```
+[mfields]: <Marker Fields>
+
+read [the field reference][mfields], or [the same place again][mfields], or [yet another link to it][mfields].
+```
+
+One def, many references — the maintenance pattern reference-style links are designed for.
+
+## Labels are case-insensitive and whitespace-normalized
+
+[Click Me]: <Marker Kinds>
+
+Live: [the kinds doc][CLICK ME] / [same place][click   me] / [also same][  Click   Me  ]
+
+Source:
+
+```
+[Click Me]: <Marker Kinds>
+
+[the kinds doc][CLICK ME] / [same place][click   me] / [also same][  Click   Me  ]
+```
+
+All three label-references resolve to the same def (CommonMark normalization: lowercase, whitespace collapsed, trimmed).
+
+## Unresolved label falls through
+
+Live: [this label doesn't exist][nonexistent-label] — renders as literal characters.
+
+Source:
+
+```
+[this label doesn't exist][nonexistent-label]
+```
+
+No def, no link — the raw `[...][...]` text shows through.
+
+## Related
+
+- [vocab/markdown/LINK-REF](#vocab/markdown/LINK-REF) — the marker tiddler.
+- [Markdown links and images](#Markdown links and images) — the index linking to all link/image examples.
+- [Marker Fields](#Marker Fields) — `link-resolve: ref` row.

@@ -1,0 +1,19 @@
+auto-external: yes
+caption: Link (reference style)
+classes: .wltc-md-link
+close: ]
+created: 20260527010000000
+description: CommonMark reference-style link `[text][label]` — the link text is the body, the second bracket pair holds the LABEL that resolves to a `[label]: target` definition via the per-parser ref store (populated by the `markdown-ref-def` block rule). Targets get the same TW-md-plugin treatment as inline LINK: `#` prefix forces internal-tiddler routing, `<...>` wraps allow spaces in tiddler titles, the def's `"title"` becomes the rendered `tooltip`. Definitions must appear BEFORE their usage in the source — this is single-pass (no pre-scan); unresolved labels render as literal `[text][label]`.
+element: $link
+kind: linked-pair
+link-angle-brackets: yes
+link-attribute: to
+link-close: ]
+link-hash-prefix: required
+link-open: [
+link-resolve: ref
+link-tooltip-attribute: tooltip
+modified: 20260527010000000
+open: [
+tags: $:/tags/CustomMarkup/Marker vocab/markdown
+title: vocab/markdown/LINK-REF
