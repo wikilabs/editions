@@ -576,4 +576,5 @@ cd /home/mario/git/tiddly/wikilabs/editions && git status --short
 
 ## Session Closed
 **Closed at:** 2026-05-27
-**Status:** Handed off; awaiting next session
+**Commit:** b9615f7 (editions repo — handoff record)
+**Session status:** Handed off to next session
