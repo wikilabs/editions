@@ -1,0 +1,84 @@
+created: 20260609213322918
+modified: 20260609225815513
+tags: Server
+title: search-lines Operator (Examples)
+type: text/vnd.tiddlywiki
+
+\procedure sle-template() [all[tiddlers]$(sys)$search-lines:$(fields)$:$(flags)$[$(pattern)$]$(ctx)$limit[$(limit)$]]
+
+\procedure sle-asym() ,[$(bVal)$],[$(aVal)$]
+
+\procedure sle-sym() ,[$(nVal)$]
+
+\procedure list()
+\whitespace trim
+<$list filter="[subfilter<assembledFilter>]" variable=resultLine counter=cnt emptyMessage="(no matches)">
+<$let
+	prevIdx={{{ [<cnt>subtract[1]] }}}
+	prevLine={{{ [subfilter<assembledFilter>nth<prevIdx>] }}}
+	curTitle={{{ [<resultLine>split[:]nth[1]] }}}
+	prevTitle={{{ [<prevLine>split[:]nth[1]] }}}
+	curField={{{ [<resultLine>split[:]nth[2]] }}}
+	prevField={{{ [<prevLine>split[:]nth[2]] }}}
+	curLN={{{ [<resultLine>split[:]nth[3]substr[1]] }}}
+	prevLN={{{ [<prevLine>split[:]nth[3]substr[1]] }}}
+	titleDiff={{{ [<curTitle>!match<prevTitle>then[yes]] ~[[no]] }}}
+	fieldDiff={{{ [<curField>!match<prevField>then[yes]] ~[[no]] }}}
+	lineGap={{{ [<curLN>subtract<prevLN>!match[1]then[yes]] ~[[no]] }}}
+	anyDiff={{{ [<titleDiff>match[yes]] [<fieldDiff>match[yes]] [<lineGap>match[yes]] +[count[]] +[!match[0]then[yes]] ~[[no]] }}}
+	isNewBlock={{{ [<cnt-first>match[no]] [<anyDiff>match[yes]] +[count[]] +[match[2]then[yes]] ~[[no]] }}}
+	itemStyle={{{ [<isNewBlock>match[yes]then[font-family:monospace;white-space:pre-wrap;word-break:break-word;margin:0.6em 0 0 0]] ~[[font-family:monospace;white-space:pre-wrap;word-break:break-word;margin:0]] }}}
+>
+  <div style=<<itemStyle>>><$text text=<<resultLine>>/></div>
+</$let>
+</$list>
+\end
+
+!! Interactive `search-lines` Playground
+
+Every part of the assembled filter is exposed below. Tweak the inputs and watch the filter and results update live.
+
+|!Control |!Description |
+|<$edit-text tiddler="$:/state/sle/pattern" default="MCP" tag="input"/> |Pattern |
+|<$edit-text tiddler="$:/state/sle/fields" default="text" tag="input"/> |Fields (comma-separated; empty defaults to `text`) |
+|<$edit-text tiddler="$:/state/sle/limit" default="50" tag="input" type="number"/> |`limit[N]` cap |
+|<$checkbox tiddler="$:/state/sle/sys" field="text" checked="yes" unchecked="no" default="yes"/> `!is[system]` |Exclude system tiddlers from the source |
+|<$checkbox tiddler="$:/state/sle/casesensitive" field="text" checked="yes" unchecked="no" default="no"/> `casesensitive` |Case-sensitive match |
+|<$checkbox tiddler="$:/state/sle/regexp" field="text" checked="yes" unchecked="no" default="no"/> `regexp` |Treat pattern as JS regex |
+|<$checkbox tiddler="$:/state/sle/words" field="text" checked="yes" unchecked="no" default="no"/> `words` |Wrap pattern with `\b` word boundaries |
+|<$checkbox tiddler="$:/state/sle/invert" field="text" checked="yes" unchecked="no" default="no"/> `invert` |Return lines that do NOT match |
+|<$checkbox tiddler="$:/state/sle/contextN" field="text" checked="yes" unchecked="no" default="no"/> Symmetric, N = <$edit-text tiddler="$:/state/sle/contextNval" default="2" tag="input" type="number"/> |Symmetric context `,[N]` |
+|<$checkbox tiddler="$:/state/sle/contextAsym" field="text" checked="yes" unchecked="no" default="no"/> Asymmetric, B = <$edit-text tiddler="$:/state/sle/contextBval" default="1" tag="input" type="number"/> A = <$edit-text tiddler="$:/state/sle/contextAval" default="3" tag="input" type="number"/> |Asymmetric context `,[B],[A]` (asym wins if both checked) |
+
+<$let
+	pattern={{{ [[$:/state/sle/pattern]get[text]!is[blank]] ~[[MCP]] }}}
+	fields={{{ [[$:/state/sle/fields]get[text]!is[blank]] ~[[text]] }}}
+	limit={{{ [[$:/state/sle/limit]get[text]!is[blank]] ~[[50]] }}}
+	sysEnabled={{{ [[$:/state/sle/sys]get[text]!is[blank]] ~[[yes]] }}}
+	sysClause="!is[system]"
+	cs={{$:/state/sle/casesensitive}}
+	re={{$:/state/sle/regexp}}
+	wo={{$:/state/sle/words}}
+	inv={{$:/state/sle/invert}}
+	nEnabled={{$:/state/sle/contextN}}
+	nVal={{{ [[$:/state/sle/contextNval]get[text]!is[blank]] ~[[2]] }}}
+	asymEnabled={{$:/state/sle/contextAsym}}
+	bVal={{{ [[$:/state/sle/contextBval]get[text]!is[blank]] ~[[1]] }}}
+	aVal={{{ [[$:/state/sle/contextAval]get[text]!is[blank]] ~[[3]] }}}
+	sys={{{ [<sysEnabled>match[yes]then<sysClause>] ~[[]] }}}
+	flags={{{ [<cs>match[yes]then[casesensitive]] [<re>match[yes]then[regexp]] [<wo>match[yes]then[words]] [<inv>match[yes]then[invert]] +[join[,]] ~[[]] }}}
+	asymCtx={{{ [<sle-asym>substitute[]] ~[[]] }}}
+	symCtx={{{ [<sle-sym>substitute[]] ~[[]] }}}
+	ctx={{{ [<asymEnabled>match[yes]then<asymCtx>] ~[<nEnabled>match[yes]then<symCtx>] ~[[]] }}}
+	assembledFilter={{{ [<sle-template>substitute[]] }}}
+>
+
+!!! Assembled filter
+
+<code><$text text=<<assembledFilter>>/></code>
+
+!!! Results
+
+<<list>>
+
+</$let>

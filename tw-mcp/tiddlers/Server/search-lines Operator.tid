@@ -1,0 +1,142 @@
+created: 20260609210836953
+modified: 20260609211413542
+tags: Server
+title: search-lines Operator
+type: text/vnd.tiddlywiki
+
+!! `search-lines` Filter Operator
+
+Per-line search across tiddler fields, usable from any TW filter expression. Same engine as the [[search_lines]] MCP tool.
+
+!! Syntax
+
+```
+[search-lines:fields:flags[pattern]]
+[search-lines:fields:flags[pattern],[N]]
+[search-lines:fields:flags[pattern],[B],[A]]
+```
+
+The suffix `:fields:flags` is two colon-separated lists. Both halves are optional.
+
+* `fields` is a comma-separated list of field names. Empty defaults to `text`.
+* `flags` is a comma-separated list from: `casesensitive`, `regexp`, `words`, `invert`.
+
+Multi-operand context follows the core `range` convention: 1 operand = no context; 2 = N lines before AND after; 3 = B before, A after.
+
+!! Parameters
+
+|!Position |!Value |!Required |!Description |
+|operand 0 |pattern |yes |String to find, or JS regex when the `regexp` flag is set |
+|operand 1 (2-operand form) |N |no |Context lines BEFORE AND AFTER each match (symmetric) |
+|operand 1 (3-operand form) |B |no |Context lines before each match |
+|operand 2 (3-operand form) |A |no |Context lines after each match |
+|suffix 0 |fields |no |Comma-separated field names. Empty defaults to `text`. Multi-field array values (`tags`, `list`) are serialised via `$tw.utils.stringifyList` before matching, so the on-disk .tid form is what gets scanned. Non-string field values are skipped silently. |
+|suffix 1 |flags |no |Comma-separated flag names. See ''Flags'' below. |
+
+!! Flags
+
+|!Flag |!Default |!Description |
+|`casesensitive` |off |Case-sensitive match. Default is case-insensitive. |
+|`regexp` |off |Treat the pattern as a JavaScript regex. Multi-line and global flags are managed by the operator; only the pattern body is your input. |
+|`words` |off |Wrap the pattern with `\b` word boundaries before matching. Combines with `regexp`. |
+|`invert` |off |Return lines that do NOT match instead of those that do. |
+
+!! Examples
+
+Test these by pasting into ~AdvancedSearch's Filter tab or wrapping in a filtered transclusion like `{{{ [search-lines[MCP]] +[limit[5]] }}}` inside any tiddler.
+
+''Simple literal match (default field `text`, case-insensitive):''
+
+```
+[search-lines[MCP]]
+```
+
+Returns every line containing "MCP" in any tiddler's text field. Sample output:
+
+```
+Basics:text:L1: !! TiddlyWiki MCP Server
+Basics:text:L3: The MCP (Model Context Protocol) server lets...
+```
+
+''Whole-word boundaries:''
+
+```
+[search-lines::words[MCP]]
+```
+Matches `MCP` standalone; skips `MCPv2`, `tw-mcp`, `MCPClient`.
+
+''Case-sensitive:''
+
+```
+[search-lines::casesensitive[MCP]]
+```
+Only uppercase `MCP` matches; lowercase `mcp` and mixed `Mcp` are skipped.
+
+''Multi-field search:''
+
+```
+[search-lines:text,caption[MCP]]
+```
+Looks at both `text` and `caption`. A tiddler whose caption mentions MCP appears with `field=caption` in the result line.
+
+''Regex pattern (avoid `]` in pattern — see bracket-clash gotcha):''
+
+```
+[search-lines::regexp[search.lines]]
+```
+The `.` matches any character, so this finds `search_lines`, `search-lines`, and `search lines` in one pass.
+
+''Inverted (lines that do NOT match):''
+
+```
+[tag[Server]search-lines::invert[MCP]]
+```
+Limits the source to `Server`-tagged tiddlers first, then emits each line that does NOT contain MCP.
+
+''Symmetric context (2 lines each side):''
+
+```
+[search-lines[transclude]],[2]
+```
+Each match line carries an `L` marker; surrounding context lines carry `c`.
+
+''Asymmetric context (1 before, 3 after):''
+
+```
+[search-lines:text[transclude]],[1],[3]
+```
+
+''Source-filter composition:''
+
+```
+[tag[Server]search-lines[token]]
+```
+Restricts the search to tiddlers tagged Server before applying the per-line scan. Cheaper than scanning the whole wiki when the filter pre-narrows the working set.
+
+!! Output format
+
+Each result is a string of the form:
+
+```
+<title>:<field>:L<line>: <line text>     (match)
+<title>:<field>:c<line>: <line text>     (context)
+```
+
+When context windows from adjacent matches overlap or sit within one line of each other, they merge so each line is emitted at most once.
+
+''Multi-field array values'' (e.g. `tags`, `list`) are serialised via `$tw.utils.stringifyList` before matching, so the on-disk .tid form is what gets scanned (multi-word entries wrap in `[[...]]`). Other non-string field values are skipped silently.
+
+!! Bracket-clash gotcha
+
+In TW filter syntax, the closing `]` terminates the operand. A pattern containing `]` (e.g. `[A-Z]`) cannot be passed directly to `[search-lines:regexp[...]]` — the parser stops at the first `]`.
+
+Workarounds:
+
+* Escape the bracket as `\]` in the filter source.
+* Rewrite the pattern without `]`.
+* Use the [[search_lines]] MCP tool instead — it calls the operator function directly and is unaffected by the syntax limitation.
+
+!! See also
+
+* [[search_lines]] — the MCP tool wrapper for the same engine
+* [[Bulk Tools]] — `replace_in_tiddlers` builds on the same matching logic

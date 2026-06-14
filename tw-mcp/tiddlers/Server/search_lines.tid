@@ -1,0 +1,76 @@
+created: 20260609210820067
+modified: 20260609211306785
+tags: Server
+title: search_lines
+
+!! `search_lines` MCP Tool
+
+Per-line search across tiddler fields. Returns one entry per matching line, with optional context lines around each match. The underlying engine is shared with the [[search-lines Operator]]; this page documents the MCP tool wrapper.
+
+!! Parameters
+
+|!Parameter |!Default |!Description |
+|`pattern` |required |string to find (or regex when `regexp=true`) |
+|`fields` |`["text"]` |array of field names to scan |
+|`case_sensitive` |`false` |case-sensitive match |
+|`regexp` |`false` |treat `pattern` as a JS regex |
+|`words` |`false` |wrap pattern with `\b` word boundaries |
+|`invert` |`false` |return lines that do NOT match |
+|`context` |`0` |context lines around each match (symmetric) |
+|`context_before` |inherits `context` |lines before each match |
+|`context_after` |inherits `context` |lines after each match |
+|`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search |
+|`include_system` |`false` |convenience flag for $:/ tiddlers; ignored if `filter` is set |
+
+!! Output format
+
+One line per emitted match or context line:
+
+```
+<title>:<field>:L<line>: <line text>
+<title>:<field>:c<line>: <line text>
+```
+
+`L` marks a match line, `c` marks a context line.
+
+When context windows from adjacent matches overlap or sit within one line of each other, they merge so each line is emitted at most once.
+
+''Multi-field array values'' (e.g. `tags`, `list`) are serialised via `$tw.utils.stringifyList` before matching, so the on-disk .tid form is what gets scanned (multi-word entries wrap in `[[...]]`). Other non-string field values are skipped silently.
+
+!! Bracket-clash advantage
+
+The MCP tool invokes the operator function directly, sidestepping the TW filter-syntax limitation where `]` inside an operand terminates parsing. So `search_lines` (and `replace_in_tiddlers`) handle `]`-bearing regexes that the filter-expression form cannot. See [[search-lines Operator]] for the wikitext-side workaround.
+
+!! Example prompts
+
+These are what you type to an AI client; the AI dispatches the appropriate `search_lines` call.
+
+* "Find every line mentioning 'MCP' in any tiddler"
+* "Find tiddlers tagged Server that mention 'transclude', with 2 lines of context"
+* "Search captions for the regex `\[\[[^|]+\|.*\]\]`" — uses `regexp=true`, `fields=["caption"]`. The `]` in the pattern is fine here; the bracket-clash only affects the wikitext filter form.
+* "List lines in Best Practices that do NOT start with a `!!` heading" — uses `invert=true`, `filter="[title[Best Practices]]"`
+
+!! Direct invocations
+
+Each row mirrors a row in the parameters table. Test against the running wiki with any MCP client (e.g. an inline tool call from Claude Code).
+
+```
+search_lines(pattern="MCP")
+search_lines(pattern="MCP", fields=["text", "caption"])
+search_lines(pattern="MCP", words=true)
+search_lines(pattern="MCP", case_sensitive=true)
+search_lines(pattern="search.lines", regexp=true)
+search_lines(pattern="MCP", invert=true, filter="[tag[Server]]")
+search_lines(pattern="transclude", context=2)
+search_lines(pattern="transclude", context_before=1, context_after=3)
+search_lines(pattern="token", filter="[tag[Server]]")
+search_lines(pattern="[A-Z]+_tiddler", regexp=true)
+```
+
+The last row demonstrates the MCP advantage: a `]`-bearing regex pattern works here but not in `[search-lines:regexp[...]]` (see [[search-lines Operator]] for the wikitext-side workaround).
+
+!! See also
+
+* [[search-lines Operator]] — the same engine, usable from any TW filter expression
+* [[Bulk Tools]] — `replace_in_tiddlers` uses the same engine for bulk find-and-replace
+* [[Instructions]] — the abridged Instructions.tid entry

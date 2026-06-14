@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260510165459180
+modified: 20260609210949007
 tags: TOC
 title: Basics
 
@@ -92,8 +92,10 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 
 |!Tool |!Keywords |!Description |
 |`get_tiddler` |show, read, get |Get a tiddler's metadata by title (set `detailed=true` for full text with hashline anchors, `format='tid'` for plain text) |
-|`list_tiddlers` |list, browse, tagged with |List tiddler titles, optionally filtered by tag or browse plugin contents |
+|`get_tiddlers` |batch read, multiple titles |Fetch many tiddlers' fields and text in one call (see [[Bulk Tools]]) |
+|`list_tiddlers` |list, browse, tagged with |List tiddler titles as a namespace tree summary. Set `flat:true` for raw newline-separated titles. Optionally filter by tag or browse plugin contents |
 |`run_filter` |find, search, how many |Run a TiddlyWiki filter expression |
+|`search_lines` |find, grep, search lines, regex |Per-line search across tiddler fields (string or regex), with optional context lines (see [[search_lines]] and [[search-lines Operator]]) |
 |`render_tiddler` |render, display, preview |Render a tiddler to plain text or HTML (with full macro support) |
 |`render_text` |render wikitext, test, try |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
 |`render_field` |render field, preview field |Render a single tiddler field or data index as wikitext |
@@ -109,7 +111,9 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 |!Tool |!Keywords |!Description |
 |`put_tiddler` |create, new tiddler, write |Create or update a tiddler |
 |`edit_tiddler` |edit, change, update, fix |Edit specific lines using hashline references — token-efficient, with automatic conflict detection |
+|`replace_in_tiddlers` |find and replace, bulk replace, rename references |Bulk find+replace across many tiddlers with dry-run preview (see [[Bulk Tools]]) |
 |`delete_tiddler` |delete, remove |Delete a tiddler and its file |
+|`rename_tiddler` |rename, move title |Rename a tiddler and its `.tid` file (cross-references not auto-updated) |
 |`resave_tiddler` |resave, relocate, reapply paths |Rewrite a tiddler's `.tid` file using the current `$:/config/FileSystemPaths`; preserves `modified`/`modifier` by default |
 |`reload_mcp_modules` |hot reload, reload plugin code, pick up edits |Re-read the tw-mcp plugin from disk and re-execute its JS modules without restarting the server (dev iteration tool) |
 |`upload_file` |upload, attach, add image |Upload a base64-encoded binary file and create a canonical tiddler |

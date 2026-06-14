@@ -1,5 +1,5 @@
 created: 20260404170157073
-modified: 20260509040408234
+modified: 20260609210542825
 tags: Server
 title: Best Practices
 
@@ -27,8 +27,10 @@ The AI selects tools based on your wording. These keywords help it choose correc
 
 |! Tool |! Keywords |
 |`get_tiddler` |show, read, get, what's in, contents of, fields of |
+|`get_tiddlers` |batch read, fetch many, multiple titles, several tiddlers |
 |`list_tiddlers` |list, browse, what tiddlers, show all, tagged with |
 |`run_filter` |find, search, filter, how many, which, count, match |
+|`search_lines` |grep, find lines, search for text in, regex search, lines matching |
 |`render_tiddler` |render, display, what does ... look like, preview |
 |`render_text` |render this wikitext, test snippet, evaluate, try this |
 |`render_field` |render field, preview field, show body, render index |
@@ -44,7 +46,9 @@ The AI selects tools based on your wording. These keywords help it choose correc
 |! Tool |! Keywords |
 |`put_tiddler` |create, new tiddler, write, full rewrite |
 |`edit_tiddler` |edit, change, update, fix, replace, modify, add line, insert |
+|`replace_in_tiddlers` |find and replace, bulk replace, rename references, regex rewrite |
 |`delete_tiddler` |delete, remove |
+|`rename_tiddler` |rename, move title, change title |
 |`resave_tiddler` |resave, relocate, reapply paths, move to new path |
 |`reload_mcp_modules` |hot reload, reload plugin, pick up code changes, re-read plugin from disk |
 |`upload_file` |upload, attach, add image, add PDF |

@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260509040411567
+modified: 20260609210934472
 tags: Server
 title: Instructions
 
@@ -39,7 +39,7 @@ The server starts in ''readonly mode by default''. To enable write operations, a
 tiddlywiki ./mywiki --mcp rw
 ```
 
-In readonly mode (the default), only read tools (`get_tiddler`, `list_tiddlers`, `run_filter`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available. `resave_tiddler` and `reload_mcp_modules` are write tools and require `rw`.
+In readonly mode (the default), only read tools (`get_tiddler`, `get_tiddlers`, `list_tiddlers`, `run_filter`, `search_lines`, `render_tiddler`, `render_field`, `render_text`, `inspect_tree`, `inspect_pos`, `inspect_scope`, `inspect_tw`, `get_wiki_info`, `reload_tiddlers`) are available. `resave_tiddler` and `reload_mcp_modules` are write tools and require `rw`.
 
 !!! Label
 
@@ -105,6 +105,27 @@ Retrieves a single tiddler by title. By default returns ''metadata only'' (all f
 * "Show me the tiddler called GettingStarted"
 * "Show me the full contents of MyTiddler" — triggers `detailed=true`
 
+!!! `get_tiddlers`
+
+Batch-read multiple tiddlers in one call. Saves round-trips when you already have a list of titles (e.g. from `run_filter` or `list_tiddlers`).
+
+|!Parameter |!Required |!Description |
+|`titles` |yes |Array of tiddler titles; input order preserved |
+|`detailed` |no |Include the `text` field (default: `true`) |
+|`verbose` |no |Include bookkeeping fields (`created`/`modified`/`creator`/`modifier`/`revision`) (default: `false`) |
+|`format` |no |`hashline` (default), `tid`, or `json` |
+|`max_tiddlers` |no |Hard cap on tiddler count (default: 50) |
+|`max_bytes` |no |Hard cap on total output size (default: 50000); first-to-hit wins |
+
+Output is a CompoundTiddlers stream: one `.tid` block per tiddler, separated by `\n+\n`. Missing titles are listed in a `Missing: ...` trailer.
+
+For the full output format and JSON variant, see [[Bulk Tools]].
+
+''Example prompts:''
+
+* "Read TiddlerA, TiddlerB, and TiddlerC in one call"
+* "Fetch the bodies of every tiddler tagged Server"
+
 !!! `list_tiddlers`
 
 Lists tiddler titles. By default returns up to 100 ''non-system'' tiddlers.
@@ -115,6 +136,7 @@ Lists tiddler titles. By default returns up to 100 ''non-system'' tiddlers.
 |`includeSystem` |no |Set to `true` to include `$:/` system tiddlers |
 |`plugin` |no |List tiddlers inside a plugin (e.g. `$:/plugins/tiddlywiki/internals` or `$:/core`) |
 |`overwrittenShadows` |no |List shadow tiddlers that have been overwritten by real tiddlers |
+|`flat` |no |Set to `true` to return raw newline-separated titles instead of the namespace tree summary |
 
 When listing large sets (plugins with thousands of tiddlers), results are grouped into a ''namespace summary'' — showing top-level namespaces with counts in parentheses (e.g. `config/ (252)`). You can then drill into specific namespaces using `run_filter` with a prefix.
 
@@ -151,6 +173,32 @@ When results exceed 100, the output switches to a ''namespace summary'' — grou
 * "Show tiddlers tagged 'Project' sorted by title" — uses `[tag[Project]sort[title]]`
 * "Show me config tiddlers including shadows" — uses `[all[shadows+tiddlers]prefix[$:/config/]]`
 * "Show me all core UI tiddlers" — uses `[all[shadows+tiddlers]prefix[$:/core/ui/]]`
+
+!!! `search_lines`
+
+Per-line search across tiddler fields. Same engine as the `[search-lines:fields:flags[pattern]]` filter operator. Returns one entry per emitted line.
+
+|!Parameter |!Required |!Description |
+|`pattern` |yes |String to find, or JS regex when `regexp=true` |
+|`fields` |no |Array of field names to scan (default: `["text"]`) |
+|`case_sensitive` |no |Case-sensitive match (default: `false`) |
+|`regexp` |no |Treat `pattern` as a JS regex |
+|`words` |no |Wrap pattern with `\b` word boundaries |
+|`invert` |no |Return lines that do NOT match |
+|`context` |no |Symmetric context lines around each match (default: 0) |
+|`context_before`, `context_after` |no |Asymmetric context (override `context`) |
+|`filter` |no |TW filter expression to scope the search (default: `[all[tiddlers]!is[system]]`) |
+|`include_system` |no |Convenience flag for `$:/` tiddlers; ignored if `filter` is set |
+
+Output format: `<title>:<field>:L<line>: <text>` for matches, `<title>:<field>:c<line>: <text>` for context lines.
+
+''Example prompts:''
+
+* "Find every line mentioning 'token' in any tiddler"
+* "Find tiddlers tagged Server that mention 'pipe', with 2 lines of context"
+* "Search captions for the regex `\[\[[^|]+\|.*\]\]`" — uses `regexp=true`, `fields=["caption"]`
+
+For the filter-operator form, suffix syntax, and the bracket-clash gotcha, see [[search-lines Operator]].
 
 !!! `render_tiddler`
 
@@ -413,6 +461,28 @@ Edits specific lines of a tiddler using hashline references. Much cheaper than `
 * "Change line 3 of MyTiddler to say something else"
 * "Add a new section after the introduction"
 
+!!! `replace_in_tiddlers`
+
+Bulk find+replace across many tiddlers, with dry-run preview by default. Use for cross-reference renames, tag cleanups, or regex-driven rewrites.
+
+|!Parameter |!Required |!Description |
+|`rules` |yes |Array of `{pattern, replacement, regexp?, case_sensitive?, words?}` objects |
+|`filter` |no |TW filter scope (default: `[all[tiddlers]!is[system]]`) |
+|`include_system` |no |Convenience for `$:/` tiddlers; ignored if `filter` is set |
+|`fields` |no |Field names to scan (default: `['text','caption','list','tags']`) |
+|`dry_run` |no |Preview only; nothing written (default: `true`). Set `false` to apply. |
+|`max_tiddlers` |no |Cap on modified tiddlers (default: 100) |
+|`max_replacements_total` |no |Cap on total replacements (default: 1000) |
+
+Each rule supports literal or regex pattern. Regex unlocks JS backrefs (`$1..$9`, `$&`, `$$`). Multiple rules apply sequentially per line.
+
+For the full output format, dry-run preview shape, and array-field handling, see [[Bulk Tools]].
+
+''Example prompts:''
+
+* "Rename every `[[OldName]]` to `[[NewName]]` across the wiki, dry-run first"
+* "Replace `\b(\w+)Widget\b` with `$1Component` using regex"
+
 !!! `delete_tiddler`
 
 Deletes a tiddler from the store and removes its `.tid` file from disk.
@@ -425,6 +495,27 @@ Deletes a tiddler from the store and removes its `.tid` file from disk.
 ''Example prompts:''
 
 * "Delete the tiddler called old-draft"
+
+!!! `rename_tiddler`
+
+Renames a tiddler in the store and renames its `.tid` file on disk. The new title is checked against TW's forbidden-character set (`|`, `[`, `]`, `{`, `}`); the operation fails if the new title clashes with an existing tiddler.
+
+|!Parameter |!Required |!Description |
+|`from` |yes |Existing tiddler title |
+|`to` |yes |New tiddler title |
+
+''Behaviour:''
+
+* The original `created`, `creator`, and other fields are preserved; `modified` is refreshed.
+* The old `.tid` file is deleted after the new file is written successfully (with verification re-read).
+* Cross-references in other tiddlers are NOT updated — use `replace_in_tiddlers` to follow up (see [[Rename references across the wiki]]).
+
+> ''Note:'' This is a single-tiddler rename; for bulk find-and-replace across the wiki, see [[Bulk Tools]].
+
+''Example prompts:''
+
+* "Rename the tiddler OldName to NewName"
+* "Rename HelloThere to Welcome"
 
 !!! `resave_tiddler`
 
@@ -497,7 +588,7 @@ Hot-reloads the tw-mcp plugin during development — re-reads the plugin folder 
 
 !!! `upload_file`
 
-Uploads a base64-encoded binary file to the wiki's `files/` directory and creates a canonical tiddler referencing it via `_canonical_uri`.
+Uploads a base64-encoded binary file (max 50 MB) to the wiki's `files/` directory and creates a canonical tiddler referencing it via `_canonical_uri`.
 
 |!Parameter |!Required |!Description |
 |`filename` |yes |Filename to save (e.g. `photo.png`). No path separators allowed. |
