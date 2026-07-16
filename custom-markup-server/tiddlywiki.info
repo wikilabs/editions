@@ -6,6 +6,7 @@
 		"tiddlywiki/internals",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/link-to-tabs",
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

@@ -5,6 +5,7 @@
 		"tiddlywiki/filesystem",
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

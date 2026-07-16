@@ -3,7 +3,7 @@
 const { test, before } = require("node:test");
 const assert = require("node:assert");
 const fs = require("node:fs");
-const { bootTw, loadHandler, cleanupTiddler } = require("../setup");
+const { bootTw, loadHandler, cleanupTiddler, waitForGone } = require("../setup");
 
 const PUT_HANDLER = "$:/core/modules/commands/inspect/handlers/crud/put_tiddler.js";
 const DELETE_HANDLER = "$:/core/modules/commands/inspect/handlers/crud/delete_tiddler.js";
@@ -17,7 +17,7 @@ before(async () => {
 	deleteTiddler = loadHandler($tw, DELETE_HANDLER).delete_tiddler;
 });
 
-test("delete_tiddler: removes from wiki + deletes .tid file", () => {
+test("delete_tiddler: removes from wiki + deletes .tid file", async () => {
 	const title = "delete_probe";
 	let filepath = null;
 	try {
@@ -28,7 +28,9 @@ test("delete_tiddler: removes from wiki + deletes .tid file", () => {
 		assert.equal(result.isError, undefined);
 		assert.match(result.content[0].text, /^Tiddler deleted/);
 		assert.equal($tw.wiki.tiddlerExists(title), false);
-		assert.equal(fs.existsSync(filepath), false);
+		// File removed — eventually: the handler's unlink is async
+		// best-effort by design, so poll instead of racing it.
+		assert.equal(await waitForGone(filepath), true);
 	} finally {
 		// Belt-and-suspenders cleanup in case the assertions fail.
 		cleanupTiddler($tw, title);

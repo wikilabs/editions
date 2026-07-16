@@ -13,6 +13,7 @@
 		"tiddlywiki/codemirror-fullscreen-editing",
 		"tiddlywiki/codemirror-mode-css",
 		"tiddlywiki/codemirror-keymap-sublime-text",
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

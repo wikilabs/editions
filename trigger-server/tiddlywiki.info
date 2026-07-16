@@ -8,6 +8,7 @@
 		"wikilabs/advanced-search-plus",
 		"wikilabs/uni-link",
 		"wikilabs/trigger",
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

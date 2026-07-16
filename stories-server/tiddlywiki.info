@@ -7,6 +7,7 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/stories",
 		"wikilabs/advanced-search-plus",
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

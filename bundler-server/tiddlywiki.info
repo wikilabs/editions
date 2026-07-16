@@ -6,6 +6,7 @@
 		"wikilabs/link-to-tabs",
 		"wikilabs/advanced-search-plus",
 		"wikilabs/bundler",
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

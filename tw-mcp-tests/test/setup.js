@@ -23,7 +23,9 @@ const fs = require("fs");
 const url = require("node:url");
 
 const EDITION_PATH = path.resolve(__dirname, "..");
-const PLUGIN_NAME = "wikilabs/tw-mcp";
+// Since the 0.14.0 split the handlers live in tw-mcp-core; the server
+// plugin keeps the node-only tools. Coverage resolves titles against both.
+const PLUGIN_NAMES = ["wikilabs/tw-mcp-core", "wikilabs/tw-mcp"];
 const HANDLER_TITLE_PREFIX = "$:/core/modules/commands/inspect/";
 
 // Locate tiddlywiki/boot/boot.js. First hit wins:
@@ -63,11 +65,15 @@ function bootTw() {
 					$tw.config.pluginsPath,
 					$tw.config.pluginsEnvVar
 				);
-				const pluginFolder = $tw.findLibraryItem(PLUGIN_NAME, searchPaths);
-				if(!pluginFolder) {
-					return reject(new Error("Could not locate plugin folder for " + PLUGIN_NAME));
+				const tiddlersDirs = [];
+				for(const name of PLUGIN_NAMES) {
+					const pluginFolder = $tw.findLibraryItem(name, searchPaths);
+					if(!pluginFolder) {
+						return reject(new Error("Could not locate plugin folder for " + name));
+					}
+					tiddlersDirs.push(path.join(pluginFolder, "tiddlers"));
 				}
-				installCoveragePatches($tw, path.join(pluginFolder, "tiddlers"));
+				installCoveragePatches($tw, tiddlersDirs);
 				// Initialise the handlers/shared.js module-level state. Production
 				// wires this through mcp-handlers.js at MCP startup; tests need to
 				// supply a permissive context so writes (which call checkPathAllowed)
@@ -96,14 +102,20 @@ function bootTw() {
 //      node:test's coverage reporter only displays entries whose filename is
 //      a file:// URL. Rewrite handler titles to their real on-disk path.
 // Both patches are test-only; never apply them in production.
-function installCoveragePatches($tw, pluginTiddlersDir) {
+function installCoveragePatches($tw, pluginTiddlersDirs) {
 	$tw.utils.sandbox = null;
 	const origEval = $tw.utils.evalSandboxed;
 	$tw.utils.evalSandboxed = function(code, context, filename, allowGlobals) {
 		let effective = filename;
 		if(typeof filename === "string" && filename.indexOf(HANDLER_TITLE_PREFIX) === 0) {
 			const rel = filename.slice(HANDLER_TITLE_PREFIX.length);
-			effective = url.pathToFileURL(path.join(pluginTiddlersDir, rel)).href;
+			for(const dir of pluginTiddlersDirs) {
+				const candidate = path.join(dir, rel);
+				if(fs.existsSync(candidate)) {
+					effective = url.pathToFileURL(candidate).href;
+					break;
+				}
+			}
 		}
 		return origEval(code, context, effective, allowGlobals);
 	};
@@ -130,4 +142,17 @@ function cleanupTiddler($tw, title) {
 	$tw.wiki.deleteTiddler(title);
 }
 
-module.exports = { bootTw, loadHandler, cleanupTiddler };
+// Wait (up to timeoutMs) for a file to disappear. delete_tiddler and
+// rename_tiddler unlink via $tw.utils.deleteTiddlerFile, which is async
+// best-effort by design — asserting existsSync===false immediately after
+// the handler returns races the event loop. Returns true when gone.
+async function waitForGone(filepath, timeoutMs) {
+	const deadline = Date.now() + (timeoutMs || 2000);
+	while(fs.existsSync(filepath)) {
+		if(Date.now() > deadline) return false;
+		await new Promise((r) => setTimeout(r, 25));
+	}
+	return true;
+}
+
+module.exports = { bootTw, loadHandler, cleanupTiddler, waitForGone };

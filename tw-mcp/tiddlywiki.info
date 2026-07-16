@@ -1,6 +1,7 @@
 {
 	"description": "Animation for left mouse button",
 	"plugins": [
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

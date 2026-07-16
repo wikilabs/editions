@@ -1,6 +1,7 @@
 {
 	"description": "Headless test edition for the tw-mcp plugin. Loaded by test/setup.js; not intended to be served.",
 	"plugins": [
+		"wikilabs/tw-mcp-core",
 		"wikilabs/tw-mcp"
 	],
 	"themes": [

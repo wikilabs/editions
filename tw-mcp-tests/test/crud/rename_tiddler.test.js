@@ -3,7 +3,7 @@
 const { test, before } = require("node:test");
 const assert = require("node:assert");
 const fs = require("node:fs");
-const { bootTw, loadHandler, cleanupTiddler } = require("../setup");
+const { bootTw, loadHandler, cleanupTiddler, waitForGone } = require("../setup");
 
 const PUT_HANDLER = "$:/core/modules/commands/inspect/handlers/crud/put_tiddler.js";
 const RENAME_HANDLER = "$:/core/modules/commands/inspect/handlers/crud/rename_tiddler.js";
@@ -17,7 +17,7 @@ before(async () => {
 	renameTiddler = loadHandler($tw, RENAME_HANDLER).rename_tiddler;
 });
 
-test("rename_tiddler: moves wiki entry + .tid file", () => {
+test("rename_tiddler: moves wiki entry + .tid file", async () => {
 	const from = "rename_probe_from";
 	const to = "rename_probe_to";
 	try {
@@ -27,8 +27,9 @@ test("rename_tiddler: moves wiki entry + .tid file", () => {
 		assert.equal(result.isError, undefined);
 		assert.equal($tw.wiki.tiddlerExists(from), false);
 		assert.equal($tw.wiki.getTiddler(to).fields.text, "body");
-		// Old file removed.
-		assert.equal(fs.existsSync(oldPath), false);
+		// Old file removed — eventually: the handler's unlink is async
+		// best-effort by design, so poll instead of racing it.
+		assert.equal(await waitForGone(oldPath), true);
 	} finally {
 		cleanupTiddler($tw, from);
 		cleanupTiddler($tw, to);
