@@ -1,5 +1,5 @@
 created: 20260521130000000
-modified: 20260521141934704
+modified: 20260720153128356
 tags: [[Advanced (v1.0)]] docs
 title: Example - Debugging a marker
 type: text/vnd.tiddlywiki;vocab=Default,demo
@@ -13,6 +13,15 @@ A normal HELLO call. No codeblock, just the rendered output.
 ><<.tid-source text:"""HELLO World!
 ---""">>
 
+
+
+
+
+
+
+
+
+
 !! `pragma` — show the marker's `debug-string`
 
 Default when debug is truthy. The codeblock shows the auto-generated pseudo-pragma line (since [[vocab/demo/HELLO]] has no `debug-string` field set), followed by the normal rendered output.
@@ -21,6 +30,19 @@ Default when debug is truthy. The codeblock shows the auto-generated pseudo-prag
 
 HELLO World!
 ---""">>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 !! `text` — show the source slice
 
@@ -31,6 +53,19 @@ Source-text codeblock first, then the normal rendered output. Useful when you wa
 HELLO World!
 ---""">>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 !! `both` — pragma string AND source slice
 
 Both codeblocks alongside the normal rendered output. The fullest view: ''what'' the marker is configured to do, and ''what'' it received as input.
@@ -39,6 +74,23 @@ Both codeblocks alongside the normal rendered output. The fullest view: ''what''
 
 HELLO World!
 ---""">>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 !! `pragmaOnly` — suppress the render
 
@@ -49,6 +101,16 @@ Only the pragma codeblock; no rendered output. Useful when the marker fails to r
 HELLO World!
 ---""">>
 
+
+
+
+
+
+
+
+
+
+
 !! `textOnly` — show only the source slice
 
 Only the source-text codeblock; no rendered output. Useful when you suspect the parser is consuming the wrong slice (terminator off, body capturing too much / too little).
@@ -57,6 +119,17 @@ Only the source-text codeblock; no rendered output. Useful when you suspect the 
 
 HELLO World!
 ---""">>
+
+
+
+
+
+
+
+
+
+
+
 
 !! `no` and the global off-switch
 
