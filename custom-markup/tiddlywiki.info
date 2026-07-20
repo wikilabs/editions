@@ -2,7 +2,7 @@
 	"description": "Adds a possibilty to style content with wikitext syntax",
 	"plugins": [
 		"tiddlywiki/internals",
-		"/relink",
+		"flibbles/relink",
 		"wikilabs/bundler",
 		"wikilabs/trails",
 		"wikilabs/space-space-newline",
