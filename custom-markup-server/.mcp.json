@@ -4,6 +4,8 @@
       "type": "stdio",
       "command": "tiddlywiki",
       "args": [
+        "+plugins/wikilabs/tw-mcp-core",
+        "+plugins/wikilabs/tw-mcp",
         ".",
         "--mcp",
         "readwrite",
