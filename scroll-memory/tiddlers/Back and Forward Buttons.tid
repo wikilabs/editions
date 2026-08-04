@@ -1,13 +1,15 @@
 created: 20260528201738852
+modified: 20260804163413711
 tags: [[Scroll Memory Documentation]]
 title: Back and Forward Buttons
 type: text/vnd.tiddlywiki
-modified: 20260603002238852
 
 With the ''always active'' setting switched on (it is off by default, see [[Settings]]), every link click in the story river records a landmark, and up to 50 positions are kept. The floating button becomes a pair of arrows that walk the history backwards and forwards, like the history of a browser, without consuming it.
 
 Landing on the first entry shows the notification "first entry reached"; one more step backwards wraps around to the newest recorded position. The same happens in the other direction at the newest entry.
 
 Stepping to a landmark whose tiddler has been closed reopens that tiddler at the top of the story river and then scrolls to the recorded place.
+
+Editing does not interrupt the history walk. While a tiddler is open for editing the [[Toggle Button]] becomes available as well: the arrows go on walking the landmark history, and the toggle jumps between your open drafts and the newest landmark without consuming it.
 
 A new click while you are somewhere in the middle of the history simply appends its landmark at the end and the walk restarts from there; nothing is thrown away. Try it from the long [[Scroll Memory Documentation]]: follow three or four links in a row, then walk back through all of them.

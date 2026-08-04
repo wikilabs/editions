@@ -1,9 +1,9 @@
 created: 20260507203941363
-list: [[Scroll Position Memory]] [[Click Landmarks]] [[Back and Forward Buttons]] [[Automatic Restore on Close]] [[Get to Top Button]]
+list: [[Scroll Position Memory]] [[Click Landmarks]] [[Back and Forward Buttons]] [[Automatic Restore on Close]] [[Get to Top Button]] [[Toggle Button]]
+modified: 20260804163427435
 tags: TableOfContents
 title: Scroll Memory Documentation
 type: text/vnd.tiddlywiki
-modified: 20260804072145811
 
 This tiddler is deliberately long. It documents the plugin, and at the same time it is the demo: scroll into it, follow its links, and watch the plugin bring you back. The floating buttons appear at the bottom right of the window.
 
@@ -37,6 +37,10 @@ The walk also survives closing tiddlers: stepping to a landmark whose tiddler yo
 
 Closing a tiddler does not delete its landmarks. If you open the tiddler again later, from the sidebar, from search, or through a link, the plugin scrolls to the newest recorded landmark instead of the top. When that happens in a long tiddler, an extra button appears: see [[Get to Top Button]]. It jumps to the start of the tiddler, for the times you did not want to resume where you left off.
 
+! Editing while you read
+
+Opening a tiddler for editing is not a navigation. The draft opens in place, the page does not move, and the landmark that brought you there is left untouched. While any tiddler is being edited a toggle button appears; clicking it steps through your open drafts and the newest landmark, consuming nothing, so you can read a source and write about it side by side. See [[Toggle Button]].
+
 ! How positions are tracked
 
 All positions are stored relative to the tiddler's frame, never as absolute page coordinates. That is what makes the mechanism robust: tiddlers opening, closing, or animating above the target shift everything on the page, but "1500 pixels into tiddler X" stays valid.
@@ -57,17 +61,21 @@ Everything lives under `$:/temp/volatile/scroll-memory/`:
 |`back-stack` |the landmark history as a JSON array |
 |`cursor` |the current walk position within the history |
 |`top-target` |the long tiddler currently scrolled beyond its top |
+|`draft-offset/<title>` |remembered writing position inside one open draft |
+|`reading-position` |the last position you were reading outside a draft |
+|`toggle-return` |where the toggle jumped from, when the cycle has a single stop |
 
 The volatile prefix means: never saved, never synced, gone when the page is reloaded. The plugin writes nothing into your wiki.
 
 ! Messages
 
-Three widget messages drive the buttons, so you can also send them from your own UI:
+Four widget messages drive the buttons, so you can also send them from your own UI:
 
 |!Message |!Action |
 |`tm-scroll-memory-back` |return to the previous landmark; walks the history in always active mode, consumes the newest entry otherwise |
 |`tm-scroll-memory-forward` |walk towards newer landmarks, always active mode only |
 |`tm-scroll-memory-top` |scroll the current long tiddler back to its start |
+|`tm-scroll-memory-toggle` |step to the next stop in the draft and landmark cycle, consuming nothing |
 
 ! Compatibility
 
@@ -80,4 +88,5 @@ The plugin needs TiddlyWiki 5.3.2 or later. It carries its own copy of the pulse
 * [[Back and Forward Buttons]] covers the always active history walk
 * [[Automatic Restore on Close]] covers the close scenario
 * [[Get to Top Button]] covers the escape hatch
+* [[Toggle Button]] covers reading and writing side by side
 * [[Settings]] lists every switch

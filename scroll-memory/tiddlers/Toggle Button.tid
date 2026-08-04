@@ -1,0 +1,34 @@
+created: 20260804163007233
+modified: 20260804163440056
+tags: [[Scroll Memory Documentation]]
+title: Toggle Button
+
+Editing a tiddler no longer moves you. The draft opens where the tiddler was, and the landmark that brought you there survives, so you can go back to it when you are done writing.
+
+While at least one tiddler is open for editing, a ''toggle'' button appears. Each click steps to the next stop. The stops are your open drafts, in story order, followed by the last landmark; from the last stop it wraps back to the first. Nothing is consumed, so you can bounce between the source you are reading and the tiddler you are writing for as long as you like.
+
+* Stepping to a draft returns you to the position you were writing at, not to the top of the draft.
+* Stepping to the landmark reopens its source tiddler if you had closed it, and blinks the link you clicked.
+* When there is only one stop, the toggle pairs it with the place you came from: the first click takes you there, the next brings you back.
+
+Closing the last draft removes the toggle again.
+
+! Landmarks are never used up
+
+While the toggle is shown it takes over from the plain scroll back button, and that difference matters: the scroll back button consumes the landmark it returns to, so each landmark works once. The toggle consumes nothing, which is what makes it possible to leave and return to the same landmark as often as you like.
+
+In [[always active mode|Back and Forward Buttons]] the back and forward arrows keep walking the landmark history as usual, and the toggle is available in addition to them.
+
+! Keeping the toggle permanently
+
+The ''use toggle button instead of scroll back'' switch in [[Settings]] keeps the toggle even when nothing is being edited, as long as a landmark exists. With the switch off, the plain scroll back button returns as soon as the last draft is closed.
+
+! Try it
+
+Scroll down to the link list at the end of [[Scroll Memory Documentation]] and follow one of the links: that records a landmark. Now edit the tiddler you landed in. The page does not move, and the toggle appears. Click it to look back at the source, click again to return to exactly where you were writing.
+
+Open a second tiddler for editing and the cycle grows: each click visits the next draft, then the landmark, then starts over.
+
+! Sending it yourself
+
+The button sends the `tm-scroll-memory-toggle` widget message, so the same step can be triggered from your own user interface.

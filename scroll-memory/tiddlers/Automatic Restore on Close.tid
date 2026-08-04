@@ -1,11 +1,13 @@
 created: 20260519213642242
+modified: 20260804163048981
 tags: [[Scroll Memory Documentation]]
 title: Automatic Restore on Close
 type: text/vnd.tiddlywiki
-modified: 20260804100936262
 
 This is the scenario from the community feedback that started the plugin: a link in a long tiddler opens another tiddler below it. You read it and close it. The story river reflows, and without the plugin you end up looking at the bottom of the tiddler you came from.
 
 With the plugin, closing the tiddler that a link opened scrolls you back to the click location automatically, and the link blinks to mark the spot.
+
+Opening the tiddler for editing does not count as closing it. The draft replaces the tiddler in the story river, but the plugin recognises that swap and stays put, keeping the landmark for later.
 
 Try it now: this tiddler was probably opened from [[Scroll Memory Documentation]]. Close it with the ''close'' button in its toolbar and watch where you land.
