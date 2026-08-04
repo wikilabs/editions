@@ -4,17 +4,17 @@
   "description": "tiddlywiki edition development helper",
   "main": "",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=pluginlibraryWL-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=pluginlibraryWL-primary",
 
     "pretest": "npm run build:test:library",
     "test": "npm run build && npm start",
 
-    "build:test:library": "tiddlywiki ../pluginlibraryWL --output ../pluginlibraryWL-server/files/local/library/tmp/latest --build library",
+    "build:test:library": "node ../scripts/tw.js --core release ../pluginlibraryWL --output ../pluginlibraryWL-server/files/local/library/tmp/latest --build library",
 
-    "build": "tiddlywiki ../pluginlibraryWL --build index",
+    "build": "node ../scripts/tw.js --core release ../pluginlibraryWL --build index",
 
-    "prebuild:github": "tiddlywiki ../pluginlibraryWL --output ../../wikilabs.github.io/editions/pluginlibraryWL/library/latest --build library",
-    "build:github": "tiddlywiki ../pluginlibraryWL --build github",
+    "prebuild:github": "node ../scripts/tw.js --core release ../pluginlibraryWL --output ../../wikilabs.github.io/editions/pluginlibraryWL/library/latest --build library",
+    "build:github": "node ../scripts/tw.js --core release ../pluginlibraryWL --build github",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

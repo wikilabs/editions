@@ -5,15 +5,15 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon",
-    "net": "tiddlywiki . --listen host=local.lan",
+    "net": "node ../scripts/tw.js --core dev . --listen host=local.lan",
 
-    "start": "tiddlywiki . --mcp listen readwrite sse label=saver-timestamps-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=saver-timestamps-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../saver-timestamps --build github",
-    "build": "tiddlywiki ../saver-timestamps --build index",
+    "build:github": "node ../scripts/tw.js --core release ../saver-timestamps --build github",
+    "build": "node ../scripts/tw.js --core release ../saver-timestamps --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

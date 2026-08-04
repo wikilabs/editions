@@ -4,11 +4,11 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=palette-switcher-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=palette-switcher-primary",
     "test": "echo ---- no tests atm ----",
     "server": "npm start",
-    "build:github": "tiddlywiki ../palette-switcher --build github",
-    "build": "tiddlywiki ../palette-switcher --build index",
+    "build:github": "node ../scripts/tw.js --core release ../palette-switcher --build github",
+    "build": "node ../scripts/tw.js --core release ../palette-switcher --build index",
     "prestage": "npm run build",
     "stage": "npm run build:github",
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"

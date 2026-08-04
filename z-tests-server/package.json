@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=z-tests-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=z-tests-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../ztests --build github",
-    "build": "tiddlywiki ../ztests --build index",
+    "build:github": "node ../scripts/tw.js --core release ../ztests --build github",
+    "build": "node ../scripts/tw.js --core release ../ztests --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

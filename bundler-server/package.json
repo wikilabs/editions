@@ -4,14 +4,14 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen host=localhost label=mcp-bundler",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen host=localhost label=mcp-bundler",
 
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../bundler --build github",
-    "build": "tiddlywiki ../bundler --build index",
+    "build:github": "node ../scripts/tw.js --core release ../bundler --build github",
+    "build": "node ../scripts/tw.js --core release ../bundler --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

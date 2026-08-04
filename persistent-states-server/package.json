@@ -4,14 +4,14 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=persistent-states-primary",
-    "net": "tiddlywiki . --listen host=local.lan",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=persistent-states-primary",
+    "net": "node ../scripts/tw.js --core dev . --listen host=local.lan",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../persistent-states --build github",
-    "build": "tiddlywiki ../persistent-states --build index",
+    "build:github": "node ../scripts/tw.js --core release ../persistent-states --build github",
+    "build": "node ../scripts/tw.js --core release ../persistent-states --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

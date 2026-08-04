@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=trim-whitespace-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=trim-whitespace-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../trim-whitespace --build github",
-    "build": "tiddlywiki ../trim-whitespace --build index",
+    "build:github": "node ../scripts/tw.js --core release ../trim-whitespace --build github",
+    "build": "node ../scripts/tw.js --core release ../trim-whitespace --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

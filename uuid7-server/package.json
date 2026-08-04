@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=uuid7-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=uuid7-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../uuid7 --build github",
-    "build": "tiddlywiki ../uuid7 --build index",
+    "build:github": "node ../scripts/tw.js --core release ../uuid7 --build github",
+    "build": "node ../scripts/tw.js --core release ../uuid7 --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

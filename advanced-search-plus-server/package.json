@@ -5,15 +5,15 @@
 	"main": "index.js",
 	"scripts": {
 		"watch": "nodemon",
-		"net": "tiddlywiki . --listen host=local.lan",
+		"net": "node ../scripts/tw.js --core dev . --listen host=local.lan",
 
-		"start": "tiddlywiki . --mcp listen readwrite sse label=advanced-search-plus-primary",
+		"start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=advanced-search-plus-primary",
 		"test": "npm run watch",
 
 		"server": "npm start",
 
-		"build:github": "tiddlywiki ../advanced-search-plus --build github",
-		"build": "tiddlywiki ../advanced-search-plus --build index",
+		"build:github": "node ../scripts/tw.js --core release ../advanced-search-plus --build github",
+		"build": "node ../scripts/tw.js --core release ../advanced-search-plus --build index",
 
 		"prestage": "npm run build",
 		"stage": "npm run build:github",

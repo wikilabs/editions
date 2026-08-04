@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=info-area-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=info-area-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../info-area --build github",
-    "build": "tiddlywiki ../info-area --build index",
+    "build:github": "node ../scripts/tw.js --core release ../info-area --build github",
+    "build": "node ../scripts/tw.js --core release ../info-area --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

@@ -4,13 +4,13 @@
 	"description": "tiddlywiki edition development helper",
 	"main": "index.js",
 	"scripts": {
-		"start": "tiddlywiki . --mcp listen readwrite sse label=scroll-memory-primary port=8888",
+		"start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=scroll-memory-primary port=8888",
 		"test": "echo ---- no tests atm ----",
 
 		"server": "npm start",
 
-		"build:github": "tiddlywiki ../scroll-memory --build github",
-		"build": "tiddlywiki ../scroll-memory --build index",
+		"build:github": "node ../scripts/tw.js --core release ../scroll-memory --build github",
+		"build": "node ../scripts/tw.js --core release ../scroll-memory --build index",
 
 		"prestage": "npm run build",
 		"stage": "npm run build:github",

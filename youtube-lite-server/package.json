@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=youtube-lite-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=youtube-lite-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../youtube-lite --build github",
-    "build": "tiddlywiki ../youtube-lite --build index",
+    "build:github": "node ../scripts/tw.js --core release ../youtube-lite --build github",
+    "build": "node ../scripts/tw.js --core release ../youtube-lite --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

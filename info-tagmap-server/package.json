@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=info-tagmap-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=info-tagmap-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../info-tagmap --build github",
-    "build": "tiddlywiki ../info-tagmap --build index",
+    "build:github": "node ../scripts/tw.js --core release ../info-tagmap --build github",
+    "build": "node ../scripts/tw.js --core release ../info-tagmap --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

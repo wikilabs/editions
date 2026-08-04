@@ -4,15 +4,15 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "net": "tiddlywiki . --listen host=local.lan",
+    "net": "node ../scripts/tw.js --core dev . --listen host=local.lan",
 
-    "start": "tiddlywiki . --mcp listen readwrite sse label=uni-link-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=uni-link-primary",
     "test": "npm run watch",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../uni-link --build github",
-    "build": "tiddlywiki ../uni-link --build index",
+    "build:github": "node ../scripts/tw.js --core release ../uni-link --build github",
+    "build": "node ../scripts/tw.js --core release ../uni-link --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

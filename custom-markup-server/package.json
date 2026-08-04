@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp readwrite sse port=8888 label=npm-prime-cm",
+    "start": "node ../scripts/tw.js --core dev . --mcp readwrite sse port=8888 label=npm-prime-cm",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../custom-markup --build github",
-    "build": "tiddlywiki ../custom-markup --build index",
+    "build:github": "node ../scripts/tw.js --core release ../custom-markup --build github",
+    "build": "node ../scripts/tw.js --core release ../custom-markup --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",

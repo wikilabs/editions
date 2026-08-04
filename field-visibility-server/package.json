@@ -4,13 +4,13 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "tiddlywiki . --mcp listen readwrite sse label=field-visibility-primary",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=field-visibility-primary",
     "test": "echo ---- no tests atm ----",
 
     "server": "npm start",
 
-    "build:github": "tiddlywiki ../field-visibility --build github",
-    "build": "tiddlywiki ../field-visibility --build index",
+    "build:github": "node ../scripts/tw.js --core release ../field-visibility --build github",
+    "build": "node ../scripts/tw.js --core release ../field-visibility --build index",
 
     "prestage": "npm run build",
     "stage": "npm run build:github",
