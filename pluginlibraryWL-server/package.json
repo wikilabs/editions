@@ -38,6 +38,5 @@
   "dependencies": {
   },
   "devDependencies": {
-    "tiddlywiki": "^5.1.22"
   }
 }

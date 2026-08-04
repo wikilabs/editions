@@ -32,6 +32,5 @@
   "homepage": "https://wikilabs.github.io/editions/trails",
   "dependencies": {},
   "devDependencies": {
-    "tiddlywiki": "^5.2.0"
   }
 }

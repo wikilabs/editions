@@ -31,6 +31,5 @@
   "homepage": "https://wikilabs.github.io/editions/palette-switcher",
   "dependencies": {},
   "devDependencies": {
-    "tiddlywiki": "^5.1.22"
   }
 }

@@ -50,7 +50,6 @@
   "dependencies": {
   },
   "devDependencies": {
-    "tiddlywiki": "^5.1.12",
     "nodemon": "^2.0.22"
   }
 }
