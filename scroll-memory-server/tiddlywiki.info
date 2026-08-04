@@ -1,0 +1,19 @@
+{
+	"description": "Server configuration of the scroll-memory edition",
+	"plugins": [
+		"tiddlywiki/tiddlyweb",
+		"tiddlywiki/filesystem",
+		"wikilabs/scroll-memory",
+		"wikilabs/advanced-search-plus",
+		"wikilabs/tw-mcp-core",
+		"wikilabs/tw-mcp"
+	],
+	"themes": [
+	],
+	"includeWikis": [
+		"../scroll-memory"
+	],
+	"config": {
+		"default-tiddler-location": "../scroll-memory/tiddlers"
+	}
+}

@@ -1,0 +1,83 @@
+created: 20260507203941363
+list: [[Scroll Position Memory]] [[Click Landmarks]] [[Back and Forward Buttons]] [[Automatic Restore on Close]] [[Get to Top Button]]
+tags: TableOfContents
+title: Scroll Memory Documentation
+type: text/vnd.tiddlywiki
+modified: 20260804072145811
+
+This tiddler is deliberately long. It documents the plugin, and at the same time it is the demo: scroll into it, follow its links, and watch the plugin bring you back. The floating buttons appear at the bottom right of the window.
+
+! Motivation
+
+The idea comes from recurring community feedback about losing one's place in the story river. You read a long tiddler, follow a link, and when you come back you have to scroll around to find the sentence you left. The worst case is closing the tiddler a link opened: the story reflows and you end up staring at the bottom of the tiddler you came from.
+
+This plugin removes that friction with a handful of cooperating behaviours. Each one can be switched off individually, see [[Settings]].
+
+! The three basic behaviours
+
+!! Remembering scroll positions
+
+When you scroll within a long tiddler, meaning a tiddler taller than the browser window, the plugin remembers how deep you are. Navigating to that tiddler again restores the remembered position instead of jumping to its top. Try it here: scroll to the middle of this tiddler, open [[Scroll Position Memory]], then come back through the link in that tiddler.
+
+!! Click landmarks
+
+Following a link records where you clicked: the position inside the source tiddler and where the link sat on your screen. That record is called a landmark. A floating back button appears; clicking it restores the exact view you had at click time, and the clicked link blinks three times so your eye finds it immediately. The details live in [[Click Landmarks]].
+
+!! Coming back when a tiddler closes
+
+The scenario from the original feedback: a link opens a tiddler below the current one, you read it and close it. Without the plugin you land at an arbitrary position. With it, closing the tiddler scrolls you right back to the click location. See [[Automatic Restore on Close]] for the fine print.
+
+! Always active mode
+
+By default only long tiddlers record landmarks, and the single back button consumes each entry as you use it. The ''always active'' setting changes both: every link click in the story river is recorded, up to a configurable history size, and the floating button becomes a pair of arrows. They walk the history backwards and forwards without consuming it, like the history of a browser. Reaching the first or the last entry shows a notification, and one more step in the same direction wraps around to the other end.
+
+The walk also survives closing tiddlers: stepping to a landmark whose tiddler you closed reopens it first and then scrolls to the recorded place. All of that is described in [[Back and Forward Buttons]].
+
+! Reopening a closed tiddler
+
+Closing a tiddler does not delete its landmarks. If you open the tiddler again later, from the sidebar, from search, or through a link, the plugin scrolls to the newest recorded landmark instead of the top. When that happens in a long tiddler, an extra button appears: see [[Get to Top Button]]. It jumps to the start of the tiddler, for the times you did not want to resume where you left off.
+
+! How positions are tracked
+
+All positions are stored relative to the tiddler's frame, never as absolute page coordinates. That is what makes the mechanism robust: tiddlers opening, closing, or animating above the target shift everything on the page, but "1500 pixels into tiddler X" stays valid.
+
+Two kinds of positions exist:
+
+* ''Reading positions'': a scroll listener waits until scrolling settles, finds the tiddler under the top of the viewport, and stores how deep into it you are. Positions are only stored for long tiddlers, and only beyond a minimum depth.
+* ''Landmarks'': recorded at click time from the navigation event. Each entry stores the source tiddler, the link target, the link's position inside the source tiddler, and where the link sat on your screen. Restoring solves for the scroll position that puts the link back to exactly that screen position.
+
+The scroll animation re-reads the target bounds on every frame, so a restore converges even while a closing tiddler is still collapsing above it.
+
+! State tiddlers
+
+Everything lives under `$:/temp/volatile/scroll-memory/`:
+
+|!Tiddler |!Content |
+|`offset/<title>` |remembered reading position of one tiddler, in the `scroll-top` field |
+|`back-stack` |the landmark history as a JSON array |
+|`cursor` |the current walk position within the history |
+|`top-target` |the long tiddler currently scrolled beyond its top |
+
+The volatile prefix means: never saved, never synced, gone when the page is reloaded. The plugin writes nothing into your wiki.
+
+! Messages
+
+Three widget messages drive the buttons, so you can also send them from your own UI:
+
+|!Message |!Action |
+|`tm-scroll-memory-back` |return to the previous landmark; walks the history in always active mode, consumes the newest entry otherwise |
+|`tm-scroll-memory-forward` |walk towards newer landmarks, always active mode only |
+|`tm-scroll-memory-top` |scroll the current long tiddler back to its start |
+
+! Compatibility
+
+The plugin needs TiddlyWiki 5.3.2 or later. It carries its own copy of the pulse fix from core pull request #9741, so the landmark blink also works on cores before 5.5.0. With the vanilla theme's sticky titles option the get to top button is never shown, because the tiddler toolbar stays visible anyway. Users with a reduced motion preference get the scroll restores without the blink.
+
+! Where to go next
+
+* [[Scroll Position Memory]] explains the reading position memory
+* [[Click Landmarks]] explains landmarks and the back button
+* [[Back and Forward Buttons]] covers the always active history walk
+* [[Automatic Restore on Close]] covers the close scenario
+* [[Get to Top Button]] covers the escape hatch
+* [[Settings]] lists every switch

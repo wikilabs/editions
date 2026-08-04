@@ -1,0 +1,11 @@
+created: 20260604183309917
+tags: [[Scroll Memory Documentation]]
+title: Click Landmarks
+type: text/vnd.tiddlywiki
+modified: 20260804100345811
+
+Following a link records a landmark: which tiddler you were in, where the link sits inside that tiddler, and where it sat on your screen at the moment you clicked.
+
+If you reached this tiddler through the link in [[Scroll Memory Documentation]], a floating button is showing at the bottom right of the window right now. Click it: you get back the exact view you had when you clicked, and the link blinks three times so you spot it immediately.
+
+By default only long tiddlers record landmarks, because short ones have nothing to lose. The [[always active mode|Back and Forward Buttons]] extends recording to every click in the story river. Landmarks survive closing their tiddler; see [[Automatic Restore on Close]] for what happens then.

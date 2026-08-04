@@ -1,0 +1,25 @@
+created: 20260522154436446
+tags: TableOfContents
+title: GettingStarted
+type: text/vnd.tiddlywiki
+modified: 20260804084445811
+
+! {{$:/plugins/wikilabs/scroll-memory/icon}} Scroll Memory Plugin
+
+This plugin keeps your reading position when you navigate the story river. Scroll positions of long tiddlers are remembered, link clicks leave landmarks you can return to, and closing a tiddler brings you back to the place where you followed its link.
+
+!! Try it
+
+Open the [[Scroll Memory Documentation]] and scroll down into it. Follow some of its links, then use the floating buttons at the bottom right to get back to where you were.
+
+!! Settings
+
+Every behaviour has a switch in ''$:/ControlPanel -> Settings -> WikiLabs -> Scroll Memory''. See [[Settings]] for what each one does.
+
+!! Plugins
+
+{{$:/core/ui/ControlPanel/Plugins}}
+
+!! License
+
+See: [[License]]

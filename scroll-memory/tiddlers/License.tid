@@ -1,0 +1,12 @@
+created: 20260507183134911
+tags: TableOfContents
+title: License
+modified: 20260804101836262
+
+''Human readable summary:''
+
+<<<
+{{$:/plugins/wikilabs/scroll-memory/license}}
+<<<
+
+The ''full text'' of the license can be found at: {{$:/plugins/wikilabs/scroll-memory/license!!license-text}}

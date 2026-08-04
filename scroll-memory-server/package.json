@@ -1,0 +1,41 @@
+{
+	"name": "scroll-memory-server",
+	"version": "0.0.1",
+	"description": "tiddlywiki edition development helper",
+	"main": "index.js",
+	"scripts": {
+		"start": "tiddlywiki . --mcp listen readwrite sse label=scroll-memory-primary port=8888",
+		"test": "echo ---- no tests atm ----",
+
+		"server": "npm start",
+
+		"build:github": "tiddlywiki ../scroll-memory --build github",
+		"build": "tiddlywiki ../scroll-memory --build index",
+
+		"prestage": "npm run build",
+		"stage": "npm run build:github",
+
+		"deploy": "echo # deploy is done with wikilabs.github.io repo!"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wikilabs/plugins"
+	},
+	"keywords": [
+		"tiddlywiki",
+		"scroll",
+		"position",
+		"memory"
+	],
+	"author": "Mario Pietsch",
+	"license": "BSD-3-Clause",
+	"bugs": {
+		"url": "https://github.com/wikilabs/plugins/issues"
+	},
+	"homepage": "https://wikilabs.github.io/editions/scroll-memory",
+	"dependencies": {
+	},
+	"devDependencies": {
+		"tiddlywiki": "^5.1.13"
+	}
+}

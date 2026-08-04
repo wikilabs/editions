@@ -1,0 +1,11 @@
+created: 20260507214623304
+tags: [[Scroll Memory Documentation]]
+title: Get to Top Button
+type: text/vnd.tiddlywiki
+modified: 20260804101236262
+
+While a long tiddler is scrolled beyond its own top, a button with a fold icon appears among the floating buttons. It scrolls to the start of that tiddler.
+
+It is most useful right after [[reopening a closed tiddler|Scroll Memory Documentation]]: the plugin resumes at the recorded landmark, and this button is the escape hatch for the times you wanted the top instead.
+
+With the vanilla theme's sticky titles option the button is never shown, because the tiddler title and its toolbar stay visible while scrolling anyway. The button can also be switched off entirely, see [[Settings]].

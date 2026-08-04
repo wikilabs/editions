@@ -1,0 +1,9 @@
+created: 20260510215127089
+tags: TableOfContents
+title: Settings
+type: text/vnd.tiddlywiki
+modified: 20260804102536262
+
+All settings live in the Control Panel: ''$:/ControlPanel -> Settings -> WikiLabs -> Scroll Memory''. Each switch has a description of what it does right next to it. This is the same settings tiddler:
+
+{{$:/plugins/wikilabs/scroll-memory/config}}

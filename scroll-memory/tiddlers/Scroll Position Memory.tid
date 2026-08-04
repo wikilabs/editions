@@ -1,0 +1,11 @@
+created: 20260517210409348
+tags: [[Scroll Memory Documentation]]
+title: Scroll Position Memory
+type: text/vnd.tiddlywiki
+modified: 20260803194150209
+
+When you scroll within a long tiddler, the plugin waits until scrolling settles and then remembers how deep you are. Navigating to that tiddler again restores the position instead of showing its top.
+
+Positions are only remembered beyond a minimum depth (100 pixels by default, see [[Settings]]), and only for tiddlers taller than the browser window. Scrolling back to the top of a tiddler clears its memory again.
+
+To see it work: this tiddler is short, so it has no position memory. Go back to the long [[Scroll Memory Documentation]], scroll somewhere into its middle, open any other tiddler, and then navigate to the documentation again. You arrive exactly where you were.
