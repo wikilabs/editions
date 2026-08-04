@@ -5,7 +5,6 @@
 	"scripts": {},
 	"license": "CC-BY-NC-SA",
 	"devDependencies": {
-		"jsonfile": "^6.0.0"
 	},
 	"dependencies": {}
 }
