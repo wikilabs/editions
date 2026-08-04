@@ -4,7 +4,7 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "watch": "nodemon",
+    "watch": "node --watch-path=../../plugins/wikilabs/field-editor ../scripts/tw.js --core dev . --listen host=local.lan",
 		"net": "node ../scripts/tw.js --core dev . --listen host=local.lan",
 
     "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=field-editor-primary",
@@ -20,17 +20,6 @@
 
     "deploy": "echo # deploy is done with wikilabs.github.io repo!"
   },
-	"nodemonConfig": {
-		"exec": "npm run net",
-		"ext": "*.*",
-		"restartable": "rs",
-		"ignore": [
-			".git"
-		],
-		"verbose": true,
-		"watch": ["../../plugins/wikilabs/field-editor/**"],
-		"delay": 200
-	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wikilabs/plugins"
@@ -49,6 +38,5 @@
   "dependencies": {
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
   }
 }

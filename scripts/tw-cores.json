@@ -1,0 +1,7 @@
+{
+	"default": "release",
+	"cores": {
+		"release": "../../../tiddlywiki/TiddlyWiki5.worktrees/release",
+		"dev": "../../../tiddlywiki/TiddlyWiki5"
+	}
+}

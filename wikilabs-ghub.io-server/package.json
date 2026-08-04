@@ -7,10 +7,10 @@
     "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse label=wikilabs-ghub.io-primary",
     "test": "echo ---- no tests atm ----",
     "server": "npm start",
-    "build:all": "node bin/build",
+    "build:all": "node bin/run-all.js build",
     "build:github": "node ../scripts/tw.js --core release ../../wikilabs.github.io --build github",
     "build": "node ../scripts/tw.js --core release ../../wikilabs.github.io --build index",
-    "stage:all": "node bin/stage",
+    "stage:all": "node bin/run-all.js stage",
     "stage": "npm run build:github",
     "predeploy": "npm run stage:all",
     "deploy": "echo # Congratulation: The project is deployed!"
@@ -31,7 +31,5 @@
   "homepage": "https://wikilabs.github.io",
   "dependencies": {},
   "devDependencies": {
-    "@supercharge/promise-pool": "^1.4.0",
-    "child-process-promise": "2.2.1"
   }
 }
