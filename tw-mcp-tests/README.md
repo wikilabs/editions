@@ -25,7 +25,8 @@ Tighten the `--test-coverage-include` glob to focus on a single category, e.g. `
 - `test/setup.js` — boots TiddlyWiki once per test file, exposes the booted `$tw` and a `loadHandler` helper. Includes coverage workarounds (see below).
 - `test/_smoke.test.js` — verifies the bootstrap itself.
 - `test/_probe.js` — manual diagnostic script (not run by `--test` thanks to the `_` prefix). Boots TW and prints handler output for ad-hoc investigation; useful when an assertion fails and you want to see whether the code or the test is wrong.
-- `test/<category>/<tool>.test.js` — one file per MCP handler tool, grouped by category. Currently covered: `render/`, `query/`, `inspect/`, `crud/`. All four batch-1 categories landed.
+- `test/<category>/<tool>.test.js` — one file per MCP handler tool, grouped by category. Currently covered: `render/`, `query/`, `inspect/`, `crud/`, `filesystem/`.
+- `test/protocol/dispatch.test.js` — the MCP protocol contract itself (discovery, version gate, result shape) rather than a handler. It drives `mcp-lib.js`'s `dispatchMessage`, which is exported as a test seam so the request path can be exercised without standing up a transport.
 
 Tests that document a known code finding (where the assertion encodes the *desired* behaviour, not the current one) are marked `test.todo(...)` with an inline comment referencing the bead. They appear in the run output as `# TODO` but do not fail the suite — they self-resolve once the underlying code is fixed.
 
