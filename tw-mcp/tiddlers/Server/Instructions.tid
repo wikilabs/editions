@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260609210934472
+modified: 20260812215613939
 tags: Server
 title: Instructions
 
@@ -81,7 +81,7 @@ A local named pipe for helper tools (like `tw-upload`). On startup, the server:
 {"pipe":"\\\\.\\pipe\\tiddlywiki-mcp-...","token":"<hex>","pid":12345,"label":"vscode","command":"node tiddlywiki.js ..."}
 ```
 
-Pipe clients must send the token in the `_auth_token` field of their `initialize` request. The `pid` field lets clients verify the server process is still alive. The `label` field (if present) identifies which instance created the pipe. The `command` field shows the full command line that started the server.
+Pipe clients must send the token as `wikilabs.tw-mcp/auth` inside the `_meta` of every request, not once at connection time. The `pid` field lets clients verify the server process is still alive. The `label` field (if present) identifies which instance created the pipe. The `command` field shows the full command line that started the server.
 
 On exit, the server cleans up the pipe and discovery file.
 

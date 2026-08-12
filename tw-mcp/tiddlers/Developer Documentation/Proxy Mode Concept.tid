@@ -1,5 +1,5 @@
 created: 20260320073219027
-modified: 20260510200434478
+modified: 20260812215545096
 tags: [[Developer Documentation]]
 title: Proxy Mode Concept
 type: text/vnd.tiddlywiki
@@ -36,9 +36,9 @@ Editions that include other wikis (e.g. `tw5.com-server` includes `../tw5.com`) 
 The proxy is mostly transparent but intercepts specific messages:
 
 |!Direction |!Message |!Action |
-|stdin → pipe |`initialize` |Inject `_auth_token`, `_pid`, `_label` for pipe authentication |
+|stdin → pipe |every message |Inject the auth token, PID and label into `_meta` for pipe authentication |
 |stdin → pipe |`tools/call` (write tool) |Block locally if proxy is `readonly` |
-|pipe → stdout |`initialize` response |Annotate `serverInfo` with `proxy: true`, `primaryPid`, `primaryLabel` |
+|pipe → stdout |`server/discover` response |Annotate `serverInfo` in `_meta` with `proxy: true`, `primaryPid`, `primaryLabel` |
 |pipe → stdout |`tools/list` response |Filter out write tools if proxy is `readonly` |
 
 !! Primary Takeover
@@ -104,7 +104,7 @@ Since last reload: 2 added, 0 updated, 1 deleted
 All MCP log messages include PID and `@label` as the last element:
 
 ```
-[tw-mcp] Server started as PRIMARY (PID 1234, protocol 2025-03-26, readonly: false) @claude
+[tw-mcp] Server started as PRIMARY (PID 1234, protocol 2026-07-28, readonly: false) @claude
 [tw-mcp] Client pipe-170912 (PID 5678) authenticated @listen
 [tw-mcp] Pipe client disconnected: pipe-170912 (PID 5678) @listen
 ```

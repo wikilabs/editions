@@ -137,7 +137,7 @@
 
   <circle cx="58" cy="500" r="8" fill="#47a" stroke="none"/>
   <text x="58" y="504" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">A</text>
-  <text x="74" y="504" fill="#333" font-size="11">initialize: inject _auth_token</text>
+  <text x="74" y="504" fill="#333" font-size="11">every message: inject auth into _meta</text>
 
   <circle cx="58" cy="526" r="8" fill="#47a" stroke="none"/>
   <text x="58" y="530" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">B</text>
@@ -157,8 +157,8 @@
 
   <circle cx="458" cy="500" r="8" fill="#4a4" stroke="none"/>
   <text x="458" y="504" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">D</text>
-  <text x="474" y="504" fill="#333" font-size="11">initialize: add proxy:true</text>
-  <text x="474" y="520" fill="#333" font-size="11">  + primaryPid, primaryLabel</text>
+  <text x="474" y="504" fill="#333" font-size="11">server/discover: add proxy:true</text>
+  <text x="474" y="520" fill="#333" font-size="11">  + primaryPid, primaryLabel (in _meta)</text>
 
   <circle cx="458" cy="544" r="8" fill="#4a4" stroke="none"/>
   <text x="458" y="548" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">E</text>

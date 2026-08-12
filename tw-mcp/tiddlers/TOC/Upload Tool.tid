@@ -1,5 +1,5 @@
 created: 20260404162346616
-modified: 20260404163322792
+modified: 20260812215612510
 tags: TOC
 title: Upload Tool
 
@@ -58,6 +58,6 @@ If the connect file is missing, `tw-upload` will show a clear error with instruc
 
 !! Security
 
-* ''Pipe authentication'' — `tw-upload` reads the 256-bit auth token from `.tw-mcp/connect` and sends it with the initialize request. Unauthenticated connections are rejected.
+* ''Pipe authentication'' — `tw-upload` reads the 256-bit auth token from `.tw-mcp/connect` and sends it inside `_meta` with every request. Unauthenticated connections are rejected.
 * ''Terminal injection protection'' — server responses are sanitised to strip ANSI escape codes before printing to the terminal.
 * ''Path restrictions'' — files are saved to the wiki's `files/` directory, which is within the server's allowed paths.
