@@ -120,6 +120,19 @@ test("every result carries resultType and the server identity", () => {
 	assert.equal(reply.result._meta[META_SERVER_INFO].name, "tiddlywiki-mcp");
 });
 
+test("tools/list is ordered by name, so clients can cache the response", () => {
+	// The revision asks servers to return a deterministic order to improve LLM
+	// prompt cache hits. mcp-handlers sorts explicitly rather than relying on
+	// Object.keys, so a reload_mcp_modules re-exec cannot reshuffle the list.
+	const names = dispatch(versioned("tools/list")).result.tools.map((t) => t.name);
+	assert.deepEqual(names, names.slice().sort());
+});
+
+test("ping is gone, since the revision removed it", () => {
+	const reply = dispatch(versioned("ping"));
+	assert.equal(reply.error.code, METHOD_NOT_FOUND);
+});
+
 test("an unknown method is a method-not-found error, not a version error", () => {
 	const reply = dispatch(versioned("nonsense/method"));
 	assert.equal(reply.error.code, METHOD_NOT_FOUND);
