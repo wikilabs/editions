@@ -1,5 +1,5 @@
 created: 20260909130551386
-modified: 20260909151949474
+modified: 20260909161009764
 tags: LSP
 title: LSP Capabilities
 
@@ -38,6 +38,8 @@ The list is always reported as incomplete, so the editor asks again on every key
 !! What a filter hover shows
 
 Put the cursor in a filter and the server runs it against the live wiki, reporting how many tiddlers match and naming up to 50 of them.
+
+It runs in the context of the position you are hovering, not in a vacuum. `[all[current]]` means the tiddler the document is, taken from its own `title:` field so an unsaved rename counts, and an enclosing `<$let>` or `<$set>` overrides it exactly as the wiki would. The wiki's global macros are imported too, so a filter calling one resolves.
 
 Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
 
