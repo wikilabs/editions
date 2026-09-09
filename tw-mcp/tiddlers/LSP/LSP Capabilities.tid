@@ -147,3 +147,18 @@ And the four outcomes, which never share a message:
 
 * [[LSP Server]]: starting the server and its parameters
 * [[LSP Editor Setup]]: connecting an editor
+
+
+!!! Examples
+
+<<list-links [tag[LSP]]>>
+
+<$let test="[tag[LSP]]" >
+
+<<list-links filter:"[all[tiddlers]subfilter<test>]" field:"caption">>
+
+<$list filter="[all[tiddlers]subfilter<test>]"/>
+
+<$list filter="[all[tiddlers]subfilter<test>]" join=", " variable="item">
+	<$link to=<<item>>/>
+</$list>
