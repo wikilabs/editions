@@ -1,5 +1,5 @@
 created: 20260909130551386
-modified: 20260909161009764
+modified: 20260909165418591
 tags: LSP
 title: LSP Capabilities
 
@@ -9,7 +9,7 @@ title: LSP Capabilities
 |! Request |! What it does |
 |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, triggered by `[` and `{` |
 |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
-|`textDocument/hover` |What a filter expression under the cursor currently resolves to |
+|`textDocument/hover` |What the filter, macro call or widget under the cursor amounts to |
 |`textDocument/definition` |The `.tid` file behind the link under the cursor |
 
 Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
@@ -54,6 +54,16 @@ A filter under a cursor is usually still being typed, so four outcomes are kept 
 |Nothing typed yet |''Empty filter'' |
 
 The distinction matters because an unfinished filter and one that genuinely matches nothing look identical otherwise, and a confident wrong answer sends you looking in the wrong place.
+
+!! What a widget hover shows
+
+Resting on `<$name` reports the widget, the module defining it, and every attribute. An attribute is not always a literal: an indirect reference (`{{X!!field}}`), a macro (`<<var>>`) and a filtered value (`{{{ ... }}}`) are shown both as written and as what they come to here, which is the part that cannot be read off the page.
+
+A `<$let>` or `<$vars>` also reports the variables it binds, and a `<$set>` the variable it names rather than its attribute names.
+
+A widget nobody registers is called out. ~TiddlyWiki renders an unknown widget as nothing at all, so a misspelt name is otherwise completely silent.
+
+Last comes what it actually renders, body and all, taken from the render already done for the position rather than a second one. A filter attribute is ''not'' run here: point at the filter itself for that, and the two hovers stay distinct rather than repeating each other.
 
 !! What a macro call hover shows
 
