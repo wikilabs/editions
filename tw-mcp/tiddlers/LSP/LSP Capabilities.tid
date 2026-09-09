@@ -1,9 +1,8 @@
 created: 20260909130551386
-modified: 20260909133716404
+modified: 20260909151949474
 tags: LSP
 title: LSP Capabilities
 
-\function lsp.pages() [tag[LSP]] [tag[Bulk Docs]]
 
 !! What it answers
 
@@ -11,10 +10,11 @@ title: LSP Capabilities
 |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, triggered by `[` and `{` |
 |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
 |`textDocument/hover` |What a filter expression under the cursor currently resolves to |
+|`textDocument/definition` |The `.tid` file behind the link under the cursor |
 
 Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
 
-Not answered yet: go to definition, find references, rename, document symbols, semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
+Not answered yet: find references, rename, document symbols, semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
 
 !! How a title is matched
 
@@ -41,6 +41,8 @@ Put the cursor in a filter and the server runs it against the live wiki, reporti
 
 Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
 
+A line that is nothing but a filter is recognised too, so a filter in a documentation code block, or a filter-valued system tiddler such as `$:/config/FileSystemPaths`, can be hovered. Nothing there declares it a filter, so it has to parse to be reported: an unfinished or unparseable line stays silent rather than raising a filter error over ordinary prose.
+
 A filter under a cursor is usually still being typed, so four outcomes are kept apart and never share a message:
 
 |! Outcome |! What you see |
@@ -50,6 +52,20 @@ A filter under a cursor is usually still being typed, so four outcomes are kept 
 |Nothing typed yet |''Empty filter'' |
 
 The distinction matters because an unfinished filter and one that genuinely matches nothing look identical otherwise, and a confident wrong answer sends you looking in the wrong place.
+
+!! What a macro call hover shows
+
+Resting on `<<name ...>>` reports what it is, where it is defined, and what every parameter is worth at that call: the argument given by name, the one given by position, or the declared default you never wrote. An argument the definition does not declare is listed as well, because a misspelled parameter name is exactly the mistake worth seeing.
+
+A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also reports the tiddlers it will list.
+
+The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. A definition in the tiddler being edited shadows a global one of the same name, as the wiki resolves it.
+
+!! Opening what you hover
+
+Every matched title in a hover is a link to its own `.tid` file, and ctrl-clicking a `[[link]]` in the text does the same through `textDocument/definition`. The file comes from the map ~TiddlyWiki itself uses to save a tiddler, so a filename that differs from the title, a ~FileSystemPaths subfolder and a `.meta` sidecar all resolve, and a title merely mentioned in prose does not.
+
+A shadow tiddler has no file of its own. In a hover list it stays plain text, and ctrl-click reports nothing rather than opening the wrong thing. The definition of a core macro is linked into the browser instead, whenever the same process is also serving HTTP.
 
 !! When diagnostics are recomputed
 
@@ -77,6 +93,7 @@ Type up to the end of each, and press ctrl-space if no list appears by itself.
 |`[[LS S` |''LSP Editor Setup'' and ''LSP Server'': `LS` starts one word, `S` another |
 |`[[lsp ed` |''LSP Editor Setup'' alone |
 |`[[$:/core/ui/Page` |shadow tiddlers such as `$:/core/ui/PageTemplate`, which a plain prefix never reaches |
+
 
 !!! Diagnostics
 
@@ -109,7 +126,7 @@ The third is a `\function`, which must be the first line of the tiddler body lik
 And the four outcomes, which never share a message:
 
 |! Hover this |! You should see |
-|`{{{ [tag[LSP]] }}}` |''4 tiddlers'', named |
+|`[tag[LSP]]` |''4 tiddlers'', named |
 |`{{{ [tag[LSP` |''Unfinished filter'', not run |
 |`{{{ [tag[a]xyz] }}}` |''Filter error:'' Missing [ in filter expression |
 |`{{{ [tag[no-such-tag]] }}}` |''Matches nothing'' |
