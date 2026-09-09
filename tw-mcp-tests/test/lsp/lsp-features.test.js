@@ -157,6 +157,36 @@ test("an open link offers a matching title", () => {
 	assert.ok(labels.includes(EXISTING_TITLE), "expected " + EXISTING_TITLE + " in " + labels.join(", "));
 });
 
+test("every item claims the typed text, so the editor cannot filter the list again", () => {
+	// The editor matches its own idea of the current word against filterText and
+	// drops what does not match. Its word stops at a space, so "LSP " would
+	// discard most of the LSP titles even though the server chose them all.
+	// Several titles sharing a first word, which is the case that breaks: the
+	// editor's word ends at the space and matches none of them.
+	$tw.wiki.addTiddler({ title: "lsp probe alpha", text: "a" });
+	$tw.wiki.addTiddler({ title: "lsp probe beta", text: "b" });
+	try {
+		const typed = "lsp ";
+		const result = features.completions(URI, tid("See [[" + typed), { line: 2, character: 6 + typed.length });
+		assert.ok(result.items.length > 1, "this prefix must match several titles");
+		assert.ok(
+			result.items.every((i) => i.filterText === typed),
+			"every item must claim exactly the typed text: " +
+				result.items.map((i) => i.filterText).join(" | ")
+		);
+	} finally {
+		$tw.wiki.deleteTiddler("lsp probe alpha");
+		$tw.wiki.deleteTiddler("lsp probe beta");
+	}
+});
+
+test("sortText carries the server's ranking, since filterText no longer can", () => {
+	const result = features.completions(URI, tid("See [[ls"), { line: 2, character: 8 });
+	const sorts = result.items.map((i) => i.sortText);
+	assert.deepEqual(sorts, sorts.slice().sort(), "sortText must already be in order");
+	assert.equal(new Set(sorts).size, sorts.length, "each item needs its own sort key");
+});
+
 test("the edit replaces the typed prefix, so a title with spaces still lands", () => {
 	// The client's own word matching splits on spaces, which would leave half a
 	// title behind. Stating the range and the filter text keeps that out of it.
@@ -167,7 +197,8 @@ test("the edit replaces the typed prefix, so a title with spaces still lands", (
 		const result = features.completions(URI, text, { line: 2, character: 13 });
 		const item = result.items.find((i) => i.label === spaced);
 		assert.ok(item, "expected the spaced title to be offered");
-		assert.equal(item.filterText, spaced);
+		// filterText is the typed text, not the title: see the test above.
+		assert.equal(item.filterText, "lsp pro");
 		assert.deepEqual(item.textEdit.range, {
 			start: { line: 2, character: 6 },
 			end: { line: 2, character: 13 }

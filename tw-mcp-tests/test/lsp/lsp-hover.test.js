@@ -163,6 +163,83 @@ test("a filter spanning two lines is hovered on its second line", () => {
 	});
 });
 
+// --- A bare filter, with no wikitext saying it is one ---
+
+test("a line that is nothing but a filter is hovered", () => {
+	// Inside a documentation code block the text is deliberately inert, so
+	// neither the parser nor the attribute scanner can see it.
+	withTagged(() => {
+		const text = hoverAt("[tag[" + TAG + "]]", 5);
+		assert.ok(text.includes("2 tiddlers"), text);
+	});
+});
+
+test("several runs on one line are one filter", () => {
+	withTagged(() => {
+		const text = hoverAt("[tag[" + TAG + "]] [[lsp_link_target]]", 5);
+		assert.ok(text.includes("3 tiddlers"), text);
+	});
+});
+
+test("an indented bare filter is hovered, and ranges over the filter only", () => {
+	withTagged(() => {
+		const line = "\t[tag[" + TAG + "]]";
+		const result = features.hover(URI, tid(line), { line: 2, character: 4 });
+		assert.ok(result, "expected a hover");
+		assert.equal(line.slice(result.range.start.character, result.range.end.character), line.trim());
+	});
+});
+
+test("prose that merely contains brackets is not a filter", () => {
+	// It never parses, and reporting a filter error over ordinary prose would
+	// make the whole feature noise.
+	assert.equal(hoverAt("See note [1] for the details.", 10), null);
+});
+
+test("an unfinished bare run stays silent rather than claiming to be a filter", () => {
+	// Inside {{{ }}} an unfinished filter is announced, because the syntax says
+	// a filter was intended. Here nothing does, so silence is the honest answer.
+	assert.equal(hoverAt("[tag[lsp_hov", 6), null);
+});
+
+test("a bare run TiddlyWiki cannot parse stays silent", () => {
+	assert.equal(hoverAt("[tag[a]xyz]", 5), null);
+});
+
+// --- Titles the reader can open ---
+
+test("a matched title is a markdown link to its own file", () => {
+	const text = hoverAt("{{{ [[lsp_link_target]] }}}", 10);
+	const uri = features.uriOfTitle("lsp_link_target");
+	assert.ok(uri, "the fixture must have a file");
+	assert.ok(text.includes("[lsp_link_target](" + uri + ")"), text);
+});
+
+test("a title with no file stays plain text rather than a dead link", () => {
+	// A shadow is supplied by a plugin, so there is no file to open. A link
+	// that goes nowhere is worse than no link.
+	const shadow = "$:/core/ui/PageTemplate";
+	assert.equal(features.uriOfTitle(shadow), null, "fixture assumption");
+	const text = hoverAt("{{{ [[" + shadow + "]] }}}", 10);
+	assert.ok(text.includes(shadow), text);
+	assert.ok(!text.includes("](file://"), "a fileless title must not be linked: " + text);
+});
+
+test("a parenthesis in the path is escaped, or it would end the link early", () => {
+	// A filename with parentheses is ordinary and encodeURI leaves them alone,
+	// so the ")" would close the markdown link mid-path.
+	const link = features.markdownLink("Note", "file:///wiki/Note%20(draft).tid");
+	assert.equal(link, "[Note](file:///wiki/Note%20%28draft%29.tid)");
+	assert.ok(!link.slice(0, -1).includes(")"), "no bare ) may remain inside the link");
+});
+
+test("brackets in the link text are escaped, or they would end it early", () => {
+	assert.equal(
+		features.markdownLink("odd [x] title", "file:///wiki/x.tid"),
+		"[odd \\[x\\] title](file:///wiki/x.tid)"
+	);
+});
+
 // --- The completeness check the honesty rests on ---
 
 test("brackets are balanced only when every one is closed", () => {
