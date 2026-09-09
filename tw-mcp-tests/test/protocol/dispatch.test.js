@@ -16,7 +16,7 @@ These tests drive dispatchMessage directly, which is the whole request path
 minus the transport. To replicate by hand, boot the test edition and call the
 same function:
 
-  const lib = $tw.modules.execute("$:/core/modules/commands/inspect/mcp-lib.js");
+  const lib = $tw.modules.execute("$:/core/modules/commands/inspect/mcp/mcp-lib.js");
   lib.dispatchMessage(JSON.stringify({jsonrpc:"2.0",id:1,method:"server/discover"}),
     (out) => console.log(out));
 */
@@ -25,7 +25,7 @@ const { test, before } = require("node:test");
 const assert = require("node:assert");
 const { bootTw, loadHandler } = require("../setup");
 
-const LIB_TITLE = "$:/core/modules/commands/inspect/mcp-lib.js";
+const LIB_TITLE = "$:/core/modules/commands/inspect/mcp/mcp-lib.js";
 
 const PROTOCOL = "2026-07-28";
 const LEGACY_PROTOCOL = "2025-11-25";

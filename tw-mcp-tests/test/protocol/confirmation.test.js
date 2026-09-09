@@ -18,7 +18,7 @@ const { test, before } = require("node:test");
 const assert = require("node:assert");
 const { bootTw, loadHandler, cleanupTiddler } = require("../setup");
 
-const LIB_TITLE = "$:/core/modules/commands/inspect/mcp-lib.js";
+const LIB_TITLE = "$:/core/modules/commands/inspect/mcp/mcp-lib.js";
 const PROTOCOL = "2026-07-28";
 const META_VERSION = "io.modelcontextprotocol/protocolVersion";
 const META_CAPS = "io.modelcontextprotocol/clientCapabilities";
