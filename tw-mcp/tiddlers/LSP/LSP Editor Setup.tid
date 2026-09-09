@@ -1,0 +1,37 @@
+created: 20260909121549062
+modified: 20260909121549062
+tags: LSP
+title: LSP Editor Setup
+
+!! Connecting an editor
+
+!!! Editors that attach to a socket
+
+Neovim connects to a server that is already running, which is the mode that shares a process with `--mcp`. Register the filetype first, since `.tid` is not one Neovim knows:
+
+```
+vim.filetype.add({ extension = { tid = "tid" } })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "tid",
+	callback = function()
+		vim.lsp.start({
+			name = "tiddlywiki",
+			cmd = vim.lsp.rpc.connect("127.0.0.1", 6009),
+			root_dir = vim.fn.getcwd(),
+		})
+	end,
+})
+```
+
+!!! Editors that launch a command
+
+Helix and most others expect to start the server themselves and talk to it over stdin and stdout. That needs its own TiddlyWiki process, because `--mcp` cannot share stdio (see [[LSP and MCP]]):
+
+```
+tiddlywiki ./mywiki --lsp stdio
+```
+
+!!! VS Code
+
+VS Code needs an extension to register a language client. None ships with this plugin yet.

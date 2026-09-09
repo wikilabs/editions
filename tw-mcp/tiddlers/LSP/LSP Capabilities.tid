@@ -1,0 +1,120 @@
+created: 20260909130551386
+modified: 20260909133716404
+tags: LSP
+title: LSP Capabilities
+
+\function lsp.pages() [tag[LSP]] [tag[Bulk Docs]]
+
+!! What it answers
+
+|! Request |! What it does |
+|`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, triggered by `[` and `{` |
+|`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
+|`textDocument/hover` |What a filter expression under the cursor currently resolves to |
+
+Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
+
+Not answered yet: go to definition, find references, rename, document symbols, semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
+
+!! How a title is matched
+
+Completion fires only inside an unclosed `[[` or `{{`. Elsewhere there is no title to complete, so nothing is offered.
+
+Matching is by ''prefix'' and ignores case. At least two characters are needed: one letter matches too much of any wiki to be a useful list.
+
+A title is offered when either holds, best first:
+
+# the title ''starts with'' everything you typed
+# every ''word'' you typed starts a word of the title
+
+The second rule is why `LS S` finds `LSP Server`, and why the list survives a space: a space begins the next word rather than narrowing the search to a literal that no title contains. A title's words are split on `_`, `-`, `/`, `:` and `.` as well as spaces, so `ed` reaches `LSP Editor Setup`.
+
+Nothing matches on its middle. Typing `dit` does not offer `LSP Editor Setup`, because a title is not looked for by its interior.
+
+System titles are left out until what you typed starts with `$:/`, which also reaches shadow tiddlers. At most 200 titles come back at once.
+
+The list is always reported as incomplete, so the editor asks again on every keystroke instead of caching it and filtering on its own. An editor filtering locally stops at the space in a title, which would hide exactly the multi-word titles this exists for.
+
+!! What a filter hover shows
+
+Put the cursor in a filter and the server runs it against the live wiki, reporting how many tiddlers match and naming up to 50 of them.
+
+Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
+
+A filter under a cursor is usually still being typed, so four outcomes are kept apart and never share a message:
+
+|! Outcome |! What you see |
+|Unbalanced brackets |''Unfinished filter'', and it is not run |
+|~TiddlyWiki rejects it |''Filter error'' with its own message |
+|Runs, matches nothing |''Matches nothing'' |
+|Nothing typed yet |''Empty filter'' |
+
+The distinction matters because an unfinished filter and one that genuinely matches nothing look identical otherwise, and a confident wrong answer sends you looking in the wrong place.
+
+!! When diagnostics are recomputed
+
+Not on every keystroke. Warnings are recomputed once typing pauses for about a third of a second, so a link you are halfway through writing is not squiggled while you write it. Opening a document reports immediately; closing one clears its warnings and cancels any pass still waiting.
+
+!! What is not flagged
+
+A link is left alone when it is an external address, a filtered transclusion (`{{{ ... }}}`), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
+
+A target assembled at render time from a variable cannot be checked at all, so it is never reported.
+
+!! Try it in a tiddler
+
+Every line below was run against ''this'' wiki, so the results are what you should see. Counts change as you add tiddlers.
+
+!!! Completion
+
+Type up to the end of each, and press ctrl-space if no list appears by itself.
+
+|! Type this |! You should get |
+|`[[LS` |''LSP'', ''LSP and MCP'', ''LSP Capabilities'', ''LSP Editor Setup'', ''LSP Server'' |
+|`[[l` |nothing: one character is below the two-character minimum |
+|`[[ed` |''LSP Editor Setup'', because `ed` starts the word ''Editor'' |
+|`[[dit` |nothing: `dit` sits inside ''Editor'' but starts no word |
+|`[[LS S` |''LSP Editor Setup'' and ''LSP Server'': `LS` starts one word, `S` another |
+|`[[lsp ed` |''LSP Editor Setup'' alone |
+|`[[$:/core/ui/Page` |shadow tiddlers such as `$:/core/ui/PageTemplate`, which a plain prefix never reaches |
+
+!!! Diagnostics
+
+Paste these as separate lines and wait a moment for the warnings to settle.
+
+```
+See [[No Such Tiddler]].
+See [[LSP Server]].
+Code `[[No Such Tiddler]]` here.
+See [[docs|https://tiddlywiki.com]].
+```
+
+Only the first is warned, as //No tiddler titled 'No Such Tiddler'//. The second resolves. The third is inline code, which is not wikitext. The fourth is an external address, not a title.
+
+!!! Hover
+
+Rest the cursor inside the filter. These two and the `\function` below are the same filter written three ways, and all report the same 4 tiddlers:
+
+```
+{{{ [tag[LSP]] }}}
+<$list filter="[tag[LSP]]">x</$list>
+```
+
+The third is a `\function`, which must be the first line of the tiddler body like any pragma:
+
+```
+\function lsp.pages() [tag[LSP]]
+```
+
+And the four outcomes, which never share a message:
+
+|! Hover this |! You should see |
+|`{{{ [tag[LSP]] }}}` |''4 tiddlers'', named |
+|`{{{ [tag[LSP` |''Unfinished filter'', not run |
+|`{{{ [tag[a]xyz] }}}` |''Filter error:'' Missing [ in filter expression |
+|`{{{ [tag[no-such-tag]] }}}` |''Matches nothing'' |
+
+!! See also
+
+* [[LSP Server]]: starting the server and its parameters
+* [[LSP Editor Setup]]: connecting an editor

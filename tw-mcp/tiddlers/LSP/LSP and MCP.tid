@@ -1,0 +1,30 @@
+created: 20260909121545137
+modified: 20260909121545137
+tags: LSP
+title: LSP and MCP
+
+!! Two protocols, one wiki
+
+`--mcp` and `--lsp` are separate commands that compose on one command line:
+
+```
+tiddlywiki ./mywiki --mcp rw listen --lsp port=6009
+```
+
+Both run in the same process against the same wiki store. A tiddler an assistant creates over MCP is a title your editor completes moments later, and a tiddler it renames stops being offered. Two separate processes would each boot their own copy of the wiki and drift apart.
+
+!!! Why they are not one command
+
+The two protocols disagree below the wiki. MCP `2026-07-28` is stateless: every message carries its own version and identity, and the server keeps nothing per connection. LSP is stateful by construction: it negotiates capabilities once, mirrors every buffer the editor opens, and stops answering after `shutdown`.
+
+Folding that lifecycle into `--mcp` would either erode its stateless contract, or grow a second stack beside it that shares nothing but the wiki.
+
+!!! The one thing they cannot share
+
+Framing. MCP over stdio separates messages with newlines, while LSP counts bytes in a `Content-Length` header. One stdin cannot carry both, so `--lsp stdio` and `--mcp` refuse to start together, whichever you list first:
+
+```
+Error: --lsp stdio cannot run beside --mcp: both would read the same pipe, and their framings differ. Use --lsp port=<n> instead.
+```
+
+Give the LSP server a port and the two coexist.

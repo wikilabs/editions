@@ -1,5 +1,5 @@
 created: 20260510184611212
-modified: 20260512075501980
+modified: 20260909121457460
 title: $:/config/FileSystemPaths
 type: text/vnd.tiddlywiki
 
@@ -10,6 +10,7 @@ type: text/vnd.tiddlywiki
 [tag[Bulk Docs]addprefix[Bulk Docs/]]
 [tag[Inspect Docs]addprefix[Inspect Docs/]]
 [tag[Installation]addprefix[Installation/]]
+[tag[LSP]addprefix[LSP/]]
 [tag[Server]addprefix[Server/]]
 [tag[SSE]addprefix[SSE/]]
 [tag[TOC]addprefix[TOC/]]

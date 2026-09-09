@@ -1,5 +1,5 @@
 created: 20260510164534310
-modified: 20260512082935042
+modified: 20260909121615644
 tags: TOC
 title: Server
 
@@ -14,3 +14,4 @@ The TiddlyWiki MCP server connects a language model to your wiki: it can read, w
 * [[Bulk Docs]]: tutorials for batch read and bulk find/replace tools
 * [[Inspect Docs]]: tutorials for the four `inspect_*` tools
 * [[SSE]]: live browser sync (Server-Sent Events) details
+* [[LSP]]: title completion and broken-link warnings in your editor

@@ -1,0 +1,44 @@
+created: 20260909121537237
+modified: 20260909133347090
+tags: LSP
+title: LSP Server
+
+!! Serving an editor from the running wiki
+
+`--lsp` starts a Language Server Protocol server inside the TiddlyWiki process. It is read only: it answers questions about the wiki and never writes to it.
+
+!!! Starting
+
+```
+tiddlywiki ./mywiki --lsp
+```
+
+The server listens on `127.0.0.1:6009`.
+
+|! Parameter |! Default |! Meaning |
+|`port=<n>` |6009 |TCP port to listen on |
+|`host=<h>` |127.0.0.1 |Interface to bind |
+|`stdio` |off |Serve over stdin and stdout instead of a socket. Cannot be combined with `--mcp`, see [[LSP and MCP]] |
+
+!!! Completion
+
+Typing `[[` or `{{` offers tiddler titles, narrowed as you keep typing. A title containing spaces completes correctly, because the server states the range to replace rather than leaving the editor to guess where the word began.
+
+System tiddlers stay out of the list until the prefix starts with `$:/`, which also reaches shadow tiddlers.
+
+Matching is by prefix and ignores case, and needs at least two characters. See [[LSP Capabilities]] for the exact rules.
+
+!!! Diagnostics
+
+A link or transclusion whose target does not exist is marked as a warning naming the missing title. Shadow tiddlers count as targets.
+
+Left alone: external addresses, filtered transclusions (`{{{ ... }}}`), inline code, fenced code blocks, and the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
+
+!!! Hover
+
+Resting the cursor on a filter expression runs it against the live wiki and reports what it matches right now. A filter you have not finished typing says so rather than claiming to match nothing.
+
+!!! Unsaved text
+
+The server mirrors the buffers your editor has open, so all three features answer for text you have not saved.
+

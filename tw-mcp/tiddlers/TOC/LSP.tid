@@ -1,0 +1,17 @@
+created: 20260909121532376
+modified: 20260909121532376
+tags: TOC
+title: LSP
+
+!! Language Server Protocol
+
+The `--lsp` command serves your editor from the running wiki. It completes tiddler titles as you type a link, and marks links whose target does not exist.
+
+It answers from the same wiki as the MCP server, so a tiddler an assistant has just created is a title your editor offers on the next keystroke.
+
+<<list-links filter:"[tag[LSP]sort[title]]">>
+
+!! See also
+
+* [[Server]]: entry point for MCP server tools
+* [[Instructions]]: full server / tool reference
