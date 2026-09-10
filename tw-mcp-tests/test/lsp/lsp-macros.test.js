@@ -115,6 +115,45 @@ test("a widget inside a \\widget body is hovered, without claiming a render", ()
 	assert.ok(!result.contents.value.includes("Renders as"), result.contents.value);
 });
 
+// --- Widget forms of a call ---
+
+const WHO = "\\function lsp.who() [[World]]\n\n";
+
+test("a $macrocall is found as a call, its $ attributes not taken for arguments", () => {
+	const sites = macros.callSites($tw.wiki.parseText("text/vnd.tiddlywiki", '<$macrocall $name="lsp.who" $type="text/plain" a="1"/>').tree);
+	assert.equal(sites.length, 1);
+	assert.equal(sites[0].name, "lsp.who");
+	assert.equal(sites[0].tag, "$macrocall");
+	assert.deepEqual(sites[0].args, [{ name: "a", value: "1", positional: false }]);
+});
+
+test("a name computed at render time is no call", () => {
+	const sites = macros.callSites($tw.wiki.parseText("text/vnd.tiddlywiki", "<$transclude $variable=<<dyn>>/>").tree);
+	assert.deepEqual(sites, []);
+});
+
+test("hovering a $transclude describes the widget and the call it makes", () => {
+	const result = hoverOn(WHO + '<$transclude $variable="lsp.who"/>', "<$transclude", 3);
+	const text = result.contents.value;
+	assert.ok(text.includes("$:/core/modules/widgets/transclude.js"), text);
+	assert.ok(text.includes("**function** `lsp.who`, defined in this tiddler"), text);
+});
+
+test("hovering a $macrocall describes the widget and the call it makes", () => {
+	const result = hoverOn(WHO + '<$macrocall $name="lsp.who"/>', "<$macrocall", 3);
+	const text = result.contents.value;
+	assert.ok(text.includes("$:/core/modules/widgets/macrocall.js"), text);
+	assert.ok(text.includes("**function** `lsp.who`, defined in this tiddler"), text);
+});
+
+test("the widget comes first, then the call, and the render stays last", () => {
+	const text = hoverOn(WHO + '<$transclude $variable="lsp.who"/>', "<$transclude", 3).contents.value;
+	const widget = text.indexOf("**widget**");
+	const call = text.indexOf("**function**");
+	const render = text.indexOf("Renders as");
+	assert.ok(widget >= 0 && call > widget && render > call, text);
+});
+
 // --- Recognising the call ---
 
 test("a macro call is found with its arguments", () => {
