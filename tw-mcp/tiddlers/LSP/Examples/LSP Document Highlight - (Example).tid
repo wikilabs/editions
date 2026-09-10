@@ -1,0 +1,19 @@
+created: 20260910182117197
+modified: 20260910182117197
+title: LSP Document Highlight - (Example)
+
+\procedure lsp.dh.greet(who) Hello <<who>> {{{ [<who>] }}}
+\procedure lsp.dh.outer(lsp.dh.greet) <<lsp.dh.greet>>
+
+<<lsp.dh.greet who:"World">> <<lsp.dh.greet>>
+
+<$let who="you"><<who>></$let>
+
+Open this tiddler's `.tid` file in your editor and put the cursor on each name.
+
+|! Cursor on |! Lights up |
+|`who` in the body of `lsp.dh.greet` |its declaration in the head and both uses in that body, nothing else |
+|`who` inside the `$let` |the `$let`'s `who` and the use inside it |
+|`lsp.dh.greet` in the first call |the definition's name and both calls on that line, not the call inside `lsp.dh.outer`, where a parameter of that name hides it |
+
+Back to [[LSP Document Highlight]].

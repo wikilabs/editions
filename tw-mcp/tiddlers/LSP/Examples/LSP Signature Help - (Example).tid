@@ -1,0 +1,24 @@
+created: 20260910182135576
+modified: 20260910182135576
+title: LSP Signature Help - (Example)
+
+\procedure lsp.sh.pair(a, b:"B", c) <<a>> <<b>> <<c>>
+\define lsp.sh.macro(a, b) $a$ $b$
+\function lsp.sh.fn(a, b) [<a>] [<b>]
+
+Open this tiddler's `.tid` file in your editor and type each line below on an empty line, stopping where the table says.
+
+|! Type |! Popup |! Marked |
+|`<<lsp.sh.pair ` |`lsp.sh.pair(a, b:"B", c)` |`a` |
+|`<<lsp.sh.pair a:"1" ` |the same |`b` |
+|`<<lsp.sh.pair c:` |the same |`c` |
+|`<<lsp.sh.pair "1" "` |the same |`b`: a procedure gives the second value to the second parameter |
+|`<<lsp.sh.macro a:"1" "` |`lsp.sh.macro(a, b)` |`b`: a macro gives it to the next parameter left over |
+|`<$transclude $variable="lsp.sh.pair" a="1" ` |`lsp.sh.pair(a, b:"B", c)` |`b` |
+|`{{{ [lsp.sh.fn[1],[` |`lsp.sh.fn(a, b)` |`b` |
+|`<<lsp.sh.pair zz:"1" ` |the same, noting that `zz` is not declared |`a` |
+|`<<now ` |`now(format)` |`format` |
+
+Delete what you typed afterwards.
+
+Back to [[LSP Signature Help]].

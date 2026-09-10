@@ -1,6 +1,6 @@
 created: 20260909130551386
-list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]]
-modified: 20260910105957794
+list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]] [[LSP Document Highlight]] [[LSP Document Symbols]] [[LSP Workspace Symbols]] [[LSP Folding]] [[LSP Signature Help]] [[LSP Inlay Hints]] [[LSP Rename]]
+modified: 20260910182226653
 tags: LSP
 title: LSP Capabilities
 type: text/vnd.tiddlywiki
@@ -10,15 +10,22 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 !! What it answers
 
 |! Capability |! Request |! What it does |
-|[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, triggered by `[` and `{` |
+|[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, and the names of calls, parameters, widgets, variables and operators where ~TiddlyWiki expects one |
 |[[LSP Diagnostics]] |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
-|[[LSP Hover]] |`textDocument/hover` |What the filter, macro call or widget under the cursor amounts to |
-|[[LSP Go to Definition]] |`textDocument/definition` |The `.tid` file behind the link under the cursor |
+|[[LSP Hover]] |`textDocument/hover` |What the filter, operator, call, widget or pragma line under the cursor amounts to |
+|[[LSP Go to Definition]] |`textDocument/definition` |The definition of the call, parameter, variable, operator or widget under the cursor, or the `.tid` file behind a link |
 |[[LSP Find References]] |`textDocument/references` |Every call of the macro, procedure, function or widget under the cursor |
+|[[LSP Document Highlight]] |`textDocument/documentHighlight` |Every place in the tiddler where the name under the cursor means the same |
+|[[LSP Document Symbols]] |`textDocument/documentSymbol` |The outline: definitions, nested, then headings |
+|[[LSP Workspace Symbols]] |`workspace/symbol` |Any definition or tiddler in the wiki, by name |
+|[[LSP Folding]] |`textDocument/foldingRange` |Fold arrows on definitions, clauses, widgets, comments and the header |
+|[[LSP Signature Help]] |`textDocument/signatureHelp` |The parameter list of the call being typed |
+|[[LSP Inlay Hints]] |`textDocument/inlayHint` |The parameter each value passed by position binds to |
+|[[LSP Rename]] |`textDocument/rename` |A definition or a parameter, renamed everywhere it means the same |
 
-Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
+Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
 
-Not answered yet: rename, document symbols, semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
+Not answered yet: semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
 
 !! See also
 

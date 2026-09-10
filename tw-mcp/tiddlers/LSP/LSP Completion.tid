@@ -1,13 +1,13 @@
 created: 20260910105908298
-modified: 20260910105908298
+modified: 20260910193615387
 tags: [[LSP Capabilities]]
 title: LSP Completion
 
-The editor offers tiddler titles while you type a link or a transclusion, through `textDocument/completion`. Try it in [[LSP Completion - (Example)]].
+The editor offers tiddler titles while you type a link or a transclusion, and names wherever ~TiddlyWiki expects one, through `textDocument/completion`. Try it in [[LSP Completion - (Example)]].
 
 !! How a title is matched
 
-Completion fires only inside an unclosed `[[` or `{{`. Elsewhere there is no title to complete, so nothing is offered.
+Titles are offered only inside an unclosed `[[` or `{{`.
 
 Matching is by ''prefix'' and ignores case. At least two characters are needed: one letter matches too much of any wiki to be a useful list.
 
@@ -23,3 +23,19 @@ Nothing matches on its middle. Typing `dit` does not offer `LSP Editor Setup`, b
 System titles are left out until what you typed starts with `$:/`, which also reaches shadow tiddlers. At most 200 titles come back at once.
 
 The list is always reported as incomplete, so the editor asks again on every keystroke instead of caching it and filtering on its own. An editor filtering locally stops at the space in a title, which would hide exactly the multi-word titles this exists for.
+
+!! Names
+
+Where ~TiddlyWiki expects a name, the names it would reach from there are offered, with no minimum length:
+
+|! Typed |! Offered |
+|`<<`, or a `$variable=` or `$name=` value |names in reach, in the order ~TiddlyWiki looks: what an enclosing definition or widget binds, this tiddler's definitions, globals, ~JavaScript macros, then the variables ~TiddlyWiki sets |
+|inside a call, after a space |the parameters not given yet, by name or by position, as `tag:` in `<<call>>` or `tag=` in a widget |
+|`<$` |custom widgets in reach, then every registered widget |
+|where a step starts in a filter |filter operators, then dotted functions in reach |
+|`[<` in a filter |variables and functions in reach |
+|`[function[` |functions in reach |
+
+A filter is recognised on its line: a filter attribute, a `{{{ }}}`, an `<%if%>` condition or a `\function` body. A call is read back across lines, so a `<$macrocall` spread over five lines is still offered its parameters. A literal operand, prose and a closed call offer nothing.
+
+The list opens by itself on `[`, `{`, `<`, `$`, `"`, `=` and a space, and follows the same rules as titles: always incomplete, ranked by the server.

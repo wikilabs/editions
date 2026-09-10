@@ -1,0 +1,32 @@
+created: 20260910182149952
+modified: 20260910182149952
+tags: [[LSP Capabilities]]
+title: LSP Rename
+
+F2 on a name renames it everywhere it means the same thing, through `textDocument/prepareRename` and `textDocument/rename`. What cannot be renamed safely is refused, and the editor shows why. Try it in [[LSP Rename - (Example)]].
+
+!! What is renamed
+
+|! F2 on |! Renamed |
+|a definition's name or a call |the definition, and every call that reaches it; for a global, in every file whose call ~TiddlyWiki would send to it |
+|a parameter, at its declaration or a use |the declaration, its uses in the body, `$param$` and `$(param)$` in a `\define`, and `name:` or `name=` at calls of that definition in every file |
+
+A call that reaches a local definition of the same name means something else, and stays as it is.
+
+Edits outside the file you are in, and every parameter edit, open VS Code's refactor preview first, so you see each change before it is made. A parameter needs that care because a definition its body calls can read it too, and no parse shows that.
+
+!! What is refused
+
+* a variable ~TiddlyWiki sets itself, such as `currentTiddler`
+* a ~JavaScript macro such as `<<now>>`
+* a variable a widget sets, such as the `x` of `<$let x=...>`, since definitions it calls can read it
+* a `\widget` definition or its parameters, for now
+* a name defined in, or called from, a tiddler without a file of its own, such as a shadow tiddler, since that cannot be edited
+* a new name that is no name, is set by ~TiddlyWiki, is already defined beside the old one, is already a global, already means something where a call would reach it, or is already a parameter of or used inside the definition
+* a dotted `\function` losing its dot, since it may be called as a filter operator
+
+!! What rename cannot see
+
+A variable set by one definition and read by another it calls is only connected when the wiki renders, so renaming one side leaves the other. Names in field values that are not calls, and anything in a tiddler that is not wikitext, are not seen either.
+
+The editor saves the changed files, and the server reads each save into the running wiki, as [[LSP Editor Setup]] explains.

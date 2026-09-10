@@ -1,0 +1,24 @@
+created: 20260910182100515
+modified: 20260910182100515
+tags: [[LSP Capabilities]]
+title: LSP Document Symbols
+
+The editor's outline of a tiddler, its definitions and its headings, through `textDocument/documentSymbol`. In VS Code that is the Outline view, the breadcrumbs above the text and Ctrl+Shift+O. Try it in [[LSP Document Symbols - (Example)]].
+
+!! What is listed
+
+Every `\procedure`, `\function`, `\define` and `\widget` comes first, each spanning its whole definition, and a definition written inside another's body is nested under it. The headings follow, nested by level, each spanning its section up to the next heading as high or higher, so the breadcrumbs follow the cursor through the tiddler.
+
+|! Written |! Shown as |
+|`\procedure`, `\define` |Function |
+|`\function` |Operator: a dotted one runs as a filter operator |
+|`\widget` |Class |
+|`!` heading |String |
+
+A definition's detail is its parameter list, defaults included.
+
+!! What is left out
+
+A heading inside a definition body belongs to what the definition renders, not to the tiddler, so it is not listed. A tiddler that is not wikitext has no outline.
+
+An editor that cannot nest symbols gets them as a flat list, each naming the symbol it sits in.

@@ -1,18 +1,29 @@
 created: 20260910105939173
-modified: 20260910105939173
+modified: 20260910193554977
 tags: [[LSP Capabilities]]
 title: LSP Go to Definition
 
-Ctrl-click a link and the editor opens the `.tid` file that holds its target, through `textDocument/definition`. Try it in [[LSP Go to Definition - (Example)]].
+Ctrl-click a call, a parameter, an operator or a link, and the editor opens where it is defined, through `textDocument/definition`. F12 does the same, and Alt+F12 peeks at the definition in place. Try it in [[LSP Go to Definition - (Example)]].
 
-!! What can be followed
+!! Calls
 
-A `[[link]]`, a `{{transclusion}}` and a `<$link to="...">` widget all resolve. A transclusion of one field, such as `{{Title!!field}}`, opens the tiddler that holds the field.
+A call in any form opens the definition the wiki would use at that call, found as [[LSP Hover]] describes: one nested around the call first, then this tiddler, then a global, then ~JavaScript.
 
-!! Where the file comes from
+|! Defined in |! Opens |
+|this tiddler |the definition's name; a peek shows the whole definition |
+|another tiddler's `.tid` file |that file, read from disk, since a save from the editor can be ahead of the wiki |
+|a shadow tiddler or a tiddler without a file |its read-only view in the editor |
+|a ~JavaScript widget such as `$list` |the constructor in its module |
+|a ~JavaScript macro such as `now` |its `run` function |
 
-The file comes from the map ~TiddlyWiki itself uses to save a tiddler, so a filename that differs from the title, a ~FileSystemPaths subfolder and a `.meta` sidecar all resolve.
+A name ~TiddlyWiki would not resolve from there offers every definition of it in the wiki instead, since a caller may be what brings one into scope. A name nothing defines, such as a variable only a caller or ~TiddlyWiki sets, opens nothing.
 
-!! When nothing opens
+!! Parameters, variables and operators
 
-A shadow tiddler has no file of its own, so ctrl-click reports nothing rather than opening the wrong thing. Neither does a link to a tiddler that does not exist, nor a title merely mentioned in prose, which is no link at all.
+A parameter opens its declaration in the definition's head, and a variable the attribute of the widget that sets it; the `currentTiddler` of a `<$list>` opens the `<$list` tag. A filter operator or run prefix opens its module at the line exporting it: `compare` at `exports.compare`, and a shorthand `+` at the `:and` prefix.
+
+!! Links
+
+A `[[link]]`, a `{{transclusion}}` and a `<$link to="...">` widget open the `.tid` file that holds the target. A transclusion of one field, such as `{{Title!!field}}`, opens the tiddler that holds the field. The file comes from the map ~TiddlyWiki itself uses to save a tiddler, so a filename that differs from the title, a ~FileSystemPaths subfolder and a `.meta` sidecar all resolve.
+
+A link to a shadow tiddler, one to a tiddler that does not exist, and a title merely mentioned in prose open nothing.

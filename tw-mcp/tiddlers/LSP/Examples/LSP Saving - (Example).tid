@@ -1,0 +1,12 @@
+created: 20260910193717271
+modified: 20260910193717271
+title: LSP Saving - (Example)
+
+Check that a save in the editor reaches the running wiki, with no `reload_tiddlers`:
+
+# Open this tiddler's `.tid` file in your editor and change the last word of this line: before
+# Save. The server log says `Reloaded LSP Saving - (Example)`, and the wiki shows the new word: ask `get_tiddler` over MCP, or look in the browser after its next refresh.
+# Change the `title:` field at the top of the file to `LSP Saving - (Example) renamed`, and save. The wiki now holds the renamed tiddler and not this one, and the `.tid` file is still there, holding the new title.
+# Change the title back and save again.
+
+Back to [[LSP Editor Setup]].

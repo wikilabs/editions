@@ -1,9 +1,9 @@
 created: 20260910105947482
-modified: 20260910122220810
+modified: 20260910193606627
 tags: [[LSP Capabilities]]
 title: LSP Find References
 
-Put the cursor on a call and the editor lists every call of that name in the wiki's `.tid` files, through `textDocument/references`. In VS Code that is Shift+F12. Try it in [[LSP Find References - (Example)]].
+Put the cursor on a call and the editor lists every call of that name in the wiki, in its `.tid` files and in tiddlers without a file of their own, through `textDocument/references`. In VS Code that is Shift+F12. Try it in [[LSP Find References - (Example)]].
 
 Each entry opens the file at the name. The cursor may also rest on a definition such as `\procedure name`, and the definition itself is listed whenever the editor asks for it.
 
@@ -25,10 +25,12 @@ A call counts in every form ~TiddlyWiki accepts:
 
 Files are read from disk rather than from the running wiki, which does not watch its folder, so a file saved from the editor counts as saved. A file open in the editor counts as it is on screen, saved or not.
 
+A shadow tiddler, or a tiddler packed into a `.json` or `.multids` file, has no file of its own, so its calls open in a read-only view. Only the text that runs counts: a tiddler of your own over a plugin's shadow, and a plugin's shadow over the core's. Calls in a `.tid` file's header fields count too, in every field but the title.
+
 !! Parameters and variables
 
 A parameter, or a variable set by a widget, is that name only inside its own scope: its references stay in the definition or widget that binds it, and a closer binding of the same name has references of its own. A name read in a `\function` body is whatever the caller binds, so there it is matched by name everywhere.
 
 !! What cannot be found
 
-Some calls cannot be found. A name assembled at render time (`$variable=<<holder>>`), a `\define` placeholder such as `$param$`, and a backtick filter holding `$(variable)$` or `${ filter }$` are only known once the wiki renders them, and a shadow tiddler has no file to open. Calls are matched by name, so a local `\procedure` that redefines a global one is listed together with it.
+Some calls cannot be found. A name assembled at render time (`$variable=<<holder>>`), a `\define` placeholder such as `$param$`, and a backtick filter holding `$(variable)$` or `${ filter }$` are only known once the wiki renders them. Calls are matched by name, so a local `\procedure` that redefines a global one is listed together with it.

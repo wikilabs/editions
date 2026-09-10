@@ -1,0 +1,18 @@
+created: 20260910182107696
+modified: 20260910182107696
+tags: [[LSP Capabilities]]
+title: LSP Workspace Symbols
+
+Ctrl+T in VS Code finds a definition or a tiddler anywhere in the wiki by name, through `workspace/symbol`. Try it in [[LSP Workspace Symbols - (Example)]].
+
+!! What is searched
+
+* every definition in the editor's open buffers and in the wiki's `.tid` files
+* every definition in a shadow tiddler or a tiddler without a file, which opens as its read-only view
+* every tiddler, by its title
+
+A tiddler without a file is only read when its text writes a definition, so the search stays quick on a large wiki.
+
+!! How names are ranked
+
+Names starting with what you typed come first, then names holding its letters in order, the shorter name first within each group. At most 200 come back.

@@ -1,9 +1,9 @@
 created: 20260910105930297
-modified: 20260910142655461
+modified: 20260910193542070
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
-Rest the cursor on a filter, a macro call or a widget, and the editor shows what it amounts to in the running wiki, through `textDocument/hover`. Try it in [[LSP Hover - (Example)]].
+Rest the cursor on a filter, an operator, a macro call, a widget or a pragma line, and the editor shows what it amounts to in the running wiki, through `textDocument/hover`. Try it in [[LSP Hover - (Example)]].
 
 !! What a filter hover shows
 
@@ -29,6 +29,19 @@ A filter under a cursor is usually still being typed, so four outcomes are kept 
 
 The distinction matters because an unfinished filter and one that genuinely matches nothing look identical otherwise, and a confident wrong answer sends you looking in the wrong place.
 
+!! What an operator or run prefix hover shows
+
+Resting on an operator's name inside a filter explains the operator first, then the whole filter's result below a rule:
+
+|! Written |! What you see |
+|an operator, such as `compare:number:gt` |the module defining it, its suffix, `!` when negated, and a link to its page on tiddlywiki.com for a core operator |
+|a shorthand prefix `+`, `-`, `~`, `=` or `=>` |the named prefix it stands for, `:and`, `:except`, `:else`, `:all` or `:let`, and what that does |
+|a named prefix such as `:else` or `:cascade` |what it does and the module defining it; an unknown one is called out |
+|a name no operator has, such as `toc-link[no]` |''Not a filter operator'': ~TiddlyWiki silently tests the field `toc-link` instead, as `[field:toc-link[no]]`, which is exactly what a misspelt operator looks like |
+|a dotted name such as `my.fn[x]` |the function it calls, where one is visible; otherwise the same field test |
+
+With a suffix, the field tested is the suffix, as ~TiddlyWiki does it. An operand keeps its own hover: a `<variable>` is a call.
+
 !! What a widget hover shows
 
 Resting on `<$name` reports the widget, the module defining it, and every attribute. An attribute is not always a literal: an indirect reference (`{{X!!field}}`), a macro (`<<var>>`) and a filtered value (`{{{ ... }}}`) are shown both as written and as what they come to here, which is the part that cannot be read off the page.
@@ -53,7 +66,7 @@ Positional arguments bind the way the wiki binds them: a `\procedure` or `\widge
 
 A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also reports the tiddlers it will list.
 
-The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. The definition is found the way the wiki finds it: one nested in the body around the call first, then one in the tiddler being edited, then a global from a tiddler tagged `$:/tags/Macro` or `$:/tags/Global`.
+The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. The definition is found the way the wiki finds it: one nested in the body around the call first, then one in the tiddler being edited, then a global the wiki imports for every tiddler, from a tiddler tagged `$:/tags/Macro` or `$:/tags/Global`, and last a ~JavaScript macro.
 
 A call inside another definition's body is hovered too. ~TiddlyWiki keeps a `\procedure`, `\define` or `\widget` body as plain text, so the server parses it separately.
 
@@ -63,6 +76,15 @@ A name that is no definition is still explained: a parameter of the enclosing de
 
 A `<<var>>` written as an attribute value is hovered as a call of its own rather than as the widget around it.
 
+!! What a pragma line hover shows
+
+A line starting a definition or another pragma explains itself:
+
+* a keyword such as `\procedure`, `\end`, `\import` or `\whitespace` says what it does
+* a definition keyword written after other content is flagged: ~TiddlyWiki reads a pragma only where nothing but pragmas precedes it, so there it is plain text
+* a definition's name gives its kind, its reach (global, local to this tiddler, or local to the definition around it), its parameters with their defaults, any global of the same name it hides, and how often the name is called: here, in other files, and in tiddlers without a file
+* a parameter gives its default and how often its own body names it; a count of 0 does not mean unused, since a definition the body calls can read it too
+
 !! Opening what you hover
 
-Every matched title in a hover is a link to its own `.tid` file. A shadow tiddler has no file of its own, so in a hover list it stays plain text. The definition of a core macro is linked into the browser instead, whenever the same process is also serving HTTP.
+Every matched title in a hover is a link to its own `.tid` file. A shadow tiddler has no file of its own, so in a hover list it stays plain text. A definition in a shadow tiddler or a tiddler without a file links its read-only view in the editor, and names the plugin supplying it; the core is never named. The definition of a core macro is also linked into the browser, whenever the same process is serving HTTP.

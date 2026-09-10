@@ -1,6 +1,8 @@
 created: 20260910105912170
-modified: 20260910105912170
+modified: 20260910193618881
 title: LSP Completion - (Example)
+
+\procedure lsp.cp.pair(a, b:"B") <<a>> <<b>>
 
 Open this tiddler's `.tid` file in your editor. On a new line at the end, type each entry below up to its end, and press ctrl-space if no list appears by itself. Nothing needs saving: the server answers from the text in the editor.
 
@@ -12,6 +14,13 @@ Open this tiddler's `.tid` file in your editor. On a new line at the end, type e
 |`[[LS S` |''LSP Editor Setup'' and ''LSP Server'': `LS` starts one word, `S` another |
 |`[[lsp ed` |''LSP Editor Setup'' alone |
 |`[[$:/core/ui/Page` |shadow tiddlers such as `$:/core/ui/PageTemplate`, which a plain prefix never reaches |
+|`<<lsp.cp` |`lsp.cp.pair`, defined at the top of this tiddler |
+|`<<lsp.cp.pair a:"1" ` |`b:`, the one parameter not given |
+|`<$transclude $variable="lsp.cp.pair" ` |`a=` and `b=` |
+|`<$li` |`list`, and every other widget starting with `li` |
+|`{{{ [ta` |`tag`, `tagging`, `tags` and the other operators starting with `ta` |
+|`{{{ [<lsp` |`lsp.cp.pair` |
+|`{{{ [tag[lsp` |nothing: a literal operand is no name |
 
 Results were checked against this wiki. They change as you add tiddlers.
 

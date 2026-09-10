@@ -1,0 +1,14 @@
+created: 20260910182138883
+modified: 20260910182138883
+tags: [[LSP Capabilities]]
+title: LSP Inlay Hints
+
+A value passed by position is labelled with the parameter it binds to, in grey and not part of the text, through `textDocument/inlayHint`: `<<list-links "[tag[x]]">>` reads as `<<list-links filter: "[tag[x]]">>`. Try it in [[LSP Inlay Hints - (Example)]].
+
+!! Which values get a label
+
+Only values passed by position, and only where the name resolves to a definition. Which parameter a value binds to follows the definition's own rule, as [[LSP Hover]] explains, so a value no parameter takes gets no label.
+
+A dotted function used as a filter operator labels its operands by position, `[my.fn[a],[b]]`, and a variable operand with arguments, `[<fn "a" b>]`, labels them as a call does.
+
+VS Code shows the labels unless the setting `editor.inlayHints.enabled` is off.

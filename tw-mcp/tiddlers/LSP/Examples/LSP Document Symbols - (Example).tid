@@ -1,0 +1,31 @@
+created: 20260910182104822
+modified: 20260910182104822
+title: LSP Document Symbols - (Example)
+
+\procedure lsp.ds.outer(tag, sort:"title")
+\procedure lsp.ds.inner() inner
+<<lsp.ds.inner>>
+\end
+\function lsp.ds.count() [<tag>tagging[]count[]]
+\widget $lsp.ds.box() <$slot $name="ts-raw"/>
+
+Open this tiddler's `.tid` file in your editor and look at its outline: in VS Code, the Outline view or Ctrl+Shift+O.
+
+!! You should see
+
+|! Symbol |! Kind |! Detail |
+|`lsp.ds.outer` |Function |`(tag, sort:"title")` |
+|`lsp.ds.inner`, nested under the one above |Function |`()` |
+|`lsp.ds.count` |Operator |`()` |
+|`$lsp.ds.box` |Class |`()` |
+|You should see |String | |
+|A subsection, nested under the one above |String | |
+|Back |String | |
+
+!!! A subsection
+
+Clicking a heading in the outline selects its whole section, down to the next heading as high or higher.
+
+!! Back
+
+Back to [[LSP Document Symbols]].

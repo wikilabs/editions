@@ -1,0 +1,17 @@
+created: 20260910182142946
+modified: 20260910182142946
+title: LSP Inlay Hints - (Example)
+
+\procedure lsp.ih.pair(a, b:"B") a=<<a>> b=<<b>>
+\define lsp.ih.macro(a, b) a=$a$ b=$b$
+\function lsp.ih.fn(a, b) [<a>addsuffix<b>]
+
+Open this tiddler's `.tid` file in your editor. Each line says which labels should appear, and renders what the wiki binds:
+
+* <<lsp.ih.pair "x" "y">>: `a:` before `"x"`, `b:` before `"y"`
+* <<lsp.ih.pair a:"x" "y">>: no label, since a procedure would give `"y"` to `a`, which is already named
+* <<lsp.ih.macro a:"x" "y">>: `b:` before `"y"`, the next parameter left over
+* {{{ [lsp.ih.fn[x],[y]] }}}: `a:` and `b:` before the operands
+* <<list-links "[tag[LSP Capabilities]]">>: `filter:` before the filter
+
+Back to [[LSP Inlay Hints]].

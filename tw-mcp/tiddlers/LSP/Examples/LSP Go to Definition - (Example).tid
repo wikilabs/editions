@@ -1,8 +1,35 @@
 created: 20260910105941788
-modified: 20260910105941788
+modified: 20260910193602386
 title: LSP Go to Definition - (Example)
 
+\procedure lsp.gd.greet(who) Hello <<who>>
+\procedure lsp.gd.outer()
+\procedure lsp.gd.greet() nested
+<<lsp.gd.greet>>
+\end
+
 Open this tiddler's `.tid` file in your editor and ctrl-click each target below.
+
+!! Calls, parameters and operators
+
+<<lsp.gd.greet who:"World">> <<lsp.gd.outer>>
+
+<$list filter="[tag[LSP Capabilities]] +[limit[2]]" variable="page"><<page>> </$list>
+
+<<list-links "[tag[LSP Capabilities]] +[limit[2]]">> <<now "YYYY">>
+
+|! Ctrl-click |! Opens |
+|`lsp.gd.greet` in the first call |the `\procedure lsp.gd.greet(who)` line at the top |
+|`lsp.gd.greet` inside `lsp.gd.outer` |the nested definition just above it |
+|`who` in `Hello <<who>>` |`who` in the head of `lsp.gd.greet` |
+|`page` in `<<page>>` |the `variable="page"` attribute of the `$list` |
+|`$list` |the list widget's constructor, read-only |
+|`limit` |`exports.limit` in the limit operator's module, read-only |
+|`+` |the module of the `:and` run prefix, read-only |
+|`list-links` |its definition in `$:/core/macros/list`, read-only |
+|`now` |the `run` function of the now macro, read-only |
+
+!! Links
 
 These open `LSP/LSP Server.tid`:
 

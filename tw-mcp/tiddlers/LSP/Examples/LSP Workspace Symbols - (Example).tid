@@ -1,0 +1,16 @@
+created: 20260910182110511
+modified: 20260910182110511
+title: LSP Workspace Symbols - (Example)
+
+\procedure lsp.ws.alpha() one
+\procedure lsp.ws.beta() two
+
+Press Ctrl+T in VS Code and type each query below.
+
+|! Type |! You should see |
+|`lsp.ws.` |`lsp.ws.alpha` and `lsp.ws.beta`, from this tiddler |
+|`list-li` |`list-links`, which opens `$:/core/macros/list` read-only |
+|`LSP Work` |this tiddler and [[LSP Workspace Symbols]], by title |
+|`lwsa` |`lsp.ws.alpha`, its letters in order, unless VS Code filters the list again itself |
+
+Back to [[LSP Workspace Symbols]].

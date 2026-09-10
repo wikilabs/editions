@@ -1,0 +1,26 @@
+created: 20260910182154822
+modified: 20260910182154822
+title: LSP Rename - (Example)
+
+\procedure lsp.rn.greet(who) Hello <<who>>
+\define lsp.rn.shout(word) $word$!
+
+<<lsp.rn.greet who:"World">> <<lsp.rn.greet "you">>
+
+<<lsp.rn.shout "hey">>
+
+<$let x="1"><<x>></$let> <<currentTiddler>> <<now "YYYY">> <<list-links "[[LSP Rename]]">>
+
+Open this tiddler's `.tid` file in your editor and press F2 on each name below. Undo with Ctrl+Z afterwards.
+
+|! F2 on |! New name |! Expect |
+|`lsp.rn.greet` in the first call |`lsp.rn.hello` |the definition and both calls change |
+|`who` in the head of `lsp.rn.greet` |`name` |the preview opens first; the head, `<<who>>` and `who:` in the first call change |
+|`word` in the head of `lsp.rn.shout` |`text` |the preview opens; the head and `$word$` change |
+|`lsp.rn.greet` |`lsp.rn.shout` |refused: already defined beside it |
+|`x` inside the `$let` |anything |refused: a variable a widget sets |
+|`currentTiddler` |anything |refused before a new name is asked for |
+|`now` |anything |refused: a ~JavaScript macro |
+|`list-links` |anything |refused: defined in a shadow tiddler |
+
+Back to [[LSP Rename]].

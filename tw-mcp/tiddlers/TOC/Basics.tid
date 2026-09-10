@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260910112910565
+modified: 20260910193630737
 tags: TOC
 title: Basics
 
@@ -97,6 +97,7 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 |`run_filter` |find, search, how many |Run a TiddlyWiki filter expression |
 |`search_lines` |find, grep, search lines, regex |Per-line search across tiddler fields (string or regex), with optional context lines (see [[search_lines]] and [[search-lines Operator]]) |
 |`find_calls` |where is X used, callers, references |Every call and definition of a macro, procedure, function or widget, in every call form (see [[find_calls]]) |
+|`find_definition` |where is X defined, definition, source of |Where a name is defined: wikitext definitions, and the running ~JavaScript behind a widget, filter operator, run prefix or macro (see [[find_definition]]) |
 |`render_tiddler` |render, display, preview |Render a tiddler to plain text or HTML (with full macro support) |
 |`render_text` |render wikitext, test, try |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
 |`render_field` |render field, preview field |Render a single tiddler field or data index as wikitext |

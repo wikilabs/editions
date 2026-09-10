@@ -1,5 +1,5 @@
 created: 20260910105935606
-modified: 20260910143653547
+modified: 20260910193547505
 title: LSP Hover - (Example)
 
 \function lsp.pages() [tag[LSP]]
@@ -66,5 +66,29 @@ Both calls pass `a` by name and `"y"` by position, yet a procedure and a functio
 |! Hover |! You should see |
 |`<<lsp.depth>>` inside `\procedure lsp.outer()` |`where`, default `nested` |
 |the second call on the line above |`where`, default `top` |
+
+!! Operators and run prefixes
+
+{{{ [tag[LSP Capabilities]!is[system]] :else[[none]] +[limit[3]] }}}
+
+{{{ [tag[LSP Capabilities]toc-link[no]] }}}
+
+|! Hover |! You should see |
+|`tag` in the first filter |''filter operator'' `tag`, its module and its tiddlywiki.com page, then the filter's result |
+|`is` |''filter operator'' `is`, negated by `!` |
+|`:else` |''run prefix'' `:else`: runs only when the output so far is empty |
+|`+` |''run prefix'' `+`, short for `:and` |
+|`toc-link` in the second filter |''Not a filter operator'': the field test `[field:toc-link[no]]` instead |
+
+!! Pragma lines
+
+|! Hover |! You should see |
+|`\function` in the first line of this tiddler |what the keyword does |
+|`lsp.pair` in its `\procedure` line |''procedure'' `lsp.pair`, defined here, local to this tiddler, with its parameters, defaults and call count |
+|`b` in `lsp.pair(a:"A", b:"B")` |''parameter'' `b` of `lsp.pair`, default `B`, named once in its body |
+|`\procedure` in the line below |''Not a definition here'': after text, it is text |
+
+This paragraph is text, so the line under it is too:
+\procedure lsp.late() never
 
 Back to [[LSP Hover]].

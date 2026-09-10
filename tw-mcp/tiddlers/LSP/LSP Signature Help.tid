@@ -1,0 +1,22 @@
+created: 20260910182130199
+modified: 20260910182130199
+tags: [[LSP Capabilities]]
+title: LSP Signature Help
+
+While you type a call's arguments, a popup shows the parameters of the definition it calls, with the one you are filling in marked, through `textDocument/signatureHelp`. Try it in [[LSP Signature Help - (Example)]].
+
+!! Which parameter is marked
+
+# after `name:` or `name=`, that parameter
+# in a value given by position, the parameter it binds to by the definition's own rule, as [[LSP Hover]] explains
+# otherwise the first parameter not yet given
+
+A name the definition does not declare is pointed out below the list.
+
+!! Where it works
+
+Every form of a call: `<<name ...>>`, `<$transclude $variable="name" ...>`, `<$macrocall $name="name" ...>`, a custom widget `<$my.widget ...>`, a dotted function used as a filter operator `[my.fn[a],[b]]`, whose operands bind by position, and a variable operand with arguments `[<fn "a" b>]`. A call may run over several lines.
+
+A ~JavaScript macro shows the parameters it declares. A widget written in ~JavaScript declares none, so it gets no popup. While the name itself is typed, [[LSP Completion]] helps instead.
+
+The popup appears on a space, `:` or `=`, and a quote refreshes it.

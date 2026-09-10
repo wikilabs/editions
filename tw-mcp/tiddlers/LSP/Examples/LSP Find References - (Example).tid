@@ -1,5 +1,6 @@
+caption: <<lsp.who>>
 created: 20260910105952227
-modified: 20260910110214129
+modified: 20260910193609315
 title: LSP Find References - (Example)
 
 \function lsp.who() [[World]]
@@ -19,5 +20,11 @@ Open this tiddler's `.tid` file in your editor, rest the cursor on any call of `
 A custom widget works the same way. Rest on `$lsp.greeting` in the call below and press Shift+F12 to find it and its `\widget` definition at the top:
 
 <$lsp.greeting/>
+
+A call in a header field counts too: the list for `lsp.who` also holds this tiddler's `caption` field, at the top of its file.
+
+And calls outside your files: press Shift+F12 on `list-links` below, and the core's own calls are listed too, each opening its tiddler read-only:
+
+<<list-links "[[LSP Find References]]">>
 
 Back to [[LSP Find References]].

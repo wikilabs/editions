@@ -1,0 +1,42 @@
+created: 20260910193355677
+modified: 20260910193355677
+tags: Server
+title: find_definition
+
+!! `find_definition` MCP Tool
+
+Where a name is defined, found the way the running wiki finds it: wikitext definitions, and the ~JavaScript behind widgets, filter operators, run prefixes and macros. The editor's go to definition answers from the same code, see [[LSP Go to Definition]].
+
+!! Parameters
+
+|!Parameter |!Default |!Description |
+|`name` |required |the name as written in a call; a widget keeps its `$`, as in `$list`, and a run prefix its `:`, as in `:else` |
+|`filter` |`[all[shadows+tiddlers]]` |TW filter expression to scope the search for wikitext definitions |
+
+!! Output format
+
+```
+<title>  (from <plugin>)
+  <line>#<hash> [<kinds>]: <line text>
+```
+
+Kinds are `procedure`, `function`, `macro` and `widget` for a pragma, with `global` added to the one definition the wiki imports for everyone, and `JavaScript widget`, `filter operator`, `run prefix` and `JavaScript macro` for code. A tiddler a plugin supplies names that plugin; the core is never named. The anchor is what `edit_tiddler` takes as `pos`. A footer counts definitions and tiddlers, and `(no definition)` means none was found.
+
+!! Which code is shown
+
+The code that actually runs: a tiddler of your own overrides a plugin's shadow, which overrides the core's, and a module is matched to the running widget, operator or prefix by identity rather than by name, since a later module can take over a name.
+
+!! Direct invocations
+
+```
+find_definition(name="list-links")
+find_definition(name="$list")
+find_definition(name="compare")
+find_definition(name=":else")
+find_definition(name="list-links", filter="[tag[$:/tags/Macro]]")
+```
+
+!! See also
+
+* [[LSP Go to Definition]]: the same answer in the editor
+* [[find_calls]]: where the name is called

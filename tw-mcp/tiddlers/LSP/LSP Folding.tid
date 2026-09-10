@@ -1,0 +1,24 @@
+created: 20260910182122012
+modified: 20260910182122012
+tags: [[LSP Capabilities]]
+title: LSP Folding
+
+Fold arrows appear on definitions, `<%if%>` clauses, multi-line widgets and elements, comments, code blocks and the `.tid` header, through `textDocument/foldingRange`. Try it in [[LSP Folding - (Example)]].
+
+!! What folds
+
+|! Construct |! Folds |
+|`.tid` header |its fields, as a region |
+|Multi-line definition |to the line before `\end`, which stays visible |
+|`<%if%>` block |each clause on its own, up to the next clause or `<%endif%>` |
+|Multi-line widget or element |to the line before its closing tag; an opening tag written over several lines also folds its content |
+|Comment |the whole comment |
+|Code block |to the line before its closing fence |
+
+A tiddler that is not wikitext offers no folds.
+
+!! Instead of indentation folding
+
+Once a server offers folding, VS Code stops folding by indentation, so everything indentation used to fold has to fold here. Across `core/wiki/macros/toc.tid`, 109 of the 110 lines indentation folded still fold; the exception is text indented under a one-line comment.
+
+A paragraph that ~TiddlyWiki wraps around several lines is no tag you wrote, so it does not fold. There is one fold per line, the widest, so the first clause of an `<%if%>` block folds as that clause, not as the whole block.

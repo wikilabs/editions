@@ -1,0 +1,41 @@
+created: 20260910182125762
+modified: 20260910182125762
+title: LSP Folding - (Example)
+
+<!--
+A comment over
+three lines
+-->
+\procedure lsp.fr.choose(n)
+<%if [<n>match[1]] %>
+	one
+<%elseif [<n>match[2]] %>
+	two
+<%else%>
+	many
+<%endif%>
+\end
+
+Open this tiddler's `.tid` file in your editor. Fold arrows should appear at:
+
+* the header fields at the top of the file
+* the comment
+* `\procedure lsp.fr.choose`, folding down to the line before `\end`
+* each of `<%if%>`, `<%elseif%>` and `<%else%>` on its own
+* the `<$list` widget below, and its content from the `>` that ends its opening tag
+* the code block
+
+<$list filter="[tag[LSP Capabilities]]"
+	variable="page"
+>
+	<div>
+		<$link to=<<page>>/>
+	</div>
+</$list>
+
+```
+code
+block
+```
+
+Back to [[LSP Folding]].
