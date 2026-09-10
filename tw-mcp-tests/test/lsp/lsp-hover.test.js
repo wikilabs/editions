@@ -66,6 +66,53 @@ test("a filter attribute value is a filter, in every quoting style", () => {
 	assert.equal(features.filterContext("<$list filter=`[tag[A]]`>", 18).text, "[tag[A]]");
 });
 
+// Hover inside the line holding `needle`, for bodies spanning several lines.
+function hoverOn(body, needle, into) {
+	const text = tid(body);
+	const lines = text.split("\n");
+	const line = lines.findIndex((l) => l.includes(needle));
+	const result = features.hover(URI, text, { line: line, character: lines[line].indexOf(needle) + into });
+	return result === null ? null : result.contents.value;
+}
+
+test("a backtick filter attribute is hovered as a filter, not as its widget", () => {
+	const text = hoverAt("<$list filter=`[[lsp_link_target]]`/>", 18);
+	assert.ok(text.includes("1 tiddler"), text);
+	assert.ok(!text.includes("**widget**"), text);
+});
+
+test("a backtick filter runs with its $(variable)$ filled in, and shows it", () => {
+	const body = "<$let t=\"lsp_link_target\">\n<$list filter=`[[$(t)$]]`/>\n</$let>";
+	const text = hoverOn(body, "[[$(t)$]]", 3);
+	assert.ok(text.includes("Substituted here"), text);
+	// Run unsubstituted, [[$(t)$]] also yields one title, the literal "$(t)$",
+	// so the listed title is what proves the substitution ran.
+	assert.ok(text.includes("* [lsp_link_target]("), text);
+	assert.ok(!text.includes("* $(t)$"), text);
+});
+
+test("a backtick filter spanning lines is hovered on its last line", () => {
+	const text = hoverOn("<$list filter=` [[lsp_link_target]]\n\t+[limit[1]]`/>", "+[limit[1]]", 3);
+	assert.ok(text && text.includes("1 tiddler"), text);
+});
+
+test("the widget hover shows a backtick attribute as substituted here", () => {
+	const body = "<$let t=\"lsp_link_target\">\n<$list filter=`[[$(t)$]]`/>\n</$let>";
+	const text = hoverOn(body, "<$list", 3);
+	assert.ok(text.includes("_(substituted)_"), text);
+	assert.ok(text.includes("`[[lsp_link_target]]`"), text);
+});
+
+test("a filter inside a definition says its parameters are not set there", () => {
+	const text = hoverOn("\\procedure lsp.p(x) {{{ [<x>] }}}\n\ny", "[<x>]", 2);
+	assert.ok(text.includes("parameters are not set here"), text);
+});
+
+test("a filter outside any definition carries no such note", () => {
+	const text = hoverAt("{{{ [[lsp_link_target]] }}}", 6);
+	assert.ok(!text.includes("parameters are not set"), text);
+});
+
 test("a cursor outside any filter hovers nothing", () => {
 	assert.equal(features.filterContext("just prose here", 5), null);
 	assert.equal(hoverAt("just prose here", 5), null);

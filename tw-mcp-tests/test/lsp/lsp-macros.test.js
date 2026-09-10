@@ -154,6 +154,16 @@ test("the widget comes first, then the call, and the render stays last", () => {
 	assert.ok(widget >= 0 && call > widget && render > call, text);
 });
 
+test("an argument that is not a literal is kept as written", () => {
+	const tree = $tw.wiki.parseText("text/vnd.tiddlywiki", '<$macrocall $name="x" a=<<y>> b={{z}} c={{{ [[q]] }}} d=`t`/>').tree;
+	assert.deepEqual(macros.callSites(tree)[0].args.map((a) => a.value), ["<<y>>", "{{z}}", "{{{ [[q]] }}}", "`t`"]);
+});
+
+test("a call given a <<var>> argument hovers rather than failing", () => {
+	const result = hoverOn(WHO + '<$transclude $variable="list-links" filter=<<lsp.who>>/>', "<$transclude", 3);
+	assert.ok(result && result.contents.value.includes("`<<lsp.who>>`"), JSON.stringify(result));
+});
+
 // --- Recognising the call ---
 
 test("a macro call is found with its arguments", () => {
