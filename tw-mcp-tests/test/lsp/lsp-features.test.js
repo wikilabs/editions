@@ -117,6 +117,21 @@ test("an external address is not a tiddler title", () => {
 	assert.deepEqual(features.diagnostics(URI, text), []);
 });
 
+test("a title in a filter is not a link, so it is not diagnosed", () => {
+	const text = tid([
+		"\\function lsp.f() [[" + MISSING_TITLE + "]]",
+		"",
+		'<$list filter="[[' + MISSING_TITLE + ']]"/>',
+		"<%if [[" + MISSING_TITLE + "]] %>x<%endif%>"
+	].join("\n"));
+	assert.deepEqual(features.diagnostics(URI, text), []);
+});
+
+test("a link beside a filter is still diagnosed", () => {
+	const text = tid('<$list filter="[[x]]"/> See [[' + MISSING_TITLE + ']].');
+	assert.equal(features.diagnostics(URI, text).length, 1);
+});
+
 test("a target assembled from a variable is not diagnosed", () => {
 	// The title only exists at render time, so the server cannot know it.
 	assert.deepEqual(features.diagnostics(URI, tid("See [[$(currentTiddler)$]].\n")), []);

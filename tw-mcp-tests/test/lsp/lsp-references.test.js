@@ -209,6 +209,44 @@ test("a .tid whose type is not wikitext is not searched", () => {
 	});
 });
 
+// --- Parameters and variables stay in their scope ---
+
+const SCOPED_URI = "file:///wiki/tiddlers/lsp_refs_scoped.tid";
+const SCOPED = [
+	"title: lsp_refs_scoped",
+	"",
+	"\\procedure lsp.a(tag)",
+	"<<tag>> <<tag>>",
+	"<$let tag=\"x\"><<tag>></$let>",
+	"\\end",
+	"\\procedure lsp.b(tag)",
+	"<<tag>>",
+	"\\end"
+].join("\n");
+
+// References from a line and column of SCOPED, as "line:character" of each hit.
+function scopedHits(line, character, includeDeclaration) {
+	const found = features.references(SCOPED_URI, SCOPED, { line: line, character: character },
+		{ includeDeclaration: includeDeclaration }, { [SCOPED_URI]: SCOPED });
+	return found.map((l) => l.range.start.line + ":" + l.range.start.character);
+}
+
+test("references to a parameter stay inside its own procedure", () => {
+	assert.deepEqual(scopedHits(3, 3, false), ["3:2", "3:10"]);
+});
+
+test("the parameter's declaration is included when asked for", () => {
+	assert.deepEqual(scopedHits(3, 3, true), ["2:17", "3:2", "3:10"]);
+});
+
+test("an inner binding of the same name is its own, with its own declaration", () => {
+	assert.deepEqual(scopedHits(4, 16, true), ["4:6", "4:16"]);
+});
+
+test("the same parameter name in another procedure is a different parameter", () => {
+	assert.deepEqual(scopedHits(7, 3, false), ["7:2"]);
+});
+
 test("every location names a file on disk, so a shadow tiddler is never listed", () => {
 	// $:/language/Snippets/ListByTag calls list-links but has no file to open.
 	withFiles({ lsp_refs_d: "<<list-links>>" }, (docs) => {
