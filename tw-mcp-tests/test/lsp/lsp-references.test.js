@@ -52,7 +52,8 @@ before(async () => {
 });
 
 // Test scaffolding: each {title: body} becomes a .tid in a throwaway folder,
-// registered in $tw.boot.files. A body given as {type, body} gets a type field.
+// registered in $tw.boot.files. A body given as {type, fields, body} gets those
+// header fields too.
 function withFiles(files, fn) {
 	const dir = fs.mkdtempSync(path.join(os.tmpdir(), "tw-lsp-refs-"));
 	const docs = {};
@@ -60,7 +61,8 @@ function withFiles(files, fn) {
 		for(const title of Object.keys(files)) {
 			const spec = typeof files[title] === "string" ? { body: files[title] } : files[title];
 			const filepath = path.join(dir, title + ".tid");
-			const text = "title: " + title + "\n" + (spec.type ? "type: " + spec.type + "\n" : "") + "\n" + spec.body;
+			const header = Object.entries(spec.fields || {}).map(([name, value]) => name + ": " + value + "\n").join("");
+			const text = "title: " + title + "\n" + (spec.type ? "type: " + spec.type + "\n" : "") + header + "\n" + spec.body;
 			fs.writeFileSync(filepath, text);
 			$tw.boot.files[title] = { filepath: filepath, type: "application/x-tiddler", hasMetaFile: false };
 			docs[title] = { filepath: filepath, uri: features.pathToUri(filepath), text: text };
@@ -114,6 +116,17 @@ test("every call form in every file is referenced, each range covering the name"
 	withFiles(FORMS, (docs) => {
 		const locations = referencesFrom(docs.lsp_refs_a, "<<lsp.refs.probe>>", 4, false);
 		assert.deepEqual(byTitle(locations, docs), CALLS_PER_FILE);
+	});
+});
+
+test("a call in a .tid header field is a reference too", () => {
+	withFiles({ lsp_refs_a: FORMS.lsp_refs_a, lsp_refs_field: { fields: { caption: "<<" + NAME + ">>" }, body: "body" } }, (docs) => {
+		const field = docs.lsp_refs_field;
+		const found = referencesFrom(docs.lsp_refs_a, "<<" + NAME + ">>", 3, false).filter((location) => location.uri === field.uri);
+		assert.equal(found.length, 1, JSON.stringify(found));
+		const range = found[0].range;
+		assert.equal(range.start.line, 1, "the caption is the second header line");
+		assert.equal(field.text.split("\n")[1].slice(range.start.character, range.end.character), NAME);
 	});
 });
 
@@ -247,14 +260,14 @@ test("the same parameter name in another procedure is a different parameter", ()
 	assert.deepEqual(scopedHits(7, 3, false), ["7:2"]);
 });
 
-test("every location names a file on disk, so a shadow tiddler is never listed", () => {
-	// $:/language/Snippets/ListByTag calls list-links but has no file to open.
+test("every location is a file on disk, or the read-only view of a tiddler without one", () => {
+	// $:/language/Snippets/ListByTag calls list-links but has no file, so its view is listed.
 	withFiles({ lsp_refs_d: "<<list-links>>" }, (docs) => {
 		const locations = referencesFrom(docs.lsp_refs_d, "<<list-links>>", 4, false);
 		const onDisk = new Set(Object.values($tw.boot.files).filter((e) => e.filepath).map((e) => features.sameFileKey(features.pathToUri(e.filepath))));
-		assert.ok(locations.length >= 1);
+		assert.ok(locations.some((location) => location.uri === features.virtualUri("$:/language/Snippets/ListByTag")), "the shadow must be listed as its view");
 		for(const location of locations) {
-			assert.ok(onDisk.has(features.sameFileKey(location.uri)), "not a file: " + location.uri);
+			assert.ok(onDisk.has(features.sameFileKey(location.uri)) || features.isVirtualUri(location.uri), "neither a file nor a view: " + location.uri);
 		}
 	});
 });
