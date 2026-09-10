@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260910112459572
+modified: 20260910114913230
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -13,7 +13,11 @@ It runs in the context of the position you are hovering, not in a vacuum. `[all[
 
 Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
 
+A backtick value is filled in first, `$(variable)$` and `${ filter }$` alike, as the widget would at that position, and the hover shows the filter that actually runs beside the one as written.
+
 A line that is nothing but a filter is recognised too, so a filter in a documentation code block, or a filter-valued system tiddler such as `$:/config/FileSystemPaths`, can be hovered. Nothing there declares it a filter, so it has to parse to be reported: an unfinished or unparseable line stays silent rather than raising a filter error over ordinary prose.
+
+A filter inside a definition body runs where the definition is written, so the definition's own parameters are empty there, and the hover says so rather than let an empty result pass for the filter's answer.
 
 A filter under a cursor is usually still being typed, so four outcomes are kept apart and never share a message:
 

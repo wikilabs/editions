@@ -1,5 +1,5 @@
 created: 20260910105947482
-modified: 20260910105947482
+modified: 20260910115318656
 tags: [[LSP Capabilities]]
 title: LSP Find References
 
@@ -26,4 +26,4 @@ Files are read from disk rather than from the running wiki, which does not watch
 
 !! What cannot be found
 
-Some calls cannot be found. A name assembled at render time (`$variable=<<holder>>`) and a `\define` placeholder such as `$param$` are only known once the wiki renders them, and a shadow tiddler has no file to open. Calls are matched by name, so a local `\procedure` that redefines a global one is listed together with it.
+Some calls cannot be found. A name assembled at render time (`$variable=<<holder>>`), a `\define` placeholder such as `$param$`, and a backtick filter holding `$(variable)$` or `${ filter }$` are only known once the wiki renders them, and a shadow tiddler has no file to open. Calls are matched by name, so a local `\procedure` that redefines a global one is listed together with it.
