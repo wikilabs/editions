@@ -1,8 +1,15 @@
 created: 20260910105935606
-modified: 20260910110211941
+modified: 20260910143653547
 title: LSP Hover - (Example)
 
 \function lsp.pages() [tag[LSP]]
+\procedure lsp.pair(a:"A", b:"B") a=<<a>> b=<<b>>
+\function lsp.fpair(a:"A", b:"B") [[a=]addsuffix<a>] [[b=]addsuffix<b>] +[join[ ]]
+\procedure lsp.outer()
+	\procedure lsp.depth(where:"nested") <<where>>
+	<<lsp.depth>>
+\end lsp.outer
+\procedure lsp.depth(where:"top") <<where>>
 
 Open this tiddler's `.tid` file in your editor and rest the cursor on each part below. Results were checked against this wiki; they change as you add tiddlers.
 
@@ -37,5 +44,27 @@ Rest on `<$list` in the second filter above to see the widget, the module defini
 <<list-links [tag[LSP]]>>
 
 Rest on `list-links` to see where it is defined, what each parameter is worth here, and the tiddlers its filter lists.
+
+!! How arguments bind
+
+Both calls pass `a` by name and `"y"` by position, yet a procedure and a function bind them differently, exactly as ~TiddlyWiki does:
+
+<<lsp.pair a:"x" "y">>
+
+<<lsp.fpair a:"x" "y">>
+
+|! Hover the name in |! You should see |
+|`<<lsp.pair a:"x" "y">>` |''procedure'': `b` is `B` by default, and `y` is listed as ''ignored'' |
+|`<<lsp.fpair a:"x" "y">>` |''function'': `b` is `y`, given by position |
+
+!! A nested definition
+
+`lsp.depth` is defined twice at the top of this tiddler: inside `lsp.outer`, and on its own. Each call resolves to the definition around it:
+
+<<lsp.outer>> <<lsp.depth>>
+
+|! Hover |! You should see |
+|`<<lsp.depth>>` inside `\procedure lsp.outer()` |`where`, default `nested` |
+|the second call on the line above |`where`, default `top` |
 
 Back to [[LSP Hover]].

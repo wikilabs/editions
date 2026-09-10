@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260910122216755
+modified: 20260910142655461
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -49,9 +49,11 @@ An `<%if%>` block is a `$list` underneath, but it is hovered as what was written
 
 Resting on `<<name ...>>` reports what it is, where it is defined, and what every parameter is worth at that call: the argument given by name, the one given by position, or the declared default you never wrote. An argument the definition does not declare is listed as well, because a misspelled parameter name is exactly the mistake worth seeing.
 
+Positional arguments bind the way the wiki binds them: a `\procedure` or `\widget` gives parameter N the Nth positional argument, while a `\define` or `\function` gives each parameter not named in the call the next positional argument left over. One that no parameter takes is listed as ''ignored'', because ~TiddlyWiki drops it without a word.
+
 A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also reports the tiddlers it will list.
 
-The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. A definition in the tiddler being edited shadows a global one of the same name, as the wiki resolves it.
+The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. The definition is found the way the wiki finds it: one nested in the body around the call first, then one in the tiddler being edited, then a global from a tiddler tagged `$:/tags/Macro` or `$:/tags/Global`.
 
 A call inside another definition's body is hovered too. ~TiddlyWiki keeps a `\procedure`, `\define` or `\widget` body as plain text, so the server parses it separately.
 
