@@ -1,0 +1,46 @@
+created: 20260910112904941
+modified: 20260910112904941
+tags: Server
+title: find_calls
+
+!! `find_calls` MCP Tool
+
+Where a macro, procedure, function or custom widget is called or defined, found through ~TiddlyWiki's own parsers. The editor's find references answers the same question from the same code, see [[LSP Find References]].
+
+!! Parameters
+
+|!Parameter |!Default |!Description |
+|`name` |required |the name called; a custom widget keeps its `$`, as in `$my.widget` |
+|`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search |
+|`include_system` |`false` |convenience flag for $:/ tiddlers; ignored if `filter` is set |
+|`include_definitions` |`true` |also list the `\define`, `\procedure`, `\function` or `\widget` declaring the name |
+|`max_total` |`200` |cap on calls plus definitions; a tiddler is listed whole or not at all |
+
+!! Output format
+
+```
+<title>
+  <line>#<hash> [<forms>]: <line text>
+```
+
+The anchor is what `edit_tiddler` takes as `pos`, so a call can be changed in the next step. Forms are `macro`, `macrocall`, `transclude`, `widget`, `filter` and `definition`, and a line holding several calls lists each form once. A footer counts calls, definitions and tiddlers.
+
+!! What counts as a call
+
+Every form listed in [[LSP Find References]]: `<<name>>`, the `$macrocall` and `$transclude` widgets, attribute values, filters, and calls inside definition bodies. A name built at render time cannot be found.
+
+Unlike the editor, the tool answers from the wiki rather than from files, so shadow tiddlers such as the core macros are searched whenever the scope includes them.
+
+!! Direct invocations
+
+```
+find_calls(name="list-links")
+find_calls(name="list-links", filter="[all[shadows+tiddlers]]")
+find_calls(name="$my.widget")
+find_calls(name="list-links", include_definitions=false)
+```
+
+!! See also
+
+* [[LSP Find References]]: the same answer in the editor
+* [[search_lines]]: text search, where a call is only a string

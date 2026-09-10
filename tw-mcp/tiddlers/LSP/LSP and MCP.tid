@@ -1,5 +1,5 @@
 created: 20260909121545137
-modified: 20260909121545137
+modified: 20260910112912301
 tags: LSP
 title: LSP and MCP
 
@@ -12,6 +12,8 @@ tiddlywiki ./mywiki --mcp rw listen --lsp port=6009
 ```
 
 Both run in the same process against the same wiki store. A tiddler an assistant creates over MCP is a title your editor completes moments later, and a tiddler it renames stops being offered. Two separate processes would each boot their own copy of the wiki and drift apart.
+
+Neither command depends on the other: what they share is code. The editor's [[find references|LSP Find References]] and the [[find_calls]] MCP tool read call sites from the same library, so each works alone, and together an assistant and your editor agree on every call.
 
 !!! Why they are not one command
 

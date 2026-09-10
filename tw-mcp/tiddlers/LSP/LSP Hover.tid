@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260910111817663
+modified: 20260910112459572
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -46,6 +46,8 @@ A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also re
 The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. A definition in the tiddler being edited shadows a global one of the same name, as the wiki resolves it.
 
 A call inside another definition's body is hovered too. ~TiddlyWiki keeps a `\procedure`, `\define` or `\widget` body as plain text, so the server parses it separately.
+
+A `<$transclude $variable="name">` or `<$macrocall $name="name">` is a widget and a call at once, so its hover describes the widget first and then the call it makes.
 
 !! Opening what you hover
 
