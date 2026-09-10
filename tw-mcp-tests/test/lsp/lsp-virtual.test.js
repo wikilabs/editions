@@ -187,12 +187,16 @@ test("a view of JavaScript holds no calls, whatever its text says", () => {
 });
 
 test("an open view of JavaScript is not searched either", () => {
-	const jsView = features.virtualUri(MODULE);
-	const uri = "file:///wiki/tiddlers/lsp_virtual_asker.tid";
-	const text = "title: lsp_virtual_asker\n\n<<" + NAME + ">>";
-	const open = { [uri]: text, [jsView]: "// <<" + NAME + ">>" };
-	const locations = features.references(uri, text, { line: 2, character: 4 }, { includeDeclaration: false }, open);
-	assert.ok(!locations.some((location) => location.uri === jsView), JSON.stringify(locations));
+	// The tiddler itself mentions the name, so only its type keeps it out.
+	const title = PLUGIN_SHADOW + ".js";
+	withPlugin({ [title]: { type: "application/javascript", text: "// <<" + NAME + ">>" } }, () => {
+		const jsView = features.virtualUri(title);
+		const uri = "file:///wiki/tiddlers/lsp_virtual_asker.tid";
+		const text = "title: lsp_virtual_asker\n\n<<" + NAME + ">>";
+		const open = { [uri]: text, [jsView]: features.virtualText(title) };
+		const locations = features.references(uri, text, { line: 2, character: 4 }, { includeDeclaration: false }, open);
+		assert.ok(!locations.some((location) => location.uri === jsView), JSON.stringify(locations));
+	});
 });
 
 test("a view open under the editor's spelling of its URI is listed once", () => {
