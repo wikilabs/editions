@@ -124,7 +124,7 @@ test("initialize advertises full sync and the completion trigger characters", ()
 	const caps = reply.result.capabilities;
 	assert.equal(caps.textDocumentSync.openClose, true);
 	assert.equal(caps.textDocumentSync.change, SYNC_FULL);
-	assert.deepEqual(caps.completionProvider.triggerCharacters, ["[", "{"]);
+	assert.deepEqual(caps.completionProvider.triggerCharacters, ["[", "{", "<", "$", "\"", "=", " "]);
 	// An unadvertised capability is never requested, so a feature can be fully
 	// implemented and fully tested and still be dead in the editor.
 	assert.equal(caps.hoverProvider, true);
