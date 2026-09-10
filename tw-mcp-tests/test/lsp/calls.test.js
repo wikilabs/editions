@@ -291,6 +291,10 @@ test("a tiddler's sites are cached until that tiddler changes", () => {
 		$tw.wiki.addTiddler({ title: title, text: "<<ref.m>>" });
 		const first = calls.sitesOfTiddler(title);
 		assert.equal(first.calls.filter((c) => c.name === NAME).length, 1);
+		// Test scaffolding: other texts push this one out of sitesIn's own cache of recent texts.
+		for(let i = 0; i < 8; i++) {
+			calls.sitesIn("<<calls.evict." + i + ">>");
+		}
 		assert.strictEqual(calls.sitesOfTiddler(title), first, "an unchanged tiddler must come from the cache");
 		$tw.wiki.addTiddler({ title: title, text: "<<ref.m>> <<ref.m>>" });
 		assert.equal(calls.sitesOfTiddler(title).calls.filter((c) => c.name === NAME).length, 2);

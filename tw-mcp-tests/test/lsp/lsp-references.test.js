@@ -260,6 +260,32 @@ test("the same parameter name in another procedure is a different parameter", ()
 	assert.deepEqual(scopedHits(7, 3, false), ["7:2"]);
 });
 
+test("a tiddler that gains a file is searched as that file, not also as its view", () => {
+	// $:/temp/ titles are not synced, so the wiki copy never reaches the disk.
+	const title = "$:/temp/tw-mcp-tests/refs/gains-a-file",
+		dir = fs.mkdtempSync(path.join(os.tmpdir(), "tw-lsp-refs-gains-")),
+		filepath = path.join(dir, "gains.tid"),
+		asker = "file:///wiki/tiddlers/lsp_refs_asker.tid",
+		text = "title: lsp_refs_asker\n\n<<" + NAME + ">>",
+		view = features.virtualUri(title),
+		file = features.pathToUri(filepath),
+		listed = () => features.references(asker, text, positionOf(text, NAME, 1), { includeDeclaration: false }, { [asker]: text }).map((l) => l.uri);
+	$tw.wiki.addTiddler({ title: title, text: "<<" + NAME + ">>" });
+	fs.writeFileSync(filepath, "title: " + title + "\n\n<<" + NAME + ">>");
+	try {
+		assert.ok(listed().includes(view), "without a file, the tiddler is searched as its view");
+		// Filed without a change to the wiki, as a save can do.
+		$tw.boot.files[title] = { filepath: filepath, type: "application/x-tiddler", hasMetaFile: false };
+		const after = listed();
+		assert.ok(after.includes(file), "the file is searched");
+		assert.ok(!after.includes(view), "the view is not searched as well");
+	} finally {
+		delete $tw.boot.files[title];
+		$tw.wiki.deleteTiddler(title);
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
+
 test("every location is a file on disk, or the read-only view of a tiddler without one", () => {
 	// $:/language/Snippets/ListByTag calls list-links but has no file, so its view is listed.
 	withFiles({ lsp_refs_d: "<<list-links>>" }, (docs) => {
