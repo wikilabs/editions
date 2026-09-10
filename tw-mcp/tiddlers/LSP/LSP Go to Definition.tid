@@ -1,0 +1,18 @@
+created: 20260910105939173
+modified: 20260910105939173
+tags: [[LSP Capabilities]]
+title: LSP Go to Definition
+
+Ctrl-click a link and the editor opens the `.tid` file that holds its target, through `textDocument/definition`. Try it in [[LSP Go to Definition - (Example)]].
+
+!! What can be followed
+
+A `[[link]]`, a `{{transclusion}}` and a `<$link to="...">` widget all resolve. A transclusion of one field, such as `{{Title!!field}}`, opens the tiddler that holds the field.
+
+!! Where the file comes from
+
+The file comes from the map ~TiddlyWiki itself uses to save a tiddler, so a filename that differs from the title, a ~FileSystemPaths subfolder and a `.meta` sidecar all resolve.
+
+!! When nothing opens
+
+A shadow tiddler has no file of its own, so ctrl-click reports nothing rather than opening the wrong thing. Neither does a link to a tiddler that does not exist, nor a title merely mentioned in prose, which is no link at all.

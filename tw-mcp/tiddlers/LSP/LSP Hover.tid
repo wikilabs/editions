@@ -1,0 +1,52 @@
+created: 20260910105930297
+modified: 20260910111817663
+tags: [[LSP Capabilities]]
+title: LSP Hover
+
+Rest the cursor on a filter, a macro call or a widget, and the editor shows what it amounts to in the running wiki, through `textDocument/hover`. Try it in [[LSP Hover - (Example)]].
+
+!! What a filter hover shows
+
+Put the cursor in a filter and the server runs it against the live wiki, reporting how many tiddlers match and naming up to 50 of them.
+
+It runs in the context of the position you are hovering, not in a vacuum. `[all[current]]` means the tiddler the document is, taken from its own `title:` field so an unsaved rename counts, and an enclosing `<$let>` or `<$set>` overrides it exactly as the wiki would. The wiki's global macros are imported too, so a filter calling one resolves.
+
+Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
+
+A line that is nothing but a filter is recognised too, so a filter in a documentation code block, or a filter-valued system tiddler such as `$:/config/FileSystemPaths`, can be hovered. Nothing there declares it a filter, so it has to parse to be reported: an unfinished or unparseable line stays silent rather than raising a filter error over ordinary prose.
+
+A filter under a cursor is usually still being typed, so four outcomes are kept apart and never share a message:
+
+|! Outcome |! What you see |
+|Unbalanced brackets |''Unfinished filter'', and it is not run |
+|~TiddlyWiki rejects it |''Filter error'' with its own message |
+|Runs, matches nothing |''Matches nothing'' |
+|Nothing typed yet |''Empty filter'' |
+
+The distinction matters because an unfinished filter and one that genuinely matches nothing look identical otherwise, and a confident wrong answer sends you looking in the wrong place.
+
+!! What a widget hover shows
+
+Resting on `<$name` reports the widget, the module defining it, and every attribute. An attribute is not always a literal: an indirect reference (`{{X!!field}}`), a macro (`<<var>>`) and a filtered value (`{{{ ... }}}`) are shown both as written and as what they come to here, which is the part that cannot be read off the page.
+
+A `<$let>` or `<$vars>` also reports the variables it binds, and a `<$set>` the variable it names rather than its attribute names.
+
+A widget nobody registers is called out. ~TiddlyWiki renders an unknown widget as nothing at all, so a misspelt name is otherwise completely silent.
+
+A custom widget from a `\widget` definition is reported as one, with where it is defined, because it takes over the tag before any built-in widget does.
+
+Last comes what it actually renders, body and all, taken from the render already done for the position rather than a second one. A filter attribute is ''not'' run here: point at the filter itself for that, and the two hovers stay distinct rather than repeating each other.
+
+!! What a macro call hover shows
+
+Resting on `<<name ...>>` reports what it is, where it is defined, and what every parameter is worth at that call: the argument given by name, the one given by position, or the declared default you never wrote. An argument the definition does not declare is listed as well, because a misspelled parameter name is exactly the mistake worth seeing.
+
+A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also reports the tiddlers it will list.
+
+The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. A definition in the tiddler being edited shadows a global one of the same name, as the wiki resolves it.
+
+A call inside another definition's body is hovered too. ~TiddlyWiki keeps a `\procedure`, `\define` or `\widget` body as plain text, so the server parses it separately.
+
+!! Opening what you hover
+
+Every matched title in a hover is a link to its own `.tid` file. A shadow tiddler has no file of its own, so in a hover list it stays plain text. The definition of a core macro is linked into the browser instead, whenever the same process is also serving HTTP.

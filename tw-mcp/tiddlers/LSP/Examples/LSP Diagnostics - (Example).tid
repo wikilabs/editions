@@ -1,0 +1,19 @@
+created: 20260910105918287
+modified: 20260910105918287
+title: LSP Diagnostics - (Example)
+
+Open this tiddler's `.tid` file in your editor and wait a moment for the warnings to settle. Only the first of these four lines is warned, as //No tiddler titled 'No Such Tiddler'//:
+
+See [[No Such Tiddler]].
+
+See [[LSP Server]].
+
+Code `[[No Such Tiddler]]` here.
+
+See [[docs|https://tiddlywiki.com]].
+
+The second resolves. The third is inline code, which is not wikitext. The fourth is an external address, not a title.
+
+Now add a link of your own to a title that does not exist, and watch the warning appear once you stop typing. Nothing needs saving: the server answers from the text in the editor.
+
+Back to [[LSP Diagnostics]].

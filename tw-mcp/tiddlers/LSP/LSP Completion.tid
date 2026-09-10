@@ -1,0 +1,25 @@
+created: 20260910105908298
+modified: 20260910105908298
+tags: [[LSP Capabilities]]
+title: LSP Completion
+
+The editor offers tiddler titles while you type a link or a transclusion, through `textDocument/completion`. Try it in [[LSP Completion - (Example)]].
+
+!! How a title is matched
+
+Completion fires only inside an unclosed `[[` or `{{`. Elsewhere there is no title to complete, so nothing is offered.
+
+Matching is by ''prefix'' and ignores case. At least two characters are needed: one letter matches too much of any wiki to be a useful list.
+
+A title is offered when either holds, best first:
+
+# the title ''starts with'' everything you typed
+# every ''word'' you typed starts a word of the title
+
+The second rule is why `LS S` finds `LSP Server`, and why the list survives a space: a space begins the next word rather than narrowing the search to a literal that no title contains. A title's words are split on `_`, `-`, `/`, `:` and `.` as well as spaces, so `ed` reaches `LSP Editor Setup`.
+
+Nothing matches on its middle. Typing `dit` does not offer `LSP Editor Setup`, because a title is not looked for by its interior.
+
+System titles are left out until what you typed starts with `$:/`, which also reaches shadow tiddlers. At most 200 titles come back at once.
+
+The list is always reported as incomplete, so the editor asks again on every keystroke instead of caching it and filtering on its own. An editor filtering locally stops at the space in a title, which would hide exactly the multi-word titles this exists for.

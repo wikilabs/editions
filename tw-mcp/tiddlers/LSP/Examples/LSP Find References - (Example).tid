@@ -1,0 +1,23 @@
+created: 20260910105952227
+modified: 20260910110214129
+title: LSP Find References - (Example)
+
+\function lsp.who() [[World]]
+\procedure lsp.hello() Hello, <<lsp.who>>!
+\widget $lsp.greeting() <strong><<lsp.hello>></strong>
+
+Open this tiddler's `.tid` file in your editor, rest the cursor on any call of `lsp.who` below and press Shift+F12. The list holds every call on this page, the one inside `lsp.hello` at the top of this tiddler, and the definition of `lsp.who` above it. Each call renders ''World'':
+
+* a macro call: <<lsp.who>>
+* a `$macrocall` widget: <$macrocall $name="lsp.who"/>
+* a `$transclude` widget: <$transclude $variable="lsp.who"/>
+* an attribute value: <$text text=<<lsp.who>>/>
+* a filter variable: <$list filter="[<lsp.who>]" variable="w"><<w>></$list>
+* the `function` operator: <$list filter="[function[lsp.who]]" variable="w"><<w>></$list>
+* the function as an operator: <$list filter="[lsp.who[]]" variable="w"><<w>></$list>
+
+A custom widget works the same way. Rest on `$lsp.greeting` in the call below and press Shift+F12 to find it and its `\widget` definition at the top:
+
+<$lsp.greeting/>
+
+Back to [[LSP Find References]].

@@ -1,164 +1,26 @@
 created: 20260909130551386
-modified: 20260909165418591
+list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]]
+modified: 20260910105957794
 tags: LSP
 title: LSP Capabilities
+type: text/vnd.tiddlywiki
 
+The `--lsp` server answers the requests below. Each has its own page, which links to an example tiddler to open in your editor and try.
 
 !! What it answers
 
-|! Request |! What it does |
-|`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, triggered by `[` and `{` |
-|`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
-|`textDocument/hover` |What the filter, macro call or widget under the cursor amounts to |
-|`textDocument/definition` |The `.tid` file behind the link under the cursor |
+|! Capability |! Request |! What it does |
+|[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, triggered by `[` and `{` |
+|[[LSP Diagnostics]] |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
+|[[LSP Hover]] |`textDocument/hover` |What the filter, macro call or widget under the cursor amounts to |
+|[[LSP Go to Definition]] |`textDocument/definition` |The `.tid` file behind the link under the cursor |
+|[[LSP Find References]] |`textDocument/references` |Every call of the macro, procedure, function or widget under the cursor |
 
 Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
 
-Not answered yet: find references, rename, document symbols, semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
-
-!! How a title is matched
-
-Completion fires only inside an unclosed `[[` or `{{`. Elsewhere there is no title to complete, so nothing is offered.
-
-Matching is by ''prefix'' and ignores case. At least two characters are needed: one letter matches too much of any wiki to be a useful list.
-
-A title is offered when either holds, best first:
-
-# the title ''starts with'' everything you typed
-# every ''word'' you typed starts a word of the title
-
-The second rule is why `LS S` finds `LSP Server`, and why the list survives a space: a space begins the next word rather than narrowing the search to a literal that no title contains. A title's words are split on `_`, `-`, `/`, `:` and `.` as well as spaces, so `ed` reaches `LSP Editor Setup`.
-
-Nothing matches on its middle. Typing `dit` does not offer `LSP Editor Setup`, because a title is not looked for by its interior.
-
-System titles are left out until what you typed starts with `$:/`, which also reaches shadow tiddlers. At most 200 titles come back at once.
-
-The list is always reported as incomplete, so the editor asks again on every keystroke instead of caching it and filtering on its own. An editor filtering locally stops at the space in a title, which would hide exactly the multi-word titles this exists for.
-
-!! What a filter hover shows
-
-Put the cursor in a filter and the server runs it against the live wiki, reporting how many tiddlers match and naming up to 50 of them.
-
-It runs in the context of the position you are hovering, not in a vacuum. `[all[current]]` means the tiddler the document is, taken from its own `title:` field so an unsaved rename counts, and an enclosing `<$let>` or `<$set>` overrides it exactly as the wiki would. The wiki's global macros are imported too, so a filter calling one resolves.
-
-Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
-
-A line that is nothing but a filter is recognised too, so a filter in a documentation code block, or a filter-valued system tiddler such as `$:/config/FileSystemPaths`, can be hovered. Nothing there declares it a filter, so it has to parse to be reported: an unfinished or unparseable line stays silent rather than raising a filter error over ordinary prose.
-
-A filter under a cursor is usually still being typed, so four outcomes are kept apart and never share a message:
-
-|! Outcome |! What you see |
-|Unbalanced brackets |''Unfinished filter'', and it is not run |
-|~TiddlyWiki rejects it |''Filter error'' with its own message |
-|Runs, matches nothing |''Matches nothing'' |
-|Nothing typed yet |''Empty filter'' |
-
-The distinction matters because an unfinished filter and one that genuinely matches nothing look identical otherwise, and a confident wrong answer sends you looking in the wrong place.
-
-!! What a widget hover shows
-
-Resting on `<$name` reports the widget, the module defining it, and every attribute. An attribute is not always a literal: an indirect reference (`{{X!!field}}`), a macro (`<<var>>`) and a filtered value (`{{{ ... }}}`) are shown both as written and as what they come to here, which is the part that cannot be read off the page.
-
-A `<$let>` or `<$vars>` also reports the variables it binds, and a `<$set>` the variable it names rather than its attribute names.
-
-A widget nobody registers is called out. ~TiddlyWiki renders an unknown widget as nothing at all, so a misspelt name is otherwise completely silent.
-
-Last comes what it actually renders, body and all, taken from the render already done for the position rather than a second one. A filter attribute is ''not'' run here: point at the filter itself for that, and the two hovers stay distinct rather than repeating each other.
-
-!! What a macro call hover shows
-
-Resting on `<<name ...>>` reports what it is, where it is defined, and what every parameter is worth at that call: the argument given by name, the one given by position, or the declared default you never wrote. An argument the definition does not declare is listed as well, because a misspelled parameter name is exactly the mistake worth seeing.
-
-A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also reports the tiddlers it will list.
-
-The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. A definition in the tiddler being edited shadows a global one of the same name, as the wiki resolves it.
-
-!! Opening what you hover
-
-Every matched title in a hover is a link to its own `.tid` file, and ctrl-clicking a `[[link]]` in the text does the same through `textDocument/definition`. The file comes from the map ~TiddlyWiki itself uses to save a tiddler, so a filename that differs from the title, a ~FileSystemPaths subfolder and a `.meta` sidecar all resolve, and a title merely mentioned in prose does not.
-
-A shadow tiddler has no file of its own. In a hover list it stays plain text, and ctrl-click reports nothing rather than opening the wrong thing. The definition of a core macro is linked into the browser instead, whenever the same process is also serving HTTP.
-
-!! When diagnostics are recomputed
-
-Not on every keystroke. Warnings are recomputed once typing pauses for about a third of a second, so a link you are halfway through writing is not squiggled while you write it. Opening a document reports immediately; closing one clears its warnings and cancels any pass still waiting.
-
-!! What is not flagged
-
-A link is left alone when it is an external address, a filtered transclusion (`{{{ ... }}}`), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
-
-A target assembled at render time from a variable cannot be checked at all, so it is never reported.
-
-!! Try it in a tiddler
-
-Every line below was run against ''this'' wiki, so the results are what you should see. Counts change as you add tiddlers.
-
-!!! Completion
-
-Type up to the end of each, and press ctrl-space if no list appears by itself.
-
-|! Type this |! You should get |
-|`[[LS` |''LSP'', ''LSP and MCP'', ''LSP Capabilities'', ''LSP Editor Setup'', ''LSP Server'' |
-|`[[l` |nothing: one character is below the two-character minimum |
-|`[[ed` |''LSP Editor Setup'', because `ed` starts the word ''Editor'' |
-|`[[dit` |nothing: `dit` sits inside ''Editor'' but starts no word |
-|`[[LS S` |''LSP Editor Setup'' and ''LSP Server'': `LS` starts one word, `S` another |
-|`[[lsp ed` |''LSP Editor Setup'' alone |
-|`[[$:/core/ui/Page` |shadow tiddlers such as `$:/core/ui/PageTemplate`, which a plain prefix never reaches |
-
-
-!!! Diagnostics
-
-Paste these as separate lines and wait a moment for the warnings to settle.
-
-```
-See [[No Such Tiddler]].
-See [[LSP Server]].
-Code `[[No Such Tiddler]]` here.
-See [[docs|https://tiddlywiki.com]].
-```
-
-Only the first is warned, as //No tiddler titled 'No Such Tiddler'//. The second resolves. The third is inline code, which is not wikitext. The fourth is an external address, not a title.
-
-!!! Hover
-
-Rest the cursor inside the filter. These two and the `\function` below are the same filter written three ways, and all report the same 4 tiddlers:
-
-```
-{{{ [tag[LSP]] }}}
-<$list filter="[tag[LSP]]">x</$list>
-```
-
-The third is a `\function`, which must be the first line of the tiddler body like any pragma:
-
-```
-\function lsp.pages() [tag[LSP]]
-```
-
-And the four outcomes, which never share a message:
-
-|! Hover this |! You should see |
-|`[tag[LSP]]` |''4 tiddlers'', named |
-|`{{{ [tag[LSP` |''Unfinished filter'', not run |
-|`{{{ [tag[a]xyz] }}}` |''Filter error:'' Missing [ in filter expression |
-|`{{{ [tag[no-such-tag]] }}}` |''Matches nothing'' |
+Not answered yet: rename, document symbols, semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
 
 !! See also
 
 * [[LSP Server]]: starting the server and its parameters
 * [[LSP Editor Setup]]: connecting an editor
-
-
-!!! Examples
-
-<<list-links [tag[LSP]]>>
-
-<$let test="[tag[LSP]]" >
-
-<<list-links filter:"[all[tiddlers]subfilter<test>]" field:"caption">>
-
-<$list filter="[all[tiddlers]subfilter<test>]"/>
-
-<$list filter="[all[tiddlers]subfilter<test>]" join=", " variable="item">
-	<$link to=<<item>>/>
-</$list>

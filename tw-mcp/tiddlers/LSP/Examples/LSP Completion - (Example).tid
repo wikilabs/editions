@@ -1,0 +1,18 @@
+created: 20260910105912170
+modified: 20260910105912170
+title: LSP Completion - (Example)
+
+Open this tiddler's `.tid` file in your editor. On a new line at the end, type each entry below up to its end, and press ctrl-space if no list appears by itself. Nothing needs saving: the server answers from the text in the editor.
+
+|! Type this |! You should get |
+|`[[LS` |every title starting with ''LSP'', this one included |
+|`[[l` |nothing: one character is below the two-character minimum |
+|`[[ed` |''LSP Editor Setup'', because `ed` starts the word ''Editor'' |
+|`[[dit` |nothing: `dit` sits inside ''Editor'' but starts no word |
+|`[[LS S` |''LSP Editor Setup'' and ''LSP Server'': `LS` starts one word, `S` another |
+|`[[lsp ed` |''LSP Editor Setup'' alone |
+|`[[$:/core/ui/Page` |shadow tiddlers such as `$:/core/ui/PageTemplate`, which a plain prefix never reaches |
+
+Results were checked against this wiki. They change as you add tiddlers.
+
+Back to [[LSP Completion]].

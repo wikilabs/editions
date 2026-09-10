@@ -1,0 +1,16 @@
+created: 20260910105915417
+modified: 20260910105915417
+tags: [[LSP Capabilities]]
+title: LSP Diagnostics
+
+The editor marks links and transclusions whose target does not exist, through `textDocument/publishDiagnostics`. Try it in [[LSP Diagnostics - (Example)]].
+
+!! When diagnostics are recomputed
+
+Not on every keystroke. Warnings are recomputed once typing pauses for about a third of a second, so a link you are halfway through writing is not squiggled while you write it. Opening a document reports immediately; closing one clears its warnings and cancels any pass still waiting.
+
+!! What is not flagged
+
+A link is left alone when it is an external address, a filtered transclusion (`{{{ ... }}}`), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
+
+A target assembled at render time from a variable cannot be checked at all, so it is never reported.

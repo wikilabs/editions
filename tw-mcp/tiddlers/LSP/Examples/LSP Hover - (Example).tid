@@ -1,0 +1,41 @@
+created: 20260910105935606
+modified: 20260910110211941
+title: LSP Hover - (Example)
+
+\function lsp.pages() [tag[LSP]]
+
+Open this tiddler's `.tid` file in your editor and rest the cursor on each part below. Results were checked against this wiki; they change as you add tiddlers.
+
+!! A filter
+
+These are the same filter written three ways, and each reports the same 4 tiddlers: a filtered transclusion, a widget attribute, and the `\function` at the top of this tiddler.
+
+{{{ [tag[LSP]] }}}
+
+<$list filter="[tag[LSP]]"><$link/> </$list>
+
+!! The four outcomes
+
+|! Hover the filter in |! You should see |
+|`{{{ [tag[LSP]] }}}` |''4 tiddlers'', named |
+|`{{{ [tag[LSP }}}` |''Unfinished filter'', not run |
+|`{{{ [tag[a]xyz] }}}` |''Filter error:'' Missing [ in filter expression |
+|`{{{ [tag[no-such-tag]] }}}` |''Matches nothing'' |
+
+{{{ [tag[LSP }}}
+
+{{{ [tag[a]xyz] }}}
+
+{{{ [tag[no-such-tag]] }}}
+
+!! A widget
+
+Rest on `<$list` in the second filter above to see the widget, the module defining it, each attribute, and what it renders.
+
+!! A macro call
+
+<<list-links [tag[LSP]]>>
+
+Rest on `list-links` to see where it is defined, what each parameter is worth here, and the tiddlers its filter lists.
+
+Back to [[LSP Hover]].

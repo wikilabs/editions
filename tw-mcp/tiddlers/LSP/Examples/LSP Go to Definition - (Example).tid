@@ -1,0 +1,19 @@
+created: 20260910105941788
+modified: 20260910105941788
+title: LSP Go to Definition - (Example)
+
+Open this tiddler's `.tid` file in your editor and ctrl-click each target below.
+
+These open `LSP/LSP Server.tid`:
+
+* [[LSP Server]]
+* {{LSP Server!!title}}, a transclusion of one field
+* <$link to="LSP Server">a link widget</$link>
+
+These open nothing:
+
+* [[$:/core/ui/PageTemplate]], a shadow tiddler, which has no file of its own
+* [[No Such Tiddler]], which does not exist
+* LSP Server, merely mentioned, which is no link at all
+
+Back to [[LSP Go to Definition]].

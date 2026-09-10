@@ -1,0 +1,29 @@
+created: 20260910105947482
+modified: 20260910105947482
+tags: [[LSP Capabilities]]
+title: LSP Find References
+
+Put the cursor on a call and the editor lists every call of that name in the wiki's `.tid` files, through `textDocument/references`. In VS Code that is Shift+F12. Try it in [[LSP Find References - (Example)]].
+
+Each entry opens the file at the name. The cursor may also rest on a definition such as `\procedure name`, and the definition itself is listed whenever the editor asks for it.
+
+!! Every form of a call
+
+A call counts in every form ~TiddlyWiki accepts:
+
+|! Form |! Example |
+|Macro call |`<<name>>` |
+|`$macrocall` widget |`<$macrocall $name="name"/>` |
+|`$transclude` widget |`<$transclude $variable="name"/>` |
+|Attribute value |`text=<<name>>` |
+|Custom widget |`<$my.widget/>`, defined by `\widget $my.widget()` |
+|Filter |`[<name>]`, `[function[name]]`, `[my.fn[]]` |
+|Definition body |a call inside another `\procedure`, `\define`, `\function` or `\widget` |
+
+!! Which text is read
+
+Files are read from disk rather than from the running wiki, which does not watch its folder, so a file saved from the editor counts as saved. A file open in the editor counts as it is on screen, saved or not.
+
+!! What cannot be found
+
+Some calls cannot be found. A name assembled at render time (`$variable=<<holder>>`) and a `\define` placeholder such as `$param$` are only known once the wiki renders them, and a shadow tiddler has no file to open. Calls are matched by name, so a local `\procedure` that redefines a global one is listed together with it.
