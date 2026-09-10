@@ -127,9 +127,9 @@ test("a $macrocall is found as a call, its $ attributes not taken for arguments"
 	assert.deepEqual(sites[0].args, [{ name: "a", value: "1", positional: false }]);
 });
 
-test("a name computed at render time is no call", () => {
+test("a name computed at render time is no call, but the variable holding it is", () => {
 	const sites = macros.callSites($tw.wiki.parseText("text/vnd.tiddlywiki", "<$transclude $variable=<<dyn>>/>").tree);
-	assert.deepEqual(sites, []);
+	assert.deepEqual(sites.map((s) => s.name), ["dyn"]);
 });
 
 test("hovering a $transclude describes the widget and the call it makes", () => {
@@ -162,6 +162,56 @@ test("an argument that is not a literal is kept as written", () => {
 test("a call given a <<var>> argument hovers rather than failing", () => {
 	const result = hoverOn(WHO + '<$transclude $variable="list-links" filter=<<lsp.who>>/>', "<$transclude", 3);
 	assert.ok(result && result.contents.value.includes("`<<lsp.who>>`"), JSON.stringify(result));
+});
+
+// --- What binds a name at the cursor ---
+
+test("a <<var>> attribute value is hovered as its own call", () => {
+	const text = hoverOn(WHO + "<$text text=<<lsp.who>>/>", "<<lsp.who>>", 3).contents.value;
+	assert.ok(text.includes("**function** `lsp.who`, defined in this tiddler"), text);
+	assert.ok(!text.includes("**widget**"), text);
+});
+
+test("a parameter is reported as one, even where a global macro shares its name", () => {
+	// The core defines a tag macro; inside this procedure <<tag>> is the parameter.
+	const text = hoverOn('\\procedure lsp.p(tag, sort:"x")\n<<tag>>\n\\end', "<<tag>>", 3).contents.value;
+	assert.ok(text.includes("**parameter** `tag` of `lsp.p`, no default"), text);
+});
+
+test("a parameter's default is shown", () => {
+	const text = hoverOn('\\procedure lsp.p(tag, sort:"x")\n<<sort>>\n\\end', "<<sort>>", 3).contents.value;
+	assert.ok(text.includes("default `x`"), text);
+});
+
+test("a variable set by an enclosing widget names that widget and its line", () => {
+	const text = hoverOn('\\procedure lsp.p()\n<$set name="lsp.v" value="1">\n<<lsp.v>>\n</$set>\n\\end', "<<lsp.v>>", 3).contents.value;
+	// Lines count the .tid header: title, blank, then the body from line 3.
+	assert.ok(text.includes("**variable** `lsp.v`, set by `<$set>` on line 4"), text);
+});
+
+test("an inner binding hides an outer one of the same name", () => {
+	const text = hoverOn('\\procedure lsp.p(tag)\n<$let tag="inner"><<tag>></$let>\n\\end', "<<tag>>", 3).contents.value;
+	assert.ok(text.includes("set by `<$let>`"), text);
+});
+
+test("a definition nested inside another's body is found", () => {
+	const text = hoverOn("\\procedure lsp.outer()\n\t\\procedure lsp.inner() x\n\t<<lsp.inner>>\n\\end", "<<lsp.inner>>", 3).contents.value;
+	assert.ok(text.includes("**procedure** `lsp.inner`, defined in this tiddler"), text);
+});
+
+test("<<condition>> inside an <%if%> is the variable the block sets", () => {
+	const text = hoverOn("<%if [[lsp_link_target]] %><<condition>><%endif%>", "<<condition>>", 3).contents.value;
+	assert.ok(text.includes("set by `<%if%>`"), text);
+});
+
+test("a core variable is named as one, with its value here", () => {
+	const text = hoverAt("<<currentTiddler>>", 4);
+	assert.ok(text.includes("**core variable** `currentTiddler`, here `probe`"), text);
+});
+
+test("inside a definition, a name nothing binds says only a caller can set it", () => {
+	const text = hoverOn("\\procedure lsp.p()\n<<lsp.unset>>\n\\end", "<<lsp.unset>>", 3).contents.value;
+	assert.ok(text.includes("**Not set here.**"), text);
 });
 
 // --- Recognising the call ---
@@ -289,9 +339,9 @@ test("a call wins over the filter argument nested inside it", () => {
 	});
 });
 
-test("an undefined macro says so rather than reporting nothing", () => {
+test("a name nothing defines or binds says only a caller can set it", () => {
 	const text = hoverAt("<<lsp_no_such_macro_at_all>>", 5);
-	assert.ok(text.includes("Not defined"), text);
+	assert.ok(text.includes("**Not set here.**"), text);
 });
 
 test("a filter attribute of an ordinary widget is still just a filter", () => {

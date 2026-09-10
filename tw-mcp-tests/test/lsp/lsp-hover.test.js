@@ -113,6 +113,43 @@ test("a filter outside any definition carries no such note", () => {
 	assert.ok(!text.includes("parameters are not set"), text);
 });
 
+// --- <%if%> blocks ---
+
+const IF_ELSEIF = "<%if [[lsp_link_target]!is[tiddler]] %>a<%elseif [[lsp_link_target]is[tiddler]] %>b<%else%>c<%endif%>";
+
+test("an <%if%> condition is hovered as a filter, with what it decides", () => {
+	const text = hoverAt("<%if [[lsp_link_target]] %>yes<%endif%>", 8);
+	assert.ok(text.includes("1 tiddler"), text);
+	assert.ok(text.includes("As a condition: **true**"), text);
+	assert.ok(!text.includes("**widget**"), text);
+});
+
+test("an <%elseif%> condition is hovered on its own", () => {
+	const text = hoverOn(IF_ELSEIF, "[[lsp_link_target]is[tiddler]]", 3);
+	assert.ok(text.includes("As a condition: **true**"), text);
+});
+
+test("the <%if%> keyword explains which clause renders, not a $list", () => {
+	const text = hoverAt(IF_ELSEIF, 2);
+	assert.ok(text.includes("**conditional**"), text);
+	assert.match(text, /\| `if` \|[^\n]*\| false \|/);
+	assert.match(text, /\| `elseif` \|[^\n]*\| \*\*renders\*\* \|/);
+	assert.match(text, /\| `else` \|[^\n]*\| not reached \|/);
+	assert.ok(!text.includes("$list"), text);
+});
+
+// --- Filters in any attribute ---
+
+test("a {{{ }}} value of any attribute is hovered as a filter", () => {
+	const text = hoverAt("<$let x={{{ [[lsp_link_target]] }}}>y</$let>", 14);
+	assert.ok(text.includes("1 tiddler"), text);
+});
+
+test("a $filter attribute is hovered as a filter", () => {
+	const text = hoverAt('<$action-deletetiddler $filter="[[lsp_link_target]]"/>', 35);
+	assert.ok(text.includes("1 tiddler"), text);
+});
+
 test("a cursor outside any filter hovers nothing", () => {
 	assert.equal(features.filterContext("just prose here", 5), null);
 	assert.equal(hoverAt("just prose here", 5), null);

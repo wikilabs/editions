@@ -148,6 +148,31 @@ test("a body is found after the header even when the header holds the same text"
 	assert.ok(found[0].start > text.indexOf("\n"), "the call must be on the body line");
 });
 
+// --- Conditions of an <%if%> block ---
+
+test("a call in an <%if%> condition is found, and in its <%elseif%>", () => {
+	const text = "<%if [<ref.m>] %>a<%elseif [function[ref.m]] %>b<%else%>c<%endif%>";
+	assert.deepEqual(formsOf(text, NAME), ["filter", "filter"]);
+});
+
+test("a nested <%if%> block's condition is found once", () => {
+	assert.equal(callsTo("<%if [<a>] %><%if [<ref.m>] %>x<%endif%><%endif%>", NAME).length, 1);
+});
+
+test("an <%if%> block is not reported as a $list widget", () => {
+	const names = calls.sitesIn("<%if [<a>] %>x<%endif%>").calls.map((c) => c.name);
+	assert.ok(!names.includes("$list"), JSON.stringify(names));
+});
+
+test("each clause of an <%if%> block is located in the source", () => {
+	const text = "<%if [<a>] %>x<% elseif  [<b>] %>y<%else%>z<%endif%>";
+	const clauses = calls.conditionalClauses($tw.wiki.parseText("text/vnd.tiddlywiki", text).tree[0], text);
+	assert.deepEqual(clauses.map((c) => [c.keyword, c.filter]), [["if", "[<a>]"], ["elseif", "[<b>]"], ["else", null]]);
+	for(const clause of clauses.filter((c) => c.filter)) {
+		assert.equal(text.slice(clause.start, clause.end), clause.filter);
+	}
+});
+
 // --- Definitions ---
 
 test("each kind of definition, with a range around its name", () => {
