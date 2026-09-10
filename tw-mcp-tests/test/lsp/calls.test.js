@@ -104,6 +104,16 @@ test("a string attribute that is not a filter is not scanned", () => {
 	assert.deepEqual(formsOf('<$text text="[<ref.m>]"/>', NAME), []);
 });
 
+test("a backtick filter attribute is scanned", () => {
+	assert.deepEqual(formsOf("<$list filter=`[<ref.m>]`/>", NAME), ["filter"]);
+});
+
+test("a backtick filter holding a placeholder is not scanned", () => {
+	// It is a filter only once $(x)$ is filled in, which needs a position.
+	assert.deepEqual(formsOf("<$list filter=`[<ref.m>] [[$(x)$]]`/>", NAME), []);
+	assert.deepEqual(formsOf("<$list filter=`[<ref.m>] [[${ [[x]] }$]]`/>", NAME), []);
+});
+
 test("a malformed filter yields no calls rather than an exception", () => {
 	// The second run is unclosed, so parseFilter rejects the whole filter.
 	assert.deepEqual(formsOf("{{{ [<ref.m>] [tag[x] }}}", NAME), []);
