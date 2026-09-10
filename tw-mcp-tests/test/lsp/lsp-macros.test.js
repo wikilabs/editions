@@ -124,7 +124,8 @@ test("a $macrocall is found as a call, its $ attributes not taken for arguments"
 	assert.equal(sites.length, 1);
 	assert.equal(sites[0].name, "lsp.who");
 	assert.equal(sites[0].tag, "$macrocall");
-	assert.deepEqual(sites[0].args, [{ name: "a", value: "1", positional: false }]);
+	// start is where the argument is written, the space before it included.
+	assert.deepEqual(sites[0].args, [{ name: "a", value: "1", positional: false, start: 46 }]);
 });
 
 test("a name computed at render time is no call, but the variable holding it is", () => {
@@ -221,7 +222,7 @@ test("a macro call is found with its arguments", () => {
 	const sites = macros.callSites(tree);
 	assert.equal(sites.length, 1);
 	assert.equal(sites[0].name, "list-links");
-	assert.deepEqual(sites[0].args, [{ name: null, value: "[tag[X]]", positional: true }]);
+	assert.deepEqual(sites[0].args, [{ name: null, value: "[tag[X]]", positional: true, start: 14 }]);
 });
 
 test("a named argument is distinguished from a positional one", () => {
