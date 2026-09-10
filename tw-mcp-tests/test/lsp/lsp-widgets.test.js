@@ -115,6 +115,34 @@ test("an unregistered widget is called out, because it renders as nothing", () =
 	assert.ok(text.includes("render as nothing"), text);
 });
 
+// Hover inside the line holding `needle`, for a body that opens with a pragma
+// and so cannot put the widget on its first line.
+function hoverOn(body, needle, into) {
+	const text = tid(body);
+	const lines = text.split("\n");
+	const line = lines.findIndex((l) => l.includes(needle));
+	const result = features.hover(URI, text, { line: line, character: lines[line].indexOf(needle) + into });
+	return result === null ? null : result.contents.value;
+}
+
+test("a \\widget definition is reported as a custom widget, not as unregistered", () => {
+	const text = hoverOn("\\widget $lsp.probe() <b>hi</b>\n\n<$lsp.probe/>", "<$lsp.probe/>", 3);
+	assert.ok(text.includes("custom widget"), text);
+	assert.ok(text.includes("defined in this tiddler"), text);
+	assert.ok(!text.includes("No widget named"), text);
+});
+
+test("a dotted tag with no \\widget in scope is still unregistered", () => {
+	const text = hoverAt("<$lsp.nothing/>", 3);
+	assert.ok(text.includes("No widget named"), text);
+});
+
+test("a \\widget may take over a core widget's name", () => {
+	// TiddlyWiki allows it outside safe mode, and then renders the \widget.
+	const text = hoverOn("\\widget $button() <b>mine</b>\n\n<$button/>", "<$button/>", 3);
+	assert.ok(text.includes("custom widget"), text);
+});
+
 test("a let reports the variables it binds", () => {
 	const text = hoverAt('<$let alpha="1" beta="2">x</$let>', 3);
 	assert.ok(text.includes("Binds"), text);

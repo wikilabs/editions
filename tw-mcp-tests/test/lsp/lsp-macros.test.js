@@ -55,6 +55,66 @@ function withTagged(fn) {
 	}
 }
 
+// Hover inside the line holding `needle`, for a body that opens with pragmas.
+function hoverOn(body, needle, into) {
+	const text = tid(body);
+	const lines = text.split("\n");
+	const line = lines.findIndex((l) => l.includes(needle));
+	return features.hover(URI, text, { line: line, character: lines[line].indexOf(needle) + into });
+}
+
+// --- Inside definition bodies, which TiddlyWiki keeps as plain text ---
+
+const DEFINITIONS = [
+	"\\function lsp.who() [[World]]",
+	"\\procedure lsp.hello() Hello, <<lsp.who>>!",
+	"\\widget $lsp.greeting() <strong><<lsp.hello>></strong>",
+	"",
+	"<$lsp.greeting/>"
+].join("\n");
+
+test("a call inside a \\procedure body is hovered", () => {
+	const result = hoverOn(DEFINITIONS, "Hello, <<lsp.who>>", 10);
+	assert.ok(result, "expected a hover");
+	assert.ok(result.contents.value.includes("**function** `lsp.who`, defined in this tiddler"), result.contents.value);
+});
+
+test("a call inside a \\widget body is hovered", () => {
+	const result = hoverOn(DEFINITIONS, "<strong><<lsp.hello>>", 11);
+	assert.ok(result, "expected a hover");
+	assert.ok(result.contents.value.includes("**procedure** `lsp.hello`, defined in this tiddler"), result.contents.value);
+});
+
+test("the hover over a call in a body ranges over the call, in document positions", () => {
+	const lines = tid(DEFINITIONS).split("\n");
+	const line = lines.findIndex((l) => l.startsWith("\\procedure"));
+	const column = lines[line].indexOf("<<lsp.who>>");
+	const result = hoverOn(DEFINITIONS, "Hello, <<lsp.who>>", 10);
+	assert.deepEqual(result.range, {
+		start: { line: line, character: column },
+		end: { line: line, character: column + "<<lsp.who>>".length }
+	});
+});
+
+test("a call in a multi-line body is hovered on its own line", () => {
+	const body = "\\function lsp.who() [[World]]\n\\procedure lsp.hello()\nHello, <<lsp.who>>!\n\\end\n\nx";
+	const result = hoverOn(body, "Hello, <<lsp.who>>", 10);
+	assert.ok(result && result.contents.value.includes("`lsp.who`"), JSON.stringify(result));
+});
+
+test("a filter inside a \\procedure body is hovered", () => {
+	const result = hoverOn("\\procedure lsp.list() {{{ [[lsp_link_target]] }}}\n\nx", "[[lsp_link_target]]", 3);
+	assert.ok(result && result.contents.value.includes("1 tiddler"), JSON.stringify(result));
+});
+
+test("a widget inside a \\widget body is hovered, without claiming a render", () => {
+	const result = hoverOn('\\widget $lsp.box() <$let a="1">z</$let>\n\nx', '<$let a="1">', 3);
+	assert.ok(result, "expected a hover");
+	assert.ok(result.contents.value.includes("$:/core/modules/widgets/let.js"), result.contents.value);
+	// A body is not rendered where it is defined, so there is no output to show.
+	assert.ok(!result.contents.value.includes("Renders as"), result.contents.value);
+});
+
 // --- Recognising the call ---
 
 test("a macro call is found with its arguments", () => {
