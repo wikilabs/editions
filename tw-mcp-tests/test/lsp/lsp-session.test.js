@@ -129,8 +129,29 @@ test("initialize advertises full sync and the completion trigger characters", ()
 	// implemented and fully tested and still be dead in the editor.
 	assert.equal(caps.hoverProvider, true);
 	assert.equal(caps.definitionProvider, true);
+	assert.equal(caps.referencesProvider, true);
 	assert.equal(reply.result.serverInfo.name, "tiddlywiki-lsp");
 	assert.ok(reply.result.serverInfo.version, "serverInfo must carry a version");
+});
+
+test("references are answered for an open document, and null for one never opened", () => {
+	const s = initialized();
+	s.notify("textDocument/didOpen", {
+		textDocument: { uri: URI, version: 1, text: tid("\\procedure lsp.refs.session() x\n\n<<lsp.refs.session>>") }
+	});
+	const reply = s.request(2, "textDocument/references", {
+		textDocument: { uri: URI },
+		position: { line: 4, character: 4 },
+		context: { includeDeclaration: true }
+	});
+	// The definition on line 2 and the call on line 4.
+	assert.deepEqual(reply.result.map((l) => l.range.start.line), [2, 4]);
+	const unopened = s.request(3, "textDocument/references", {
+		textDocument: { uri: "file:///wiki/tiddlers/never-opened.tid" },
+		position: { line: 0, character: 0 },
+		context: { includeDeclaration: true }
+	});
+	assert.equal(unopened.result, null);
 });
 
 test("shutdown answers null and then refuses further requests", () => {
