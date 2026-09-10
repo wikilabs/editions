@@ -64,6 +64,13 @@ test("a keyword nothing describes has no hover", () => {
 
 // --- A definition's name ---
 
+test("a hover that names what it describes starts with that line, not a heading repeating it", () => {
+	const body = "\\procedure lsp.head(a) <<a>>\n\n<<lsp.head>>";
+	assert.ok(hoverOn(body, "lsp.head(", 2).startsWith("**procedure** `lsp.head`"));
+	assert.ok(hoverOn(body, "(a)", 1).startsWith("**parameter** `a`"));
+	assert.ok(hoverOn(body, "<<lsp.head>>", 3).startsWith("**procedure** `lsp.head`"));
+});
+
 test("a definition's name tells its kind, its parameters and the calls of its name", () => {
 	const value = hoverOn('\\procedure lsp.named(a, b:"B") x\n\n<<lsp.named>>\n<<lsp.named>>', "lsp.named(", 3);
 	assert.match(value, /\*\*procedure\*\* `lsp\.named`, defined here, local to this tiddler/);
