@@ -1,5 +1,5 @@
 created: 20260910105915417
-modified: 20260910105915417
+modified: 20260910122218690
 tags: [[LSP Capabilities]]
 title: LSP Diagnostics
 
@@ -11,6 +11,6 @@ Not on every keystroke. Warnings are recomputed once typing pauses for about a t
 
 !! What is not flagged
 
-A link is left alone when it is an external address, a filtered transclusion (`{{{ ... }}}`), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
+A link is left alone when it is an external address, inside any filter (a filtered transclusion, a filter attribute, an `<%if%>` condition or a `\function` body, where `[[X]]` names a title rather than linking to it), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
 
 A target assembled at render time from a variable cannot be checked at all, so it is never reported.

@@ -1,5 +1,5 @@
 created: 20260910105947482
-modified: 20260910115318656
+modified: 20260910122220810
 tags: [[LSP Capabilities]]
 title: LSP Find References
 
@@ -18,11 +18,16 @@ A call counts in every form ~TiddlyWiki accepts:
 |Attribute value |`text=<<name>>` |
 |Custom widget |`<$my.widget/>`, defined by `\widget $my.widget()` |
 |Filter |`[<name>]`, `[function[name]]`, `[my.fn[]]` |
+|Condition |a filter in `<%if%>` or `<%elseif%>` |
 |Definition body |a call inside another `\procedure`, `\define`, `\function` or `\widget` |
 
 !! Which text is read
 
 Files are read from disk rather than from the running wiki, which does not watch its folder, so a file saved from the editor counts as saved. A file open in the editor counts as it is on screen, saved or not.
+
+!! Parameters and variables
+
+A parameter, or a variable set by a widget, is that name only inside its own scope: its references stay in the definition or widget that binds it, and a closer binding of the same name has references of its own. A name read in a `\function` body is whatever the caller binds, so there it is matched by name everywhere.
 
 !! What cannot be found
 

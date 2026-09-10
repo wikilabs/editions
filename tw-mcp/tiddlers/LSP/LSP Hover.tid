@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260910114913230
+modified: 20260910122216755
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -11,7 +11,7 @@ Put the cursor in a filter and the server runs it against the live wiki, reporti
 
 It runs in the context of the position you are hovering, not in a vacuum. `[all[current]]` means the tiddler the document is, taken from its own `title:` field so an unsaved rename counts, and an enclosing `<$let>` or `<$set>` overrides it exactly as the wiki would. The wiki's global macros are imported too, so a filter calling one resolves.
 
-Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), any widget attribute named `filter` or `subfilter` in any quoting style, a filter spanning several lines, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
+Filters are located through ~TiddlyWiki's own parser, so this covers a filtered transclusion (`{{{ ... }}}`), a `{{{ ... }}}` value of any attribute, any widget attribute named `filter`, `subfilter` or `$filter` in any quoting style, a filter spanning several lines, an `<%if%>` or `<%elseif%>` condition, and a `\function` body, which is a filter where a `\procedure` body is wikitext.
 
 A backtick value is filled in first, `$(variable)$` and `${ filter }$` alike, as the widget would at that position, and the hover shows the filter that actually runs beside the one as written.
 
@@ -41,6 +41,10 @@ A custom widget from a `\widget` definition is reported as one, with where it is
 
 Last comes what it actually renders, body and all, taken from the render already done for the position rather than a second one. A filter attribute is ''not'' run here: point at the filter itself for that, and the two hovers stay distinct rather than repeating each other.
 
+!! What an `<%if%>` hover shows
+
+An `<%if%>` block is a `$list` underneath, but it is hovered as what was written. The `<%if%>` keyword lists every clause and which one renders at that position, and each `<%if%>` or `<%elseif%>` condition is hovered as a filter that also says whether it holds.
+
 !! What a macro call hover shows
 
 Resting on `<<name ...>>` reports what it is, where it is defined, and what every parameter is worth at that call: the argument given by name, the one given by position, or the declared default you never wrote. An argument the definition does not declare is listed as well, because a misspelled parameter name is exactly the mistake worth seeing.
@@ -52,6 +56,10 @@ The call comes from the parse tree and the definition from a second parse of the
 A call inside another definition's body is hovered too. ~TiddlyWiki keeps a `\procedure`, `\define` or `\widget` body as plain text, so the server parses it separately.
 
 A `<$transclude $variable="name">` or `<$macrocall $name="name">` is a widget and a call at once, so its hover describes the widget first and then the call it makes.
+
+A name that is no definition is still explained: a parameter of the enclosing definition with its default, a variable set by an enclosing widget with the line it is set on, or a variable ~TiddlyWiki sets itself, such as `currentTiddler`. The innermost binding wins, as it does when the wiki renders, so a parameter named `tag` is that parameter even though the core also defines a `tag` macro. A name nothing binds is reported as ''not set here'': only a caller can give it a value.
+
+A `<<var>>` written as an attribute value is hovered as a call of its own rather than as the widget around it.
 
 !! Opening what you hover
 
