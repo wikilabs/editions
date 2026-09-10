@@ -186,6 +186,89 @@ test("each kind of definition, with a range around its name", () => {
 	}
 });
 
+test("a definition carries its parameters, its whole range and its body", () => {
+	// A pragma's range ends at \end, or at the end of its line.
+	const text = '\\procedure ref.p(a, b:"B")\n<<a>>\n\\end\n\\function ref.f() [[x]]\n';
+	const [p, f] = calls.sitesIn(text).definitions;
+	assert.deepEqual(p.params, [{ name: "a" }, { name: "b", default: "B" }]);
+	assert.equal(text.slice(p.range.start, p.range.end), '\\procedure ref.p(a, b:"B")\n<<a>>\n\\end');
+	assert.equal(text.slice(p.body.start, p.body.end), "<<a>>");
+	assert.deepEqual(f.params, []);
+	assert.equal(text.slice(f.range.start, f.range.end), "\\function ref.f() [[x]]");
+	assert.equal(text.slice(f.body.start, f.body.end), "[[x]]");
+});
+
+test("a definition nested in another's body names that definition as its parent", () => {
+	const text = "\\procedure ref.outer()\n\t\\procedure ref.inner() x\n\t<<ref.inner>>\n\\end ref.outer\n\\procedure ref.next() y\n";
+	const defs = calls.sitesIn(text).definitions;
+	const index = (name) => defs.findIndex((d) => d.name === name);
+	assert.equal(defs[index("ref.inner")].parent, index("ref.outer"));
+	assert.equal(defs[index("ref.outer")].parent, null);
+	assert.equal(defs[index("ref.next")].parent, null);
+});
+
+test("a definition two bodies deep names the innermost as its parent", () => {
+	const text = "\\procedure ref.a()\n\t\\procedure ref.b()\n\t\t\\procedure ref.c() x\n\t\t<<ref.c>>\n\t\\end ref.b\n\t<<ref.b>>\n\\end ref.a\n";
+	const defs = calls.sitesIn(text).definitions;
+	const index = (name) => defs.findIndex((d) => d.name === name);
+	assert.equal(defs[index("ref.c")].parent, index("ref.b"));
+	assert.equal(defs[index("ref.b")].parent, index("ref.a"));
+});
+
+// --- Global definitions, found the way the wiki imports them ---
+
+// What TiddlyWiki itself renders for a call, with the globals imported the way
+// the page template imports them.
+function renderWithGlobals(call) {
+	return $tw.wiki.renderText("text/plain", "text/vnd.tiddlywiki", "\\import [subfilter{$:/core/config/GlobalImportFilter}]\n" + call).trim();
+}
+
+// $:/temp/ titles are excluded from syncing, so nothing reaches the disk.
+function withTiddlers(tiddlers, fn) {
+	try {
+		tiddlers.forEach((t) => $tw.wiki.addTiddler(t));
+		fn();
+	} finally {
+		tiddlers.forEach((t) => $tw.wiki.deleteTiddler(t.title));
+	}
+}
+
+test("a definition in a $:/tags/Global tiddler is global", () => {
+	const title = "$:/temp/tw-mcp-tests/calls-global";
+	withTiddlers([{ title: title, tags: ["$:/tags/Global"], text: '\\procedure ref.g(x:"X") <<x>>\n' }], () => {
+		assert.equal(renderWithGlobals("<<ref.g>>"), "X", "fixture assumption: the wiki imports it");
+		const found = calls.globalDefinition("ref.g");
+		assert.ok(found, "expected a global definition");
+		assert.equal(found.title, title);
+		assert.deepEqual(found.definition.params, [{ name: "x", default: "X" }]);
+	});
+});
+
+test("a definition nested in a global's body is not global", () => {
+	const title = "$:/temp/tw-mcp-tests/calls-global-nested";
+	withTiddlers([{ title: title, tags: ["$:/tags/Global"], text: "\\procedure ref.outer()\n\t\\procedure ref.hidden() x\n\t<<ref.hidden>>\n\\end\n" }], () => {
+		assert.equal(renderWithGlobals("<<ref.hidden>>"), "", "fixture assumption: the wiki does not import it");
+		assert.equal(calls.globalDefinition("ref.hidden"), null);
+	});
+});
+
+test("an untagged tiddler's definitions are not global", () => {
+	withTiddlers([{ title: "$:/temp/tw-mcp-tests/calls-untagged", text: "\\procedure ref.u() x\n" }], () => {
+		assert.equal(calls.globalDefinition("ref.u"), null);
+	});
+});
+
+test("of two globals sharing a name, the one the wiki renders wins", () => {
+	withTiddlers([
+		{ title: "$:/temp/tw-mcp-tests/calls-global-a", tags: ["$:/tags/Global"], text: "\\procedure ref.twice() a\n" },
+		{ title: "$:/temp/tw-mcp-tests/calls-global-b", tags: ["$:/tags/Global"], text: "\\procedure ref.twice() b\n" }
+	], () => {
+		const rendered = renderWithGlobals("<<ref.twice>>");
+		assert.ok(["a", "b"].includes(rendered), "fixture assumption: one of them renders, got " + rendered);
+		assert.equal(calls.globalDefinition("ref.twice").title, "$:/temp/tw-mcp-tests/calls-global-" + rendered);
+	});
+});
+
 // --- What cannot be referenced ---
 
 test("a name computed at render time is not reported as a call", () => {

@@ -254,6 +254,57 @@ test("a name nothing defines resolves to nothing", () => {
 	assert.equal(macros.findDefinition("lsp_no_such_macro_at_all", ""), null);
 });
 
+const TWO_NESTED = [
+	"\\procedure lsp.o1()",
+	'\t\\procedure lsp.n(one:"1") x',
+	"\t<<lsp.n>>",
+	"\\end",
+	"\\procedure lsp.o2()",
+	'\t\\procedure lsp.n(two:"2") y',
+	"\t<<lsp.n>>",
+	"\\end"
+].join("\n");
+
+test("a nested definition resolves by where the call is written, innermost first", () => {
+	const first = TWO_NESTED.indexOf("<<lsp.n>>") + 2;
+	const second = TWO_NESTED.lastIndexOf("<<lsp.n>>") + 2;
+	assert.deepEqual(macros.findDefinition("lsp.n", TWO_NESTED, first).params, [{ name: "one", default: "1" }]);
+	assert.deepEqual(macros.findDefinition("lsp.n", TWO_NESTED, second).params, [{ name: "two", default: "2" }]);
+});
+
+test("a nested definition calling itself from its own body finds itself", () => {
+	const text = "\\procedure lsp.outer()\n\t\\procedure lsp.rec(depth) <<lsp.rec>>\n\\end";
+	const found = macros.findDefinition("lsp.rec", text, text.indexOf("<<lsp.rec>>") + 2);
+	assert.ok(found, "expected the nested definition");
+	assert.deepEqual(found.params, [{ name: "depth" }]);
+});
+
+test("a nested definition hides a top-level one of the same name inside its body only", () => {
+	const text = "\\procedure lsp.o()\n\t\\procedure lsp.s(inner) x\n\t<<lsp.s>>\n\\end\n\\procedure lsp.s(top) y";
+	assert.deepEqual(macros.findDefinition("lsp.s", text, text.indexOf("<<lsp.s>>") + 2).params, [{ name: "inner" }]);
+	assert.deepEqual(macros.findDefinition("lsp.s", text, text.length - 1).params, [{ name: "top" }]);
+});
+
+test("a call's hover describes the nested definition around it", () => {
+	const text = hoverOn(TWO_NESTED, "<<lsp.n>>", 3).contents.value;
+	assert.ok(text.includes("| one |"), text);
+	assert.ok(!text.includes("| two |"), text);
+});
+
+test("a global in a $:/tags/Global tiddler is found, not only in $:/tags/Macro", () => {
+	// $:/temp/ titles are excluded from syncing, so nothing reaches the disk.
+	const title = "$:/temp/tw-mcp-tests/lsp-macros-global";
+	$tw.wiki.addTiddler({ title: title, tags: ["$:/tags/Global"], text: "\\procedure lsp.glob(p) x\n" });
+	try {
+		const found = macros.findDefinition("lsp.glob", "");
+		assert.ok(found, "expected the $:/tags/Global definition");
+		assert.equal(found.title, title);
+		assert.equal(found.kind, "procedure");
+	} finally {
+		$tw.wiki.deleteTiddler(title);
+	}
+});
+
 // --- Binding arguments to parameters ---
 
 test("a positional argument is bound to the parameter it fills", () => {
@@ -284,6 +335,37 @@ test("an argument the definition never declared is still reported", () => {
 		{ name: "fliter", value: "[tag[X]]", positional: false }
 	]);
 	assert.ok(bound.some((b) => b.name === "fliter" && b.origin === "undeclared"), JSON.stringify(bound));
+});
+
+// Core binds a positional argument two ways. With core alone,
+// \procedure p(a:"A",b:"B") called as <<p a:"x" "y">> renders a=x b=B, and the
+// same \define renders a=x b=y.
+const AB = [{ name: "a", default: "A" }, { name: "b", default: "B" }];
+const A_NAMED_THEN_Y = [{ name: "a", value: "x", positional: false }, { name: null, value: "y", positional: true }];
+
+test("a procedure or custom widget gives parameter i the positional argument numbered i", () => {
+	for(const kind of ["procedure", "widget"]) {
+		assert.deepEqual(macros.bindArguments(AB, A_NAMED_THEN_Y, kind), [
+			{ name: "a", value: "x", origin: "named" },
+			{ name: "b", value: "B", origin: "default" },
+			{ name: null, value: "y", origin: "ignored" }
+		], kind);
+	}
+});
+
+test("a macro or function gives each parameter the next positional argument not yet taken", () => {
+	for(const kind of ["macro", "function"]) {
+		assert.deepEqual(macros.bindArguments(AB, A_NAMED_THEN_Y, kind), [
+			{ name: "a", value: "x", origin: "named" },
+			{ name: "b", value: "y", origin: "positional" }
+		], kind);
+	}
+});
+
+test("a procedure call's hover shows the default where core ignores a positional argument", () => {
+	const text = hoverOn('\\procedure lsp.pp(a:"A",b:"B") <<a>><<b>>\n\n<<lsp.pp a:"x" "y">>', "<<lsp.pp", 3).contents.value;
+	assert.match(text, /\| b \| `B` \| default \|/, text);
+	assert.match(text, /\|  \| `y` \| ignored \|/, text);
 });
 
 // --- What the hover says ---
