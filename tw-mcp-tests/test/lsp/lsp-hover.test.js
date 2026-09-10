@@ -202,7 +202,8 @@ test("an empty filter says so rather than running", () => {
 
 test("the hover ranges over the filter, so the editor highlights it", () => {
 	const line = "{{{ [tag[A]] }}}";
-	const result = features.hover(URI, tid(line), { line: 2, character: 6 });
+	// On the operand: the operator name has a narrower hover of its own.
+	const result = features.hover(URI, tid(line), { line: 2, character: 9 });
 	assert.equal(result.range.start.line, 2);
 	assert.equal(result.range.end.line, 2);
 	// Stated as the text it covers rather than as two numbers, so the intent
