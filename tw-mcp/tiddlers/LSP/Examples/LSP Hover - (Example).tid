@@ -1,5 +1,5 @@
 created: 20260910105935606
-modified: 20260910193547505
+modified: 20260916191420927
 title: LSP Hover - (Example)
 
 \function lsp.pages() [tag[LSP]]
@@ -15,7 +15,7 @@ Open this tiddler's `.tid` file in your editor and rest the cursor on each part 
 
 !! A filter
 
-These are the same filter written three ways, and each reports the same 4 tiddlers: a filtered transclusion, a widget attribute, and the `\function` at the top of this tiddler.
+These are the same filter written three ways, and each reports the same 5 tiddlers: a filtered transclusion, a widget attribute, and the `\function` at the top of this tiddler.
 
 {{{ [tag[LSP]] }}}
 
@@ -24,7 +24,7 @@ These are the same filter written three ways, and each reports the same 4 tiddle
 !! The four outcomes
 
 |! Hover the filter in |! You should see |
-|`{{{ [tag[LSP]] }}}` |''4 tiddlers'', named |
+|`{{{ [tag[LSP]] }}}` |''5 tiddlers'', named |
 |`{{{ [tag[LSP }}}` |''Unfinished filter'', not run |
 |`{{{ [tag[a]xyz] }}}` |''Filter error:'' Missing [ in filter expression |
 |`{{{ [tag[no-such-tag]] }}}` |''Matches nothing'' |

@@ -1,5 +1,5 @@
 created: 20260916121834029
-modified: 20260916121834029
+modified: 20260916183903141
 tags: LSP
 title: LSP Configuration
 
@@ -18,7 +18,7 @@ The first two run a command from the workspace, so they only happen in a trusted
 ```
 "lsp": {
 	"autostart": true,
-	"label": "lsp-tw-mcp-server",
+	"label": "lsp-mcp-server",
 	"command": "node ../scripts/tw.js --core dev"
 }
 ```
@@ -50,6 +50,6 @@ Set in your user settings, the same values apply to every workspace without an `
 
 !!! Seeing which server is active
 
-The status bar names the LSP server by its label, and the MCP server it is linked to, as in `lsp-tw-mcp-server ⇄ sse-primary`. A spinner means the wiki is still booting, a warning that it is not running. The tooltip gives the wiki folder and where it was configured; a click opens the `TiddlyWiki LSP` log.
+The status bar names the LSP server by its label, and the MCP server it is linked to, as in `lsp-mcp-server ⇄ sse-primary`. A spinner means the wiki is still booting, a warning that it is not running. The tooltip gives the wiki folder and where it was configured; a click opens the `TiddlyWiki LSP` log.
 
 Try it in [[LSP and MCP - (Example)]].

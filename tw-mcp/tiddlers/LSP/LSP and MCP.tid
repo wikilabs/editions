@@ -1,5 +1,5 @@
 created: 20260909121545137
-modified: 20260916124913759
+modified: 20260916183903141
 tags: LSP
 title: LSP and MCP
 type: text/vnd.tiddlywiki
@@ -29,11 +29,11 @@ When the editor starts the LSP server (see [[LSP Configuration]]), that process 
 The LSP server finds the MCP server through `.tw-mcp/connect`, keeps a connection to it over the MCP pipe, and says who it is. Each side logs the other by label:
 
 ```
-[tw-lsp @lsp-tw-mcp-server] MCP server found: PID 22696 @sse-primary, browser on port 8888
-[tw-mcp 10:23:03.412] LSP client: Visual Studio Code 1.123.0 (PID 12388, pipe) @lsp-tw-mcp-server on /home/me/tw-mcp-server
+[tw-lsp @lsp-mcp-server] MCP server found: PID 22696 @sse-primary, browser on port 8888
+[tw-mcp 10:23:03.412] LSP client: Visual Studio Code 1.123.0 (PID 12388, pipe) @lsp-mcp-server on /home/me/tw-mcp-server
 ```
 
-`get_wiki_info` lists the LSP servers of the wiki, and the editor's status bar shows `lsp-tw-mcp-server ⇄ sse-primary`. When the MCP server stops, the LSP log says `MCP server gone` and the status bar drops the second label. Try it in [[LSP and MCP - (Example)]].
+`get_wiki_info` lists the LSP servers of the wiki, and the editor's status bar shows `lsp-mcp-server ⇄ sse-primary`. When the MCP server stops, the LSP log says `MCP server gone` and the status bar drops the second label. Try it in [[LSP and MCP - (Example)]].
 
 Neither command depends on the other: what they share is code. The editor's [[find references|LSP Find References]] and the [[find_calls]] MCP tool read call sites from the same library, and the editor's [[go to definition|LSP Go to Definition]] and the [[find_definition]] MCP tool find the running ~JavaScript through the same module. So each works alone, and together an assistant and your editor agree on every call and definition.
 
