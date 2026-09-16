@@ -1,5 +1,5 @@
 created: 20260910105912170
-modified: 20260916130735193
+modified: 20260916230623045
 title: LSP Completion - (Example)
 
 \procedure lsp.cp.pair(a, b:"B") <<a>> <<b>>
@@ -20,7 +20,10 @@ Open this tiddler's `.tid` file in your editor. On a new line at the end, type e
 |`<$li` |`list`, and every other widget starting with `li` |
 |`{{{ [ta` |`tag`, `tagging`, `tags` and the other operators starting with `ta` |
 |`{{{ [<lsp` |`lsp.cp.pair` |
-|`{{{ [tag[lsp` |nothing: a literal operand is no name |
+|`{{{ [tag[lsp` |''LSP'' and every other tag starting with `lsp`, each with how many tiddlers carry it |
+|`{{{ [has[cap` |`caption` and every other field name starting with `cap` |
+|`{{{ [field:mod` |`modified`: the suffix of `field:` names a field too |
+|`{{{ [prefix[lsp` |nothing: a literal operand is no name |
 
 Results were checked against this wiki. They change as you add tiddlers.
 

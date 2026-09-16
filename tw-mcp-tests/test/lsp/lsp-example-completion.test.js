@@ -39,7 +39,10 @@ const PINNED = [
 	"<$li",
 	"{{{ [ta",
 	"{{{ [<lsp",
-	"{{{ [tag[lsp"
+	"{{{ [tag[lsp",
+	"{{{ [has[cap",
+	"{{{ [field:mod",
+	"{{{ [prefix[lsp"
 ];
 
 let $tw;
@@ -157,6 +160,32 @@ test("{{{ [<lsp offers lsp.cp.pair", () => {
 	assert.ok(labels("{{{ [<lsp").includes("lsp.cp.pair"));
 });
 
-test("{{{ [tag[lsp offers nothing: a literal operand is no name", () => {
-	assert.deepEqual(labels("{{{ [tag[lsp"), []);
+test("{{{ [tag[lsp offers LSP and every other tag starting with lsp, each with how many tiddlers carry it", () => {
+	const typed = helper.typeAtEnd(example.text, "{{{ [tag[lsp"),
+		items = features.completions(example.uri, typed.text, typed.position).items,
+		tagMap = $tw.wiki.getTagMap();
+	helper.positionOf(example.text, "|`{{{ [tag[lsp` |");
+	assert.ok(items.some((item) => item.label === "LSP"), items.map((item) => item.label).join(", "));
+	Object.keys(tagMap).filter((tag) => tag.toLowerCase().startsWith("lsp")).forEach((tag) => {
+		const item = items.find((i) => i.label === tag);
+		assert.ok(item, tag);
+		assert.equal(item.detail, "tag of " + tagMap[tag].length + (tagMap[tag].length === 1 ? " tiddler" : " tiddlers"));
+	});
+	assert.ok(items.every((item) => tagMap[item.label]), "only tags");
+});
+
+test("{{{ [has[cap offers caption and every other field name starting with cap", () => {
+	const found = labels("{{{ [has[cap");
+	assert.ok(found.includes("caption"), found.join(", "));
+	found.forEach((name) => {
+		assert.ok(words(name).some((word) => word.startsWith("cap")), name);
+	});
+});
+
+test("{{{ [field:mod offers modified: the suffix of field: names a field too", () => {
+	assert.ok(labels("{{{ [field:mod").includes("modified"));
+});
+
+test("{{{ [prefix[lsp offers nothing: a literal operand is no name", () => {
+	assert.deepEqual(labels("{{{ [prefix[lsp"), []);
 });

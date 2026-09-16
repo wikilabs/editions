@@ -19,8 +19,12 @@ const FEATURES_TITLE = "$:/core/modules/commands/inspect/lsp/lsp-features.js";
 const URI = "file:///wiki/tiddlers/lsp_cp.tid";
 const FUNCTION = 3;
 const CLASS = 7;
+const FIELD = 5;
 const PROPERTY = 10;
+const REFERENCE = 18;
 const OPERATOR = 24;
+const TAGGED = "$:/temp/tw-mcp-tests/completion-names/tagged";
+const OPERATOR_MODULE = "$:/temp/tw-mcp-tests/completion-names/operator.js";
 
 // Definitions every test document starts with.
 const PRELUDE = [
@@ -164,7 +168,79 @@ test("an operator name is offered where a step starts", () => {
 });
 
 test("a literal operand offers nothing", () => {
-	assert.deepEqual(labels("<$list filter=\"[tag[lsp.@@"), []);
+	assert.deepEqual(labels("<$list filter=\"[prefix[lsp.@@"), []);
+});
+
+// Test scaffolding: a tiddler tagged and fielded for the tag and field tests, present for the duration of fn.
+function withTagged(fn) {
+	$tw.wiki.addTiddler({ title: TAGGED, tags: "[[lsp cp Alpha]] lsp.cp.beta", "lsp-cp-colour": "red" });
+	try {
+		fn();
+	} finally {
+		$tw.wiki.deleteTiddler(TAGGED);
+	}
+}
+
+test("tag[ offers the tags the wiki uses, with how many tiddlers carry each", () => {
+	withTagged(() => {
+		const items = complete("<$list filter=\"[tag[lsp@@").items;
+		assert.deepEqual(items.map((item) => item.label), ["lsp cp Alpha", "lsp.cp.beta"]);
+		assert.deepEqual([items[0].kind, items[0].detail], [REFERENCE, "tag of 1 tiddler"]);
+		assert.ok(labels("<$list filter=\"[!tag[lsp.cp.@@").includes("lsp.cp.beta"), "a negated step too");
+		assert.ok(labels("{{{ [tag[lsp cp @@").includes("lsp cp Alpha"), "a space starts the next word");
+	});
+});
+
+test("a system tag is offered once $ is typed, and not before", () => {
+	assert.ok(labels("<$list filter=\"[tag[$:/tags/Mac@@").includes("$:/tags/Macro"));
+	assert.ok(labels("<$list filter=\"[tag[@@").every((label) => !label.startsWith("$:/")));
+});
+
+test("an operand naming a field offers the fields the wiki uses", () => {
+	withTagged(() => {
+		["has", "get", "each", "sort", "nsort", "listed"].forEach((operator) => {
+			const item = complete("<$list filter=\"[" + operator + "[lsp-cp@@").items.find((i) => i.label === "lsp-cp-colour");
+			assert.ok(item, operator + "[ should offer lsp-cp-colour");
+			assert.deepEqual([item.kind, item.detail], [FIELD, "field of 1 tiddler"]);
+		});
+		assert.ok(labels("<$list filter=\"[has[ti@@").includes("title"));
+	});
+});
+
+// Test scaffolding: a filter operator module with this code, registered for the duration of fn.
+function withOperator(code, fn) {
+	$tw.wiki.addTiddler({ title: OPERATOR_MODULE, type: "application/javascript", "module-type": "filteroperator", text: code });
+	$tw.modules.define(OPERATOR_MODULE, "filteroperator", code);
+	$tw.Wiki.prototype.filterOperators = null;
+	try {
+		fn();
+	} finally {
+		delete $tw.modules.titles[OPERATOR_MODULE];
+		delete $tw.modules.types.filteroperator[OPERATOR_MODULE];
+		$tw.Wiki.prototype.filterOperators = null;
+		$tw.wiki.deleteTiddler(OPERATOR_MODULE);
+	}
+}
+
+test("a plugin's operator is judged by its code too: an operand it reads as a field offers fields", () => {
+	const byField = 'exports.lspcpbyfield = function(source, operator, options) {\n\tvar fieldName = operator.operand || "title";\n\treturn [];\n};\n',
+		byValue = 'exports.lspcpbyvalue = function(source, operator, options) {\n\tvar wanted = operator.operand;\n\treturn [];\n};\n';
+	withTagged(() => {
+		withOperator(byField, () => {
+			assert.ok(labels("<$list filter=\"[lspcpbyfield[lsp-cp@@").includes("lsp-cp-colour"));
+		});
+		withOperator(byValue, () => {
+			assert.deepEqual(labels("<$list filter=\"[lspcpbyvalue[lsp-cp@@"), []);
+		});
+	});
+});
+
+test("a suffix naming a field offers fields, has:index does not", () => {
+	withTagged(() => {
+		assert.ok(labels("<$list filter=\"[field:lsp-cp@@").includes("lsp-cp-colour"));
+		assert.ok(labels("<$list filter=\"[!regexp:lsp-cp@@").includes("lsp-cp-colour"));
+		assert.deepEqual(labels("<$list filter=\"[has:index[lsp-cp@@"), []);
+	});
 });
 
 test("an <%if%> condition is a filter too", () => {
