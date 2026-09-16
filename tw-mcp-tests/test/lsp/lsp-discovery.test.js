@@ -15,16 +15,17 @@ By hand, in a booted test edition:
 
 const { test, before } = require("node:test");
 const assert = require("node:assert");
+const EventEmitter = require("events");
 const fs = require("fs");
 const net = require("net");
 const os = require("os");
 const path = require("path");
 const { bootTw, loadHandler } = require("../setup");
 
-let lib, discovery;
+let $tw, lib, discovery;
 
 before(async () => {
-	const $tw = await bootTw();
+	$tw = await bootTw();
 	lib = loadHandler($tw, "$:/core/modules/commands/inspect/lsp/lsp-lib.js");
 	discovery = loadHandler($tw, "$:/core/modules/commands/inspect/lsp/lsp-discovery.js");
 });
@@ -65,6 +66,23 @@ test("the listening port is written to .tw-mcp/lsp", async () => {
 	}
 });
 
+test("the wiki is recorded as an absolute path, though it was named relative to the working folder", async () => {
+	// Test scaffolding: the wiki folder as typed on a command line.
+	const dir = tempWiki(),
+		typed = path.join(".", "editions", "tw5.com-server"),
+		saved = $tw.boot.wikiPath;
+	$tw.boot.wikiPath = typed;
+	const server = lib.startSocketServer({ port: 0, discoveryDir: dir });
+	try {
+		await once(server, "listening");
+		assert.strictEqual(discovery.readDiscovery(dir).wiki, path.resolve(typed));
+	} finally {
+		$tw.boot.wikiPath = saved;
+		await close(server);
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
+
 test("a taken default port falls back to a free one", async () => {
 	const dir = tempWiki(),
 		blocker = await occupiedPort(),
@@ -95,6 +113,28 @@ test("a taken port= is not replaced, and nothing is recorded", async () => {
 		await close(blocker);
 		fs.rmSync(dir, { recursive: true, force: true });
 	}
+});
+
+test("the file is removed when the process ends by Ctrl-C, a kill, or a closed console window", () => {
+	["SIGINT", "SIGTERM", "SIGHUP"].forEach((signal) => {
+		// Test scaffolding: a stand-in process, so exit() ends nothing but emits exit as Node does.
+		const dir = tempWiki(),
+			proc = new EventEmitter(),
+			exits = [];
+		proc.exit = (code) => {
+			exits.push(code);
+			proc.emit("exit", code);
+		};
+		try {
+			discovery.writeDiscovery(dir, { pid: process.pid, port: 6012 });
+			lib.forgetOnExit(dir, proc);
+			proc.emit(signal);
+			assert.deepEqual(exits, [0], signal);
+			assert.strictEqual(discovery.readDiscovery(dir), null, signal);
+		} finally {
+			fs.rmSync(dir, { recursive: true, force: true });
+		}
+	});
 });
 
 test("the file is removed only while it names this process", () => {
