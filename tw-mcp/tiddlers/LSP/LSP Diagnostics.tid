@@ -1,16 +1,40 @@
 created: 20260910105915417
-modified: 20260910122218690
+modified: 20260916213623249
 tags: [[LSP Capabilities]]
 title: LSP Diagnostics
 
-The editor marks links and transclusions whose target does not exist, through `textDocument/publishDiagnostics`. Try it in [[LSP Diagnostics - (Example)]].
+The editor marks links and transclusions whose target does not exist, and calls whose name nothing in the wiki defines, through `textDocument/publishDiagnostics`. A misspelt name gets a quick fix. Try it in [[LSP Diagnostics - (Example)]].
 
 !! When diagnostics are recomputed
 
-Not on every keystroke. Warnings are recomputed once typing pauses for about a third of a second, so a link you are halfway through writing is not squiggled while you write it. Opening a document reports immediately; closing one clears its warnings and cancels any pass still waiting.
+Not on every keystroke. Diagnostics are recomputed once typing pauses for about a third of a second, so a link you are halfway through writing is not squiggled while you write it. Opening a document reports immediately; closing one clears its diagnostics and cancels any pass still waiting, unless undefined calls were listed (see below).
 
-!! What is not flagged
+!! Links: what is not flagged
 
 A link is left alone when it is an external address, inside any filter (a filtered transclusion, a filter attribute, an `<%if%>` condition or a `\function` body, where `[[X]]` names a title rather than linking to it), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
 
 A target assembled at render time from a variable cannot be checked at all, so it is never reported.
+
+!! Names nothing defines
+
+A call whose name nothing in reach supplies (a definition, a parameter or a widget variable), and that nothing else in the wiki defines or sets, gets a //hint//: three grey dots under the start of the name, and a message when you hover them. ~TiddlyWiki renders a misspelt name as nothing, so this is often the only sign of a typo. Every form of call is checked: `<<name>>`, `<$transclude $variable>`, `<$macrocall $name>`, `[<name>]`, `function[name]`, a dotted operator such as `[my.fn[]]`, and a widget tag such as `<$lisst>`.
+
+A variable can be set while the wiki renders, out of sight of anyone reading the text, so a name counts as known when:
+
+* any tiddler defines it, declares it as a parameter, or sets it with a widget such as `<$let>`, `<$set>` or the `variable` of `<$list>`
+* a shadow tiddler calls it: the core and plugins call what their ~JavaScript sets
+* a ~JavaScript module hands it to action strings, as `<$radio>` does with `actionValue`
+* it is an attribute of `<$action-sendmessage>`, which messages such as `tm-modal` pass on as variables
+* it is set in wikitext held in a string, such as the `src` of an example macro
+
+Core variables such as `currentTiddler`, and `tv-` settings, are never flagged. The price: a typo that happens to equal a name set somewhere in the wiki is not flagged either.
+
+!! Quick fix
+
+On a flagged name, <kbd>Ctrl+.</kbd> or the light bulb offers up to three existing names spelled closest to it: at most two letters changed, or one for a name of four letters or fewer, where two swapped neighbours count as one. A widget tag is offered widgets, and its closing tag changes with it.
+
+!! List undefined calls and widgets
+
+An editor checks only the files it has open, and the VS Code Problems panel leaves hints out. The command //~TiddlyWiki LSP: List undefined calls and widgets// asks the server to read every `.tid` file of the wiki, and lists the calls and widget tags whose name nothing defines in the Problems panel, as information. A click on an entry opens its file, and the quick fix works there too.
+
+Links to missing tiddlers are not listed: a wiki routinely links to tiddlers it has yet to write, so they are warned about only in an open file. Once listed, the entries stay while you open and close their files, so a flagged name shows a blue squiggle instead of the grey dots until the window reloads.

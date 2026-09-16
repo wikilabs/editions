@@ -1,5 +1,5 @@
 created: 20260909121549062
-modified: 20260916142709005
+modified: 20260916213633184
 tags: LSP
 title: LSP Editor Setup
 
@@ -41,6 +41,8 @@ Zed also launches a command, but only for a language server that a Zed extension
 The [[vscode-tiddlywiki-lsp|https://github.com/wikilabs/vscode-tiddlywiki-lsp]] extension starts the wiki's LSP server itself and ends it with the window; [[LSP Configuration]] says how it picks the wiki, and its README how to install it. Without a configured wiki it connects to one already running with `--lsp`. It binds to the `tid` and `tiddlywiki5` languages the tw5-syntax extension registers, and the status bar names the LSP server the window uses.
 
 While the linked MCP server serves a browser, right-click a `.tid` tab and pick //Preview in TiddlyWiki//: the running wiki opens beside the editor on that tiddler, and a save shows up there without a refresh.
+
+//~TiddlyWiki LSP: List undefined calls and widgets// in the command palette lists the calls and widget tags whose name nothing defines, across every tiddler file of the wiki, in the Problems panel. See [[LSP Diagnostics]].
 
 A shadow tiddler, or a tiddler without a file of its own, opens read-only under the extension's `tiddlywiki:` scheme when you go to a definition in it or pick it from a list. After updating the extension, reload the VS Code window so the scheme is registered; when its `package.json` changed, restart VS Code.
 

@@ -1,6 +1,6 @@
 created: 20260909130551386
 list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]] [[LSP Document Highlight]] [[LSP Document Symbols]] [[LSP Workspace Symbols]] [[LSP Folding]] [[LSP Signature Help]] [[LSP Inlay Hints]] [[LSP Rename]]
-modified: 20260910182226653
+modified: 20260916213630097
 tags: LSP
 title: LSP Capabilities
 type: text/vnd.tiddlywiki
@@ -11,7 +11,8 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 
 |! Capability |! Request |! What it does |
 |[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, and the names of calls, parameters, widgets, variables and operators where ~TiddlyWiki expects one |
-|[[LSP Diagnostics]] |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist |
+|[[LSP Diagnostics]] |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist, and hints on calls whose name nothing defines |
+|[[LSP Diagnostics]] |`textDocument/codeAction` |Quick fixes for a misspelt call or widget name |
 |[[LSP Hover]] |`textDocument/hover` |What the filter, operator, call, widget or pragma line under the cursor amounts to |
 |[[LSP Go to Definition]] |`textDocument/definition` |The definition of the call, parameter, variable, operator or widget under the cursor, or the `.tid` file behind a link |
 |[[LSP Find References]] |`textDocument/references` |Every call of the macro, procedure, function or widget under the cursor |
@@ -23,7 +24,7 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 |[[LSP Inlay Hints]] |`textDocument/inlayHint` |The parameter each value passed by position binds to |
 |[[LSP Rename]] |`textDocument/rename` |A definition or a parameter, renamed everywhere it means the same |
 
-Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
+Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, `tiddlywiki/undefinedCalls` for the VS Code command that lists undefined calls and widgets, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
 
 Not answered yet: semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
 
