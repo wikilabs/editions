@@ -130,6 +130,37 @@ test("a name another tiddler defines or sets is not hinted, since a caller may b
 	assert.deepEqual(hinted(body), ["lsp.nm.elsewhere", "lsp.nm.item"], "hinted again once that tiddler is gone");
 });
 
+test("a variable core JavaScript hands to action strings is not hinted, and a typo of it is offered the right name", () => {
+	assert.deepEqual(hinted("<<actionValue>> <$list filter='[<actionTiddlerList>]'/> <<actionValu>>"), ["actionValu"]);
+	assert.equal(fixes("<<actionValu>>", "actionValu")[0].title, "Change to actionValue");
+});
+
+test("a parameter sent with <$action-sendmessage> counts as set, since tm-modal hands it on as a variable", () => {
+	const body = "<<lsp.nm.sent>>";
+	assert.deepEqual(hinted(body), ["lsp.nm.sent"]);
+	$tw.wiki.addTiddler({ title: OTHER, text: '<$action-sendmessage $message="tm-modal" $param="X" lsp.nm.sent="1"/>' });
+	try {
+		assert.deepEqual(hinted(body), []);
+	} finally {
+		$tw.wiki.deleteTiddler(OTHER);
+	}
+});
+
+test("wikitext inside a string value counts too, such as an example's src", () => {
+	const body = "<<lsp.nm.inString>> <<lsp.nm.sentInString>> <<lsp.nm.definedInString>>";
+	assert.deepEqual(hinted(body), ["lsp.nm.definedInString", "lsp.nm.inString", "lsp.nm.sentInString"]);
+	$tw.wiki.addTiddler({ title: OTHER, text: [
+		'<$macrocall $name="lsp.nm.example" src="""<$let lsp.nm.inString="1"/>"""/>',
+		'<<lsp.nm.example src:"""<$action-sendmessage $message="tm-modal" lsp.nm.sentInString="x"/>""">>',
+		'<<lsp.nm.example src:"""\\procedure lsp.nm.definedInString() x""">>'
+	].join("\n\n") });
+	try {
+		assert.deepEqual(hinted(body), []);
+	} finally {
+		$tw.wiki.deleteTiddler(OTHER);
+	}
+});
+
 // --- Quick fixes ---
 
 test("a misspelt widget is offered the closest widget, renamed in its closing tag too", () => {
