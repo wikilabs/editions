@@ -1,13 +1,13 @@
 created: 20260909121532376
-modified: 20260909121532376
+modified: 20260916121957395
 tags: TOC
 title: LSP
 
 !! Language Server Protocol
 
-The `--lsp` command serves your editor from the running wiki. It completes tiddler titles as you type a link, and marks links whose target does not exist.
+The `--lsp` command serves your editor from the booted wiki: completion, hovers, go to definition, find references, rename and more for `.tid` files. VS Code starts it for you, as a child of the window, see [[LSP Configuration]].
 
-It answers from the same wiki as the MCP server, so a tiddler an assistant has just created is a title your editor offers on the next keystroke.
+It keeps in step with a running MCP server, so a tiddler an assistant has just created is a title your editor offers moments later, and a save in the editor reaches the browser.
 
 <<list-links filter:"[tag[LSP]sort[title]]">>
 

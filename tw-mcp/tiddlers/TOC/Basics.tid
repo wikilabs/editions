@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260910193630737
+modified: 20260916122011901
 tags: TOC
 title: Basics
 
@@ -105,7 +105,7 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 |`inspect_pos` |where from, source, trace |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
 |`inspect_scope` |variables, scope, params |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |
 |`inspect_tw` |inspect $tw, internal |Inspect TiddlyWiki's internal `$tw` object structure and function source code |
-|`get_wiki_info` |wiki info, plugins, settings, mcp version |Get wiki metadata, tiddler counts, plugins, basic settings, and the running MCP server version |
+|`get_wiki_info` |wiki info, plugins, settings, mcp version |Get wiki metadata, tiddler counts, plugins, basic settings, the running MCP server version, and the HTTP and LSP servers |
 |`reload_tiddlers` |reload, refresh, sync |Refresh in-memory store from disk + report changes since last call |
 
 !!! Write tools (require `rw` mode)

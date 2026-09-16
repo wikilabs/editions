@@ -1,17 +1,38 @@
 created: 20260909121545137
-modified: 20260910193620948
+modified: 20260916121906692
 tags: LSP
 title: LSP and MCP
 
 !! Two protocols, one wiki
 
-`--mcp` and `--lsp` are separate commands that compose on one command line:
+`--mcp` and `--lsp` are separate commands. They answer from the same wiki in one of two ways.
+
+!!! One process
+
+Both commands on one command line run against the same wiki store:
 
 ```
-tiddlywiki ./mywiki --mcp rw listen --lsp port=6009
+tiddlywiki ./mywiki --mcp rw listen --lsp
 ```
 
-Both run in the same process against the same wiki store. A tiddler an assistant creates over MCP is a title your editor completes moments later, and a tiddler it renames stops being offered. Two separate processes would each boot their own copy of the wiki and drift apart.
+A tiddler an assistant creates over MCP is a title your editor completes moments later, and a tiddler it renames stops being offered.
+
+!!! The editor's own process
+
+When the editor starts the LSP server (see [[LSP Configuration]]), that process boots its own copy of the wiki, so the MCP server can stop and start without taking the editor features down. The two copies are kept in step:
+
+* The LSP server reads in tiddler files the MCP server writes for MCP tools and browser edits, as they change on disk. A file that was only read is left alone.
+* A `.tid` saved in the editor is reloaded into the MCP server too, so the browser and MCP tools see the save.
+* Hovers link shadow tiddlers to the MCP server's browser port, which it records in `.tw-mcp/connect`.
+
+The LSP server finds the MCP server through `.tw-mcp/connect`, keeps a connection to it over the MCP pipe, and says who it is. Each side logs the other by label:
+
+```
+[tw-lsp @lsp-tw-mcp-server] MCP server found: PID 22696 @sse-primary, browser on port 8888
+[tw-mcp 10:23:03.412] LSP client: Visual Studio Code 1.123.0 (PID 12388, pipe) @lsp-tw-mcp-server on /home/me/tw-mcp-server
+```
+
+`get_wiki_info` lists the LSP servers of the wiki, and the editor's status bar shows `lsp-tw-mcp-server ⇄ sse-primary`. When the MCP server stops, the LSP log says `MCP server gone` and the status bar drops the second label. Try it in [[LSP and MCP - (Example)]].
 
 Neither command depends on the other: what they share is code. The editor's [[find references|LSP Find References]] and the [[find_calls]] MCP tool read call sites from the same library, and the editor's [[go to definition|LSP Go to Definition]] and the [[find_definition]] MCP tool find the running ~JavaScript through the same module. So each works alone, and together an assistant and your editor agree on every call and definition.
 

@@ -1,5 +1,5 @@
 created: 20260909121549062
-modified: 20260910193707256
+modified: 20260916121849282
 tags: LSP
 title: LSP Editor Setup
 
@@ -34,12 +34,14 @@ tiddlywiki ./mywiki --lsp stdio
 
 !!! VS Code
 
-The [[vscode-tiddlywiki-lsp|https://github.com/wikilabs/vscode-tiddlywiki-lsp]] extension connects VS Code to a running `--lsp` server; its README says how to install it. It binds to the `tid` and `tiddlywiki5` languages the tw5-syntax extension registers, and dials port 6009 unless its settings say otherwise.
+The [[vscode-tiddlywiki-lsp|https://github.com/wikilabs/vscode-tiddlywiki-lsp]] extension starts the wiki's LSP server itself and ends it with the window; [[LSP Configuration]] says how it picks the wiki, and its README how to install it. Without a configured wiki it connects to one already running with `--lsp`. It binds to the `tid` and `tiddlywiki5` languages the tw5-syntax extension registers, and the status bar names the LSP server the window uses.
 
-A shadow tiddler, or a tiddler without a file of its own, opens read-only under the extension's `tiddlywiki:` scheme when you go to a definition in it or pick it from a list. After updating the extension, reload the VS Code window so the scheme is registered.
+A shadow tiddler, or a tiddler without a file of its own, opens read-only under the extension's `tiddlywiki:` scheme when you go to a definition in it or pick it from a list. After updating the extension, reload the VS Code window so the scheme is registered; when its `package.json` changed, restart VS Code.
 
 !! Saving
 
-The running wiki does not watch its folder, so the server reads a `.tid` you save in the editor into the wiki itself: hovers, globals and references then answer from the saved text, with no `reload_tiddlers` and no restart. Only a file the wiki already files a tiddler in, or a new `.tid` in its tiddlers folder, is read, so a plugin's source file never becomes a tiddler of its own. When a save changes a tiddler's title, the new title takes the file and the old one leaves the wiki. The server log names each tiddler it reloads.
+The server reads a `.tid` you save in the editor into its wiki: hovers, globals and references then answer from the saved text, with no `reload_tiddlers` and no restart. Only a file the wiki already files a tiddler in, or a new `.tid` in its tiddlers folder, is read, so a plugin's source file never becomes a tiddler of its own. When a save changes a tiddler's title, the new title takes the file and the old one leaves the wiki. The server log names each tiddler it reloads.
+
+An LSP server the editor started holds its own copy of the wiki, so it passes the save on to a running MCP server as well, and the browser and MCP tools see it too. See [[LSP and MCP]].
 
 The editor has to tell the server about saves; VS Code does. Try it in [[LSP Saving - (Example)]].

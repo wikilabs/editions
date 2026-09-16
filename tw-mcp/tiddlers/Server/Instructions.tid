@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260910193702507
+modified: 20260916122011349
 tags: Server
 title: Instructions
 
@@ -385,6 +385,7 @@ Returns pre-formatted wiki metadata including:
 * TiddlyWiki version
 * MCP server line: role, ''plugin version'' (e.g. `MCP: primary v0.9.2 (PID …) @label`), readonly mode, filesystem adaptor
 * HTTP server status (when `--listen` is active)
+* LSP servers: one running in this process (`LSP: socket port 6009 (PID …, this process) @label`), and the ones editors started that are linked to this MCP server (`LSP: pipe for Visual Studio Code … (PID …) @label on <wiki>`), see [[LSP and MCP]]
 * Basic settings from the ControlPanel/Basics panel (site title, username, default tiddlers, animation duration, journal settings, etc.)
 
 Takes no parameters. The output is pre-formatted plain text — the AI presents it directly without reformatting.

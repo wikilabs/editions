@@ -1,24 +1,36 @@
 created: 20260909121537237
-modified: 20260909133347090
+modified: 20260916121811254
 tags: LSP
 title: LSP Server
 
 !! Serving an editor from the running wiki
 
-`--lsp` starts a Language Server Protocol server inside the TiddlyWiki process. It is read only: it answers questions about the wiki and never writes to it.
+`--lsp` starts a Language Server Protocol server inside a TiddlyWiki process. It is read only: it answers questions about the wiki and never writes to it.
 
 !!! Starting
+
+Usually your editor starts it: the VS Code extension runs the wiki's own LSP server as a child of the window, see [[LSP Configuration]]. By hand:
 
 ```
 tiddlywiki ./mywiki --lsp
 ```
 
-The server listens on `127.0.0.1:6009`.
+The server listens on `127.0.0.1:6009`, or on a free port when 6009 is taken, and records the port in `.tw-mcp/lsp` in the wiki folder, where an editor finds it.
 
 |! Parameter |! Default |! Meaning |
-|`port=<n>` |6009 |TCP port to listen on |
+|`port=<n>` |6009 |TCP port to listen on. A port given here is not replaced when taken; `port=0` asks for any free one |
 |`host=<h>` |127.0.0.1 |Interface to bind |
-|`stdio` |off |Serve over stdin and stdout instead of a socket. Cannot be combined with `--mcp`, see [[LSP and MCP]] |
+|`stdio` |off |Serve over stdin and stdout instead of a socket. Cannot be combined with `--mcp` or `pipe=`, see [[LSP and MCP]] |
+|`pipe=<name>` |off |Connect to a named pipe the editor created and serve that one session. The process never writes to disk, reads in tiddler files changed on disk, and exits when the pipe closes |
+|`label=<name>` |`lsp-<wiki folder>` |Name of the server in its own log and in the MCP server's. Without it, `label` from the `lsp` section of `tiddlywiki.info` |
+
+!!! Which wiki answers
+
+The first log line names the wiki the server loaded, and the same line reaches the editor's log once it connects:
+
+```
+[tw-lsp @lsp-mywiki] Wiki /home/me/mywiki; tiddlers folder /home/me/mywiki/tiddlers; 812 tiddlers, 1406 shadows
+```
 
 !!! Completion
 

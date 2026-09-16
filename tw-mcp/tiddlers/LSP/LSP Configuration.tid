@@ -1,0 +1,55 @@
+created: 20260916121834029
+modified: 20260916121834029
+tags: LSP
+title: LSP Configuration
+
+!! Where the LSP server comes from
+
+The VS Code extension starts the wiki's LSP server itself, as a child of the window, and stops it when the window closes. It picks the wiki in this order:
+
+# A workspace folder whose `tiddlywiki.info` has an `lsp` section
+# The `tiddlywiki.lsp.wiki` setting
+# A wiki already running with `--lsp`, found through its `.tw-mcp/lsp` file, or the `tiddlywiki.lsp.port` setting
+
+The first two run a command from the workspace, so they only happen in a trusted workspace. When nothing is found, the log says how to name a wiki, and a wiki started later with `--lsp` is still picked up.
+
+!!! The lsp section of tiddlywiki.info
+
+```
+"lsp": {
+	"autostart": true,
+	"label": "lsp-tw-mcp-server",
+	"command": "node ../scripts/tw.js --core dev"
+}
+```
+
+|! Key |! Default |! Meaning |
+|`autostart` |off |`true` lets the editor start this wiki |
+|`label` |`lsp-<wiki folder>` |Name of the server in both logs and in the status bar. `--lsp label=<name>` on the command line wins |
+|`command` |`tiddlywiki` |Boots the wiki. The wiki folder, `--lsp pipe=<name>` and `label=<name>` are appended; relative paths start from the wiki folder |
+
+Put the section in the edition you run, usually the `-server` one. Only the `tiddlywiki.info` of the wiki you start counts: an included wiki's `lsp` section is ignored. When two workspace folders both have one, the extension prefers the folder that includes the other.
+
+!!! Settings, for a wiki that is not yours to change
+
+The `tiddlywiki.info` of a TiddlyWiki checkout belongs to that repository. The same values can live in the VS Code settings instead, for example in a `.code-workspace` file:
+
+```
+"settings": {
+	"tiddlywiki.lsp.wiki": "${workspaceFolder}/editions/tw5.com-server",
+	"tiddlywiki.lsp.command": "tiddlywiki +plugins/wikilabs/tw-mcp-core +plugins/wikilabs/tw-mcp",
+	"tiddlywiki.lsp.label": "lsp-tw5.com-server"
+}
+```
+
+`tiddlywiki.lsp.wiki` takes an absolute path, `${workspaceFolder}/...`, `${workspaceFolder:<name>}/...` in a multi-root workspace, or a path relative to the first workspace folder. The command names the plugins because that edition's `tiddlywiki.info` does not list them.
+
+!!! A fallback for every workspace
+
+Set in your user settings, the same values apply to every workspace without an `lsp` section or settings of its own. The answers then come from that wiki: core macros and shadow tiddlers resolve, but links to the workspace's own tiddlers are marked missing.
+
+!!! Seeing which server is active
+
+The status bar names the LSP server by its label, and the MCP server it is linked to, as in `lsp-tw-mcp-server ⇄ sse-primary`. A spinner means the wiki is still booting, a warning that it is not running. The tooltip gives the wiki folder and where it was configured; a click opens the `TiddlyWiki LSP` log.
+
+Try it in [[LSP and MCP - (Example)]].
