@@ -1,5 +1,5 @@
 created: 20260910105912170
-modified: 20260910193618881
+modified: 20260916130735193
 title: LSP Completion - (Example)
 
 \procedure lsp.cp.pair(a, b:"B") <<a>> <<b>>
@@ -8,7 +8,7 @@ Open this tiddler's `.tid` file in your editor. On a new line at the end, type e
 
 |! Type this |! You should get |
 |`[[LS` |every title starting with ''LSP'', this one included |
-|`[[l` |nothing: one character is below the two-character minimum |
+|`[[l` |titles starting with ''l'' first, then titles with a later word starting with it |
 |`[[ed` |''LSP Editor Setup'', because `ed` starts the word ''Editor'' |
 |`[[dit` |nothing: `dit` sits inside ''Editor'' but starts no word |
 |`[[LS S` |''LSP Editor Setup'' and ''LSP Server'': `LS` starts one word, `S` another |

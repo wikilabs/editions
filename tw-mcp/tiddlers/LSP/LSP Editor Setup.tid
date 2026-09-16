@@ -1,5 +1,5 @@
 created: 20260909121549062
-modified: 20260916121849282
+modified: 20260916124501142
 tags: LSP
 title: LSP Editor Setup
 
@@ -35,6 +35,8 @@ tiddlywiki ./mywiki --lsp stdio
 !!! VS Code
 
 The [[vscode-tiddlywiki-lsp|https://github.com/wikilabs/vscode-tiddlywiki-lsp]] extension starts the wiki's LSP server itself and ends it with the window; [[LSP Configuration]] says how it picks the wiki, and its README how to install it. Without a configured wiki it connects to one already running with `--lsp`. It binds to the `tid` and `tiddlywiki5` languages the tw5-syntax extension registers, and the status bar names the LSP server the window uses.
+
+While the linked MCP server serves a browser, right-click a `.tid` tab and pick //Preview in TiddlyWiki//: the running wiki opens beside the editor on that tiddler, and a save shows up there without a refresh.
 
 A shadow tiddler, or a tiddler without a file of its own, opens read-only under the extension's `tiddlywiki:` scheme when you go to a definition in it or pick it from a list. After updating the extension, reload the VS Code window so the scheme is registered; when its `package.json` changed, restart VS Code.
 

@@ -1,5 +1,5 @@
 created: 20260909121537237
-modified: 20260916121811254
+modified: 20260916130734891
 tags: LSP
 title: LSP Server
 
@@ -38,7 +38,7 @@ Typing `[[` or `{{` offers tiddler titles, narrowed as you keep typing. A title 
 
 System tiddlers stay out of the list until the prefix starts with `$:/`, which also reaches shadow tiddlers.
 
-Matching is by prefix and ignores case, and needs at least two characters. See [[LSP Capabilities]] for the exact rules.
+Matching is by prefix and ignores case, from the first character typed. See [[LSP Capabilities]] for the exact rules.
 
 !!! Diagnostics
 

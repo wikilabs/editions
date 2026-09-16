@@ -1,16 +1,25 @@
 created: 20260916121935133
-modified: 20260916121935133
+modified: 20260916124509809
 title: LSP and MCP - (Example)
 
 Check that the LSP server the editor started and a running MCP server see each other. Start with VS Code open on this wiki and `npm start` not running.
 
 # The status bar shows `lsp-tw-mcp-server`, and its tooltip says `No MCP server linked`.
+
 # Start `npm start`. Within two seconds the `TiddlyWiki LSP` log says `MCP server found: PID ... @sse-primary, browser on port 8888`, and the status bar shows `lsp-tw-mcp-server ⇄ sse-primary`. The MCP server's console says `LSP client: Visual Studio Code ... @lsp-tw-mcp-server`.
+
 # Ask `get_wiki_info` over MCP. It lists `LSP: pipe for Visual Studio Code ... @lsp-tw-mcp-server`.
+
 # In the browser, create a tiddler titled `LSP Link Probe`. In a `.tid` file in the editor, type `[[LSP Li`: completion offers `LSP Link Probe` a few seconds later. Delete the tiddler in the browser again.
+
 # Open this tiddler's `.tid` file and hover `tag` in this call: <<tag "LSP">>. The hover says it is defined in `$:/core/macros/tag`, linked to the browser on port 8888.
+
 # In the same file, change the last word of this line: before. Save. The log says `The MCP server reloaded LSP and MCP - (Example)`, and the browser shows the new word without a refresh.
+
+# Right-click this file's tab and pick //Preview in TiddlyWiki//. The wiki opens beside the editor on this tiddler. Change the last word of the save step again and save: the preview shows it without a refresh. Once the server stops, the menu item is gone.
+
 # Stop `npm start` with Ctrl-C. The log says `MCP server gone`, the status bar drops `⇄ sse-primary`, and completion and hovers keep answering.
+
 # Change the last word back and save.
 
 Back to [[LSP and MCP]].

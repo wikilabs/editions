@@ -1,5 +1,5 @@
 created: 20260910105908298
-modified: 20260910193615387
+modified: 20260916130733760
 tags: [[LSP Capabilities]]
 title: LSP Completion
 
@@ -9,7 +9,7 @@ The editor offers tiddler titles while you type a link or a transclusion, and na
 
 Titles are offered only inside an unclosed `[[` or `{{`.
 
-Matching is by ''prefix'' and ignores case. At least two characters are needed: one letter matches too much of any wiki to be a useful list.
+Matching is by ''prefix'' and ignores case, from the first character typed. An editor such as VS Code asks again on the next keystroke only when the last answer held titles, so a single letter already gets a list.
 
 A title is offered when either holds, best first:
 
