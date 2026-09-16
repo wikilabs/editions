@@ -261,13 +261,14 @@ test("a trailing space does not empty the list", () => {
 	assert.ok(after.items.length > 0, "a trailing space must not empty the list");
 });
 
-test("one character offers nothing, two characters offer a list", () => {
-	// A single letter matches too much of any real wiki to be a useful list.
+test("one character already offers a list, so the editor keeps asking", () => {
+	// VS Code re-asks a provider on the next keystroke only when its last answer
+	// had items: an empty answer at [[l would leave the list to other providers.
 	const one = features.completions(URI, tid("See [[l"), { line: 2, character: 7 });
-	assert.deepEqual(one.items, []);
+	assert.ok(one.items.length > 0, "one character must produce a list");
 	assert.equal(one.isIncomplete, true, "the editor must keep asking as more is typed");
-	const two = features.completions(URI, tid("See [[ls"), { line: 2, character: 8 });
-	assert.ok(two.items.length > 0, "two characters must produce a list");
+	// Titles starting with the letter rank before those with a later word starting with it.
+	assert.ok(one.items[0].label.toLowerCase().startsWith("l"), JSON.stringify(one.items.map((item) => item.label)));
 });
 
 test("an empty prefix offers nothing rather than the whole wiki", () => {
