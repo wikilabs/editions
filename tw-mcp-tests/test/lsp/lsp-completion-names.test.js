@@ -85,6 +85,28 @@ test("a name given as $variable is completed like a call", () => {
 	assert.deepEqual(labels("<$transclude $variable=\"lsp.cp.@@"), ["lsp.cp.p", "lsp.cp.f"]);
 });
 
+// --- Code ---
+
+test("a call written in inline code opens nothing for the text after it", () => {
+	// The LSP Completion Example documents its entries in a table, as code.
+	const found = labels("|`<<lsp.cp` |`lsp.cp.p`, defined above |\n|`<$li` |every widget |\n\n<<lsp.cp@@");
+	assert.ok(found.includes("lsp.cp.p"), found.join(", "));
+});
+
+test("a call inside a code fence opens nothing either", () => {
+	const found = labels("```\n<<lsp.cp.p a:\"1\"\n```\n<<lsp.cp@@");
+	assert.ok(found.includes("lsp.cp.p"), found.join(", "));
+});
+
+test("a backtick without a partner is plain text", () => {
+	const found = labels("It costs 5` or so\n<<lsp.cp@@");
+	assert.ok(found.includes("lsp.cp.p"), found.join(", "));
+});
+
+test("inside inline code a call is text, so no names are offered", () => {
+	assert.deepEqual(complete("Type `<<lsp.cp@@` here").items, []);
+});
+
 // --- Parameters ---
 
 test("a call is offered the parameters it has not been given", () => {
