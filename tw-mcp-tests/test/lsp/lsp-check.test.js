@@ -1,18 +1,18 @@
 "use strict";
 
 /*
-Pins "Check all tiddlers" (lsp-check.js and the tiddlywiki/checkAll request):
-every .tid file the wiki saves to is checked from disk, except files open in
-the editor, for names nothing defines, reported as information, which the
-Problems panel lists, instead of a hint, which it leaves out. A missing link
-target is left to open files.
+Pins "List undefined calls and widgets" (lsp-check.js and the
+tiddlywiki/undefinedCalls request): every .tid file the wiki saves to is read
+from disk, except files open in the editor, and its undefined calls are reported
+as information, which the Problems panel lists, instead of a hint, which it
+leaves out. A missing link target is left to open files.
 
 By hand, in a booted test edition:
 
   const f = $tw.modules.execute("$:/core/modules/commands/inspect/lsp/lsp-features.js");
-  const checked = f.checkAll({});
-  f.summarizeCheck(checked);
-  // -> {files: <.tid files in $tw.boot.files>, undefinedNames: <n>}
+  const listed = f.listUndefinedCalls({});
+  f.summarizeUndefinedCalls(listed);
+  // -> {files: <.tid files in $tw.boot.files>, undefinedCalls: <n>}
 */
 
 const { test, before } = require("node:test");
@@ -58,14 +58,14 @@ function brief(diagnostics) {
 	return diagnostics.map((d) => ({ severity: d.severity, message: d.message }));
 }
 
-test("every .tid file is checked from disk for names nothing defines, reported as information, missing links left to open files", () => {
+test("every .tid file is read from disk for undefined calls, reported as information, missing links left to open files", () => {
 	withFile((uri) => {
-		const checked = features.checkAll({}),
-			entry = checked.find((e) => e.uri === uri);
+		const listed = features.listUndefinedCalls({}),
+			entry = listed.find((e) => e.uri === uri);
 		assert.deepEqual(brief(entry.diagnostics), [
 			{ severity: INFORMATION, message: "`lsp.ck-typo` is not defined or set anywhere in this wiki" }
 		]);
-		assert.equal(new Set(checked.map((e) => e.uri)).size, checked.length, "each file once");
+		assert.equal(new Set(listed.map((e) => e.uri)).size, listed.length, "each file once");
 		assert.deepEqual(brief(features.diagnostics(uri, TEXT)).map((d) => d.severity), [WARNING, HINT], "an open document keeps the hint");
 	});
 });
@@ -73,26 +73,26 @@ test("every .tid file is checked from disk for names nothing defines, reported a
 test("a file open in the editor is left to its live diagnostics, under either spelling of its URI", () => {
 	withFile((uri, filepath) => {
 		const vscodeSpelling = "file:///" + filepath.replace(/\\/g, "/").replace(/^([A-Za-z]):/, (m, drive) => drive.toLowerCase() + "%3A");
-		assert.equal(features.checkAll({ [vscodeSpelling]: TEXT }).some((e) => e.uri === uri), false);
+		assert.equal(features.listUndefinedCalls({ [vscodeSpelling]: TEXT }).some((e) => e.uri === uri), false);
 	});
 });
 
-test("the summary counts files and undefined names", () => {
+test("the summary counts files and undefined calls", () => {
 	withFile(() => {
-		const checked = features.checkAll({});
-		assert.deepEqual(features.summarizeCheck(checked), {
-			files: checked.length,
-			undefinedNames: [].concat(...checked.map((e) => e.diagnostics)).length
+		const listed = features.listUndefinedCalls({});
+		assert.deepEqual(features.summarizeUndefinedCalls(listed), {
+			files: listed.length,
+			undefinedCalls: [].concat(...listed.map((e) => e.diagnostics)).length
 		});
 	});
 });
 
-test("tiddlywiki/checkAll publishes every checked file and answers the summary", () => {
+test("tiddlywiki/undefinedCalls publishes every file read and answers the summary", () => {
 	withFile((uri) => {
 		const sent = [],
 			session = lib.createSession((message) => sent.push(message), { schedule: (fn) => { fn(); return 0; }, cancel: () => {} });
 		session.dispatch({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} });
-		session.dispatch({ jsonrpc: "2.0", id: 2, method: "tiddlywiki/checkAll", params: {} });
+		session.dispatch({ jsonrpc: "2.0", id: 2, method: "tiddlywiki/undefinedCalls", params: {} });
 		const published = sent.filter((m) => m.method === "textDocument/publishDiagnostics"),
 			answer = sent.find((m) => m.id === 2).result;
 		assert.equal(published.length, answer.files);
@@ -111,27 +111,27 @@ function openSession() {
 	};
 }
 
-test("after a check, an open file keeps its undefined names listed, and closing it puts the check result back", () => {
+test("once listed, an open file keeps its undefined calls listed, and closing it puts the listed ones back", () => {
 	withFile((uri) => {
 		const s = openSession();
 		s.send("textDocument/didOpen", { textDocument: { uri: uri, text: TEXT, version: 1 } });
-		assert.deepEqual(s.last(uri), [WARNING, HINT], "before a check: a hint, which the panel leaves out");
+		assert.deepEqual(s.last(uri), [WARNING, HINT], "before listing: a hint, which the panel leaves out");
 		s.send("textDocument/didClose", { textDocument: { uri: uri } });
-		assert.deepEqual(s.last(uri), [], "before a check: closing clears");
+		assert.deepEqual(s.last(uri), [], "before listing: closing clears");
 		s.send("textDocument/didOpen", { textDocument: { uri: uri, text: TEXT, version: 2 } });
-		s.send("tiddlywiki/checkAll", {}, 2);
+		s.send("tiddlywiki/undefinedCalls", {}, 2);
 		assert.deepEqual(s.last(uri), [WARNING, INFORMATION], "the open file is listed from its live text");
 		s.send("textDocument/didChange", { textDocument: { uri: uri, version: 3 }, contentChanges: [{ text: TEXT + "\n" }] });
 		assert.deepEqual(s.last(uri), [WARNING, INFORMATION]);
 		s.send("textDocument/didClose", { textDocument: { uri: uri } });
-		assert.deepEqual(s.last(uri), [INFORMATION], "closed again: the check result from disk");
+		assert.deepEqual(s.last(uri), [INFORMATION], "closed again: the listed ones, from disk");
 	});
 });
 
-test("after a check, closing a file the wiki does not save to still clears it", () => {
+test("once listed, closing a file the wiki does not save to still clears it", () => {
 	const uri = "file:///elsewhere/lsp_ck.tid",
 		s = openSession();
-	s.send("tiddlywiki/checkAll", {}, 2);
+	s.send("tiddlywiki/undefinedCalls", {}, 2);
 	s.send("textDocument/didOpen", { textDocument: { uri: uri, text: "title: lsp_ck\n\n<<lsp.ck-typo>>\n", version: 1 } });
 	assert.deepEqual(s.last(uri), [INFORMATION]);
 	s.send("textDocument/didClose", { textDocument: { uri: uri } });
