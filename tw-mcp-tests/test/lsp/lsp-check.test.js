@@ -3,9 +3,9 @@
 /*
 Pins "List undefined calls and widgets" (lsp-check.js and the
 tiddlywiki/undefinedCalls request): every .tid file the wiki saves to is read
-from disk, except files open in the editor, and its undefined calls are reported
-as information, which the Problems panel lists, instead of a hint, which it
-leaves out. A missing link target is left to open files.
+from disk, or from its live text while open in the editor, and its undefined
+calls are reported as information, which the Problems panel lists, instead of a
+hint, which it leaves out. A missing link target is left to open files.
 
 By hand, in a booted test edition:
 
@@ -29,6 +29,8 @@ const WARNING = 2;
 const INFORMATION = 3;
 const HINT = 4;
 const TEXT = "title: " + TITLE + "\n\nSee [[lsp.ck missing]] and <<lsp.ck-typo>>.\n";
+// The same tiddler as edited in the editor, unsaved: two undefined calls where the file has one.
+const LIVE_TEXT = "title: " + TITLE + "\n\n<<lsp.ck-live>> <<lsp.ck-live2>>\n";
 
 let $tw;
 let features;
@@ -70,11 +72,22 @@ test("every .tid file is read from disk for undefined calls, reported as informa
 	});
 });
 
-test("a file open in the editor is left to its live diagnostics, under either spelling of its URI", () => {
+test("a file open in the editor is listed from its live text and marked open, under either spelling of its URI", () => {
 	withFile((uri, filepath) => {
-		const vscodeSpelling = "file:///" + filepath.replace(/\\/g, "/").replace(/^([A-Za-z]):/, (m, drive) => drive.toLowerCase() + "%3A");
-		assert.equal(features.listUndefinedCalls({ [vscodeSpelling]: TEXT }).some((e) => e.uri === uri), false);
+		const vscodeSpelling = "file:///" + filepath.replace(/\\/g, "/").replace(/^([A-Za-z]):/, (m, drive) => drive.toLowerCase() + "%3A"),
+			listed = features.listUndefinedCalls({ [vscodeSpelling]: LIVE_TEXT });
+		assert.equal(listed.some((e) => e.uri === uri), false, "not read from disk as well");
+		const entry = listed.find((e) => e.uri === vscodeSpelling);
+		assert.equal(entry.open, true);
+		assert.deepEqual(brief(entry.diagnostics).map((d) => d.message), [
+			"`lsp.ck-live` is not defined or set anywhere in this wiki",
+			"`lsp.ck-live2` is not defined or set anywhere in this wiki"
+		]);
 	});
+});
+
+test("an open file the wiki does not save to is not listed", () => {
+	assert.equal(features.listUndefinedCalls({ "file:///elsewhere/lsp_ck.tid": LIVE_TEXT }).some((e) => e.open), false);
 });
 
 test("the summary counts files and undefined calls", () => {
@@ -100,16 +113,33 @@ test("tiddlywiki/undefinedCalls publishes every file read and answers the summar
 	});
 });
 
-// A session whose timers run at once, and the severities it last published for uri.
+// A session whose timers run at once: what it published for uri, last and how often, and its answer to request id.
 function openSession() {
 	const sent = [],
-		session = lib.createSession((message) => sent.push(message), { schedule: (fn) => { fn(); return 0; }, cancel: () => {} });
+		session = lib.createSession((message) => sent.push(message), { schedule: (fn) => { fn(); return 0; }, cancel: () => {} }),
+		publishedFor = (uri) => sent.filter((m) => m.method === "textDocument/publishDiagnostics" && m.params.uri === uri);
 	session.dispatch({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} });
 	return {
 		send: (method, params, id) => session.dispatch(Object.assign({ jsonrpc: "2.0", method: method, params: params }, id === undefined ? {} : { id: id })),
-		last: (uri) => sent.filter((m) => m.method === "textDocument/publishDiagnostics" && m.params.uri === uri).pop().params.diagnostics.map((d) => d.severity)
+		last: (uri) => publishedFor(uri).pop().params.diagnostics.map((d) => d.severity),
+		published: (uri) => publishedFor(uri).length,
+		answer: (id) => sent.find((m) => m.id === id).result
 	};
 }
+
+test("the summary counts a file open in the editor from its live text, which is published once", () => {
+	withFile((uri) => {
+		const s = openSession();
+		s.send("tiddlywiki/undefinedCalls", {}, 2);
+		const closed = s.answer(2);
+		s.send("textDocument/didOpen", { textDocument: { uri: uri, text: LIVE_TEXT, version: 1 } });
+		const before = s.published(uri);
+		s.send("tiddlywiki/undefinedCalls", {}, 3);
+		assert.deepEqual(s.answer(3), { files: closed.files, undefinedCalls: closed.undefinedCalls + 1 }, "the file's one call on disk counts as its two live ones");
+		assert.equal(s.published(uri), before + 1);
+		assert.deepEqual(s.last(uri), [INFORMATION, INFORMATION]);
+	});
+});
 
 test("once listed, an open file keeps its undefined calls listed, and closing it puts the listed ones back", () => {
 	withFile((uri) => {
