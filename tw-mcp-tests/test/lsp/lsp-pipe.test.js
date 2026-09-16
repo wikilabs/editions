@@ -116,13 +116,15 @@ test("once initialized, the editor is told which MCP server the wiki is linked t
 	const pipe = await editorPipe(),
 		recorder = exitRecorder();
 	let linked = null;
-	$tw.lsp = { mcpLink: { server: () => linked } };
+	const told = [];
+	$tw.lsp = { mcpLink: { server: () => linked, update: (info) => told.push(info) } };
 	const client = lib.startPipeClient(pipe.name, { exit: recorder.exit });
 	try {
 		const socket = await pipe.connection,
 			next = messages(socket);
-		socket.write(frame({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} }));
-		await next();
+		socket.write(frame({ jsonrpc: "2.0", id: 1, method: "initialize", params: { clientInfo: { name: "Test Editor", version: "1.0" } } }));
+		assert.ok((await next()).result.capabilities, "initialize is answered");
+		assert.deepEqual(told, [{ client: "Test Editor 1.0" }], "the MCP link learns which editor connected");
 		// Before initialized nothing may be sent but the answer, so a change now is held back.
 		linked = { pid: 4242, label: "sse-primary", browserPort: 8888 };
 		$tw.lsp.announceMcpServer();
