@@ -132,6 +132,33 @@ test("each folder holding the wiki's files is watched once, at its outermost", (
 	assert.deepEqual(roots, [path.resolve("/w/tiddlers"), path.resolve("/other")]);
 });
 
+test("a file only read, not written, since the wiki loaded it is not read in again", async () => {
+	await withTiddlersFolder(async (dir) => {
+		const file = path.join(dir, "probe.tid"),
+			loadedAt = new Date(Date.now() - 60000);
+		writeTid(file, TITLE, "on disk");
+		fs.utimesSync(file, loadedAt, loadedAt);
+		watch.fileChanged(file);
+		const watcher = watch.startWatching({});
+		try {
+			// Marks the wiki's copy, so a reload would show.
+			$tw.wiki.addTiddler({ title: TITLE, text: "in the wiki" });
+			// A read moves only the access time, which Windows also reports as a change.
+			fs.utimesSync(file, new Date(), loadedAt);
+			await new Promise((resolve) => setTimeout(resolve, 400));
+			assert.strictEqual($tw.wiki.getTiddlerText(TITLE), "in the wiki");
+			writeTid(file, TITLE, "written");
+			const deadline = Date.now() + 5000;
+			while($tw.wiki.getTiddlerText(TITLE) !== "written" && Date.now() < deadline) {
+				await new Promise((resolve) => setTimeout(resolve, 25));
+			}
+			assert.strictEqual($tw.wiki.getTiddlerText(TITLE), "written");
+		} finally {
+			watcher.close();
+		}
+	});
+});
+
 test("a file written while watching is read in without being told", async () => {
 	await withTiddlersFolder(async (dir) => {
 		const watcher = watch.startWatching({});

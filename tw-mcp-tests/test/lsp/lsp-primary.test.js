@@ -240,9 +240,10 @@ test("an MCP server that does not answer is given up on", async () => {
 test("the link notices the MCP server go and links again when one comes back", async () => {
 	let discovery = null;
 	const logged = [],
+		changes = [],
 		first = await fakeMcpServer(() => {});
 	discovery = first.discovery;
-	const link = primary.createLink({ readDiscovery: () => discovery, log: (line) => logged.push(line), pollMs: 20 });
+	const link = primary.createLink({ readDiscovery: () => discovery, log: (line) => logged.push(line), onChange: (server) => changes.push(server), pollMs: 20 });
 	let second = null;
 	try {
 		await until(() => link.isConnected(), "the first link");
@@ -254,6 +255,13 @@ test("the link notices the MCP server go and links again when one comes back", a
 		discovery = Object.assign({}, second.discovery, { pid: process.pid + 2, label: undefined, listen: false, port: undefined });
 		await until(() => link.isConnected(), "the second link");
 		assert.ok(logged.includes("MCP server found: PID " + (process.pid + 2) + ", no browser"), logged.join("\n"));
+		// The editor is told what it may show: never the pipe or its token.
+		assert.deepEqual(changes, [
+			{ pid: first.discovery.pid, label: "sse-primary", browserPort: 8888 },
+			null,
+			{ pid: process.pid + 2, label: null, browserPort: null }
+		]);
+		assert.deepEqual(link.server(), { pid: process.pid + 2, label: null, browserPort: null });
 	} finally {
 		link.close();
 		await first.close();
@@ -323,15 +331,20 @@ test("a dev server that records no port gets no browser link", () => {
 	});
 });
 
-test("initialize names the editor to onInitialized, and a save hands the document to onSaved", () => {
+test("initialize names the editor to onInitialized, initialized calls onReady, and a save hands the document to onSaved", () => {
 	const saves = [],
 		clients = [],
+		readies = [],
 		session = lspLib.createSession(() => {}, {
 			onInitialized: (client) => clients.push(client),
+			onReady: () => readies.push(true),
 			onSaved: (uri, reloaded) => saves.push([uri, reloaded])
 		});
 	session.dispatch({ jsonrpc: "2.0", id: 1, method: "initialize", params: { clientInfo: { name: "Probe Editor", version: "1.0" } } });
+	assert.deepEqual(readies, []);
+	session.dispatch({ jsonrpc: "2.0", method: "initialized", params: {} });
 	session.dispatch({ jsonrpc: "2.0", method: "textDocument/didSave", params: { textDocument: { uri: "file:///elsewhere/readme.md" } } });
 	assert.deepEqual(clients, ["Probe Editor 1.0"]);
+	assert.deepEqual(readies, [true]);
 	assert.deepEqual(saves, [["file:///elsewhere/readme.md", null]]);
 });

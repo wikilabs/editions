@@ -112,6 +112,32 @@ test("the pipe carries an LSP session, and initialized names the wiki", async ()
 	}
 });
 
+test("once initialized, the editor is told which MCP server the wiki is linked to, and of every change", async () => {
+	const pipe = await editorPipe(),
+		recorder = exitRecorder();
+	let linked = null;
+	$tw.lsp = { mcpLink: { server: () => linked } };
+	const client = lib.startPipeClient(pipe.name, { exit: recorder.exit });
+	try {
+		const socket = await pipe.connection,
+			next = messages(socket);
+		socket.write(frame({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} }));
+		await next();
+		// Before initialized nothing may be sent but the answer, so a change now is held back.
+		linked = { pid: 4242, label: "sse-primary", browserPort: 8888 };
+		$tw.lsp.announceMcpServer();
+		socket.write(frame({ jsonrpc: "2.0", method: "initialized", params: {} }));
+		assert.strictEqual((await next()).method, "window/logMessage");
+		assert.deepEqual(await next(), { jsonrpc: "2.0", method: "tiddlywiki/mcpServer", params: { server: { pid: 4242, label: "sse-primary", browserPort: 8888 } } });
+		linked = null;
+		$tw.lsp.announceMcpServer();
+		assert.deepEqual((await next()).params, { server: null });
+	} finally {
+		client.destroy();
+		await closeServer(pipe.server);
+	}
+});
+
 test("the process exits cleanly when the editor closes the pipe", async () => {
 	const pipe = await editorPipe(),
 		recorder = exitRecorder();
@@ -157,14 +183,14 @@ test("pipe= mode never writes: the syncer's saves and deletes touch no file", as
 	}
 });
 
-test("label= on the command line wins over the label in tiddlywiki.info", () => {
+test("label= on the command line wins over the label in tiddlywiki.info, else lsp-<wiki folder name>", () => {
 	const saved = $tw.boot.wikiInfo;
 	try {
 		$tw.boot.wikiInfo = Object.assign({}, saved, { lsp: { autostart: true, label: "from-info" } });
 		assert.strictEqual(lib.resolveLabel({ label: "from-command" }), "from-command");
 		assert.strictEqual(lib.resolveLabel({}), "from-info");
 		$tw.boot.wikiInfo = Object.assign({}, saved, { lsp: undefined });
-		assert.strictEqual(lib.resolveLabel({}), null);
+		assert.strictEqual(lib.resolveLabel({}), "lsp-" + path.basename(path.resolve($tw.boot.wikiPath)));
 	} finally {
 		$tw.boot.wikiInfo = saved;
 	}
