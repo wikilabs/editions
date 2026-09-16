@@ -11,7 +11,7 @@ let putTiddler, replaceInTiddlers;
 let $tw;
 
 before(async () => {
-	$tw = await bootTw();
+	$tw = await bootTw({ ownFolder: true });
 	putTiddler = loadHandler($tw, PUT_HANDLER).put_tiddler;
 	replaceInTiddlers = loadHandler($tw, REPLACE_HANDLER).replace_in_tiddlers;
 });

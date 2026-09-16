@@ -31,7 +31,7 @@ let dispatchMessage;
 let $tw;
 
 before(async () => {
-	$tw = await bootTw();
+	$tw = await bootTw({ ownFolder: true });
 	dispatchMessage = loadHandler($tw, LIB_TITLE).dispatchMessage;
 });
 

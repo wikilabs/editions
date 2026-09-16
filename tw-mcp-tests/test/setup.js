@@ -1,25 +1,13 @@
 /*
-Shared bootstrap helper for tw-mcp handler tests.
-
-bootTw() boots a minimal TiddlyWiki instance using this edition's
-tiddlywiki.info. The boot is async; await it once at the top of each test
-file (typically via a node:test `before(...)` hook). Each test file gets its
-own $tw — no cross-file state.
-
-The booted $tw exposes the tw-mcp plugin via $tw.modules. Load a handler's
-exports with loadHandler($tw, title); a thin wrapper around $tw.modules.execute.
-
-Path resolution:
-  - TW core boot.js: TW_CORE_PATH env var, else sibling-of-node fallback
-    (covers `npm i -g tiddlywiki`).
-  - tw-mcp plugin folder: $tw.findLibraryItem after boot, so the existing
-    TIDDLYWIKI_PLUGIN_PATH is honoured automatically.
+Boots this edition for handler tests: await bootTw() once per test file, then
+loadHandler($tw, title) returns a module's exports.
 */
 
 "use strict";
 
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 const url = require("node:url");
 
 const EDITION_PATH = path.resolve(__dirname, "..");
@@ -28,12 +16,7 @@ const EDITION_PATH = path.resolve(__dirname, "..");
 const PLUGIN_NAMES = ["wikilabs/tw-mcp-core", "wikilabs/tw-mcp"];
 const HANDLER_TITLE_PREFIX = "$:/core/modules/commands/inspect/";
 
-// Locate tiddlywiki/boot/boot.js. First hit wins:
-//   1. TW_CORE_PATH env var. Accepts either the full path to boot.js or the
-//      TW5 root folder.
-//   2. Sibling of `node.exe`: <node-dir>/node_modules/tiddlywiki/boot/boot.js.
-//      This is where `npm install -g tiddlywiki` puts it (often via symlink
-//      to a local checkout, which is how this user's machine is set up).
+// boot.js from TW_CORE_PATH (the file or the TW5 root), else beside node.exe, where npm install -g tiddlywiki puts it.
 function findTwBoot() {
 	if(process.env.TW_CORE_PATH) {
 		const p = process.env.TW_CORE_PATH;
@@ -53,14 +36,16 @@ function findTwBoot() {
 
 const TW_BOOT_PATH = findTwBoot();
 
-function bootTw() {
+// options.ownFolder boots a copy of the edition, for a test file that writes tiddler files while
+// other test files boot this folder in parallel (bead tw-mcp-server-v9m).
+function bootTw(options) {
+	const wikiPath = options && options.ownFolder ? copyEdition() : EDITION_PATH;
 	const $tw = require(TW_BOOT_PATH).TiddlyWiki();
-	$tw.boot.argv = [EDITION_PATH];
+	$tw.boot.argv = [wikiPath];
 	return new Promise((resolve, reject) => {
 		try {
 			$tw.boot.boot(() => {
-				// Use TW's own resolver so we honour TIDDLYWIKI_PLUGIN_PATH the
-				// same way the running server does.
+				// TW's own resolver honours TIDDLYWIKI_PLUGIN_PATH as the running server does.
 				const searchPaths = $tw.getLibraryItemSearchPaths(
 					$tw.config.pluginsPath,
 					$tw.config.pluginsEnvVar
@@ -74,10 +59,7 @@ function bootTw() {
 					tiddlersDirs.push(path.join(pluginFolder, "tiddlers"));
 				}
 				installCoveragePatches($tw, tiddlersDirs);
-				// Initialise the handlers/shared.js module-level state. Production
-				// wires this through mcp-handlers.js at MCP startup; tests need to
-				// supply a permissive context so writes (which call checkPathAllowed)
-				// don't fail with "checkPathAllowed is not a function".
+				// MCP startup initialises shared.js in production; a permissive checkPathAllowed lets tests write.
 				const shared = $tw.modules.execute(
 					"$:/core/modules/commands/inspect/handlers/shared.js"
 				);
@@ -93,15 +75,21 @@ function bootTw() {
 	});
 }
 
-// Make tw-mcp handler modules visible to V8's coverage instrumentation.
-// Two issues to fix:
-//   1. TW evaluates modules inside a separate vm.createContext, which V8
-//      coverage cannot see across. Dropping $tw.utils.sandbox falls back to
-//      vm.runInThisContext (same V8 context, coverage tracks it).
-//   2. The module's reported filename is its TW title ($:/core/...), but
-//      node:test's coverage reporter only displays entries whose filename is
-//      a file:// URL. Rewrite handler titles to their real on-disk path.
-// Both patches are test-only; never apply them in production.
+// The edition's tiddlywiki.info and tiddlers in a temporary folder, removed when the process exits.
+function copyEdition() {
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), "tw-mcp-tests-"));
+	fs.copyFileSync(path.join(EDITION_PATH, "tiddlywiki.info"), path.join(dir, "tiddlywiki.info"));
+	fs.cpSync(path.join(EDITION_PATH, "tiddlers"), path.join(dir, "tiddlers"), { recursive: true });
+	process.on("exit", () => {
+		// Best-effort teardown: a folder left in the temp directory harms nothing.
+		try {
+			fs.rmSync(dir, { recursive: true, force: true });
+		} catch(err) {}
+	});
+	return dir;
+}
+
+// Test-only: V8 coverage sees modules evaluated in this context, reported under their file:// path rather than their title.
 function installCoveragePatches($tw, pluginTiddlersDirs) {
 	$tw.utils.sandbox = null;
 	const origEval = $tw.utils.evalSandboxed;
@@ -129,9 +117,7 @@ function loadHandler($tw, title) {
 	return mod;
 }
 
-// Test helper: remove a tiddler from both the wiki store and the on-disk
-// .tid file (if any). Used by write-tests to clean up probe tiddlers in a
-// try/finally so test failures do not leave junk for the next run.
+// Removes a probe tiddler from the wiki and its .tid file from disk; best-effort, for a test's finally.
 function cleanupTiddler($tw, title) {
 	const fi = $tw.boot.files && $tw.boot.files[title];
 	if(fi && fi.filepath) {
@@ -142,10 +128,7 @@ function cleanupTiddler($tw, title) {
 	$tw.wiki.deleteTiddler(title);
 }
 
-// Wait (up to timeoutMs) for a file to disappear. delete_tiddler and
-// rename_tiddler unlink via $tw.utils.deleteTiddlerFile, which is async
-// best-effort by design — asserting existsSync===false immediately after
-// the handler returns races the event loop. Returns true when gone.
+// Waits up to timeoutMs for filepath to disappear, since delete and rename unlink asynchronously; true when gone.
 async function waitForGone(filepath, timeoutMs) {
 	const deadline = Date.now() + (timeoutMs || 2000);
 	while(fs.existsSync(filepath)) {

@@ -12,7 +12,7 @@ let putTiddler, deleteTiddler;
 let $tw;
 
 before(async () => {
-	$tw = await bootTw();
+	$tw = await bootTw({ ownFolder: true });
 	putTiddler = loadHandler($tw, PUT_HANDLER).put_tiddler;
 	deleteTiddler = loadHandler($tw, DELETE_HANDLER).delete_tiddler;
 });

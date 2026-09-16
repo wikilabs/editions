@@ -11,7 +11,7 @@ let putTiddler;
 let $tw;
 
 before(async () => {
-	$tw = await bootTw();
+	$tw = await bootTw({ ownFolder: true });
 	putTiddler = loadHandler($tw, HANDLER_TITLE).put_tiddler;
 });
 
