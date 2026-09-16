@@ -56,8 +56,15 @@ test("--mcp is refused when an LSP server already owns stdio", () => {
 	assert.ok(result.includes("--mcp cannot run beside --lsp stdio"), result);
 });
 
+test("--lsp refuses stdio and pipe= together", () => {
+	const result = run(LspCommand, ["stdio", "pipe=probe"]);
+	assert.equal(typeof result, "string", "expected a refusal message, got " + JSON.stringify(result));
+	assert.ok(result.includes("stdio or pipe=<name>, not both"), result);
+});
+
+// port=0 is valid (any free port), so it is not among these.
 test("a port outside the valid range is refused before anything listens", () => {
-	assert.ok(run(LspCommand, ["port=0"]).includes("between 1 and 65535"));
-	assert.ok(run(LspCommand, ["port=70000"]).includes("between 1 and 65535"));
-	assert.ok(run(LspCommand, ["port=abc"]).includes("between 1 and 65535"));
+	assert.ok(run(LspCommand, ["port=-1"]).includes("between 0 (any free port) and 65535"));
+	assert.ok(run(LspCommand, ["port=70000"]).includes("between 0 (any free port) and 65535"));
+	assert.ok(run(LspCommand, ["port=abc"]).includes("between 0 (any free port) and 65535"));
 });
