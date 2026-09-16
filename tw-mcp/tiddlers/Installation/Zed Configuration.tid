@@ -1,0 +1,62 @@
+created: 20260916140448845
+modified: 20260916143011104
+tags: Installation
+title: Zed Configuration
+type: text/vnd.tiddlywiki
+
+The [[Zed|https://zed.dev]] editor can start a ~TiddlyWiki MCP (Model Context Protocol) server, which lets Zed's AI agent read and write the tiddlers of a wiki folder. The server is provided by the plugins `wikilabs/tw-mcp` and `wikilabs/tw-mcp-core` from https://github.com/wikilabs/plugins.
+
+!! Prerequisites
+
+* ~TiddlyWiki is installed globally, see [[Installation]]
+* Both plugins are in a folder listed in the environment variable `TIDDLYWIKI_PLUGIN_PATH`, see [[Installation]]. Restart Zed after you change the variable
+
+!! Configure the server
+
+Create the file `.zed/settings.json` in the folder you open in Zed. Zed starts the server in that folder, so the wiki path is relative to it. The example serves the `tw5.com-server` edition of the ~TiddlyWiki5 repository:
+
+```json
+{
+	"context_servers": {
+		"tiddlywiki": {
+			"command": "tiddlywiki",
+			"args": [
+				"+plugins/tiddlywiki/filesystem",
+				"+plugins/wikilabs/tw-mcp-core",
+				"+plugins/wikilabs/tw-mcp",
+				"./editions/tw5.com-server",
+				"--mcp",
+				"readwrite",
+				"label=zed-tw-mcp"
+			]
+		}
+	}
+}
+```
+
+; `+plugins/tiddlywiki/filesystem`
+: Saves changes to tiddler files on disk. It must be loaded at startup
+; `+plugins/wikilabs/tw-mcp-core`
+: Required by `tw-mcp`, which does not load it by itself
+; `+plugins/wikilabs/tw-mcp`
+: Provides the `--mcp` command
+; `./editions/tw5.com-server`
+: The wiki folder
+; `--mcp readwrite`
+: Lets the agent change tiddlers. Without `readwrite` the server is read-only
+; `label=zed-tw-mcp`
+: A name that identifies the server in its log output and in `get_wiki_info`
+
+To use the server in every project, add the entry to Zed's global settings file instead, with an absolute wiki path.
+
+!! Start the server
+
+# Open the folder in Zed
+# Trust the folder when Zed asks. In Restricted Mode, Zed does not start servers defined in project settings
+# Open the Agent panel and ask the agent to call `get_wiki_info`. The answer shows the label and `Filesystem: yes`
+
+To restart the server, for example after you change a plugin, run `workspace: reload` from the command palette. It restarts Zed.
+
+!! LSP
+
+Completion and hovers in `.tid` files would need a small Zed extension, see [[LSP Editor Setup]].

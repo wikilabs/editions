@@ -1,5 +1,5 @@
 created: 20260909121549062
-modified: 20260916124501142
+modified: 20260916142709005
 tags: LSP
 title: LSP Editor Setup
 
@@ -31,6 +31,10 @@ Helix and most others expect to start the server themselves and talk to it over 
 ```
 tiddlywiki ./mywiki --lsp stdio
 ```
+
+!!! Zed
+
+Zed also launches a command, but only for a language server that a Zed extension provides: its settings cannot add one. No ~TiddlyWiki extension exists yet. A small one would declare a language for `.tid` files, with the tree-sitter grammar Zed requires, and start the `--lsp stdio` command above. The MCP server needs no extension, see [[Zed Configuration]].
 
 !!! VS Code
 
