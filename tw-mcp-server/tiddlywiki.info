@@ -14,5 +14,10 @@
 	],
 	"config": {
 		"default-tiddler-location": "../tw-mcp/tiddlers"
+	},
+	"lsp": {
+		"autostart": true,
+		"label": "lsp-mcp-server",
+		"command": "node ../scripts/tw.js --core dev"
 	}
 }

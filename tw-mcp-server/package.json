@@ -4,7 +4,7 @@
   "description": "tiddlywiki edition development helper",
   "main": "index.js",
   "scripts": {
-    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse port=8888 label=sse-primary --lsp port=6009",
+    "start": "node ../scripts/tw.js --core dev . --mcp listen readwrite sse port=8888 label=sse-primary",
 
     "test": "echo ---- no tests atm ----",
 
