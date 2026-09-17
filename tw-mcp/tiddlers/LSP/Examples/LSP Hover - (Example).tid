@@ -1,5 +1,5 @@
 created: 20260910105935606
-modified: 20260916191420927
+modified: 20260917101843068
 title: LSP Hover - (Example)
 
 \function lsp.pages() [tag[LSP]]
@@ -74,7 +74,7 @@ Both calls pass `a` by name and `"y"` by position, yet a procedure and a functio
 {{{ [tag[LSP Capabilities]toc-link[no]] }}}
 
 |! Hover |! You should see |
-|`tag` in the first filter |''filter operator'' `tag`, its module and its tiddlywiki.com page, then the filter's result |
+|`tag` in the first filter |''filter operator'' `tag`, its module, its tiddlywiki.com page and its module's description, then the filter's result |
 |`is` |''filter operator'' `is`, negated by `!` |
 |`:else` |''run prefix'' `:else`: runs only when the output so far is empty |
 |`+` |''run prefix'' `+`, short for `:and` |

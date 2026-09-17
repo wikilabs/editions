@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260917005349062
+modified: 20260917101842236
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -34,13 +34,15 @@ The distinction matters because an unfinished filter and one that genuinely matc
 Resting on an operator's name inside a filter explains the operator first, then the whole filter's result below a rule:
 
 |! Written |! What you see |
-|an operator, such as `compare:number:gt` |the module defining it, its suffix, `!` when negated, and a link to its page on tiddlywiki.com for a core operator |
+|an operator, such as `compare:number:gt` |the module defining it, its suffix, `!` when negated, a link to its page on tiddlywiki.com for a core operator, and the description in its module's header |
 |a shorthand prefix `+`, `-`, `~`, `=` or `=>` |the named prefix it stands for, `:and`, `:except`, `:else`, `:all` or `:let`, and what that does |
 |a named prefix such as `:else` or `:cascade` |what it does and the module defining it; an unknown one is called out |
 |a name no operator has, such as `toc-link[no]` |''Not a filter operator'': ~TiddlyWiki silently tests the field `toc-link` instead, as `[field:toc-link[no]]`, which is exactly what a misspelt operator looks like |
 |a dotted name such as `my.fn[x]` |the function it calls, where one is visible; otherwise the same field test |
 
 With a suffix, the field tested is the suffix, as ~TiddlyWiki does it. An operand keeps its own hover: a `<variable>` is a call.
+
+The description is the text after the fields in the header of the module that runs, for a plugin's operator too. A header describes its whole module, so where one module exports several operators, as `$:/core/modules/filters/math.js` does, the hover says the header is shared.
 
 !! What a widget hover shows
 
