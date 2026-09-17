@@ -1,14 +1,15 @@
 "use strict";
 
 /*
-Pins that a readonly proxy's refusal really STOPS the write, end to end.
+Pins what a readonly proxy does to the traffic in BOTH directions, end to end.
 
-test/protocol/proxy-readonly.test.js pins the decision; this pins the wiring
-that acts on it. It is the only test here that spawns real servers, because the
-invariant only exists across two processes: the proxy refuses, the primary is
-readwrite and would perform the call had it arrived. Bead tw-mcp-server-5hd
-called this "the only one that also covers the relay wiring"; the fix it guards
-(-7m7) shipped verified by inspection.
+test/protocol/proxy-readonly.test.js pins the outbound decision; this pins the
+wiring that acts on it, and the filtering of the answers coming back. It is the
+only test here that spawns real servers, because these invariants only exist
+across two processes: the proxy refuses a write the primary would have
+performed, and it hides tools the primary does advertise. Beads
+tw-mcp-server-5hd (the write-block, whose -7m7 fix shipped verified by
+inspection) and tw-mcp-server-5yq (the inbound filtering).
 
 Cost: two node processes and a throwaway wiki folder, about 1.5 s.
 
@@ -41,8 +42,8 @@ const ANSWER_TIMEOUT = 15000;
 
 let wikiPath;
 const children = [];
-let askPrimary;
-let askProxy;
+let primary;
+let proxy;
 
 function startServer(args) {
 	const child = spawn(process.execPath, [TW_CLI_PATH, wikiPath].concat(args), { stdio: ["pipe", "pipe", "pipe"] });
@@ -72,15 +73,20 @@ function asker(child) {
 		}
 	});
 	let nextId = 1;
-	return function ask(toolName, args) {
+	function request(method, params) {
 		const id = nextId++;
-		const params = { name: toolName, arguments: args || {}, _meta: {} };
-		params._meta[META_VERSION] = PROTOCOL;
+		const p = params || {};
+		p._meta = p._meta || {};
+		p._meta[META_VERSION] = PROTOCOL;
 		return new Promise((resolve, reject) => {
-			const timer = setTimeout(() => reject(new Error(toolName + " got no answer in " + ANSWER_TIMEOUT + "ms")), ANSWER_TIMEOUT);
+			const timer = setTimeout(() => reject(new Error(method + " got no answer in " + ANSWER_TIMEOUT + "ms")), ANSWER_TIMEOUT);
 			waiting.set(id, (msg) => { clearTimeout(timer); resolve(msg); });
-			child.stdin.write(JSON.stringify({ jsonrpc: "2.0", id: id, method: "tools/call", params: params }) + "\n");
+			child.stdin.write(JSON.stringify({ jsonrpc: "2.0", id: id, method: method, params: p }) + "\n");
 		});
+	}
+	return {
+		request: request,
+		tool: (toolName, args) => request("tools/call", { name: toolName, arguments: args || {} })
 	};
 }
 
@@ -98,9 +104,9 @@ before(async () => {
 	fs.copyFileSync(path.join(EDITION_PATH, "tiddlywiki.info"), path.join(wikiPath, "tiddlywiki.info"));
 	// The primary must own the pipe before the second process starts, or that
 	// one becomes a primary too instead of a proxy.
-	askPrimary = asker(startServer(["--mcp", "rw", "label=relay-test-primary"]));
+	primary = asker(startServer(["--mcp", "rw", "label=relay-test-primary"]));
 	await waitForDiscovery(path.join(wikiPath, ".tw-mcp", "connect"), 25000);
-	askProxy = asker(startServer(["--mcp", "label=relay-test-proxy"]));
+	proxy = asker(startServer(["--mcp", "label=relay-test-proxy"]));
 });
 
 after(() => {
@@ -116,17 +122,17 @@ test("the second server on one wiki folder starts as a readonly proxy", async ()
 	// The premise of every assertion below: two processes, one pipe.
 	const discovery = JSON.parse(fs.readFileSync(path.join(wikiPath, ".tw-mcp", "connect"), "utf8"));
 	assert.equal(discovery.pid, children[0].pid, "the discovery file must name the primary");
-	const info = await askProxy("get_wiki_info", {});
+	const info = await proxy.tool("get_wiki_info", {});
 	assert.ok(info.result && !info.result.isError, "the proxy must relay a read to the primary");
 });
 
 test("a write refused by the readonly proxy never reaches the readwrite primary", async () => {
-	const refusal = await askProxy("put_tiddler", { title: PROBE_TITLE, fields: { text: PROBE_TEXT } });
+	const refusal = await proxy.tool("put_tiddler", { title: PROBE_TITLE, fields: { text: PROBE_TEXT } });
 	assert.equal(refusal.result.isError, true, "the proxy must answer the refusal itself");
 	assert.match(refusal.result.content[0].text, /disabled in readonly mode/);
 	// The primary is readwrite: had the call arrived, the tiddler would exist.
 	// Existence is the signal, because get_tiddler answers metadata only.
-	const check = await askPrimary("get_tiddler", { title: PROBE_TITLE });
+	const check = await primary.tool("get_tiddler", { title: PROBE_TITLE });
 	assert.equal(check.result.isError, true, "the refused write reached the primary anyway");
 	assert.match(check.result.content[0].text, /not found/i);
 });
@@ -134,8 +140,36 @@ test("a write refused by the readonly proxy never reaches the readwrite primary"
 test("the primary can still write the tiddler itself, so the check above means something", async () => {
 	// Without this, "the primary does not have it" could just mean put_tiddler
 	// is broken on this wiki and the refusal proved nothing.
-	const written = await askPrimary("put_tiddler", { title: PROBE_TITLE, fields: { text: PROBE_TEXT }, overwrite: true });
+	const written = await primary.tool("put_tiddler", { title: PROBE_TITLE, fields: { text: PROBE_TEXT }, overwrite: true });
 	assert.ok(!written.result.isError, "the primary must accept the very call the proxy refused");
-	const check = await askPrimary("get_tiddler", { title: PROBE_TITLE });
+	const check = await primary.tool("get_tiddler", { title: PROBE_TITLE });
 	assert.ok(!check.result.isError, "the tiddler the primary just wrote must be found");
+});
+
+// --- the answers coming BACK through the proxy ------------------------------
+
+test("a readonly proxy hides the write tools its readwrite primary advertises", async () => {
+	// The tools/list answer is the primary's, so the filtering happens on the
+	// way back. Refusing a call the client was told it could make is a worse
+	// experience than never offering it.
+	const viaProxy = await proxy.request("tools/list", {});
+	const viaPrimary = await primary.request("tools/list", {});
+	const proxyNames = viaProxy.result.tools.map((t) => t.name);
+	const primaryNames = viaPrimary.result.tools.map((t) => t.name);
+	assert.ok(primaryNames.includes("put_tiddler"), "the readwrite primary must offer its write tools");
+	assert.ok(!proxyNames.includes("put_tiddler"), "the readonly proxy must not pass a write tool on");
+	assert.ok(proxyNames.includes("get_tiddler"), "read tools must survive the filter");
+	// Whatever the proxy does advertise must be exactly what it will accept.
+	for(const name of proxyNames) {
+		assert.ok(primaryNames.includes(name), name + " is advertised by the proxy but not by the primary");
+	}
+});
+
+test("the discover answer names the proxy that relayed it, not the primary alone", async () => {
+	// The client's logs should name the process holding the wiki as well as the
+	// one it is talking to; the answer is relayed, so the proxy stamps itself in.
+	const reply = await proxy.request("server/discover", {});
+	const info = reply.result._meta["io.modelcontextprotocol/serverInfo"];
+	assert.equal(info.proxy, true, "a relayed answer must say it came through a proxy");
+	assert.equal(info.primaryPid, children[0].pid, "and name the process that actually holds the wiki");
 });
