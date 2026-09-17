@@ -1,5 +1,5 @@
 created: 20260909121537237
-modified: 20260916213302069
+modified: 20260917002013438
 tags: LSP
 title: LSP Server
 
@@ -34,7 +34,7 @@ The first log line names the wiki the server loaded, and the same line reaches t
 
 !!! Completion
 
-Typing `[[` or `{{` offers tiddler titles, narrowed as you keep typing. A title containing spaces completes correctly, because the server states the range to replace rather than leaving the editor to guess where the word began.
+Typing `[[` or `{{`, or the value of a widget attribute that takes a title such as `<$link to="`, offers tiddler titles, narrowed as you keep typing. A title containing spaces completes correctly, because the server states the range to replace rather than leaving the editor to guess where the word began.
 
 System tiddlers stay out of the list until the prefix starts with `$:/`, which also reaches shadow tiddlers.
 
@@ -54,5 +54,5 @@ Resting the cursor on a filter expression runs it against the live wiki and repo
 
 !!! Unsaved text
 
-The server mirrors the buffers your editor has open, so all three features answer for text you have not saved.
+The server mirrors the buffers your editor has open, so every answer covers text you have not saved.
 
