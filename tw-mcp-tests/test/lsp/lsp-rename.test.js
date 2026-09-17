@@ -114,7 +114,40 @@ test("names TiddlyWiki sets, code defines, a widget binds or no file holds are r
 	assert.ok(prepare("<<now", 2).error.includes("JavaScript macro"));
 	assert.ok(prepare("<<tag>></$let>", 2).error.includes("widget's variable"));
 	assert.ok(prepare("list-links").error.includes("without a file of its own"));
-	assert.ok(prepare("$lsp.rn.w").error.includes("\\widget"));
+});
+
+// --- Widgets ---
+
+const WIDGET_TEXT = [
+	"title: lsp_rn_w",
+	"",
+	"\\widget $lsp.rn.box(x, label:\"L\") <$slot $name=\"ts-raw\"/> <<x>>",
+	"",
+	"<$lsp.rn.box x=\"1\">inner</$lsp.rn.box>",
+	"<$lsp.rn.box label=\"2\"/>",
+	"<$transclude $variable=\"$lsp.rn.box\" x=\"3\"/>"
+].join("\n");
+
+function renameWidget(needle, into, nth, newName, options) {
+	return features.rename(URI, WIDGET_TEXT, at(WIDGET_TEXT, needle, into, nth), newName, options || {}, {});
+}
+
+test("a \\widget is renamed at its definition, its tags, their closing tags and a $variable naming it", () => {
+	assert.deepEqual(edited(renameWidget("$lsp.rn.box(", 0, 0, "$lsp.rn.frame")), ["2:8", "4:1", "4:26", "5:1", "6:24"]);
+	assert.deepEqual(edited(renameWidget("</$lsp.rn.box>", 2, 0, "$lsp.rn.frame")).length, 5, "from a closing tag too");
+	assert.deepEqual(features.prepareRename(URI, WIDGET_TEXT, at(WIDGET_TEXT, "</$lsp.rn.box>", 2), {}).range, { start: { line: 4, character: 26 }, end: { line: 4, character: 37 } }, "prepare points at the closing tag the cursor is on");
+});
+
+test("a \\widget keeps a name a custom widget can have", () => {
+	assert.ok(renameWidget("$lsp.rn.box(", 0, 0, "lsp.rn.frame").error.includes("starts with $"));
+	assert.ok(renameWidget("$lsp.rn.box(", 0, 0, "$lsprnframe").error.includes("needs a dot"));
+});
+
+test("a \\widget's parameter is renamed at its declaration, its uses and the attributes that fill it", () => {
+	const result = renameWidget("(x", 1, 0, "value", { annotations: true }),
+		edits = result.documentChanges[0].edits;
+	assert.deepEqual(edits.map((edit) => edit.range.start.line + ":" + edit.range.start.character).sort(), ["2:20", "2:60", "4:13", "6:37"]);
+	assert.ok(edits.every((edit) => edit.annotationId), "every parameter edit opens the preview");
 });
 
 test("a global defined in a tiddler without a file is refused, even with no call in one", () => {

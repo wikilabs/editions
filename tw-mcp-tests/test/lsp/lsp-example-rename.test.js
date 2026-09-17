@@ -26,13 +26,17 @@ const PINNED = [
 	"|`lsp.rn.greet` in the first call |`lsp.rn.hello` |the definition and both calls change |",
 	"|`who` in the head of `lsp.rn.greet` |`name` |the preview opens first; the head, `<<who>>` and `who:` in the first call change |",
 	"|`word` in the head of `lsp.rn.shout` |`text` |the preview opens; the head and `$word$` change |",
+	"|`$lsp.rn.box` in its closing tag |`$lsp.rn.frame` |the definition, the tag and its closing tag change |",
+	"|`label` in the head of `$lsp.rn.box` |`caption` |the preview opens; the head, `<<label>>` and `label=` in the tag change |",
 	"|`lsp.rn.greet` |`lsp.rn.shout` |refused: already defined beside it |",
+	"|`$lsp.rn.box` in its tag |`$box` |refused: a `\\widget` of its own needs a dot in its name |",
 	"|`x` inside the `$let` |anything |refused: a variable a widget sets |",
 	"|`currentTiddler` |anything |refused before a new name is asked for |",
 	"|`now` |anything |refused: a ~JavaScript macro |",
 	"|`list-links` |anything |refused: defined in a shadow tiddler |"
 ];
 const FIRST_CALL = '<<lsp.rn.greet who:"World">>';
+const BOX_CALL = "</$lsp.rn.box>";
 
 let features;
 let example;
@@ -102,9 +106,29 @@ test("word in the head of lsp.rn.shout to text opens the preview, and changes th
 	]);
 });
 
+test("$lsp.rn.box in its closing tag to $lsp.rn.frame changes the definition, the tag and its closing tag", () => {
+	assert.deepEqual(edits(rename(BOX_CALL, "$lsp.rn.box", "$lsp.rn.frame")), [
+		change("\\widget $lsp.rn.box(label)", "$lsp.rn.box", "$lsp.rn.frame", false),
+		change('<$lsp.rn.box label="Hi">', "$lsp.rn.box", "$lsp.rn.frame", false),
+		change("</$lsp.rn.box>", "$lsp.rn.box", "$lsp.rn.frame", false)
+	]);
+});
+
+test("label in the head of $lsp.rn.box to caption opens the preview, and changes the head, <<label>> and label= in the tag", () => {
+	assert.deepEqual(edits(rename("box(label)", "label", "caption")), [
+		change("box(label)", "label", "caption", true),
+		change("<<label>>", "label", "caption", true),
+		change('label="Hi"', "label", "caption", true)
+	]);
+});
+
 test("lsp.rn.greet to lsp.rn.shout is refused: already defined beside it", () => {
 	assert.equal(prepare(FIRST_CALL, "lsp.rn.greet").placeholder, "lsp.rn.greet");
 	assert.match(rename(FIRST_CALL, "lsp.rn.greet", "lsp.rn.shout").error, /already defined beside/);
+});
+
+test("$lsp.rn.box in its tag to $box is refused: a \\widget of its own needs a dot in its name", () => {
+	assert.match(rename('<$lsp.rn.box label="Hi">', "$lsp.rn.box", "$box").error, /needs a dot/);
 });
 
 test("x inside the $let is refused: a variable a widget sets", () => {
