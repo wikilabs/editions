@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260917101842236
+modified: 20260917171834051
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -89,4 +89,4 @@ A line starting a definition or another pragma explains itself:
 
 !! Opening what you hover
 
-Every matched title in a hover is a link to its own `.tid` file. A shadow tiddler has no file of its own, so in a hover list it stays plain text. A definition in a shadow tiddler or a tiddler without a file links its read-only view in the editor, and names the plugin supplying it; the core is never named. The definition of a core macro is also linked into the browser, whenever the same process is serving HTTP.
+Every matched title in a hover is a link to its own `.tid` file. A shadow tiddler has no file of its own, so in a hover list it stays plain text. A definition in a shadow tiddler or a tiddler without a file links its read-only view in the editor, and names the plugin supplying it, though never the core, which is always present. Where your tiddler or a later plugin replaces a shadow, the versions that do not run follow, the one next in line first, each a read-only view named by the plugin that ships it; go to definition still opens the version that runs. The definition of a core macro is also linked into the browser, whenever the same process is serving HTTP.
