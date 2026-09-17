@@ -138,4 +138,7 @@ async function waitForGone(filepath, timeoutMs) {
 	return true;
 }
 
-module.exports = { bootTw, loadHandler, cleanupTiddler, waitForGone };
+// tiddlywiki.js beside the boot.js we resolved, for a test that must spawn a real server process.
+const TW_CLI_PATH = path.resolve(TW_BOOT_PATH, "..", "..", "tiddlywiki.js");
+
+module.exports = { bootTw, loadHandler, cleanupTiddler, waitForGone, TW_CLI_PATH };
