@@ -3,8 +3,8 @@
 /*
 Pins LSP Diagnostics - (Example): of its four lines only the first is warned, a
 link to a missing title added on a new line is warned too, the two calls nothing
-defines get a hint with the quick fix the Example names, <<actionValue>> gets
-none, and listing undefined calls and widgets reports both names. The docs
+defines get a hint with the quick fix the Example names, <<actionValue>>,
+<<dom-class>> and <<event-param>> get none, and listing undefined calls and widgets reports both names. The docs
 wiki's tiddlers are loaded (test scaffolding), since LSP Server has to resolve.
 
 To replicate by hand, boot the test edition (cwd editions/tw-mcp-tests) and run:
@@ -88,8 +88,8 @@ function callHints(text) {
 	return shown(text, HINT).filter((d) => d.message !== TAGG_MESSAGE);
 }
 
-test("the two calls nothing defines get a hint each, and <<actionValue>> gets none", () => {
-	helper.positionOf(example.text, "<<actionValue>>");
+test("the two calls nothing defines get a hint each, and the variables JavaScript sets or builds get none", () => {
+	["<<actionValue>>", "<<dom-class>> <<event-param>>"].forEach((calls) => helper.positionOf(example.text, calls));
 	assert.deepEqual(callHints(example.text), [
 		{ range: rangeOf(example.text, "\n<<lsp.dg.gret>>\n", "lsp.dg.gret"), severity: HINT, message: GRET_MESSAGE },
 		{ range: rangeOf(example.text, '\n<$lisst filter="[tag[LSP]]"/>\n', "$lisst"), severity: HINT, message: LISST_MESSAGE }

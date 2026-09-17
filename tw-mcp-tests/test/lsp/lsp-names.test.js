@@ -149,6 +149,51 @@ test("a JavaScript module edited since boot is read as the code that runs", () =
 	}
 });
 
+test("variables core builds by key are not hinted: a literal key, a prefix joined to a name, a prefix passed to the builder", () => {
+	const literal = "<<event-fromcatcher-posx>> <<event-mousebutton>> <<img-natural-width>>",
+		joined = "<<dom-class>> <<dom-data-item>> <<list-event>>",
+		passed = "<<event-param>> <<event-navigateTo>> <<event-paramObject-title>>";
+	assert.deepEqual(hinted([literal, joined, passed, "<<lsp-nm-nothing>>"].join(" ")), ["lsp-nm-nothing"]);
+});
+
+test("a name with a built prefix is still hinted when it is a typing slip away from a known name", () => {
+	assert.deepEqual(hinted("<<list-linkz>> <<event-mousebuton>>"), ["event-mousebuton", "list-linkz"]);
+	assert.equal(fixes("<<list-linkz>>", "list-linkz")[0].title, "Change to list-links");
+	assert.equal(fixes("<<event-mousebuton>>", "event-mousebuton")[0].title, "Change to event-mousebutton");
+});
+
+test("a plugin module's keys count the same way, whichever form declares the builder", () => {
+	const body = "<<lsp-nm-literal>> <<lsp-nm-joined-x>> <<lsp-nm-passed-y>> <<lsp-nm-declared-z>> <<lsp-nm-other-w>>";
+	assert.deepEqual(hinted(body), ["lsp-nm-declared-z", "lsp-nm-joined-x", "lsp-nm-literal", "lsp-nm-other-w", "lsp-nm-passed-y"]);
+	$tw.modules.define(JS_MODULE, "library", `exports.run = function(widget, node, event) {
+	var variables = {};
+	variables["lsp-nm-literal"] = "1";
+	variables["lsp-nm-joined-" + node.name] = "2";
+	var collect = function(obj, prefix) {
+		var props = {};
+		$tw.utils.each(obj, function(value, name) {
+			props[prefix + "-" + name] = value;
+		});
+		return props;
+	};
+	function gather(prefix, obj) {
+		var out = {};
+		out[prefix + "-" + obj.name] = obj.value;
+		return out;
+	}
+	$tw.utils.extend(variables, collect(event, "lsp-nm-passed"), gather("lsp-nm-declared", node));
+	widget.invokeActionString(node.actions, widget, event, variables);
+};`);
+	$tw.wiki.clearGlobalCache();
+	try {
+		assert.deepEqual(hinted(body), ["lsp-nm-other-w"]);
+	} finally {
+		delete $tw.modules.titles[JS_MODULE];
+		delete $tw.modules.types.library[JS_MODULE];
+		$tw.wiki.clearGlobalCache();
+	}
+});
+
 test("a parameter sent with <$action-sendmessage> counts as set, since tm-modal hands it on as a variable", () => {
 	const body = "<<lsp.nm.sent>>";
 	assert.deepEqual(hinted(body), ["lsp.nm.sent"]);
