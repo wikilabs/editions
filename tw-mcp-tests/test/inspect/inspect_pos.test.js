@@ -94,6 +94,26 @@ test("inspect_pos: each node is announced to the hooks exactly once", () => {
 	assert.equal(links, 2, "two links in the text, so two announcements");
 });
 
+// devtools is a declared dependent, but nothing stops a wiki being assembled
+// without it. Requiring it at load time aborted the whole tool map, because a
+// missing module exits the process on node — so every other tool went down
+// with inspect_pos. It must degrade to an error a user can act on instead.
+test("inspect_pos: without devtools it reports why, rather than taking the server down", () => {
+	const DEVTOOLS_UTILS = "$:/plugins/wikilabs/devtools/utils.js";
+	const registered = tw.modules.titles[DEVTOOLS_UTILS];
+	assert.ok(registered, "this edition must load devtools, or the test proves nothing");
+	delete tw.modules.titles[DEVTOOLS_UTILS];
+	try {
+		const result = inspectPos({ text: "a [[Link]]", context: "Doc" });
+		assert.equal(result.isError, true);
+		assert.match(result.content[0].text, /devtools/, "the message must name the plugin to add");
+	} finally {
+		tw.modules.titles[DEVTOOLS_UTILS] = registered;
+	}
+	// And it works again once devtools is back.
+	assert.equal(inspectPos({ text: "a [[Link]]", context: "Doc" }).isError, undefined);
+});
+
 test("inspect_pos: a call leaves source-position tracking as it found it", () => {
 	// devtools lets a user switch tracking on; a tool call must not switch it
 	// off again behind their back.
