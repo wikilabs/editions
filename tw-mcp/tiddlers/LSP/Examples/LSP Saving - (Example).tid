@@ -1,5 +1,6 @@
 created: 20260910193717271
 modified: 20260916121949867
+tags: [[LSP Editor Setup]]
 title: LSP Saving - (Example)
 
 Check that a save in the editor reaches the running wiki, with no `reload_tiddlers`:

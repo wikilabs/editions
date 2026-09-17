@@ -1,6 +1,7 @@
 caption: <<lsp.who>>
 created: 20260910105952227
 modified: 20260910193609315
+tags: [[LSP Find References]]
 title: LSP Find References - (Example)
 
 \function lsp.who() [[World]]

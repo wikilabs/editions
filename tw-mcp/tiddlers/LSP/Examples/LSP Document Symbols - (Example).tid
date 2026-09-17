@@ -1,5 +1,6 @@
 created: 20260910182104822
 modified: 20260910182104822
+tags: [[LSP Document Symbols]]
 title: LSP Document Symbols - (Example)
 
 \procedure lsp.ds.outer(tag, sort:"title")

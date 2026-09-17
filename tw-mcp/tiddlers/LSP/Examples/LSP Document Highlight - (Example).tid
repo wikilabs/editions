@@ -1,5 +1,6 @@
 created: 20260910182117197
 modified: 20260910182117197
+tags: [[LSP Document Highlight]]
 title: LSP Document Highlight - (Example)
 
 \procedure lsp.dh.greet(who) Hello <<who>> {{{ [<who>] }}}

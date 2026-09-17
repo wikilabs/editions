@@ -1,5 +1,6 @@
 created: 20260916121935133
 modified: 20260916183903141
+tags: [[LSP and MCP]]
 title: LSP and MCP - (Example)
 
 Check that the LSP server the editor started and a running MCP server see each other. Start with VS Code open on this wiki and `npm start` not running.

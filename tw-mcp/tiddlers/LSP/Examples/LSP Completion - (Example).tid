@@ -1,5 +1,6 @@
 created: 20260910105912170
 modified: 20260917000331587
+tags: [[LSP Completion]]
 title: LSP Completion - (Example)
 
 \procedure lsp.cp.pair(a, b:"B") <<a>> <<b>>

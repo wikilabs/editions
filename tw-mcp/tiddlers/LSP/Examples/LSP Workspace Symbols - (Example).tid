@@ -1,5 +1,6 @@
 created: 20260910182110511
 modified: 20260910182110511
+tags: [[LSP Workspace Symbols]]
 title: LSP Workspace Symbols - (Example)
 
 \procedure lsp.ws.alpha() one

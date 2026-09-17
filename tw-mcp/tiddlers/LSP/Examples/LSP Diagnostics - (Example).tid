@@ -1,5 +1,6 @@
 created: 20260910105918287
 modified: 20260917113759113
+tags: [[LSP Diagnostics]]
 title: LSP Diagnostics - (Example)
 
 \procedure lsp.dg.greet(who) Hello <<who>>

@@ -1,5 +1,6 @@
 created: 20260910105941788
 modified: 20260910193602386
+tags: [[LSP Go to Definition]]
 title: LSP Go to Definition - (Example)
 
 \procedure lsp.gd.greet(who) Hello <<who>>

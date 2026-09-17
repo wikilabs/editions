@@ -1,5 +1,6 @@
 created: 20260910182142946
 modified: 20260910182142946
+tags: [[LSP Inlay Hints]]
 title: LSP Inlay Hints - (Example)
 
 \procedure lsp.ih.pair(a, b:"B") a=<<a>> b=<<b>>

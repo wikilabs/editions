@@ -1,5 +1,6 @@
 created: 20260910182135576
 modified: 20260910182135576
+tags: [[LSP Signature Help]]
 title: LSP Signature Help - (Example)
 
 \procedure lsp.sh.pair(a, b:"B", c) <<a>> <<b>> <<c>>

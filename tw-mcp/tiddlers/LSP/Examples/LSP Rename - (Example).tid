@@ -1,5 +1,6 @@
 created: 20260910182154822
 modified: 20260917002954589
+tags: [[LSP Rename]]
 title: LSP Rename - (Example)
 
 \procedure lsp.rn.greet(who) Hello <<who>>
