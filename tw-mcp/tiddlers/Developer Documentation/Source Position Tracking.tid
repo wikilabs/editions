@@ -1,5 +1,5 @@
 created: 20260322050000000
-modified: 20260510200510334
+modified: 20260917205303740
 tags: [[Developer Documentation]]
 title: Source Position Tracking
 type: text/vnd.tiddlywiki
@@ -7,6 +7,25 @@ type: text/vnd.tiddlywiki
 !! Source Position Tracking
 
 TiddlyWiki's MCP server can trace every rendered HTML element back to the exact source tiddler and line range that produced it. This works across transclusion boundaries — even when macros, procedures, and list widgets assemble content from multiple tiddlers.
+
+!! Prerequisites
+
+<div class="tc-message-box">
+
+These tools need the `wikilabs/devtools` plugin. It owns the widget patches and the hooks that both the browser view and `inspect_pos` read, and `tw-mcp-core` declares it a dependent.
+
+Without it the server still starts and every other MCP tool keeps working. Only `inspect_pos` refuses, with an error naming the plugin to add.
+
+</div>
+
+Load it in one of two ways:
+
+* list `wikilabs/devtools` in the wiki's `tiddlywiki.info` `plugins`
+* pass `+plugins/wikilabs/devtools` on the command line, ''before'' the wiki path: `tiddlywiki +plugins/wikilabs/devtools . --mcp rw`
+
+Reach for the second when a host embeds the handlers without an edition file of its own.
+
+`TIDDLYWIKI_PLUGIN_PATH` only makes the plugin ''findable''. It still has to be loaded into the wiki, because the handler resolves it as a module of the running wiki.
 
 !! The Three Inspection Tools
 

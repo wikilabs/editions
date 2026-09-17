@@ -1,5 +1,5 @@
 created: 20260404155758091
-modified: 20260509040402861
+modified: 20260917204605433
 tags: TOC
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -13,6 +13,8 @@ The ''TW MCP'' plugin adds a [[Model Context Protocol|https://modelcontextprotoc
 !! Prerequisites
 
 You need Node.js (v24+), TiddlyWiki (globally installed), and the `TIDDLYWIKI_PLUGIN_PATH` environment variable pointing to the tw-mcp plugin location. See [[Installation]] for detailed setup instructions.
+
+The inspect tools additionally need the `wikilabs/devtools` plugin, which supplies the source position tracking. See [[Source Position Tracking]] for the two ways to load it. Without it, only `inspect_pos` is affected.
 
 !! Quick Start
 
