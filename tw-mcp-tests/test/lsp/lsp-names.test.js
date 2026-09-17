@@ -24,6 +24,7 @@ const URI = "file:///wiki/tiddlers/lsp_nm.tid";
 const HINT = 4;
 const OTHER = "$:/temp/tw-mcp-tests/names/other";
 const FAKE_PLUGIN = "$:/temp/tw-mcp-tests/names/plugin";
+const JS_MODULE = "$:/temp/tw-mcp-tests/names/module.js";
 
 let $tw;
 let features;
@@ -133,6 +134,19 @@ test("a name another tiddler defines or sets is not hinted, since a caller may b
 test("a variable core JavaScript hands to action strings is not hinted, and a typo of it is offered the right name", () => {
 	assert.deepEqual(hinted("<<actionValue>> <$list filter='[<actionTiddlerList>]'/> <<actionValu>>"), ["actionValu"]);
 	assert.equal(fixes("<<actionValu>>", "actionValu")[0].title, "Change to actionValue");
+});
+
+test("a JavaScript module edited since boot is read as the code that runs", () => {
+	$tw.modules.define(JS_MODULE, "library", 'exports.run = function(widget) { widget.setVariable("lsp.nm.fromjs", "x"); };');
+	$tw.wiki.addTiddler({ title: JS_MODULE, type: "application/javascript", "module-type": "library", text: "exports.run = function() {};" });
+	try {
+		assert.deepEqual(hinted("<<lsp.nm.fromjs>>"), []);
+	} finally {
+		$tw.wiki.deleteTiddler(JS_MODULE);
+		delete $tw.modules.titles[JS_MODULE];
+		delete $tw.modules.types.library[JS_MODULE];
+		$tw.wiki.clearGlobalCache();
+	}
 });
 
 test("a parameter sent with <$action-sendmessage> counts as set, since tm-modal hands it on as a variable", () => {

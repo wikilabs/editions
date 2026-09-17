@@ -27,6 +27,7 @@ const TAGGED = "$:/temp/tw-mcp-tests/completion-names/tagged";
 const OPERATOR_MODULE = "$:/temp/tw-mcp-tests/completion-names/operator.js";
 const WIDGET_MODULE = "$:/temp/tw-mcp-tests/completion-names/widget.js";
 const TITLES = ["lsp.cp Title One", "lsp.cp Title Two"];
+const GET_MODULE = "$:/core/modules/filters/get.js";
 
 // Definitions every test document starts with.
 const PRELUDE = [
@@ -167,6 +168,41 @@ test("an operator name is offered where a step starts", () => {
 	assert.equal(first.kind, OPERATOR);
 	assert.ok(labels("<$list filter=\"[tag[x]so@@").includes("sort"));
 	assert.ok(labels("<$list filter=\"[lsp.@@").includes("lsp.cp.f"), "a dotted function runs as an operator");
+});
+
+test("a filter continued on a later line is completed like one on a single line", () => {
+	withTagged(() => {
+		[
+			'<$list filter="""[all[current]]\n\t[tag[lsp@@',
+			'<$list\n\tfilter="[all[current]]\n\t[tag[lsp@@',
+			'<$set name="x" value={{{ [all[current]]\n\t[tag[lsp@@',
+			"{{{ [all[current]]\n\t[tag[lsp@@",
+			"<%if [all[current]]\n\t[tag[lsp@@",
+			"\\function lsp.cp.multi()\n[all[current]]\n[tag[lsp@@"
+		].forEach((typed) => {
+			assert.ok(labels(typed).includes("lsp cp Alpha"), typed);
+		});
+		assert.ok(labels('<$list filter="""[all[current]]\n\t[ta@@').includes("tag"), "an operator name too");
+	});
+});
+
+test("a filter that has ended does not reach the lines after it", () => {
+	withTagged(() => {
+		['<$list filter="""[all[current]]"""/>\n[tag[lsp@@', "{{{ [all[current]] }}}\n[tag[lsp@@", "<%if [all[current]] %>\n[tag[lsp@@", "\\function lsp.cp.multi()\n[all[current]]\n\\end\n[tag[lsp@@"].forEach((typed) => {
+			assert.deepEqual(labels(typed), [], typed);
+		});
+	});
+});
+
+test("an operator module edited since boot is judged by the code that runs", () => {
+	withTagged(() => {
+		$tw.wiki.addTiddler({ title: GET_MODULE, type: "application/javascript", "module-type": "filteroperator", text: "exports.get = function(source, operator) {\n\treturn [];\n};\n" });
+		try {
+			assert.ok(labels('<$list filter="[get[lsp-cp@@').includes("lsp-cp-colour"));
+		} finally {
+			$tw.wiki.deleteTiddler(GET_MODULE);
+		}
+	});
 });
 
 test("a literal operand offers nothing", () => {

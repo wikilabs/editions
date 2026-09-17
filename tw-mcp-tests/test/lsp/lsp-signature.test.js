@@ -103,6 +103,11 @@ test("a dotted function in a filter binds its operands by index", () => {
 	assert.equal(result.activeParameter, 1);
 });
 
+test("a filter continued on a later line binds its operands the same way", () => {
+	assert.equal(active('<$list filter="""[all[current]]\n\t[lsp.sg.f[1],[@@'), 1);
+	assert.equal(active("<%if [all[current]]\n\t[lsp.sg.f[1],[@@"), 1);
+});
+
 test("a variable operand with arguments is a call too", () => {
 	assert.equal(active("<$list filter='[<lsp.sg.f \"1\" @@"), 1);
 });
