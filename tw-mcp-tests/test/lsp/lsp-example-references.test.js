@@ -12,7 +12,7 @@ To replicate by hand, boot the test edition (cwd editions/tw-mcp-tests) and run:
   const example = helper.readExample(f, "LSP Find References - (Example)");
   const at = helper.positionOf(example.text, "<$lsp.greeting/>", {offset: 2});
   f.references(example.uri, example.text, at, {includeDeclaration: true}, {[example.uri]: example.text}).map((l) => l.range.start.line);
-  // -> [7, 21]
+  // -> [8, 22]
 */
 
 const { test, before } = require("node:test");

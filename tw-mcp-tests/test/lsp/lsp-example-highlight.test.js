@@ -11,7 +11,7 @@ To replicate by hand, boot the test edition (cwd editions/tw-mcp-tests) and run:
   const example = helper.readExample(f, "LSP Document Highlight - (Example)");
   const at = helper.positionOf(example.text, "<<who>></$let>", {offset: 2});
   f.documentHighlights(example.uri, example.text, at).map((h) => h.range.start);
-  // -> [{line: 9, character: 6}, {line: 9, character: 18}]
+  // -> [{line: 10, character: 6}, {line: 10, character: 18}]
 */
 
 const { test, before } = require("node:test");
