@@ -1,0 +1,60 @@
+created: 20260916233545149
+modified: 20260916235457061
+title: Module Header Metadata - search (Draft)
+
+This drafts how a core ~JavaScript module could describe what it expects, with `$:/core/modules/filters/search.js` as the example. When ~TiddlyWiki boots, the header lines up to the first blank line become fields of the module's tiddler, so an editor, the docs or any other tool reads them from the wiki without reading code.
+
+!! The header
+
+```js
+/*\
+title: $:/core/modules/filters/search.js
+type: application/javascript
+module-type: filteroperator
+op-syntax: [search[$text$]] [search:$field-list$:$flag-list$[$text$]]
+op-flags: literal whitespace regexp words some casesensitive anchored
+
+Filter operator for searching for the text in the operand tiddler
+
+\*/
+```
+
+!! The fields
+
+|! Field |! Holds |
+|`op-syntax` |every form the operator can be written in, in filter syntax, separated by spaces; `$kind$` stands where the writer supplies something |
+|`op-flags` |the words a `$flag-list$` accepts |
+
+Kinds: `title`, `title-list`, `tag`, `field`, `field-list`, `flag-list`, `index`, `number`, `date`, `regexp`, `text`. A default follows `=`, as in `$field=title$`.
+
+!! Metadata only
+
+The fields describe the module and nothing more: the filter engine never reads them, so changing a field cannot change how a filter runs. Editors, the docs and user interfaces read them, show their values as plain text and treat them as hints.
+
+Since nothing breaks when a field is wrong, a core test would keep them in step with the code: every form in `op-syntax` must name an operator the module exports.
+
+!! Reading it
+
+`op-syntax` is itself a filter, so `$tw.wiki.parseFilter` reads it like any other. For the second form it gives operator `search`, suffixes `$field-list$` and `$flag-list$`, and operand `$text$`. An editor then completes field names in the first suffix, the flags in the second, and nothing in the operand.
+
+The placeholders are `$kind$` rather than the docs' `<field list>`, because the filter parser reads `<` as the start of a variable operand, inside a suffix too.
+
+!! Uses in wikitext
+
+Operator modules are shadow tiddlers in every wiki, so wikitext reads the fields without new code, for example `[all[shadows]module-type[filteroperator]get[op-syntax]]`:
+
+* an operator's docs page shows `{{$:/core/modules/filters/search.js!!op-syntax}}` instead of a copy that can go stale
+* a Control Panel list shows every operator with its forms, those added by plugins included
+* a filter input in the browser suggests operator forms and flags
+
+!! More examples
+
+|! Module |! Header line |
+|`has.js` |`op-syntax: [has[$field$]] [has:field[$field$]] [has:index[$index$]]` |
+|`tag.js` |`op-syntax: [tag[$tag$]] [tag:strict[$tag$]]` |
+|`range.js` |`op-syntax: [range[$number$]] [range[$number$],[$number$]] [range[$number$],[$number$],[$number$]]` |
+|`sort.js` |`op-syntax: [sort[$field=title$]] [nsort[$field=title$]] [sortan[$field=title$]] [sortcs[$field=title$]] [nsortcs[$field=title$]]` |
+
+A module exporting several operators, such as `sort.js`, lists the forms of each one, since every form names its operator.
+
+Other module types could follow the same pattern: a `filterrunprefix` module with its prefix forms, a `widget` module with the attributes it reads and the variables it sets.
