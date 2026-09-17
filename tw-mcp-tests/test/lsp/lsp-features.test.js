@@ -55,35 +55,50 @@ test("a link in a header field is not diagnosed", () => {
 	assert.deepEqual(features.diagnostics(URI, text), []);
 });
 
-// --- Link scanning ---
+// --- Link targets ---
 
-test("a plain link, a captioned link and a transclusion are all found", () => {
-	const lines = ["[[Alpha]] {{Beta}} [[shown|Gamma]]"];
-	const found = features.scanLinks(lines, 0);
-	assert.deepEqual(found.map((l) => l.target), ["Alpha", "Beta", "Gamma"]);
+// The targets found in body, in the order they are written.
+function targets(body) {
+	return features.linkTargets(body).sort((a, b) => a.start - b.start).map((link) => link.target);
+}
+
+test("a plain link, a captioned link, a transclusion and a <$link> are all found", () => {
+	assert.deepEqual(targets('[[Alpha]] {{Beta}} [[shown|Gamma]] <$link to="Delta">d</$link>'), ["Alpha", "Beta", "Gamma", "Delta"]);
 });
 
 test("a captioned link ranges over the target, not the caption", () => {
-	const found = features.scanLinks(["A [[Caption|Missing]] B"], 0);
+	const found = features.linkTargets("A [[Caption|Missing]] B");
 	assert.equal(found.length, 1);
 	assert.equal(found[0].target, "Missing");
 	assert.equal(found[0].start, 12);
 	assert.equal(found[0].end, 19);
 });
 
-test("a transclusion with a template names the target, not the template", () => {
-	const found = features.scanLinks(["{{Target||SomeTemplate}}"], 0);
-	assert.deepEqual(found.map((l) => l.target), ["Target"]);
+test("a <$link> ranges over the title in its to attribute", () => {
+	const body = '<$link tooltip="to" to="Missing"/>',
+		found = features.linkTargets(body);
+	assert.deepEqual(found.map((link) => body.slice(link.start, link.end)), ["Missing"]);
+});
+
+test("a transclusion with a template names the target, not the template, and a field suffix stays outside", () => {
+	assert.deepEqual(targets("{{Target||SomeTemplate}}"), ["Target"]);
+	const body = "{{Target!!caption}}",
+		found = features.linkTargets(body);
+	assert.deepEqual(found.map((link) => body.slice(link.start, link.end)), ["Target"]);
 });
 
 test("a filtered transclusion is a filter, not a title", () => {
-	assert.deepEqual(features.scanLinks(["{{{ [tag[Done]] }}}"], 0), []);
+	assert.deepEqual(features.linkTargets("{{{ [tag[Done]] }}}"), []);
 });
 
-test("inline code and fenced blocks are skipped", () => {
-	const lines = ["`[[NotALink]]` real: [[Alpha]]", "```", "[[AlsoNotALink]]", "```"];
-	const found = features.scanLinks(lines, 0);
-	assert.deepEqual(found.map((l) => l.target), ["Alpha"]);
+test("inline code, fenced blocks and a CamelCase word are no links", () => {
+	assert.deepEqual(targets("`[[NotALink]]` real: [[Alpha]] HelloThere\n\n```\n[[AlsoNotALink]]\n```\n"), ["Alpha"]);
+});
+
+test("a link inside a definition's body is found where it is written", () => {
+	const body = "\\procedure lsp.lk.p()\n[[Inside]]\n\\end",
+		found = features.linkTargets(body);
+	assert.deepEqual(found.map((link) => body.slice(link.start, link.end)), ["Inside"]);
 });
 
 test("a field or index suffix is not part of the title", () => {
@@ -125,6 +140,11 @@ test("a title in a filter is not a link, so it is not diagnosed", () => {
 		"<%if [[" + MISSING_TITLE + "]] %>x<%endif%>"
 	].join("\n"));
 	assert.deepEqual(features.diagnostics(URI, text), []);
+});
+
+test("a <$link> to a missing tiddler warns too", () => {
+	const found = features.diagnostics(URI, tid('<$link to="' + MISSING_TITLE + '">x</$link>\n'));
+	assert.deepEqual(found.map((d) => d.range), [{ start: { line: 2, character: 11 }, end: { line: 2, character: 11 + MISSING_TITLE.length } }]);
 });
 
 test("a link beside a filter is still diagnosed", () => {
