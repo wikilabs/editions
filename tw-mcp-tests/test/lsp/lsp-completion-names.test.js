@@ -25,6 +25,8 @@ const REFERENCE = 18;
 const OPERATOR = 24;
 const TAGGED = "$:/temp/tw-mcp-tests/completion-names/tagged";
 const OPERATOR_MODULE = "$:/temp/tw-mcp-tests/completion-names/operator.js";
+const WIDGET_MODULE = "$:/temp/tw-mcp-tests/completion-names/widget.js";
+const TITLES = ["lsp.cp Title One", "lsp.cp Title Two"];
 
 // Definitions every test document starts with.
 const PRELUDE = [
@@ -240,6 +242,71 @@ test("a suffix naming a field offers fields, has:index does not", () => {
 		assert.ok(labels("<$list filter=\"[field:lsp-cp@@").includes("lsp-cp-colour"));
 		assert.ok(labels("<$list filter=\"[!regexp:lsp-cp@@").includes("lsp-cp-colour"));
 		assert.deepEqual(labels("<$list filter=\"[has:index[lsp-cp@@"), []);
+	});
+});
+
+// --- Title attributes ---
+
+// Test scaffolding: tiddlers for the title attribute tests, present for the duration of fn.
+function withTitles(fn) {
+	TITLES.forEach((title) => $tw.wiki.addTiddler({ title: title, text: "x" }));
+	try {
+		fn();
+	} finally {
+		TITLES.forEach((title) => $tw.wiki.deleteTiddler(title));
+	}
+}
+
+test("an attribute a widget's code uses as a title offers titles", () => {
+	withTitles(() => {
+		['<$link to="lsp.cp T@@', '<$transclude $tiddler="lsp.cp T@@', '<$list filter="[tag[x]]" template="lsp.cp T@@', '<$edit-text tiddler="lsp.cp T@@', '<$action-setfield $tiddler="lsp.cp T@@'].forEach((typed) => {
+			assert.deepEqual(labels(typed), TITLES, typed);
+		});
+		assert.deepEqual(complete('<$link to="lsp.cp T@@').items[0].kind, REFERENCE);
+		assert.deepEqual(labels("<$tiddler tiddler=lsp.cp@@"), TITLES, "an unquoted value too");
+	});
+});
+
+test("an attribute that is no title offers nothing, and neither does an empty title", () => {
+	withTitles(() => {
+		assert.deepEqual(labels('<$link tooltip="lsp.cp@@'), []);
+		assert.deepEqual(complete('<$link to="@@'), { isIncomplete: true, items: [] });
+	});
+});
+
+// Test scaffolding: a widget module with this code, registered as name for the duration of fn.
+function withWidget(name, code, fn) {
+	$tw.wiki.addTiddler({ title: WIDGET_MODULE, type: "application/javascript", "module-type": "widget", text: code });
+	$tw.modules.define(WIDGET_MODULE, "widget", code);
+	$tw.rootWidget.widgetClasses[name] = $tw.modules.execute(WIDGET_MODULE)[name];
+	$tw.wiki.clearGlobalCache();
+	try {
+		fn();
+	} finally {
+		delete $tw.rootWidget.widgetClasses[name];
+		delete $tw.modules.titles[WIDGET_MODULE];
+		delete $tw.modules.types.widget[WIDGET_MODULE];
+		$tw.wiki.deleteTiddler(WIDGET_MODULE);
+	}
+}
+
+test("a plugin's widget is judged by its code too: an attribute it reads a tiddler with offers titles", () => {
+	const code = [
+		'var Widget = require("$:/core/modules/widgets/widget.js").widget;',
+		"function LspCpWidget(parseTreeNode, options) { this.initialise(parseTreeNode, options); }",
+		"LspCpWidget.prototype = new Widget();",
+		"LspCpWidget.prototype.execute = function() {",
+		'\tthis.target = this.getAttribute("target");',
+		'\tthis.note = this.getAttribute("note");',
+		"\tthis.shown = this.wiki.getTiddlerText(this.target);",
+		"};",
+		"exports.lspcpwidget = LspCpWidget;"
+	].join("\n");
+	withTitles(() => {
+		withWidget("lspcpwidget", code, () => {
+			assert.deepEqual(labels('<$lspcpwidget target="lsp.cp@@'), TITLES);
+			assert.deepEqual(labels('<$lspcpwidget note="lsp.cp@@'), []);
+		});
 	});
 });
 

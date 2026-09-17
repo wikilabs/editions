@@ -37,6 +37,8 @@ const PINNED = [
 	'<<lsp.cp.pair a:"1" ',
 	'<$transclude $variable="lsp.cp.pair" ',
 	"<$li",
+	'<$link to="LSP Ser',
+	'<$link tooltip="LSP',
 	"{{{ [ta",
 	"{{{ [<lsp",
 	"{{{ [tag[lsp",
@@ -146,6 +148,14 @@ test("<$li offers list, and every other widget starting with li", () => {
 	Object.keys($tw.modules.applyMethods("widget")).filter((name) => name.startsWith("li")).forEach((name) => {
 		assert.ok(found.includes(name), name);
 	});
+});
+
+test('<$link to="LSP Ser offers LSP Server: to takes a title', () => {
+	assert.deepEqual(labels('<$link to="LSP Ser'), ["LSP Server"]);
+});
+
+test('<$link tooltip="LSP offers nothing: tooltip is text, not a title', () => {
+	assert.deepEqual(labels('<$link tooltip="LSP'), []);
 });
 
 test("{{{ [ta offers tag, tagging, tags and the other operators starting with ta", () => {
