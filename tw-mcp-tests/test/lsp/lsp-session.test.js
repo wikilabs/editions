@@ -336,6 +336,23 @@ test("definition answers a file URI from the mirrored buffer", () => {
 	assert.ok(reply.result.uri.endsWith("lsp_link_target.tid"), reply.result.uri);
 });
 
+test("semantic tokens are advertised with their legend and answered from the mirrored buffer", () => {
+	const s = newSession();
+	const provider = s.request(1, "initialize", {}).result.capabilities.semanticTokensProvider;
+	assert.deepEqual([provider.legend.tokenTypes[1], provider.legend.tokenModifiers[1], provider.full], ["macro", "defaultLibrary", true]);
+	s.notify("initialized", {});
+	s.notify("textDocument/didOpen", { textDocument: { uri: URI, version: 1, text: tid("<<now>>") } });
+	assert.deepEqual(s.request(2, "textDocument/semanticTokens/full", { textDocument: { uri: URI } }).result, { data: [2, 2, 3, 1, 2] });
+});
+
+test("semantic tokens follow the options the client sent with initialize", () => {
+	const s = newSession();
+	s.request(1, "initialize", { initializationOptions: { semanticTokens: { colors: false, italic: false, bold: false } } });
+	s.notify("initialized", {});
+	s.notify("textDocument/didOpen", { textDocument: { uri: URI, version: 1, text: tid("<<now>>") } });
+	assert.deepEqual(s.request(2, "textDocument/semanticTokens/full", { textDocument: { uri: URI } }).result, { data: [] });
+});
+
 // --- Another version of a tiddler: the HEAD side of a diff ---
 
 // VS Code's git extension writes the ref into an encoded query; GitLens uses the gitlens: scheme.
