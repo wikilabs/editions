@@ -175,6 +175,42 @@ test("wikitext inside a string value counts too, such as an example's src", () =
 	}
 });
 
+// --- Unknown operators ---
+
+function operatorHints(body) {
+	return features.diagnostics(URI, doc(body)).filter((d) => d.severity === HINT && d.message.includes("no filter operator"));
+}
+
+test("a filter step naming no operator gets a Hint on the name, since TiddlyWiki tests a field instead", () => {
+	const body = '<$list filter="[!tagg[x]sort[]]"/>';
+	assert.deepEqual(operatorHints(body).map((d) => ({ range: d.range, message: d.message })), [{
+		range: nameRange(body, "tagg", 0),
+		message: "`tagg` is no filter operator, so TiddlyWiki tests a field of that name"
+	}]);
+	assert.equal(hinted(body).length, 1, "and it is not also hinted as a call");
+});
+
+test("a field test on purpose stays quiet: a field some tiddler has, or a name a shadow tiddler's filter writes", () => {
+	assert.deepEqual(operatorHints('<$list filter="[caption[x]] [toc-link[no]] [lsp.nm.fn[]]"/>'), [], "caption is a field; core toc.tid tests toc-link; a dotted name is a function");
+	const body = '<$list filter="[lsp-nm-flag[yes]]"/>';
+	assert.equal(operatorHints(body).length, 1);
+	$tw.wiki.addTiddler({ title: OTHER, "lsp-nm-flag": "yes" });
+	try {
+		assert.deepEqual(operatorHints(body), []);
+	} finally {
+		$tw.wiki.deleteTiddler(OTHER);
+	}
+});
+
+test("an unknown operator is offered the closest operators, and is not listed with undefined calls", () => {
+	const body = '<$list filter="[tagg[x]]"/>',
+		hint = operatorHints(body)[0],
+		actions = features.codeActions(URI, doc(body), hint.range, { diagnostics: [hint] });
+	assert.equal(actions[0].title, "Change to tag");
+	assert.deepEqual(actions[0].edit.changes[URI], [{ range: nameRange(body, "tagg", 0), newText: "tag" }]);
+	assert.deepEqual(features.diagnostics(URI, doc(body), true).filter((d) => d.message.includes("no filter operator")).map((d) => d.severity), [HINT], "a listing leaves it a hint");
+});
+
 // --- Quick fixes ---
 
 test("a misspelt widget is offered the closest widget, renamed in its closing tag too", () => {

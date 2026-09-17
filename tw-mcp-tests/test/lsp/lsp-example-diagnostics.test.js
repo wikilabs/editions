@@ -36,6 +36,7 @@ const FOUR_LINES = [
 ];
 const GRET_MESSAGE = "`lsp.dg.gret` is not defined or set anywhere in this wiki";
 const LISST_MESSAGE = "`$lisst` is no widget, and no \\widget in this wiki defines it";
+const TAGG_MESSAGE = "`tagg` is no filter operator, so TiddlyWiki tests a field of that name";
 
 let $tw;
 let features;
@@ -82,19 +83,32 @@ test("a link of your own to a title that does not exist is warned", () => {
 	}]);
 });
 
+// The hints on calls, leaving out those on filter steps.
+function callHints(text) {
+	return shown(text, HINT).filter((d) => d.message !== TAGG_MESSAGE);
+}
+
 test("the two calls nothing defines get a hint each, and <<actionValue>> gets none", () => {
 	helper.positionOf(example.text, "<<actionValue>>");
-	assert.deepEqual(shown(example.text, HINT), [
+	assert.deepEqual(callHints(example.text), [
 		{ range: rangeOf(example.text, "\n<<lsp.dg.gret>>\n", "lsp.dg.gret"), severity: HINT, message: GRET_MESSAGE },
 		{ range: rangeOf(example.text, '\n<$lisst filter="[tag[LSP]]"/>\n', "$lisst"), severity: HINT, message: LISST_MESSAGE }
 	]);
 });
 
 test("Ctrl+. offers Change to lsp.dg.greet and Change to $list", () => {
-	shown(example.text, HINT).forEach((hint, index) => {
+	callHints(example.text).forEach((hint, index) => {
 		const actions = features.codeActions(example.uri, example.text, hint.range, { diagnostics: [hint] });
 		assert.equal(actions[0].title, ["Change to lsp.dg.greet", "Change to $list"][index]);
 	});
+});
+
+test("tagg in a filter gets a hint and Change to tag, and a field test on purpose gets none", () => {
+	const line = '\n<$list filter="[tagg[LSP]]"/>\n',
+		hints = shown(example.text, HINT).filter((d) => d.message === TAGG_MESSAGE);
+	helper.positionOf(example.text, '<$list filter="[caption[LSP]] [toc-link[no]]"/>');
+	assert.deepEqual(hints, [{ range: rangeOf(example.text, line, "tagg"), severity: HINT, message: TAGG_MESSAGE }]);
+	assert.equal(features.codeActions(example.uri, example.text, hints[0].range, { diagnostics: hints })[0].title, "Change to tag");
 });
 
 test("listing undefined calls and widgets reports both names of this tiddler as information", () => {
