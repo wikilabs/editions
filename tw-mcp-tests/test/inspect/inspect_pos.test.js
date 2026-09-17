@@ -7,10 +7,11 @@ const { bootTw, loadHandler } = require("../setup");
 const HANDLER_TITLE = "$:/core/modules/commands/inspect/handlers/inspect/inspect_pos.js";
 
 let inspectPos;
+let tw;
 
 before(async () => {
-	const $tw = await bootTw();
-	inspectPos = loadHandler($tw, HANDLER_TITLE).inspect_pos;
+	tw = await bootTw();
+	inspectPos = loadHandler(tw, HANDLER_TITLE).inspect_pos;
 });
 
 test("inspect_pos: basic wikitext produces title index + p= attributes", () => {
@@ -75,4 +76,33 @@ test("inspect_pos: text over MAX_TEXT_LENGTH -> error", () => {
 	const result = inspectPos({ text: "x".repeat(500001) });
 	assert.equal(result.isError, true);
 	assert.match(result.content[0].text, /too long/i);
+});
+
+// The widget patches now come from devtools alone (bead tw-mcp-server-bay).
+// While inspect_pos carried its own copy on top of devtools', every rendered
+// node was announced twice: the same attribute written twice, so the output
+// never showed it and only a hook count could.
+test("inspect_pos: each node is announced to the hooks exactly once", () => {
+	let links = 0;
+	const countLinks = (domNode) => { links++; return domNode; };
+	tw.hooks.addHook("th-dom-rendering-link", countLinks);
+	try {
+		inspectPos({ text: "one [[Alpha]] and two [[Beta]] links", context: "Doc" });
+	} finally {
+		tw.hooks.removeHook("th-dom-rendering-link", countLinks);
+	}
+	assert.equal(links, 2, "two links in the text, so two announcements");
+});
+
+test("inspect_pos: a call leaves source-position tracking as it found it", () => {
+	// devtools lets a user switch tracking on; a tool call must not switch it
+	// off again behind their back.
+	const before = tw.wiki.trackSourcePositions;
+	tw.wiki.trackSourcePositions = true;
+	try {
+		inspectPos({ text: "some [[Link]] text", context: "Doc" });
+		assert.equal(tw.wiki.trackSourcePositions, true, "tracking the user turned on must survive the call");
+	} finally {
+		tw.wiki.trackSourcePositions = before;
+	}
 });
