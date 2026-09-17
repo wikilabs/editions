@@ -336,6 +336,39 @@ test("definition answers a file URI from the mirrored buffer", () => {
 	assert.ok(reply.result.uri.endsWith("lsp_link_target.tid"), reply.result.uri);
 });
 
+// --- Another version of a tiddler: the HEAD side of a diff ---
+
+// VS Code's git extension writes the ref into an encoded query; GitLens uses the gitlens: scheme.
+const HEAD_URI = "git:/wiki/tiddlers/probe.tid?%7B%22ref%22%3A%22HEAD%22%7D";
+const VERSION_TEXT = tid("\\procedure lsp.ver.p() x\n\n<<lsp.ver.p>> [[lsp_no_such_tiddler]] <<lsp.ver.typo>>");
+
+test("another version is answered, but gets no diagnostics, no quick fixes and no rename", () => {
+	const s = initialized();
+	s.notify("textDocument/didOpen", { textDocument: { uri: URI, version: 1, text: VERSION_TEXT } });
+	assert.ok(lastDiagnostics(s, URI).diagnostics.length, "the file itself is diagnosed");
+	s.notify("textDocument/didOpen", { textDocument: { uri: HEAD_URI, version: 1, text: VERSION_TEXT } });
+	assert.deepEqual(lastDiagnostics(s, HEAD_URI).diagnostics, []);
+	const hover = s.request(2, "textDocument/hover", { textDocument: { uri: HEAD_URI }, position: { line: 4, character: 4 } }).result;
+	assert.ok(hover.contents.value.includes("defined in this tiddler"), "the field header is not read as text: " + hover.contents.value);
+	const typo = { start: { line: 4, character: 40 }, end: { line: 4, character: 52 } };
+	assert.deepEqual(s.request(3, "textDocument/codeAction", { textDocument: { uri: HEAD_URI }, range: typo, context: { diagnostics: [] } }).result, []);
+	assert.ok(s.request(4, "textDocument/prepareRename", { textDocument: { uri: HEAD_URI }, position: { line: 4, character: 4 } }).error, "rename is refused");
+});
+
+test("another version is left out of what the wiki's documents answer: references, symbols and the listing", () => {
+	const s = initialized();
+	const shared = tid("<<lsp.ver.shared>>");
+	s.notify("textDocument/didOpen", { textDocument: { uri: URI, version: 1, text: shared } });
+	s.notify("textDocument/didOpen", { textDocument: { uri: HEAD_URI, version: 1, text: VERSION_TEXT + "\n\n<<lsp.ver.shared>>" } });
+	const refs = s.request(2, "textDocument/references", { textDocument: { uri: URI }, position: { line: 2, character: 4 }, context: { includeDeclaration: true } });
+	assert.deepEqual(refs.result.map((l) => l.uri), [URI]);
+	const symbols = s.request(3, "workspace/symbol", { query: "lsp.ver" });
+	assert.ok(!symbols.result.some((symbol) => symbol.location.uri === HEAD_URI), JSON.stringify(symbols.result));
+	s.sent.length = 0;
+	s.request(4, "tiddlywiki/undefinedCalls", {});
+	assert.equal(lastDiagnostics(s, HEAD_URI), null);
+});
+
 // --- Failure containment ---
 
 test("a handler that throws answers an error instead of taking the process down", () => {
