@@ -1,5 +1,5 @@
 created: 20260909121537237
-modified: 20260917091037926
+modified: 20260917120253266
 tags: LSP
 title: LSP Server
 
@@ -54,5 +54,5 @@ Resting the cursor on a filter expression runs it against the live wiki and repo
 
 !!! Unsaved text
 
-The server mirrors the buffers your editor has open, so every answer covers text you have not saved.
+The server mirrors the buffers your editor has open, so every answer covers text you have not saved. The older side of a diff is answered too, but it gets no warnings, quick fixes or rename, and never counts as the wiki's own text.
 
