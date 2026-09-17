@@ -1,5 +1,5 @@
 created: 20260909121537237
-modified: 20260917002013438
+modified: 20260917004032109
 tags: LSP
 title: LSP Server
 
@@ -42,11 +42,11 @@ Matching is by prefix and ignores case, from the first character typed. See [[LS
 
 !!! Diagnostics
 
-A link or transclusion whose target does not exist is marked as a warning naming the missing title. Shadow tiddlers count as targets.
+A link, a `<$link to="...">` or a transclusion whose target does not exist is marked as a warning naming the missing title. Shadow tiddlers count as targets.
 
 A call whose name nothing in the wiki defines, such as a misspelt macro or widget, is marked as a hint with a quick fix to the closest existing names. See [[LSP Diagnostics]].
 
-Left alone: external addresses, filtered transclusions (`{{{ ... }}}`), inline code, fenced code blocks, and the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
+Left alone: external addresses, filters (`{{{ ... }}}` included), macro arguments and other attribute values, inline code, fenced code blocks, and the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
 
 !!! Hover
 

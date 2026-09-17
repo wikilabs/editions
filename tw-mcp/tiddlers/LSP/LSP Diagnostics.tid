@@ -1,5 +1,5 @@
 created: 20260910105915417
-modified: 20260916213623249
+modified: 20260917004027990
 tags: [[LSP Capabilities]]
 title: LSP Diagnostics
 
@@ -11,7 +11,7 @@ Not on every keystroke. Diagnostics are recomputed once typing pauses for about 
 
 !! Links: what is not flagged
 
-A link is left alone when it is an external address, inside any filter (a filtered transclusion, a filter attribute, an `<%if%>` condition or a `\function` body, where `[[X]]` names a title rather than linking to it), inside inline code or a fenced block, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
+The links checked are the ones ~TiddlyWiki's parser finds: `[[X]]`, `[[caption|X]]`, `<$link to="X">`, `{{X}}` and `{{X||template}}`, also inside definition bodies. So a link is left alone when it is an external address, inside any filter (a filtered transclusion, a filter attribute, an `<%if%>` condition or a `\function` body, where `[[X]]` names a title rather than linking to it), inside inline code or a fenced block, inside a macro argument or another attribute value, or in the field header of a `.tid` file, where a `tags` field routinely names tiddlers that do not exist yet.
 
 A target assembled at render time from a variable cannot be checked at all, so it is never reported.
 
