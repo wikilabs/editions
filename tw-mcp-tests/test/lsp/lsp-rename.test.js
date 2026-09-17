@@ -150,6 +150,18 @@ test("a \\widget's parameter is renamed at its declaration, its uses and the att
 	assert.ok(edits.every((edit) => edit.annotationId), "every parameter edit opens the preview");
 });
 
+test("a definition brought in by \\import is refused: other tiddlers importing it cannot be found", () => {
+	const title = "$:/temp/tw-mcp-tests/rename/importable",
+		text = "title: lsp_rn\n\n\\import [[" + title + "]]\n\n<<lsp.rn.imp>>";
+	$tw.wiki.addTiddler({ title: title, text: "\\procedure lsp.rn.imp() x" });
+	try {
+		const result = features.prepareRename(URI, text, at(text, "<<lsp.rn.imp>>", 2), {});
+		assert.ok(result.error && result.error.includes("\\import"), JSON.stringify(result));
+	} finally {
+		$tw.wiki.deleteTiddler(title);
+	}
+});
+
 test("a global defined in a tiddler without a file is refused, even with no call in one", () => {
 	const title = "$:/temp/tw-mcp-tests/rename/viewdefs",
 		text = "title: lsp_rn\n\n<<lsp.rn.v>>";

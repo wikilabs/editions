@@ -82,6 +82,18 @@ test("typing on a body's last line still offers its parameters", () => {
 	assert.equal(labels("\\procedure lsp.cp.q(tag)\n<<@@\n\\end")[0], "tag");
 });
 
+test("a definition brought in by \\import is offered, named by where it comes from", () => {
+	const title = "$:/temp/tw-mcp-tests/completion-names/importable";
+	$tw.wiki.addTiddler({ title: title, text: "\\procedure lsp.cp.imported() x\n" });
+	try {
+		const item = complete("\\import [[" + title + "]]\n\n<<lsp.cp.imp@@").items.find((i) => i.label === "lsp.cp.imported");
+		assert.ok(item, "expected the imported procedure");
+		assert.equal(item.documentation, "imported from " + title);
+	} finally {
+		$tw.wiki.deleteTiddler(title);
+	}
+});
+
 test("a nested definition is offered inside its parent only", () => {
 	const nested = "\\procedure lsp.cp.o()\n\\procedure lsp.cp.inner() x\n<<lsp.cp.i@@\n\\end";
 	assert.ok(labels(nested).includes("lsp.cp.inner"));

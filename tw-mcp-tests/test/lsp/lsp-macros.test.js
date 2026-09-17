@@ -24,6 +24,7 @@ const FEATURES_TITLE = "$:/core/modules/commands/inspect/lsp/lsp-features.js";
 const MACROS_TITLE = "$:/core/modules/commands/inspect/lsp/lsp-macros.js";
 const URI = "file:///wiki/tiddlers/probe.tid";
 const TAG = "lsp_macro_tag";
+const IMPORTABLE = "$:/temp/tw-mcp-tests/lsp-macros-importable";
 
 let $tw;
 let features;
@@ -304,6 +305,40 @@ test("a global in a $:/tags/Global tiddler is found, not only in $:/tags/Macro",
 	} finally {
 		$tw.wiki.deleteTiddler(title);
 	}
+});
+
+// Test scaffolding: a tiddler of definitions nobody imports globally, present for the duration of fn.
+function withImportable(fn) {
+	$tw.wiki.addTiddler({ title: IMPORTABLE, text: "\\procedure lsp.imp.p(a) x\n\\procedure lsp.imp.shared(imported) x\n" });
+	try {
+		fn();
+	} finally {
+		$tw.wiki.deleteTiddler(IMPORTABLE);
+	}
+}
+
+test("a definition brought in by \\import is found, and names the tiddler it comes from", () => {
+	withImportable(() => {
+		const text = "\\import [[" + IMPORTABLE + "]]\n\nBody <<lsp.imp.p>>",
+			found = macros.findDefinition("lsp.imp.p", text, text.indexOf("<<lsp.imp.p>>") + 2);
+		assert.deepEqual([found.kind, found.title, found.params], ["procedure", IMPORTABLE, [{ name: "a" }]]);
+	});
+});
+
+test("<$importvariables> brings a definition in for the calls inside it only", () => {
+	withImportable(() => {
+		const text = '<$importvariables filter="[[' + IMPORTABLE + ']]">\n<<lsp.imp.p>>\n</$importvariables>\n<<lsp.imp.p>>';
+		assert.equal(macros.findDefinition("lsp.imp.p", text, text.indexOf("<<lsp.imp.p>>") + 2).title, IMPORTABLE);
+		assert.equal(macros.findDefinition("lsp.imp.p", text, text.lastIndexOf("<<lsp.imp.p>>") + 2), null);
+	});
+});
+
+test("a definition of the document itself comes before an imported one", () => {
+	withImportable(() => {
+		const text = "\\import [[" + IMPORTABLE + "]]\n\\procedure lsp.imp.shared(mine) x\n\n<<lsp.imp.shared>>",
+			found = macros.findDefinition("lsp.imp.shared", text, text.indexOf("<<lsp.imp.shared>>") + 2);
+		assert.deepEqual([found.title, found.params], [null, [{ name: "mine" }]]);
+	});
 });
 
 // --- Binding arguments to parameters ---
