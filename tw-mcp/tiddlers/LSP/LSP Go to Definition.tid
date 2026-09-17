@@ -1,5 +1,5 @@
 created: 20260910105939173
-modified: 20260910193554977
+modified: 20260917005349062
 tags: [[LSP Capabilities]]
 title: LSP Go to Definition
 
@@ -7,7 +7,7 @@ Ctrl-click a call, a parameter, an operator or a link, and the editor opens wher
 
 !! Calls
 
-A call in any form opens the definition the wiki would use at that call, found as [[LSP Hover]] describes: one nested around the call first, then this tiddler, then a global, then ~JavaScript.
+A call in any form opens the definition the wiki would use at that call, found as [[LSP Hover]] describes: one nested around the call first, then this tiddler, then what an `\import` or `<$importvariables>` brings in, then a global, then ~JavaScript.
 
 |! Defined in |! Opens |
 |this tiddler |the definition's name; a peek shows the whole definition |

@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260910193542070
+modified: 20260917005349062
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -66,7 +66,7 @@ Positional arguments bind the way the wiki binds them: a `\procedure` or `\widge
 
 A parameter holding a filter is then run, so `<<list-links [tag[LSP]]>>` also reports the tiddlers it will list.
 
-The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. The definition is found the way the wiki finds it: one nested in the body around the call first, then one in the tiddler being edited, then a global the wiki imports for every tiddler, from a tiddler tagged `$:/tags/Macro` or `$:/tags/Global`, and last a ~JavaScript macro.
+The call comes from the parse tree and the definition from a second parse of the tiddler declaring it, which is where the parameter names and defaults come from. The definition is found the way the wiki finds it: one nested in the body around the call first, then one in the tiddler being edited, then one an `\import` or `<$importvariables>` around the call brings in, then a global the wiki imports for every tiddler, from a tiddler tagged `$:/tags/Macro` or `$:/tags/Global`, and last a ~JavaScript macro.
 
 A call inside another definition's body is hovered too. ~TiddlyWiki keeps a `\procedure`, `\define` or `\widget` body as plain text, so the server parses it separately.
 

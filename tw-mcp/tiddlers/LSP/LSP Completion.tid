@@ -1,5 +1,5 @@
 created: 20260910105908298
-modified: 20260917000323487
+modified: 20260917005349062
 tags: [[LSP Capabilities]]
 title: LSP Completion
 
@@ -31,7 +31,7 @@ The list is always reported as incomplete, so the editor asks again on every key
 Where ~TiddlyWiki expects a name, the names it would reach from there are offered, with no minimum length:
 
 |! Typed |! Offered |
-|`<<`, or a `$variable=` or `$name=` value |names in reach, in the order ~TiddlyWiki looks: what an enclosing definition or widget binds, this tiddler's definitions, globals, ~JavaScript macros, then the variables ~TiddlyWiki sets |
+|`<<`, or a `$variable=` or `$name=` value |names in reach, in the order ~TiddlyWiki looks: what an enclosing definition or widget binds, this tiddler's definitions, what an `\import` brings in, globals, ~JavaScript macros, then the variables ~TiddlyWiki sets |
 |inside a call, after a space |the parameters not given yet, by name or by position, as `tag:` in `<<call>>` or `tag=` in a widget |
 |`<$` |custom widgets in reach, then every registered widget |
 |where a step starts in a filter |filter operators, then dotted functions in reach |
