@@ -109,11 +109,12 @@ test("<$list shows the widget, the module defining it, each attribute and what i
 	assertShows(hoverAt('<$list filter="[tag[LSP]]">', 2), ["**widget** `$list`", "`$:/core/modules/widgets/list.js`", "| filter | `[tag[LSP]]` |", "**Renders as**"]);
 });
 
-test("list-links shows where it is defined, what each parameter is worth here and the tiddlers its filter lists", () => {
+test("list-links shows where it is defined, what each parameter is worth here, the call as it runs and the tiddlers its filter lists", () => {
 	assertShows(hoverAt("<<list-links [tag[LSP]]>>", 2), [
 		"**macro** `list-links`, defined in `$:/core/macros/list`",
 		"| filter | `[tag[LSP]]` | positional |",
 		"| type | `ul` | default |",
+		'Runs as:\n\n```\n<<list-links filter:"[tag[LSP]]" type:"ul" subtype:"li" class:"" emptyMessage:"" field:"caption">>\n```',
 		count("[tag[LSP]]")
 	]);
 });

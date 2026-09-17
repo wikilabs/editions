@@ -341,6 +341,34 @@ test("a definition of the document itself comes before an imported one", () => {
 	});
 });
 
+// --- The call as TiddlyWiki runs it ---
+
+test("a call's hover shows it as it runs: every parameter named, defaults written out, an unset one empty", () => {
+	const value = hoverOn('\\procedure lsp.run.p(a, b:"B", c) x\n\n<<lsp.run.p "x">>', "<<lsp.run.p", 2).contents.value;
+	assert.ok(value.includes('Runs as:\n\n```\n<<lsp.run.p a:"x" b:"B" c:"">>\n```'), value);
+});
+
+test("an argument no parameter takes is not part of the call as it runs", () => {
+	const value = hoverOn('\\procedure lsp.run.p(a) x\n\n<<lsp.run.p "x" "y" zz:"1">>', "<<lsp.run.p", 2).contents.value;
+	assert.ok(value.includes('\n<<lsp.run.p a:"x">>\n'), value);
+});
+
+test("each value is quoted with the first quoting it does not contain", () => {
+	const call = `<<lsp.run.q a:'say "hi"' b:"""it's "x" y""" c:"plain">>`,
+		value = hoverOn("\\procedure lsp.run.q(a, b, c) x\n\n" + call, "<<lsp.run.q", 2).contents.value;
+	assert.ok(value.includes("\n" + call + "\n"), value);
+});
+
+test("a call that sets none of its parameters still runs with each of them empty", () => {
+	const value = hoverOn("\\procedure lsp.run.p(a) x\n\n<<lsp.run.p>>", "<<lsp.run.p", 2).contents.value;
+	assert.ok(value.includes('\n<<lsp.run.p a:"">>\n') && !value.includes("Takes no parameters"), value);
+});
+
+test("a call of a definition without parameters shows no call as it runs", () => {
+	const value = hoverOn("\\procedure lsp.run.none() x\n\n<<lsp.run.none>>", "<<lsp.run.none", 2).contents.value;
+	assert.ok(value.includes("Takes no parameters") && !value.includes("Runs as"), value);
+});
+
 // --- Binding arguments to parameters ---
 
 test("a positional argument is bound to the parameter it fills", () => {
