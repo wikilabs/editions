@@ -1,5 +1,5 @@
 created: 20260910105915417
-modified: 20260917091032673
+modified: 20260917113750569
 tags: [[LSP Capabilities]]
 title: LSP Diagnostics
 
@@ -23,11 +23,11 @@ A variable can be set while the wiki renders, out of sight of anyone reading the
 
 * any tiddler defines it, declares it as a parameter, or sets it with a widget such as `<$let>`, `<$set>` or the `variable` of `<$list>`
 * a shadow tiddler calls it: the core and plugins call what their ~JavaScript sets
-* a ~JavaScript module hands it to action strings, as `<$radio>` does with `actionValue`
+* ~JavaScript sets it: a name it hands to action strings, as `<$radio>` does with `actionValue`, or one it builds from a prefix, as the event and message catchers do with `dom-class` or `event-param`
 * it is an attribute of `<$action-sendmessage>`, which messages such as `tm-modal` pass on as variables
 * it is set in wikitext held in a string, such as the `src` of an example macro
 
-Core variables such as `currentTiddler`, and `tv-` settings, are never flagged. The price: a typo that happens to equal a name set somewhere in the wiki is not flagged either.
+Core variables such as `currentTiddler`, and `tv-` settings, are never flagged. The price: a typo equal to a name set somewhere in the wiki is not flagged, nor is a name starting with a prefix ~JavaScript builds names from, such as `event-`, unless it is a typing slip away from a known name, as `<<list-linkz>>` is.
 
 !! Filter steps that name no operator
 

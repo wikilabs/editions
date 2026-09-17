@@ -1,5 +1,5 @@
 created: 20260910105918287
-modified: 20260917091008976
+modified: 20260917113759113
 title: LSP Diagnostics - (Example)
 
 \procedure lsp.dg.greet(who) Hello <<who>>
@@ -29,6 +29,8 @@ These two calls name nothing the wiki defines, so each gets three grey dots unde
 Put the cursor on a name and press <kbd>Ctrl+.</kbd>: `lsp.dg.gret` is offered //Change to lsp.dg.greet//, defined at the top of this tiddler, and `$lisst` is offered //Change to $list//. Undo afterwards.
 
 This call gets no dots, since ~JavaScript sets the variable for the actions of `<$radio>` and `<$range>`: <<actionValue>>
+
+Nor do these, which ~JavaScript builds for the actions of `<$eventcatcher>` and `<$messagecatcher>`: <<dom-class>> <<event-param>>
 
 In VS Code, run //~TiddlyWiki LSP: List undefined calls and widgets//. The Problems panel lists both names of this tiddler as information, and a click on one opens it here.
 
