@@ -1,13 +1,15 @@
 created: 20260910105908298
-modified: 20260916130733760
+modified: 20260917000323487
 tags: [[LSP Capabilities]]
 title: LSP Completion
 
-The editor offers tiddler titles while you type a link or a transclusion, and names wherever ~TiddlyWiki expects one, through `textDocument/completion`. Try it in [[LSP Completion - (Example)]].
+The editor offers tiddler titles while you type a link, a transclusion or a widget attribute that takes a title, and names wherever ~TiddlyWiki expects one, through `textDocument/completion`. Try it in [[LSP Completion - (Example)]].
 
 !! How a title is matched
 
-Titles are offered only inside an unclosed `[[` or `{{`.
+Titles are offered inside an unclosed `[[` or `{{`, and in the value of a widget attribute that takes a title, such as `<$link to="` or `<$list template="`.
+
+Which attributes take a title is read from each widget's code: one that falls back to the current tiddler, or whose value the code looks up a tiddler with. A plugin's widgets are covered too.
 
 Matching is by ''prefix'' and ignores case, from the first character typed. An editor such as VS Code asks again on the next keystroke only when the last answer held titles, so a single letter already gets a list.
 
@@ -35,7 +37,11 @@ Where ~TiddlyWiki expects a name, the names it would reach from there are offere
 |where a step starts in a filter |filter operators, then dotted functions in reach |
 |`[<` in a filter |variables and functions in reach |
 |`[function[` |functions in reach |
+|`tag[` in a filter |the tags the wiki uses, each with how many tiddlers carry it; system tags once you type `$` |
+|an operand or suffix naming a field, as in `has[`, `sort[` or `field:` |the field names the wiki uses, each with how many tiddlers have it |
 
 A filter is recognised on its line: a filter attribute, a `{{{ }}}`, an `<%if%>` condition or a `\function` body. A call is read back across lines, so a `<$macrocall` spread over five lines is still offered its parameters. A literal operand, prose and a closed call offer nothing.
+
+Which operands and suffixes name a tag or a field is read from each operator's code, how it uses its operand and suffix, so a plugin's operators are covered too.
 
 The list opens by itself on `[`, `{`, `<`, `$`, `"`, `=` and a space, and follows the same rules as titles: always incomplete, ranked by the server.

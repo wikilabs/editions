@@ -1,6 +1,6 @@
 created: 20260909130551386
 list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]] [[LSP Document Highlight]] [[LSP Document Symbols]] [[LSP Workspace Symbols]] [[LSP Folding]] [[LSP Signature Help]] [[LSP Inlay Hints]] [[LSP Rename]]
-modified: 20260916213630097
+modified: 20260917000326956
 tags: LSP
 title: LSP Capabilities
 type: text/vnd.tiddlywiki
@@ -10,7 +10,7 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 !! What it answers
 
 |! Capability |! Request |! What it does |
-|[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]` and `{{...}}`, and the names of calls, parameters, widgets, variables and operators where ~TiddlyWiki expects one |
+|[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]`, `{{...}}` and widget attributes that take one, and the names of calls, parameters, widgets, variables, operators, tags and fields where ~TiddlyWiki expects one |
 |[[LSP Diagnostics]] |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist, and hints on calls whose name nothing defines |
 |[[LSP Diagnostics]] |`textDocument/codeAction` |Quick fixes for a misspelt call or widget name |
 |[[LSP Hover]] |`textDocument/hover` |What the filter, operator, call, widget or pragma line under the cursor amounts to |
@@ -26,7 +26,7 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 
 Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, `tiddlywiki/undefinedCalls` for the VS Code command that lists undefined calls and widgets, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
 
-Not answered yet: semantic tokens, and completion inside widget attributes such as `<$link to="...">`.
+Not answered yet: semantic tokens.
 
 !! See also
 
