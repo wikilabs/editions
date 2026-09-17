@@ -1,5 +1,5 @@
 created: 20260910105935606
-modified: 20260917101843068
+modified: 20260917173035152
 tags: [[LSP Hover]]
 title: LSP Hover - (Example)
 
@@ -44,7 +44,7 @@ Rest on `<$list` in the second filter above to see the widget, the module defini
 
 <<list-links [tag[LSP]]>>
 
-Rest on `list-links` to see where it is defined, what each parameter is worth here, and the tiddlers its filter lists.
+Rest on `list-links` to see where it is defined, what each parameter is worth here, the call as ~TiddlyWiki runs it, and the tiddlers its filter lists.
 
 !! How arguments bind
 
