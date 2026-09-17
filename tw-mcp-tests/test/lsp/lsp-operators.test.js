@@ -2,7 +2,8 @@
 
 /*
 Pins hover and go to definition on filter operators and run prefixes: a real
-operator or prefix names the JavaScript that runs it, a shorthand prefix names
+operator or prefix names the JavaScript that runs it, an operator quotes its
+module header's description, a shorthand prefix names
 the one it stands for, and a name no operator has is shown as the field test
 TiddlyWiki silently makes instead.
 
@@ -88,6 +89,73 @@ test("a negated operator says so", () => {
 test("a name also written in an earlier operand is the operator only where it is the operator", () => {
 	assert.ok(!hoverText("[tag[sort]sort[]]", "sort", 0, 0).includes("**filter operator**"));
 	assert.ok(hoverText("[tag[sort]sort[]]", "sort", 0, 1).startsWith("**filter operator** `sort`"));
+});
+
+// --- Module header descriptions ---
+
+const OPERATOR_MODULE = "$:/plugins/lsp-test/filters/lspop.js";
+
+// Test scaffolding: operator module code whose header holds these description lines, exporting each name.
+function operatorModule(descriptionLines, names) {
+	const header = ["/*\\", "title: " + OPERATOR_MODULE, "type: application/javascript", "module-type: filteroperator", ""];
+	return header.concat(descriptionLines, ["", "\\*/", ""], names.map((name) => "exports." + name + " = function(source) { return []; };")).join("\n") + "\n";
+}
+
+// Test scaffolding: the module registered for the duration of fn; its tiddler may hold other text, as after an edit since boot.
+function withOperator(code, fn, tiddlerText) {
+	$tw.wiki.addTiddler({ title: OPERATOR_MODULE, type: "application/javascript", "module-type": "filteroperator", text: tiddlerText === undefined ? code : tiddlerText });
+	$tw.modules.define(OPERATOR_MODULE, "filteroperator", code);
+	$tw.Wiki.prototype.filterOperators = null;
+	try {
+		fn();
+	} finally {
+		delete $tw.modules.titles[OPERATOR_MODULE];
+		delete $tw.modules.types.filteroperator[OPERATOR_MODULE];
+		$tw.Wiki.prototype.filterOperators = null;
+		$tw.wiki.deleteTiddler(OPERATOR_MODULE);
+	}
+}
+
+test("an operator's hover quotes its module's header description after the module", () => {
+	const value = hoverText("[addprefix[x]]", "addprefix");
+	assert.ok(value.includes("\n\n> Filter operator for adding a prefix to each title in the list."), value);
+	assert.ok(value.indexOf("Defined in") < value.indexOf("\n> ") && value.indexOf("\n> ") < value.indexOf("\n---\n"), value);
+});
+
+test("a plugin operator's description is quoted whole, paragraphs kept and < escaped", () => {
+	withOperator(operatorModule(["Returns the <kind> it is given.", "Nothing else.", "", "A second paragraph."], ["lspopone"]), () => {
+		const value = hoverText("[lspopone[x]]", "lspopone");
+		assert.ok(value.includes("\n\n> Returns the \\<kind> it is given.\n> Nothing else.\n>\n> A second paragraph.\n"), value);
+		assert.ok(!value.includes("shared by"), value);
+	});
+});
+
+test("a module exporting several operators says its header is shared", () => {
+	withOperator(operatorModule(["Operators for lsp tests."], ["lspopfirst", "lspopsecond"]), () => {
+		["lspopfirst", "lspopsecond"].forEach((name) => {
+			const value = hoverText("[" + name + "[x]]", name);
+			assert.ok(value.includes("\n\nIts module's header, shared by 2 operators:\n\n> Operators for lsp tests.\n"), value);
+		});
+	});
+});
+
+test("a header with fields only, or no header, adds no description", () => {
+	withOperator(operatorModule([], ["lspopbare"]), () => {
+		assert.ok(!hoverText("[lspopbare[x]]", "lspopbare").includes("\n> "));
+	});
+	withOperator("exports.lspopbare = function(source) { return []; };\n", () => {
+		const value = hoverText("[lspopbare[x]]", "lspopbare");
+		assert.ok(value.startsWith("**filter operator** `lspopbare`"), value);
+		assert.ok(!value.includes("\n> "), value);
+	});
+});
+
+test("the description comes from the running module, not its tiddler edited since", () => {
+	withOperator(operatorModule(["What runs."], ["lspopedited"]), () => {
+		const value = hoverText("[lspopedited[x]]", "lspopedited");
+		assert.ok(value.includes("\n> What runs.\n"), value);
+		assert.ok(!value.includes("Edited later."), value);
+	}, operatorModule(["Edited later."], ["lspopedited"]));
 });
 
 // --- Run prefixes ---

@@ -34,7 +34,7 @@ const PINNED = [
 	"|`<<lsp.fpair a:\"x\" \"y\">>` |''function'': `b` is `y`, given by position |",
 	"|`<<lsp.depth>>` inside `\\procedure lsp.outer()` |`where`, default `nested` |",
 	"|the second call on the line above |`where`, default `top` |",
-	"|`tag` in the first filter |''filter operator'' `tag`, its module and its tiddlywiki.com page, then the filter's result |",
+	"|`tag` in the first filter |''filter operator'' `tag`, its module, its tiddlywiki.com page and its module's description, then the filter's result |",
 	"|`is` |''filter operator'' `is`, negated by `!` |",
 	"|`:else` |''run prefix'' `:else`: runs only when the output so far is empty |",
 	"|`+` |''run prefix'' `+`, short for `:and` |",
@@ -135,11 +135,12 @@ test("<<lsp.depth>> inside lsp.outer has where nested by default, the call besid
 
 // --- Operators and run prefixes ---
 
-test("tag in the first filter shows the operator, its module and its tiddlywiki.com page, then the filter's result", () => {
+test("tag in the first filter shows the operator, its module, its tiddlywiki.com page and its module's description, then the filter's result", () => {
 	const value = hoverAt("{{{ [tag[LSP Capabilities]!is[system]]", 5),
-		result = count("[tag[LSP Capabilities]!is[system]] :else[[none]] +[limit[3]]");
-	assertShows(value, ["**filter operator** `tag`", "`$:/core/modules/filters/tag.js`", "https://tiddlywiki.com/#tag%20Operator", result]);
-	assert.ok(value.indexOf("tiddlywiki.com") < value.indexOf(result), "the result comes after the operator");
+		result = count("[tag[LSP Capabilities]!is[system]] :else[[none]] +[limit[3]]"),
+		description = "> Filter operator for checking for the presence of a tag";
+	assertShows(value, ["**filter operator** `tag`", "`$:/core/modules/filters/tag.js`", "https://tiddlywiki.com/#tag%20Operator", description, result]);
+	assert.ok(value.indexOf("tiddlywiki.com") < value.indexOf(description) && value.indexOf(description) < value.indexOf(result), "the description comes after the operator, the result after both");
 });
 
 test("is shows the operator, negated by !", () => {
