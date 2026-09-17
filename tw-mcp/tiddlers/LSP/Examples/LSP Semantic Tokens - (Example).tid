@@ -1,0 +1,28 @@
+created: 20260917164121286
+modified: 20260917164121286
+tags: [[LSP Semantic Tokens]]
+title: LSP Semantic Tokens - (Example)
+
+\procedure lsp.st.greet(who)
+<$let lsp.st.mood="happy">Hello <<who>>, <<lsp.st.mood>> at <<now>></$let>
+\end
+
+Open this tiddler's `.tid` file in your editor. With VS Code's defaults, core names are italic and definitions bold. Turn the `tiddlywiki.lsp.semanticColors` settings on one by one to see each kind of name in colour.
+
+<<lsp.st.greet who:"you">>
+
+<$list filter="[tag[LSP Capabilities]limit[1]] [caption[x]]" variable="lsp.st.item"> <<lsp.st.item>></$list>
+
+|! Look at |! Sent as |
+|`lsp.st.greet` in the first line |''function'', declaration: bold |
+|`who` in the first line |''parameter'', declaration: bold |
+|`<<who>>` in the second line |''parameter'' |
+|`<<lsp.st.mood>>` |''variable'' |
+|`<<now>>` |''macro'', core: italic |
+|`<<lsp.st.greet` below the text |''function'' |
+|`$list` |''class'', core: italic |
+|`tag` and `limit` |''method'', core: italic |
+|`caption` |''property'': no operator has that name, so ~TiddlyWiki tests the field |
+|`<<lsp.st.item>>` |''variable'' |
+
+Back to [[LSP Semantic Tokens]].

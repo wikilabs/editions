@@ -1,6 +1,6 @@
 created: 20260909130551386
-list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]] [[LSP Document Highlight]] [[LSP Document Symbols]] [[LSP Workspace Symbols]] [[LSP Folding]] [[LSP Signature Help]] [[LSP Inlay Hints]] [[LSP Rename]]
-modified: 20260917091037926
+list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]] [[LSP Document Highlight]] [[LSP Document Symbols]] [[LSP Workspace Symbols]] [[LSP Folding]] [[LSP Signature Help]] [[LSP Inlay Hints]] [[LSP Semantic Tokens]] [[LSP Rename]]
+modified: 20260917164130806
 tags: LSP
 title: LSP Capabilities
 type: text/vnd.tiddlywiki
@@ -22,11 +22,11 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 |[[LSP Folding]] |`textDocument/foldingRange` |Fold arrows on definitions, clauses, widgets, comments and the header |
 |[[LSP Signature Help]] |`textDocument/signatureHelp` |The parameter list of the call being typed |
 |[[LSP Inlay Hints]] |`textDocument/inlayHint` |The parameter each value passed by position binds to |
+|[[LSP Semantic Tokens]] |`textDocument/semanticTokens/full` |Each name sent with what it means: definitions, calls, parameters, variables, core names, filter operators and field tests |
 |[[LSP Rename]] |`textDocument/rename` |A definition or a parameter, renamed everywhere it means the same |
 
 Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, `tiddlywiki/undefinedCalls` for the VS Code command that lists undefined calls and widgets, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
 
-Not answered yet: semantic tokens.
 
 !! See also
 

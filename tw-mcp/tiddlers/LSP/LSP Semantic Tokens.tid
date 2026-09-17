@@ -1,0 +1,43 @@
+created: 20260917164114440
+modified: 20260917164114440
+tags: [[LSP Capabilities]]
+title: LSP Semantic Tokens
+
+Each name is sent with what it means where it is written, through `textDocument/semanticTokens/full`, so the editor can style what a syntax grammar cannot know: a parameter against a global of the same name, a core macro against your own, a filter operator against the field test a misspelt one becomes. Try it in [[LSP Semantic Tokens - (Example)]].
+
+!! What each name is sent as
+
+|! Written |! Type |! Modifier |
+|the name of a `\procedure` or `\function` |`function` |`declaration` |
+|the name of a `\define` |`macro` |`declaration` |
+|the name of a `\widget` |`class` |`declaration` |
+|a parameter in a definition's head |`parameter` |`declaration` |
+|a call of a procedure or function |`function` |`defaultLibrary` when the core supplies it |
+|a call of a `\define` or a ~JavaScript macro |`macro` |`defaultLibrary` when the core supplies it |
+|a widget tag |`class` |`defaultLibrary` for a core widget |
+|a parameter used in its definition |`parameter` | |
+|a variable a widget binds, or ~TiddlyWiki sets |`variable` |`defaultLibrary` for one ~TiddlyWiki sets, such as `currentTiddler` |
+|a filter operator |`method` |`defaultLibrary` for a core operator |
+|a filter step that names no operator |`property` | |
+
+A name nothing defines is not sent; its [[hint|LSP Diagnostics]] says why.
+
+!! What a client asks for
+
+A client chooses what is sent with `initializationOptions.semanticTokens` in its `initialize` request:
+
+|! Option |! Meaning |
+|`colors` |`true`, `false`, or one entry per kind of name: `definitions`, `calls`, `parameters`, `variables`, `operators`, `fieldTests`. A kind not coloured is sent with the type `tiddlywiki`, which no theme colours |
+|`italic` |`false` leaves out `defaultLibrary` |
+|`bold` |`false` leaves out `declaration` |
+
+A name left with nothing to show is not sent. Without options, every name is sent with its type and modifiers.
+
+!! In VS Code
+
+|! Setting |! Default |! Shows |
+|`tiddlywiki.lsp.semanticColors.definitions`, `.calls`, `.parameters`, `.variables`, `.operators`, `.fieldTests` |off |that kind of name in colour |
+|`tiddlywiki.lsp.semanticItalic` |on |what the core supplies in italic |
+|`tiddlywiki.lsp.semanticBold` |on |definitions and their parameters in bold |
+
+The extension brings the colours for `.tid` files, with lighter ones for a theme whose name contains "Dark"; `editor.semanticTokenColorCustomizations` in your settings replaces them. Changing one of these settings restarts the connection.
