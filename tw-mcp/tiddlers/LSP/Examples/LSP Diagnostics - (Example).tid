@@ -1,5 +1,5 @@
 created: 20260910105918287
-modified: 20260916213626381
+modified: 20260917091008976
 title: LSP Diagnostics - (Example)
 
 \procedure lsp.dg.greet(who) Hello <<who>>
@@ -31,5 +31,15 @@ Put the cursor on a name and press <kbd>Ctrl+.</kbd>: `lsp.dg.gret` is offered /
 This call gets no dots, since ~JavaScript sets the variable for the actions of `<$radio>` and `<$range>`: <<actionValue>>
 
 In VS Code, run //~TiddlyWiki LSP: List undefined calls and widgets//. The Problems panel lists both names of this tiddler as information, and a click on one opens it here.
+
+!! Filter steps that name no operator
+
+`tagg` is no filter operator, so ~TiddlyWiki silently tests a field called `tagg` and this list stays empty. It gets the same grey dots, and <kbd>Ctrl+.</kbd> offers //Change to tag//:
+
+<$list filter="[tagg[LSP]]"/>
+
+A field test written on purpose gets no dots: `caption` is a field tiddlers have, and the core's table of contents tests `toc-link` itself:
+
+<$list filter="[caption[LSP]] [toc-link[no]]"/>
 
 Back to [[LSP Diagnostics]].
