@@ -24,8 +24,9 @@ const CORE_SHADOW = "$:/core/ui/PageTemplate";
 let $tw;
 let modules;
 
+// Its own edition copy: a test here overrides a core shadow with a real tiddler, which a syncer may save.
 before(async () => {
-	$tw = await bootTw();
+	$tw = await bootTw({ ownFolder: true });
 	modules = loadHandler($tw, MODULES_TITLE);
 });
 
@@ -39,9 +40,9 @@ function covered(title, range) {
 }
 
 // Test scaffolding: a plugin registered and unpacked for the duration of fn, the
-// way core does at load. A $:/temp/ title is never synced to disk.
+// way core does at load; its priority makes it unpack after core.
 function withPlugin(shipped, fn) {
-	$tw.wiki.addTiddler({ title: FAKE_PLUGIN, type: "application/json", "plugin-type": "plugin", text: JSON.stringify({ tiddlers: shipped }) });
+	$tw.wiki.addTiddler({ title: FAKE_PLUGIN, type: "application/json", "plugin-type": "plugin", "plugin-priority": "10", text: JSON.stringify({ tiddlers: shipped }) });
 	$tw.wiki.readPluginInfo([FAKE_PLUGIN]);
 	$tw.wiki.registerPluginTiddlers("plugin", [FAKE_PLUGIN]);
 	$tw.wiki.unpackPluginTiddlers();
@@ -152,6 +153,40 @@ test("a tiddler of the user's over a plugin shadow is the user's, replacing the 
 	});
 });
 
+test("a tiddler of the user's over a shadow core alone supplies is the user's, without naming core", () => {
+	$tw.wiki.addTiddler(new $tw.Tiddler($tw.wiki.getTiddler(CORE_SHADOW), { text: "mine" }));
+	try {
+		assert.equal(modules.provenance(CORE_SHADOW), "your tiddler");
+	} finally {
+		$tw.wiki.deleteTiddler(CORE_SHADOW);
+	}
+	assert.equal(modules.provenance(CORE_SHADOW), "", "core's shadow runs again");
+});
+
 test("a tiddler that is no shadow says nothing", () => {
 	assert.equal(modules.provenance("lsp_link_target"), "");
+});
+
+// --- Versions that do not run ---
+
+test("a shadow core alone supplies, and a tiddler that is no shadow, hide no version", () => {
+	assert.deepEqual(modules.hiddenVersions(CORE_SHADOW), []);
+	assert.deepEqual(modules.hiddenVersions("lsp_link_target"), []);
+});
+
+test("a plugin shadow over core's hides core's", () => {
+	withPlugin({ [CORE_SHADOW]: { text: "replaced" } }, () => {
+		assert.deepEqual(modules.hiddenVersions(CORE_SHADOW), ["$:/core"]);
+	});
+});
+
+test("a tiddler of the user's hides every shadow of its title, the one that would run next first", () => {
+	withPlugin({ [CORE_SHADOW]: { text: "replaced" } }, () => {
+		$tw.wiki.addTiddler(new $tw.Tiddler($tw.wiki.getTiddler(CORE_SHADOW), { text: "mine" }));
+		try {
+			assert.deepEqual(modules.hiddenVersions(CORE_SHADOW), [FAKE_PLUGIN, "$:/core"]);
+		} finally {
+			$tw.wiki.deleteTiddler(CORE_SHADOW);
+		}
+	});
 });

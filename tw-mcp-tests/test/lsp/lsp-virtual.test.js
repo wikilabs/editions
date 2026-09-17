@@ -30,8 +30,9 @@ let $tw;
 let features;
 let lib;
 
+// Its own edition copy: a test here overrides a core shadow with a real tiddler, which a syncer may save.
 before(async () => {
-	$tw = await bootTw();
+	$tw = await bootTw({ ownFolder: true });
 	features = loadHandler($tw, FEATURES_TITLE);
 	lib = loadHandler($tw, LIB_TITLE);
 });
@@ -54,7 +55,7 @@ function withPlugin(shipped, fn) {
 			tags.rebuild();
 		}
 	}
-	$tw.wiki.addTiddler({ title: FAKE_PLUGIN, type: "application/json", "plugin-type": "plugin", text: JSON.stringify({ tiddlers: shipped }) });
+	$tw.wiki.addTiddler({ title: FAKE_PLUGIN, type: "application/json", "plugin-type": "plugin", "plugin-priority": "10", text: JSON.stringify({ tiddlers: shipped }) });
 	$tw.wiki.readPluginInfo([FAKE_PLUGIN]);
 	$tw.wiki.registerPluginTiddlers("plugin", [FAKE_PLUGIN]);
 	$tw.wiki.unpackPluginTiddlers();
@@ -218,6 +219,53 @@ test("a definition in a shadow links its read-only view from the hover", () => {
 	const text = "title: lsp_virtual_hover\n\n<<list-links [tag[x]]>>";
 	const value = features.hover(uri, text, { line: 2, character: 4 }).contents.value;
 	assert.ok(value.includes("[open in editor](" + features.virtualUri("$:/core/macros/list") + ")"), value);
+});
+
+// --- Versions that do not run ---
+
+// Test scaffolding: a tiddler of the user's over the shadow SHADOW for the duration of fn, same fields but text.
+function withOverride(text, fn) {
+	$tw.wiki.addTiddler(new $tw.Tiddler($tw.wiki.getTiddler(SHADOW), { text: text }));
+	$tw.wiki.clearGlobalCache();
+	try {
+		fn();
+	} finally {
+		$tw.wiki.deleteTiddler(SHADOW);
+		$tw.wiki.clearGlobalCache();
+	}
+}
+
+test("a version that does not run opens as a view naming its plugin, with that plugin's text", () => {
+	const coreText = $tw.wiki.getPluginInfo("$:/core").tiddlers[SHADOW].text;
+	withPlugin({ [SHADOW]: { tags: "$:/tags/Macro", text: "replaced" } }, () => {
+		const uri = features.virtualUri(SHADOW, "$:/core");
+		assert.equal(uri, "tiddlywiki:/" + encodeURIComponent(SHADOW) + ".tid?source=" + encodeURIComponent("$:/core"));
+		assert.equal(features.titleOfVirtualUri(uri), SHADOW);
+		assert.ok(features.virtualDocument(uri).endsWith("\n\n" + coreText), "core's text");
+		assert.ok(features.virtualDocument(features.virtualUri(SHADOW)).endsWith("\n\nreplaced"), "the view without a source is the running text");
+		assert.equal(features.virtualDocument(features.virtualUri(SHADOW, "$:/temp/tw-mcp-tests/no-such-plugin")), null);
+	});
+});
+
+test("a version that does not run is another version: no squiggles, no rename", () => {
+	const uri = features.virtualUri(SHADOW, "$:/core");
+	assert.equal(features.isOtherVersionUri(uri), true);
+	assert.equal(features.isOtherVersionUri(features.virtualUri(SHADOW)), false);
+	const { session: s, sent } = session();
+	s.dispatch({ jsonrpc: "2.0", method: "textDocument/didOpen", params: { textDocument: { uri: uri, version: 1, text: features.virtualDocument(uri) } } });
+	s.dispatch({ jsonrpc: "2.0", id: 2, method: "textDocument/prepareRename", params: { textDocument: { uri: uri }, position: { line: 0, character: 0 } } });
+	assert.ok(sent.find((message) => message.id === 2).error, "rename is refused");
+});
+
+test("the hover links the running version first, then each version that does not run", () => {
+	withOverride($tw.wiki.getTiddlerText(SHADOW), () => {
+		const uri = "file:///wiki/tiddlers/lsp_virtual_hover.tid";
+		const text = "title: lsp_virtual_hover\n\n<<list-links [tag[x]]>>";
+		const value = features.hover(uri, text, { line: 2, character: 4 }).contents.value,
+			running = value.indexOf("your tiddler"),
+			hidden = value.indexOf("[$:/core](" + features.virtualUri(SHADOW, "$:/core") + ")");
+		assert.ok(running > 0 && hidden > running, value);
+	});
 });
 
 test("a definition a plugin supplies names that plugin in the hover", () => {
