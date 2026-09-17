@@ -1,5 +1,5 @@
 created: 20260910182149952
-modified: 20260910182149952
+modified: 20260917002958603
 tags: [[LSP Capabilities]]
 title: LSP Rename
 
@@ -9,6 +9,7 @@ F2 on a name renames it everywhere it means the same thing, through `textDocumen
 
 |! F2 on |! Renamed |
 |a definition's name or a call |the definition, and every call that reaches it; for a global, in every file whose call ~TiddlyWiki would send to it |
+|a `\widget`'s name, at its definition, a tag or a closing tag |the definition, every tag that calls it together with its closing tag, and a `$variable` naming it |
 |a parameter, at its declaration or a use |the declaration, its uses in the body, `$param$` and `$(param)$` in a `\define`, and `name:` or `name=` at calls of that definition in every file |
 
 A call that reaches a local definition of the same name means something else, and stays as it is.
@@ -20,7 +21,7 @@ Edits outside the file you are in, and every parameter edit, open VS Code's refa
 * a variable ~TiddlyWiki sets itself, such as `currentTiddler`
 * a ~JavaScript macro such as `<<now>>`
 * a variable a widget sets, such as the `x` of `<$let x=...>`, since definitions it calls can read it
-* a `\widget` definition or its parameters, for now
+* a `\widget` name without `$` or without a dot, since only a dotted name makes a widget of its own
 * a name defined in, or called from, a tiddler without a file of its own, such as a shadow tiddler, since that cannot be edited
 * a new name that is no name, is set by ~TiddlyWiki, is already defined beside the old one, is already a global, already means something where a call would reach it, or is already a parameter of or used inside the definition
 * a dotted `\function` losing its dot, since it may be called as a filter operator
