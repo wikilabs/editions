@@ -94,6 +94,13 @@ test("inspect_pos: each node is announced to the hooks exactly once", () => {
 	assert.equal(links, 2, "two links in the text, so two announcements");
 });
 
+// The plugin used to ship this switched on, so merely installing devtools put
+// tooltips and a context menu in front of everyone who did not want them.
+test("devtools ships source-position tracking switched off", () => {
+	assert.equal(tw.wiki.getTiddlerText("$:/config/wikilabs/SourcePositionTracking", "").trim(), "no");
+	assert.ok(!tw.wiki.trackSourcePositions, "nothing should be tracking until a user asks for it");
+});
+
 // devtools is a declared dependent, but nothing stops a wiki being assembled
 // without it. Requiring it at load time aborted the whole tool map, because a
 // missing module exits the process on node — so every other tool went down
