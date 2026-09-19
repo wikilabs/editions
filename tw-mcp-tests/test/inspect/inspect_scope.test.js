@@ -44,6 +44,24 @@ test("inspect_scope: filter narrows the displayed variables", () => {
 	assert.doesNotMatch(text, /var beta/);
 });
 
+// Four $let variables around `probe`; charPos 31 lands in the body.
+const FOUR_VARS = '<$let a="1" b="2" c="3" d="4">probe</$let>';
+const listedEntries = (text) => text.split("\n").filter((line) => /^(var|fn|proc|macro|def|widget) /.test(line));
+
+test("inspect_scope: limit caps the listed variables and says how many more there are", () => {
+	const text = inspectScope({ text: FOUR_VARS, charPos: 31, limit: 2 }).content[0].text;
+	assert.equal(listedEntries(text).length, 2);
+	assert.match(text, /^\+\d+ more/m);
+});
+
+test("inspect_scope: without limit every variable in scope is listed", () => {
+	const text = inspectScope({ text: FOUR_VARS, charPos: 31 }).content[0].text;
+	for(const name of ["a", "b", "c", "d"]) {
+		assert.match(text, new RegExp("^var " + name + " = ", "m"));
+	}
+	assert.doesNotMatch(text, /^\+\d+ more/m);
+});
+
 test("inspect_scope: missing tiddler -> error", () => {
 	const result = inspectScope({ tiddler: "DoesNotExist__xyz", charPos: 0 });
 	assert.equal(result.isError, true);
