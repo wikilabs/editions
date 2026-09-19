@@ -1,5 +1,5 @@
 created: 20260404162346616
-modified: 20260918234639684
+modified: 20260919141118473
 tags: TOC
 title: Upload Tool
 
@@ -37,7 +37,7 @@ node tw-upload.js <file> [--wiki <path>] [--title <title>] [--tags <tags>] [--su
 
 |! Option |! Description |
 |`<file>` |File to upload (required) |
-|`--wiki <path>` |Wiki directory to find `.tw-mcp/connect` (defaults to current dir) |
+|`--wiki <path>` |Wiki directory of the running server (defaults to current dir). For a wiki that includes others, `.tw-mcp/connect` is read from the first one it includes, where the server writes it |
 |`--title <title>` |Tiddler title (defaults to filename) |
 |`--tags <tags>` |Space-separated tags (use `[[double brackets]]` for multi-word tags) |
 |`--subfolder <dir>` |Subfolder within `files/` to save to |
