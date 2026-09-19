@@ -11,7 +11,7 @@ node_modules/
 $__StoryList.tid
 _log_backfill*.tid
 # Playwright
-/test-results/
+test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
