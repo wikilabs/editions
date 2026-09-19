@@ -1,5 +1,5 @@
 created: 20260510142317000
-modified: 20260919152339664
+modified: 20260919191559653
 tags: Server
 title: Inspect Tools
 
@@ -75,18 +75,17 @@ inspect_pos(
 Output:
 
 ```
-[0=greet]
-<p c="caller" ctx="caller" p="0:1" v="greet">Hello!</p>
+[0=caller]
+<p c="caller" p="0:1" v="greet">Hello!</p>
 ```
 
 The paragraph carries:
 
-* `p="0:1"`: line 1 of the `greet` procedure body
+* `p="0:1"`: line 1 of `text`, where the `greet` body is defined
 * `v="greet"`: produced by the `greet` procedure
 * `c="caller"`: reached from the `caller` context
-* `ctx="caller"`: `currentTiddler` was `caller` at render time
 
-When a procedure is defined inline (rather than in a separate tiddler), the title-map uses the procedure's name as the source label.
+A procedure defined in `text` itself points into `text`; one defined in another tiddler points into that tiddler's `.tid` file. The caller chain names a procedure defined in `text` by its name.
 
 !!! 4. Caller chain (`c=`)
 
@@ -102,8 +101,8 @@ inspect_pos(
 Output:
 
 ```
-[0=inner]
-<p c="outer|caller" ctx="caller" p="0:1" v="inner">Inner content.</p>
+[0=caller]
+<p c="outer|caller" p="0:2" v="inner">Inner content.</p>
 ```
 
 `c="outer|caller"` reads as: `inner` was called by `outer`, called from `caller`.
