@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260918234631033
+modified: 20260919140216379
 tags: TOC
 title: Basics
 
@@ -31,7 +31,7 @@ To connect an AI client, see [[Installation]] for `.mcp.json` setup (Claude Code
 
 !! Filesystem Plugin
 
-MCP write tools save their `.tid` files themselves. Edits made in the browser (with `listen` or `sse`) reach disk only through the `tiddlywiki/filesystem` plugin, so list it in your `tiddlywiki.info` (the `server` edition does) or pass `+plugins/tiddlywiki/filesystem` before the wiki path. `get_wiki_info` shows `Filesystem: yes` when it is loaded.
+MCP write tools save their `.tid` files themselves. Edits made in the browser (with `listen` or `sse`) reach disk only through the `tiddlywiki/filesystem` plugin, so list it in your `tiddlywiki.info` (the `server` edition does) or pass `+plugins/tiddlywiki/filesystem` before the wiki path. Without it the server warns at startup that browser edits stay in memory only; `get_wiki_info` shows `Filesystem: yes` when it is loaded.
 
 !! Transports
 
