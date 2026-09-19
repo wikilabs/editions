@@ -105,6 +105,12 @@ test("{{{ [tag[no-such-tag]] }}} matches nothing", () => {
 
 // --- A widget, a macro call ---
 
+test("the plain text inside <$let> opens no popup, and </$let> shows the widget", () => {
+	const at = helper.positionOf(example.text, "A line of plain text", { offset: 3 });
+	assert.equal(features.hover(example.uri, example.text, at, { [example.uri]: example.text }), null);
+	assertShows(hoverAt("</$let>", 3), ["**widget** `$let`"]);
+});
+
 test("<$list shows the widget, the module defining it, each attribute and what it renders", () => {
 	assertShows(hoverAt('<$list filter="[tag[LSP]]">', 2), ["**widget** `$list`", "`$:/core/modules/widgets/list.js`", "| filter | `[tag[LSP]]` |", "**Renders as**"]);
 });

@@ -138,6 +138,16 @@ test("the <%if%> keyword explains which clause renders, not a $list", () => {
 	assert.ok(!text.includes("$list"), text);
 });
 
+// A block answers on its markers only, not over what it renders (bead tw-mcp-server-bsa).
+test("an <%if%> block's content hovers nothing, and every marker hovers the block", () => {
+	assert.equal(hoverAt(IF_ELSEIF, IF_ELSEIF.indexOf("%>a<") + 2), null);
+	assert.equal(hoverAt(IF_ELSEIF, IF_ELSEIF.indexOf("%>c<") + 2), null);
+	for(const marker of ["<%else%>", "<%endif%>"]) {
+		const text = hoverAt(IF_ELSEIF, IF_ELSEIF.indexOf(marker) + 3);
+		assert.ok(text && text.includes("**conditional**"), marker + ": " + text);
+	}
+});
+
 // --- Filters in any attribute ---
 
 test("a {{{ }}} value of any attribute is hovered as a filter", () => {

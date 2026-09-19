@@ -222,3 +222,55 @@ test("the widget wins where no attribute is under the cursor", () => {
 	const text = hoverAt(body, 3);
 	assert.ok(text.includes("**widget**"), text);
 });
+
+// --- Where a widget answers (bead tw-mcp-server-bsa) ---
+
+const LET = '<$let a="1">plain words</$let>';
+
+// The hover's range as columns [start, end] of a one-line body.
+function hoverRange(body, character) {
+	const result = features.hover(URI, tid(body), { line: 2, character: character });
+	return result && [result.range.start.character, result.range.end.character];
+}
+
+test("a widget's content hovers nothing", () => {
+	assert.equal(hoverAt(LET, LET.indexOf("words")), null);
+});
+
+test("a widget answers on its closing tag too", () => {
+	const text = hoverAt(LET, LET.indexOf("</$let>") + 3);
+	assert.ok(text && text.includes("$let"), text);
+});
+
+test("the hover ranges over the tag under the cursor, not the whole element", () => {
+	assert.deepEqual(hoverRange(LET, 3), [0, LET.indexOf(">") + 1]);
+	const close = LET.indexOf("</$let>");
+	assert.deepEqual(hoverRange(LET, close + 3), [close, LET.length]);
+});
+
+test("an inner widget's content hovers nothing, and its tag hovers the inner widget", () => {
+	const body = '<$let a="1"><$set name="b" value="2">inner text</$set></$let>';
+	assert.equal(hoverAt(body, body.indexOf("inner")), null);
+	const text = hoverAt(body, body.indexOf("<$set") + 2);
+	assert.ok(text && text.includes("$set"), text);
+});
+
+test("a filter in a widget's content still hovers", () => {
+	withTagged(() => {
+		const body = '<$let a="1">{{{ [tag[' + TAG + ']] }}}</$let>';
+		const text = hoverAt(body, body.indexOf("[tag["));
+		assert.ok(text && text.includes("2 tiddlers"), text);
+	});
+});
+
+test("inside a \\procedure body a widget answers on its tags only as well", () => {
+	const body = '\\procedure p()\n<$let a="1">proc words</$let>\n\\end';
+	assert.equal(hoverOn(body, "proc words", 1), null);
+	const text = hoverOn(body, "<$let", 2);
+	assert.ok(text && text.includes("$let"), text);
+});
+
+test("a <$transclude> call's content hovers nothing", () => {
+	const body = '<$transclude $variable="lsp.nothing">fallback words</$transclude>';
+	assert.equal(hoverAt(body, body.indexOf("words")), null);
+});
