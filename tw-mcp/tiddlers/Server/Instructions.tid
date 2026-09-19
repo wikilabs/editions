@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260918235109087
+modified: 20260919134455249
 tags: Server
 title: Instructions
 
@@ -659,14 +659,14 @@ Renders the wiki as a single standalone HTML file.
 
 !!! `import_html_wiki`
 
-Stages a single-file HTML wiki for import. Loads tiddlers from the file into the in-memory wiki, classifies them, proposes `$:/config/FileSystemPaths` rules, and writes the analysis to `$:/temp/mcp/html-import`. Nothing is written to disk yet — call `extract_html_wiki` to commit.
+Stages a single-file HTML wiki for import. Loads tiddlers from the file into the in-memory wiki, classifies them, proposes `$:/config/FileSystemPaths` rules, and writes the analysis to `$:/temp/mcp/html-import`. No tiddler file is written yet, only `tiddlywiki.info` when standard plugins were found: call `extract_html_wiki` to commit.
 
 |!Parameter |!Required |!Description |
 |`path` |yes |Path to the `.html` single-file wiki to import |
 
 ''Behaviour:''
 
-* The call refuses when the wiki's tiddlers folder already holds `.tid` files and `$:/config/FileSystemPaths` exists. Paths with a dot-prefixed folder or file name (e.g. `.ssh/`, `.env`) are refused too.
+* The call refuses when the wiki already holds content tiddlers (any title outside `$:/`), or while another import is pending. Paths with a dot-prefixed folder or file name (e.g. `.ssh/`, `.env`) are refused too.
 * Only one staged import can be pending at a time; calling again while pending refuses with a pointer to the existing one. To discard a staged import, delete `$:/temp/mcp/html-import`.
 * Library plugins detected in the HTML file are added to `tiddlywiki.info` by name — they don't need to be extracted as tiddlers and will be loaded by the boot process after the next server restart.
 * Sets `Import — Proposed Folder Structure` as the default tiddler so the user sees the proposed rules in the browser.

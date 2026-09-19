@@ -1,5 +1,5 @@
 created: 20260407134700000
-modified: 20260918235101313
+modified: 20260919134453297
 tags: Basics
 title: Single-File Import
 
@@ -40,7 +40,7 @@ Then add the two tw-mcp plugins to the `plugins` list in `./mywiki/tiddlywiki.in
 ]
 ```
 
-Start from a fresh folder. The import refuses to run while another import is pending, or once `tiddlers/` holds `.tid` files ''and'' a `$:/config/FileSystemPaths` tiddler exists, which is the state an earlier import leaves behind.
+Start from a fresh folder. The import refuses to run while another import is pending, or when the wiki already holds content tiddlers (any title outside `$:/`).
 
 !!! The `.mcp.json` file
 
@@ -97,7 +97,7 @@ This:
 # Writes the analysis to `$:/temp/mcp/html-import` and a human-readable summary to `Import — Proposed Folder Structure`
 # Sets `Import — Proposed Folder Structure` as the default tiddler so it opens in the browser
 
-At this point your tiddlers are ''in memory only'' — nothing has been written to disk yet. Your original HTML file is untouched.
+At this point the imported tiddlers are ''in memory only'': no tiddler file has been written yet, only `tiddlywiki.info` when standard plugins were found. Your original HTML file is untouched.
 
 !! How the folder structure works
 
