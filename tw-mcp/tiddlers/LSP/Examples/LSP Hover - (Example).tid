@@ -1,5 +1,5 @@
 created: 20260910105935606
-modified: 20260917173035152
+modified: 20260919213756283
 tags: [[LSP Hover]]
 title: LSP Hover - (Example)
 
@@ -39,6 +39,12 @@ These are the same filter written three ways, and each reports the same 5 tiddle
 !! A widget
 
 Rest on `<$list` in the second filter above to see the widget, the module defining it, each attribute, and what it renders.
+
+<$let greeting="hi">
+A line of plain text inside the widget.
+</$let>
+
+Rest on the line of plain text: no popup opens, since a widget answers only on its tags. Rest on `<$let` or `</$let>` to see the widget.
 
 !! A macro call
 

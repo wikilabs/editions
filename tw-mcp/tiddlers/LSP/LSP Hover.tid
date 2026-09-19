@@ -1,5 +1,5 @@
 created: 20260910105930297
-modified: 20260918234634614
+modified: 20260919213808894
 tags: [[LSP Capabilities]]
 title: LSP Hover
 
@@ -46,7 +46,7 @@ The description is the text after the fields in the header of the module that ru
 
 !! What a widget hover shows
 
-Resting on `<$name` reports the widget, the module defining it, and every attribute. An attribute is not always a literal: an indirect reference (`{{X!!field}}`), a macro (`<<var>>`) and a filtered value (`{{{ ... }}}`) are shown both as written and as what they come to here, which is the part that cannot be read off the page.
+Resting on `<$name`, or anywhere else in the opening or the closing tag, reports the widget, the module defining it, and every attribute. The content between the tags hovers nothing, so moving over a tiddler's text opens no popups. An attribute is not always a literal: an indirect reference (`{{X!!field}}`), a macro (`<<var>>`) and a filtered value (`{{{ ... }}}`) are shown both as written and as what they come to here, which is the part that cannot be read off the page.
 
 A `<$let>` or `<$vars>` also reports the variables it binds, and a `<$set>` the variable it names rather than its attribute names.
 
@@ -58,7 +58,7 @@ Last comes what it actually renders, body and all, taken from the render already
 
 !! What an `<%if%>` hover shows
 
-An `<%if%>` block is a `$list` underneath, but it is hovered as what was written. The `<%if%>` keyword lists every clause and which one renders at that position, and each `<%if%>` or `<%elseif%>` condition is hovered as a filter that also says whether it holds.
+An `<%if%>` block is a `$list` underneath, but it is hovered as what was written. Its `<%if%>`, `<%elseif%>`, `<%else%>` and `<%endif%>` markers list every clause and which one renders at that position; the content between them hovers nothing. Each `<%if%>` or `<%elseif%>` condition is hovered as a filter that also says whether it holds.
 
 !! What a macro call hover shows
 
