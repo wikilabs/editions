@@ -1,5 +1,5 @@
 created: 20260510142317000
-modified: 20260918234629612
+modified: 20260919152339664
 tags: Server
 title: Inspect Tools
 
@@ -42,11 +42,11 @@ Output:
 <p p="0:1">Hello, world!</p>
 ```
 
-`(inline)` is the placeholder source name when no `context` argument is passed. `p="0:1"` means "title-index 0, line 1".
+`(inline)` is the placeholder source name when no `context` argument is passed. `p="0:1"` means "title-index 0, line 1". Lines count in `text` itself, so a node on its third line carries `p="0:3"`.
 
 !!! 2. Source positions in real tiddlers
 
-Pass `context` to label the source:
+Pass `context` to set `currentTiddler` and to name `text` in the header:
 
 ```
 inspect_pos(text="[[X]]", context="MyTiddler")
@@ -59,7 +59,7 @@ Output:
 <p p="0:1"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#X" p="0:1">X</a></p>
 ```
 
-Both the wrapping `<p>` and the link map to `MyTiddler:1`.
+Both the wrapping `<p>` and the link are on line 1 of `text`. Only when `text` is exactly `MyTiddler`'s own text do the lines count in its `.tid` file, header included, so they match what an editor shows.
 
 !!! 3. Macro attribution (`v=`)
 
@@ -132,7 +132,7 @@ Both links share the source position (`p="0:1"`) but have different `ctx` values
 
 Reports the variables visible at a given character position. Useful when you have a position from `inspect_pos` and want to know what's defined there.
 
-''Important:'' `charPos` is a ''character offset'' into the wikitext text field, NOT a line number. The `p=` values from `inspect_pos` are line numbers including the `.tid` header offset and cannot be passed directly. Convert via the source text first.
+''Important:'' `charPos` is a ''character offset'' into the wikitext text field, NOT a line number. The `p=` values from `inspect_pos` are line numbers (for a tiddler, in its `.tid` file, header included) and cannot be passed directly. Convert via the source text first.
 
 !!! 1. Local scope at a position
 

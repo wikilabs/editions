@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260919143810342
+modified: 20260919152347224
 tags: Server
 title: Instructions
 
@@ -318,12 +318,12 @@ Analyzes the rendered widget tree structure. Returns type counts (for the full t
 
 !!! `inspect_pos`
 
-Renders wikitext to HTML with compact position attributes and a title index header. `p` has the format `idx:line` or `idx:start-end`, where `idx` references the title index and the lines are those of the defining tiddler's `.tid` file, header included. A node may also carry `v` (the procedure, macro or variable that produced it), `c` (the caller chain, closest first, separated by `|`) and `ctx` (`currentTiddler` when it differs from the source tiddler). SVG elements are stripped of position data for token efficiency.
+Renders wikitext to HTML with compact position attributes and a title index header. `p` has the format `idx:line` or `idx:start-end`, where `idx` references the title index. The lines are those of the defining tiddler's `.tid` file, header included; nodes parsed from `text` itself count lines in `text`, unless `text` is exactly the `context` tiddler's own text. A node may also carry `v` (the procedure, macro or variable that produced it), `c` (the caller chain, closest first, separated by `|`) and `ctx` (`currentTiddler` when it differs from the source tiddler). SVG elements are stripped of position data for token efficiency.
 
 |!Parameter |!Required |!Description |
 |`text` |yes |The wikitext to render |
 |`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
-|`context` |no |Context tiddler (sets `currentTiddler`) |
+|`context` |no |Context tiddler: sets `currentTiddler` and names `text` in the title index |
 
 Use the output with `inspect_scope` to examine variables at specific positions.
 
