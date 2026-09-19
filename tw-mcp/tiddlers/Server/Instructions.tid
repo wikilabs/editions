@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260919190428309
+modified: 20260919193324066
 tags: Server
 title: Instructions
 
@@ -233,7 +233,7 @@ Renders a tiddler's wikitext to plain text or HTML. Supports all global macros (
 |`type` |no |`text/plain` (default), `text/plain-formatted`, or `text/html` |
 |`mode` |no |`raw` (default) — render through type parser. `viewtemplate` — render through the ~ViewTemplate body cascade (same as the story river) |
 
-> ''Token efficiency:'' Plain text output (`text/plain` or `text/plain-formatted`) is significantly smaller than HTML — roughly 5–6× fewer tokens for the same content. Prefer plain text unless the HTML structure is specifically needed. Dynamic wikitext (macros, filters, transclusions) is fully resolved in all output modes.
+> ''Token efficiency:'' Plain text output (`text/plain` or `text/plain-formatted`) is much smaller than HTML: typically a half to a third of the tokens for the same content. Prefer plain text unless the HTML structure is specifically needed. Dynamic wikitext (macros, filters, transclusions) is fully resolved in all output modes.
 
 ''Example prompts:''
 
