@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260919152347224
+modified: 20260919190428309
 tags: Server
 title: Instructions
 
@@ -591,7 +591,7 @@ Hot-reloads the tw-mcp plugins during development: re-reads both plugin folders 
 ''Behaviour:''
 
 * ''Phase 1'': `$tw.loadPluginFolder` re-reads each plugin folder, the syncer's `storeTiddler` replaces the plugin tiddler without saving it to the edition, and `readPluginInfo` + `registerPluginTiddlers` + `unpackPluginTiddlers` re-unpack the shadow tiddlers with fresh source.
-* ''Phase 2'' — for every JS subtiddler with a `module-type`, `$tw.modules.titles[title].exports` is cleared and `$tw.modules.execute(title)` runs fresh. The next tool call picks up the new code via late-binding in `mcp-handlers.js`.
+* ''Phase 2'': every JS subtiddler with a `module-type` gets its fresh text and has its `exports` cleared, and only then is each one executed. A module that requires another at load time therefore gets that module's new version, whatever the order. The next tool call picks up the new code via late-binding in `mcp-handlers.js`.
 * `mcp-handlers.js` gets an ''identity-preserving'' reload: its new exports are merged onto the existing object, so `mcp-lib.js`'s captured reference stays live. Tool definitions live on each handler, and `tools/list` rebuilds from them on every call, so a changed schema shows on the next `tools/list`.
 
 ''Excluded modules — still require a full server restart:''
@@ -610,7 +610,7 @@ Hot-reloads the tw-mcp plugins during development: re-reads both plugin folders 
 |Edited a JS handler in tw-mcp |`reload_mcp_modules` |
 |Edited `mcp-lib.js`, `mcp.js`, `shared.js`, or `filesystem.js` |Full server restart |
 
-''Safety:'' If a reloaded module throws during re-execution, the old `exports` object is restored so a bad edit doesn't brick the server — but you still won't be able to proceed past a syntax error; check the tool response for the error list.
+''Safety:'' A module with a syntax error is not reloaded: it keeps its old code, and the response lists it under the errors. An error thrown while a module runs its top-level code ends the server process, as it would at boot.
 
 ''Example prompts:''
 
