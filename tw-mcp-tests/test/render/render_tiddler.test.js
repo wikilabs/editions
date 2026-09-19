@@ -33,6 +33,12 @@ test("render_tiddler: raw mode -> text/html includes h1 tag", () => {
 	assert.match(result.content[0].text, /<h1[^>]*>Heading One<\/h1>/);
 });
 
+test("render_tiddler: without type the output is text/plain, as the schema says", () => {
+	const byDefault = renderTiddler({ title: "render_tiddler_text" }).content[0].text;
+	const plain = renderTiddler({ title: "render_tiddler_text", type: "text/plain" }).content[0].text;
+	assert.equal(byDefault, plain);
+});
+
 test("render_tiddler: mode default ('raw') still renders", () => {
 	const result = renderTiddler({ title: "render_tiddler_caption", type: "text/plain" });
 	assert.equal(result.isError, undefined);

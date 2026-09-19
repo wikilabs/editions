@@ -43,6 +43,29 @@ test("delete_tiddler: missing tiddler -> error", () => {
 	assert.match(result.content[0].text, /not found/i);
 });
 
+// A core shadow tiddler, present in every wiki.
+const SHADOW_TITLE = "$:/core/ui/Buttons/close";
+
+test("delete_tiddler: a shadow-only title is refused as not found and stays", () => {
+	const result = deleteTiddler({ title: SHADOW_TITLE });
+	assert.equal(result.isError, true);
+	assert.match(result.content[0].text, /not found/i);
+	assert.equal($tw.wiki.isShadowTiddler(SHADOW_TITLE), true);
+});
+
+test("delete_tiddler: deleting an overridden shadow brings the plugin's version back", () => {
+	const shadowText = $tw.wiki.getTiddlerText(SHADOW_TITLE);
+	try {
+		putTiddler({ title: SHADOW_TITLE, fields: { text: "overridden" }, overwrite: true });
+		assert.equal($tw.wiki.getTiddlerText(SHADOW_TITLE), "overridden");
+		const result = deleteTiddler({ title: SHADOW_TITLE });
+		assert.equal(result.isError, undefined);
+		assert.equal($tw.wiki.getTiddlerText(SHADOW_TITLE), shadowText);
+	} finally {
+		cleanupTiddler($tw, SHADOW_TITLE);
+	}
+});
+
 test("delete_tiddler: title over MAX_TITLE_LENGTH -> error", () => {
 	const result = deleteTiddler({ title: "x".repeat(1025) });
 	assert.equal(result.isError, true);
