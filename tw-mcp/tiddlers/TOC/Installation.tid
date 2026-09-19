@@ -1,5 +1,5 @@
 created: 20260403162850006
-modified: 20260919135917282
+modified: 20260919141913108
 tags: TOC
 title: Installation
 
@@ -96,13 +96,6 @@ Add a `.mcp.json` file to your wiki directory:
 				"--mcp",
 				"readwrite",
 				"label=tw-mcp"
-			],
-			"alwaysAllow": [
-				"mcp__tiddlywiki__get_tiddler",
-				"mcp__tiddlywiki__list_tiddlers",
-				"mcp__tiddlywiki__run_filter",
-				"mcp__tiddlywiki__render_tiddler",
-				"mcp__tiddlywiki__get_wiki_info"
 			]
 		}
 	}
@@ -110,6 +103,26 @@ Add a `.mcp.json` file to your wiki directory:
 ```
 
 Then start Claude Code from that directory. The MCP server will be available automatically.
+
+!!! Pre-approve the read tools
+
+Claude Code asks before each tool call. To let it read without asking, add a `.claude/settings.json` to the wiki directory, or `.claude/settings.local.json` to keep the list to yourself:
+
+```json
+{
+	"permissions": {
+		"allow": [
+			"mcp__tiddlywiki__get_tiddler",
+			"mcp__tiddlywiki__list_tiddlers",
+			"mcp__tiddlywiki__run_filter",
+			"mcp__tiddlywiki__render_tiddler",
+			"mcp__tiddlywiki__get_wiki_info"
+		]
+	}
+}
+```
+
+`tiddlywiki` is the server's name in `.mcp.json`. `mcp__tiddlywiki__*` would allow every tool, the write tools included.
 
 !!! Alternative: Set the plugin path in `.mcp.json`
 
@@ -129,14 +142,7 @@ Instead of a global environment variable, you can set `TIDDLYWIKI_PLUGIN_PATH` p
 			],
 			"env": {
 				"TIDDLYWIKI_PLUGIN_PATH": "/path/to/your/plugins"
-			},
-			"alwaysAllow": [
-				"mcp__tiddlywiki__get_tiddler",
-				"mcp__tiddlywiki__list_tiddlers",
-				"mcp__tiddlywiki__run_filter",
-				"mcp__tiddlywiki__render_tiddler",
-				"mcp__tiddlywiki__get_wiki_info"
-			]
+			}
 		}
 	}
 }
