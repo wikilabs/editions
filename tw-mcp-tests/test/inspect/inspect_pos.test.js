@@ -78,10 +78,7 @@ test("inspect_pos: text over MAX_TEXT_LENGTH -> error", () => {
 	assert.match(result.content[0].text, /too long/i);
 });
 
-// The widget patches now come from devtools alone (bead tw-mcp-server-bay).
-// While inspect_pos carried its own copy on top of devtools', every rendered
-// node was announced twice: the same attribute written twice, so the output
-// never showed it and only a hook count could.
+// This edition loads devtools, which holds the shared patches from boot; inspect_pos must not stack a second set (bead tw-mcp-server-5tl).
 test("inspect_pos: each node is announced to the hooks exactly once", () => {
 	let links = 0;
 	const countLinks = (domNode) => { links++; return domNode; };
@@ -101,24 +98,13 @@ test("devtools ships source-position tracking switched off", () => {
 	assert.ok(!tw.wiki.trackSourcePositions, "nothing should be tracking until a user asks for it");
 });
 
-// devtools is a declared dependent, but nothing stops a wiki being assembled
-// without it. Requiring it at load time aborted the whole tool map, because a
-// missing module exits the process on node — so every other tool went down
-// with inspect_pos. It must degrade to an error a user can act on instead.
-test("inspect_pos: without devtools it reports why, rather than taking the server down", () => {
-	const DEVTOOLS_UTILS = "$:/plugins/wikilabs/devtools/utils.js";
-	const registered = tw.modules.titles[DEVTOOLS_UTILS];
-	assert.ok(registered, "this edition must load devtools, or the test proves nothing");
-	delete tw.modules.titles[DEVTOOLS_UTILS];
-	try {
-		const result = inspectPos({ text: "a [[Link]]", context: "Doc" });
-		assert.equal(result.isError, true);
-		assert.match(result.content[0].text, /devtools/, "the message must name the plugin to add");
-	} finally {
-		tw.modules.titles[DEVTOOLS_UTILS] = registered;
-	}
-	// And it works again once devtools is back.
-	assert.equal(inspectPos({ text: "a [[Link]]", context: "Doc" }).isError, undefined);
+test("inspect_pos: leaves devtools' patches in place", () => {
+	const LinkWidget = tw.modules.execute("$:/core/modules/widgets/link.js").link;
+	const renderLink = LinkWidget.prototype.renderLink;
+	const holders = tw.wikilabsSourcePos.holders;
+	inspectPos({ text: "see [[Alpha]] here", context: "Doc" });
+	assert.equal(LinkWidget.prototype.renderLink, renderLink);
+	assert.equal(tw.wikilabsSourcePos.holders, holders, "devtools still holds the patches after the call");
 });
 
 test("inspect_pos: a call leaves source-position tracking as it found it", () => {
