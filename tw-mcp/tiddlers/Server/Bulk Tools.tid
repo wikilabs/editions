@@ -1,5 +1,5 @@
 created: 20260512075856505
-modified: 20260918234607569
+modified: 20260919135535311
 tags: Server
 title: Bulk Tools
 
@@ -74,7 +74,7 @@ Apply one or more find+replace rules across many tiddlers in one MCP call. Defau
 
 |! Field |! Default |! Meaning |
 |`pattern` |required |find pattern (literal by default; regex when `regexp=true`) |
-|`replacement` |required |replacement string. Supports JS backrefs `$1..$9`, `$&`, `$$` when `regexp=true`. |
+|`replacement` |required |replacement string, inserted as is. With `regexp=true` the JS backrefs `$1..$9`, `$&` and `$$` expand. |
 |`regexp` |`false` |treat pattern as regex |
 |`case_sensitive` |`false` |case-sensitive match (default is case-insensitive) |
 |`words` |`false` |wrap pattern with `\b` word boundaries |
