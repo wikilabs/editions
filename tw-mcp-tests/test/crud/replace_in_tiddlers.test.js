@@ -77,6 +77,19 @@ test("replace_in_tiddlers: regexp flag enables JS backrefs", () => {
 	}
 });
 
+test("replace_in_tiddlers: a literal rule inserts its replacement as written, $ patterns included", () => {
+	seed();
+	try {
+		const rule = { pattern: "alpha", replacement: "$& ($$) $1" };
+		const preview = replaceInTiddlers({ rules: [rule], filter: "[[" + PROBE_TITLE_2 + "]]" });
+		assert.match(preview.content[0].text, /\+ .*\$& \(\$\$\) \$1 solo/);
+		replaceInTiddlers({ rules: [rule], filter: "[[" + PROBE_TITLE_2 + "]]", dry_run: false });
+		assert.equal($tw.wiki.getTiddler(PROBE_TITLE_2).fields.text, "$& ($$) $1 solo");
+	} finally {
+		cleanup();
+	}
+});
+
 test("replace_in_tiddlers: empty rules array -> error", () => {
 	const result = replaceInTiddlers({ rules: [] });
 	assert.equal(result.isError, true);
