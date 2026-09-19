@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260919140526132
+modified: 20260919143810342
 tags: Server
 title: Instructions
 
@@ -326,8 +326,6 @@ Renders wikitext to HTML with compact position attributes and a title index head
 |`context` |no |Context tiddler (sets `currentTiddler`) |
 
 Use the output with `inspect_scope` to examine variables at specific positions.
-
-> ''Note:'' `inspect_pos` needs the `wikilabs/devtools` plugin. See the prerequisites in [[Source Position Tracking]].
 
 ''Example prompts:''
 

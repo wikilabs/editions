@@ -1,5 +1,5 @@
 created: 20260403162850006
-modified: 20260919141913108
+modified: 20260919143811469
 tags: TOC
 title: Installation
 
@@ -58,7 +58,7 @@ Add both plugins to the `plugins` list in your wiki's `tiddlywiki.info`. `wikila
 ]
 ```
 
-Optional: add `wikilabs/devtools` as well if you want the `inspect_pos` tool. See [[Source Position Tracking]].
+Optional: add `wikilabs/devtools` for browser tooltips and a context menu that trace rendered elements to their source. See [[Source Position Tracking]].
 
 !!! 4. Verify
 
