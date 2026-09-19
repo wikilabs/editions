@@ -2,7 +2,7 @@
 
 const { test, before } = require("node:test");
 const assert = require("node:assert");
-const { bootTw, loadHandler } = require("../setup");
+const { bootTw, loadHandler, cleanupTiddler } = require("../setup");
 
 const HANDLER_TITLE = "$:/core/modules/commands/inspect/handlers/query/search_lines.js";
 
@@ -10,12 +10,36 @@ const HANDLER_TITLE = "$:/core/modules/commands/inspect/handlers/query/search_li
 // the entire wiki (matches in shadow tiddlers would drown the assertions).
 const SCOPE = "[prefix[search_lines_]]";
 
-let searchLines;
+let $tw, searchLines;
 
 before(async () => {
-	const $tw = await bootTw();
+	$tw = await bootTw();
 	searchLines = loadHandler($tw, HANDLER_TITLE).search_lines;
 });
+
+// search_lines_cap_many: 15 adjacent lines holding "x"; search_lines_cap_one: one such line.
+function withCapFixture(fn) {
+	const titles = ["search_lines_cap_many", "search_lines_cap_one"];
+	$tw.wiki.addTiddler({ title: titles[0], text: Array.from({ length: 15 }, (v, i) => "x line " + (i + 1)).join("\n") });
+	$tw.wiki.addTiddler({ title: titles[1], text: "x alone" });
+	try {
+		return fn();
+	} finally {
+		titles.forEach((title) => cleanupTiddler($tw, title));
+	}
+}
+
+// Match lines shown per tiddler, keyed by title.
+function matchLinesPerTiddler(output) {
+	const counts = {};
+	for(const block of output.split("\n\n")) {
+		const lines = block.split("\n");
+		if(lines[0].startsWith("search_lines_")) {
+			counts[lines[0]] = lines.slice(1).filter((line) => /^ {2}\d+#/.test(line)).length;
+		}
+	}
+	return counts;
+}
 
 test("search_lines: literal match in text field", () => {
 	const result = searchLines({ pattern: "banana", filter: SCOPE });
@@ -130,8 +154,31 @@ test("search_lines: max_lines_per_tiddler cap truncates", () => {
 		max_lines_per_tiddler: 1
 	});
 	const text = result.content[0].text;
-	// One 'apple' match in search_lines_text, the second dropped, then continues into search_lines_caption.
-	assert.match(text, /truncated at \d+ matches/);
+	// search_lines_text holds 'apple' on lines one and four; the cap keeps the first.
+	assert.match(text, /1 line matched in 1 tiddler/);
+	assert.match(text, /truncated: 1 tiddler cut at max_lines_per_tiddler=1/);
+});
+
+test("search_lines: a tiddler over max_lines_per_tiddler shows its first matches and the search goes on", () => {
+	withCapFixture(() => {
+		const text = searchLines({ pattern: "x", filter: "[prefix[search_lines_cap_]]" }).content[0].text;
+		assert.deepStrictEqual(matchLinesPerTiddler(text), { search_lines_cap_many: 10, search_lines_cap_one: 1 });
+		assert.match(text, /11 lines matched in 2 tiddlers/);
+		assert.match(text, /truncated: 1 tiddler cut at max_lines_per_tiddler=10/);
+	});
+});
+
+test("search_lines: max_lines_total stops the search inside a run of adjacent matches", () => {
+	withCapFixture(() => {
+		const text = searchLines({
+			pattern: "x",
+			filter: "[prefix[search_lines_cap_]]",
+			max_lines_per_tiddler: 20,
+			max_lines_total: 5
+		}).content[0].text;
+		assert.deepStrictEqual(matchLinesPerTiddler(text), { search_lines_cap_many: 5 });
+		assert.match(text, /truncated at 5 matches/);
+	});
 });
 
 test("search_lines: no matches returns '(no matches)'", () => {
