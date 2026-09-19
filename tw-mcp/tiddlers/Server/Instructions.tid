@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260919134455249
+modified: 20260919140526132
 tags: Server
 title: Instructions
 
@@ -345,7 +345,7 @@ Inspects the variable scope at a specific source position in rendered wikitext. 
 |`context` |no |Context tiddler (sets `currentTiddler`) |
 |`match` |no |Match widget by variable values to disambiguate repeated positions (e.g. `{"currentTiddler": "Quick Start: Desktop"}`) |
 |`filter` |no |Only show variables matching this substring |
-|`limit` |no |Max variables to show (default: 20) |
+|`limit` |no |Max variables listed, innermost first; a `+N more` line counts the rest (default: all) |
 |`all` |no |Set to `true` to show all variables |
 |`renderContext` |no |`isolated` (default), `viewtemplate` (as in the story river) or `root` (page template context) |
 
