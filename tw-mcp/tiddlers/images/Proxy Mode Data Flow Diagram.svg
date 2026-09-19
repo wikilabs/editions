@@ -178,8 +178,8 @@
   <!-- Readonly blocked detail -->
   <rect x="440" y="610" width="370" height="60" rx="4" fill="#fff5f0" stroke="#c44" stroke-width="1" stroke-dasharray="4,3"/>
   <text x="455" y="630" fill="#c44" font-weight="bold" font-size="11">Readonly block (C)</text>
-  <text x="455" y="646" fill="#333" font-size="10">put_tiddler, delete_tiddler,</text>
-  <text x="455" y="660" fill="#333" font-size="10">save_wiki_folder, build_wiki, upload_file</text>
+  <text x="455" y="646" fill="#333" font-size="10">every tool whose definition is marked write,</text>
+  <text x="455" y="660" fill="#333" font-size="10">the same set E strips: getWriteToolNames()</text>
 
   <!-- Startup note -->
   <rect x="40" y="684" width="770" height="56" rx="4" fill="#fffdf0" stroke="#886" stroke-width="1"/>
