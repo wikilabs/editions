@@ -37,9 +37,10 @@ function findTwBoot() {
 const TW_BOOT_PATH = findTwBoot();
 
 // options.ownFolder boots a copy of the edition, for a test file that writes tiddler files while
-// other test files boot this folder in parallel (bead tw-mcp-server-v9m).
+// other test files boot this folder in parallel (bead tw-mcp-server-v9m). options.wikiPath boots
+// a folder the test built itself.
 function bootTw(options) {
-	const wikiPath = options && options.ownFolder ? copyEdition() : EDITION_PATH;
+	const wikiPath = (options && options.wikiPath) || (options && options.ownFolder ? copyEdition() : EDITION_PATH);
 	const $tw = require(TW_BOOT_PATH).TiddlyWiki();
 	$tw.boot.argv = [wikiPath];
 	return new Promise((resolve, reject) => {
