@@ -1,5 +1,5 @@
 created: 20260407134700000
-modified: 20260510170122111
+modified: 20260918235101313
 tags: Basics
 title: Single-File Import
 
@@ -7,33 +7,65 @@ title: Single-File Import
 
 If you have a TiddlyWiki as a single HTML file and want to migrate it into a node.js folder served by the MCP server, the import is driven by two write tools: `import_html_wiki` and `extract_html_wiki`. There is no special command-line flag — the server runs normally and the AI assistant orchestrates the import at runtime.
 
-!! What you need
+!! Prerequisites
 
-# A wiki folder with the tw-mcp plugin installed (see [[Installation]])
+<div class="tc-message-box">
+
+# The tw-mcp plugins, set up as in [[Installation]]
+# A fresh wiki folder, `./mywiki` below, with both tw-mcp plugins in its `tiddlywiki.info`
+# A `.mcp.json` in `./mywiki` that starts the server in `readwrite` mode, and your MCP client started from that folder
 # Your single-file TiddlyWiki HTML file
-# An MCP client (Claude Code, Gemini CLI, etc.) connected to the running server
 
-If you don't have a wiki folder yet:
+Both import tools write. A server without `readwrite` does not offer them at all.
+
+</div>
+
+!!! The wiki folder
+
+If you don't have one yet:
 
 ```
 tiddlywiki ./mywiki --init server
 ```
 
-Then edit `./mywiki/tiddlywiki.info` to include the tw-mcp plugin. The file should look like this:
+Then add the two tw-mcp plugins to the `plugins` list in `./mywiki/tiddlywiki.info`. Both are needed: `wikilabs/tw-mcp` depends on `wikilabs/tw-mcp-core`, and TiddlyWiki does not load a dependency by itself.
+
+```json
+"plugins": [
+	"tiddlywiki/tiddlyweb",
+	"tiddlywiki/filesystem",
+	"tiddlywiki/highlight",
+	"wikilabs/tw-mcp-core",
+	"wikilabs/tw-mcp"
+]
+```
+
+Start from a fresh folder. The import refuses to run while another import is pending, or once `tiddlers/` holds `.tid` files ''and'' a `$:/config/FileSystemPaths` tiddler exists, which is the state an earlier import leaves behind.
+
+!!! The `.mcp.json` file
+
+Create `./mywiki/.mcp.json`:
 
 ```json
 {
-  "plugins": [
-    "tiddlywiki/tiddlyweb",
-    "tiddlywiki/filesystem",
-    "wikilabs/tw-mcp"
-  ]
+	"mcpServers": {
+		"tiddlywiki": {
+			"type": "stdio",
+			"command": "tiddlywiki",
+			"args": [
+				".",
+				"--mcp",
+				"readwrite",
+				"label=tw-mcp"
+			]
+		}
+	}
 }
 ```
 
-See [[Installation]] for how to get the plugin and set up `TIDDLYWIKI_PLUGIN_PATH`.
+Your MCP client starts this server itself. Once the server from Step 1 runs, it hands every call on to that one, so the import lands in the wiki your browser shows.
 
-The wiki folder must be ''empty'' — no `.tid` files in `tiddlers/` and no `$:/config/FileSystemPaths` yet. The import refuses to run against a populated folder.
+`.mcp.json` is Claude Code's file. Other clients take the same command and arguments in their own configuration.
 
 !! Step 1: Start a normal server
 
@@ -41,15 +73,17 @@ The wiki folder must be ''empty'' — no `.tid` files in `tiddlers/` and no `$:/
 tiddlywiki ./mywiki --mcp rw sse port=9090
 ```
 
-This starts a normal MCP server with HTTP + Server-Sent Events push (`sse` implies `listen`), against an empty wiki. Browse to `http://localhost:9090` to see the empty wiki, and connect your MCP client. SSE makes the proposed-structure tiddler appear in your browser within ~1s of the import call without a manual refresh — see [[SSE Sync]].
+This starts a normal MCP server with HTTP + Server-Sent Events push (`sse` implies `listen`), against an empty wiki. Browse to `http://localhost:9090` to see the empty wiki, then start your MCP client from `./mywiki`. SSE makes the proposed-structure tiddler appear in your browser within ~1s of the import call without a manual refresh (see [[SSE Sync]]).
 
 !! Step 2: Stage the import
 
 Ask your AI assistant to import the file, e.g. ''"Import the wiki at ~/Downloads/my-wiki.html"''. The assistant calls:
 
 ```
-import_html_wiki(path="~/Downloads/my-wiki.html")
+import_html_wiki(path="/home/me/Downloads/my-wiki.html")
 ```
+
+The server does not expand `~`, so the assistant passes the absolute path.
 
 The `path` can point anywhere on disk that the server process can read. As a defence-in-depth, paths whose directory or filename segments start with `.` (e.g. `~/.config/x.html`) are refused — those locations are conventionally home to secrets and have no legitimate role as a single-file wiki source.
 
@@ -59,7 +93,7 @@ This:
 # Loads them into memory so your wiki is immediately usable in the browser
 # Classifies tiddlers (content, system, library plugins, custom plugins, ignored boot/core)
 # Adds standard plugins to `tiddlywiki.info` by name (they don't need to be extracted)
-# Analyses tags and title prefixes to propose rules for `$:/config/FileSystemPaths`
+# Analyses tags and title prefixes and writes the proposed rules to `$:/config/FileSystemPaths`, where you can edit them
 # Writes the analysis to `$:/temp/mcp/html-import` and a human-readable summary to `Import — Proposed Folder Structure`
 # Sets `Import — Proposed Folder Structure` as the default tiddler so it opens in the browser
 
@@ -86,7 +120,7 @@ This means:
 * Tiddlers with titles like "Recipes/Pasta" keep their natural folder structure
 * Everything else stays in the `tiddlers/` root
 
-Tag names with special characters (spaces, parentheses, dots, etc.) are normalised for folder names: spaces become `-`, runs of other non-alphanumeric characters collapse to a single `_`, and leading/trailing separators are trimmed. For example, the tag `Higher Caloric Value (H.C.V.)` becomes the folder `higher-caloric-value-h_c_v`.
+Tag names are lowercased and normalised for folder names: spaces become `-`, runs of any other character outside `a-z`, `0-9` and `-` collapse to a single `_`, and leading/trailing separators are trimmed. For example, the tag `Higher Caloric Value (H.C.V.)` becomes the folder `higher-caloric-value-_h_c_v`.
 
 For full details see the [[TiddlyWiki documentation|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]].
 
@@ -106,7 +140,7 @@ Tell the assistant to proceed. It calls:
 extract_html_wiki()
 ```
 
-The extract tool reads the current `$:/config/FileSystemPaths` from the wiki — so any edits you made in the browser are respected — and writes the staged tiddlers to `.tid` files under `tiddlers/`.
+The extract tool reads the current `$:/config/FileSystemPaths` from the wiki (so any edits you made in the browser are respected) and writes the staged tiddlers to files under `tiddlers/`: wikitext tiddlers as `.tid`, other types (JavaScript, CSS, plugins) as a native file plus a `.meta` file.
 
 !! Step 5: Restart once
 
@@ -129,5 +163,5 @@ Your wiki folder is now a standard TiddlyWiki node.js edition. You can:
 Your single-file wiki likely includes plugins (like the CodeMirror editor or a theme). The import handles them automatically:
 
 * ''Standard plugins'' (ones that ship with TiddlyWiki) are added to `tiddlywiki.info` by name — they don't need to be extracted as tiddlers; TW loads them from its plugin path on boot
-* ''Custom plugins'' (3rd-party plugins not in your local plugin path) are written to disk as single `.tid` files — one tiddler per plugin, not exploded into separate sub-tiddlers. TW unpacks them automatically on next boot
+* ''Custom plugins'' (any plugin that does not ship with TiddlyWiki and is not already in your `tiddlywiki.info`, even one your `TIDDLYWIKI_PLUGIN_PATH` could load) are written to disk as one `.json` file plus a `.json.meta` file per plugin, not exploded into separate sub-tiddlers. TW unpacks them automatically on next boot
 * ''Core and boot tiddlers'' are skipped entirely — they're part of TiddlyWiki itself

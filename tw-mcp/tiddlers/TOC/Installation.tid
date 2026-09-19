@@ -1,5 +1,5 @@
 created: 20260403162850006
-modified: 20260510170745260
+modified: 20260918234633851
 tags: TOC
 title: Installation
 
@@ -11,9 +11,9 @@ title: Installation
 
 !! Plugin Setup
 
-The `wikilabs/tw-mcp` plugin is not part of TiddlyWiki core. You need to download it and tell TiddlyWiki where to find it.
+tw-mcp comes as two plugins, `wikilabs/tw-mcp` and `wikilabs/tw-mcp-core`, and neither is part of TiddlyWiki core. You need to download them and tell TiddlyWiki where to find them.
 
-!!! 1. Get the plugin
+!!! 1. Get the plugins
 
 ''Option A — with git:''
 
@@ -47,19 +47,20 @@ set TIDDLYWIKI_PLUGIN_PATH=C:\path\to\your\plugins
 
 The path must point to the directory that ''contains'' the `wikilabs/` folder (not to `wikilabs/` itself).
 
-!!! 2. Add the plugin to your wiki
+!!! 3. Add the plugins to your wiki
 
-In your wiki's `tiddlywiki.info` file, add the plugin:
+Add both plugins to the `plugins` list in your wiki's `tiddlywiki.info`. `wikilabs/tw-mcp` depends on `wikilabs/tw-mcp-core`, and TiddlyWiki does not load a dependency by itself.
 
 ```json
-{
-  "plugins": [
-    "wikilabs/tw-mcp"
-  ]
-}
+"plugins": [
+	"wikilabs/tw-mcp-core",
+	"wikilabs/tw-mcp"
+]
 ```
 
-!!! 3. Verify
+Optional: add `wikilabs/devtools` as well if you want the `inspect_pos` tool. See [[Source Position Tracking]].
+
+!!! 4. Verify
 
 Run from your wiki directory:
 
@@ -68,12 +69,17 @@ cd /your/wiki/dir
 tiddlywiki . --mcp
 ```
 
-If the plugin is not found, you will see:
+If it works, you see a line containing `Server started as PRIMARY`, and the server then waits for an MCP client on stdin. Stop it with Ctrl+C.
 
+If TiddlyWiki cannot find the plugins, you will see:
+
+> ''Warning: Cannot find plugin 'wikilabs/tw-mcp-core' ''
 > ''Warning: Cannot find plugin 'wikilabs/tw-mcp' ''
 > ''Error: Unknown command: mcp''
 
 Double-check that `TIDDLYWIKI_PLUGIN_PATH` is set correctly.
+
+If the server stops with `Cannot find module '$:/core/modules/commands/inspect/...'`, `wikilabs/tw-mcp-core` is missing from the `plugins` list.
 
 !! Claude Code Configuration
 
@@ -81,13 +87,25 @@ Add a `.mcp.json` file to your wiki directory:
 
 ```json
 {
-  "mcpServers": {
-    "tiddlywiki": {
-      "type": "stdio",
-      "command": "tiddlywiki",
-      "args": [".", "--mcp", "label=claude"]
-    }
-  }
+	"mcpServers": {
+		"tiddlywiki": {
+			"type": "stdio",
+			"command": "tiddlywiki",
+			"args": [
+				".",
+				"--mcp",
+				"readwrite",
+				"label=tw-mcp"
+			],
+			"alwaysAllow": [
+				"mcp__tiddlywiki__get_tiddler",
+				"mcp__tiddlywiki__list_tiddlers",
+				"mcp__tiddlywiki__run_filter",
+				"mcp__tiddlywiki__render_tiddler",
+				"mcp__tiddlywiki__get_wiki_info"
+			]
+		}
+	}
 }
 ```
 
@@ -99,16 +117,28 @@ Instead of a global environment variable, you can set `TIDDLYWIKI_PLUGIN_PATH` p
 
 ```json
 {
-  "mcpServers": {
-    "tiddlywiki": {
-      "type": "stdio",
-      "command": "tiddlywiki",
-      "args": [".", "--mcp", "label=claude"],
-      "env": {
-        "TIDDLYWIKI_PLUGIN_PATH": "/path/to/your/plugins"
-      }
-    }
-  }
+	"mcpServers": {
+		"tiddlywiki": {
+			"type": "stdio",
+			"command": "tiddlywiki",
+			"args": [
+				".",
+				"--mcp",
+				"readwrite",
+				"label=tw-mcp"
+			],
+			"env": {
+				"TIDDLYWIKI_PLUGIN_PATH": "/path/to/your/plugins"
+			},
+			"alwaysAllow": [
+				"mcp__tiddlywiki__get_tiddler",
+				"mcp__tiddlywiki__list_tiddlers",
+				"mcp__tiddlywiki__run_filter",
+				"mcp__tiddlywiki__render_tiddler",
+				"mcp__tiddlywiki__get_wiki_info"
+			]
+		}
+	}
 }
 ```
 
