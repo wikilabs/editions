@@ -1,5 +1,5 @@
 created: 20260510153200000
-modified: 20260510153200000
+modified: 20260918234710056
 tags: [[Inspect Docs]]
 title: 02 Trace nested macros
 
@@ -27,7 +27,7 @@ So if you want to change the table layout, edit `Templates/Stats`. If you want t
 
 `inspect_pos` annotates each rendered node with a ''caller chain'' attribute `c="A|B|C"`, listing the enclosing transcludes from closest to outermost. Combined with `v="..."` (the procedure that produced the node) and the title-map header, the AI can reconstruct the exact path:
 
-* `c="show-dashboard|Dashboard"` on the `<table>` element
+* `c="Templates/Dashboard|Dashboard"` on the `<table>` element
 * `v="render-stats-table"` on the same node
 * title-map maps the indices in `p=` back to tiddler names
 

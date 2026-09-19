@@ -1,5 +1,5 @@
 created: 20260512075602709
-modified: 20260512075602709
+modified: 20260918234642151
 tags: [[Bulk Docs]]
 title: Read several tiddlers at once
 
@@ -22,7 +22,6 @@ tags: Server
 1#XK: !! Best Practices for Working with AI via MCP
 2#MV: 
 3#JY: This guide helps you get the most out of the TiddlyWiki MCP server ...
-
 +
 title: Inspect Tools
 tags: Server

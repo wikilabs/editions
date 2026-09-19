@@ -1,5 +1,5 @@
 created: 20260916121834029
-modified: 20260916183903141
+modified: 20260918234608059
 tags: LSP
 title: LSP Configuration
 
@@ -7,11 +7,12 @@ title: LSP Configuration
 
 The VS Code extension starts the wiki's LSP server itself, as a child of the window, and stops it when the window closes. It picks the wiki in this order:
 
-# A workspace folder whose `tiddlywiki.info` has an `lsp` section
+# The `tiddlywiki.lsp.port` setting, when set: the extension connects to that port and starts nothing
+# A workspace folder whose `tiddlywiki.info` has an `lsp` section with `"autostart": true`
 # The `tiddlywiki.lsp.wiki` setting
-# A wiki already running with `--lsp`, found through its `.tw-mcp/lsp` file, or the `tiddlywiki.lsp.port` setting
+# A wiki already running with `--lsp`, found through its `.tw-mcp/lsp` file
 
-The first two run a command from the workspace, so they only happen in a trusted workspace. When nothing is found, the log says how to name a wiki, and a wiki started later with `--lsp` is still picked up.
+The second and third run a command from the workspace, so they only happen in a trusted workspace. When nothing is found, the log says how to name a wiki, and a wiki started later with `--lsp` is still picked up.
 
 !!! The lsp section of tiddlywiki.info
 

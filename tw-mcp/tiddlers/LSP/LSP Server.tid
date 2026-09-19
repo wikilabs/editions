@@ -1,11 +1,11 @@
 created: 20260909121537237
-modified: 20260917120253266
+modified: 20260918234612148
 tags: LSP
 title: LSP Server
 
 !! Serving an editor from the running wiki
 
-`--lsp` starts a Language Server Protocol server inside a TiddlyWiki process. It is read only: it answers questions about the wiki and never writes to it.
+`--lsp` starts a Language Server Protocol server inside a TiddlyWiki process. It is read only: it answers questions about the wiki and never writes a tiddler, though it reads in each `.tid` the editor saves.
 
 !!! Starting
 
@@ -15,7 +15,7 @@ Usually your editor starts it: the VS Code extension runs the wiki's own LSP ser
 tiddlywiki ./mywiki --lsp
 ```
 
-The server listens on `127.0.0.1:6009`, or on a free port when 6009 is taken, and records the port in `.tw-mcp/lsp` in the wiki folder, where an editor finds it.
+The server listens on `127.0.0.1:6009`, or on a free port when 6009 is taken, and records the port in `.tw-mcp/lsp` where an editor finds it: in the wiki folder, or for a wiki that includes others, in the first one its `includeWikis` names.
 
 |! Parameter |! Default |! Meaning |
 |`port=<n>` |6009 |TCP port to listen on. A port given here is not replaced when taken; `port=0` asks for any free one |
@@ -38,7 +38,7 @@ Typing `[[` or `{{`, or the value of a widget attribute that takes a title such 
 
 System tiddlers stay out of the list until the prefix starts with `$:/`, which also reaches shadow tiddlers.
 
-Matching is by prefix and ignores case, from the first character typed. See [[LSP Capabilities]] for the exact rules.
+Matching is by prefix and ignores case, from the first character typed. See [[LSP Completion]] for the exact rules.
 
 !!! Diagnostics
 

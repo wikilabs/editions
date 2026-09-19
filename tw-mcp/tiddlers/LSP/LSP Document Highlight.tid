@@ -1,5 +1,5 @@
 created: 20260910182113698
-modified: 20260910182113698
+modified: 20260918234620081
 tags: [[LSP Capabilities]]
 title: LSP Document Highlight
 
@@ -11,6 +11,6 @@ Put the cursor on a name and every place in the tiddler where it means the same 
 * on a definition's name or a call: the definition and every call in the tiddler that reaches it, as the wiki resolves them
 * on a name defined elsewhere: every call of it in the tiddler
 
-A nested definition and a parameter of the same name are different names, so each lights up on its own. A call written in a `.tid` header field is rendered somewhere else, out of reach of the tiddler's own definitions, so it lights up alone.
+A nested definition and a parameter of the same name are different names, so each lights up on its own. A call written in a `.tid` header field is rendered somewhere else, out of reach of the tiddler's own definitions, so it lights up only with calls that also reach outside the tiddler.
 
 Only the tiddler on screen is read, since the editor asks on every cursor move.

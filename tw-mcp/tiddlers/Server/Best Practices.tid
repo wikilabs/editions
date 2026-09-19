@@ -1,5 +1,5 @@
 created: 20260404170157073
-modified: 20260609210542825
+modified: 20260918234559338
 tags: Server
 title: Best Practices
 
@@ -31,6 +31,8 @@ The AI selects tools based on your wording. These keywords help it choose correc
 |`list_tiddlers` |list, browse, what tiddlers, show all, tagged with |
 |`run_filter` |find, search, filter, how many, which, count, match |
 |`search_lines` |grep, find lines, search for text in, regex search, lines matching |
+|`find_calls` |where is ... called, who uses, call sites, references to |
+|`find_definition` |where is ... defined, definition of, what implements |
 |`render_tiddler` |render, display, what does ... look like, preview |
 |`render_text` |render this wikitext, test snippet, evaluate, try this |
 |`render_field` |render field, preview field, show body, render index |
@@ -99,9 +101,9 @@ Use version control (git) or make a copy before letting an AI make bulk changes.
 
 When the AI lists tiddlers it wants to modify, review the list before agreeing. For bulk operations, the AI is instructed to ask for confirmation first.
 
-!!! System tiddlers are protected
+!!! System tiddlers are left alone by default
 
-The AI will not fetch or modify `$:/` system tiddlers unless you explicitly ask for them by name. This protects your wiki configuration from accidental changes.
+The server instructs the AI to exclude `$:/` system tiddlers from its filters unless you ask for them. This is guidance, not a lock: the write tools do not refuse a `$:/` title, so review any change to one.
 
 !! Conflict Detection
 
@@ -109,6 +111,6 @@ When using `edit_tiddler`, conflicts are detected automatically via hash validat
 
 * The edit is ''rejected'' (not silently overwritten)
 * The error shows which lines changed with updated hash references
-* You can re-read and retry, or force-save with `put_tiddler`
+* You can re-read and retry, or force-save with `put_tiddler` and `overwrite=true` (without it, an existing title gets a numbered copy such as `MyTiddler 1`)
 
 This is especially valuable when using `--mcp sse` (or `listen`) with a browser open — browser edits and AI edits can't silently overwrite each other. See [[SSE Sync]] for the live push transport that makes this near-instant.

@@ -1,5 +1,5 @@
 created: 20260322050000000
-modified: 20260917205303740
+modified: 20260918234749107
 tags: [[Developer Documentation]]
 title: Source Position Tracking
 type: text/vnd.tiddlywiki
@@ -12,7 +12,7 @@ TiddlyWiki's MCP server can trace every rendered HTML element back to the exact 
 
 <div class="tc-message-box">
 
-These tools need the `wikilabs/devtools` plugin. It owns the widget patches and the hooks that both the browser view and `inspect_pos` read, and `tw-mcp-core` declares it a dependent.
+`inspect_pos` needs the `wikilabs/devtools` plugin. It owns the widget patches and the hooks that both the browser view and `inspect_pos` read, and `tw-mcp-core` declares it a dependent.
 
 Without it the server still starts and every other MCP tool keeps working. Only `inspect_pos` refuses, with an error naming the plugin to add.
 
@@ -68,17 +68,17 @@ The devtools browser plugin also stores `data-range` (combined start,end char po
 
 Use `inspect_pos` with the `Quick Start` tiddler's wikitext and `context` set to `Quick Start`.
 
-In MCP output, the button will have: `p="1:81-84"` (where `1=$:/cards/procedures` in the title index)
+In MCP output, the button will have: `p="1:81-83"` (where `1=$:/cards/procedures` in the title index)
 
 !!! Step 2: Examine the source
 
-The position tells us the button is defined in `$:/cards/procedures` at lines 81–84 — the `flex-card-body` procedure's button section:
+The position tells us the button is defined in `$:/cards/procedures` at lines 81-83, the `tc-card-button` div inside the `<%if%>` of the `flex-card-body` procedure:
 
 ```
 <%if [all[current]has[button-text]] %>
-    <div class="tc-card-button" ...>
-        <$text text={{!!button-text}}/>&#32;{{$:/core/images/chevron-right}}
-    </div>
+	<div class="tc-card-button" ...>
+		<$text text={{!!button-text}}/>&#32;{{$:/core/images/chevron-right}}
+	</div>
 <%endif%>
 ```
 
@@ -104,14 +104,13 @@ The `wikilabs/devtools` plugin (formerly `sourcepos`) adds source position track
 
 * ''Hover'' — tooltip showing source position, context, and caller chain
 * ''Right-click'' — context menu with copy options, navigation, source viewer, and optional edit features
-* ''Ctrl+click'' — navigate directly to the source tiddler
 * ''Ctrl+right-click'' — native browser context menu (passthrough)
 
 !!! Enabling
 
 Set `$:/config/wikilabs/SourcePositionTracking` to `yes` in your wiki, or use the checkbox in Control Panel → Settings → WikiLabs. The plugin is available from the wikilabs plugin library.
 
-Save and reload the page for the setting to take effect. The tracking hooks run at startup, so a page reload is required after changing this setting.
+The setting applies at once to content rendered afterwards. Tiddlers already on screen keep their old markup until they re-render, so save and reload the page to trace everything.
 
 !!! Context Menu
 
@@ -131,7 +130,7 @@ A floating panel that accumulates source code entries. Click the eye icon to add
 * ''Full procedure display'' — automatically shows the entire `\procedure`/`\define` definition, not just the selected snippet
 * ''Edit button'' — each entry header has an edit icon to jump to the source in the tiddler editor
 * ''Remove'' — remove individual headers (×) or use "Clear" to remove all entries
-* ''Draggable and resizable'' — layout is stored in `$:/temp/sourcepos/viewer-layout`
+* ''Draggable and resizable'': size and position are kept in memory, not in a tiddler
 
 !!! How It Works
 
@@ -152,19 +151,19 @@ Browser DOM (devtools):
 
 ```
 <p data-pos="L10 @ Quick Start">...</p>
-  <div data-pos="L47-L86 @ $:/cards/procedures">...</div>
-    <div data-pos="L64-L65 @ $:/cards/procedures">Title</div>
-    <p data-pos="L10 @ Quick Start: Desktop">Description</p>
+	<div data-pos="L47-L85 @ $:/cards/procedures">...</div>
+		<div data-pos="L64 @ $:/cards/procedures">Title</div>
+		<p data-pos="L10 @ Quick Start: Desktop">Description</p>
 ```
 
 MCP output (compact):
 
 ```
-[0=Quick Start 1=$:/cards/procedures 2=Quick Start: Desktop]
+[0=Quick Start 1=$:/cards/procedures 2=Quick Start: Tiddlyhost 3=Quick Start: Desktop 4=Quick Start: DIY 5=Quick Start: Xememex]
 <p p="0:10">...</p>
-  <div p="1:47-86">...</div>
-    <div p="1:64-65">Title</div>
-    <p p="2:10">Description</p>
+	<div p="1:47-85">...</div>
+		<div p="1:64">Title</div>
+		<p p="3:10">Description</p>
 ```
 
 Note: SVG elements are stripped of position data in MCP output.
@@ -174,7 +173,7 @@ This shows that:
 * The paragraph comes from `Quick Start` (the top-level tiddler)
 * The card structure comes from `$:/cards/procedures` (the `flex-card-body` procedure)
 * The description comes from `Quick Start: Desktop` (transcluded field)
-* The icon comes from `$:/core/images/globe` (a system tiddler)
+* The card icon's `<svg>` comes from the tiddler in the item's `icon` field (`$:/core/images/storyview-zoomin` for Desktop). The browser shows its position; MCP output strips it.
 
 !! Disambiguating List Items
 

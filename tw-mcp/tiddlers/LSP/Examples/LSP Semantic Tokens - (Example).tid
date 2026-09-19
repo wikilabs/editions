@@ -1,5 +1,5 @@
 created: 20260917164121286
-modified: 20260917164121286
+modified: 20260918234639230
 tags: [[LSP Semantic Tokens]]
 title: LSP Semantic Tokens - (Example)
 
@@ -7,7 +7,7 @@ title: LSP Semantic Tokens - (Example)
 <$let lsp.st.mood="happy">Hello <<who>>, <<lsp.st.mood>> at <<now>></$let>
 \end
 
-Open this tiddler's `.tid` file in your editor. With VS Code's defaults, core names are italic and definitions bold. Turn the `tiddlywiki.lsp.semanticColors` settings on one by one to see each kind of name in colour.
+Open this tiddler's `.tid` file in your editor. With VS Code's defaults, core names are italic and definitions bold, and a name is sent with the type below only once its kind's colour is on: turn the `tiddlywiki.lsp.semanticColors` settings on one by one to see each kind in colour.
 
 <<lsp.st.greet who:"you">>
 

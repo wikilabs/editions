@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260916122011901
+modified: 20260918234631033
 tags: TOC
 title: Basics
 
@@ -31,7 +31,7 @@ To connect an AI client, see [[Installation]] for `.mcp.json` setup (Claude Code
 
 !! Filesystem Plugin
 
-The MCP server requires the `tiddlywiki/filesystem` plugin for disk persistence. The `--mcp` command ''auto-loads'' it if not already present in your `tiddlywiki.info` — no need to add `+plugins/tiddlywiki/filesystem` to your command line.
+MCP write tools save their `.tid` files themselves. Edits made in the browser (with `listen` or `sse`) reach disk only through the `tiddlywiki/filesystem` plugin, so list it in your `tiddlywiki.info` (the `server` edition does) or pass `+plugins/tiddlywiki/filesystem` before the wiki path. `get_wiki_info` shows `Filesystem: yes` when it is loaded.
 
 !! Transports
 
@@ -55,7 +55,7 @@ After takeover, `label=listen` is the primary and `label=claude` becomes a proxy
 
 !! Shared State
 
-When `--mcp` and `--listen` run in the same process, they expose shared state on `$tw`:
+When `--mcp listen` (or `sse`) runs the HTTP server in the same process, they expose shared state on `$tw`:
 
 * `$tw.mcp` — MCP server info: `pid`, `role`, `label`, `readonly`, `version`, `heartbeat()` (heartbeat output also includes `version` and `uptime`)
 * `$tw.httpServer` — HTTP server info: `server`, `nodeServer`, `heartbeat()`
@@ -64,7 +64,7 @@ Both are queryable via the `inspect_tw` tool. The `get_wiki_info` tool also repo
 
 !! Live Browser Sync
 
-When the HTTP server is running, tiddler changes can be pushed to the browser in real time via Server-Sent Events instead of the default 60s poll. Add the `sse` keyword (which implies `listen`) to enable:
+When the HTTP server is running, tiddler changes can be pushed to the browser in real time via Server-Sent Events instead of the 10-minute poll the plugin configures (`$:/config/SyncPollingInterval`). Add the `sse` keyword (which implies `listen`) to enable:
 
 ```
 tiddlywiki ./mywiki --mcp rw sse port=8080
@@ -74,10 +74,10 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 
 !! Safety Features
 
-* ''Metadata by default'' — tiddler queries return all fields except `text` to save tokens. Use `detailed=true` to include text content.
+* ''Metadata by default'': `get_tiddler` returns all fields except `text` to save tokens. Use `detailed=true` to include text content. `get_tiddlers` includes text unless `detailed=false`.
 * ''Token efficiency'' — tool results are returned as pre-formatted plain text, not JSON. This reduces token usage by ~3× compared to structured JSON responses.
 * ''Namespace summaries'' — large result sets are automatically grouped by prefix with counts, allowing progressive drill-down instead of flooding with thousands of titles.
-* ''System tiddler exclusion'' — system tiddlers (`$:/` prefix) and shadow tiddlers are excluded from results by default. They are only returned when explicitly requested.
+* ''System tiddler exclusion'': `list_tiddlers`, `search_lines`, `find_calls` and `replace_in_tiddlers` skip system tiddlers (`$:/` prefix) and shadow tiddlers unless asked. `find_definition` searches shadow tiddlers by default, since most definitions live in plugins.
 * ''Filter optimization'' — the AI is instructed to always put `!is[system]` first in filter expressions to reduce the working set early.
 * ''Overwrite protection'' — existing tiddlers are not overwritten unless explicitly confirmed. A new unique title is generated instead (like the ~TiddlyWiki ~CreateTiddler widget).
 * ''Readonly by default'' — the server starts in readonly mode. Use `--mcp rw` to enable write operations.
@@ -101,7 +101,7 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 |`render_tiddler` |render, display, preview |Render a tiddler to plain text or HTML (with full macro support) |
 |`render_text` |render wikitext, test, try |Render arbitrary wikitext with full context (macros, procedures, variables), or output the parse tree |
 |`render_field` |render field, preview field |Render a single tiddler field or data index as wikitext |
-|`inspect_tree` |widget tree, structure |Analyze the rendered widget tree: type counts, link targets, transclusion tracking |
+|`inspect_tree` |widget tree, structure |Analyze the rendered widget tree: type counts, link targets and a depth-limited JSON dump |
 |`inspect_pos` |where from, source, trace |Render wikitext to HTML with source position attributes tracing each element to its source tiddler and line range |
 |`inspect_scope` |variables, scope, params |Inspect the variable scope at a specific source position (procedure params, let bindings, globals) |
 |`inspect_tw` |inspect $tw, internal |Inspect TiddlyWiki's internal `$tw` object structure and function source code |
@@ -117,12 +117,12 @@ Browser tabs see changes within ~1s, which makes browser↔AI collaboration feel
 |`delete_tiddler` |delete, remove |Delete a tiddler and its file |
 |`rename_tiddler` |rename, move title |Rename a tiddler and its `.tid` file (cross-references not auto-updated) |
 |`resave_tiddler` |resave, relocate, reapply paths |Rewrite a tiddler's `.tid` file using the current `$:/config/FileSystemPaths`; preserves `modified`/`modifier` by default |
-|`reload_mcp_modules` |hot reload, reload plugin code, pick up edits |Re-read the tw-mcp plugin from disk and re-execute its JS modules without restarting the server (dev iteration tool) |
+|`reload_mcp_modules` |hot reload, reload plugin code, pick up edits |Re-read the tw-mcp and tw-mcp-core plugins from disk and re-execute their JS modules without restarting the server (dev iteration tool) |
 |`upload_file` |upload, attach, add image |Upload a base64-encoded binary file and create a canonical tiddler |
 |`save_wiki_folder` |export, save as folder |Export wiki as a folder structure |
 |`build_wiki` |build, export HTML |Render wiki as a single HTML file |
 |`import_html_wiki` |import, single-file wiki, stage import |Stage a single-file HTML wiki for review (load to memory, propose `FileSystemPaths`); pairs with `extract_html_wiki` |
-|`extract_html_wiki` |extract, commit import |Commit a staged HTML wiki import to disk as `.tid` files |
+|`extract_html_wiki` |extract, commit import |Commit a staged HTML wiki import to disk as tiddler files |
 
 For the full keyword list and prompt tips, see [[Best Practices]].
 
@@ -136,7 +136,7 @@ A standalone CLI tool for uploading binary files (PNG, JPG, GIF, PDF) to a runni
 node tw-upload.js photo.png --wiki ./wiki --title "My Photo" --tags "images"
 ```
 
-The MCP server must be running. See [[Upload Tool]] for details.
+The MCP server must be running in `rw` mode. See [[Upload Tool]] for details.
 
 For detailed usage of each tool, see [[Instructions]].
 

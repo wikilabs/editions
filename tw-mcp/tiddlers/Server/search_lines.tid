@@ -1,5 +1,5 @@
 created: 20260609210820067
-modified: 20260609211306785
+modified: 20260918234626549
 tags: Server
 title: search_lines
 
@@ -21,19 +21,21 @@ Per-line search across tiddler fields. Returns one entry per matching line, with
 |`context_after` |inherits `context` |lines after each match |
 |`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search |
 |`include_system` |`false` |convenience flag for $:/ tiddlers; ignored if `filter` is set |
+|`max_lines_per_tiddler` |`10` |cap on match lines per tiddler |
+|`max_lines_total` |`200` |cap on match lines overall; context lines are not counted |
+|`snippet_cap` |`200` |longer lines are shown windowed around the match; the anchor hash still covers the full line |
 
 !! Output format
 
-One line per emitted match or context line:
+Matches are grouped by tiddler, one indented line each:
 
 ```
-<title>:<field>:L<line>: <line text>
-<title>:<field>:c<line>: <line text>
+<title>
+  <line>#<hash>: <line text>
+  <field>:L<line>: <line text>
 ```
 
-`L` marks a match line, `c` marks a context line.
-
-When context windows from adjacent matches overlap or sit within one line of each other, they merge so each line is emitted at most once.
+A `text` field line carries the anchor that `edit_tiddler` takes as `pos`; other fields show `<field>:L<line>`. With context, context lines are prefixed `- `, overlapping windows merge so each line appears once, and `--` separates ranges that are not adjacent. Lines longer than `snippet_cap` are cut around the match. A footer counts match lines and tiddlers, such as `2 lines matched in 1 tiddler`, with a `(truncated ...)` line when a cap is hit. No match gives `(no matches)`.
 
 ''Multi-field array values'' (e.g. `tags`, `list`) are serialised via `$tw.utils.stringifyList` before matching, so the on-disk .tid form is what gets scanned (multi-word entries wrap in `[[...]]`). Other non-string field values are skipped silently.
 
@@ -67,7 +69,7 @@ search_lines(pattern="token", filter="[tag[Server]]")
 search_lines(pattern="[A-Z]+_tiddler", regexp=true)
 ```
 
-The last row demonstrates the MCP advantage: a `]`-bearing regex pattern works here but not in `[search-lines:regexp[...]]` (see [[search-lines Operator]] for the wikitext-side workaround).
+The last row demonstrates the MCP advantage: a `]`-bearing regex pattern works here but not as a literal operand of `[search-lines::regexp[...]]` (see [[search-lines Operator]] for the wikitext-side workaround).
 
 !! See also
 

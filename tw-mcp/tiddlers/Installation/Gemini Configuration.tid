@@ -1,5 +1,5 @@
 created: 20260403174658225
-modified: 20260403231000260
+modified: 20260918234650090
 tags: Installation
 title: Gemini Configuration
 
@@ -45,6 +45,6 @@ The above command generates or updates the `.gemini/settings.json` file with the
 Once connected, Gemini can:
 
 * Read and search tiddlers using filters.
-* Create, update, and delete tiddlers.
+* Create, update, and delete tiddlers, once `rw` follows `--mcp` in the arguments.
 * Render wikitext to HTML or plain text.
 * Inspect the internal $tw state and variable scopes.

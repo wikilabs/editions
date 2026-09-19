@@ -1,5 +1,5 @@
 created: 20260910105908298
-modified: 20260917005349062
+modified: 20260918234618970
 tags: [[LSP Capabilities]]
 title: LSP Completion
 
@@ -40,7 +40,7 @@ Where ~TiddlyWiki expects a name, the names it would reach from there are offere
 |`tag[` in a filter |the tags the wiki uses, each with how many tiddlers carry it; system tags once you type `$` |
 |an operand or suffix naming a field, as in `has[`, `sort[` or `field:` |the field names the wiki uses, each with how many tiddlers have it |
 
-A filter is recognised on its line: a filter attribute, a `{{{ }}}`, an `<%if%>` condition or a `\function` body. A call is read back across lines, so a `<$macrocall` spread over five lines is still offered its parameters. A literal operand, prose and a closed call offer nothing.
+A filter is recognised on any of its lines, read back to where it starts: a filter attribute or argument, a `{{{ }}}`, an `<%if%>` condition or a `\function` body. A call is read back across lines too, so a `<$macrocall` spread over five lines is still offered its parameters. A literal operand, prose and a closed call offer nothing.
 
 Which operands and suffixes name a tag or a field is read from each operator's code, how it uses its operand and suffix, so a plugin's operators are covered too.
 

@@ -1,5 +1,5 @@
 created: 20260508110000000
-modified: 20260510165329481
+modified: 20260918235107068
 tags: SSE
 title: SSE Sync
 
@@ -7,16 +7,16 @@ title: SSE Sync
 
 The stock `tiddlywiki/tiddlyweb` adaptor polls the server every 60 seconds and re-fetches the entire skinny tiddler list. With SSE sync enabled, the browser opens a Server-Sent Events stream to `/events` and receives a single push event whenever any tiddler is created, modified, or deleted. The 60-second poll is kept as a 10-minute fallback safety net.
 
-Result: edits in another browser tab, edits on disk via your editor, and edits from MCP tools all appear in the open wiki within ~1 second instead of after a full poll cycle.
+Result: edits in another browser tab and edits from MCP tools appear in the open wiki within ~1 second instead of after a full poll cycle. Edits made on disk follow once the server loads them: through `reload_tiddlers`, or right after the save when the editor runs the tw-mcp LSP linked to this server (see [[LSP and MCP]]).
 
 !! Activation
 
 Both halves live in the `wikilabs/tw-mcp` plugin. The split is at runtime, not at install time:
 
 # ''Server keyword'' `--mcp sse` — implies `listen` and additionally enables the `/events` endpoint. When active, the server writes the marker tiddler `$:/status/wikilabs/tw-mcp/sse-server-active = yes` into the wiki it serves (the `$:/status/` prefix keeps it from being persisted to disk).
-# ''Browser bootstrap'' — runs before the syncadaptor is selected. Reads the marker tiddler. If present (and `$:/config/wikilabs/tw-mcp/sse-enabled` is `yes`, the default), it clears tiddlyweb's `adaptorClass` so the SSE adaptor wins. Without the marker the bootstrap is a no-op and tiddlyweb's polling adaptor stays in charge.
+# ''Browser bootstrap'': runs before the syncadaptor is selected and reads the marker tiddler. If present (and `$:/config/wikilabs/tw-mcp/sse-enabled` is `yes`, the default), it wraps tiddlyweb's `adaptorClass` in an SSE subclass, so the syncer picks the SSE adaptor. Without the marker the bootstrap is a no-op and tiddlyweb's polling adaptor stays in charge.
 
-So if you run `--mcp listen` (no `sse`), the wiki behaves exactly like before this plugin existed — the SSE files are inert payload.
+So if you run `--mcp listen` (no `sse`), tiddlyweb's polling adaptor stays in charge, but it polls every 10 minutes, since the plugin's `$:/config/SyncPollingInterval` applies either way. The sidebar shows the SSE status dot in grey (inactive).
 
 !! Server: starting with SSE
 
@@ -45,7 +45,7 @@ To temporarily disable the SSE takeover (and let tiddlyweb's polling adaptor run
 
 !! Security model — bind to loopback only
 
-The `/events` stream is unauthenticated. Anyone who can open a TCP connection to the server's listen port receives every `tiddler-change` and `tiddler-delete` event the broadcaster emits — including the full inlined fields of each changed tiddler (anything ≤ 4 KiB by default). The same exposure applies to `/recipes/.../tiddlers/<title>` reads.
+The `/events` stream is unauthenticated. Anyone who can open a TCP connection to the server's listen port receives every `tiddler-change` and `tiddler-delete` event the broadcaster emits, including the full inlined fields of each changed tiddler (anything up to 32 KiB by default, see `sse-inline-threshold` below). The same exposure applies to `/recipes/.../tiddlers/<title>` reads.
 
 The plugin is therefore designed for ''localhost-trust'' deployments. ''Do not'' bind `tiddlywiki --mcp sse` to a non-loopback interface (`0.0.0.0`, a LAN address, a public address) without putting the server behind a reverse proxy that enforces authentication and TLS. Concrete checks before exposing the port:
 
@@ -61,16 +61,17 @@ The role-call routes (`/presenter/*`, `/main/*`, `/clients`) are bound to live E
 
 Every change becomes one of:
 
-* `event: tiddler-change` — `{title, revision, clientId, fields?}`. If the JSON-encoded tiddler is ≤ 4096 bytes, `fields` is inlined; otherwise the client fetches the body via the existing `loadTiddler()` round trip.
-* `event: tiddler-delete` — `{title, clientId}`.
-* `event: hello` — `{serverInstanceId, inlineThreshold, assignedClientId, mode, presenterClientId, presenterUsername, mainClientId, mainUsername}`. Sent on every connect. If `serverInstanceId` differs from the one the client saw last connect, the client triggers a full sync. `assignedClientId` is the server-issued per-connection identifier the browser must adopt for any subsequent role-call (see [[SSE Settings]]).
-* `event: cache-miss` — sent when a reconnecting client's `Last-Event-ID` is older than the ring-buffer tail (default 500 entries). The client falls back to a full sync.
+* `event: tiddler-change`: `{title, revision, clientId, fields?}`. If the JSON-encoded tiddler is at most `sse-inline-threshold` bytes (default 32768), `fields` is inlined; otherwise the client fetches the body via the existing `loadTiddler()` round trip.
+* `event: tiddler-delete`: `{title, clientId}`.
+* `event: hello`: `{serverInstanceId, inlineThreshold, assignedClientId, mode, presenterClientId, presenterUsername, mainClientId, mainUsername}`. Sent on every connect. If `serverInstanceId` differs from the one the client saw last connect, the client triggers a full sync. `assignedClientId` is the server-issued per-connection identifier the browser must adopt for any subsequent role-call (see [[SSE Settings]]).
+* `event: cache-miss`: sent when a reconnecting client's `Last-Event-ID` is older than the ring-buffer tail (default 500 entries). The client falls back to a full sync.
+* `event: ping`: `{serverTime}`, every 25 seconds. The adaptor mirrors the stream state (`open`, `reconnecting`, `closed`) into `$:/state/wikilabs/tw-mcp/sse-connection`, which drives the status dot in the sidebar.
 
 !!! Echo suppression
 
 Each EventSource connection gets a server-issued `clientId` (`crypto.randomUUID()` on the server, returned via `hello.assignedClientId`). The browser adopts that id and sends it on every PUT/DELETE as `X-MCP-Client-Id`. The server records the originator and tags the resulting broadcast event with that `clientId`. The originating tab compares incoming `clientId` against its own and skips matches, so it doesn't echo its own save back into the editor.
 
-Filesystem-watcher changes and MCP-tool changes have no `clientId` — those events go to all tabs unconditionally.
+MCP-tool changes, `reload_tiddlers`, and saves reported by an editor's LSP carry no `clientId`, so those events go to all tabs unconditionally.
 
 !!! Reconnect
 
@@ -92,4 +93,4 @@ EventSource auto-reconnects on connection drops. The browser sends `Last-Event-I
 
 * HTTP/1.1 SSE consumes one connection per tab. Browsers cap at ~6 same-origin connections, so don't open more than a handful of tabs against the same wiki. For higher fan-out you'd want HTTP/2 or a shared-worker `EventSource`.
 * The ring buffer is in-memory; restarting the server resets the event id space. Reconnecting clients see the new `serverInstanceId` and do a full sync.
-* The current implementation broadcasts all changes that pass `$:/config/SyncFilter`, so internal-only state tiddlers (`$:/state/*`, `$:/temp/*`) are filtered out before broadcast.
+* Changes are broadcast only when they pass `$:/config/SyncFilter`, so `$:/temp/*` and `$:/status/*` stay local. Per-tab tiddlers (`$:/state/*` by default, see [[SSE Settings]]) are the exception: they skip the SyncFilter, the broadcast mode decides whether a browser's change goes out, and MCP-tool changes always do.

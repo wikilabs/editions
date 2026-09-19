@@ -1,5 +1,5 @@
 created: 20260512075742539
-modified: 20260512075742539
+modified: 20260918234646815
 tags: [[Bulk Docs]]
 title: Regex find and replace with backrefs
 
@@ -59,6 +59,6 @@ Regex features at play:
 Two gotchas:
 
 * ''Backslashes need double-escaping in JSON.'' To match a literal `[` in JS regex you write `\[`, but inside a JSON string that becomes `\\[`. Most MCP clients handle the escaping for you; if you write the pattern directly, watch the count.
-* ''The bracket-clash in TW filters.'' When you call the underlying `search-lines` filter operator from a filter expression, an operand containing `]` (eg the `]` inside `[A-Z]`) terminates the operand early. The MCP wrapper sidesteps this by invoking the operator function directly. So `replace_in_tiddlers` with a `]`-bearing regex works fine; calling `[search-lines:regexp[...]]` from wikitext does not.
+* ''The bracket-clash in TW filters.'' In a filter expression an operand in `[...]` ends at the first `]`, so `[search-lines::regexp[...]]` cannot take a pattern such as `[A-Z]` literally (pass it as `{Tiddler}` or `<variable>` instead). The MCP tools take the pattern as a plain argument, so `replace_in_tiddlers` and `search_lines` accept a `]`-bearing regex as is.
 
 For the full parameter list and other patterns, see [[Bulk Tools]].

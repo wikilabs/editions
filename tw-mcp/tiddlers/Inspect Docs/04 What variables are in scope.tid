@@ -1,5 +1,5 @@
 created: 20260510153400000
-modified: 20260510153400000
+modified: 20260918234711763
 tags: [[Inspect Docs]]
 title: 04 What variables are in scope
 
@@ -21,13 +21,13 @@ At line 8 of `Templates/Card`, the following are in scope:
 * `var currentTiddler`: set to the tiddler being rendered
 * `proc card-header(title, icon)`: the procedure you're inside
 
-''Used globals'' (referenced from this position, transitively through macro bodies)
+''Used globals'' (referenced somewhere in the tiddler, transitively through macro bodies)
 
 * `proc tag-pill(tag, …)`: defined in `$:/core/ui/...`
 * `macro lingo(title)`: defined in `$:/core/macros/lingo`
 * `var tv-show-missing-links`: a configuration variable
 
-There are about 90 more globals available but unused at this position. Ask "show me all globals" or filter by name (e.g. "globals starting with `toc-`") if you want to widen the search.
+There are about 90 more globals available but unused in this tiddler. Ask "show me all globals" or filter by name (e.g. "globals starting with `toc-`") if you want to widen the search.
 <<<
 
 !! Behind the scenes
@@ -35,7 +35,7 @@ There are about 90 more globals available but unused at this position. Ask "show
 The AI calls `inspect_scope` with the wikitext (or tiddler) and a character offset. The tool walks the widget tree to find the closest widget at that position, then reports:
 
 * a ''local scope'' section: variables defined in the enclosing widget chain
-* a ''used globals'' section: imported globals that are actually referenced at this position (with transitive expansion through macro bodies)
+* a ''used globals'' section: imported globals that the tiddler references somewhere (with transitive expansion through macro bodies)
 * an optional ''other globals'' section (with `all=true`): everything else available but unused
 
 Each entry has a ''kind prefix'' (`var`, `def`, `proc`, `fn`, `macro`, `widget`) and shows parameters when applicable. See [[Inspect Tools]] for the prefix table and the `match` / `renderContext` parameters.

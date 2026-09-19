@@ -1,5 +1,5 @@
 created: 20260510153100000
-modified: 20260510153100000
+modified: 20260918234708853
 tags: [[Inspect Docs]]
 title: 01 Find where a macro is defined
 
@@ -23,7 +23,7 @@ The `some-macro` procedure is defined in the tiddler ''Tools/Buttons'' on line 4
 
 !! Behind the scenes
 
-The AI calls `inspect_pos` with the wikitext containing the macro call and your tiddler title as `context`. The tool annotates each rendered node with attributes that trace it back to its source:
+The AI calls `find_definition` with the macro name, which lists each defining tiddler and line and marks the one the wiki imports as `global`. To see what the call renders, it calls `inspect_pos` with the wikitext containing the macro call and your tiddler title as `context`. The tool annotates each rendered node with attributes that trace it back to its source:
 
 * `v="some-macro"`: names the procedure that produced the node
 * `p="1:4"`: line 4 of the tiddler at index `1` in the title-map

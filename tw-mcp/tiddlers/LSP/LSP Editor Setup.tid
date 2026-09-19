@@ -1,5 +1,5 @@
 created: 20260909121549062
-modified: 20260916213633184
+modified: 20260918234636996
 tags: LSP
 title: LSP Editor Setup
 
@@ -44,7 +44,7 @@ While the linked MCP server serves a browser, right-click a `.tid` tab and pick 
 
 //~TiddlyWiki LSP: List undefined calls and widgets// in the command palette lists the calls and widget tags whose name nothing defines, across every tiddler file of the wiki, in the Problems panel. See [[LSP Diagnostics]].
 
-A shadow tiddler, or a tiddler without a file of its own, opens read-only under the extension's `tiddlywiki:` scheme when you go to a definition in it or pick it from a list. After updating the extension, reload the VS Code window so the scheme is registered; when its `package.json` changed, restart VS Code.
+A shadow tiddler, or a tiddler without a file of its own, opens read-only under the extension's `tiddlywiki:` scheme when you go to a definition in it or pick it from a list. After updating the extension, reload the VS Code window so the scheme is registered; when its `package.json` changed, first run `node scripts/clear-extension-cache.js` in the extension's folder, since VS Code caches the manifest, see its README.
 
 !! Saving
 

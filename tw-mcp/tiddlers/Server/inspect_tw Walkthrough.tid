@@ -1,5 +1,5 @@
 created: 20260318021144763
-modified: 20260510163342238
+modified: 20260918234658173
 tags: Documentation Server
 title: inspect_tw Walkthrough
 
@@ -30,7 +30,7 @@ config {24}
 hooks {4}
 modules {9}
 utils {216}
-version s:16 5.4.0-prerelease
+version s:16 5.5.0-prerelease
 wiki {29}
 ...
 ```
@@ -42,8 +42,9 @@ The output uses a compact notation:
 |!Notation |!Meaning |!Example |
 |`{N}` |Object with N keys |`boot {25}` — object with 25 keys |
 |`[N]` |Array with N elements |`plugins [8]` — array with 8 items |
-|`s:N` |String of length N |`version s:16 5.4.0-prerelease` |
-|`=value` |Scalar value (number, boolean, null) |`enabled=false`, `browser null` |
+|`s:N` |String of length N |`version s:16 5.5.0-prerelease` |
+|`=value` |Number or boolean |`enabled=false` |
+|`key null` |Null or undefined value |`browser null`, `syncadaptor undefined` |
 |`fn name(params)` |Function with parameter list |`fn addTiddler(tiddler)` |
 |`date:` |Date value |`created date:2013-08-22T17:02:00.000Z` |
 |`Nkeys maxDepth=M` |Header showing key count and max useful depth |`$tw 62keys maxDepth=5` |
@@ -127,17 +128,17 @@ This prevents token limit errors when inspecting broad objects like `$tw` at hig
 Depth 1:
 
 ```
-$tw.hooks 4keys maxDepth=1
+$tw.hooks 4keys maxDepth=3
 fn addHook(hookName,definition)
 fn invokeHook(hookName /*, value,... */)
-names {0}
+names {3}
 fn removeHook(hookName,definition)
 ```
 
 Depth 2 (adds function source previews):
 
 ```
-$tw.hooks 4keys maxDepth=1
+$tw.hooks 4keys maxDepth=3
 fn addHook(hookName,definition)
   function(hookName,definition) {
     if($tw.utils.hop($tw.hooks.names,hookName)) {
@@ -176,10 +177,10 @@ fn $tw.wiki.addTiddler(tiddler)
 
 !! Calling Functions
 
-You can call whitelisted functions and inspect their return values. All `$tw.wiki` read methods (getTiddler, filterTiddlers, tiddlerExists, etc.) and ''all `$tw.utils.*` functions'' are callable.
+You can call whitelisted functions and inspect their return values: eleven `$tw.wiki` read methods (getTiddler, getTiddlerText, tiddlerExists, filterTiddlers, allTitles and others), the two heartbeat functions and ''all `$tw.utils.*` functions''.
 
 ```
-inspect $tw.wiki.getTiddler("HelloThere")
+inspect $tw.wiki.getTiddler("HelloThere") with depth 2
 ```
 
 Returns the tiddler object structure:
@@ -191,7 +192,7 @@ fields {8}
   created date:2013-08-22T17:02:00.000Z
   icon s:12 $:/core/icon
   list [6]
-  modified date:2025-08-07T08:49:52.911Z
+  modified date:2026-07-10T09:11:22.803Z
   tags [1]
   text s:1372 <h2\nstyle="\n\tbackground: red;...
   title s:10 HelloThere
@@ -275,7 +276,7 @@ wikirule {44}
 
 !! Known Limitations
 
-* ''Keys containing dots or slashes'' — Paths like `config.contentTypeInfo.text/vnd.tiddlywiki` fail because `/` is interpreted as a path separator. These keys cannot be navigated directly.
+* ''Keys containing dots'': paths like `config.contentTypeInfo.text/vnd.tiddlywiki` fail because the path is split at every `.`, so `text/vnd.tiddlywiki` is read as `text/vnd` then `tiddlywiki`. These keys cannot be navigated directly.
 * ''Action widgets'' — Functions that trigger UI actions don't work server-side.
 * ''String truncation'' — Long string values are truncated with a `~` at the end.
 * ''Circular references'' — Some object branches reference each other. Use `exclude` to avoid loops.
@@ -291,4 +292,4 @@ wikirule {44}
 |Call a function |`inspect $tw.wiki.getTiddler("HelloThere")` |
 |Exclude noisy branches |`inspect $tw.rootWidget with max detail but exclude wiki` |
 |Call a utility function |`inspect $tw.utils.parseFields("title: Test")` |
-|Check a simple value |`inspect $tw.version` → `$tw.version=5.4.0-prerelease` |
+|Check a simple value |`inspect $tw.version` → `$tw.version=5.5.0-prerelease` |

@@ -1,5 +1,5 @@
 created: 20260404162346616
-modified: 20260812215612510
+modified: 20260918234639684
 tags: TOC
 title: Upload Tool
 
@@ -33,6 +33,8 @@ cd /your/wiki/dir
 node tw-upload.js <file> [--wiki <path>] [--title <title>] [--tags <tags>] [--subfolder <dir>]
 ```
 
+`tw-upload.js` is not copied into your wiki. It lives in the plugin folder, at `wikilabs/tw-mcp/tiddlers/sidecar/tw-upload.js` below your `TIDDLYWIKI_PLUGIN_PATH`, so give its full path or copy it next to your wiki.
+
 |! Option |! Description |
 |`<file>` |File to upload (required) |
 |`--wiki <path>` |Wiki directory to find `.tw-mcp/connect` (defaults to current dir) |
@@ -50,7 +52,7 @@ node tw-upload.js icon.gif --subfolder images --tags "[[site images]]"
 
 !! Requirements
 
-* The MCP server must be running (`tiddlywiki . --mcp`)
+* The MCP server must be running in `rw` mode (`tiddlywiki . --mcp rw`). In readonly mode the server refuses `upload_file`.
 * The `.tw-mcp/connect` file must exist (created automatically by the server)
 * Node.js must be available
 

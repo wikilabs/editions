@@ -1,15 +1,15 @@
 created: 20260508190000000
-modified: 20260510165340152
+modified: 20260918235102805
 tags: SSE
 title: SSE Settings
 
-This page documents the SSE broadcast settings exposed by the //MCP SSE// ControlPanel tab. For the underlying transport (events, ring buffer, reconnect), see [[SSE Sync]].
+This page documents the SSE broadcast settings exposed by the //MCP SSE// tab (ControlPanel, //Settings// tab, //WikiLabs// sub-tab). For the underlying transport (events, ring buffer, reconnect), see [[SSE Sync]].
 
 !! Before you expose the port
 
 The `/events` stream is unauthenticated and broadcasts every tiddler change to any connected client. The mode/role machinery below assumes a ''localhost-trust'' deployment — //do not// bind the server to a non-loopback interface without putting it behind an authenticating reverse proxy. See the //Security model// section in [[SSE Sync]] for the deployment checklist.
 
-The settings revolve around //per-tab view-state tiddlers// — `$:/StoryList`, `$:/HistoryList`, and `$:/state/*` by default. Edits to these tiddlers from a browser are normally //not// broadcast to other tabs, so each tab keeps its own story river, sidebar selection, and similar UI state. The mode switch lets one tab //share// its view-state with the others when that's useful (presentations, walkthroughs, paired editing). MCP-tool changes and filesystem-watcher edits always broadcast regardless of mode.
+The settings revolve around //per-tab view-state tiddlers//: `$:/StoryList`, `$:/HistoryList`, and `$:/state/*` by default. Edits to these tiddlers from a browser are normally //not// broadcast to other tabs, so each tab keeps its own story river, sidebar selection, and similar UI state. The mode switch lets one tab //share// its view-state with the others when that's useful (presentations, walkthroughs, paired editing). Changes from MCP tools, and from files reloaded off disk, carry no `clientId` and always broadcast, regardless of mode.
 
 !! Modes
 
@@ -18,7 +18,7 @@ The settings revolve around //per-tab view-state tiddlers// — `$:/StoryList`, 
 |`presentation` |One tab is the //presenter// (last-claim-wins). The presenter's per-tab tiddlers broadcast to all other tabs. Closing the presenter's browser releases the role. |
 |`main` |Like presentation but adds an //admin// role (//i-am-main//). When an admin is held, only the admin can grant presenter status, change SSE settings, or release the granted presenter. Without an admin, falls back to last-wins (presentation semantics). |
 
-The mode is stored in `$:/config/wikilabs/tw-mcp/mode`. Switch via the radio in the MCP SSE tab of the ControlPanel.
+The mode is stored in `$:/config/wikilabs/tw-mcp/mode`. Switch it with the radio buttons in the //MCP SSE// tab.
 
 !! Roles
 
@@ -71,7 +71,7 @@ The //Become Main// button also fires the refresh action automatically — the a
 * `sessionStorage` is per-tab (unlike `localStorage`), so multiple tabs in the same browser keep //distinct// names. Closing the tab clears the value.
 * Empty values are not persisted — TW writes `""` at boot before our restore runs, and saving that would clobber the previously saved name.
 
-The username is sent on `EventSource` connect (as a query parameter) and on every `claim`/`release`/`grant` call (as `X-MCP-Username` header). The server stores it on the EventSource client record and includes it in `presenter-changed` / `main-changed` events and `GET /clients` responses, so other tabs can show //"Alice" (uuid)// instead of just the UUID.
+The username is sent on `EventSource` connect (as a query parameter) and on every `claim`/`release` call (as `X-MCP-Username` header); a grant takes the target's name from its connection. The server stores it on the EventSource client record and includes it in `presenter-changed` / `main-changed` events and `GET /clients` responses, so other tabs can show //"Alice" (uuid)// instead of just the UUID.
 
 !! HTTP endpoints
 
@@ -139,7 +139,8 @@ For the underlying SSE transport tunables (`SyncPollingInterval`, `sse-enabled`,
 !! UI behaviour summary
 
 |! Tab state |! //Become Main// |! //Release Main// |! //Claim presenter// |! //Release presenter// |! //Grant presenter// (per row) |! Mode radios |
-|Mode != main |hidden |hidden |enabled |enabled |hidden |enabled |
+|Mode = default |hidden |hidden |hidden |hidden |hidden |enabled |
+|Mode = presentation |hidden |hidden |enabled |enabled |hidden |enabled |
 |main, no admin |shown, enabled |hidden |enabled (last-wins) |enabled |hidden (no admin sub-panel) |enabled |
 |main, I am admin |hidden |shown, enabled |disabled |enabled |shown for every row except presenter's |enabled |
 |main, other is admin |hidden |hidden |disabled |disabled, except enabled if I'm presenter |hidden (no admin sub-panel) |hidden, replaced by //locked// notice |

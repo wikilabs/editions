@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260916122011349
+modified: 20260918235109087
 tags: Server
 title: Instructions
 
@@ -15,7 +15,7 @@ This tiddler describes how to use each tool provided by the TiddlyWiki MCP serve
 tiddlywiki ./mywiki --mcp
 ```
 
-Replace `./mywiki` with the path to your wiki folder. The wiki folder must contain a `tiddlywiki.info` file. The `--mcp` command auto-loads the `tiddlywiki/filesystem` plugin for disk persistence if not already present.
+Replace `./mywiki` with the path to your wiki folder. The wiki folder must contain a `tiddlywiki.info` file. MCP write tools save their tiddler files themselves; browser edits reach disk only when `tiddlywiki/filesystem` is in your `tiddlywiki.info`.
 
 !!! Browser access
 
@@ -25,7 +25,7 @@ To also access the wiki in a browser while the MCP server is running, add the `s
 tiddlywiki ./mywiki --mcp sse port=8080
 ```
 
-`sse` implies HTTP listen, plus pushes tiddler changes to the browser in real time via Server-Sent Events (~1s latency). Use `listen` instead for polling-only behaviour (60s refresh). See [[SSE Sync]] for transport details.
+`sse` implies HTTP listen, plus pushes tiddler changes to the browser in real time via Server-Sent Events (~1s latency). Use `listen` instead for polling only: the plugin sets `$:/config/SyncPollingInterval` to 600000, so the browser refreshes every 10 minutes. See [[SSE Sync]] for transport details.
 
 !!! Registering with an AI client
 
@@ -49,7 +49,7 @@ Give your MCP server instance a name to identify it in the `.tw-mcp/connect` dis
 tiddlywiki ./mywiki --mcp label=vscode
 ```
 
-The label appears in the `.tw-mcp/connect` JSON and helps distinguish which process created the pipe.
+The label appears in the `.tw-mcp/connect` JSON and helps distinguish which process created the pipe. Started from VS Code or Claude Code, the server appends the workspace and wiki folder names (e.g. `vscode:myproject/mywiki`); without `label=` that tag alone becomes the label.
 
 !!! Path Restrictions
 
@@ -75,13 +75,13 @@ A local named pipe for helper tools (like `tw-upload`). On startup, the server:
 
 # Generates a 256-bit random authentication token
 # Creates a named pipe (`\\.\pipe\tiddlywiki-mcp-<wiki-id>` on Windows, `.mcp.sock` on Unix)
-# Writes a `.tw-mcp/connect` discovery file to the wiki directory:
+# Writes a `.tw-mcp/connect` discovery file to the wiki directory (to the first `includeWikis` entry when there is one, so editions sharing a wiki share one server):
 
 ```json
-{"pipe":"\\\\.\\pipe\\tiddlywiki-mcp-...","token":"<hex>","pid":12345,"label":"vscode","command":"node tiddlywiki.js ..."}
+{"pipe":"\\\\.\\pipe\\tiddlywiki-mcp-...","token":"<hex>","pid":12345,"label":"vscode","listen":true,"port":8080}
 ```
 
-Pipe clients must send the token as `wikilabs.tw-mcp/auth` inside the `_meta` of every request, not once at connection time. The `pid` field lets clients verify the server process is still alive. The `label` field (if present) identifies which instance created the pipe. The `command` field shows the full command line that started the server.
+Pipe clients must send the token as `wikilabs.tw-mcp/auth` inside the `_meta` of every request, not once at connection time. The `pid` field lets clients verify the server process is still alive. The `label` field (if present) identifies which instance created the pipe. The `listen` field is `true` when this process serves HTTP, and `port` gives its port (absent otherwise).
 
 On exit, the server cleans up the pipe and discovery file.
 
@@ -128,17 +128,17 @@ For the full output format and JSON variant, see [[Bulk Tools]].
 
 !!! `list_tiddlers`
 
-Lists tiddler titles. By default returns up to 100 ''non-system'' tiddlers.
+Lists tiddler titles as a ''namespace tree'': titles grouped by common prefix, with a count after each group. By default it covers all ''non-system'' tiddlers.
 
 |!Parameter |!Required |!Description |
 |`tag` |no |Filter results to tiddlers with this tag |
-|`limit` |no |Maximum number of results (default: 100) |
+|`limit` |no |Maximum number of titles. Applied only when given, or with `flat=true` (default there: 100) |
 |`includeSystem` |no |Set to `true` to include `$:/` system tiddlers |
 |`plugin` |no |List tiddlers inside a plugin (e.g. `$:/plugins/tiddlywiki/internals` or `$:/core`) |
 |`overwrittenShadows` |no |List shadow tiddlers that have been overwritten by real tiddlers |
 |`flat` |no |Set to `true` to return raw newline-separated titles instead of the namespace tree summary |
 
-When listing large sets (plugins with thousands of tiddlers), results are grouped into a ''namespace summary'' — showing top-level namespaces with counts in parentheses (e.g. `config/ (252)`). You can then drill into specific namespaces using `run_filter` with a prefix.
+Unless `flat` is set, the output is a namespace tree: each group shows its count in parentheses (e.g. `$:/config/ (252)`). The filter flags are exclusive, in the order `plugin`, `overwrittenShadows`, `tag`, `includeSystem`; only the first one set applies. Drill into a group with `run_filter` and `prefix[]`.
 
 ''Example prompts:''
 
@@ -156,11 +156,11 @@ Runs a [[TiddlyWiki filter expression|https://tiddlywiki.com/static/Filters.html
 
 > ''Important:'' Always include `!is[system]` as the ''first'' operator in filters (unless system tiddlers are explicitly requested). This narrows the working set early and avoids unnecessary processing of thousands of system/shadow tiddlers.
 
-When results exceed 100, the output switches to a ''namespace summary'' — grouping titles by common prefix with counts. This lets you progressively drill into large result sets by narrowing the prefix filter.
+Results are capped at 500 titles; a longer list ends with `(N total, showing first 500)`. For a grouped overview use `list_tiddlers`, which returns a namespace tree.
 
 ''Namespace browsing pattern:''
 
-# Start broad: `[all[shadows+tiddlers]prefix[$:/config/]]` → namespace summary with counts
+# Start broad: `list_tiddlers(plugin="$:/core")` → namespace tree with counts
 # Drill in: `[all[shadows+tiddlers]prefix[$:/config/shortcuts/]]` → individual tiddlers
 # Get details: use `get_tiddler` on a specific title
 
@@ -189,8 +189,11 @@ Per-line search across tiddler fields. Same engine as the `[search-lines:fields:
 |`context_before`, `context_after` |no |Asymmetric context (override `context`) |
 |`filter` |no |TW filter expression to scope the search (default: `[all[tiddlers]!is[system]]`) |
 |`include_system` |no |Convenience flag for `$:/` tiddlers; ignored if `filter` is set |
+|`max_lines_per_tiddler` |no |Cap on matching lines per tiddler (default: 10) |
+|`max_lines_total` |no |Cap on matching lines overall (default: 200) |
+|`snippet_cap` |no |Longer lines are shown as a window around the match (default: 200 chars) |
 
-Output format: `<title>:<field>:L<line>: <text>` for matches, `<title>:<field>:c<line>: <text>` for context lines.
+Output: one block per tiddler, the title on its own line, then one indented line per hit: `<n>#<hash>: <text>` for the `text` field (the anchor `edit_tiddler` takes), `<field>:L<n>: <text>` for other fields. Context lines carry a `- ` prefix, and `--` separates non-adjacent ranges. A footer reads `N lines matched in M tiddlers`, plus a `(truncated ...)` line when a cap was hit; no hit gives `(no matches)`.
 
 ''Example prompts:''
 
@@ -315,7 +318,7 @@ Analyzes the rendered widget tree structure. Returns type counts (for the full t
 
 !!! `inspect_pos`
 
-Renders wikitext to HTML with compact `p=` position attributes and a title index header. Each `p` attribute has the format `idx:start-end` where `idx` references the title index. SVG elements are stripped of position data for token efficiency.
+Renders wikitext to HTML with compact position attributes and a title index header. `p` has the format `idx:line` or `idx:start-end`, where `idx` references the title index and the lines are those of the defining tiddler's `.tid` file, header included. A node may also carry `v` (the procedure, macro or variable that produced it), `c` (the caller chain, closest first, separated by `|`) and `ctx` (`currentTiddler` when it differs from the source tiddler). SVG elements are stripped of position data for token efficiency.
 
 |!Parameter |!Required |!Description |
 |`text` |yes |The wikitext to render |
@@ -324,14 +327,16 @@ Renders wikitext to HTML with compact `p=` position attributes and a title index
 
 Use the output with `inspect_scope` to examine variables at specific positions.
 
+> ''Note:'' `inspect_pos` needs the `wikilabs/devtools` plugin. See the prerequisites in [[Source Position Tracking]].
+
 ''Example prompts:''
 
 * "Show me the source positions in the Quick Start tiddler" — renders HTML with `p=` position attributes
-* "Where does the Download button come from?" — trace `p="2:81-84"` back to `$:/cards/procedures` via the title index
+* "Where does the Download button come from?" — trace `p="1:81-83"` back to `$:/cards/procedures` via the title index
 
 !!! `inspect_scope`
 
-Inspects the variable scope at a specific source position in rendered wikitext. Renders the text, finds the widget at the given character position, and returns all variables in scope — ordered innermost first (local variables before globals).
+Inspects the variable scope at a specific source position in rendered wikitext. Renders the text, finds the widget at the given character position, and lists its variables innermost first: local scope, then the globals the text uses. Unused globals are only counted unless `all` is `true`.
 
 |!Parameter |!Required |!Description |
 |`tiddler` |no |Tiddler title to render (resolve from the title index header) |
@@ -342,13 +347,14 @@ Inspects the variable scope at a specific source position in rendered wikitext. 
 |`filter` |no |Only show variables matching this substring |
 |`limit` |no |Max variables to show (default: 20) |
 |`all` |no |Set to `true` to show all variables |
+|`renderContext` |no |`isolated` (default), `viewtemplate` (as in the story river) or `root` (page template context) |
 
 > ''Tip:'' When inspecting a position inside a macro/procedure, render from the ''caller's'' wikitext (using the `text` parameter) rather than the definition tiddler. This gives you the full scope including `currentTiddler`, `thisTiddler`, and procedure parameters.
 
 ''Example prompts:''
 
 * "Inspect the scope at the flex-card button" — shows procedure params, currentTiddler, etc.
-* "What variables are available at L81@$:/cards/procedures for the Desktop card?" — uses `match` to select the right list iteration
+* "What variables are available at `L81@$:/cards/procedures` for the Desktop card?" — uses `match` to select the right list iteration
 * "Show me only card-related variables" — uses `filter: "card"`
 
 For a comprehensive guide to the source position tracking workflow, see [[Source Position Tracking]].
@@ -383,8 +389,9 @@ Returns pre-formatted wiki metadata including:
 * Tiddler counts (standard, system, shadow, overridden shadows, tags)
 * Installed plugins, themes, and languages (one per line)
 * TiddlyWiki version
-* MCP server line: role, ''plugin version'' (e.g. `MCP: primary v0.9.2 (PID …) @label`), readonly mode, filesystem adaptor
-* HTTP server status (when `--listen` is active)
+* MCP server line: role, ''plugin version'', PID and label (e.g. `MCP: primary v0.19.0 (PID …) @label`). Readonly mode shows on the TiddlyWiki version line, the filesystem adaptor on its own `Filesystem:` line
+* HTTP server address, when `--mcp listen` or `--mcp sse` started it in this process
+* A pending or finished HTML import (see `import_html_wiki`)
 * LSP servers: one running in this process (`LSP: socket port 6009 (PID …, this process) @label`), and the ones editors started that are linked to this MCP server (`LSP: pipe for Visual Studio Code … (PID …) @label on <wiki>`), see [[LSP and MCP]]
 * Basic settings from the ControlPanel/Basics panel (site title, username, default tiddlers, animation duration, journal settings, etc.)
 
@@ -402,16 +409,17 @@ Takes no parameters. The output is pre-formatted plain text — the AI presents 
 Re-reads tiddler files from disk into the in-memory store. Use this after editing `.tid` files externally (e.g. with a text editor or git pull).
 
 |!Parameter |!Required |!Description |
-|`scope` |no |`tiddlers` (default) — reload edition tiddlers. `shadows` — re-read plugins/core shadow tiddlers. `all` — both |
+|`scope` |no |`tiddlers` (default): reload edition tiddlers from disk. `shadows`: re-register plugins and re-unpack their shadow tiddlers from the plugin tiddlers already in memory; plugin folders are ''not'' re-read. `all`: both |
 
-Use `scope="shadows"` to refresh shadow tiddlers from modified plugins without restarting the server.
+Use `scope="shadows"` after a plugin tiddler in the store has changed. To pick up edits in the tw-mcp plugin folders use `reload_mcp_modules`.
 
 ''Safety:''
 
 * ''Diff-based'' — compares each disk tiddler with the in-memory version field-by-field. Only tiddlers that have actually changed are updated in the store, avoiding unnecessary syncer activity.
 * ''Deduplication'' — if the same title appears in multiple files on disk (e.g. a `.tid` and a `.webp.meta`), only the last-loaded version is used, matching TiddlyWiki's boot behavior.
-* ''SyncFilter respected'' — uses the same `$:/config/SyncFilter` as TiddlyWiki's syncer to skip tiddlers that aren't normally synced (e.g. `$:/temp/`, `$:/state/`, `$:/status/`, `$:/boot/`, `$:/HistoryList`, `$:/core`).
-* Reports counts: added, updated, unchanged, and skipped (filtered).
+* ''System tiddlers left alone'': `$:/` tiddlers found on disk are counted but not loaded into the store; only their file locations are refreshed.
+* ''Deletions'': a tiddler whose file under the tiddlers folder is gone is deleted from the store. An added and a deleted title with identical text are reported as one rename.
+* Reports disk counts (added, updated, unchanged, deleted, renamed), the number of system tiddlers skipped, whether `$:/config/OriginalTiddlerPaths` was refreshed, and a change log of store changes since the previous call.
 
 ---
 
@@ -446,7 +454,7 @@ Edits specific lines of a tiddler using hashline references. Much cheaper than `
 
 ''Workflow:''
 
-# Read the tiddler with `get_tiddler(format="hashline")` — each line gets a 2-character hash anchor (e.g. `1#AB:line text`)
+# Read the tiddler with `get_tiddler(detailed=true)` (hashline is the default format): each line gets a 2-character hash anchor (e.g. `1#AB: line text`)
 # Send edits referencing lines by their `LINE#HASH` anchor
 # If hashes match, edits are applied. If not, a mismatch error shows the changed lines with updated hashes.
 
@@ -498,6 +506,8 @@ Bulk find+replace across many tiddlers, with dry-run preview by default. Use for
 
 Each rule supports literal or regex pattern. Regex unlocks JS backrefs (`$1..$9`, `$&`, `$$`). Multiple rules apply sequentially per line.
 
+When `dry_run` is `false` and the change touches more than one tiddler, a client that declares elicitation support is asked to confirm the resolved list of titles before anything is written.
+
 For the full output format, dry-run preview shape, and array-field handling, see [[Bulk Tools]].
 
 ''Example prompts:''
@@ -512,7 +522,7 @@ Deletes a tiddler from the store and removes its `.tid` file from disk.
 |!Parameter |!Required |!Description |
 |`title` |yes |The tiddler title to delete |
 
-> ''Warning:'' This operation cannot be undone (unless you have a backup or version control). The AI is instructed to confirm before deleting.
+> ''Warning:'' This operation cannot be undone (unless you have a backup or version control). The server's instructions tell the AI never to delete without an explicit user request.
 
 ''Example prompts:''
 
@@ -520,15 +530,17 @@ Deletes a tiddler from the store and removes its `.tid` file from disk.
 
 !!! `rename_tiddler`
 
-Renames a tiddler in the store and renames its `.tid` file on disk. The new title is checked against TW's forbidden-character set (`|`, `[`, `]`, `{`, `}`); the operation fails if the new title clashes with an existing tiddler.
+Renames a tiddler in the store and moves its file on disk to the path `FileSystemPaths` gives the new title. The operation fails if the new title clashes with an existing tiddler, unless `overwrite` is `true`. Bundled plugin, theme and language tiddlers and `.multids` entries are refused.
 
 |!Parameter |!Required |!Description |
 |`from` |yes |Existing tiddler title |
 |`to` |yes |New tiddler title |
+|`overwrite` |no |Set to `true` to replace an existing tiddler at `to` (default: `false`) |
+|`preserve_timestamps` |no |Keep the original `modified` field (default: `true`). Set `false` to set it to now |
 
 ''Behaviour:''
 
-* The original `created`, `creator`, and other fields are preserved; `modified` is refreshed.
+* All fields are preserved, `modified` included; set `preserve_timestamps=false` to refresh `modified` and `modifier`.
 * The old `.tid` file is deleted after the new file is written successfully (with verification re-read).
 * Cross-references in other tiddlers are NOT updated — use `replace_in_tiddlers` to follow up (see [[Rename references across the wiki]]).
 
@@ -569,20 +581,20 @@ Rewrites a single tiddler's `.tid` file using the current `$:/config/FileSystemP
 * "Dry-run resave on MyTiddler" — shows old → new path without writing
 * "Resave MyTiddler and update the timestamp" — sets `preserve_timestamps=false`
 
-> For bulk relocation after editing `FileSystemPaths`, prefer running the standalone `re-save-tiddlers.js` script rather than looping `resave_tiddler` — a single MCP tool call per tiddler is not the right shape for a wiki-wide sweep.
+> `resave_tiddler` handles one tiddler per call, so it suits a handful of tiddlers rather than a wiki-wide sweep.
 
 !!! `reload_mcp_modules`
 
-Hot-reloads the tw-mcp plugin during development — re-reads the plugin folder from disk and refreshes ALL its subtiddlers (JS AND non-JS — doc tiddlers, wikitext, CSS), then re-executes each JS module. Lets you iterate on handler code without restarting the server.
+Hot-reloads the tw-mcp plugins during development: re-reads both plugin folders (`wikilabs/tw-mcp-core` and `wikilabs/tw-mcp`) from disk, refreshes ALL their subtiddlers (JS and non-JS: doc tiddlers, wikitext, CSS), then re-executes each JS module. Lets you iterate on handler code without restarting the server.
 
 |!Parameter |!Required |!Description |
-|`skip_disk_reload` |no |Set to `true` to skip the `$tw.loadPlugin` step. Use only when the wiki store already has fresh plugin source (e.g., after a manual `reload_tiddlers`). Default: `false`. |
+|`skip_disk_reload` |no |Set to `true` to skip re-reading the plugin folders. Use only when the wiki store already has fresh plugin source (e.g., after a manual `reload_tiddlers`). Default: `false`. |
 
 ''Behaviour:''
 
-* ''Phase 1'' — `$tw.loadPlugin` re-reads the plugin folder from disk, `$tw.wiki.addTiddler` replaces the plugin JSON tiddler, `readPluginInfo` + `registerPluginTiddlers` + `unpackPluginTiddlers` re-unpack the shadow tiddlers with fresh source.
+* ''Phase 1'': `$tw.loadPluginFolder` re-reads each plugin folder, the syncer's `storeTiddler` replaces the plugin tiddler without saving it to the edition, and `readPluginInfo` + `registerPluginTiddlers` + `unpackPluginTiddlers` re-unpack the shadow tiddlers with fresh source.
 * ''Phase 2'' — for every JS subtiddler with a `module-type`, `$tw.modules.titles[title].exports` is cleared and `$tw.modules.execute(title)` runs fresh. The next tool call picks up the new code via late-binding in `mcp-handlers.js`.
-* Two modules (`mcp-tools.js`, `mcp-handlers.js`) get ''identity-preserving'' reload — their new exports are merged onto the existing object so `mcp-lib.js`'s captured references stay live. This is why schema changes in `mcp-tools.js` are visible on the NEXT client connection without restart.
+* `mcp-handlers.js` gets an ''identity-preserving'' reload: its new exports are merged onto the existing object, so `mcp-lib.js`'s captured reference stays live. Tool definitions live on each handler, and `tools/list` rebuilds from them on every call, so a changed schema shows on the next `tools/list`.
 
 ''Excluded modules — still require a full server restart:''
 
@@ -654,7 +666,7 @@ Stages a single-file HTML wiki for import. Loads tiddlers from the file into the
 
 ''Behaviour:''
 
-* The wiki folder must be empty (no `.tid` files and no `$:/config/FileSystemPaths`); otherwise the call refuses.
+* The call refuses when the wiki's tiddlers folder already holds `.tid` files and `$:/config/FileSystemPaths` exists. Paths with a dot-prefixed folder or file name (e.g. `.ssh/`, `.env`) are refused too.
 * Only one staged import can be pending at a time; calling again while pending refuses with a pointer to the existing one. To discard a staged import, delete `$:/temp/mcp/html-import`.
 * Library plugins detected in the HTML file are added to `tiddlywiki.info` by name — they don't need to be extracted as tiddlers and will be loaded by the boot process after the next server restart.
 * Sets `Import — Proposed Folder Structure` as the default tiddler so the user sees the proposed rules in the browser.

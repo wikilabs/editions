@@ -1,5 +1,5 @@
 created: 20260324000000000
-modified: 20260328215121297
+modified: 20260918235108282
 tags: Server [[Developer Documentation]]
 title: Inspect Scope Data Flow
 
@@ -77,9 +77,9 @@ The goal is to find all variables visible to the ''first'' `<$link>` widget.
 ''Result:''
 
 ```
-Total: 12 nodes (full tree)
-Types: 3 text, 2 let, 2 element, 2 link, 1 widget, 1 importvariables, 1 set
+Total: 38 nodes (full tree). Types: 11 element, 6 transclude, 5 text, 3 parameters, 2 let, 2 link, 2 vars, 1 widget, 1 importvariables, 1 tiddler, 1 macrocall, 1 set, 1 list, 1 listitem
 Links (2): asdf, xx
+(showing depth=5)
 ```
 
 ''What we learn:''
@@ -97,20 +97,19 @@ Links (2): asdf, xx
 ''Result:''
 
 ```html
-[0=aaa]
+[0=aaa 1=$:/editions/tw5.com/doc-macros]
 <p p="0:9-10">
-  <a class="tc-tiddlylink tc-tiddlylink-missing"
-     p="0:9" href="#asdf">asdf</a>
+	<a class="tc-tiddlylink tc-tiddlylink-missing"
+		href="#asdf" p="0:9">asdf</a>
 </p>
-<p p="0:12">
-  <a class="tc-tiddlylink tc-tiddlylink-missing"
-     p="0:12" href="#xx">xx</a>
-</p>
+<a class="tc-tiddlylink tc-tiddlylink-missing"
+	href="#xx" p="0:12">xx</a>
+<p c="note-tiddler|aaa" ctx="note-tiddler" p="1:172" v=".note">...</p>
 ```
 
 ''What we learn:''
 
-* The title index `[0=aaa]` maps index 0 to tiddler `aaa`
+* The title index maps 0 to `aaa` and 1 to `$:/editions/tw5.com/doc-macros`, which defines the `.note` output of `{{note-tiddler}}`
 * The first link is at position `p="0:9"` — line 9 of `aaa`, inside the `<$let>` block
 * The second link is at position `p="0:12"` — line 12 of `aaa`, outside the `<$let>` block
 * The position values are file-ready line numbers (accounting for the .tid file header)
@@ -178,12 +177,12 @@ The scope output prefixes each variable with its type:
 |`fn` |Function (`\function` pragma) |`fn testXXX()` |
 |`proc` |Procedure (`\procedure` pragma) |`proc tag-picker(...)` |
 |`macro` |Macro (`\define` or legacy macro) |`macro tabs(...)` |
-|`def` |Definition (general `\define` with params) |`def timeline(...)` |
+|`def` |Parameterised variable of no other kind (core pragmas never produce one) | |
 |`widget` |Custom widget definition |`widget $expand.able(...)` |
 
 !! Position Mapping: `p=` to `charPos`
 
-The `inspect_pos` tool returns line numbers relative to the ''.tid file'' (including the header). The `inspect_scope` tool requires a `charPos` — a character offset within the tiddler's ''text field'' (excluding the header). The `tiddler` parameter on `inspect_scope` handles this conversion when you provide a tiddler title directly.
+The `inspect_pos` tool returns line numbers relative to the ''.tid file'' (including the header). The `inspect_scope` tool requires a `charPos`, a character offset within the tiddler's ''text field'' (excluding the header). Passing `tiddler` only chooses the text to render; `charPos` is still an offset into that text field, so convert the `p=` line first (subtract the header lines, then count characters up to that line).
 
 ''Tip:'' For best results, use `charPos` values that land directly on a widget start tag (e.g., the `<` of `<$link`). The `distance: 0` in the output confirms an exact hit. If the distance is large, the scope may belong to a parent or sibling widget.
 
@@ -253,6 +252,7 @@ Scope at char 0 (widget: text, distance: 0, 251 vars)
 
 — local scope
 var thisTiddler = note-tiddler
+fn _f.tipClass()
 var text = This is a test
 var title = Note
 var icon = $:/core/images/info-button

@@ -1,6 +1,6 @@
 created: 20260909130551386
 list: [[LSP Completion]] [[LSP Diagnostics]] [[LSP Hover]] [[LSP Go to Definition]] [[LSP Find References]] [[LSP Document Highlight]] [[LSP Document Symbols]] [[LSP Workspace Symbols]] [[LSP Folding]] [[LSP Signature Help]] [[LSP Inlay Hints]] [[LSP Semantic Tokens]] [[LSP Rename]]
-modified: 20260917164130806
+modified: 20260918234617250
 tags: LSP
 title: LSP Capabilities
 type: text/vnd.tiddlywiki
@@ -12,10 +12,10 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 |! Capability |! Request |! What it does |
 |[[LSP Completion]] |`textDocument/completion` |Tiddler titles inside `[[...]]`, `{{...}}` and widget attributes that take one, and the names of calls, parameters, widgets, variables, operators, tags and fields where ~TiddlyWiki expects one |
 |[[LSP Diagnostics]] |`textDocument/publishDiagnostics` |Warnings on links and transclusions whose target does not exist, and hints on calls whose name nothing defines and on filter steps that name no operator |
-|[[LSP Diagnostics]] |`textDocument/codeAction` |Quick fixes for a misspelt call or widget name |
+|[[LSP Diagnostics]] |`textDocument/codeAction` |Quick fixes for a misspelt call, widget or filter operator name |
 |[[LSP Hover]] |`textDocument/hover` |What the filter, operator, call, widget or pragma line under the cursor amounts to |
 |[[LSP Go to Definition]] |`textDocument/definition` |The definition of the call, parameter, variable, operator or widget under the cursor, or the `.tid` file behind a link |
-|[[LSP Find References]] |`textDocument/references` |Every call of the macro, procedure, function or widget under the cursor |
+|[[LSP Find References]] |`textDocument/references` |Every call of the macro, procedure, function or widget under the cursor, or every use of a parameter or variable in its own scope |
 |[[LSP Document Highlight]] |`textDocument/documentHighlight` |Every place in the tiddler where the name under the cursor means the same |
 |[[LSP Document Symbols]] |`textDocument/documentSymbol` |The outline: definitions, nested, then headings |
 |[[LSP Workspace Symbols]] |`workspace/symbol` |Any definition or tiddler in the wiki, by name |
@@ -25,7 +25,7 @@ The `--lsp` server answers the requests below. Each has its own page, which link
 |[[LSP Semantic Tokens]] |`textDocument/semanticTokens/full` |Each name sent with what it means: definitions, calls, parameters, variables, core names, filter operators and field tests |
 |[[LSP Rename]] |`textDocument/rename` |A definition or a parameter, renamed everywhere it means the same |
 
-Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, `tiddlywiki/undefinedCalls` for the VS Code command that lists undefined calls and widgets, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving.
+Plus the plumbing those need: `initialize`, full document sync (`didOpen`, `didChange`, `didClose`) so answers cover unsaved text, `didSave` so a saved `.tid` is read into the running wiki, `textDocument/prepareRename` so a refused rename says why before a new name is asked for, and `shutdown` / `exit`. On a socket, `exit` ends the connection and leaves the process serving. Three are not in the protocol: `tiddlywiki/undefinedCalls` for the VS Code command that lists undefined calls and widgets, `tiddlywiki/tiddler` for the read-only view of a tiddler without a file, and the `tiddlywiki/mcpServer` notification that names the linked MCP server in the status bar.
 
 
 !! See also

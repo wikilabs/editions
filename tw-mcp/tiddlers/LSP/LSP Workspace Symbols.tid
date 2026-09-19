@@ -1,5 +1,5 @@
 created: 20260910182107696
-modified: 20260910182107696
+modified: 20260918234634537
 tags: [[LSP Capabilities]]
 title: LSP Workspace Symbols
 
@@ -9,7 +9,7 @@ Ctrl+T in VS Code finds a definition or a tiddler anywhere in the wiki by name, 
 
 * every definition in the editor's open buffers and in the wiki's `.tid` files
 * every definition in a shadow tiddler or a tiddler without a file, which opens as its read-only view
-* every tiddler, by its title
+* every tiddler the editor can open, by its title: one in a `.tid` file, or a wikitext tiddler without a file of its own
 
 A tiddler without a file is only read when its text writes a definition, so the search stays quick on a large wiki.
 

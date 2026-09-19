@@ -1,5 +1,5 @@
 created: 20260910182149952
-modified: 20260917002958603
+modified: 20260918234635472
 tags: [[LSP Capabilities]]
 title: LSP Rename
 
@@ -20,6 +20,7 @@ Edits outside the file you are in, and every parameter edit, open VS Code's refa
 
 * a variable ~TiddlyWiki sets itself, such as `currentTiddler`
 * a ~JavaScript macro such as `<<now>>`
+* a name an `\import` brings in, since rename cannot find every tiddler that imports it
 * a variable a widget sets, such as the `x` of `<$let x=...>`, since definitions it calls can read it
 * a `\widget` name without `$` or without a dot, since only a dotted name makes a widget of its own
 * a name defined in, or called from, a tiddler without a file of its own, such as a shadow tiddler, since that cannot be edited

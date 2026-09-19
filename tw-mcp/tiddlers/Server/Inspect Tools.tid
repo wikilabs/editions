@@ -1,5 +1,5 @@
 created: 20260510142317000
-modified: 20260510142317000
+modified: 20260918234629612
 tags: Server
 title: Inspect Tools
 
@@ -15,7 +15,7 @@ The TiddlyWiki MCP server provides four ''inspection'' tools, each answering a d
 
 These tools are read-only and operate on either inline wikitext or existing tiddlers. The examples below progress from simple to complex; you can paste each one directly into the matching MCP tool call.
 
-For a quick lookup of output symbols, jump to [[#Output reference]] at the end.
+For a quick lookup of output symbols, see ''Output reference'' at the end.
 
 !! `inspect_pos` (Source-Position Map)
 
@@ -26,7 +26,7 @@ The output starts with a ''title-map header'' (`[0=TiddlerA 1=TiddlerB ...]`), f
 |! Attr |! Meaning |
 |`p="idx:line"` |source line(s); `idx` indexes the title-map header |
 |`v="name"` |this node was produced by transcluding the procedure/macro/variable `name` |
-|`c="A\|B\|..."` |caller chain. Closest enclosing transclude first, outermost last |
+|`c="A\|B\|..."` |caller chain: where each enclosing transclude is defined (the tiddler, or the procedure name when defined inline). Closest first, outermost last |
 |`ctx="Title"` |`currentTiddler` at render time, when it differs from the source-context tiddler |
 
 !!! 1. Plain text
@@ -143,15 +143,16 @@ inspect_scope(
 )
 ```
 
-Output (abridged):
+Output:
 
 ```
-Scope at char 40 (widget: transclude, distance: 6, 101 vars)
+Scope at char 40 (widget: transclude, distance: 6, 97 vars)
 
 — local scope
 var thisTiddler
-def greet(who)
-... globals follow ...
+proc greet(who)
+
++95 globals (use all:true to see all, or filter to narrow)
 ```
 
 Each variable is shown with a ''kind prefix'':
@@ -166,7 +167,7 @@ Each variable is shown with a ''kind prefix'':
 
 !!! 2. Used vs unused globals
 
-By default, only ''used'' globals are listed: those referenced at the position, transitively expanding macro/procedure bodies. To see all imported globals:
+By default, only ''used'' globals are listed: those referenced anywhere in the rendered text, transitively expanding macro/procedure bodies. To see all imported globals:
 
 ```
 inspect_scope(
@@ -300,7 +301,7 @@ inspect_tw(path="version")
 Output:
 
 ```
-$tw.version=5.4.1-prerelease
+$tw.version=5.5.0-prerelease
 ```
 
 ```

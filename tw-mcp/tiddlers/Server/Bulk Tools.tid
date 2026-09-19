@@ -1,5 +1,5 @@
 created: 20260512075856505
-modified: 20260512075856505
+modified: 20260918234607569
 tags: Server
 title: Bulk Tools
 
@@ -31,7 +31,7 @@ Fetch several tiddlers' contents in one MCP call. Use it when you already have a
 
 !!! Output (text formats)
 
-CompoundTiddlers stream (`text/vnd.tiddlywiki-multiple`): each block is a `.tid` with `title:` first, other fields alphabetical, then blank line and text (when `detailed`). Blocks separated by `\n+\n`:
+CompoundTiddlers stream (`text/vnd.tiddlywiki-multiple`): each block is a `.tid` with `title:` first, other fields alphabetical, then blank line and text (when `detailed`). A tiddler whose fields a `.tid` header cannot hold (control characters or leading/trailing whitespace in a value, `:` or `#` in a field name) gets a JSON fields object in place of the header lines, except with `format=tid`. Blocks separated by `\n+\n`:
 
 ```
 title: Best Practices
@@ -90,7 +90,7 @@ ProjectIndex
   - 5#KP: See [[OldName]] for the spec.
   + 5#KP: See [[NewName]] for the spec.
 
-DRY RUN: 1 replacements across 1 tiddlers
+DRY RUN: 1 replacement across 1 tiddler
 Call again with dry_run=false to apply.
 ```
 
@@ -103,6 +103,8 @@ Compact summary:
 ```
 
 Failures per tiddler are listed below the summary if any persist fails.
+
+An MCP client that supports elicitation asks you to confirm an apply that changes more than one tiddler, listing the titles; the model cannot answer for you. Other clients apply at once.
 
 !!! Array fields (tags, list)
 

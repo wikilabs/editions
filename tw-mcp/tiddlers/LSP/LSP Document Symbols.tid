@@ -1,5 +1,5 @@
 created: 20260910182100515
-modified: 20260910182100515
+modified: 20260918234620569
 tags: [[LSP Capabilities]]
 title: LSP Document Symbols
 
@@ -15,7 +15,7 @@ Every `\procedure`, `\function`, `\define` and `\widget` comes first, each spann
 |`\widget` |Class |
 |`!` heading |String |
 
-A definition's detail is its parameter list, defaults included.
+A definition's detail is its parameter list, defaults included, after the word `macro` for a `\define`.
 
 !! What is left out
 

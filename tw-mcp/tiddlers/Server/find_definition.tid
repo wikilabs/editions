@@ -1,5 +1,5 @@
 created: 20260910193355677
-modified: 20260910193355677
+modified: 20260918234617268
 tags: Server
 title: find_definition
 
@@ -20,7 +20,7 @@ Where a name is defined, found the way the running wiki finds it: wikitext defin
   <line>#<hash> [<kinds>]: <line text>
 ```
 
-Kinds are `procedure`, `function`, `macro` and `widget` for a pragma, with `global` added to the one definition the wiki imports for everyone, and `JavaScript widget`, `filter operator`, `run prefix` and `JavaScript macro` for code. A tiddler a plugin supplies names that plugin; the core is never named. The anchor is what `edit_tiddler` takes as `pos`. A footer counts definitions and tiddlers, and `(no definition)` means none was found.
+Kinds are `procedure`, `function`, `macro` and `widget` for a pragma, with `global` added to the one definition the wiki imports for everyone, and `JavaScript widget`, `filter operator`, `run prefix` and `JavaScript macro` for code. The heading names the plugin that supplies a shadow, `(from <plugin>)`, and marks a tiddler of your own that replaces a shadow as `(your tiddler)` or `(your tiddler, replacing the shadow from <plugin>)`; the core is never named. The anchor is what `edit_tiddler` takes as `pos`. A footer counts definitions and tiddlers, and `(no definition)` means none was found.
 
 !! Which code is shown
 
@@ -33,7 +33,7 @@ find_definition(name="list-links")
 find_definition(name="$list")
 find_definition(name="compare")
 find_definition(name=":else")
-find_definition(name="list-links", filter="[tag[$:/tags/Macro]]")
+find_definition(name="list-links", filter="[all[shadows+tiddlers]tag[$:/tags/Macro]]")
 ```
 
 !! See also

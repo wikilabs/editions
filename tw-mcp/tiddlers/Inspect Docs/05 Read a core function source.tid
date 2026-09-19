@@ -1,5 +1,5 @@
 created: 20260510153500000
-modified: 20260510153500000
+modified: 20260918234713370
 tags: [[Inspect Docs]]
 title: 05 Read a core function source
 
@@ -24,17 +24,17 @@ For the source-code prompt:
 
 ```js
 exports.formatDateString = function(date, template) {
-    // ... ~30 lines of switch-style replacements ...
+	// ... ~140 lines: a table of [pattern, formatter] pairs and a loop that applies them ...
 };
 ```
 
-The function walks `template` left-to-right, replacing each token (`YYYY`, `0DD`, `aa`, etc.) with the matching part of `date`. Tokens not recognised are kept verbatim, which is why something like `[[YYYY]]` works for literal text inside a date format.
+The function walks `template` left-to-right, replacing each token (`YYYY`, `0DD`, `am`, etc.) with the matching part of `date`. Characters that start no token are copied verbatim.
 <<<
 
 For the version + count prompt:
 
 <<<
-TiddlyWiki version: ''5.4.1-prerelease''. The wiki currently has 4,872 tiddlers in memory (`$tw.wiki.allTitles().length`). The on-disk wiki path is `e:/git/.../my-wiki`.
+TiddlyWiki version: ''5.5.0-prerelease''. The wiki currently has 4,872 tiddlers in memory (`$tw.wiki.allTitles().length`). The on-disk wiki path is `e:/git/.../my-wiki`.
 <<<
 
 !! Behind the scenes
