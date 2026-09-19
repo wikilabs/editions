@@ -1,5 +1,5 @@
 created: 20260403162850006
-modified: 20260918234633851
+modified: 20260919135917282
 tags: TOC
 title: Installation
 
@@ -79,7 +79,7 @@ If TiddlyWiki cannot find the plugins, you will see:
 
 Double-check that `TIDDLYWIKI_PLUGIN_PATH` is set correctly.
 
-If the server stops with `Cannot find module '$:/core/modules/commands/inspect/...'`, `wikilabs/tw-mcp-core` is missing from the `plugins` list.
+If `wikilabs/tw-mcp-core` is missing from the `plugins` list, the server stops with ''Error: --mcp needs the wikilabs/tw-mcp-core plugin''.
 
 !! Claude Code Configuration
 
