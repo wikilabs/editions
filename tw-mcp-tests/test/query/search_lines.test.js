@@ -203,3 +203,38 @@ test("search_lines: invalid regex -> error", () => {
 	assert.equal(result.isError, true);
 	assert.match(result.content[0].text, /invalid regex/i);
 });
+
+// A plugin tiddler's text is its whole bundle as JSON, so it is never scanned (bead tw-mcp-server-nmd).
+const PLUGIN = "$:/plugins/search_lines_probe/bundle";
+
+function withPluginFixture(fn) {
+	$tw.wiki.addTiddler({ title: PLUGIN, type: "application/json", "plugin-type": "plugin", text: JSON.stringify({ tiddlers: { [PLUGIN + "/a"]: { text: "needle inside" } } }) });
+	$tw.wiki.addTiddler({ title: "search_lines_plain", text: "needle outside" });
+	try {
+		return fn();
+	} finally {
+		cleanupTiddler($tw, PLUGIN);
+		cleanupTiddler($tw, "search_lines_plain");
+	}
+}
+
+test("search_lines: a plugin tiddler is never scanned, even when the filter names it", () => {
+	withPluginFixture(() => {
+		const text = searchLines({ pattern: "needle", filter: "[[" + PLUGIN + "]] [[search_lines_plain]]" }).content[0].text;
+		assert.doesNotMatch(text, /search_lines_probe/);
+		assert.match(text, /search_lines_plain/);
+	});
+});
+
+test("search-lines operator: a plugin tiddler is never scanned, even when the filter names it", () => {
+	withPluginFixture(() => {
+		assert.deepEqual($tw.wiki.filterTiddlers("[[" + PLUGIN + "]search-lines[needle]]"), []);
+		assert.equal($tw.wiki.filterTiddlers("[[search_lines_plain]search-lines[needle]]").length, 1);
+	});
+});
+
+// Pins the way into a plugin's content: its subtiddlers are shadows.
+test("search_lines: a plugin's shadow subtiddlers are still searched", () => {
+	const text = searchLines({ pattern: 'exports["search-lines"]', filter: "[all[shadows]prefix[$:/core/modules/commands/inspect/filters/]]" }).content[0].text;
+	assert.match(text, /\$:\/core\/modules\/commands\/inspect\/filters\/search-lines\.js/);
+});

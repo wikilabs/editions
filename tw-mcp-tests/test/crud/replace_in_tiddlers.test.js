@@ -116,3 +116,17 @@ test("replace_in_tiddlers: rule with non-string replacement -> error", () => {
 	assert.equal(result.isError, true);
 	assert.match(result.content[0].text, /'replacement' must be a string/);
 });
+
+// A plugin tiddler's text is its whole bundle as JSON, so it is never scanned or rewritten (bead tw-mcp-server-nmd).
+test("replace_in_tiddlers: a plugin tiddler is never changed, even when the filter names it", () => {
+	const plugin = "$:/plugins/replace_probe/bundle";
+	const text = JSON.stringify({ tiddlers: { [plugin + "/a"]: { text: "alpha inside" } } });
+	$tw.wiki.addTiddler({ title: plugin, type: "application/json", "plugin-type": "plugin", text: text });
+	try {
+		const result = replaceInTiddlers({ rules: [{ pattern: "alpha", replacement: "omega" }], filter: "[[" + plugin + "]]", dry_run: false });
+		assert.equal($tw.wiki.getTiddlerText(plugin), text);
+		assert.doesNotMatch(result.content[0].text, /replace_probe\/bundle/);
+	} finally {
+		cleanupTiddler($tw, plugin);
+	}
+});
