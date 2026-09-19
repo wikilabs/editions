@@ -33,6 +33,48 @@ test("inspect_pos: link element receives p= attribute", () => {
 	assert.match(text, /<a[^>]*p="0:\d+/);
 });
 
+// Line numbers count in the text that was parsed (bead tw-mcp-server-png). By hand:
+//   inspect_pos(text=MULTILINE)  ->  the list items carry p="0:3", the link p="0:5"
+const MULTILINE = 'one\n\n<$list filter="[[A]] [[B]]"><p>x</p></$list>\n\n[[Target]]';
+const HOST = "inspect_pos lines host";
+
+// [titleIndex, line] of the first opening tag matching tagRegExp.
+function posOf(output, tagRegExp) {
+	const tag = output.match(tagRegExp);
+	assert.ok(tag, "no tag matching " + tagRegExp);
+	return tag[0].match(/ p="(\d+):(\d+)/).slice(1);
+}
+
+test("inspect_pos: inline text reports the lines of the text itself", () => {
+	const text = inspectPos({ text: MULTILINE }).content[0].text;
+	assert.deepEqual(posOf(text, /<p [^>]*ctx="A"[^>]*>/), ["0", "3"]);
+	assert.deepEqual(posOf(text, /<a [^>]*>/), ["0", "5"]);
+});
+
+test("inspect_pos: a context tiddler with other text labels the lines, it does not supply them", () => {
+	tw.wiki.addTiddler({ title: HOST, tags: "Fixture", text: "unrelated text on one line" });
+	try {
+		const text = inspectPos({ text: MULTILINE, context: HOST }).content[0].text;
+		assert.match(text, /^\[0=inspect_pos lines host\]/);
+		assert.deepEqual(posOf(text, /<p [^>]*ctx="A"[^>]*>/), ["0", "3"]);
+		assert.deepEqual(posOf(text, /<a [^>]*>/), ["0", "5"]);
+	} finally {
+		tw.wiki.deleteTiddler(HOST);
+	}
+});
+
+// Pins the behaviour that was already right: title and tags make a 3-line .tid header.
+test("inspect_pos: a context tiddler's own text reports lines in its .tid file", () => {
+	tw.wiki.addTiddler({ title: HOST, tags: "Fixture", text: MULTILINE });
+	try {
+		const text = inspectPos({ text: MULTILINE, context: HOST }).content[0].text;
+		assert.deepEqual(posOf(text, /<p [^>]*ctx="A"[^>]*>/), ["0", "6"]);
+		assert.deepEqual(posOf(text, /<a [^>]*>/), ["0", "8"]);
+	} finally {
+		tw.wiki.deleteTiddler(HOST);
+	}
+});
+
 test("inspect_pos: transcluded macro adds v= source-variable attribute", () => {
 	const result = inspectPos({
 		text: "\\procedure hello() Hi there!\n\\end\n\n<<hello>>",
