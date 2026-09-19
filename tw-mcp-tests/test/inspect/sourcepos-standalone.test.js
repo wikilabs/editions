@@ -59,6 +59,18 @@ test("inspect_pos announces each link once and takes the patches off afterwards"
 	assert.equal(tw.wikilabsSourcePos.holders, 0);
 });
 
+// Pins the no-holder case of bead tw-mcp-server-mt1: a reload installs nothing when nobody holds the patches.
+test("re-executing the module with no holder patches nothing", () => {
+	const TITLE = "$:/plugins/wikilabs/shared/sourcepos.js";
+	const LinkWidget = tw.modules.execute("$:/core/modules/widgets/link.js").link;
+	const renderLink = LinkWidget.prototype.renderLink;
+	// Test scaffolding: what reload_mcp_modules does to this module.
+	tw.modules.titles[TITLE].exports = undefined;
+	tw.modules.execute(TITLE);
+	assert.equal(LinkWidget.prototype.renderLink, renderLink);
+	assert.ok(!tw.wikilabsSourcePos || tw.wikilabsSourcePos.holders === 0);
+});
+
 test("inspect_scope files a core macro under used globals without devtools", () => {
 	const text = inspectScope({ text: '<<list-links "[[A]]">>', charPos: 0 }).content[0].text;
 	assert.match(text, /— used globals\n(.+\n)*macro list-links\(.*\) @\$:\/core\/macros\/list/);

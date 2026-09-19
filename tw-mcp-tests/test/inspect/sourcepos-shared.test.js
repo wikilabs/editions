@@ -11,9 +11,10 @@ loads both. By hand, in the browser console of a wiki with both plugins:
 
 const { test, before } = require("node:test");
 const assert = require("node:assert");
-const { bootTw } = require("../setup");
+const { bootTw, loadHandler } = require("../setup");
 
 const TITLE = "$:/plugins/wikilabs/shared/sourcepos.js";
+const INSPECT_POS = "$:/core/modules/commands/inspect/handlers/inspect/inspect_pos.js";
 
 let tw;
 
@@ -45,4 +46,27 @@ test("the module offers what devtools and the inspect tools call", () => {
 	for(const name of ["acquire", "lineRange", "getSourceInfo", "buildCallerChain", "getLineOffsets", "charToLine", "getTidHeaderLines", "findBodyOffset"]) {
 		assert.equal(typeof api[name], "function", name);
 	}
+});
+
+// devtools holds the patches for the page's life, so a reload must swap them (bead tw-mcp-server-mt1).
+test("re-executing the module swaps the held patches for its own", () => {
+	const holders = tw.wikilabsSourcePos.holders;
+	assert.ok(holders > 0, "devtools holds the patches in this edition");
+	// Test scaffolding: what reload_mcp_modules does to this module.
+	tw.modules.titles[TITLE].exports = undefined;
+	const fresh = tw.modules.execute(TITLE);
+	const findBodyOffset = fresh.findBodyOffset;
+	let calls = 0;
+	fresh.findBodyOffset = function() {
+		calls++;
+		return findBodyOffset.apply(this, arguments);
+	};
+	try {
+		// A global macro: the transclude patch measures where its body starts.
+		loadHandler(tw, INSPECT_POS).inspect_pos({ text: "<<list-links filter:'[[A]]'>>" });
+	} finally {
+		fresh.findBodyOffset = findBodyOffset;
+	}
+	assert.ok(calls > 0, "the transclude patch still belongs to the copy the reload replaced");
+	assert.equal(tw.wikilabsSourcePos.holders, holders);
 });
