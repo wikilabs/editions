@@ -19,7 +19,8 @@ module.exports = defineConfig({
 		// into the TW5 working copy, so the screenshot tests below would
 		// compare against whatever happens to be checked out there.
 		// TW_CORE=dev overrides this for a run against TiddlyWiki master.
-		command: "node ../scripts/tw.js --core release . --listen port=8099 host=127.0.0.1",
+		// tests/wiki switches tracking on without touching the devtools edition.
+		command: "node ../scripts/tw.js --core release tests/wiki --listen port=8099 host=127.0.0.1",
 		port: 8099,
 		reuseExistingServer: false,
 		timeout: 20000

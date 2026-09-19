@@ -1,0 +1,10 @@
+{
+	"description": "Playwright fixture: the devtools edition with source position tracking on. No filesystem plugin, so a test run writes nothing to disk.",
+	"plugins": [
+		"wikilabs/link-to-tabs",
+		"wikilabs/advanced-search-plus"
+	],
+	"includeWikis": [
+		"../../../devtools"
+	]
+}

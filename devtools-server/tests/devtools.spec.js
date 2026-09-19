@@ -3,12 +3,12 @@ const { test, expect } = require("@playwright/test");
 
 // Locate a tracked content element inside the GettingStarted tiddler body
 function tracked(page) {
-	return page.locator("[data-tiddler-title='GettingStarted'] .tc-tiddler-body [data-source-pos]").first();
+	return page.locator("[data-tiddler-title='GettingStarted'] .tc-tiddler-body [data-pos]").first();
 }
 
 test.beforeEach(async ({ page }) => {
 	await page.goto("/#GettingStarted");
-	await page.waitForSelector("[data-source-pos]", { timeout: 15000 });
+	await page.waitForSelector("[data-pos]", { timeout: 15000 });
 });
 
 // ── Tooltip ──
