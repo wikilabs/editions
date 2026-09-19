@@ -1,0 +1,7 @@
+title: local-procedure
+
+\procedure hello()
+<span class="local-hello">hi</span>
+\end
+
+<<hello>>

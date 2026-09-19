@@ -75,6 +75,38 @@ test("inspect_pos: a context tiddler's own text reports lines in its .tid file",
 	}
 });
 
+// A procedure defined in the rendered text points at its body there (bead tw-mcp-server-nlm). By hand:
+//   inspect_pos(text=LOCAL_PROC)  ->  [0=(inline)] ... <span c="(inline)" p="0:2" v="hello">
+const LOCAL_PROC = "\\procedure hello()\n<span>hi</span>\n\\end\n\n<<hello>>";
+
+test("inspect_pos: a procedure defined in the text points at its body in that text", () => {
+	const text = inspectPos({ text: LOCAL_PROC }).content[0].text;
+	assert.match(text, /^\[0=\(inline\)\]/);
+	assert.deepEqual(posOf(text, /<span [^>]*>/), ["0", "2"]);
+	assert.match(text, /<span [^>]*v="hello"/);
+});
+
+test("inspect_pos: a procedure defined in a context tiddler's own text points at its file lines", () => {
+	tw.wiki.addTiddler({ title: HOST, tags: "Fixture", text: LOCAL_PROC });
+	try {
+		const text = inspectPos({ text: LOCAL_PROC, context: HOST }).content[0].text;
+		assert.match(text, /^\[0=inspect_pos lines host\]/);
+		assert.deepEqual(posOf(text, /<span [^>]*>/), ["0", "5"]);
+	} finally {
+		tw.wiki.deleteTiddler(HOST);
+	}
+});
+
+// The Inspect Tools example for c=: local procedures keep their names in the chain.
+test("inspect_pos: local procedures still name each other in the caller chain", () => {
+	const text = inspectPos({
+		text: "\\procedure outer() <<inner>>\n\\procedure inner() Inner content.\n<<outer>>",
+		context: "caller"
+	}).content[0].text;
+	assert.match(text, /^\[0=caller\]/);
+	assert.match(text, /<p c="outer\|caller" p="0:2" v="inner">Inner content\.<\/p>/);
+});
+
 test("inspect_pos: transcluded macro adds v= source-variable attribute", () => {
 	const result = inspectPos({
 		text: "\\procedure hello() Hi there!\n\\end\n\n<<hello>>",
