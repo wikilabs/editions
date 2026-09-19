@@ -1,5 +1,5 @@
 created: 20260512075856505
-modified: 20260919135535311
+modified: 20260919210658057
 tags: Server
 title: Bulk Tools
 
@@ -63,7 +63,7 @@ Apply one or more find+replace rules across many tiddlers in one MCP call. Defau
 
 |! Param |! Default |! Meaning |
 |`rules` |required |array of `{pattern, replacement, regexp?, case_sensitive?, words?}` objects |
-|`filter` |`[all[tiddlers]!is[system]]` |TW filter scope. Pass your own to widen or narrow. |
+|`filter` |`[all[tiddlers]!is[system]]` |TW filter scope. Pass your own to widen or narrow. Plugin tiddlers are never scanned, their shadow subtiddlers are. |
 |`include_system` |`false` |convenience flag for `$:/` tiddlers; ignored if `filter` is set |
 |`fields` |`['text','caption','list','tags']` |which fields to scan and rewrite |
 |`dry_run` |`true` |preview only; nothing written. Set false to apply. |

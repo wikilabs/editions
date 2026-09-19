@@ -1,5 +1,5 @@
 created: 20260609210820067
-modified: 20260918234626549
+modified: 20260919210659742
 tags: Server
 title: search_lines
 
@@ -19,7 +19,7 @@ Per-line search across tiddler fields. Returns one entry per matching line, with
 |`context` |`0` |context lines around each match (symmetric) |
 |`context_before` |inherits `context` |lines before each match |
 |`context_after` |inherits `context` |lines after each match |
-|`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search |
+|`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search. Plugin tiddlers are never scanned, their shadow subtiddlers are |
 |`include_system` |`false` |convenience flag for $:/ tiddlers; ignored if `filter` is set |
 |`max_lines_per_tiddler` |`10` |cap on match lines per tiddler |
 |`max_lines_total` |`200` |cap on match lines overall; context lines are not counted |

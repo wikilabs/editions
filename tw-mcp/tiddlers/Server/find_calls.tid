@@ -1,5 +1,5 @@
 created: 20260910112904941
-modified: 20260910112904941
+modified: 20260919210658594
 tags: Server
 title: find_calls
 
@@ -11,7 +11,7 @@ Where a macro, procedure, function or custom widget is called or defined, found 
 
 |!Parameter |!Default |!Description |
 |`name` |required |the name called; a custom widget keeps its `$`, as in `$my.widget` |
-|`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search |
+|`filter` |`[all[tiddlers]!is[system]]` |TW filter expression to scope the search. Plugin tiddlers are never scanned, their shadow subtiddlers are |
 |`include_system` |`false` |convenience flag for $:/ tiddlers; ignored if `filter` is set |
 |`include_definitions` |`true` |also list the `\define`, `\procedure`, `\function` or `\widget` declaring the name |
 |`max_total` |`200` |cap on calls plus definitions; a tiddler is listed whole or not at all |

@@ -1,5 +1,5 @@
 created: 20260311050000000
-modified: 20260919193324066
+modified: 20260919210701359
 tags: Server
 title: Instructions
 
@@ -187,7 +187,7 @@ Per-line search across tiddler fields. Same engine as the `[search-lines:fields:
 |`invert` |no |Return lines that do NOT match |
 |`context` |no |Symmetric context lines around each match (default: 0) |
 |`context_before`, `context_after` |no |Asymmetric context (override `context`) |
-|`filter` |no |TW filter expression to scope the search (default: `[all[tiddlers]!is[system]]`) |
+|`filter` |no |TW filter expression to scope the search (default: `[all[tiddlers]!is[system]]`). Plugin tiddlers are never scanned, their shadow subtiddlers are |
 |`include_system` |no |Convenience flag for `$:/` tiddlers; ignored if `filter` is set |
 |`max_lines_per_tiddler` |no |Cap on matching lines per tiddler (default: 10) |
 |`max_lines_total` |no |Cap on matching lines overall (default: 200) |
@@ -495,7 +495,7 @@ Bulk find+replace across many tiddlers, with dry-run preview by default. Use for
 
 |!Parameter |!Required |!Description |
 |`rules` |yes |Array of `{pattern, replacement, regexp?, case_sensitive?, words?}` objects |
-|`filter` |no |TW filter scope (default: `[all[tiddlers]!is[system]]`) |
+|`filter` |no |TW filter scope (default: `[all[tiddlers]!is[system]]`). Plugin tiddlers are never scanned, their shadow subtiddlers are |
 |`include_system` |no |Convenience for `$:/` tiddlers; ignored if `filter` is set |
 |`fields` |no |Field names to scan (default: `['text','caption','list','tags']`) |
 |`dry_run` |no |Preview only; nothing written (default: `true`). Set `false` to apply. |

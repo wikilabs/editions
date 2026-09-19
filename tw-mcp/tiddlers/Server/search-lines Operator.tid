@@ -1,5 +1,5 @@
 created: 20260609210836953
-modified: 20260918234634656
+modified: 20260919210703074
 tags: Server
 title: search-lines Operator
 type: text/vnd.tiddlywiki
@@ -43,15 +43,15 @@ Multi-operand context follows the core `range` convention: 1 operand = no contex
 
 !! Examples
 
-Test these by pasting into ~AdvancedSearch's Filter tab or wrapping in a filtered transclusion like `{{{ [search-lines[MCP]] +[limit[5]] }}}` inside any tiddler.
+Test these by pasting into ~AdvancedSearch's Filter tab or wrapping in a filtered transclusion like `{{{ [!is[system]search-lines[MCP]] +[limit[5]] }}}` inside any tiddler. The examples start with `!is[system]` to leave system tiddlers out. Plugin tiddlers are never scanned, since their text is the whole bundle as JSON; reach a plugin's content as shadows, as in `[all[shadows]prefix[$:/plugins/wikilabs/tw-mcp/]search-lines[MCP]]`.
 
 ''Simple literal match (default field `text`, case-insensitive):''
 
 ```
-[search-lines[MCP]]
+[!is[system]search-lines[MCP]]
 ```
 
-Returns every line containing "MCP" in any tiddler's text field. Sample output:
+Returns every line containing "MCP" in the text field of every non-system tiddler. Sample output:
 
 ```
 Basics:text:L1: !! TiddlyWiki MCP Server
@@ -61,28 +61,28 @@ Basics:text:L3: The MCP (Model Context Protocol) server lets...
 ''Whole-word boundaries:''
 
 ```
-[search-lines::words[MCP]]
+[!is[system]search-lines::words[MCP]]
 ```
 Matches `MCP` as a whole word and skips `MCPv2` and `MCPClient`. A hyphen is a word boundary, so `tw-mcp` matches too (the match is case-insensitive).
 
 ''Case-sensitive:''
 
 ```
-[search-lines::casesensitive[MCP]]
+[!is[system]search-lines::casesensitive[MCP]]
 ```
 Only uppercase `MCP` matches; lowercase `mcp` and mixed `Mcp` are skipped.
 
 ''Multi-field search:''
 
 ```
-[search-lines:text,caption[MCP]]
+[!is[system]search-lines:text,caption[MCP]]
 ```
 Looks at both `text` and `caption`. A tiddler whose caption mentions MCP appears as `<title>:caption:L1: ...`.
 
 ''Regex pattern (avoid `]` in pattern — see bracket-clash gotcha):''
 
 ```
-[search-lines::regexp[search.lines]]
+[!is[system]search-lines::regexp[search.lines]]
 ```
 The `.` matches any character, so this finds `search_lines`, `search-lines`, and `search lines` in one pass.
 
@@ -96,14 +96,14 @@ Limits the source to `Server`-tagged tiddlers first, then emits each line that d
 ''Symmetric context (2 lines each side):''
 
 ```
-[search-lines[transclude],[2]]
+[!is[system]search-lines[transclude],[2]]
 ```
 Each match line carries an `L` marker; surrounding context lines carry `c`.
 
 ''Asymmetric context (1 before, 3 after):''
 
 ```
-[search-lines:text[transclude],[1],[3]]
+[!is[system]search-lines:text[transclude],[1],[3]]
 ```
 
 ''Source-filter composition:''
