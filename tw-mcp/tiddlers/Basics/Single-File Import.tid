@@ -1,5 +1,5 @@
 created: 20260407134700000
-modified: 20260919134453297
+modified: 20260919141513823
 tags: Basics
 title: Single-File Import
 
@@ -120,7 +120,7 @@ This means:
 * Tiddlers with titles like "Recipes/Pasta" keep their natural folder structure
 * Everything else stays in the `tiddlers/` root
 
-Tag names are lowercased and normalised for folder names: spaces become `-`, runs of any other character outside `a-z`, `0-9` and `-` collapse to a single `_`, and leading/trailing separators are trimmed. For example, the tag `Higher Caloric Value (H.C.V.)` becomes the folder `higher-caloric-value-_h_c_v`.
+Tag names are lowercased and normalised for folder names: letters of any script and digits stay, spaces become `-`, other characters become `_`, a run of separators collapses to one, and leading/trailing separators are trimmed. For example, the tag `Higher Caloric Value (H.C.V.)` becomes the folder `higher-caloric-value-h_c_v`, and `Übersicht` becomes `übersicht`.
 
 For full details see the [[TiddlyWiki documentation|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]].
 
