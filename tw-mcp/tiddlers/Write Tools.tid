@@ -1,0 +1,5 @@
+created: 20260920085432837
+modified: 20260920085432837
+title: Write Tools
+
+Write tools require `rw` mode (`--mcp rw`); the server starts in readonly mode by default.

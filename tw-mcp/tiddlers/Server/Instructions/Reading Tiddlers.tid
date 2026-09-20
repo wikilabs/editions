@@ -1,7 +1,8 @@
 caption: Reading Tiddlers
 created: 20260920021513527
-list: [[Instructions/get_tiddler]] [[Instructions/get_tiddlers]] [[Instructions/list_tiddlers]] [[Instructions/run_filter]] [[Instructions/search_lines]] [[Instructions/find_calls]] [[Instructions/find_definition]] [[Instructions/render_tiddler]] [[Instructions/render_text]] [[Instructions/render_field]] [[Instructions/inspect_tree]] [[Instructions/inspect_pos]] [[Instructions/inspect_scope]] [[Instructions/inspect_tw]] [[Instructions/get_wiki_info]] [[Instructions/reload_tiddlers]]
-modified: 20260920021513527
+list: Instructions/get_tiddler Instructions/get_tiddlers Instructions/list_tiddlers Instructions/run_filter Instructions/search_lines Instructions/find_calls Instructions/find_definition Instructions/render_tiddler Instructions/render_text Instructions/render_field Instructions/inspect_tree Instructions/inspect_pos Instructions/inspect_scope Instructions/inspect_tw Instructions/get_wiki_info Instructions/reload_tiddlers
+modified: 20260920085503279
 tags: Instructions
 title: Instructions/Reading Tiddlers
 
+The tools a readonly server offers, ordered as you usually reach for them: fetch, list, search, render, inspect.
