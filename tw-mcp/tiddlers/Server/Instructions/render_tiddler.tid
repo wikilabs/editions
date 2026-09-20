@@ -1,6 +1,6 @@
 caption: render_tiddler
 created: 20260920021504526
-modified: 20260920002230397
+modified: 20260920090938671
 tags: Instructions [[Read Tools]]
 title: Instructions/render_tiddler
 
@@ -11,7 +11,11 @@ Renders a tiddler's wikitext to plain text or HTML. Supports all global macros (
 |`type` |no |`text/plain` (default), `text/plain-formatted`, or `text/html` |
 |`mode` |no |`raw` (default) — render through type parser. `viewtemplate` — render through the ~ViewTemplate body cascade (same as the story river) |
 
-> ''Token efficiency:'' Plain text output (`text/plain` or `text/plain-formatted`) is much smaller than HTML: typically a half to a third of the tokens for the same content. Prefer plain text unless the HTML structure is specifically needed. Dynamic wikitext (macros, filters, transclusions) is fully resolved in all output modes.
+<$wl.callout>
+
+''Token efficiency:'' Plain text output (`text/plain` or `text/plain-formatted`) is much smaller than HTML: typically a half to a third of the tokens for the same content. Prefer plain text unless the HTML structure is specifically needed. Dynamic wikitext (macros, filters, transclusions) is fully resolved in all output modes.
+
+</$wl.callout>
 
 ''Example prompts:''
 

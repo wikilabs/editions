@@ -1,0 +1,33 @@
+created: 20260920090806559
+modified: 20260920090806559
+tags: $:/tags/Stylesheet
+title: $:/wikilabs/tw-mcp/callout-styles
+
+<!-- Callout boxes for the docs: note matches the core message box, warning takes the palette's alert colours. -->
+
+.wltc-callout {
+	border: 1px solid;
+	border-left-width: 4px;
+	padding: 0.5em 1em;
+	margin: 1em 0;
+}
+
+.wltc-note {
+	border-color: <<colour message-border>>;
+	background: <<colour message-background>>;
+	color: <<colour message-foreground>>;
+}
+
+.wltc-warning {
+	border-color: <<colour alert-border>>;
+	background: <<colour alert-background>>;
+	color: <<colour foreground>>;
+}
+
+.wltc-callout p:first-child {
+	margin-top: 0;
+}
+
+.wltc-callout p:last-child {
+	margin-bottom: 0;
+}

@@ -1,7 +1,8 @@
 created: 20260407134700000
-modified: 20260919141513823
+modified: 20260920091119613
 tags: Basics
 title: Single-File Import
+type: text/vnd.tiddlywiki
 
 !! Importing a Single-File Wiki
 
@@ -9,16 +10,16 @@ If you have a TiddlyWiki as a single HTML file and want to migrate it into a nod
 
 !! Prerequisites
 
-<div class="tc-message-box">
+<$wl.callout>
+
+Both import tools write. A server without `readwrite` does not offer them at all.
 
 # The tw-mcp plugins, set up as in [[Installation]]
 # A fresh wiki folder, `./mywiki` below, with both tw-mcp plugins in its `tiddlywiki.info`
 # A `.mcp.json` in `./mywiki` that starts the server in `readwrite` mode, and your MCP client started from that folder
 # Your single-file TiddlyWiki HTML file
 
-Both import tools write. A server without `readwrite` does not offer them at all.
-
-</div>
+</$wl.callout>
 
 !!! The wiki folder
 

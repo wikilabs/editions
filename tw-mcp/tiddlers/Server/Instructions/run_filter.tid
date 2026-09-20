@@ -1,6 +1,6 @@
 caption: run_filter
 created: 20260920021500526
-modified: 20260920002230397
+modified: 20260920090941342
 tags: Instructions [[Read Tools]]
 title: Instructions/run_filter
 
@@ -9,7 +9,11 @@ Runs a [[TiddlyWiki filter expression|https://tiddlywiki.com/static/Filters.html
 |!Parameter |!Required |!Description |
 |`filter` |yes |A TiddlyWiki filter expression |
 
-> ''Important:'' Always include `!is[system]` as the ''first'' operator in filters (unless system tiddlers are explicitly requested). This narrows the working set early and avoids unnecessary processing of thousands of system/shadow tiddlers.
+<$wl.callout>
+
+''Important:'' Always include `!is[system]` as the ''first'' operator in filters (unless system tiddlers are explicitly requested). This narrows the working set early and avoids unnecessary processing of thousands of system/shadow tiddlers.
+
+</$wl.callout>
 
 Results are capped at 500 titles; a longer list ends with `(N total, showing first 500)`. For a grouped overview use `list_tiddlers`, which returns a namespace tree.
 
@@ -19,7 +23,11 @@ Results are capped at 500 titles; a longer list ends with `(N total, showing fir
 # Drill in: `[all[shadows+tiddlers]prefix[$:/config/shortcuts/]]` → individual tiddlers
 # Get details: use `get_tiddler` on a specific title
 
-> ''Tip:'' Use `all[shadows+tiddlers]` to include shadow tiddlers (from plugins/core). Many important tiddlers are shadows that won't appear with just `prefix[]`.
+<$wl.callout>
+
+''Tip:'' Use `all[shadows+tiddlers]` to include shadow tiddlers (from plugins/core). Many important tiddlers are shadows that won't appear with just `prefix[]`.
+
+</$wl.callout>
 
 ''Example prompts:''
 

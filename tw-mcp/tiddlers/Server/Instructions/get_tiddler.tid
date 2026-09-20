@@ -1,6 +1,6 @@
 caption: get_tiddler
 created: 20260920021457526
-modified: 20260920002230397
+modified: 20260920090859480
 tags: Instructions [[Read Tools]]
 title: Instructions/get_tiddler
 
@@ -11,7 +11,11 @@ Retrieves a single tiddler by title. By default returns ''metadata only'' (all f
 |`format` |no |`hashline` (default) — text with hash anchors for editing. `tid` — plain `.tid` text without hashes. `json` — structured fields object |
 |`detailed` |no |Set to `true` to include the `text` field (default: `false`) |
 
-> ''Note:'' System tiddlers (`$:/` prefix) should only be fetched when explicitly requested by the user. The AI is instructed not to fetch system tiddlers for general queries.
+<$wl.callout>
+
+''Note:'' System tiddlers (`$:/` prefix) should only be fetched when explicitly requested by the user. The AI is instructed not to fetch system tiddlers for general queries.
+
+</$wl.callout>
 
 ''Example prompts:''
 

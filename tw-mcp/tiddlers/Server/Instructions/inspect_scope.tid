@@ -1,6 +1,6 @@
 caption: inspect_scope
 created: 20260920021509527
-modified: 20260920002230397
+modified: 20260920090935334
 tags: Instructions [[Read Tools]]
 title: Instructions/inspect_scope
 
@@ -17,7 +17,11 @@ Inspects the variable scope at a specific source position in rendered wikitext. 
 |`all` |no |Set to `true` to show all variables |
 |`renderContext` |no |`isolated` (default), `viewtemplate` (as in the story river) or `root` (page template context) |
 
-> ''Tip:'' When inspecting a position inside a macro/procedure, render from the ''caller's'' wikitext (using the `text` parameter) rather than the definition tiddler. This gives you the full scope including `currentTiddler`, `thisTiddler`, and procedure parameters.
+<$wl.callout>
+
+''Tip:'' When inspecting a position inside a macro/procedure, render from the ''caller's'' wikitext (using the `text` parameter) rather than the definition tiddler. This gives you the full scope including `currentTiddler`, `thisTiddler`, and procedure parameters.
+
+</$wl.callout>
 
 ''Example prompts:''
 

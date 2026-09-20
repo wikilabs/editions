@@ -1,6 +1,6 @@
 caption: render_text
 created: 20260920021505526
-modified: 20260920002230397
+modified: 20260920090904735
 tags: Instructions [[Read Tools]]
 title: Instructions/render_text
 
@@ -16,7 +16,11 @@ Also supports `parsetree` output for structural analysis of wikitext before macr
 |`exclude` |no |Keys to omit from `parsetree` output (e.g. `['start','end']`) |
 |`include` |no |Keys to unfold in `parsetree`. `text` is compact by default — use `['text']` to expand. |
 
-> ''Note:'' Action widgets (like `action-setfield`, `action-sendmessage`) do NOT execute server-side. Only rendering/transclusion works.
+<$wl.callout>
+
+''Note:'' Action widgets (like `action-setfield`, `action-sendmessage`) do NOT execute server-side. Only rendering/transclusion works.
+
+</$wl.callout>
 
 For widget tree analysis, use [[inspect_tree|Source Position Tracking]]. For source position tracking, use [[inspect_pos|Source Position Tracking]].
 

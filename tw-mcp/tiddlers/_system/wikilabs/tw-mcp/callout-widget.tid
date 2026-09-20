@@ -1,0 +1,12 @@
+created: 20260920090810102
+modified: 20260920090810102
+tags: $:/tags/Global
+title: $:/wikilabs/tw-mcp/callout-widget
+
+\widget $wl.callout(kind:"note")
+<div class=`wltc-callout wltc-$(kind)$`>
+
+<$slot $name="ts-raw"/>
+
+</div>
+\end

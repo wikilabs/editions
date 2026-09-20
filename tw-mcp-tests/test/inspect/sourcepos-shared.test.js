@@ -27,10 +27,25 @@ function shipped(plugin) {
 	return info && info.tiddlers[TITLE];
 }
 
+function show(line) {
+	return line === undefined ? "(no such line)" : JSON.stringify(line);
+}
+
+// Names the line the copies part on, so a drift does not print the whole module twice.
+function firstDifference(left, right) {
+	const a = left.split("\n"), b = right.split("\n");
+	for(let i = 0; i < Math.max(a.length, b.length); i++) {
+		if(a[i] !== b[i]) {
+			return "line " + (i + 1) + ": devtools " + show(a[i]) + " vs tw-mcp-core " + show(b[i]);
+		}
+	}
+	return null;
+}
+
 test("devtools and tw-mcp-core ship the same source-position module", () => {
 	assert.ok(shipped("tw-mcp-core"), "tw-mcp-core ships it");
 	assert.ok(shipped("devtools"), "devtools ships it");
-	assert.equal(shipped("devtools").text, shipped("tw-mcp-core").text);
+	assert.equal(firstDifference(shipped("devtools").text, shipped("tw-mcp-core").text), null);
 });
 
 test("both ship it as a library module", () => {

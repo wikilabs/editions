@@ -1,5 +1,5 @@
 created: 20260318021144763
-modified: 20260919193302768
+modified: 20260920090856807
 tags: Documentation Server
 title: inspect_tw Walkthrough
 
@@ -226,7 +226,11 @@ If a function returns `undefined` (e.g. tiddler not found), it shows:
 $tw.wiki.getTiddler("NonExistentTiddler")=undefined
 ```
 
+<$wl.callout>
+
 ''Note:'' Tiddler titles are case-sensitive! `"hellothere"` ≠ `"HelloThere"`.
+
+</$wl.callout>
 
 ''Auto-resolve:'' If the path resolves to an object (not a function) and `call[0]` is a method on it, the call is auto-resolved. For example, `path="wiki" call=["getTiddler","HelloThere"]` is equivalent to `path="wiki.getTiddler" call=["HelloThere"]`.
 

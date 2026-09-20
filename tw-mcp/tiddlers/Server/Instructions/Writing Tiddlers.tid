@@ -1,10 +1,14 @@
 caption: Writing Tiddlers
 created: 20260920021526530
 list: Instructions/put_tiddler Instructions/edit_tiddler Instructions/replace_in_tiddlers Instructions/delete_tiddler Instructions/rename_tiddler Instructions/resave_tiddler Instructions/reload_mcp_modules Instructions/upload_file Instructions/save_wiki_folder Instructions/build_wiki Instructions/import_html_wiki Instructions/extract_html_wiki
-modified: 20260920085508696
+modified: 20260920090909572
 tags: Instructions
 title: Instructions/Writing Tiddlers
 
 The tools that change the wiki or the disk, ordered as you usually reach for them: create, edit, delete, then files, builds and imports.
 
-> ''Important:'' <$transclude $tiddler="Write Tools" $mode="inline"/>
+<$wl.callout>
+
+''Important:'' <$transclude $tiddler="Write Tools" $mode="inline"/>
+
+</$wl.callout>
