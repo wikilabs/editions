@@ -1,0 +1,17 @@
+caption: Examples
+created: 20260920021528530
+modified: 20260920021528530
+tags: Instructions [[Helper]]
+title: Instructions/tw-upload Examples
+
+```
+node tw-upload.js photo.png --wiki ./editions/tw5.com
+node tw-upload.js doc.pdf --title "My Document" --tags "docs reference"
+node tw-upload.js icon.gif --subfolder images --tags "[[site images]]"
+```
+
+> The MCP server must be running. If the `.tw-mcp/connect` file is missing, `tw-upload` will show a clear error with the command to start the server.
+
+---
+
+For tips on writing effective prompts, token efficiency, and safety, see [[Best Practices]].

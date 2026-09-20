@@ -1,0 +1,22 @@
+caption: `reload_tiddlers`
+created: 20260920021512527
+modified: 20260920021512527
+tags: Instructions [[Read Tools]]
+title: Instructions/reload_tiddlers
+
+Re-reads tiddler files from disk into the in-memory store. Use this after editing `.tid` files externally (e.g. with a text editor or git pull).
+
+|!Parameter |!Required |!Description |
+|`scope` |no |`tiddlers` (default): reload edition tiddlers from disk. `shadows`: re-register plugins and re-unpack their shadow tiddlers from the plugin tiddlers already in memory; plugin folders are ''not'' re-read. `all`: both |
+
+Use `scope="shadows"` after a plugin tiddler in the store has changed. To pick up edits in the tw-mcp plugin folders use `reload_mcp_modules`.
+
+''Safety:''
+
+* ''Diff-based'' — compares each disk tiddler with the in-memory version field-by-field. Only tiddlers that have actually changed are updated in the store, avoiding unnecessary syncer activity.
+* ''Deduplication'' — if the same title appears in multiple files on disk (e.g. a `.tid` and a `.webp.meta`), only the last-loaded version is used, matching TiddlyWiki's boot behavior.
+* ''System tiddlers left alone'': `$:/` tiddlers found on disk are counted but not loaded into the store; only their file locations are refreshed.
+* ''Deletions'': a tiddler whose file under the tiddlers folder is gone is deleted from the store. An added and a deleted title with identical text are reported as one rename.
+* Reports disk counts (added, updated, unchanged, deleted, renamed), the number of system tiddlers skipped, whether `$:/config/OriginalTiddlerPaths` was refreshed, and a change log of store changes since the previous call.
+
+---

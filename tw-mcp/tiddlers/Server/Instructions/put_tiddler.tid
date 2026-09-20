@@ -1,0 +1,24 @@
+caption: `put_tiddler`
+created: 20260920021514530
+modified: 20260920021514530
+tags: Instructions [[Write Tools]]
+title: Instructions/put_tiddler
+
+Creates a new tiddler or updates an existing one. The tiddler is saved to disk as a `.tid` file.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`fields` |yes |Object with tiddler fields: `text`, `tags`, `type`, etc. |
+|`overwrite` |no |Set to `true` to overwrite an existing tiddler (default: `false`) |
+
+''Behaviour:''
+
+* If the tiddler ''does not exist'', it is created with automatic `created` and `modified` timestamps.
+* If the tiddler ''exists'' and `overwrite` is `false` (default), a ''new unique title'' is generated (e.g. "My Tiddler" becomes "My Tiddler 1"). The original tiddler is ''not'' modified.
+* If the tiddler ''exists'' and `overwrite` is `true`, the existing tiddler is updated. The original `created` timestamp is preserved and `modified` is updated.
+* Timestamps respect the `$:/config/TimestampDisable` configuration.
+
+''Example prompts:''
+
+* "Create a tiddler called Meeting Notes with text: Discussed project timeline"
+* "Update the tiddler Daily Log with new text, overwrite it"

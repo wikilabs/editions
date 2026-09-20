@@ -1,0 +1,14 @@
+caption: `find_definition`
+created: 20260920021503526
+modified: 20260920021503526
+tags: Instructions [[Read Tools]]
+title: Instructions/find_definition
+
+Where a name is defined: the wikitext definitions of a macro, procedure, function or custom widget, marking the one the wiki imports for everyone, and the running ~JavaScript behind a widget, filter operator, run prefix or macro:
+
+```
+find_definition(name="list-links")
+find_definition(name="$list")
+```
+
+See [[find_definition]] for parameters and output.

@@ -1,0 +1,19 @@
+caption: `inspect_pos`
+created: 20260920021508527
+modified: 20260920021508527
+tags: Instructions [[Read Tools]]
+title: Instructions/inspect_pos
+
+Renders wikitext to HTML with compact position attributes and a title index header. `p` has the format `idx:line` or `idx:start-end`, where `idx` references the title index. The lines are those of the defining tiddler's `.tid` file, header included; nodes parsed from `text` itself count lines in `text`, unless `text` is exactly the `context` tiddler's own text. A node may also carry `v` (the procedure, macro or variable that produced it), `c` (the caller chain, closest first, separated by `|`) and `ctx` (`currentTiddler` when it differs from the source tiddler). SVG elements are stripped of position data for token efficiency.
+
+|!Parameter |!Required |!Description |
+|`text` |yes |The wikitext to render |
+|`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
+|`context` |no |Context tiddler: sets `currentTiddler` and names `text` in the title index |
+
+Use the output with `inspect_scope` to examine variables at specific positions.
+
+''Example prompts:''
+
+* "Show me the source positions in the Quick Start tiddler" — renders HTML with `p=` position attributes
+* "Where does the Download button come from?" — trace `p="1:81-83"` back to `$:/cards/procedures` via the title index

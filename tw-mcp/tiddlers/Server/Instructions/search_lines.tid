@@ -1,0 +1,32 @@
+caption: `search_lines`
+created: 20260920021501526
+modified: 20260920021501526
+tags: Instructions [[Read Tools]]
+title: Instructions/search_lines
+
+Per-line search across tiddler fields. Same engine as the `[search-lines:fields:flags[pattern]]` filter operator. Returns one entry per emitted line.
+
+|!Parameter |!Required |!Description |
+|`pattern` |yes |String to find, or JS regex when `regexp=true` |
+|`fields` |no |Array of field names to scan (default: `["text"]`) |
+|`case_sensitive` |no |Case-sensitive match (default: `false`) |
+|`regexp` |no |Treat `pattern` as a JS regex |
+|`words` |no |Wrap pattern with `\b` word boundaries |
+|`invert` |no |Return lines that do NOT match |
+|`context` |no |Symmetric context lines around each match (default: 0) |
+|`context_before`, `context_after` |no |Asymmetric context (override `context`) |
+|`filter` |no |TW filter expression to scope the search (default: `[all[tiddlers]!is[system]]`). Plugin tiddlers are never scanned, their shadow subtiddlers are |
+|`include_system` |no |Convenience flag for `$:/` tiddlers; ignored if `filter` is set |
+|`max_lines_per_tiddler` |no |Cap on matching lines per tiddler (default: 10) |
+|`max_lines_total` |no |Cap on matching lines overall (default: 200) |
+|`snippet_cap` |no |Longer lines are shown as a window around the match (default: 200 chars) |
+
+Output: one block per tiddler, the title on its own line, then one indented line per hit: `<n>#<hash>: <text>` for the `text` field (the anchor `edit_tiddler` takes), `<field>:L<n>: <text>` for other fields. Context lines carry a `- ` prefix, and `--` separates non-adjacent ranges. A footer reads `N lines matched in M tiddlers`, plus a `(truncated ...)` line when a cap was hit; no hit gives `(no matches)`.
+
+''Example prompts:''
+
+* "Find every line mentioning 'token' in any tiddler"
+* "Find tiddlers tagged Server that mention 'pipe', with 2 lines of context"
+* "Search captions for the regex `\[\[[^|]+\|.*\]\]`" — uses `regexp=true`, `fields=["caption"]`
+
+For the filter-operator form, suffix syntax, and the bracket-clash gotcha, see [[search-lines Operator]].

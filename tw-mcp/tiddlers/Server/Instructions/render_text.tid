@@ -1,0 +1,45 @@
+caption: `render_text`
+created: 20260920021505526
+modified: 20260920021505526
+tags: Instructions [[Read Tools]]
+title: Instructions/render_text
+
+Renders arbitrary wikitext with full context — global macros, procedures, and variables are all available. Use `\import` to pull in procedures from other tiddlers. Useful for testing wikitext snippets, executing procedures that gather information, or generating content dynamically.
+
+Also supports `parsetree` output for structural analysis of wikitext before macro expansion.
+
+|!Parameter |!Required |!Description |
+|`text` |yes |The wikitext to render |
+|`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
+|`output` |no |`text/plain` (default), `text/plain-formatted`, `text/html`, or `parsetree` |
+|`context` |no |Tiddler title to use as context (sets `currentTiddler` variable) |
+|`exclude` |no |Keys to omit from `parsetree` output (e.g. `['start','end']`) |
+|`include` |no |Keys to unfold in `parsetree`. `text` is compact by default — use `['text']` to expand. |
+
+> ''Note:'' Action widgets (like `action-setfield`, `action-sendmessage`) do NOT execute server-side. Only rendering/transclusion works.
+
+For widget tree analysis, use [[inspect_tree|Source Position Tracking]]. For source position tracking, use [[inspect_pos|Source Position Tracking]].
+
+''Example prompts:''
+
+* "Render this wikitext: `<<version>>`" — returns the TiddlyWiki version string
+* "Show me the value of `{{$:/palette}}`" — transcludes a system tiddler value
+* "Run this filter inline: `{{{ [tag[Journal]count[]] }}}`" — evaluates a filtered transclusion
+
+''Example — importing procedures from another tiddler:''
+
+You can use `\import` to pull in procedures defined in other tiddlers and then call them:
+
+```
+\import [[$:/some/tiddler-with-procedures]]
+<<my-procedure "argument">>
+```
+
+''Example — gathering wiki settings:''
+
+```
+TiddlyWiki Version: <<version>>
+Current palette: {{$:/palette}}
+Current theme: {{$:/theme}}
+Plugins: {{{ [has[plugin-type]sort[]] :map[{!!version}addprefix[ - ]addprefix<currentTiddler>] +[join[, ]] }}}
+```

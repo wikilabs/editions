@@ -1,0 +1,17 @@
+caption: `extract_html_wiki`
+created: 20260920021525530
+modified: 20260920021525530
+tags: Instructions [[Write Tools]]
+title: Instructions/extract_html_wiki
+
+Commits a previously staged HTML wiki import (see `import_html_wiki`) to disk as `.tid` files. Reads the current `$:/config/FileSystemPaths` from the wiki by default — the user can edit it in the browser before this call. After extraction, restart the server once so any newly-added library plugins activate.
+
+|!Parameter |!Required |!Description |
+|`fileSystemPaths` |no |Override the rules used. One filter per line. If omitted, reads `$:/config/FileSystemPaths` from the wiki. |
+
+''Example prompts:''
+
+* "Extract the staged HTML import to disk"
+* "Proceed with extraction" (after reviewing `Import — Proposed Folder Structure`)
+
+---

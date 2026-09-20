@@ -1,0 +1,21 @@
+caption: `inspect_tree`
+created: 20260920021507527
+modified: 20260920021507527
+tags: Instructions [[Read Tools]]
+title: Instructions/inspect_tree
+
+Analyzes the rendered widget tree structure. Returns type counts (for the full tree regardless of depth, including transclusions), link targets, and a depth-limited JSON representation.
+
+|!Parameter |!Required |!Description |
+|`text` |yes |The wikitext to analyze |
+|`type` |no |Input text type (default: `text/vnd.tiddlywiki`) |
+|`context` |no |Context tiddler (sets `currentTiddler`) |
+|`exclude` |no |Attribute names to omit from the tree |
+|`include` |no |Keys to unfold. `text` is compact by default — use `['text']` to expand. |
+|`depth` |no |Max depth for tree JSON output (default: 3) |
+
+''Example prompts:''
+
+* "How many links are in the About tiddler?" — type counts show `12 link`
+* "Show me the widget tree for `<<list-links>>`" — shows macro expansion structure
+* "What transclusions are in GettingStarted?" — shows transclude nodes with targets

@@ -1,0 +1,27 @@
+caption: `replace_in_tiddlers`
+created: 20260920021516530
+modified: 20260920021516530
+tags: Instructions [[Write Tools]]
+title: Instructions/replace_in_tiddlers
+
+Bulk find+replace across many tiddlers, with dry-run preview by default. Use for cross-reference renames, tag cleanups, or regex-driven rewrites.
+
+|!Parameter |!Required |!Description |
+|`rules` |yes |Array of `{pattern, replacement, regexp?, case_sensitive?, words?}` objects |
+|`filter` |no |TW filter scope (default: `[all[tiddlers]!is[system]]`). Plugin tiddlers are never scanned, their shadow subtiddlers are |
+|`include_system` |no |Convenience for `$:/` tiddlers; ignored if `filter` is set |
+|`fields` |no |Field names to scan (default: `['text','caption','list','tags']`) |
+|`dry_run` |no |Preview only; nothing written (default: `true`). Set `false` to apply. |
+|`max_tiddlers` |no |Cap on modified tiddlers (default: 100) |
+|`max_replacements_total` |no |Cap on total replacements (default: 1000) |
+
+Each rule supports literal or regex pattern. Regex unlocks JS backrefs (`$1..$9`, `$&`, `$$`). Multiple rules apply sequentially per line.
+
+When `dry_run` is `false` and the change touches more than one tiddler, a client that declares elicitation support is asked to confirm the resolved list of titles before anything is written.
+
+For the full output format, dry-run preview shape, and array-field handling, see [[Bulk Tools]].
+
+''Example prompts:''
+
+* "Rename every `[[OldName]]` to `[[NewName]]` across the wiki, dry-run first"
+* "Replace `\b(\w+)Widget\b` with `$1Component` using regex"

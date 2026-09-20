@@ -1,0 +1,8 @@
+caption: Helper: `tw-upload`
+created: 20260920021529530
+list: [[Instructions/tw-upload Usage]] [[Instructions/tw-upload Examples]]
+modified: 20260920021529530
+tags: Instructions
+title: Instructions/Helper tw-upload
+
+A standalone CLI tool for uploading binary files to a running MCP server via named pipe. It handles authentication, base64 encoding, and the MCP protocol automatically.

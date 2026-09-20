@@ -1,0 +1,25 @@
+caption: `inspect_tw`
+created: 20260920021510527
+modified: 20260920021510527
+tags: Instructions [[Read Tools]]
+title: Instructions/inspect_tw
+
+Inspects TiddlyWiki's internal `$tw` object structure. Navigate the runtime object tree, view function source code, and call functions to inspect their return values. Results are automatically depth-reduced if they exceed 10K characters. All `$tw.utils.*` functions are callable in addition to the wiki read functions.
+
+|!Parameter |!Required |!Description |
+|`path` |no |Dot-separated path into `$tw` (e.g. `wiki`, `boot.wikiInfo`, `utils`). Empty string = top-level keys |
+|`depth` |no |How many levels deep to inspect (default: 1). Start at 1, go deeper based on `maxDepth` in response |
+|`fullSource` |no |Set to `true` to show full function source code instead of first 5 lines |
+|`call` |no |Array of string arguments to call a function with and inspect the return value |
+|`exclude` |no |Array of key names to skip (use to avoid large or circular branches like `wiki`) |
+
+''Example prompts:''
+
+* "Inspect $tw" — shows top-level keys of the `$tw` object
+* "Inspect $tw.wiki" — shows wiki store methods and properties
+* "Inspect $tw.boot.wikiInfo with depth 2" — shows wiki configuration in detail
+* "Inspect $tw.wiki.addTiddler full" — shows full function source code
+* "Inspect $tw.wiki.getTiddler(\"HelloThere\")" — calls the function and inspects the returned tiddler object
+* "Inspect $tw.rootWidget with max detail but exclude wiki" — deep inspection, skipping the large wiki branch
+
+For a comprehensive guide with output format explanation and more examples, see [[inspect_tw Walkthrough]].

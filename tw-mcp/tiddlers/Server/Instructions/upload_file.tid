@@ -1,0 +1,15 @@
+caption: `upload_file`
+created: 20260920021521530
+modified: 20260920021521530
+tags: Instructions [[Write Tools]]
+title: Instructions/upload_file
+
+Uploads a base64-encoded binary file (max 50 MB) to the wiki's `files/` directory and creates a canonical tiddler referencing it via `_canonical_uri`.
+
+|!Parameter |!Required |!Description |
+|`filename` |yes |Filename to save (e.g. `photo.png`). No path separators allowed. |
+|`data` |yes |Base64-encoded file content |
+|`type` |yes |MIME type (e.g. `image/png`, `application/pdf`) |
+|`title` |no |Tiddler title (defaults to filename) |
+|`tags` |no |Space-separated tags |
+|`subfolder` |no |Subfolder within `files/` (e.g. `images`) |

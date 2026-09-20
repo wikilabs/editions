@@ -1,0 +1,16 @@
+caption: `save_wiki_folder`
+created: 20260920021522530
+modified: 20260920021522530
+tags: Instructions [[Write Tools]]
+title: Instructions/save_wiki_folder
+
+Exports the entire wiki as a wiki folder structure to a specified directory.
+
+|!Parameter |!Required |!Description |
+|`path` |yes |Output directory path (must be empty or non-existent) |
+|`filter` |no |Filter for tiddlers to include (default: `[all[tiddlers]]`) |
+|`explodePlugins` |no |Set to `no` to keep plugins as single tiddlers (default: `yes`) |
+
+''Example prompts:''
+
+* "Export this wiki to /tmp/my-wiki-backup"

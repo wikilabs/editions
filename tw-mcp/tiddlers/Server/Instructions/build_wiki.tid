@@ -1,0 +1,15 @@
+caption: `build_wiki`
+created: 20260920021523530
+modified: 20260920021523530
+tags: Instructions [[Write Tools]]
+title: Instructions/build_wiki
+
+Renders the wiki as a single standalone HTML file.
+
+|!Parameter |!Required |!Description |
+|`output` |yes |Output file path for the HTML file |
+|`template` |no |Template tiddler (default: `$:/core/save/all`) |
+
+''Example prompts:''
+
+* "Build the wiki as output.html"

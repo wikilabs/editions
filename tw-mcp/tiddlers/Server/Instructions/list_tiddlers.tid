@@ -1,0 +1,24 @@
+caption: `list_tiddlers`
+created: 20260920021459526
+modified: 20260920021459526
+tags: Instructions [[Read Tools]]
+title: Instructions/list_tiddlers
+
+Lists tiddler titles as a ''namespace tree'': titles grouped by common prefix, with a count after each group. By default it covers all ''non-system'' tiddlers.
+
+|!Parameter |!Required |!Description |
+|`tag` |no |Filter results to tiddlers with this tag |
+|`limit` |no |Maximum number of titles. Applied only when given, or with `flat=true` (default there: 100) |
+|`includeSystem` |no |Set to `true` to include `$:/` system tiddlers |
+|`plugin` |no |List tiddlers inside a plugin (e.g. `$:/plugins/tiddlywiki/internals` or `$:/core`) |
+|`overwrittenShadows` |no |List shadow tiddlers that have been overwritten by real tiddlers |
+|`flat` |no |Set to `true` to return raw newline-separated titles instead of the namespace tree summary |
+
+Unless `flat` is set, the output is a namespace tree: each group shows its count in parentheses (e.g. `$:/config/ (252)`). The filter flags are exclusive, in the order `plugin`, `overwrittenShadows`, `tag`, `includeSystem`; only the first one set applies. Drill into a group with `run_filter` and `prefix[]`.
+
+''Example prompts:''
+
+* "List all tiddlers tagged Journal"
+* "Show me the first 20 tiddlers"
+* "Show me all core tiddlers" — uses `plugin=$:/core`
+* "Show me the overwritten shadow tiddlers"

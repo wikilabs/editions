@@ -1,0 +1,24 @@
+caption: `get_tiddlers`
+created: 20260920021458526
+modified: 20260920021458526
+tags: Instructions [[Read Tools]]
+title: Instructions/get_tiddlers
+
+Batch-read multiple tiddlers in one call. Saves round-trips when you already have a list of titles (e.g. from `run_filter` or `list_tiddlers`).
+
+|!Parameter |!Required |!Description |
+|`titles` |yes |Array of tiddler titles; input order preserved |
+|`detailed` |no |Include the `text` field (default: `true`) |
+|`verbose` |no |Include bookkeeping fields (`created`/`modified`/`creator`/`modifier`/`revision`) (default: `false`) |
+|`format` |no |`hashline` (default), `tid`, or `json` |
+|`max_tiddlers` |no |Hard cap on tiddler count (default: 50) |
+|`max_bytes` |no |Hard cap on total output size (default: 50000); first-to-hit wins |
+
+Output is a CompoundTiddlers stream: one `.tid` block per tiddler, separated by `\n+\n`. Missing titles are listed in a `Missing: ...` trailer.
+
+For the full output format and JSON variant, see [[Bulk Tools]].
+
+''Example prompts:''
+
+* "Read TiddlerA, TiddlerB, and TiddlerC in one call"
+* "Fetch the bodies of every tiddler tagged Server"

@@ -1,0 +1,16 @@
+caption: Usage
+created: 20260920021527530
+modified: 20260920021527530
+tags: Instructions [[Helper]]
+title: Instructions/tw-upload Usage
+
+```
+node tw-upload.js <file> [--wiki <path>] [--title <title>] [--tags <tags>] [--subfolder <dir>]
+```
+
+|!Option |!Description |
+|`<file>` |File to upload (PNG, JPG, GIF, PDF — max 50MB) |
+|`--wiki <path>` |Wiki directory to find `.tw-mcp/connect` (defaults to current dir) |
+|`--title <title>` |Tiddler title (defaults to filename) |
+|`--tags <tags>` |Space-separated tags (use `[[double brackets]]` for multi-word tags) |
+|`--subfolder <dir>` |Subfolder within `files/` to save to |

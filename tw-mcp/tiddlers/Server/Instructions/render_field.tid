@@ -1,0 +1,18 @@
+caption: `render_field`
+created: 20260920021506527
+modified: 20260920021506527
+tags: Instructions [[Read Tools]]
+title: Instructions/render_field
+
+Renders a single tiddler field or data index as wikitext. Useful for compound tiddlers where you need to render individual field values without fetching the text first.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`field` |no |Field name to render (default: `text`) |
+|`index` |no |Data tiddler index (alternative to `field`) |
+|`output` |no |`text/html` (default), `text/plain`, or `text/plain-formatted` |
+
+''Example prompts:''
+
+* "Render the body field of TestMF" — uses `field="body"`
+* "Preview the aaa entry of TestMF" — uses `index="aaa"`

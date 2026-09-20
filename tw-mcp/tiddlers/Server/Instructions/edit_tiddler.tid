@@ -1,0 +1,46 @@
+caption: `edit_tiddler`
+created: 20260920021515530
+modified: 20260920021515530
+tags: Instructions [[Write Tools]]
+title: Instructions/edit_tiddler
+
+Edits specific lines of a tiddler using hashline references. Much cheaper than `put_tiddler` for large tiddlers — only the changed lines are sent. Conflict detection is built-in: if the tiddler was modified since the AI last read it, hashes won't match and the edit is rejected with updated references.
+
+''Workflow:''
+
+# Read the tiddler with `get_tiddler(detailed=true)` (hashline is the default format): each line gets a 2-character hash anchor (e.g. `1#AB: line text`)
+# Send edits referencing lines by their `LINE#HASH` anchor
+# If hashes match, edits are applied. If not, a mismatch error shows the changed lines with updated hashes.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`edits` |no |Array of text-line edit operations using hashline anchors (omit if only changing fields) |
+|`set_fields` |no |Object of fields to add or update (key: value). Does not affect `text` — use `edits` for text. |
+|`delete_fields` |no |Array of field names to remove |
+
+''Edit operations:''
+
+|!Op |!Fields |!Description |
+|`replace_line` |`pos`, `lines` |Replace a single line |
+|`replace_range` |`pos`, `end`, `lines` |Replace an inclusive range of lines |
+|`append_at` |`pos`, `lines` |Insert lines after the anchor |
+|`prepend_at` |`pos`, `lines` |Insert lines before the anchor |
+
+`pos` and `end` are `LINE#HASH` anchors (e.g. `"5#AB"`). `lines` is an array of new line strings.
+
+''Example:''
+
+```json
+{
+  "title": "MyTiddler",
+  "edits": [
+    {"op": "replace_line", "pos": "3#KV", "lines": ["This replaces line 3"]},
+    {"op": "append_at", "pos": "7#MN", "lines": ["Inserted after line 7", "Second new line"]}
+  ]
+}
+```
+
+''Example prompts:''
+
+* "Change line 3 of MyTiddler to say something else"
+* "Add a new section after the introduction"

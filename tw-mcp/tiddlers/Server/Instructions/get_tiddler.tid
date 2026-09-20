@@ -1,0 +1,19 @@
+caption: `get_tiddler`
+created: 20260920021457526
+modified: 20260920021457526
+tags: Instructions [[Read Tools]]
+title: Instructions/get_tiddler
+
+Retrieves a single tiddler by title. By default returns ''metadata only'' (all fields except `text`) to save tokens. Set `detailed` to `true` to include the text field.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title |
+|`format` |no |`hashline` (default) — text with hash anchors for editing. `tid` — plain `.tid` text without hashes. `json` — structured fields object |
+|`detailed` |no |Set to `true` to include the `text` field (default: `false`) |
+
+> ''Note:'' System tiddlers (`$:/` prefix) should only be fetched when explicitly requested by the user. The AI is instructed not to fetch system tiddlers for general queries.
+
+''Example prompts:''
+
+* "Show me the tiddler called GettingStarted"
+* "Show me the full contents of MyTiddler" — triggers `detailed=true`

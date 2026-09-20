@@ -1,0 +1,26 @@
+caption: `get_wiki_info`
+created: 20260920021511527
+modified: 20260920021511527
+tags: Instructions [[Read Tools]]
+title: Instructions/get_wiki_info
+
+Returns pre-formatted wiki metadata including:
+
+* Wiki title and subtitle (with macros rendered)
+* Tiddler counts (standard, system, shadow, overridden shadows, tags)
+* Installed plugins, themes, and languages (one per line)
+* TiddlyWiki version
+* MCP server line: role, ''plugin version'', PID and label (e.g. `MCP: primary v0.19.0 (PID …) @label`). Readonly mode shows on the TiddlyWiki version line, the filesystem adaptor on its own `Filesystem:` line
+* HTTP server address, when `--mcp listen` or `--mcp sse` started it in this process
+* A pending or finished HTML import (see `import_html_wiki`)
+* LSP servers: one running in this process (`LSP: socket port 6009 (PID …, this process) @label`), and the ones editors started that are linked to this MCP server (`LSP: pipe for Visual Studio Code … (PID …) @label on <wiki>`), see [[LSP and MCP]]
+* Basic settings from the ControlPanel/Basics panel (site title, username, default tiddlers, animation duration, journal settings, etc.)
+
+Takes no parameters. The output is pre-formatted plain text — the AI presents it directly without reformatting.
+
+''Example prompts:''
+
+* "What plugins are installed?"
+* "How many tiddlers are in this wiki?"
+* "What are the current wiki settings?"
+* "What version of tw-mcp is running?"

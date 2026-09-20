@@ -1,0 +1,16 @@
+caption: `delete_tiddler`
+created: 20260920021517530
+modified: 20260920021517530
+tags: Instructions [[Write Tools]]
+title: Instructions/delete_tiddler
+
+Deletes a tiddler from the store and removes its `.tid` file from disk.
+
+|!Parameter |!Required |!Description |
+|`title` |yes |The tiddler title to delete |
+
+> ''Warning:'' This operation cannot be undone (unless you have a backup or version control). The server's instructions tell the AI never to delete without an explicit user request.
+
+''Example prompts:''
+
+* "Delete the tiddler called old-draft"

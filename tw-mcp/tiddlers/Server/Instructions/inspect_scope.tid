@@ -1,0 +1,28 @@
+caption: `inspect_scope`
+created: 20260920021509527
+modified: 20260920021509527
+tags: Instructions [[Read Tools]]
+title: Instructions/inspect_scope
+
+Inspects the variable scope at a specific source position in rendered wikitext. Renders the text, finds the widget at the given character position, and lists its variables innermost first: local scope, then the globals the text uses. Unused globals are only counted unless `all` is `true`.
+
+|!Parameter |!Required |!Description |
+|`tiddler` |no |Tiddler title to render (resolve from the title index header) |
+|`text` |no |Wikitext to render instead (for rendering from the caller's perspective) |
+|`charPos` |no |Character position within the text field |
+|`context` |no |Context tiddler (sets `currentTiddler`) |
+|`match` |no |Match widget by variable values to disambiguate repeated positions (e.g. `{"currentTiddler": "Quick Start: Desktop"}`) |
+|`filter` |no |Only show variables matching this substring |
+|`limit` |no |Max variables listed, innermost first; a `+N more` line counts the rest (default: all) |
+|`all` |no |Set to `true` to show all variables |
+|`renderContext` |no |`isolated` (default), `viewtemplate` (as in the story river) or `root` (page template context) |
+
+> ''Tip:'' When inspecting a position inside a macro/procedure, render from the ''caller's'' wikitext (using the `text` parameter) rather than the definition tiddler. This gives you the full scope including `currentTiddler`, `thisTiddler`, and procedure parameters.
+
+''Example prompts:''
+
+* "Inspect the scope at the flex-card button" — shows procedure params, currentTiddler, etc.
+* "What variables are available at `L81@$:/cards/procedures` for the Desktop card?" — uses `match` to select the right list iteration
+* "Show me only card-related variables" — uses `filter: "card"`
+
+For a comprehensive guide to the source position tracking workflow, see [[Source Position Tracking]].

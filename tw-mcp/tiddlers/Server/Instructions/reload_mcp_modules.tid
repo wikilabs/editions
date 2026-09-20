@@ -1,0 +1,40 @@
+caption: `reload_mcp_modules`
+created: 20260920021520530
+modified: 20260920021520530
+tags: Instructions [[Write Tools]]
+title: Instructions/reload_mcp_modules
+
+Hot-reloads the tw-mcp plugins during development: re-reads both plugin folders (`wikilabs/tw-mcp-core` and `wikilabs/tw-mcp`) from disk, refreshes ALL their subtiddlers (JS and non-JS: doc tiddlers, wikitext, CSS), then re-executes each JS module. Lets you iterate on handler code without restarting the server.
+
+|!Parameter |!Required |!Description |
+|`skip_disk_reload` |no |Set to `true` to skip re-reading the plugin folders. Use only when the wiki store already has fresh plugin source (e.g., after a manual `reload_tiddlers`). Default: `false`. |
+
+''Behaviour:''
+
+* ''Phase 1'': `$tw.loadPluginFolder` re-reads each plugin folder, the syncer's `storeTiddler` replaces the plugin tiddler without saving it to the edition, and `readPluginInfo` + `registerPluginTiddlers` + `unpackPluginTiddlers` re-unpack the shadow tiddlers with fresh source.
+* ''Phase 2'': every JS subtiddler with a `module-type` gets its fresh text and has its `exports` cleared, and only then is each one executed. A module that requires another at load time therefore gets that module's new version, whatever the order. The next tool call picks up the new code via late-binding in `mcp-handlers.js`.
+* `mcp-handlers.js` gets an ''identity-preserving'' reload: its new exports are merged onto the existing object, so `mcp-lib.js`'s captured reference stays live. Tool definitions live on each handler, and `tools/list` rebuilds from them on every call, so a changed schema shows on the next `tools/list`.
+
+''Excluded modules — still require a full server restart:''
+
+|!Module |!Reason |
+|`mcp.js` |Command module, runs once at boot |
+|`mcp-lib.js` |Holds the dispatcher, pipe server, stdin listener |
+|`shared.js` |Holds `readonlyMode` and `checkPathAllowed` init context |
+|`filesystem.js` |Holds the `reload_tiddlers` change listener |
+
+''When to use what:''
+
+|!Scenario |!Action |
+|Edited an edition tiddler (`.tid` file on disk) |`reload_tiddlers` (scope=`tiddlers`) |
+|Edited a non-JS subtiddler in tw-mcp (doc/wikitext/CSS) |`reload_mcp_modules` |
+|Edited a JS handler in tw-mcp |`reload_mcp_modules` |
+|Edited `mcp-lib.js`, `mcp.js`, `shared.js`, or `filesystem.js` |Full server restart |
+
+''Safety:'' A module with a syntax error is not reloaded: it keeps its old code, and the response lists it under the errors. An error thrown while a module runs its top-level code ends the server process, as it would at boot.
+
+''Example prompts:''
+
+* "Reload the MCP plugin" — user just edited a handler and wants to test
+* "Pick up my changes without restarting" — same intent, informal
+* "Reload with skip_disk_reload" — when the wiki store was already refreshed via `reload_tiddlers`

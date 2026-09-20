@@ -1,0 +1,26 @@
+caption: `rename_tiddler`
+created: 20260920021518530
+modified: 20260920021518530
+tags: Instructions [[Write Tools]]
+title: Instructions/rename_tiddler
+
+Renames a tiddler in the store and moves its file on disk to the path `FileSystemPaths` gives the new title. The operation fails if the new title clashes with an existing tiddler, unless `overwrite` is `true`. Bundled plugin, theme and language tiddlers and `.multids` entries are refused.
+
+|!Parameter |!Required |!Description |
+|`from` |yes |Existing tiddler title |
+|`to` |yes |New tiddler title |
+|`overwrite` |no |Set to `true` to replace an existing tiddler at `to` (default: `false`) |
+|`preserve_timestamps` |no |Keep the original `modified` field (default: `true`). Set `false` to set it to now |
+
+''Behaviour:''
+
+* All fields are preserved, `modified` included; set `preserve_timestamps=false` to refresh `modified` and `modifier`.
+* The old `.tid` file is deleted after the new file is written successfully (with verification re-read).
+* Cross-references in other tiddlers are NOT updated — use `replace_in_tiddlers` to follow up (see [[Rename references across the wiki]]).
+
+> ''Note:'' This is a single-tiddler rename; for bulk find-and-replace across the wiki, see [[Bulk Tools]].
+
+''Example prompts:''
+
+* "Rename the tiddler OldName to NewName"
+* "Rename HelloThere to Welcome"

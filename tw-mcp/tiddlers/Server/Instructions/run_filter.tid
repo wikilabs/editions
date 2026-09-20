@@ -1,0 +1,30 @@
+caption: `run_filter`
+created: 20260920021500526
+modified: 20260920021500526
+tags: Instructions [[Read Tools]]
+title: Instructions/run_filter
+
+Runs a [[TiddlyWiki filter expression|https://tiddlywiki.com/static/Filters.html]] and returns matching titles.
+
+|!Parameter |!Required |!Description |
+|`filter` |yes |A TiddlyWiki filter expression |
+
+> ''Important:'' Always include `!is[system]` as the ''first'' operator in filters (unless system tiddlers are explicitly requested). This narrows the working set early and avoids unnecessary processing of thousands of system/shadow tiddlers.
+
+Results are capped at 500 titles; a longer list ends with `(N total, showing first 500)`. For a grouped overview use `list_tiddlers`, which returns a namespace tree.
+
+''Namespace browsing pattern:''
+
+# Start broad: `list_tiddlers(plugin="$:/core")` → namespace tree with counts
+# Drill in: `[all[shadows+tiddlers]prefix[$:/config/shortcuts/]]` → individual tiddlers
+# Get details: use `get_tiddler` on a specific title
+
+> ''Tip:'' Use `all[shadows+tiddlers]` to include shadow tiddlers (from plugins/core). Many important tiddlers are shadows that won't appear with just `prefix[]`.
+
+''Example prompts:''
+
+* "Find all tiddlers containing the word 'recipe'" — uses `[!is[system]search[recipe]]`
+* "List tiddlers modified today" — uses `[!is[system]days:modified[-1]]`
+* "Show tiddlers tagged 'Project' sorted by title" — uses `[tag[Project]sort[title]]`
+* "Show me config tiddlers including shadows" — uses `[all[shadows+tiddlers]prefix[$:/config/]]`
+* "Show me all core UI tiddlers" — uses `[all[shadows+tiddlers]prefix[$:/core/ui/]]`

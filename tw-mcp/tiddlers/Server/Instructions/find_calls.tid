@@ -1,0 +1,13 @@
+caption: `find_calls`
+created: 20260920021502526
+modified: 20260920021502526
+tags: Instructions [[Read Tools]]
+title: Instructions/find_calls
+
+Every call and definition of a macro, procedure, function or custom widget, in every call form, per tiddler with the anchors `edit_tiddler` takes. The scope defaults to non-system tiddlers; include shadows to see the core macros:
+
+```
+find_calls(name="list-links", filter="[all[shadows+tiddlers]]")
+```
+
+See [[find_calls]] for parameters and output.
