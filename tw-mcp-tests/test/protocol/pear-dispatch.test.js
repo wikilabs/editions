@@ -155,6 +155,16 @@ test("the instructions never send a client after mcp.flag or full-trust", () => 
 	assert.match(text, /Agents panel/, "enrollment is the only way a client gets in");
 });
 
+// A client that stages a write cannot resolve it: discard and commit are
+// renderer-bridge commands the pipe does not carry, and delete_tiddler stages a
+// deletion rather than dropping the entry (bead tw-mcp-server-ywp).
+test("the instructions warn that a staged write is the member's to resolve", () => {
+	build({ discovery: { name: "demo", mode: "agent", pipe: "\\\\.\\pipe\\demo" } });
+	const text = ask({ jsonrpc: "2.0", id: "d5", method: "server/discover" }).result.instructions;
+	assert.match(text, /only the member can discard or commit/i, "an agent must not expect to clean up after itself");
+	assert.match(text, /delete_tiddler stages a deletion/i, "the obvious way to undo makes it worse");
+});
+
 test("an unreachable app is reported without inventing a cause", () => {
 	build({ discovery: null });
 	const text = ask({ jsonrpc: "2.0", id: "d4", method: "server/discover" }).result.instructions;
