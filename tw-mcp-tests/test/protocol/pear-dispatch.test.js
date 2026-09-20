@@ -25,7 +25,7 @@ To replicate by hand, boot the test edition and build a session:
       ready: (cb) => cb(null),
       call: (cmd, args, cb) => cb(null, {ok: true, result: {text: "hi from the app"}}),
       effectiveRw: () => false,
-      readDiscovery: () => ({name: "demo", mode: "ro", pipe: "\\\\.\\pipe\\x"})
+      readDiscovery: () => ({name: "demo", mode: "agent", pipe: "\\\\.\\pipe\\x"})
     })
   });
   s.dispatch(JSON.stringify({jsonrpc:"2.0",id:1,method:"server/discover"}));
@@ -34,6 +34,8 @@ To replicate by hand, boot the test edition and build a session:
 
 const { test, before, beforeEach } = require("node:test");
 const assert = require("node:assert");
+const os = require("node:os");
+const path = require("node:path");
 const { bootTw, loadHandler } = require("../setup");
 
 const PEAR_TITLE = "$:/core/modules/commands/inspect/mcp/mcp-pear.js";
@@ -49,13 +51,16 @@ const INVALID_PARAMS = -32602;
 const PARSE_ERROR = -32700;
 
 let createPearSession;
+let agentKeyPath;
 let sent;      // every line the session wrote, parsed
 let bridge;    // the fake app
 let session;
 
 before(async () => {
 	const $tw = await bootTw();
-	createPearSession = loadHandler($tw, PEAR_TITLE).createPearSession;
+	const pear = loadHandler($tw, PEAR_TITLE);
+	createPearSession = pear.createPearSession;
+	agentKeyPath = pear.agentKeyPath;
 });
 
 // A fake Facets app: answers frames from a table, and its scope can flip the
@@ -77,7 +82,8 @@ function fakeBridge(options) {
 			cb(null, state.answer);
 		},
 		effectiveRw() { return state.rw; },
-		readDiscovery() { return opts.discovery === undefined ? { name: "demo", mode: state.rw ? "rw" : "ro", pipe: "\\\\.\\pipe\\demo" } : opts.discovery; }
+		// The app only ever writes mode "agent"; scope comes from the enrollment, not the mode.
+		readDiscovery() { return opts.discovery === undefined ? { name: "demo", mode: "agent", pipe: "\\\\.\\pipe\\demo" } : opts.discovery; }
 	};
 	// What the real bridge does after a handshake settles in a new scope.
 	state.handshakeInto = function(rw) {
@@ -135,6 +141,38 @@ test("server/discover advertises both eras and says the answers come from the ap
 test("server/discover needs no declared version, so it can serve as the era probe", () => {
 	const reply = ask({ jsonrpc: "2.0", id: 2, method: "server/discover" });
 	assert.ok(reply.result);
+});
+
+// The app dropped the full-trust ro/rw modes on 2026-08-17 and now only ever
+// writes mode "agent", with enablement via --mcp (bead tw-mcp-server-1u8).
+test("the instructions never send a client after mcp.flag or full-trust", () => {
+	build({ discovery: { name: "demo", mode: "agent", pipe: "\\\\.\\pipe\\demo" } });
+	const text = ask({ jsonrpc: "2.0", id: "d3", method: "server/discover" }).result.instructions;
+	assert.doesNotMatch(text, /mcp\.flag/i, "a client told to set mcp.flag writes a file nothing reads");
+	assert.doesNotMatch(text, /full-trust/i);
+	assert.match(text, /Agents panel/, "enrollment is the only way a client gets in");
+});
+
+test("an unreachable app is reported without inventing a cause", () => {
+	build({ discovery: null });
+	const text = ask({ jsonrpc: "2.0", id: "d4", method: "server/discover" }).result.instructions;
+	assert.doesNotMatch(text, /mcp\.flag/i);
+	assert.match(text, /NOT currently reachable/);
+});
+
+// --- the agent identity file ------------------------------------------------
+
+// One machine held exactly one pear identity, which blocks enrollment testing
+// and two clients at different scopes (bead tw-mcp-server-u7n). By hand:
+//   tiddlywiki ./wiki --mcp pear=<acct> agent-key=E:/tmp/throwaway-key.json
+test("the agent key file defaults to the per-user location", () => {
+	const expected = path.join(os.homedir(), ".tw-mcp", "agent-key.json");
+	assert.equal(agentKeyPath({}), expected, "an existing approval must keep working");
+	assert.equal(agentKeyPath(), expected, "no options at all is the same default");
+});
+
+test("agent-key= gives this instance its own identity", () => {
+	assert.equal(agentKeyPath({ agentKeyFile: "E:/tmp/throwaway-key.json" }), "E:/tmp/throwaway-key.json");
 });
 
 test("a version we do not speak is refused, and the refusal names what we do speak", () => {
