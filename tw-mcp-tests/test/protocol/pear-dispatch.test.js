@@ -52,6 +52,7 @@ const PARSE_ERROR = -32700;
 
 let createPearSession;
 let agentKeyPath;
+let pearTiming;
 let sent;      // every line the session wrote, parsed
 let bridge;    // the fake app
 let session;
@@ -61,6 +62,7 @@ before(async () => {
 	const pear = loadHandler($tw, PEAR_TITLE);
 	createPearSession = pear.createPearSession;
 	agentKeyPath = pear.agentKeyPath;
+	pearTiming = pear;
 });
 
 // A fake Facets app: answers frames from a table, and its scope can flip the
@@ -173,6 +175,16 @@ test("the agent key file defaults to the per-user location", () => {
 
 test("agent-key= gives this instance its own identity", () => {
 	assert.equal(agentKeyPath({ agentKeyFile: "E:/tmp/throwaway-key.json" }), "E:/tmp/throwaway-key.json");
+});
+
+// --- self-heal timing -------------------------------------------------------
+
+// The retry period used to EQUAL the window a client is given to notice, so a
+// correct client could miss it on timing alone (bead tw-mcp-server-cjt). The
+// clock starts at the app's "LIVE mcp: listening" line, not at its launch.
+test("a self-heal retry fits inside the notice window with room to spare", () => {
+	assert.ok(pearTiming.SELF_HEAL_RETRY_MS * 2 <= pearTiming.SELF_HEAL_NOTICE_MS,
+		"at least two retries must fall inside the window, leaving time for the handshake");
 });
 
 test("a version we do not speak is refused, and the refusal names what we do speak", () => {
