@@ -1,6 +1,6 @@
-caption: `extract_html_wiki`
+caption: extract_html_wiki
 created: 20260920021525530
-modified: 20260920021525530
+modified: 20260920002506402
 tags: Instructions [[Write Tools]]
 title: Instructions/extract_html_wiki
 
@@ -14,4 +14,3 @@ Commits a previously staged HTML wiki import (see `import_html_wiki`) to disk as
 * "Extract the staged HTML import to disk"
 * "Proceed with extraction" (after reviewing `Import — Proposed Folder Structure`)
 
----

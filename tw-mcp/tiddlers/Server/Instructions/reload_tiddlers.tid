@@ -1,6 +1,6 @@
-caption: `reload_tiddlers`
+caption: reload_tiddlers
 created: 20260920021512527
-modified: 20260920021512527
+modified: 20260920002505635
 tags: Instructions [[Read Tools]]
 title: Instructions/reload_tiddlers
 
@@ -19,4 +19,3 @@ Use `scope="shadows"` after a plugin tiddler in the store has changed. To pick u
 * ''Deletions'': a tiddler whose file under the tiddlers folder is gone is deleted from the store. An added and a deleted title with identical text are reported as one rename.
 * Reports disk counts (added, updated, unchanged, deleted, renamed), the number of system tiddlers skipped, whether `$:/config/OriginalTiddlerPaths` was refreshed, and a change log of store changes since the previous call.
 
----

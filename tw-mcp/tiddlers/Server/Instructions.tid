@@ -1,6 +1,6 @@
 created: 20260311050000000
 list: [[Instructions/Reading Tiddlers]] [[Instructions/Writing Tiddlers]] [[Instructions/Helper tw-upload]]
-modified: 20260920001654402
+modified: 20260920002525142
 tags: Server
 title: Instructions
 
@@ -100,7 +100,7 @@ On exit, the server cleans up the pipe and discovery file.
 
 <%endif%>
 
-!!!<$transclude $field="caption"/>
+!!!<$link to=<<currentTiddler>>><$transclude $field="caption"/></$link>
 
 <$transclude $mode="block"/>
 
