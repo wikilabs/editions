@@ -276,6 +276,27 @@ test("an rw scope advertises the write tools too", () => {
 	assert.ok(names.includes("get_tiddler"));
 });
 
+// Facets concept 12.2: the app's own two tools, defined here because no tw-mcp handler has them
+test("get_guide is offered first at every scope, check_writes only at rw", () => {
+	const ro = ask(versioned("tools/list", {}, 30)).result.tools;
+	assert.equal(ro[0].name, "get_guide", "the guide is the first thing an agent sees");
+	assert.ok(!ro.some((t) => t.name === "check_writes"), "nothing to check without writes");
+	build({ rw: true });
+	const rw = ask(versioned("tools/list", {}, 31)).result.tools.map((t) => t.name);
+	assert.ok(rw.includes("get_guide") && rw.includes("check_writes"));
+});
+
+test("get_guide forwards to the app, which answers it", () => {
+	const reply = ask(versioned("tools/call", { name: "get_guide", arguments: { topic: "failures" } }, 32));
+	assert.deepEqual(bridge.calls, [{ cmd: "get_guide", args: { topic: "failures" } }]);
+	assert.equal(reply.result.content[0].text, "from the app");
+});
+
+test("the instructions send an agent to get_guide", () => {
+	const reply = ask(versioned("server/discover", {}, 33));
+	assert.match(reply.result.instructions, /Call get_guide first/);
+});
+
 test("the cache hints are sent to a modern client only", () => {
 	const modern = ask(versioned("tools/list", {}, 14));
 	assert.equal(modern.result.cacheScope, "private", "the list depends on this client's own scope");
