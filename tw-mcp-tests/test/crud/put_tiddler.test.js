@@ -65,6 +65,24 @@ test("put_tiddler: overwrite=true replaces existing", () => {
 	}
 });
 
+// by hand: put_tiddler {title:"T", fields:{text:"a", extra:"x"}}, then {title:"T", fields:{text:"b"}, overwrite:true};
+// get_tiddler T has text "b", no extra, and the first save's created
+test("put_tiddler: overwrite=true drops fields the new version omits, keeps created", () => {
+	const title = "put_probe_overwrite_fields";
+	try {
+		putTiddler({ title, fields: { text: "first", extra: "old field" } });
+		const created = $tw.wiki.getTiddler(title).fields.created;
+		const result = putTiddler({ title, fields: { text: "second" }, overwrite: true });
+		assert.equal(result.isError, undefined);
+		const fields = $tw.wiki.getTiddler(title).fields;
+		assert.equal(fields.text, "second");
+		assert.equal(fields.extra, undefined, "a field the new version omits is gone");
+		assert.equal(String(fields.created), String(created), "created stays the first save's");
+	} finally {
+		cleanupTiddler($tw, title);
+	}
+});
+
 test("put_tiddler: title over MAX_TITLE_LENGTH -> error", () => {
 	const longTitle = "x".repeat(1025);
 	const result = putTiddler({ title: longTitle, fields: { text: "body" } });
