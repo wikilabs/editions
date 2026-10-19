@@ -40,12 +40,12 @@ before(async () => {
 	lib = loadHandler($tw, LIB_TITLE);
 });
 
-// Each hint on the body's first line as "label@text after it".
+// Each hint on the body's first line as "label@text after it"; "name:" pads right, an operand's "name=" pads left.
 function hints(body) {
 	const text = PRELUDE + body;
 	return features.inlayHints(URI, text).map((hint) => {
 		assert.equal(hint.kind, 2);
-		assert.equal(hint.paddingRight, true);
+		assert.equal(hint.label.endsWith("=") ? hint.paddingLeft : hint.paddingRight, true);
 		return hint.label + "@" + text.split("\n")[hint.position.line].slice(hint.position.character, hint.position.character + 3);
 	});
 }
@@ -73,10 +73,10 @@ test("a JavaScript macro's declared parameters label its arguments", () => {
 	assert.deepEqual(hints("<<now \"YYYY\">>"), ["format:@\"YY"]);
 });
 
-test("a dotted function's operands are labelled by index", () => {
-	assert.deepEqual(hints("{{{ [lsp.ih.f[1],[2]] }}}"), ["a:@[1]", "b:@[2]"]);
+test("a dotted function's operands are labelled name= by index, never read as a suffix", () => {
+	assert.deepEqual(hints("{{{ [lsp.ih.f[1],[2]] }}}"), ["a=@[1]", "b=@[2]"]);
 	// A suffix comes before the operands.
-	assert.deepEqual(hints("{{{ [lsp.ih.f:s[1]] }}}"), ["a:@[1]"]);
+	assert.deepEqual(hints("{{{ [lsp.ih.f:s[1]] }}}"), ["a=@[1]"]);
 });
 
 test("a variable operand's arguments are labelled as a call's", () => {

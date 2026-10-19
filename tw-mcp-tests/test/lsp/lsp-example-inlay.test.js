@@ -10,7 +10,7 @@ To replicate by hand, boot the test edition (cwd editions/tw-mcp-tests) and run:
   const f = $tw.modules.execute("$:/core/modules/commands/inspect/lsp/lsp-features.js");
   const example = helper.readExample(f, "LSP Inlay Hints - (Example)");
   f.inlayHints(example.uri, example.text, {start: {line: 0, character: 0}, end: {line: 99, character: 0}}).map((h) => h.label);
-  // -> ["a:", "b:", "b:", "filter:", "a:", "b:"]
+  // -> ["a:", "b:", "b:", "filter:", "a=", "b="]
 */
 
 const { test, before } = require("node:test");
@@ -59,9 +59,9 @@ test('<<lsp.ih.macro a:"x" "y">> shows b: before "y", the next parameter left ov
 	assert.deepEqual(hintsOn(call), [label("b:", call, '"y"')]);
 });
 
-test("{{{ [lsp.ih.fn[x],[y]] }}} shows a: and b: before the operands", () => {
+test("{{{ [lsp.ih.fn[x],[y]] }}} shows a= and b= before the operands", () => {
 	const call = "{{{ [lsp.ih.fn[x],[y]] }}}";
-	assert.deepEqual(hintsOn(call), [label("a:", call, "[x]"), label("b:", call, "[y]")]);
+	assert.deepEqual(hintsOn(call), [label("a=", call, "[x]"), label("b=", call, "[y]")]);
 });
 
 test('<<list-links "[tag[LSP Capabilities]]">> shows filter: before the filter', () => {
