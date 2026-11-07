@@ -148,6 +148,35 @@ test("an <%if%> block's content hovers nothing, and every marker hovers the bloc
 	}
 });
 
+// --- Links to the tiddlywiki.com reference ---
+
+// The doc page is found by its tag and caption, so the link needs no table of titles.
+function docLink(text) {
+	const m = /\(https:\/\/tiddlywiki\.com\/#:([^)]+)\)/.exec(text || "");
+	return m ? decodeURIComponent(m[1]) : null;
+}
+
+test("a core widget links to its tiddlywiki.com page by caption", () => {
+	const text = hoverAt("<$list filter=\"[[lsp_link_target]]\"/>", 2);
+	assert.strictEqual(docLink(text), "[tag[Widgets]field:caption[list]] ~[[Widgets]]");
+});
+
+test("a core macro call links to its tiddlywiki.com page by caption", () => {
+	const text = hoverAt("<<tabs \"[[lsp_link_target]]\">>", 3);
+	assert.strictEqual(docLink(text), "[tag[Core Macros]field:caption[tabs]] ~[[Core Macros]]");
+});
+
+test("a core JavaScript macro links to its tiddlywiki.com page as well", () => {
+	const text = hoverAt("<<now>>", 3);
+	assert.strictEqual(docLink(text), "[tag[Core Macros]field:caption[now]] ~[[Core Macros]]");
+});
+
+test("a procedure defined in the tiddler gets no tiddlywiki.com link", () => {
+	const text = hoverOn("\\procedure lsp.local() x\n\n<<lsp.local>>", "<<lsp.local>>", 3);
+	assert.ok(text.includes("defined in this tiddler"), text);
+	assert.strictEqual(docLink(text), null);
+});
+
 // --- Filters in any attribute ---
 
 test("a {{{ }}} value of any attribute is hovered as a filter", () => {
