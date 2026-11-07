@@ -1,0 +1,23 @@
+caption: list_wikis
+created: 20261107221041048
+modified: 20261107221113474
+tags: Instructions [[Read Tools]]
+title: Instructions/list_wikis
+
+''Route mode only.'' Lists the wiki servers the router can reach right now, one per line:
+
+```
+- bundler (label mcp-bundler) http://localhost:8080, pid 15356
+- uni-link (label mcp-uni-link) http://localhost:8081, pid 20412
+```
+
+* The first word is the folder name. Pass it, the label or the port as the `wiki` argument of any other tool
+* A server started without `listen` or `sse` shows `no HTTP`
+* Servers come and go. The list is read fresh on every call, from the `.tw-mcp/connect` files below the `route=` folder
+
+Takes no parameters. See [[Several Wikis From One Client (Route Mode)|Instructions]].
+
+''Example prompts:''
+
+* "Which wikis are running?"
+* "Run this filter in the uni-link wiki."

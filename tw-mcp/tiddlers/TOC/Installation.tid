@@ -1,5 +1,5 @@
 created: 20260403162850006
-modified: 20260919143811469
+modified: 20261107221127168
 tags: TOC
 title: Installation
 
@@ -149,3 +149,31 @@ Instead of a global environment variable, you can set `TIDDLYWIKI_PLUGIN_PATH` p
 ```
 
 This sets the variable only for the MCP server process, without requiring it in your shell profile.
+
+!!! Several wikis: one entry for all
+
+If you keep several wikis as subfolders of one folder, and start their servers at different times, one entry in [[route mode|Instructions]] reaches whichever are running:
+
+```json
+{
+	"mcpServers": {
+		"tw": {
+			"type": "stdio",
+			"command": "tiddlywiki",
+			"args": [
+				"./any-wiki",
+				"--mcp",
+				"route=/path/to/wikis"
+			]
+		}
+	}
+}
+```
+
+# Put this `.mcp.json` into the folder you open Claude Code in, eg: the parent of all wikis
+# Start each wiki's own server as usual, eg: `tiddlywiki ./wiki-a --mcp listen port=8080`
+# Every tool now takes a `wiki` argument. Without it, calls go to the wiki on port 8080. `list_wikis` shows which are running
+
+`./any-wiki` is any wiki folder with both plugins in its `tiddlywiki.info`. It only hosts the plugins. Add `rw` to the `args` to allow write tools.
+
+''Watch out:'' `claude mcp add --scope project` writes `.mcp.json` into the ''current'' directory. Run it from the folder you open Claude Code in, or the entry ends up somewhere Claude Code never reads.

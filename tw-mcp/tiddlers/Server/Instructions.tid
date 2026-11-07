@@ -1,6 +1,6 @@
 created: 20260311050000000
 list: [[Instructions/Reading Tiddlers]] [[Instructions/Writing Tiddlers]] [[Instructions/Helper tw-upload]]
-modified: 20260920085554209
+modified: 20261107221127168
 tags: Server
 title: Instructions
 
@@ -25,6 +25,8 @@ To also access the wiki in a browser while the MCP server is running, add the `s
 ```
 tiddlywiki ./mywiki --mcp sse port=8080
 ```
+
+Without `port=`, or with `port=8080`, the server takes the first free port from 8080 upwards: a second wiki gets 8081, a third 8082. Any other `port=` must be free, or the server stops with an error. A port counts as used if any server answers on it at `127.0.0.1` or `[::1]`.
 
 `sse` implies HTTP listen, plus pushes tiddler changes to the browser in real time via Server-Sent Events (~1s latency). Use `listen` instead for polling only: the plugin sets `$:/config/SyncPollingInterval` to 600000, so the browser refreshes every 10 minutes. See [[SSE Sync]] for transport details.
 
@@ -59,6 +61,21 @@ By default, file operations are restricted to the wiki's `tiddlers/`, `files/`, 
 ```
 tiddlywiki ./mywiki --mcp allowed-paths=/path/one,/path/two
 ```
+
+!!! Several Wikis From One Client (Route Mode)
+
+If you work on several wikis, each in its own subfolder of one folder, a single MCP entry can reach all of them:
+
+```
+tiddlywiki ./any-wiki --mcp route=/path/to/editions
+```
+
+* Start and stop each wiki server as usual. The router finds the running ones through their `.tw-mcp/connect` files, so the AI client never needs to be restarted
+* Every tool takes an extra `wiki` argument: the folder name, the label or the HTTP port. Without it, a call goes to the wiki on port 8080. Change this with `default-port=<n>`
+* [[list_wikis|Instructions/list_wikis]] shows which wikis are running right now
+* Client setup: see [[Installation]], section "Several wikis: one entry for all"
+* Like a proxy, the router is readonly by default. Add `rw` to forward write tools
+* `./any-wiki` only hosts the tw-mcp plugins. Route mode serves no wiki of its own
 
 ---
 
