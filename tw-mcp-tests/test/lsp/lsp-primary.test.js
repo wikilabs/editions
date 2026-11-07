@@ -257,11 +257,11 @@ test("the link notices the MCP server go and links again when one comes back", a
 		assert.ok(logged.includes("MCP server found: PID " + (process.pid + 2) + ", no browser"), logged.join("\n"));
 		// The editor is told what it may show: never the pipe or its token.
 		assert.deepEqual(changes, [
-			{ pid: first.discovery.pid, label: "sse-primary", browserPort: 8888 },
+			{ pid: first.discovery.pid, label: "sse-primary", browserPort: 8888, browserUrl: "http://127.0.0.1:8888" },
 			null,
-			{ pid: process.pid + 2, label: null, browserPort: null }
+			{ pid: process.pid + 2, label: null, browserPort: null, browserUrl: null }
 		]);
-		assert.deepEqual(link.server(), { pid: process.pid + 2, label: null, browserPort: null });
+		assert.deepEqual(link.server(), { pid: process.pid + 2, label: null, browserPort: null, browserUrl: null });
 	} finally {
 		link.close();
 		await first.close();
@@ -318,6 +318,16 @@ test("a shadow links to the browser on the dev server's port", () => {
 	const source = loadHandler($tw, "$:/core/modules/commands/inspect/lsp/lsp-source.js");
 	withConnectFile({ listen: true, port: 8888 }, () => {
 		assert.strictEqual(source.browsableUri("$:/core/macros/toc"), "http://127.0.0.1:8888/#%24%3A%2Fcore%2Fmacros%2Ftoc");
+	});
+});
+
+test("a shadow links to the host the dev server records", () => {
+	const source = loadHandler($tw, "$:/core/modules/commands/inspect/lsp/lsp-source.js");
+	withConnectFile({ listen: true, port: 8080, host: "hugo" }, () => {
+		assert.strictEqual(source.browsableUri("$:/core/macros/toc"), "http://hugo:8080/#%24%3A%2Fcore%2Fmacros%2Ftoc");
+	});
+	withConnectFile({ listen: true, port: 8080, host: "[::1]" }, () => {
+		assert.strictEqual(source.browsableUri("$:/core/macros/toc"), "http://[::1]:8080/#%24%3A%2Fcore%2Fmacros%2Ftoc");
 	});
 });
 
