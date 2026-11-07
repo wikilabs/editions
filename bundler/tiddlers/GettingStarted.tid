@@ -1,5 +1,5 @@
 created: 20201226122843513
-modified: 20250617120620005
+modified: 20261107221127168
 tags: 
 title: GettingStarted
 type: text/vnd.tiddlywiki
@@ -22,6 +22,8 @@ This plugin allows you to ''Improve your export / import workflow''
 * Use an ''improved import workflow'' enabled by bundles
 * Automatically ''rename'' imported tiddlers, if they already exist
 * Automatically ''rename content'', that is imported ''from'' the ''clipboard''. eg: Images
+
+''Only want better imports?'' You do not need to learn about bundles for that. See: [[Import Workflow|doc-import-workflow]]
 
 Active bundles can be seen in the right sidebar: <$button actions=<<switchToSidebar>> >Click this button</$button>, to select the "Bundles" tab.
 

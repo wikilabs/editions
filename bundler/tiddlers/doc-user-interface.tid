@@ -1,0 +1,60 @@
+created: 20261107213552036
+modified: 20261107221113474
+tags: doc
+title: doc-user-interface
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/wikilabs/bundler/readme]]
+
+! User Interface
+
+The plugin adds 2 places to work with bundles: the ''Bundle'' tab in the tiddler info area (left) and the ''Bundles'' tab in the right sidebar.
+
+[img[bundler-ui-overview.png]]
+
+!! Right Sidebar: Bundles Tab
+
+The <$button actions=<<rightSidebarBundlesTab>> class="tc-btn-invisible tc-tiddlylink">right sidebar Bundles tab</$button> lists all bundles. It gives you fast access to exports and to the bundle configurations.
+
+* {{$:/core/images/export-button|1em}} ... Export all tiddlers of the bundle
+* The drag icon ... Drag it into a different wiki, to import the bundle and all its tiddlers
+* The tiddler count ... Click it to preview the list:
+
+|Action |Behaviour |h
+|click |Open the bundle configuration in $:/AdvancedSearch |
+|CTRL-click |Open all tiddlers in the story river |
+|CTRL-SHIFT-click |Open all tiddlers below the current bundle tiddler |
+
+Long lists can be shortened with the filter input at the top of the tab:
+
+[img[bundler-list-filter-input-short.png]]
+
+!! Tiddler Info: Bundle Tab
+
+Open a bundle tiddler and click its {{$:/core/images/info-button|1em}} info button. The ''Bundle'' tab shows:
+
+* The drag link, to copy the bundle into a different wiki
+* The export button and the number of tiddlers
+* Buttons to test the configuration in the $:/AdvancedSearch ''Filter'' tab, to open the list in the story, or to open it below the bundle tiddler
+* The list of all tiddlers in the bundle
+
+[img[new-story-buttons-annotated.png]]
+
+The ''Bundle'' tab can be set as the default info tab in the <$button actions=<<openControlBundlesTab>> class="tc-btn-invisible tc-tiddlylink">Bundler settings</$button>.
+
+!! Settings
+
+The <$button actions=<<openControlBundlesTab>> class="tc-btn-invisible tc-tiddlylink">Bundler settings</$button> let you:
+
+* Choose the position of the sidebar tab
+* Show or hide the drag and export buttons in the sidebar
+* Enable <<.xL "Filtered Bundles" "doc-filtered-bundles">>
+* Enable the <<.xL "import features" "doc-import-workflow">>
+
+[img[new-enable-drag-export-config-settings.png]]
+
+!! Works Well With
+
+* ''$:/AdvancedSearch'' ... <<.xL "Filtered Bundles" "doc-filtered-bundles">> show up in the ''Filter'' tab dropdown, next to the core filters
+* ''Relink plugin'' ... Bundle tiddlers use the field `code-body: yes`, so Relink updates titles in bundles when tiddlers are renamed
+* ''[[Advanced Search Plus|https://wikilabs.github.io/editions/advanced-search-plus/]]'' ... An improved $:/AdvancedSearch for advanced users and developers

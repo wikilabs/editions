@@ -1,0 +1,50 @@
+created: 20261107213553045
+modified: 20261107221113474
+tags: doc
+title: doc-import-workflow
+type: text/vnd.tiddlywiki
+
+\import [[$:/plugins/wikilabs/bundler/readme]]
+
+! Import Workflow
+
+You do not need to know anything about bundles to use these import features. Each one is a single checkbox in <$button actions=<<openControlBundlesTab>> class="tc-btn-invisible tc-tiddlylink">~$:/ControlPanel -> Settings -> ~WikiLabs -> Bundler</$button>. All of them are off by default.
+
+!! Import Without Overwriting Existing Tiddlers
+
+By default, ~TiddlyWiki overwrites a tiddler, if you import a tiddler with the same title.
+
+# Enable ''Enable Automatic Title Renaming''<br>[img[import-title-renaming-setting.png]]
+# Drag a file, a JSON export or a tiddler from another wiki into your wiki
+# The import dialogue shows "Tiddler exists - A new name will be used!" for every title that already exists
+# Click ''Import''
+
+The incoming tiddler is stored with a new title, eg: `HelloThere` becomes `HelloThere 1`. Your existing tiddler is not changed.
+
+System tiddlers, whose titles start with `$:/`, are not renamed. They are overwritten as usual.
+
+!! Give Pasted Content a Fresh Name
+
+If you paste an image or text from the clipboard, the browser always uses the same title: `image.png` for images and `Untitled` for text, in an English browser.
+
+# Enable ''Enable Automatic Import Renaming from Clipboard''
+# Paste an image or some text into the wiki
+# The import dialogue shows the new title, eg: `image 2026-11-07, 21:04:513.png` or `Clipboard 2026-11-07, 21:04:513`
+# Click ''Import''
+
+* The browser titles depend on your browser language. If yours are different, change ''Browser Defined Image Title'' and ''Default Title Prefix'' in the settings
+* The ''Title Templates'' use the [[DateFormat|https://tiddlywiki.com/#DateFormat]] codes. `0XXX` are milliseconds
+
+!! Keep a List of Your Imports
+
+# Enable ''Enable Import Bundle''
+# Import some tiddlers, by drag & drop, from a file or from the clipboard
+# The titles of all imported tiddlers are added to the [[import.bundle]] tiddler
+
+[[import.bundle]] is a normal <<.xL "bundle list" "doc-bundle-lists">>. So you can:
+
+* Export all imported tiddlers again, with the {{$:/core/images/export-button|1em}} button in the <$button actions=<<rightSidebarBundlesTab>> class="tc-btn-invisible tc-tiddlylink">right sidebar Bundles tab</$button>
+* Rename it, eg: to `my-import-2026-11.bundle`, to keep this set. The next import creates a new [[import.bundle]]
+* Delete it, if you do not need it anymore
+
+''Tip:'' To separate the imports in the list, create a tiddler [[$:/config/wikilabs/bundler/enableImportHeader]] with the text `yes`. Every import then starts with a comment line that contains the date. The format is set in [[$:/config/wikilabs/bundler/importHeaderTemplate]].
