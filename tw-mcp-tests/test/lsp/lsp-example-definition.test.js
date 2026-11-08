@@ -40,8 +40,10 @@ let features;
 let example;
 let unloadDocs;
 
+let $tw;
+
 before(async () => {
-	const $tw = await bootTw();
+	$tw = await bootTw();
 	features = loadHandler($tw, FEATURES_TITLE);
 	unloadDocs = helper.loadDocs($tw);
 	example = helper.readExample(features, EXAMPLE);
@@ -136,8 +138,18 @@ test('[[LSP Server]], {{LSP Server!!title}} and <$link to="LSP Server"> open LSP
 	});
 });
 
-test("a shadow tiddler, a missing title and a mere mention open nothing", () => {
-	[["[[$:/core/ui/PageTemplate]]", 4], ["[[No Such Tiddler]]", 4], ["* LSP Server, merely", 3]].forEach(([snippet, offset]) => {
+test("[[$:/plugins/wikilabs/tw-mcp/readme]] opens tiddlers/meta/readme.tid in the tw-mcp plugin folder", () => {
+	const searchPaths = $tw.getLibraryItemSearchPaths($tw.config.pluginsPath, $tw.config.pluginsEnvVar),
+		file = path.join($tw.findLibraryItem("wikilabs/tw-mcp", searchPaths), "tiddlers", "meta", "readme.tid");
+	assert.deepEqual(open("[[$:/plugins/wikilabs/tw-mcp/readme]]", 4).map((location) => location.uri), [features.pathToUri(file)]);
+});
+
+test("[[$:/core/ui/PageTemplate]] opens read-only", () => {
+	assert.deepEqual(open("[[$:/core/ui/PageTemplate]]", 4).map((location) => location.uri), [features.virtualUri("$:/core/ui/PageTemplate")]);
+});
+
+test("a missing title and a mere mention open nothing", () => {
+	[["[[No Such Tiddler]]", 4], ["* LSP Server, merely", 3]].forEach(([snippet, offset]) => {
 		assert.deepEqual(open(snippet, offset), [], snippet);
 	});
 });

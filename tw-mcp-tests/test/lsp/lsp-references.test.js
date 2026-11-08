@@ -286,11 +286,12 @@ test("a tiddler that gains a file is searched as that file, not also as its view
 	}
 });
 
-test("every location is a file on disk, or the read-only view of a tiddler without one", () => {
+test("every location is a file on disk, the wiki's or a plugin's source, or the read-only view of a tiddler without one", () => {
 	// $:/language/Snippets/ListByTag calls list-links but has no file, so its view is listed.
 	withFiles({ lsp_refs_d: "<<list-links>>" }, (docs) => {
 		const locations = referencesFrom(docs.lsp_refs_d, "<<list-links>>", 4, false);
-		const onDisk = new Set(Object.values($tw.boot.files).filter((e) => e.filepath).map((e) => features.sameFileKey(features.pathToUri(e.filepath))));
+		const files = Object.values($tw.boot.files).concat(features.shadowFiles());
+		const onDisk = new Set(files.filter((e) => e.filepath).map((e) => features.sameFileKey(features.pathToUri(e.filepath))));
 		assert.ok(locations.some((location) => location.uri === features.virtualUri("$:/language/Snippets/ListByTag")), "the shadow must be listed as its view");
 		for(const location of locations) {
 			assert.ok(onDisk.has(features.sameFileKey(location.uri)) || features.isVirtualUri(location.uri), "neither a file nor a view: " + location.uri);

@@ -1,5 +1,5 @@
 created: 20260910105939173
-modified: 20260917005349062
+modified: 20261108001416505
 tags: [[LSP Capabilities]]
 title: LSP Go to Definition
 
@@ -12,7 +12,8 @@ A call in any form opens the definition the wiki would use at that call, found a
 |! Defined in |! Opens |
 |this tiddler |the definition's name; a peek shows the whole definition |
 |another tiddler's `.tid` file |that file, read from disk, since a save from the editor can be ahead of the wiki |
-|a shadow tiddler or a tiddler without a file |its read-only view in the editor |
+|a plugin's shadow tiddler |its `.tid` source file in the plugin folder |
+|a core shadow or a tiddler without a file |its read-only view in the editor |
 |a ~JavaScript widget such as `$list` |the constructor in its module |
 |a ~JavaScript macro such as `now` |its `run` function |
 
@@ -26,4 +27,6 @@ A parameter opens its declaration in the definition's head, and a variable the a
 
 A `[[link]]`, a `{{transclusion}}` and a `<$link to="...">` widget open the `.tid` file that holds the target. A transclusion of one field, such as `{{Title!!field}}`, opens the tiddler that holds the field. The file comes from the map ~TiddlyWiki itself uses to save a tiddler, so a filename that differs from the title, a ~FileSystemPaths subfolder and a `.meta` sidecar all resolve.
 
-A link to a shadow tiddler, one to a tiddler that does not exist, and a title merely mentioned in prose open nothing.
+A link to a plugin's shadow tiddler opens its source file in the plugin folder, found the way ~TiddlyWiki found the folder at startup. A shadow of the core, or of a plugin packed into a `.multids` or `.json` file, opens its read-only view. A link to a tiddler that does not exist and a title merely mentioned in prose open nothing.
+
+Saving a plugin's source file does not change the running wiki: the plugin is read at startup, so restart the server to load the change.

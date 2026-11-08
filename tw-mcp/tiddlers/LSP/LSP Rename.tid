@@ -1,5 +1,5 @@
 created: 20260910182149952
-modified: 20260918234635472
+modified: 20261108001416505
 tags: [[LSP Capabilities]]
 title: LSP Rename
 
@@ -23,7 +23,7 @@ Edits outside the file you are in, and every parameter edit, open VS Code's refa
 * a name an `\import` brings in, since rename cannot find every tiddler that imports it
 * a variable a widget sets, such as the `x` of `<$let x=...>`, since definitions it calls can read it
 * a `\widget` name without `$` or without a dot, since only a dotted name makes a widget of its own
-* a name defined in, or called from, a tiddler without a file of its own, such as a shadow tiddler, since that cannot be edited
+* a name defined in, or called from, a tiddler without a file of its own, such as a core shadow, since that cannot be edited
 * a new name that is no name, is set by ~TiddlyWiki, is already defined beside the old one, is already a global, already means something where a call would reach it, or is already a parameter of or used inside the definition
 * a dotted `\function` losing its dot, since it may be called as a filter operator
 
@@ -31,4 +31,4 @@ Edits outside the file you are in, and every parameter edit, open VS Code's refa
 
 A variable set by one definition and read by another it calls is only connected when the wiki renders, so renaming one side leaves the other. Names in field values that are not calls, and anything in a tiddler that is not wikitext, are not seen either.
 
-The editor saves the changed files, and the server reads each save into the running wiki, as [[LSP Editor Setup]] explains.
+The editor saves the changed files, and the server reads each save into the running wiki, as [[LSP Editor Setup]] explains. A plugin's shadow tiddler is renamed in its source file in the plugin folder; the running wiki keeps the plugin as it was loaded until the server restarts.

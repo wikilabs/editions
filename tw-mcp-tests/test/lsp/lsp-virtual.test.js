@@ -127,9 +127,22 @@ test("a tiddler with a .tid file opens as that file", () => {
 	assert.ok(features.documentUriOf(FILED).startsWith("file:///"), features.documentUriOf(FILED));
 });
 
-test("a shadow opens as its view, and a missing title nowhere", () => {
+test("a core shadow opens as its view, and a missing title nowhere", () => {
 	assert.equal(features.documentUriOf(SHADOW), features.virtualUri(SHADOW));
 	assert.equal(features.documentUriOf("lsp_no_such_tiddler"), null);
+});
+
+test("a plugin shadow opens its source file, but a real tiddler over it opens as that tiddler (bead wikilabs-q1p)", () => {
+	const title = "$:/plugins/wikilabs/tw-mcp/readme";
+	assert.ok(features.documentUriOf(title).endsWith("/tw-mcp/tiddlers/meta/readme.tid"), "fixture assumption");
+	$tw.wiki.addTiddler(new $tw.Tiddler($tw.wiki.getTiddler(title), { text: "override" }));
+	try {
+		assert.equal(features.documentUriOf(title), features.virtualUri(title));
+		assert.ok(!features.shadowFiles().some((entry) => entry.title === title), "an overridden shadow's file no longer runs");
+	} finally {
+		$tw.wiki.deleteTiddler(title);
+	}
+	assert.ok(features.documentUriOf(title).endsWith("/tw-mcp/tiddlers/meta/readme.tid"));
 });
 
 // --- The protocol ---

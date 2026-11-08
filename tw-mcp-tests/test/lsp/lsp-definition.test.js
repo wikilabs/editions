@@ -2,13 +2,13 @@
 
 /*
 Pins go to definition: ctrl-clicking a link opens the file that holds the
-tiddler.
+tiddler, for a plugin shadow the plugin's source file, else the read-only view.
 
 The file comes from $tw.boot.files, the same map TiddlyWiki uses to save a
 tiddler back to disk, so the answer is exact rather than searched for. The tests
-below encode the three cases a "title:" regex would get wrong (a filename that
-does not match the title, a shadow with no file, a title merely mentioned) plus
-the URI escaping a Windows path needs.
+below encode the cases a "title:" regex would get wrong (a filename that does
+not match the title, a shadow, a title merely mentioned) plus the URI escaping
+a Windows path needs.
 
 To replicate by hand, boot the test edition and call the module:
 
@@ -98,11 +98,45 @@ test("a link to a tiddler that does not exist resolves to nothing", () => {
 	assert.equal(defineAt("See [[lsp_no_such_tiddler]].", 10), null);
 });
 
-test("a shadow tiddler has no file, so it resolves to nothing", () => {
-	// It is supplied by a plugin. Neither boot.files nor the plugin tiddler
-	// records the folder it came from, so there is no honest answer but null.
-	assert.ok($tw.wiki.isShadowTiddler("$:/core/ui/PageTemplate"), "fixture assumption");
-	assert.equal(defineAt("See [[$:/core/ui/PageTemplate]].", 12), null);
+// --- Shadow tiddlers (bead wikilabs-q1p) ---
+
+// The source file of a tw-mcp shadow, found as boot finds the plugin folder.
+function pluginSourceFile(relative) {
+	const searchPaths = $tw.getLibraryItemSearchPaths($tw.config.pluginsPath, $tw.config.pluginsEnvVar);
+	return path.join($tw.findLibraryItem("wikilabs/tw-mcp", searchPaths), relative);
+}
+
+test("a link to a plugin shadow opens the plugin's source file", () => {
+	// f.definition(URI, "title: X\n\n[[$:/plugins/wikilabs/tw-mcp/readme]]", {line: 2, character: 10})
+	// -> { uri: "file:///E:/git/tiddly/wikilabs/plugins/wikilabs/tw-mcp/tiddlers/meta/readme.tid", ... }
+	const title = "$:/plugins/wikilabs/tw-mcp/readme";
+	assert.ok($tw.wiki.isShadowTiddler(title) && !$tw.wiki.tiddlerExists(title), "fixture assumption");
+	const location = defineAt("See [[" + title + "]].", 12);
+	assert.ok(location, "expected a location");
+	assert.equal(location.uri, features.pathToUri(pluginSourceFile("tiddlers/meta/readme.tid")));
+	assert.deepEqual(location.range.start, { line: 0, character: 0 });
+});
+
+test("a transclusion of a plugin shadow opens the plugin's source file", () => {
+	const title = "$:/plugins/wikilabs/tw-mcp/icon";
+	const location = defineAt("{{" + title + "}}", 5);
+	assert.ok(location, "expected a location");
+	assert.equal(location.uri, features.pathToUri(pluginSourceFile("tiddlers/meta/icon.tid")));
+});
+
+test("a plugin shadow's source file is its document for every feature", () => {
+	const title = "$:/plugins/wikilabs/tw-mcp/readme",
+		uri = features.pathToUri(pluginSourceFile("tiddlers/meta/readme.tid"));
+	assert.equal(features.documentUriOf(title), uri);
+	assert.equal(features.uriOfTitle(title), uri);
+});
+
+test("a core shadow opens its read-only view, since the core is not edited from a wiki", () => {
+	const title = "$:/core/ui/PageTemplate";
+	assert.ok($tw.wiki.isShadowTiddler(title), "fixture assumption");
+	const location = defineAt("See [[" + title + "]].", 12);
+	assert.ok(location, "expected a location");
+	assert.equal(location.uri, features.virtualUri(title));
 });
 
 test("a title merely mentioned in prose is not a link", () => {

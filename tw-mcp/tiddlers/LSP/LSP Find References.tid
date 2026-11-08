@@ -1,5 +1,5 @@
 created: 20260910105947482
-modified: 20260918234638045
+modified: 20261108001416505
 tags: [[LSP Capabilities]]
 title: LSP Find References
 
@@ -25,7 +25,7 @@ A call counts in every form ~TiddlyWiki accepts:
 
 Files are read from disk rather than from the wiki's copy, so a file saved from the editor counts as saved at once. A file open in the editor counts as it is on screen, saved or not.
 
-A shadow tiddler, or a tiddler packed into a `.json` or `.multids` file, has no file of its own, so its calls open in a read-only view. Only the text that runs counts: a tiddler of your own over a plugin's shadow, and a plugin's shadow over the core's. Calls in a `.tid` file's header fields count too, in every field but the title.
+A plugin's shadow tiddler is read from its `.tid` source file in the plugin folder. A core shadow, or a tiddler packed into a `.json` or `.multids` file, has no file of its own, so its calls open in a read-only view. Only the text that runs counts: a tiddler of your own over a plugin's shadow, and a plugin's shadow over the core's. Calls in a `.tid` file's header fields count too, in every field but the title.
 
 !! Parameters and variables
 
