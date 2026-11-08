@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "node --watch-path=../../plugins/wikilabs/bundler ../scripts/tw.js --core dev . --listen host=local.lan",
 
-    "start": "node ../scripts/tw.js --core dev . --mcp listen host=localhost label=mcp-bundler",
+    "start": "node ../scripts/tw.js --core dev . --mcp readwrite sse host=localhost label=mcp-bundler",
 
     "test": "echo ---- no tests atm ----",
 
